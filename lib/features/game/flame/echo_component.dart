@@ -15,8 +15,8 @@ class EchoComponent extends PositionComponent {
     super.size,
   }) : _start = position.clone(),
        _drift = drift,
-       _delay = 1.2 + random.nextDouble() * 2.5,
-       _life = 9 + random.nextDouble() * 6,
+       _delay = 0.6 + random.nextDouble() * 1.5,
+       _life = 12 + random.nextDouble() * 6,
        super(position: position, priority: 500);
 
   final Image image;
@@ -25,7 +25,7 @@ class EchoComponent extends PositionComponent {
   final double _delay;
   final double _life;
 
-  static const maxOpacity = 0.42;
+  static const maxOpacity = 0.55;
   static const fadeIn = 1.6;
   static const fadeOut = 0.9;
 

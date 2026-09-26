@@ -114,6 +114,11 @@ final class _Validator {
         _layer('$at › layer ${layer.id}', layer);
       }
       if (scene.dark case final dark?) _conditions('$at › dark', dark.when);
+      for (final creature in scene.creatures) {
+        final creatureAt = '$at › creature ${creature.id}';
+        _rect(creatureAt, creature.rect);
+        _conditions(creatureAt, creature.when);
+      }
       for (final echo in scene.echoes) {
         final echoAt = '$at › echo ${echo.id}';
         _ref(echoAt, ContentRef.image(echo.image));

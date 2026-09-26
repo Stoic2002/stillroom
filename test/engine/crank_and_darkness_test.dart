@@ -127,4 +127,48 @@ void main() {
       );
     });
   });
+
+  test('creatures: kind must be known; when decides if they may appear', () {
+    Map<String, Object?> room(Map<String, Object?> creature) => {
+      ...roomNorthJson(),
+      'creatures': [creature],
+    };
+    final engine = GameEngine(
+      buildTestEpisode(
+        scenes: [
+          room({
+            'id': 'moth',
+            'kind': 'moth',
+            'rect': [0.4, 0.1, 0.2, 0.1],
+            'when': [
+              {'flag': 'saw_clock', 'equals': true},
+            ],
+          }),
+          deskJson(),
+        ],
+      ),
+    );
+    final start = engine.newGame();
+    expect(engine.possibleCreatures(start), isEmpty);
+    expect(
+      engine
+          .possibleCreatures(engine.tapHotspot(start, 'clock').state)
+          .single
+          .kind,
+      CreatureKind.moth,
+    );
+    expect(
+      () => buildTestEpisode(
+        scenes: [
+          room({
+            'id': 'dragon',
+            'kind': 'dragon',
+            'rect': [0, 0, 1, 1],
+          }),
+          deskJson(),
+        ],
+      ),
+      throwsA(isA<ContentFormatException>()),
+    );
+  });
 }

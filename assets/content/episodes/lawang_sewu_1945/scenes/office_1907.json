@@ -317,7 +317,20 @@
         0.1,
         0.34
       ],
-      "chance": 0.4
+      "chance": 0.7
+    }
+  ],
+  "creatures": [
+    {
+      "id": "gecko",
+      "kind": "gecko",
+      "rect": [
+        0.04,
+        0.04,
+        0.3,
+        0.22
+      ],
+      "chance": 0.8
     }
   ]
 }

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../content/audio_paths.dart';
 import '../../core/theme/stillroom_palette.dart';
 import '../../core/widgets/atmosphere.dart';
 import '../../core/widgets/scene_frame.dart';
@@ -14,6 +15,8 @@ import '../../debug/debug_settings.dart';
 import '../../engine/engine.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../../state/game_session.dart';
+import '../../state/services_providers.dart';
+import '../../state/settings_controller.dart';
 import 'flame/stillroom_game.dart';
 import 'widgets/ending_overlay.dart';
 import 'widgets/exit_buttons.dart';
@@ -72,6 +75,12 @@ class _GameScreenState extends ConsumerState<GameScreen> {
       showHotspots: ref.read(showHotspotsProvider),
       onSceneTap: (x, y, minWidth, minHeight) =>
           notifier.tapScene(x, y, minWidth: minWidth, minHeight: minHeight),
+      onAmbientSound: (id) {
+        final path = resolveSfx(id, session.episode.assets);
+        if (path == null) return;
+        final volume = ref.read(settingsControllerProvider).sfxVolume * 0.6;
+        unawaited(ref.read(audioServiceProvider).playSfx(path, volume: volume));
+      },
     );
   }
 

@@ -250,6 +250,31 @@ that use the same id.
 - **Art:** figures are drawn pale by `lib/core/art/echo_art.dart`
   (`EchoFigure`).
 
+### Creatures
+
+```json
+"creatures": [
+  { "id": "gecko", "kind": "gecko", "rect": [0.01, 0.1, 0.1, 0.6], "when": [ ... ], "chance": 1 }
+]
+```
+
+Small living things, animated in code. `rect` is where each one lives, and
+a tap near it may startle it. They never block taps.
+
+| `kind` | Behaviour | Sound |
+|---|---|---|
+| `gecko` | Clings to a wall, darts between spots, bolts when tapped | `gecko_call` now and then |
+| `rat` | Now and then scurries across the floor | — |
+| `moth` | Circles the middle of its area (a flame) | — |
+| `bats` | Three hang from the vault; one flies a loop now and then; all take off when tapped | `wings_flutter` |
+| `gull` | Now and then flies across its sky band | `gull_cry` |
+| `fulmar` | Sits on a ledge; flies off when tapped, glides back | `wings_flutter` |
+| `grass` | Tufts bending in the wind | — |
+
+Pick creatures that belong to the tale's place and **season**. For example,
+Flannan in December has gulls and fulmars, and no puffins or flowering
+thrift.
+
 ### Exit
 
 ```json
@@ -674,6 +699,7 @@ warnings show in the debug panel).
 | 2026-09-25 | post-M6 | `episodes.json` becomes a catalog of jars (`titleKey`, `teaserKey`, `jarImage`, `comingSoon`, `debugOnly`); `labelKey` on `sequence` elements and `slotPlacement` slots; episode `whitechapel_1888`. |
 | 2026-09-25 | post-M6 | Languages: Spanish (`es`), Japanese (`ja`), Simplified Chinese (`zh`), Russian (`ru`) added; all keys required in every language. |
 | 2026-09-26 | post-M6 | `episodes.json`: `shelf`, `unlockAfter`, `series` (tiered shelves). |
+| 2026-09-26 | post-M6 | `creatures` in scenes (geckos, rats, moths, bats, gulls, fulmars, grass). |
 | 2026-09-26 | post-M6 | `echoes` in scenes (faceless figures of memory). |
 | 2026-09-26 | post-M6 | `place` in `episodes.json` (the map of tales); `activeImage` on `sequence` elements. |
 | 2026-09-26 | post-M6 | `dark` scenes and the `crank` puzzle type; episode `flannan_isles_1900` (shelf II) replaces `sealed_3`. |

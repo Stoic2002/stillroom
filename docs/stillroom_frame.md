@@ -78,6 +78,19 @@ no names and no faces, so no real person is ever given invented features:
   in the 1907 office.
 - *Flannan:* a keeper in oilskins on the west landing and on the path west.
 
+## Living things (decided 2026-09-26)
+
+Where a tale has animals or plants, they are there. Where it is about
+people, the people come first, as echoes. The creatures are chosen by place
+and season:
+
+- *Whitechapel* is about the people: echoes of a constable and a
+  passer-by, and only a rat and a moth by the candles.
+- *Semarang*: house geckos (cicak) on the walls, and bats in the cellar once
+  it is lit.
+- *Flannan* is in December: gulls, a fulmar on the ledge, winter grass. No
+  puffins or thrift, which are summer's.
+
 ## How it shows in the game
 
 | Where | What |

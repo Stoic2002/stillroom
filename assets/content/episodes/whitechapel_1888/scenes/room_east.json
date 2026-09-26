@@ -266,5 +266,22 @@
         }
       ]
     }
+  ],
+  "creatures": [
+    {
+      "id": "moth",
+      "kind": "moth",
+      "rect": [
+        0.42,
+        0.12,
+        0.16,
+        0.12
+      ],
+      "when": [
+        {
+          "puzzleSolved": "candles"
+        }
+      ]
+    }
   ]
 }

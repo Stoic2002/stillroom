@@ -6,6 +6,7 @@ import 'package:flame/events.dart';
 
 import '../../../core/art/vector_art.dart';
 import '../../../engine/engine.dart';
+import 'creatures.dart';
 import 'echo_component.dart';
 import 'hotspot_outlines.dart';
 import 'placeholder_box.dart';
@@ -50,7 +51,30 @@ class SceneView extends PositionComponent
     add(_layers);
     add(_outlines);
     _rebuild();
+    _spawnCreatures();
     await _spawnEchoes();
+  }
+
+  /// Creatures are rolled once each time the scene is shown.
+  void _spawnCreatures() {
+    final random = math.Random();
+    for (final c in game.engine.possibleCreatures(_state)) {
+      if (random.nextDouble() > c.chance) continue;
+      final r = c.rect;
+      add(
+        Creature.create(
+          c.kind,
+          Rect.fromLTWH(
+            r.x * size.x,
+            r.y * size.y,
+            r.width * size.x,
+            r.height * size.y,
+          ),
+          random,
+          (id) => game.onAmbientSound?.call(id),
+        ),
+      );
+    }
   }
 
   /// Echoes are rolled once each time the scene is shown.
@@ -155,6 +179,10 @@ class SceneView extends PositionComponent
   @override
   void onTapUp(TapUpEvent event) {
     final p = event.localPosition;
+    // A tap near a creature startles it; the tap still counts below.
+    for (final creature in children.whereType<Creature>()) {
+      if (creature.near(p.toOffset())) creature.startle();
+    }
     // Reaching for an echo makes it go; the tap still counts below.
     for (final echo in children.whereType<EchoComponent>()) {
       if (echo.isVisible &&

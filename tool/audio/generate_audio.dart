@@ -942,9 +942,72 @@ Buf lampLight() {
   return reverb(b, size: 0.5, mix: 0.3);
 }
 
+/// A house gecko (cicak): a quick run of dry chirps.
+Buf geckoCall() {
+  final rng = math.Random(16);
+  final b = Buf(1.2);
+  const count = 5;
+  for (var i = 0; i < count; i++) {
+    final at = 0.05 + i * 0.1;
+    b
+      ..add(
+        shape(
+          sum([
+            tone(0.05, (t) => 1900 - 900 * t),
+            gain(tone(0.05, (t) => 3800 - 1800 * t), 0.35),
+          ]),
+          (t) => decay(t, 0.012),
+        ),
+        at: at,
+        gain: 0.6 - i * 0.06,
+      )
+      ..add(click(rng, centre: 3500, time: 0.001), at: at, gain: 0.3);
+  }
+  return reverb(b, size: 0.35, mix: 0.25);
+}
+
+/// A gull crying, far off: a few falling calls.
+Buf gullCry() {
+  final b = Buf(2.4);
+  for (final (at, g) in [(0.0, 1.0), (0.42, 0.8), (0.8, 0.6)]) {
+    final call = shape(
+      sum([
+        for (final (h, amp) in [(1, 1.0), (2, 0.5), (3, 0.3), (4, 0.15)])
+          gain(tone(0.34, (t) => (1450 - 650 * t / 0.34) * h), amp),
+      ]),
+      (t) => swell(t, 0.03, 0.18, 0.34),
+    );
+    b.add(bandpass(call, (_) => 1800, 0.9), at: at, gain: g * 0.6, pan: 0.2);
+  }
+  return reverb(b, size: 0.8, mix: 0.4);
+}
+
+/// Wings beating as a bird or bat takes off.
+Buf wingsFlutter() {
+  final rng = math.Random(17);
+  final b = Buf(0.9);
+  for (var i = 0; i < 9; i++) {
+    b.add(
+      gain(
+        shape(
+          bandpass(noise(0.06, rng), (_) => 700 + rng.nextDouble() * 300, 1.2),
+          (t) => decay(t, 0.02),
+        ),
+        1.2 - i * 0.1,
+      ),
+      at: i * 0.075,
+      pan: -0.2 + i * 0.05,
+    );
+  }
+  return reverb(b, size: 0.3, mix: 0.2);
+}
+
 // ---------------------------------------------------------------------------
 
 final sfx = <String, Buf Function()>{
+  'gecko_call': geckoCall,
+  'gull_cry': gullCry,
+  'wings_flutter': wingsFlutter,
   'ship_horn': shipHorn,
   'wave_crash': waveCrash,
   'lamp_light': lampLight,

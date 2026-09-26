@@ -153,6 +153,12 @@ final class GameEngine {
     return dark != null && dark.when.allMet(state) ? dark : null;
   }
 
+  /// Creatures that may appear in the current scene right now.
+  List<SceneCreature> possibleCreatures(GameState state) => [
+    for (final c in currentScene(state).creatures)
+      if (c.when.allMet(state)) c,
+  ];
+
   /// Echoes that may appear in the current scene right now.
   List<SceneEcho> possibleEchoes(GameState state) => [
     for (final e in currentScene(state).echoes)

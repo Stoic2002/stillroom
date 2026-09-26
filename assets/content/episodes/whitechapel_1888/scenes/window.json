@@ -157,9 +157,24 @@
         0.07,
         0.3
       ],
-      "chance": 0.7,
+      "chance": 1,
       "drift": [
         0.1,
+        0.0
+      ]
+    },
+    {
+      "id": "passerby",
+      "image": "images/objects/whitechapel_1888/echo_passerby.png",
+      "rect": [
+        0.4,
+        0.36,
+        0.05,
+        0.22
+      ],
+      "chance": 0.6,
+      "drift": [
+        -0.14,
         0.0
       ]
     }

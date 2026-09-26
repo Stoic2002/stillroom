@@ -204,10 +204,32 @@
           "equals": false
         }
       ],
-      "chance": 0.5,
+      "chance": 0.8,
       "drift": [
         0.06,
         0.02
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "gulls",
+      "kind": "gull",
+      "rect": [
+        0,
+        0.02,
+        1,
+        0.22
+      ]
+    },
+    {
+      "id": "grass",
+      "kind": "grass",
+      "rect": [
+        0.32,
+        0.74,
+        0.4,
+        0.06
       ]
     }
   ]

@@ -14,6 +14,7 @@ final class Scene {
     this.music,
     this.dark,
     this.echoes = const [],
+    this.creatures = const [],
   });
 
   factory Scene.fromJson(JsonReader json, ActionRegistry actions) {
@@ -26,6 +27,7 @@ final class Scene {
       'layers',
       'dark',
       'echoes',
+      'creatures',
     });
     final exits = [
       for (final e in json.objects('exits', optional: true))
@@ -47,6 +49,11 @@ final class Scene {
         SceneEcho.fromJson(e),
     ];
     _requireUniqueIds(json, 'echoes', echoes.map((e) => e.id));
+    final creatures = [
+      for (final c in json.objects('creatures', optional: true))
+        SceneCreature.fromJson(c),
+    ];
+    _requireUniqueIds(json, 'creatures', creatures.map((c) => c.id));
     return Scene(
       id: json.string('id'),
       background: json.string('background'),
@@ -55,6 +62,7 @@ final class Scene {
       layers: layers,
       music: json.optionalString('music'),
       echoes: echoes,
+      creatures: creatures,
       dark: switch (json.optionalObject('dark')) {
         final dark? => SceneDarkness.fromJson(dark),
         null => null,
@@ -70,6 +78,9 @@ final class Scene {
 
   /// Faceless figures of memory that sometimes appear in the scene.
   final List<SceneEcho> echoes;
+
+  /// Small living things: geckos, gulls, a moth by the candles.
+  final List<SceneCreature> creatures;
 
   /// Overrides the episode music while this scene is shown.
   final String? music;
@@ -319,4 +330,77 @@ final class SceneEcho {
   final double chance;
   final double driftX;
   final double driftY;
+}
+
+/// What kind of living thing a [SceneCreature] is; each moves in its own
+/// way (drawn and animated by the presentation layer).
+enum CreatureKind {
+  /// Clings to a wall, darts between spots in its area, flees when tapped.
+  gecko,
+
+  /// Now and then scurries across its area, along the floor.
+  rat,
+
+  /// Circles the middle of its area, like a moth round a flame.
+  moth,
+
+  /// A few bats hang in their area; now and then one flies a loop.
+  bats,
+
+  /// Now and then a gull flies across its area, crying.
+  gull,
+
+  /// A seabird sitting on a ledge; flies off when tapped, comes back.
+  fulmar,
+
+  /// Tufts of grass bending in the wind.
+  grass,
+}
+
+/// A small living thing in a scene (`creatures` in a scene file):
+///
+/// ```json
+/// { "id": "gecko_1", "kind": "gecko", "rect": [0.3, 0.1, 0.4, 0.15],
+///   "when": [ ... ], "chance": 1 }
+/// ```
+/// `rect` is where it lives: the wall a gecko roams, the sky band a gull
+/// crosses, the ledge a fulmar sits on. It appears with probability
+/// `chance` (default 1) each time the scene is shown and `when` holds. It
+/// never blocks a tap; a tap near it may startle it.
+final class SceneCreature {
+  const SceneCreature({
+    required this.id,
+    required this.kind,
+    required this.rect,
+    this.when = const [],
+    this.chance = 1,
+  });
+
+  factory SceneCreature.fromJson(JsonReader json) {
+    json.allowOnly({'id', 'kind', 'rect', 'when', 'chance'});
+    final kindName = json.string('kind');
+    final chance = json.optionalNumber('chance') ?? 1;
+    if (chance <= 0 || chance > 1) {
+      json.fail('must be above 0 and at most 1', 'chance');
+    }
+    return SceneCreature(
+      id: json.string('id'),
+      kind:
+          CreatureKind.values.asNameMap()[kindName] ??
+          json.fail(
+            'expected one of '
+                '${CreatureKind.values.map((k) => k.name).join(', ')}',
+            'kind',
+          ),
+      rect: NormalizedRect.fromJson(json, 'rect'),
+      when: Condition.listFromJson(json, 'when'),
+      chance: chance,
+    );
+  }
+
+  final String id;
+  final CreatureKind kind;
+  final NormalizedRect rect;
+  final List<Condition> when;
+  final double chance;
 }

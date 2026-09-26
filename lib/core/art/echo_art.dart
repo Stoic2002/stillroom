@@ -14,6 +14,9 @@ enum EchoFigure {
   /// A clerk in shirtsleeves and waistcoat, bareheaded.
   clerk,
 
+  /// A passer-by in a bowler hat and overcoat.
+  passerby,
+
   /// A lighthouse keeper in a sou'wester and a long oilskin.
   keeper,
 }
@@ -67,6 +70,24 @@ void paintEcho(Art a, EchoFigure figure) {
         )
         ..drawPath(
           shape([(0.52, 0.55), (0.7, 0.55), (0.68, 0.98), (0.54, 0.98)]),
+          body,
+        );
+    case EchoFigure.passerby:
+      a.canvas
+        ..drawPath(
+          shape([(0.3, 0.07), (0.7, 0.07), (0.66, -0.01), (0.34, -0.01)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.28, 0.2), (0.72, 0.2), (0.8, 0.8), (0.2, 0.8)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.32, 0.78), (0.46, 0.78), (0.45, 0.99), (0.33, 0.99)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.54, 0.78), (0.68, 0.78), (0.67, 0.99), (0.55, 0.99)]),
           body,
         );
     case EchoFigure.clerk:

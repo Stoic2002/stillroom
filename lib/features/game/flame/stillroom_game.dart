@@ -27,6 +27,7 @@ class StillroomGame extends FlameGame {
     required this.assetPaths,
     required GameState initialState,
     required this.onSceneTap,
+    this.onAmbientSound,
     bool showHotspots = false,
   }) : _state = initialState,
        _showHotspots = showHotspots,
@@ -52,6 +53,9 @@ class StillroomGame extends FlameGame {
   /// Bundled asset paths (`assets/...`), to decide between art and placeholder.
   final Set<String> assetPaths;
   final SceneTapCallback onSceneTap;
+
+  /// Plays a creature's sound (a content sound id), quietly.
+  final void Function(String soundId)? onAmbientSound;
   final Vector2 logicalSize;
 
   GameState _state;

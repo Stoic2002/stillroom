@@ -120,11 +120,34 @@
         0.06,
         0.28
       ],
-      "chance": 0.6,
+      "chance": 1,
       "drift": [
         0.0,
         -0.02
       ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "gecko_left",
+      "kind": "gecko",
+      "rect": [
+        0.01,
+        0.1,
+        0.1,
+        0.6
+      ]
+    },
+    {
+      "id": "gecko_right",
+      "kind": "gecko",
+      "rect": [
+        0.9,
+        0.12,
+        0.09,
+        0.55
+      ],
+      "chance": 0.5
     }
   ]
 }

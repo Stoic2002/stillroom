@@ -31,6 +31,7 @@ final Map<String, ArtPainter> whitechapelArt = {
   '$_o/fog_writing.png': (c, s) => _fogWritingBoard(Art(c, s)),
   '$_o/echo_constable.png': (c, s) =>
       paintEcho(Art(c, s), EchoFigure.constable),
+  '$_o/echo_passerby.png': (c, s) => paintEcho(Art(c, s), EchoFigure.passerby),
   '$_o/fog_writing_sprite.png': (c, s) => _fogWriting(Art(c, s)),
   '$_o/hearth_note.png': (c, s) => _hearthNote(Art(c, s)),
   '$_o/hearth_ash.png': (c, s) => _ash(Art(c, s)),
