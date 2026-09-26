@@ -18,6 +18,8 @@ import '../../../state/ui_feedback.dart';
 /// quiet when the content plays its own sound.
 UiSound? interfaceSoundFor(List<GameEvent> events) {
   bool any<T extends GameEvent>() => events.any((e) => e is T);
+  if (any<SecretFoundEvent>()) return UiSound.secret;
+  if (any<WordNotedEvent>()) return UiSound.note;
   if (any<ItemsCombinedEvent>()) return UiSound.combine;
   if (any<ItemPickedEvent>()) return UiSound.pickup;
   if (any<CombinationFailedEvent>() || any<ItemRejectedEvent>()) {

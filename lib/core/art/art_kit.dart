@@ -309,4 +309,63 @@ final class Art {
       center - Offset(painter.width / 2, painter.height / 2),
     );
   }
+
+  /// Handwriting in IM FELL italic, centred at [center], turned by [angle].
+  void script(
+    String text,
+    Offset center,
+    double fontSize,
+    Color color, {
+    double angle = 0,
+  }) {
+    final painter = TextPainter(
+      text: TextSpan(
+        text: text,
+        style: TextStyle(
+          fontFamily: 'IMFell',
+          fontStyle: FontStyle.italic,
+          fontSize: fontSize,
+          color: color,
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    canvas
+      ..save()
+      ..translate(center.dx, center.dy)
+      ..rotate(angle);
+    painter.paint(canvas, Offset(-painter.width / 2, -painter.height / 2));
+    canvas.restore();
+  }
+
+  /// Lines of illegible cursive filling [box]: loops along a baseline.
+  void scrawl(
+    Rect box,
+    Color color, {
+    int lines = 4,
+    int seed = 1,
+    double width = 0.35,
+  }) {
+    final random = math.Random(seed);
+    final gap = box.height / lines;
+    for (var l = 0; l < lines; l++) {
+      final y = box.top + gap * (l + 0.6);
+      final end = box.right - box.width * random.nextDouble() * 0.3;
+      final path = Path()..moveTo(box.left, y);
+      var x = box.left;
+      while (x < end) {
+        final step = gap * (0.18 + random.nextDouble() * 0.2);
+        final rise = gap * (0.2 + random.nextDouble() * 0.35);
+        path
+          ..quadraticBezierTo(x + step * 0.3, y - rise, x + step * 0.55, y)
+          ..quadraticBezierTo(x + step * 0.8, y + rise * 0.2, x + step, y);
+        x += step;
+        if (random.nextDouble() < 0.12) {
+          x += gap * 0.25;
+          path.moveTo(x, y);
+        }
+      }
+      strokePath(path, color, width: width);
+    }
+  }
 }

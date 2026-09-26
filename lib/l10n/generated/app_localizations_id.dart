@@ -186,4 +186,51 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get hintKindling =>
       'Lilin untuk petunjuk berikutnya masih menyala perlahan. Coba cari lagi sebentar.';
+
+  @override
+  String get keeperNoteTitle => 'Catatan penjaga';
+
+  @override
+  String get keeperNoteFound => 'Kamu menemukan salah satu catatan penjaga.';
+
+  @override
+  String wordNoted(String word) {
+    return 'Dicatat: $word';
+  }
+
+  @override
+  String get deductionInstruction =>
+      'Tulis label toples: ketuk bagian kosong, lalu kata yang sudah kamu catat.';
+
+  @override
+  String get deductionCheck => 'Suling';
+
+  @override
+  String get deductionIncomplete => 'Masih ada bagian yang kosong.';
+
+  @override
+  String deductionNearMiss(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count di antaranya belum tepat.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get deductionWrong => 'Ada yang belum tepat di sini.';
+
+  @override
+  String get deductionNoWords =>
+      'Kamu belum mencatat kata apa pun. Ketuk kata bergaris bawah pada teks yang kamu baca.';
+
+  @override
+  String get revealWipe => 'Usap dengan jarimu.';
+
+  @override
+  String get revealRub => 'Arsir dengan pensil: gosok dengan jarimu.';
+
+  @override
+  String get wordTapTip => 'Ketuk kata bergaris bawah untuk mencatatnya.';
 }

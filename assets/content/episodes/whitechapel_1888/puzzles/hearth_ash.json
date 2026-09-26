@@ -1,0 +1,32 @@
+{
+  "id": "hearth_ash",
+  "type": "reveal",
+  "config": {
+    "style": "wipe",
+    "hidden": "images/objects/whitechapel_1888/hearth_note.png",
+    "cover": "images/objects/whitechapel_1888/hearth_ash.png",
+    "area": [
+      0.3,
+      0.3,
+      0.4,
+      0.4
+    ],
+    "threshold": 0.6,
+    "brush": 0.06
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "paper"
+    },
+    {
+      "type": "showText",
+      "key": "whitechapel_1888.keeper.note"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.whitechapel_1888.hearth_ash.1"
+    }
+  ]
+}

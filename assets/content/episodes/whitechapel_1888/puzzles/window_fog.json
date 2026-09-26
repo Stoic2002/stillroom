@@ -1,0 +1,30 @@
+{
+  "id": "window_fog",
+  "type": "reveal",
+  "config": {
+    "style": "wipe",
+    "hidden": "images/objects/whitechapel_1888/fog_writing.png",
+    "area": [
+      0.22,
+      0.3,
+      0.56,
+      0.4
+    ],
+    "threshold": 0.6,
+    "brush": 0.055
+  },
+  "onSolved": [
+    {
+      "type": "showText",
+      "key": "whitechapel_1888.fog.wiped"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.whitechapel_1888.window_fog.1"
+    },
+    {
+      "key": "hint.whitechapel_1888.window_fog.2"
+    }
+  ]
+}

@@ -1148,7 +1148,71 @@ Buf jarOpenSound() {
   return reverb(b, size: 0.6, mix: 0.3);
 }
 
+Buf noteSound() {
+  final rng = math.Random(46);
+  final b = Buf(0.5);
+  for (final (at, len) in [(0.0, 0.09), (0.12, 0.14), (0.3, 0.07)]) {
+    b.add(
+      gain(
+        shape(
+          bandpass(noise(len, rng), (t) => 3500 + 1500 * math.sin(t * 80), 2),
+          (t) => swell(t, 0.01, 0.03, len),
+        ),
+        0.8,
+      ),
+      at: at,
+    );
+  }
+  return reverb(b, size: 0.1, mix: 0.08);
+}
+
+Buf secretSound() {
+  final b = Buf(3.5);
+  const notes = [587.3, 740.0, 880.0, 1174.7];
+  for (final (i, f) in notes.indexed) {
+    b.add(glassNote(f, 3), at: i * 0.12, gain: 0.3, pan: -0.3 + i * 0.2);
+  }
+  b.add(bell(146.8, 3.5, length: 0.6), at: 0.05, gain: 0.25);
+  return reverb(b, size: 0.85, mix: 0.4);
+}
+
+Buf wipeSound() {
+  final rng = math.Random(47);
+  final b = Buf(0.3)
+    ..add(
+      gain(
+        shape(
+          bandpass(noise(0.25, rng), (t) => 1800 + 1200 * t, 1.2),
+          (t) => math.pow(math.sin(math.pi * t / 0.25), 2).toDouble(),
+        ),
+        0.7,
+      ),
+    );
+  return reverb(b, size: 0.1, mix: 0.05);
+}
+
+Buf rubSound() {
+  final rng = math.Random(48);
+  final b = Buf(0.3)
+    ..add(
+      gain(
+        shape(
+          highpass(noise(0.25, rng), 2500),
+          (t) =>
+              math.pow(math.sin(math.pi * t / 0.25), 2).toDouble() *
+              (0.6 + 0.4 * math.sin(t * 190).abs()),
+        ),
+        0.5,
+      ),
+    );
+  return reverb(b, size: 0.1, mix: 0.05);
+}
+
 final ui = <String, Buf Function()>{
+  'note': noteSound,
+  'secret': secretSound,
+  'wipe': wipeSound,
+  'rub': rubSound,
   'tap': tapSound,
   'dial': dialSound,
   'press': pressSound,

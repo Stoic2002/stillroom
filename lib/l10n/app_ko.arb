@@ -55,5 +55,17 @@
   "jarLockedTitle": "아직은 안 됩니다",
   "jarLocked": "{count, plural, other{이야기를 {count}개 더 증류하면 이 유리병이 열립니다.}}",
   "languageKorean": "한국어",
-  "hintKindling": "다음 힌트의 촛불이 아직 붙는 중입니다. 조금 더 둘러보세요."
+  "hintKindling": "다음 힌트의 촛불이 아직 붙는 중입니다. 조금 더 둘러보세요.",
+  "keeperNoteTitle": "관리인의 쪽지",
+  "keeperNoteFound": "관리인의 쪽지 하나를 찾았습니다.",
+  "wordNoted": "기록함: {word}",
+  "deductionInstruction": "유리병의 라벨을 쓰세요. 빈칸을 누른 다음, 기록해 둔 낱말을 누르세요.",
+  "deductionCheck": "증류하기",
+  "deductionIncomplete": "아직 빈칸이 남아 있습니다.",
+  "deductionNearMiss": "{count, plural, other{그중 {count}개가 아직 맞지 않습니다.}}",
+  "deductionWrong": "여기 무언가가 맞지 않습니다.",
+  "deductionNoWords": "아직 기록한 낱말이 없습니다. 읽은 글에서 밑줄 친 낱말을 누르세요.",
+  "revealWipe": "손가락으로 닦아 보세요.",
+  "revealRub": "연필로 칠해 보세요. 손가락으로 문지르세요.",
+  "wordTapTip": "밑줄 친 낱말을 누르면 기록할 수 있습니다."
 }

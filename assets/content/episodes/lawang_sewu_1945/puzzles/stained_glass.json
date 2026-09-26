@@ -54,15 +54,8 @@
       "key": "lawang_sewu_1945.landing.glass_solved"
     },
     {
-      "type": "showText",
-      "key": "lawang_sewu_1945.ending.battle"
-    },
-    {
-      "type": "showText",
-      "key": "lawang_sewu_1945.ending.tugu"
-    },
-    {
-      "type": "endEpisode"
+      "type": "openPuzzle",
+      "puzzle": "jar_label"
     }
   ],
   "hints": [

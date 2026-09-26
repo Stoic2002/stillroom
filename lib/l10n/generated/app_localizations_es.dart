@@ -188,4 +188,52 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get hintKindling =>
       'La vela de la siguiente pista aún está prendiendo. Sigue buscando un poco más.';
+
+  @override
+  String get keeperNoteTitle => 'La nota del guardián';
+
+  @override
+  String get keeperNoteFound => 'Has encontrado una de las notas del guardián.';
+
+  @override
+  String wordNoted(String word) {
+    return 'Anotado: $word';
+  }
+
+  @override
+  String get deductionInstruction =>
+      'Escribe la etiqueta del frasco: toca un hueco y luego una palabra que hayas anotado.';
+
+  @override
+  String get deductionCheck => 'Destilar';
+
+  @override
+  String get deductionIncomplete => 'Aún quedan huecos vacíos.';
+
+  @override
+  String deductionNearMiss(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count todavía no son correctas.',
+      one: 'Una todavía no es correcta.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get deductionWrong => 'Algo aquí no está bien.';
+
+  @override
+  String get deductionNoWords =>
+      'Aún no has anotado ninguna palabra. Toca las palabras subrayadas en lo que leas.';
+
+  @override
+  String get revealWipe => 'Límpialo con el dedo.';
+
+  @override
+  String get revealRub => 'Sombréalo con el lápiz: frota con el dedo.';
+
+  @override
+  String get wordTapTip => 'Toca una palabra subrayada para anotarla.';
 }

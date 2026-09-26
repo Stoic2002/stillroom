@@ -16,6 +16,14 @@ abstract class SaveFile with _$SaveFile {
 
     /// Keyed by episode id.
     @Default(<String, GameState>{}) Map<String, GameState> episodes,
+
+    /// Episodes ever finished. Survives starting a tale over, so a jar keeps
+    /// its seal and higher shelves stay open.
+    @Default(<String>{}) Set<String> distilled,
+
+    /// The keeper's note key of each episode whose secret was found; also
+    /// survives starting over.
+    @Default(<String, String>{}) Map<String, String> keeperNotes,
   }) = _SaveFile;
 
   factory SaveFile.fromJson(Map<String, dynamic> json) =>

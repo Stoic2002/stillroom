@@ -77,6 +77,7 @@ class EpisodeShelfScreen extends ConsumerWidget {
                           sealed: entry.comingSoon,
                           locked: entry.playable && !progress.isUnlocked(entry),
                           distilled: save.isCompleted(entry.id),
+                          keeperNote: save.keeperNote(entry.id) != null,
                           series: entry.series,
                           onTap: !entry.playable
                               ? null
@@ -139,18 +140,42 @@ class EpisodeShelfScreen extends ConsumerWidget {
   ) async {
     final l10n = AppLocalizations.of(context);
     final save = ref.read(saveRepositoryProvider);
-    final unfinished =
-        save.episode(entry.id) != null && !save.isCompleted(entry.id);
+    // A tale started over after it was distilled is unfinished too.
+    final unfinished = save.episode(entry.id)?.completed == false;
     final teaser = entry.teaserKey;
+    final note = save.keeperNote(entry.id);
 
     final choice = await showDialog<_JarChoice>(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(text(entry.titleKey)),
-        content: Text(
-          unfinished
-              ? l10n.jarUnfinished
-              : (teaser == null ? '' : text(teaser)),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                unfinished
+                    ? l10n.jarUnfinished
+                    : (teaser == null ? '' : text(teaser)),
+              ),
+              if (note != null) ...[
+                const SizedBox(height: 16),
+                Text(
+                  '✦ ${l10n.keeperNoteTitle}',
+                  style: const TextStyle(
+                    fontFamily: AppTheme.smallCaps,
+                    color: StillroomPalette.gaslight,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  text(note),
+                  style: const TextStyle(fontStyle: FontStyle.italic),
+                ),
+              ],
+            ],
+          ),
         ),
         actions: [
           TextButton(

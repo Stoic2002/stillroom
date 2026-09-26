@@ -7,6 +7,7 @@ import 'package:stillroom/core/storage/key_value_store.dart';
 import 'package:stillroom/engine/engine.dart';
 import 'package:stillroom/state/content_providers.dart';
 import 'package:stillroom/state/game_session.dart';
+import 'package:stillroom/state/save_repository.dart';
 import 'package:stillroom/state/storage_providers.dart';
 
 /// Plays "Whitechapel, 1888" start to finish through the real content, so a
@@ -32,8 +33,12 @@ void main() {
         container.read(gameSessionProvider(episode)).requireValue;
     String? stage() => play.currentHints()?.key;
 
+    /// Reads every queued text like a careful player: notes each
+    /// underlined word first.
     void readAll() {
-      while (now().currentText != null) {
+      for (var key = now().currentText; key != null; key = now().currentText) {
+        final text = now().episode.strings['en']![key]!;
+        markedWords(text).forEach(play.noteWord);
         play.dismissText();
       }
     }
@@ -114,13 +119,63 @@ void main() {
     solve('five_frames');
     expect(now().game.flags['names_restored'], isTrue);
     expect(now().game.inventory, isNot(contains('name_card_kelly')));
-    expect(stage(), 'stage:leave');
+    expect(stage(), 'stage:write_label');
 
-    // 7. The door opens.
+    // 7. Note the words the label needs: the restored frames give names
+    // and the last date, the clippings the streets.
+    play.tapScene(0.5, 0.33); // frames, restored
+    readAll();
     play
-      ..takeExit('left') // room_south
+      ..takeExit('right') // room_north
+      ..tapScene(0.7, 0.69) // desk
+      ..tapScene(0.25, 0.28); // clippings
+    readAll();
+
+    // 8. Wipe the fog on the window (not needed, but it helps).
+    play
+      ..takeExit('back')
+      ..tapScene(0.27, 0.35) // window
+      ..tapScene(0.2, 0.5); // fog
+    readAll();
+    solve('window_fog');
+
+    // 9. The secret: look into the hearth twice, brush the ash aside.
+    play
+      ..takeExit('back')
+      ..takeExit('right') // room_east
+      ..tapScene(0.5, 0.8); // hearth
+    readAll();
+    expect(now().game.secretFound, isFalse);
+    play.tapScene(0.5, 0.8);
+    solve('hearth_ash');
+    expect(now().game.secretFound, isTrue);
+    expect(
+      container.read(saveRepositoryProvider).keeperNote(episode),
+      'whitechapel_1888.keeper.note',
+    );
+
+    // 10. The door asks for the jar's label: the deduction.
+    play
+      ..takeExit('right') // room_south
       ..tapScene(0.5, 0.5);
     readAll();
+    expect(now().openPuzzle, 'jar_label');
+    final label =
+        now().engine.content.requirePuzzle('jar_label').config
+            as DeductionConfig;
+    var deduction = label.start(now().game);
+    expect(
+      deduction.available,
+      containsAll(label.answers),
+      reason: 'every answer was noted on the way',
+    );
+    for (final (i, answer) in label.answers.indexed) {
+      deduction = deduction.fill(i, answer);
+    }
+    expect(deduction.isSolved, isTrue);
+    play.solvePuzzle('jar_label');
+    readAll();
     expect(now().game.completed, isTrue);
+    expect(container.read(saveRepositoryProvider).isCompleted(episode), isTrue);
   });
 }

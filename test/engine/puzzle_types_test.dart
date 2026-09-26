@@ -311,12 +311,14 @@ void main() {
     });
   });
 
-  test('withBuiltIns registers all four v1 types', () {
+  test('withBuiltIns registers every built-in type', () {
     expect(ContentRegistries.withBuiltIns().puzzleTypes.types, [
       'codeLock',
       'sequence',
       'rotaryAlign',
       'slotPlacement',
+      'deduction',
+      'reveal',
     ]);
   });
 }

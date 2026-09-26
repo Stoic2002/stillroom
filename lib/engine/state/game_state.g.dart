@@ -45,6 +45,13 @@ _GameState _$GameStateFromJson(Map<String, dynamic> json) =>
               ) ??
               const <String, int>{},
         ),
+        words: $checkedConvert(
+          'words',
+          (v) =>
+              (v as List<dynamic>?)?.map((e) => e as String).toSet() ??
+              const <String>{},
+        ),
+        secretFound: $checkedConvert('secretFound', (v) => v as bool? ?? false),
         completed: $checkedConvert('completed', (v) => v as bool? ?? false),
       );
       return val;
@@ -59,5 +66,7 @@ Map<String, dynamic> _$GameStateToJson(_GameState instance) =>
       'flags': instance.flags,
       'solvedPuzzles': instance.solvedPuzzles.toList(),
       'revealedHints': instance.revealedHints,
+      'words': instance.words.toList(),
+      'secretFound': instance.secretFound,
       'completed': instance.completed,
     };

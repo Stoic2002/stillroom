@@ -188,4 +188,52 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get hintKindling =>
       'The candle for the next hint is still catching. Keep looking a little longer.';
+
+  @override
+  String get keeperNoteTitle => 'The keeper\'s note';
+
+  @override
+  String get keeperNoteFound => 'You found one of the keeper\'s notes.';
+
+  @override
+  String wordNoted(String word) {
+    return 'Noted: $word';
+  }
+
+  @override
+  String get deductionInstruction =>
+      'Write the jar\'s label: tap a blank, then a word you have noted.';
+
+  @override
+  String get deductionCheck => 'Distil';
+
+  @override
+  String get deductionIncomplete => 'Some blanks are still empty.';
+
+  @override
+  String deductionNearMiss(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count of these are not right yet.',
+      one: 'One of these is not right yet.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get deductionWrong => 'Something here is not right.';
+
+  @override
+  String get deductionNoWords =>
+      'You have not noted any words yet. Tap the underlined words in what you read.';
+
+  @override
+  String get revealWipe => 'Wipe it with your finger.';
+
+  @override
+  String get revealRub => 'Shade it with the pencil: rub with your finger.';
+
+  @override
+  String get wordTapTip => 'Tap an underlined word to note it down.';
 }

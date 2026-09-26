@@ -6,6 +6,7 @@ import 'package:stillroom/core/audio/audio_service.dart';
 import 'package:stillroom/core/storage/key_value_store.dart';
 import 'package:stillroom/engine/engine.dart';
 import 'package:stillroom/features/menu/episode_shelf_screen.dart';
+import 'package:stillroom/features/menu/widgets/jar.dart';
 import 'package:stillroom/l10n/generated/app_localizations.dart';
 import 'package:stillroom/state/content_providers.dart';
 import 'package:stillroom/state/save_repository.dart';
@@ -25,13 +26,20 @@ void main() {
     ),
   ];
 
-  Future<void> pump(WidgetTester tester, {Set<String> finished = const {}}) {
+  Future<void> pump(
+    WidgetTester tester, {
+    Set<String> finished = const {},
+    Set<String> distilled = const {},
+    Map<String, String> keeperNotes = const {},
+  }) {
     final save = const SaveSerializer().encode(
       SaveFile(
         episodes: {
           for (final id in finished)
             id: GameState(episodeId: id, sceneId: 's', completed: true),
         },
+        distilled: distilled,
+        keeperNotes: keeperNotes,
       ),
     );
     return tester.pumpWidget(
@@ -45,6 +53,7 @@ void main() {
                 'first': 'First tale',
                 'second': 'Second tale',
                 'third': 'Third tale',
+                'note.first': 'A scrap in a careful hand.',
               },
             },
           ),
@@ -106,5 +115,36 @@ void main() {
     await tester.tap(find.byKey(const ValueKey('jar_second')));
     await tester.pumpAndSettle();
     expect(find.text('Open the jar'), findsOneWidget);
+  });
+
+  testWidgets('a tale started over stays distilled and keeps shelves open', (
+    tester,
+  ) async {
+    await pump(tester, distilled: {'first'});
+    await tester.pumpAndSettle();
+    expect(
+      tester.widget<Jar>(find.byKey(const ValueKey('jar_first'))).distilled,
+      isTrue,
+    );
+    expect(
+      tester.widget<Jar>(find.byKey(const ValueKey('jar_second'))).locked,
+      isFalse,
+    );
+  });
+
+  testWidgets("a found secret marks the jar and shows the keeper's note", (
+    tester,
+  ) async {
+    await pump(
+      tester,
+      finished: {'first'},
+      keeperNotes: {'first': 'note.first'},
+    );
+    await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey('keeper_mark')), findsOneWidget);
+    await tester.tap(find.byKey(const ValueKey('jar_first')));
+    await tester.pumpAndSettle();
+    expect(find.textContaining("The keeper's note"), findsOneWidget);
+    expect(find.text('A scrap in a careful hand.'), findsOneWidget);
   });
 }

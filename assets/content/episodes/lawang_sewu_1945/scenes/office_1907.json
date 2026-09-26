@@ -113,6 +113,35 @@
       ]
     },
     {
+      "id": "telegram_pad",
+      "rect": [
+        0.84,
+        0.62,
+        0.12,
+        0.14
+      ],
+      "when": [
+        {
+          "puzzleSolved": "telegram_pad",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "showText",
+          "key": "lawang_sewu_1945.office.telegram_pad"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "telegram_pad"
+        }
+      ]
+    },
+    {
       "id": "telegram_form",
       "rect": [
         0.84,
@@ -128,6 +157,11 @@
         {
           "type": "showText",
           "key": "lawang_sewu_1945.office.telegram_form"
+        }
+      ],
+      "when": [
+        {
+          "puzzleSolved": "telegram_pad"
         }
       ]
     },

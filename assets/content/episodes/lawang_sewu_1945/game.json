@@ -5,7 +5,8 @@
     "telegram_sent": false,
     "saw_calendar": false,
     "cellar_lit": false,
-    "belongings_returned": false
+    "belongings_returned": false,
+    "found_929": false
   },
   "logicalResolution": [
     1920,
@@ -15,6 +16,22 @@
   "sceneTransitionMs": 600,
   "music": "lawang_sewu_night",
   "hintStages": [
+    {
+      "id": "write_label",
+      "when": [
+        {
+          "puzzleSolved": "stained_glass"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.lawang_sewu_1945.write_label.1"
+        },
+        {
+          "key": "hint.lawang_sewu_1945.write_label.2"
+        }
+      ]
+    },
     {
       "id": "light_the_glass",
       "when": [
@@ -155,5 +172,66 @@
         }
       ]
     }
-  ]
+  ],
+  "words": [
+    {
+      "id": "samarang",
+      "labelKey": "lawang_sewu_1945.station.samarang",
+      "kind": "place"
+    },
+    {
+      "id": "alastua",
+      "labelKey": "lawang_sewu_1945.station.alastua",
+      "kind": "place"
+    },
+    {
+      "id": "brumbung",
+      "labelKey": "lawang_sewu_1945.station.brumbung",
+      "kind": "place"
+    },
+    {
+      "id": "tanggung",
+      "labelKey": "lawang_sewu_1945.station.tanggung",
+      "kind": "place"
+    },
+    {
+      "id": "year_1867",
+      "labelKey": "lawang_sewu_1945.word.year_1867",
+      "kind": "number"
+    },
+    {
+      "id": "doors_928",
+      "labelKey": "lawang_sewu_1945.word.doors_928",
+      "kind": "number"
+    },
+    {
+      "id": "delft",
+      "labelKey": "lawang_sewu_1945.word.delft",
+      "kind": "place"
+    },
+    {
+      "id": "batavia",
+      "labelKey": "lawang_sewu_1945.word.batavia",
+      "kind": "place"
+    },
+    {
+      "id": "date_15oct",
+      "labelKey": "lawang_sewu_1945.word.date_15oct",
+      "kind": "date"
+    },
+    {
+      "id": "five",
+      "labelKey": "lawang_sewu_1945.word.five",
+      "kind": "number"
+    }
+  ],
+  "secret": {
+    "when": [
+      {
+        "flag": "found_929",
+        "equals": true
+      }
+    ],
+    "noteKey": "lawang_sewu_1945.corridor.door_929"
+  }
 }

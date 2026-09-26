@@ -23,6 +23,20 @@ _SaveFile _$SaveFileFromJson(Map<String, dynamic> json) =>
               ) ??
               const <String, GameState>{},
         ),
+        distilled: $checkedConvert(
+          'distilled',
+          (v) =>
+              (v as List<dynamic>?)?.map((e) => e as String).toSet() ??
+              const <String>{},
+        ),
+        keeperNotes: $checkedConvert(
+          'keeperNotes',
+          (v) =>
+              (v as Map<String, dynamic>?)?.map(
+                (k, e) => MapEntry(k, e as String),
+              ) ??
+              const <String, String>{},
+        ),
       );
       return val;
     });
@@ -31,4 +45,6 @@ Map<String, dynamic> _$SaveFileToJson(_SaveFile instance) => <String, dynamic>{
   'schemaVersion': instance.schemaVersion,
   'lastEpisodeId': instance.lastEpisodeId,
   'episodes': instance.episodes.map((k, e) => MapEntry(k, e.toJson())),
+  'distilled': instance.distilled.toList(),
+  'keeperNotes': instance.keeperNotes,
 };

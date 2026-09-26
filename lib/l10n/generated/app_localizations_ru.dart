@@ -190,4 +190,53 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get hintKindling =>
       'Свеча для следующей подсказки ещё разгорается. Поищите ещё немного.';
+
+  @override
+  String get keeperNoteTitle => 'Записка хранителя';
+
+  @override
+  String get keeperNoteFound => 'Вы нашли одну из записок хранителя.';
+
+  @override
+  String wordNoted(String word) {
+    return 'Записано: $word';
+  }
+
+  @override
+  String get deductionInstruction =>
+      'Подпишите банку: коснитесь пропуска, затем записанного слова.';
+
+  @override
+  String get deductionCheck => 'Перегнать';
+
+  @override
+  String get deductionIncomplete => 'Ещё не все пропуски заполнены.';
+
+  @override
+  String deductionNearMiss(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count пока неверны.',
+      few: '$count пока неверны.',
+      one: 'Одно пока неверно.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get deductionWrong => 'Что-то здесь не так.';
+
+  @override
+  String get deductionNoWords =>
+      'Вы ещё не записали ни одного слова. Касайтесь подчёркнутых слов в текстах.';
+
+  @override
+  String get revealWipe => 'Протрите пальцем.';
+
+  @override
+  String get revealRub => 'Заштрихуйте карандашом: потрите пальцем.';
+
+  @override
+  String get wordTapTip => 'Коснитесь подчёркнутого слова, чтобы записать его.';
 }

@@ -1,0 +1,76 @@
+{
+  "id": "jar_label",
+  "type": "deduction",
+  "background": "images/scenes/lawang_sewu_1945/label_close.png",
+  "config": {
+    "sentences": [
+      {
+        "textKey": "lawang_sewu_1945.label.s1",
+        "blanks": [
+          "samarang",
+          "tanggung",
+          "year_1867"
+        ]
+      },
+      {
+        "textKey": "lawang_sewu_1945.label.s2",
+        "blanks": [
+          "doors_928",
+          "delft"
+        ]
+      },
+      {
+        "textKey": "lawang_sewu_1945.label.s3",
+        "blanks": [
+          "date_15oct",
+          "five"
+        ]
+      }
+    ],
+    "words": [
+      "samarang",
+      "alastua",
+      "brumbung",
+      "tanggung",
+      "year_1867",
+      "doors_928",
+      "delft",
+      "batavia",
+      "date_15oct",
+      "five"
+    ],
+    "nearMiss": 1
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "distant_bells"
+    },
+    {
+      "type": "showText",
+      "key": "lawang_sewu_1945.label.done"
+    },
+    {
+      "type": "showText",
+      "key": "lawang_sewu_1945.ending.battle"
+    },
+    {
+      "type": "showText",
+      "key": "lawang_sewu_1945.ending.tugu"
+    },
+    {
+      "type": "endEpisode"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.lawang_sewu_1945.jar_label.1"
+    },
+    {
+      "key": "hint.lawang_sewu_1945.jar_label.2"
+    },
+    {
+      "key": "hint.lawang_sewu_1945.jar_label.3"
+    }
+  ]
+}

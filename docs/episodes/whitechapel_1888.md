@@ -161,3 +161,24 @@ Placeholders are drawn for anything missing; see `docs/art_style_guide.md`.
 **Music** (`assets/audio/music/<id>.ogg`, looped)
 
 - `whitechapel_fog`
+
+## Words, touch and the secret (added 2026-09-26)
+
+- **Words:**
+  - five names, noted from the name cards and the restored frames;
+  - five streets, from the clippings and the fog;
+  - three dates, from the cards and the frames.
+- **The fog on the window** (`window_fog`, reveal/wipe): wiped from the
+  inside, it shows *Berner St. — Mitre Sq.*, the two women found within one
+  hour of each other.
+- **The jar's label** (`jar_label`, deduction): the door asks for the label
+  before it lets the player go. Three sentences, 11 blanks, 13 words in the
+  bank (the decoys are 31 August and 8 September).
+  1. "{Nichols} was found in {Buck's Row} on 31 August; eight days later,
+     {Chapman} was found in {Hanbury Street}."
+  2. "On one night, within the hour, {Stride} in {Berner Street} and
+     {Eddowes} in {Mitre Square}."
+  3. "The last, {Kelly}, was found in her own room in {Miller's Court}, on
+     {9 November 1888}."
+- **Secret:** look into the hearth a second time and brush the ash aside
+  (`hearth_ash`): a scrap in the keeper's hand. The note text is a draft.

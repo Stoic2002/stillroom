@@ -17,7 +17,11 @@ mixin _$SaveFile {
 
  int get schemaVersion;/// Episode the "Continue" button resumes.
  String? get lastEpisodeId;/// Keyed by episode id.
- Map<String, GameState> get episodes;
+ Map<String, GameState> get episodes;/// Episodes ever finished. Survives starting a tale over, so a jar keeps
+/// its seal and higher shelves stay open.
+ Set<String> get distilled;/// The keeper's note key of each episode whose secret was found; also
+/// survives starting over.
+ Map<String, String> get keeperNotes;
 /// Create a copy of SaveFile
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,16 +34,16 @@ $SaveFileCopyWith<SaveFile> get copyWith => _$SaveFileCopyWithImpl<SaveFile>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SaveFile&&(identical(other.schemaVersion, schemaVersion) || other.schemaVersion == schemaVersion)&&(identical(other.lastEpisodeId, lastEpisodeId) || other.lastEpisodeId == lastEpisodeId)&&const DeepCollectionEquality().equals(other.episodes, episodes));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SaveFile&&(identical(other.schemaVersion, schemaVersion) || other.schemaVersion == schemaVersion)&&(identical(other.lastEpisodeId, lastEpisodeId) || other.lastEpisodeId == lastEpisodeId)&&const DeepCollectionEquality().equals(other.episodes, episodes)&&const DeepCollectionEquality().equals(other.distilled, distilled)&&const DeepCollectionEquality().equals(other.keeperNotes, keeperNotes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,schemaVersion,lastEpisodeId,const DeepCollectionEquality().hash(episodes));
+int get hashCode => Object.hash(runtimeType,schemaVersion,lastEpisodeId,const DeepCollectionEquality().hash(episodes),const DeepCollectionEquality().hash(distilled),const DeepCollectionEquality().hash(keeperNotes));
 
 @override
 String toString() {
-  return 'SaveFile(schemaVersion: $schemaVersion, lastEpisodeId: $lastEpisodeId, episodes: $episodes)';
+  return 'SaveFile(schemaVersion: $schemaVersion, lastEpisodeId: $lastEpisodeId, episodes: $episodes, distilled: $distilled, keeperNotes: $keeperNotes)';
 }
 
 
@@ -50,7 +54,7 @@ abstract mixin class $SaveFileCopyWith<$Res>  {
   factory $SaveFileCopyWith(SaveFile value, $Res Function(SaveFile) _then) = _$SaveFileCopyWithImpl;
 @useResult
 $Res call({
- int schemaVersion, String? lastEpisodeId, Map<String, GameState> episodes
+ int schemaVersion, String? lastEpisodeId, Map<String, GameState> episodes, Set<String> distilled, Map<String, String> keeperNotes
 });
 
 
@@ -67,12 +71,14 @@ class _$SaveFileCopyWithImpl<$Res>
 
 /// Create a copy of SaveFile
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? schemaVersion = null,Object? lastEpisodeId = freezed,Object? episodes = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? schemaVersion = null,Object? lastEpisodeId = freezed,Object? episodes = null,Object? distilled = null,Object? keeperNotes = null,}) {
   return _then(_self.copyWith(
 schemaVersion: null == schemaVersion ? _self.schemaVersion : schemaVersion // ignore: cast_nullable_to_non_nullable
 as int,lastEpisodeId: freezed == lastEpisodeId ? _self.lastEpisodeId : lastEpisodeId // ignore: cast_nullable_to_non_nullable
 as String?,episodes: null == episodes ? _self.episodes : episodes // ignore: cast_nullable_to_non_nullable
-as Map<String, GameState>,
+as Map<String, GameState>,distilled: null == distilled ? _self.distilled : distilled // ignore: cast_nullable_to_non_nullable
+as Set<String>,keeperNotes: null == keeperNotes ? _self.keeperNotes : keeperNotes // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,
   ));
 }
 
@@ -157,10 +163,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int schemaVersion,  String? lastEpisodeId,  Map<String, GameState> episodes)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int schemaVersion,  String? lastEpisodeId,  Map<String, GameState> episodes,  Set<String> distilled,  Map<String, String> keeperNotes)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SaveFile() when $default != null:
-return $default(_that.schemaVersion,_that.lastEpisodeId,_that.episodes);case _:
+return $default(_that.schemaVersion,_that.lastEpisodeId,_that.episodes,_that.distilled,_that.keeperNotes);case _:
   return orElse();
 
 }
@@ -178,10 +184,10 @@ return $default(_that.schemaVersion,_that.lastEpisodeId,_that.episodes);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int schemaVersion,  String? lastEpisodeId,  Map<String, GameState> episodes)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int schemaVersion,  String? lastEpisodeId,  Map<String, GameState> episodes,  Set<String> distilled,  Map<String, String> keeperNotes)  $default,) {final _that = this;
 switch (_that) {
 case _SaveFile():
-return $default(_that.schemaVersion,_that.lastEpisodeId,_that.episodes);case _:
+return $default(_that.schemaVersion,_that.lastEpisodeId,_that.episodes,_that.distilled,_that.keeperNotes);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +204,10 @@ return $default(_that.schemaVersion,_that.lastEpisodeId,_that.episodes);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int schemaVersion,  String? lastEpisodeId,  Map<String, GameState> episodes)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int schemaVersion,  String? lastEpisodeId,  Map<String, GameState> episodes,  Set<String> distilled,  Map<String, String> keeperNotes)?  $default,) {final _that = this;
 switch (_that) {
 case _SaveFile() when $default != null:
-return $default(_that.schemaVersion,_that.lastEpisodeId,_that.episodes);case _:
+return $default(_that.schemaVersion,_that.lastEpisodeId,_that.episodes,_that.distilled,_that.keeperNotes);case _:
   return null;
 
 }
@@ -213,7 +219,7 @@ return $default(_that.schemaVersion,_that.lastEpisodeId,_that.episodes);case _:
 @JsonSerializable()
 
 class _SaveFile implements SaveFile {
-  const _SaveFile({this.schemaVersion = SaveFile.currentSchemaVersion, this.lastEpisodeId, final  Map<String, GameState> episodes = const <String, GameState>{}}): _episodes = episodes;
+  const _SaveFile({this.schemaVersion = SaveFile.currentSchemaVersion, this.lastEpisodeId, final  Map<String, GameState> episodes = const <String, GameState>{}, final  Set<String> distilled = const <String>{}, final  Map<String, String> keeperNotes = const <String, String>{}}): _episodes = episodes,_distilled = distilled,_keeperNotes = keeperNotes;
   factory _SaveFile.fromJson(Map<String, dynamic> json) => _$SaveFileFromJson(json);
 
 @override@JsonKey() final  int schemaVersion;
@@ -226,6 +232,28 @@ class _SaveFile implements SaveFile {
   if (_episodes is EqualUnmodifiableMapView) return _episodes;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableMapView(_episodes);
+}
+
+/// Episodes ever finished. Survives starting a tale over, so a jar keeps
+/// its seal and higher shelves stay open.
+ final  Set<String> _distilled;
+/// Episodes ever finished. Survives starting a tale over, so a jar keeps
+/// its seal and higher shelves stay open.
+@override@JsonKey() Set<String> get distilled {
+  if (_distilled is EqualUnmodifiableSetView) return _distilled;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableSetView(_distilled);
+}
+
+/// The keeper's note key of each episode whose secret was found; also
+/// survives starting over.
+ final  Map<String, String> _keeperNotes;
+/// The keeper's note key of each episode whose secret was found; also
+/// survives starting over.
+@override@JsonKey() Map<String, String> get keeperNotes {
+  if (_keeperNotes is EqualUnmodifiableMapView) return _keeperNotes;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_keeperNotes);
 }
 
 
@@ -242,16 +270,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SaveFile&&(identical(other.schemaVersion, schemaVersion) || other.schemaVersion == schemaVersion)&&(identical(other.lastEpisodeId, lastEpisodeId) || other.lastEpisodeId == lastEpisodeId)&&const DeepCollectionEquality().equals(other._episodes, _episodes));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SaveFile&&(identical(other.schemaVersion, schemaVersion) || other.schemaVersion == schemaVersion)&&(identical(other.lastEpisodeId, lastEpisodeId) || other.lastEpisodeId == lastEpisodeId)&&const DeepCollectionEquality().equals(other._episodes, _episodes)&&const DeepCollectionEquality().equals(other._distilled, _distilled)&&const DeepCollectionEquality().equals(other._keeperNotes, _keeperNotes));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,schemaVersion,lastEpisodeId,const DeepCollectionEquality().hash(_episodes));
+int get hashCode => Object.hash(runtimeType,schemaVersion,lastEpisodeId,const DeepCollectionEquality().hash(_episodes),const DeepCollectionEquality().hash(_distilled),const DeepCollectionEquality().hash(_keeperNotes));
 
 @override
 String toString() {
-  return 'SaveFile(schemaVersion: $schemaVersion, lastEpisodeId: $lastEpisodeId, episodes: $episodes)';
+  return 'SaveFile(schemaVersion: $schemaVersion, lastEpisodeId: $lastEpisodeId, episodes: $episodes, distilled: $distilled, keeperNotes: $keeperNotes)';
 }
 
 
@@ -262,7 +290,7 @@ abstract mixin class _$SaveFileCopyWith<$Res> implements $SaveFileCopyWith<$Res>
   factory _$SaveFileCopyWith(_SaveFile value, $Res Function(_SaveFile) _then) = __$SaveFileCopyWithImpl;
 @override @useResult
 $Res call({
- int schemaVersion, String? lastEpisodeId, Map<String, GameState> episodes
+ int schemaVersion, String? lastEpisodeId, Map<String, GameState> episodes, Set<String> distilled, Map<String, String> keeperNotes
 });
 
 
@@ -279,12 +307,14 @@ class __$SaveFileCopyWithImpl<$Res>
 
 /// Create a copy of SaveFile
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? schemaVersion = null,Object? lastEpisodeId = freezed,Object? episodes = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? schemaVersion = null,Object? lastEpisodeId = freezed,Object? episodes = null,Object? distilled = null,Object? keeperNotes = null,}) {
   return _then(_SaveFile(
 schemaVersion: null == schemaVersion ? _self.schemaVersion : schemaVersion // ignore: cast_nullable_to_non_nullable
 as int,lastEpisodeId: freezed == lastEpisodeId ? _self.lastEpisodeId : lastEpisodeId // ignore: cast_nullable_to_non_nullable
 as String?,episodes: null == episodes ? _self._episodes : episodes // ignore: cast_nullable_to_non_nullable
-as Map<String, GameState>,
+as Map<String, GameState>,distilled: null == distilled ? _self._distilled : distilled // ignore: cast_nullable_to_non_nullable
+as Set<String>,keeperNotes: null == keeperNotes ? _self._keeperNotes : keeperNotes // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,
   ));
 }
 

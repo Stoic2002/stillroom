@@ -45,6 +45,25 @@ How difficulty rises from shelf to shelf:
 Current placement: *Whitechapel, 1888* (shelf I, the easiest, doubling as the
 tutorial); *Semarang, 1945* (shelf I, opens after Whitechapel; a step up: clues across three eras).
 
+## Signature mechanics (decided 2026-09-26)
+
+Chosen by the developer from the gameplay study (Rusty Lake, Gorogoa, *The
+Case of the Golden Idol*, Strange Horticulture):
+
+- **A. Distilling the tale.** Underlined words in what the player reads can be
+  noted down. Every tale ends with the player writing its jar's label, a
+  `deduction` puzzle: sentences with blanks, filled from the noted words.
+  The truth is restored in the player's own hand.
+- **B. Touch.** Some surfaces give way under the finger (`reveal`): wiping
+  fog, dust, or ash, or rubbing a pencil over pressed-in writing.
+- **G. The keeper's secret.** Each jar hides one optional secret, a note
+  from the old keeper. Finding it marks the jar with a brass star, and the
+  note stays on the shelf. The notes are drafts; their arc is the
+  developer's (OPEN).
+
+Later shelves can add more: C (a lens between eras), D (light and dark), E (a
+room that changes when not watched), F (listening puzzles).
+
 ## How it shows in the game
 
 | Where | What |

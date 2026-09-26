@@ -55,5 +55,17 @@
   "jarLockedTitle": "Belum saatnya",
   "jarLocked": "{count, plural, other{Suling {count} kisah lagi untuk membuka toples ini.}}",
   "languageKorean": "한국어",
-  "hintKindling": "Lilin untuk petunjuk berikutnya masih menyala perlahan. Coba cari lagi sebentar."
+  "hintKindling": "Lilin untuk petunjuk berikutnya masih menyala perlahan. Coba cari lagi sebentar.",
+  "keeperNoteTitle": "Catatan penjaga",
+  "keeperNoteFound": "Kamu menemukan salah satu catatan penjaga.",
+  "wordNoted": "Dicatat: {word}",
+  "deductionInstruction": "Tulis label toples: ketuk bagian kosong, lalu kata yang sudah kamu catat.",
+  "deductionCheck": "Suling",
+  "deductionIncomplete": "Masih ada bagian yang kosong.",
+  "deductionNearMiss": "{count, plural, other{{count} di antaranya belum tepat.}}",
+  "deductionWrong": "Ada yang belum tepat di sini.",
+  "deductionNoWords": "Kamu belum mencatat kata apa pun. Ketuk kata bergaris bawah pada teks yang kamu baca.",
+  "revealWipe": "Usap dengan jarimu.",
+  "revealRub": "Arsir dengan pensil: gosok dengan jarimu.",
+  "wordTapTip": "Ketuk kata bergaris bawah untuk mencatatnya."
 }

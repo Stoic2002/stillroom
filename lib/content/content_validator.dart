@@ -44,6 +44,9 @@ final class ContentValidationException implements Exception {
 /// - every text key exists in every language, and all languages have the
 ///   same keys
 /// - every `rect` lies within 0–1
+/// - words: marked words (`[[id]]`) are declared and marked in every
+///   language alike; deduction texts hold their placeholders; every answer
+///   of a deduction can be noted somewhere
 /// - images and sounds exist (missing ones are warnings: placeholders are used)
 ///
 /// [assets] are full asset paths (`assets/...`).
@@ -60,6 +63,9 @@ final class _Validator {
   final Set<String> assets;
   final StringTables strings;
   final List<ContentIssue> issues = [];
+
+  /// Words marked in the texts this episode shows.
+  final Set<String> _notable = {};
 
   List<ContentIssue> run() {
     final episode = 'episode ${content.id}';
@@ -82,6 +88,14 @@ final class _Validator {
       }
     }
     _checkStringTablesMatch();
+    for (final word in content.config.words.values) {
+      _ref('game.json › words ${word.id}', ContentRef.text(word.labelKey));
+    }
+    if (content.config.secret case final secret?) {
+      for (final ref in secret.references) {
+        _ref('game.json › secret', ref);
+      }
+    }
 
     for (final scene in content.scenes.values) {
       final at = 'scene ${scene.id}';
@@ -138,8 +152,74 @@ final class _Validator {
         _conditions('$at › hints[$i]', hint.when);
       }
     }
+    _checkWordsNotable();
     return issues;
   }
+
+  /// A deduction is unsolvable if one of its answers can never be noted.
+  void _checkWordsNotable() {
+    final answers = {
+      for (final p in content.puzzles.values)
+        if (p.config case final DeductionConfig c) ...c.answers,
+    };
+    for (final word in content.config.words.values) {
+      if (word.given || _notable.contains(word.id)) continue;
+      const why = 'is neither given nor marked [[id]] in any text';
+      if (answers.contains(word.id)) {
+        _error('game.json › words ${word.id}', 'a deduction answer that $why');
+      } else {
+        _warning('game.json › words ${word.id}', 'word $why');
+      }
+    }
+  }
+
+  /// Marked words of text [key] exist and are the same in every language.
+  void _markup(String at, String key) {
+    Set<String>? first;
+    for (final MapEntry(key: locale, value: table) in strings.entries) {
+      final text = table[key];
+      if (text == null) continue;
+      final marked = markedWords(text);
+      for (final id in marked) {
+        if (!content.config.words.containsKey(id)) {
+          _error(at, 'text "$key" ($locale) marks unknown word "$id"');
+        }
+      }
+      _notable.addAll(marked);
+      if (first == null) {
+        first = marked;
+      } else if (!_sameSet(first, marked)) {
+        _error(
+          at,
+          'text "$key" marks different words in $locale '
+          '(${marked.join(', ')}) than in other languages (${first.join(', ')})',
+        );
+      }
+    }
+  }
+
+  void _template(String at, ContentRef ref) {
+    final slots = ref.slots ?? 0;
+    final placeholder = RegExp(r'\{(\d+)\}');
+    for (final MapEntry(key: locale, value: table) in strings.entries) {
+      final text = table[ref.id];
+      if (text == null || text.startsWith('TODO_TEXT')) continue;
+      final found = [
+        for (final m in placeholder.allMatches(text)) int.parse(m.group(1)!),
+      ]..sort();
+      final expected = [for (var i = 1; i <= slots; i++) i];
+      if (found.join(',') != expected.join(',')) {
+        _error(
+          at,
+          'text "${ref.id}" ($locale) must hold {1}…{$slots} once each; '
+          'has ${found.map((n) => '{$n}').join(' ')}',
+        );
+      }
+    }
+  }
+
+  static bool _sameSet(Set<String> a, Set<String> b) =>
+      a.length == b.length && a.containsAll(b);
 
   void _hotspot(String at, Hotspot hotspot) {
     _rect(at, hotspot.rect);
@@ -192,7 +272,15 @@ final class _Validator {
         }
       case RefKind.flag:
         _flag(at, ref);
+      case RefKind.word:
+        if (!content.config.words.containsKey(ref.id)) {
+          _error(at, 'unknown word "${ref.id}"');
+        }
+      case RefKind.template:
+        _ref(at, ContentRef.text(ref.id));
+        _template(at, ref);
       case RefKind.text:
+        _markup(at, ref.id);
         final missing = [
           for (final MapEntry(key: locale, value: table) in strings.entries)
             if (!table.containsKey(ref.id)) locale,

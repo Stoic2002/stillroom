@@ -61,6 +61,36 @@
         {
           "type": "showText",
           "key": "whitechapel_1888.fog.look"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "window_fog"
+        }
+      ],
+      "when": [
+        {
+          "puzzleSolved": "window_fog",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "fog_wiped",
+      "rect": [
+        0.08,
+        0.1,
+        0.46,
+        0.7
+      ],
+      "when": [
+        {
+          "puzzleSolved": "window_fog"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1888.fog.wiped"
         }
       ]
     }
@@ -84,6 +114,21 @@
         0.47,
         0.06,
         0.36
+      ]
+    },
+    {
+      "id": "fog_writing_sprite",
+      "image": "images/objects/whitechapel_1888/fog_writing_sprite.png",
+      "rect": [
+        0.08,
+        0.1,
+        0.46,
+        0.7
+      ],
+      "when": [
+        {
+          "puzzleSolved": "window_fog"
+        }
       ]
     }
   ]

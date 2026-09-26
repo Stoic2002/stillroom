@@ -60,6 +60,19 @@ void main() {
       expect(save.continueEpisodeId, isNull, reason: 'room has no state yet');
     });
 
+    test('a distilled tale and its keeper note survive starting over', () {
+      final container = containerFor(MemoryKeyValueStore());
+      container.read(saveRepositoryProvider.notifier)
+        ..saveEpisode(room.copyWith(completed: true))
+        ..recordKeeperNote('room', 'note.room')
+        ..startNew('room');
+      final save = container.read(saveRepositoryProvider);
+      expect(save.episode('room'), isNull);
+      expect(save.isCompleted('room'), isTrue);
+      expect(save.keeperNote('room'), 'note.room');
+      expect(save.isCompleted('hall'), isFalse);
+    });
+
     test(
       'a corrupt save is reported and left untouched until cleared',
       () async {

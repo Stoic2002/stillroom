@@ -73,8 +73,14 @@ final class GameEngine {
       episodeId: content.id,
       sceneId: content.config.startScene,
       flags: content.config.flags,
+      words: _givenWords,
     );
   }
+
+  Set<String> get _givenWords => {
+    for (final w in content.config.words.values)
+      if (w.given) w.id,
+  };
 
   /// Adapts a loaded save to the current content, so a content update never
   /// leaves the state pointing at things that no longer exist: unknown ids are
@@ -107,6 +113,10 @@ final class GameEngine {
       revealedHints: {
         for (final MapEntry(:key, :value) in saved.revealedHints.entries)
           if (_hintGroupExists(key)) key: value,
+      },
+      words: {
+        ...saved.words.where(content.config.words.containsKey),
+        ..._givenWords,
       },
     );
   }
@@ -246,8 +256,7 @@ final class GameEngine {
           'unknown exit "$exitId" in scene "${state.sceneId}"',
         ));
     if (!exit.when.allMet(state)) return EngineResult(state);
-    final context = ActionContext(content, state)..goToScene(exit.to);
-    return EngineResult(context.state, context.events);
+    return _finish(ActionContext(content, state)..goToScene(exit.to));
   }
 
   /// Combines two held items. Emits [CombinationFailedEvent] when no
@@ -274,7 +283,7 @@ final class GameEngine {
           result: combination.result,
         ),
       );
-    return EngineResult(context.state, context.events);
+    return _finish(context);
   }
 
   /// Marks a puzzle solved and runs its `onSolved`. Solving an already solved
@@ -285,7 +294,20 @@ final class GameEngine {
     final context = ActionContext(content, state)
       ..markPuzzleSolved(puzzleId)
       ..run(puzzle.onSolved);
-    return EngineResult(context.state, context.events);
+    return _finish(context);
+  }
+
+  /// Notes down word [wordId] (tapped in a text). Noting a word twice does
+  /// nothing.
+  EngineResult noteWord(GameState state, String wordId) {
+    if (!content.config.words.containsKey(wordId)) {
+      throw EngineException('unknown word "$wordId"');
+    }
+    if (state.words.contains(wordId)) return EngineResult(state);
+    final context = ActionContext(content, state)
+      ..update((s) => s.copyWith(words: {...s.words, wordId}))
+      ..emit(WordNotedEvent(wordId));
+    return _finish(context);
   }
 
   /// Hints currently offered for [puzzleId], in order.
@@ -337,8 +359,19 @@ final class GameEngine {
       currentScene(state).music ?? content.config.music;
 
   /// Runs an arbitrary action list, e.g. from debug tools.
-  EngineResult runActions(GameState state, List<GameAction> actions) {
-    final context = ActionContext(content, state)..run(actions);
+  EngineResult runActions(GameState state, List<GameAction> actions) =>
+      _finish(ActionContext(content, state)..run(actions));
+
+  /// Ends an operation: finds the secret the moment its conditions hold.
+  EngineResult _finish(ActionContext context) {
+    final secret = content.config.secret;
+    if (secret != null &&
+        !context.state.secretFound &&
+        secret.when.allMet(context.state)) {
+      context
+        ..update((s) => s.copyWith(secretFound: true))
+        ..emit(SecretFoundEvent(secret.noteKey));
+    }
     return EngineResult(context.state, context.events);
   }
 

@@ -21,8 +21,11 @@ void main() {
   String? stage() => play.currentHints()?.key;
   EpisodeContent content() => now().engine.content;
 
+  /// Reads every queued text like a careful player: notes each underlined
+  /// word first.
   void readAll() {
-    while (now().currentText != null) {
+    for (var key = now().currentText; key != null; key = now().currentText) {
+      markedWords(now().episode.strings['en']![key]!).forEach(play.noteWord);
       play.dismissText();
     }
   }
@@ -109,7 +112,18 @@ void main() {
     readAll();
     play.tapExamine(0.84, 0.5); // turn the page
     expect(now().game.flags['ledger_page'], 1);
+    for (var page = 1; page < 4; page++) {
+      play.tapExamine(0.3, 0.5); // read
+      readAll();
+      play.tapExamine(0.84, 0.5); // turn
+    }
+    expect(now().game.words, containsAll(['samarang', 'year_1867', 'delft']));
     play.closeExamine();
+
+    // The telegram pad: shade it to read what was pressed into it.
+    play.tapScene(0.9, 0.69);
+    readAll();
+    solve('telegram_pad');
 
     play.tapScene(0.73, 0.28); // timetable board
     solve('timetable');
@@ -181,6 +195,17 @@ void main() {
       ..takeExit('right')
       ..tapScene(0.79, 0.51); // locker room door
     solve('locker_door');
+
+    // The secret: a door that was not there before, far down the corridor.
+    play
+      ..takeExit('back') // landing
+      ..takeExit('left') // corridor_west
+      ..tapScene(0.5, 0.46); // door 929
+    readAll();
+    expect(now().game.secretFound, isTrue);
+    play
+      ..takeExit('back')
+      ..takeExit('right');
     play.tapScene(0.79, 0.51); // now an open door
     expect(now().game.sceneId, 'lockers');
     play.tapScene(0.5, 0.45);
@@ -200,6 +225,20 @@ void main() {
     expect(now().openPuzzle, 'stained_glass');
     play.solvePuzzle('stained_glass');
     expect(now().currentText, 'lawang_sewu_1945.landing.glass_solved');
+    readAll();
+
+    // The jar's label, from the words noted on the way.
+    expect(now().openPuzzle, 'jar_label');
+    final label =
+        content().requirePuzzle('jar_label').config as DeductionConfig;
+    var deduction = label.start(now().game);
+    expect(deduction.available, containsAll(label.answers));
+    for (final (i, answer) in label.answers.indexed) {
+      deduction = deduction.fill(i, answer);
+    }
+    expect(deduction.isSolved, isTrue);
+    play.solvePuzzle('jar_label');
+    expect(now().currentText, 'lawang_sewu_1945.label.done');
     readAll();
     expect(now().game.completed, isTrue);
   });

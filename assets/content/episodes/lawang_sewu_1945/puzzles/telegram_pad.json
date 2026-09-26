@@ -1,0 +1,30 @@
+{
+  "id": "telegram_pad",
+  "type": "reveal",
+  "config": {
+    "style": "rub",
+    "hidden": "images/objects/lawang_sewu_1945/telegram_pad_rubbed.png",
+    "area": [
+      0.2,
+      0.28,
+      0.6,
+      0.42
+    ],
+    "threshold": 0.6,
+    "brush": 0.05
+  },
+  "onSolved": [
+    {
+      "type": "showText",
+      "key": "lawang_sewu_1945.office.telegram_form"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.lawang_sewu_1945.telegram_pad.1"
+    },
+    {
+      "key": "hint.lawang_sewu_1945.telegram_pad.2"
+    }
+  ]
+}

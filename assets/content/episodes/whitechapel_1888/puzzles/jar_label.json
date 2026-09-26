@@ -1,0 +1,79 @@
+{
+  "id": "jar_label",
+  "type": "deduction",
+  "background": "images/scenes/whitechapel_1888/label_close.png",
+  "config": {
+    "sentences": [
+      {
+        "textKey": "whitechapel_1888.label.s1",
+        "blanks": [
+          "nichols",
+          "bucks_row",
+          "chapman",
+          "hanbury_street"
+        ]
+      },
+      {
+        "textKey": "whitechapel_1888.label.s2",
+        "blanks": [
+          "stride",
+          "berner_street",
+          "eddowes",
+          "mitre_square"
+        ]
+      },
+      {
+        "textKey": "whitechapel_1888.label.s3",
+        "blanks": [
+          "kelly",
+          "millers_court",
+          "nov09"
+        ]
+      }
+    ],
+    "words": [
+      "nichols",
+      "chapman",
+      "stride",
+      "eddowes",
+      "kelly",
+      "bucks_row",
+      "hanbury_street",
+      "berner_street",
+      "mitre_square",
+      "millers_court",
+      "aug31",
+      "sep08",
+      "nov09"
+    ],
+    "nearMiss": 2
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "bell_toll"
+    },
+    {
+      "type": "showText",
+      "key": "whitechapel_1888.label.done"
+    },
+    {
+      "type": "showText",
+      "key": "whitechapel_1888.door.leave"
+    },
+    {
+      "type": "endEpisode"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.whitechapel_1888.jar_label.1"
+    },
+    {
+      "key": "hint.whitechapel_1888.jar_label.2"
+    },
+    {
+      "key": "hint.whitechapel_1888.jar_label.3"
+    }
+  ]
+}

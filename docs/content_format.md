@@ -147,6 +147,8 @@ non-debug episodes).
 | `sceneTransitionMs` | no | Total fade time between scenes (out + in), default 400; `0` switches instantly |
 | `music` | no | Music id played in every scene that has no `music` of its own |
 | `hintStages` | no | Hints outside puzzles, per stage of the episode (see **Hints**) |
+| `words` | no | Words the player can note down (see **Words and the jar's label**) |
+| `secret` | no | The episode's optional secret (see **The keeper's secret**) |
 
 ## Conditions (`when`)
 
@@ -159,8 +161,10 @@ always. Each object has exactly one subject key:
 | `{ "hasItem": "small_key", "equals": true }` | Item is currently in the inventory |
 | `{ "everHadItem": "small_key", "equals": false }` | Item has ever been picked up (stays true after it is used or combined) |
 | `{ "puzzleSolved": "drawer_lock", "equals": true }` | Puzzle is solved |
+| `{ "wordNoted": "bucks_row", "equals": true }` | The player has noted this word |
 
-For `hasItem`, `everHadItem`, and `puzzleSolved`, `equals` defaults to `true`.
+For `hasItem`, `everHadItem`, `puzzleSolved`, and `wordNoted`, `equals`
+defaults to `true`.
 
 > **Pickup spots:** hide them with `everHadItem` rather than `hasItem`.
 > With `{ "hasItem": "small_key", "equals": false }`, the key reappears after it
@@ -388,6 +392,95 @@ filled slot swaps them.
   may hold anything. `initial` (optional) pre-places pieces.
 - A slot's optional `labelKey` is shown as a caption under it.
 
+### `deduction`: the jar's label
+
+```json
+"config": {
+  "sentences": [
+    { "textKey": "whitechapel_1888.label.s1",
+      "blanks": ["nichols", "bucks_row", "chapman", "hanbury_street"] }
+  ],
+  "words": ["nichols", "chapman", "bucks_row", "hanbury_street", "aug31"],
+  "nearMiss": 2
+}
+```
+
+- Each sentence's text holds the placeholders `{1}`, `{2}`, … for its
+  `blanks`, in that order. A translation may move them anywhere, but every
+  language must hold each exactly once (validated).
+- `words` is the bank: every answer plus decoys. Only words the player has
+  noted appear. A word can fill several blanks.
+- "Distil" checks the whole label. With at most `nearMiss` wrong blanks
+  (default 2), the player is told how many; otherwise only that something is
+  wrong.
+- Every answer must be notable: `given`, or marked `[[id]]` in some text the
+  episode shows (validated, as an error). Mark each answer somewhere the
+  player can come back to (a hotspot, not only a one-time text).
+
+### `reveal`: wipe or rub
+
+```json
+"config": {
+  "style": "wipe",
+  "hidden": "images/objects/whitechapel_1888/fog_writing.png",
+  "cover": "images/objects/whitechapel_1888/hearth_ash.png",
+  "area": [0.22, 0.3, 0.56, 0.4],
+  "threshold": 0.6,
+  "brush": 0.055
+}
+```
+
+- `style`: `wipe` (fog, dust, ash) or `rub` (shading paper with a pencil).
+- `hidden` is the picture uncovered. `cover` (optional) is the surface on top.
+  It must be code-drawn art for now; without it, the style draws fog or blank
+  paper.
+- Only `area` counts; the puzzle is solved when `threshold` of it is
+  uncovered (default 0.7). `brush` is the finger's radius as a share of the
+  board width (default 0.05).
+
+## Words and the jar's label
+
+`words` in `game.json` declares what the player can note down:
+
+```json
+"words": [
+  { "id": "nichols", "labelKey": "item.whitechapel_1888.name_card_nichols.name", "kind": "name" },
+  { "id": "bucks_row", "labelKey": "whitechapel_1888.street.bucks_row", "kind": "place" },
+  { "id": "north", "labelKey": "…", "kind": "thing", "given": true }
+]
+```
+
+- `kind` is one of `name`, `place`, `date`, `number`, `thing`. It sets the
+  word's color on the label screen.
+- `labelKey` is any text key; reusing existing names keeps them consistent.
+- `given` words are known from the start.
+- In any text shown in the text box or an item's description, `[[id]]` marks
+  a word. It reads as the word's label, underlined; tapping it notes the word
+  (the `WordNotedEvent`, with a toast and a pencil sound).
+- Every language must mark the same words in a text (validated).
+- Every tale ends by writing its jar's label (a `deduction` puzzle) before the
+  episode ends. That is the Stillroom's own step (*Menyuling kisah*).
+
+## The keeper's secret
+
+```json
+"secret": {
+  "when": [{ "puzzleSolved": "hearth_ash" }],
+  "noteKey": "whitechapel_1888.keeper.note"
+}
+```
+
+- **Found:** the secret is found the moment all conditions hold, checked
+  after every action. The player sees "✦ You found one of the keeper's
+  notes" and a chime.
+- **Kept:** the save keeps `noteKey` per episode, even after the tale is
+  started over. The jar gets a small brass star, and its dialog shows the
+  note.
+- **Optional:** a secret must never be needed to finish the tale. Hide it
+  behind curiosity: a second look, a door that appears later.
+- **Showing the note:** the note text is content like any other; show it
+  with `showText` where the secret is found.
+
 ## Hints
 
 The hint button (💡) shows the hints relevant right now (PRD FR-08):
@@ -459,9 +552,13 @@ for debugging.
       "flags": { "drawer_open": true, "clock_turns": 0 },
       "solvedPuzzles": ["drawer_lock"],
       "revealedHints": { "puzzle:drawer_lock": 1, "stage:find_key": 2 },
+      "words": ["bucks_row"],
+      "secretFound": false,
       "completed": false
     }
-  }
+  },
+  "distilled": ["whitechapel_1888"],
+  "keeperNotes": { "whitechapel_1888": "whitechapel_1888.keeper.note" }
 }
 ```
 
@@ -469,7 +566,8 @@ The save is written after every change to the game state (item, flag,
 puzzle, scene), in one slot shared by all episodes. Player settings are
 stored separately, so resetting progress keeps them. "Continue" resumes
 `lastEpisodeId` unless that episode is `completed`; "New Game" drops only that
-episode's entry.
+episode's entry. `distilled` and `keeperNotes` outlive that: a tale started
+over keeps its seal, its keeper's note, and the shelves it opened.
 
 A save that cannot be read (bad JSON, wrong types, newer `schemaVersion`) is
 reported as corrupt instead of crashing: the menu offers a new game, and the
@@ -517,4 +615,5 @@ warnings show in the debug panel).
 | 2026-09-25 | post-M6 | `episodes.json` becomes a catalog of jars (`titleKey`, `teaserKey`, `jarImage`, `comingSoon`, `debugOnly`); `labelKey` on `sequence` elements and `slotPlacement` slots; episode `whitechapel_1888`. |
 | 2026-09-25 | post-M6 | Languages: Spanish (`es`), Japanese (`ja`), Simplified Chinese (`zh`), Russian (`ru`) added; all keys required in every language. |
 | 2026-09-26 | post-M6 | `episodes.json`: `shelf`, `unlockAfter`, `series` (tiered shelves). |
+| 2026-09-26 | post-M6 | Words (`words`, `[[id]]` markup, `wordNoted` condition), `deduction` and `reveal` puzzle types, `secret` in `game.json`. Save: `words`/`secretFound` per episode; `distilled` and `keeperNotes` in the save file (additive, old saves load). |
 | 2026-09-26 | post-M6 | Korean (`ko`) added. Hints paced by the hint candle. Generated audio in `assets/audio/` (docs/audio.md); music id `stillroom_menu` plays on the menu and shelf. |

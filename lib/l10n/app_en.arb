@@ -228,5 +228,63 @@
   "hintKindling": "The candle for the next hint is still catching. Keep looking a little longer.",
   "@hintKindling": {
     "description": "Hint dialog while the next hint's candle is still burning (hints are paced)."
+  },
+  "keeperNoteTitle": "The keeper's note",
+  "@keeperNoteTitle": {
+    "description": "Heading of the keeper's note in a jar's dialog."
+  },
+  "keeperNoteFound": "You found one of the keeper's notes.",
+  "@keeperNoteFound": {
+    "description": "Shown when the player finds an episode's secret."
+  },
+  "wordNoted": "Noted: {word}",
+  "@wordNoted": {
+    "description": "Toast when the player notes a word from a text.",
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "deductionInstruction": "Write the jar's label: tap a blank, then a word you have noted.",
+  "@deductionInstruction": {
+    "description": "Instruction on the deduction (jar label) screen."
+  },
+  "deductionCheck": "Distil",
+  "@deductionCheck": {
+    "description": "Button that checks the deduction."
+  },
+  "deductionIncomplete": "Some blanks are still empty.",
+  "@deductionIncomplete": {
+    "description": "Deduction checked with empty blanks."
+  },
+  "deductionNearMiss": "{count, plural, =1{One of these is not right yet.} other{{count} of these are not right yet.}}",
+  "@deductionNearMiss": {
+    "description": "Deduction checked with a few wrong blanks.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "deductionWrong": "Something here is not right.",
+  "@deductionWrong": {
+    "description": "Deduction checked with many wrong blanks."
+  },
+  "deductionNoWords": "You have not noted any words yet. Tap the underlined words in what you read.",
+  "@deductionNoWords": {
+    "description": "Deduction screen when no words are noted."
+  },
+  "revealWipe": "Wipe it with your finger.",
+  "@revealWipe": {
+    "description": "Instruction on a wipe-to-reveal puzzle."
+  },
+  "revealRub": "Shade it with the pencil: rub with your finger.",
+  "@revealRub": {
+    "description": "Instruction on a rub-to-reveal puzzle."
+  },
+  "wordTapTip": "Tap an underlined word to note it down.",
+  "@wordTapTip": {
+    "description": "Shown under a text with underlined words until the player notes a first word."
   }
 }

@@ -25,6 +25,12 @@ final Map<String, ArtPainter> whitechapelArt = {
   '$_s/candles_close.png': (c, s) => _candleBoard(Art(c, s)),
   '$_s/street_map_close.png': (c, s) => _mapBoard(Art(c, s)),
   '$_s/frames_close.png': (c, s) => _framesBoard(Art(c, s)),
+  '$_s/label_close.png': (c, s) => jarLabelBoard(Art(c, s), _north.base),
+  // Reveal puzzles: what shows through, and the ash on top.
+  '$_o/fog_writing.png': (c, s) => _fogWritingBoard(Art(c, s)),
+  '$_o/fog_writing_sprite.png': (c, s) => _fogWriting(Art(c, s)),
+  '$_o/hearth_note.png': (c, s) => _hearthNote(Art(c, s)),
+  '$_o/hearth_ash.png': (c, s) => _ash(Art(c, s)),
   // Objects.
   '$_o/window_sprite.png': (c, s) => _window(Art(c, s)),
   '$_o/desk_sprite.png': (c, s) => _desk(Art(c, s)),
@@ -901,4 +907,184 @@ void _jar(Art a) {
   a
     ..fill(a.r(0.28, 0.08, 0.44, 0.09), StillroomPalette.walnutLight)
     ..rbox(a.r(0.3, 0, 0.4, 0.1), 3, const Color(0xFF7A5A3A), line: 0);
+}
+
+// ---------------------------------------------------------------------------
+// Reveal puzzles and the label
+
+/// The night street through the window, and what was written on the glass.
+void _fogWritingBoard(Art a) {
+  a
+    ..fade(
+      Offset.zero & a.size,
+      const Color(0xFF1B2226),
+      const Color(0xFF2E3833),
+    )
+    ..path(
+      a.poly([
+        a.p(0, 0.72),
+        a.p(0.12, 0.6),
+        a.p(0.2, 0.64),
+        a.p(0.26, 0.5),
+        a.p(0.31, 0.5),
+        a.p(0.33, 0.6),
+        a.p(0.5, 0.55),
+        a.p(0.62, 0.62),
+        a.p(0.74, 0.52),
+        a.p(0.8, 0.58),
+        a.p(1, 0.54),
+        a.p(1, 1),
+        a.p(0, 1),
+      ]),
+      const Color(0xFF111513),
+      line: 0,
+    )
+    ..glow(
+      a.p(0.14, 0.62),
+      a.size.width * 0.18,
+      StillroomPalette.gaslight,
+      strength: 0.4,
+    )
+    ..circle(a.p(0.14, 0.62), a.u * 1.2, StillroomPalette.gaslight, line: 0)
+    // Mullions.
+    ..wood(a.r(0.49, 0, 0.02, 1), grain: 0)
+    ..wood(a.r(0, 0.86, 1, 0.03), grain: 0);
+  // Words traced in the condensation from the inside, a little uneven.
+  const trace = Color(0xCCD7DED9);
+  a
+    ..script(
+      'Berner St.',
+      a.p(0.4, 0.4),
+      a.size.height * 0.12,
+      trace,
+      angle: -0.05,
+    )
+    ..script(
+      'Mitre Sq.',
+      a.p(0.6, 0.58),
+      a.size.height * 0.12,
+      trace,
+      angle: 0.03,
+    )
+    ..line(a.p(0.44, 0.49), a.p(0.52, 0.5), trace, width: 0.8);
+  for (final (x, y) in [(0.33, 0.47), (0.58, 0.66), (0.7, 0.64)]) {
+    a.line(a.p(x, y), a.p(x, y + 0.12), const Color(0x66D7DED9), width: 0.4);
+  }
+}
+
+/// On the window scene once wiped: a clear patch and the traced words.
+void _fogWriting(Art a) {
+  a
+    ..canvas.drawOval(
+      a.r(0.08, 0.3, 0.84, 0.42),
+      Paint()
+        ..color = const Color(0x88141A18)
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.u * 3),
+    )
+    ..script(
+      'Berner St.',
+      a.p(0.42, 0.44),
+      a.size.height * 0.08,
+      const Color(0xBBD7DED9),
+      angle: -0.05,
+    )
+    ..script(
+      'Mitre Sq.',
+      a.p(0.6, 0.57),
+      a.size.height * 0.08,
+      const Color(0xBBD7DED9),
+      angle: 0.03,
+    );
+}
+
+/// Soot-black hearth floor with a scrap the fire would not take.
+void _hearthNote(Art a) {
+  a.fade(
+    Offset.zero & a.size,
+    const Color(0xFF15110F),
+    const Color(0xFF221B17),
+  );
+  for (var i = 0; i < 7; i++) {
+    a.hairline(
+      a.p(0, i / 7 + 0.07),
+      a.p(1, i / 7 + 0.07),
+      const Color(0xFF2B231E),
+      0.6,
+    );
+  }
+  final scrap = a.poly([
+    a.p(0.33, 0.33),
+    a.p(0.45, 0.3),
+    a.p(0.58, 0.34),
+    a.p(0.67, 0.31),
+    a.p(0.69, 0.5),
+    a.p(0.65, 0.66),
+    a.p(0.52, 0.69),
+    a.p(0.4, 0.66),
+    a.p(0.31, 0.6),
+  ]);
+  a
+    ..path(scrap, const Color(0xFFCDBB94), line: 0)
+    ..canvas.drawPath(
+      scrap,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = a.u * 2.2
+        ..color = const Color(0xFF3B2414)
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.u * 0.8),
+    )
+    ..scrawl(
+      a.r(0.37, 0.37, 0.28, 0.26),
+      StillroomPalette.inkOnPaper,
+      lines: 5,
+      seed: 18,
+    );
+}
+
+/// Grey ash, heaped unevenly, a few embers still in it.
+void _ash(Art a) {
+  a.fill(Offset.zero & a.size, const Color(0xFF4A4541));
+  final random = math.Random(5);
+  for (var i = 0; i < 60; i++) {
+    a.canvas.drawCircle(
+      a.p(random.nextDouble(), random.nextDouble()),
+      a.u * (1 + random.nextDouble() * 5),
+      Paint()
+        ..color = Color.lerp(
+          const Color(0xFF34302D),
+          const Color(0xFF79726B),
+          random.nextDouble(),
+        )!.withValues(alpha: 0.6)
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.u),
+    );
+  }
+  for (var i = 0; i < 8; i++) {
+    final p = a.p(random.nextDouble(), random.nextDouble());
+    a
+      ..glow(p, a.u * 3, StillroomPalette.oxbloodBright, strength: 0.5)
+      ..circle(p, a.u * 0.4, StillroomPalette.gaslight, line: 0);
+  }
+}
+
+/// Behind the deduction screen: the jar's glass, close.
+void jarLabelBoard(Art a, Color wall) {
+  a
+    ..fill(Offset.zero & a.size, Color.lerp(wall, Art.outline, 0.5)!)
+    ..glow(
+      a.p(0.5, 0.5),
+      a.size.width * 0.6,
+      const Color(0xFF55605A),
+      strength: 0.25,
+    )
+    ..canvas.drawArc(
+      a.r(-0.2, -0.3, 1.4, 1.6),
+      3.5,
+      2.4,
+      false,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = a.u * 1.2
+        ..color = const Color(0x22FFFFFF),
+    )
+    ..hairline(a.p(0.08, 0.1), a.p(0.06, 0.9), const Color(0x18FFFFFF), 2);
 }

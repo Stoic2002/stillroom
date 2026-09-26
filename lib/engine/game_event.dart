@@ -99,3 +99,17 @@ final class ShakeEvent extends GameEvent {
 final class EpisodeEndedEvent extends GameEvent {
   const EpisodeEndedEvent();
 }
+
+/// The player noted down a word.
+final class WordNotedEvent extends GameEvent {
+  const WordNotedEvent(this.wordId);
+
+  final String wordId;
+}
+
+/// The episode's secret was found.
+final class SecretFoundEvent extends GameEvent {
+  const SecretFoundEvent(this.noteKey);
+
+  final String noteKey;
+}

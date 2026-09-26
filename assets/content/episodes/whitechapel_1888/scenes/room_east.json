@@ -129,6 +129,62 @@
         {
           "type": "showText",
           "key": "whitechapel_1888.hearth.look"
+        },
+        {
+          "type": "setFlag",
+          "flag": "hearth_seen",
+          "value": true
+        }
+      ],
+      "when": [
+        {
+          "flag": "hearth_seen",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "hearth_ash",
+      "rect": [
+        0.3,
+        0.55,
+        0.4,
+        0.35
+      ],
+      "when": [
+        {
+          "flag": "hearth_seen",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "hearth_ash",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "openPuzzle",
+          "puzzle": "hearth_ash"
+        }
+      ]
+    },
+    {
+      "id": "hearth_note",
+      "rect": [
+        0.3,
+        0.55,
+        0.4,
+        0.35
+      ],
+      "when": [
+        {
+          "puzzleSolved": "hearth_ash"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1888.keeper.note"
         }
       ]
     }

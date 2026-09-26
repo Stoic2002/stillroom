@@ -27,6 +27,12 @@ abstract class GameState with _$GameState {
     /// How many hints the player has revealed per hint group
     /// ([HintGroup.key]).
     @Default(<String, int>{}) Map<String, int> revealedHints,
+
+    /// Words the player has noted down ([WordDef] ids).
+    @Default(<String>{}) Set<String> words,
+
+    /// Whether the episode's secret has been found.
+    @Default(false) bool secretFound,
     @Default(false) bool completed,
   }) = _GameState;
 

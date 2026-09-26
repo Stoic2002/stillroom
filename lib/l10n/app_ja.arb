@@ -55,5 +55,17 @@
   "jarLockedTitle": "まだ開かない",
   "jarLocked": "{count, plural, other{この瓶を開けるには、あと{count}つの物語を蒸留しよう。}}",
   "languageKorean": "한국어",
-  "hintKindling": "次のヒントのろうそくは、まだ灯りきっていない。もう少し探してみよう。"
+  "hintKindling": "次のヒントのろうそくは、まだ灯りきっていない。もう少し探してみよう。",
+  "keeperNoteTitle": "番人の覚え書き",
+  "keeperNoteFound": "番人の覚え書きをひとつ見つけた。",
+  "wordNoted": "書き留めた：{word}",
+  "deductionInstruction": "瓶のラベルを書こう。空欄をタップし、書き留めた言葉を選ぶ。",
+  "deductionCheck": "蒸留する",
+  "deductionIncomplete": "まだ空欄がある。",
+  "deductionNearMiss": "{count, plural, other{まだ{count}つが正しくない。}}",
+  "deductionWrong": "どこかが正しくない。",
+  "deductionNoWords": "まだ何も書き留めていない。読んだ文の下線付きの言葉をタップしよう。",
+  "revealWipe": "指でぬぐおう。",
+  "revealRub": "鉛筆でこすろう。指でなぞる。",
+  "wordTapTip": "下線付きの言葉をタップすると書き留められる。"
 }

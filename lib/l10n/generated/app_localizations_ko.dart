@@ -183,4 +183,49 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get hintKindling => '다음 힌트의 촛불이 아직 붙는 중입니다. 조금 더 둘러보세요.';
+
+  @override
+  String get keeperNoteTitle => '관리인의 쪽지';
+
+  @override
+  String get keeperNoteFound => '관리인의 쪽지 하나를 찾았습니다.';
+
+  @override
+  String wordNoted(String word) {
+    return '기록함: $word';
+  }
+
+  @override
+  String get deductionInstruction => '유리병의 라벨을 쓰세요. 빈칸을 누른 다음, 기록해 둔 낱말을 누르세요.';
+
+  @override
+  String get deductionCheck => '증류하기';
+
+  @override
+  String get deductionIncomplete => '아직 빈칸이 남아 있습니다.';
+
+  @override
+  String deductionNearMiss(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '그중 $count개가 아직 맞지 않습니다.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get deductionWrong => '여기 무언가가 맞지 않습니다.';
+
+  @override
+  String get deductionNoWords => '아직 기록한 낱말이 없습니다. 읽은 글에서 밑줄 친 낱말을 누르세요.';
+
+  @override
+  String get revealWipe => '손가락으로 닦아 보세요.';
+
+  @override
+  String get revealRub => '연필로 칠해 보세요. 손가락으로 문지르세요.';
+
+  @override
+  String get wordTapTip => '밑줄 친 낱말을 누르면 기록할 수 있습니다.';
 }

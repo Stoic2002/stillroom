@@ -134,6 +134,34 @@
       ]
     },
     {
+      "id": "glass_label",
+      "rect": [
+        0.38,
+        0.06,
+        0.24,
+        0.4
+      ],
+      "when": [
+        {
+          "puzzleSolved": "stained_glass"
+        },
+        {
+          "puzzleSolved": "jar_label",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "lawang_sewu_1945.landing.label_needed"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "jar_label"
+        }
+      ]
+    },
+    {
       "id": "stairs",
       "rect": [
         0.3,

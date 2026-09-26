@@ -8,6 +8,7 @@ import '../../content/content_strings.dart';
 import '../../core/audio/ui_sound.dart';
 import '../../core/theme/stillroom_palette.dart';
 import '../../core/widgets/content_image.dart';
+import '../../core/widgets/marked_text.dart';
 import '../../debug/debug_settings.dart';
 import '../../engine/engine.dart';
 import '../../l10n/generated/app_localizations.dart';
@@ -138,12 +139,16 @@ class ExamineOverlay extends ConsumerWidget {
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 8),
-                  Text(
+                  MarkedText(
                     contentText(
                       session.episode.strings,
                       language,
                       item.descKey,
                     ),
+                    labelOf: (id) => session.wordLabel(language, id),
+                    isNoted: session.game.words.contains,
+                    onWord: notifier.noteWord,
+                    notedColor: StillroomPalette.gaslight,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ],

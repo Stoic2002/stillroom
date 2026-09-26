@@ -130,3 +130,28 @@ once solved; the 1907 office in warm sepia, the 1942 cellar in cold fog,
 1. Roles: driver, conductor, telegraphist, signalman, stationmaster: **kept**.
 2. The Battle of Five Days and Tugu Muda are **named explicitly**.
 3. Facts **verified online** (sources above) and used as puzzle material.
+
+## Words, touch and the secret (added 2026-09-26)
+
+- **Words:**
+  - the four stations of 1867 and the year, from the ledger's first page;
+  - 928, from the third page;
+  - Delft and Batavia, from the last page;
+  - 15 October 1945, from the calendar;
+  - "five", from the lockers.
+- **The telegram pad** (`telegram_pad`, reveal/rub): the top sheet is gone.
+  Shading the one below brings back the pressed-in form, which asks for the
+  company's initials.
+- **The jar's label** (`jar_label`, deduction): opens as soon as the glass
+  lights. Three sentences and seven blanks, with Alastua, Brumbung and
+  Batavia as decoys. Only one wrong blank is counted for the player
+  (`nearMiss: 1`), because this is a harder jar.
+  1. "The first railway of the Indies ran from {Samarang} to {Tanggung}, and
+     opened in {1867}."
+  2. "They called it a thousand doors, but there are {928}; its glass was made
+     in {Delft}."
+  3. "On {15 October 1945} the fighting began across the square, and {five} of
+     its workers did not come home."
+- **Secret:** after the player counts the doors (the locker-room lock), a
+  929th door appears far down the west corridor, with the keeper's note. The
+  note text is a draft.

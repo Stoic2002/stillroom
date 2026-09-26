@@ -21,7 +21,9 @@ mixin _$GameState {
  Set<String> get everHadItems;/// Current value of every declared flag. Values are `bool` or `int`.
  Map<String, Object> get flags; Set<String> get solvedPuzzles;/// How many hints the player has revealed per hint group
 /// ([HintGroup.key]).
- Map<String, int> get revealedHints; bool get completed;
+ Map<String, int> get revealedHints;/// Words the player has noted down ([WordDef] ids).
+ Set<String> get words;/// Whether the episode's secret has been found.
+ bool get secretFound; bool get completed;
 /// Create a copy of GameState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -34,16 +36,16 @@ $GameStateCopyWith<GameState> get copyWith => _$GameStateCopyWithImpl<GameState>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GameState&&(identical(other.episodeId, episodeId) || other.episodeId == episodeId)&&(identical(other.sceneId, sceneId) || other.sceneId == sceneId)&&const DeepCollectionEquality().equals(other.inventory, inventory)&&const DeepCollectionEquality().equals(other.everHadItems, everHadItems)&&const DeepCollectionEquality().equals(other.flags, flags)&&const DeepCollectionEquality().equals(other.solvedPuzzles, solvedPuzzles)&&const DeepCollectionEquality().equals(other.revealedHints, revealedHints)&&(identical(other.completed, completed) || other.completed == completed));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GameState&&(identical(other.episodeId, episodeId) || other.episodeId == episodeId)&&(identical(other.sceneId, sceneId) || other.sceneId == sceneId)&&const DeepCollectionEquality().equals(other.inventory, inventory)&&const DeepCollectionEquality().equals(other.everHadItems, everHadItems)&&const DeepCollectionEquality().equals(other.flags, flags)&&const DeepCollectionEquality().equals(other.solvedPuzzles, solvedPuzzles)&&const DeepCollectionEquality().equals(other.revealedHints, revealedHints)&&const DeepCollectionEquality().equals(other.words, words)&&(identical(other.secretFound, secretFound) || other.secretFound == secretFound)&&(identical(other.completed, completed) || other.completed == completed));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,episodeId,sceneId,const DeepCollectionEquality().hash(inventory),const DeepCollectionEquality().hash(everHadItems),const DeepCollectionEquality().hash(flags),const DeepCollectionEquality().hash(solvedPuzzles),const DeepCollectionEquality().hash(revealedHints),completed);
+int get hashCode => Object.hash(runtimeType,episodeId,sceneId,const DeepCollectionEquality().hash(inventory),const DeepCollectionEquality().hash(everHadItems),const DeepCollectionEquality().hash(flags),const DeepCollectionEquality().hash(solvedPuzzles),const DeepCollectionEquality().hash(revealedHints),const DeepCollectionEquality().hash(words),secretFound,completed);
 
 @override
 String toString() {
-  return 'GameState(episodeId: $episodeId, sceneId: $sceneId, inventory: $inventory, everHadItems: $everHadItems, flags: $flags, solvedPuzzles: $solvedPuzzles, revealedHints: $revealedHints, completed: $completed)';
+  return 'GameState(episodeId: $episodeId, sceneId: $sceneId, inventory: $inventory, everHadItems: $everHadItems, flags: $flags, solvedPuzzles: $solvedPuzzles, revealedHints: $revealedHints, words: $words, secretFound: $secretFound, completed: $completed)';
 }
 
 
@@ -54,7 +56,7 @@ abstract mixin class $GameStateCopyWith<$Res>  {
   factory $GameStateCopyWith(GameState value, $Res Function(GameState) _then) = _$GameStateCopyWithImpl;
 @useResult
 $Res call({
- String episodeId, String sceneId, List<String> inventory, Set<String> everHadItems, Map<String, Object> flags, Set<String> solvedPuzzles, Map<String, int> revealedHints, bool completed
+ String episodeId, String sceneId, List<String> inventory, Set<String> everHadItems, Map<String, Object> flags, Set<String> solvedPuzzles, Map<String, int> revealedHints, Set<String> words, bool secretFound, bool completed
 });
 
 
@@ -71,7 +73,7 @@ class _$GameStateCopyWithImpl<$Res>
 
 /// Create a copy of GameState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? episodeId = null,Object? sceneId = null,Object? inventory = null,Object? everHadItems = null,Object? flags = null,Object? solvedPuzzles = null,Object? revealedHints = null,Object? completed = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? episodeId = null,Object? sceneId = null,Object? inventory = null,Object? everHadItems = null,Object? flags = null,Object? solvedPuzzles = null,Object? revealedHints = null,Object? words = null,Object? secretFound = null,Object? completed = null,}) {
   return _then(_self.copyWith(
 episodeId: null == episodeId ? _self.episodeId : episodeId // ignore: cast_nullable_to_non_nullable
 as String,sceneId: null == sceneId ? _self.sceneId : sceneId // ignore: cast_nullable_to_non_nullable
@@ -80,7 +82,9 @@ as List<String>,everHadItems: null == everHadItems ? _self.everHadItems : everHa
 as Set<String>,flags: null == flags ? _self.flags : flags // ignore: cast_nullable_to_non_nullable
 as Map<String, Object>,solvedPuzzles: null == solvedPuzzles ? _self.solvedPuzzles : solvedPuzzles // ignore: cast_nullable_to_non_nullable
 as Set<String>,revealedHints: null == revealedHints ? _self.revealedHints : revealedHints // ignore: cast_nullable_to_non_nullable
-as Map<String, int>,completed: null == completed ? _self.completed : completed // ignore: cast_nullable_to_non_nullable
+as Map<String, int>,words: null == words ? _self.words : words // ignore: cast_nullable_to_non_nullable
+as Set<String>,secretFound: null == secretFound ? _self.secretFound : secretFound // ignore: cast_nullable_to_non_nullable
+as bool,completed: null == completed ? _self.completed : completed // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -166,10 +170,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String episodeId,  String sceneId,  List<String> inventory,  Set<String> everHadItems,  Map<String, Object> flags,  Set<String> solvedPuzzles,  Map<String, int> revealedHints,  bool completed)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String episodeId,  String sceneId,  List<String> inventory,  Set<String> everHadItems,  Map<String, Object> flags,  Set<String> solvedPuzzles,  Map<String, int> revealedHints,  Set<String> words,  bool secretFound,  bool completed)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _GameState() when $default != null:
-return $default(_that.episodeId,_that.sceneId,_that.inventory,_that.everHadItems,_that.flags,_that.solvedPuzzles,_that.revealedHints,_that.completed);case _:
+return $default(_that.episodeId,_that.sceneId,_that.inventory,_that.everHadItems,_that.flags,_that.solvedPuzzles,_that.revealedHints,_that.words,_that.secretFound,_that.completed);case _:
   return orElse();
 
 }
@@ -187,10 +191,10 @@ return $default(_that.episodeId,_that.sceneId,_that.inventory,_that.everHadItems
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String episodeId,  String sceneId,  List<String> inventory,  Set<String> everHadItems,  Map<String, Object> flags,  Set<String> solvedPuzzles,  Map<String, int> revealedHints,  bool completed)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String episodeId,  String sceneId,  List<String> inventory,  Set<String> everHadItems,  Map<String, Object> flags,  Set<String> solvedPuzzles,  Map<String, int> revealedHints,  Set<String> words,  bool secretFound,  bool completed)  $default,) {final _that = this;
 switch (_that) {
 case _GameState():
-return $default(_that.episodeId,_that.sceneId,_that.inventory,_that.everHadItems,_that.flags,_that.solvedPuzzles,_that.revealedHints,_that.completed);case _:
+return $default(_that.episodeId,_that.sceneId,_that.inventory,_that.everHadItems,_that.flags,_that.solvedPuzzles,_that.revealedHints,_that.words,_that.secretFound,_that.completed);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -207,10 +211,10 @@ return $default(_that.episodeId,_that.sceneId,_that.inventory,_that.everHadItems
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String episodeId,  String sceneId,  List<String> inventory,  Set<String> everHadItems,  Map<String, Object> flags,  Set<String> solvedPuzzles,  Map<String, int> revealedHints,  bool completed)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String episodeId,  String sceneId,  List<String> inventory,  Set<String> everHadItems,  Map<String, Object> flags,  Set<String> solvedPuzzles,  Map<String, int> revealedHints,  Set<String> words,  bool secretFound,  bool completed)?  $default,) {final _that = this;
 switch (_that) {
 case _GameState() when $default != null:
-return $default(_that.episodeId,_that.sceneId,_that.inventory,_that.everHadItems,_that.flags,_that.solvedPuzzles,_that.revealedHints,_that.completed);case _:
+return $default(_that.episodeId,_that.sceneId,_that.inventory,_that.everHadItems,_that.flags,_that.solvedPuzzles,_that.revealedHints,_that.words,_that.secretFound,_that.completed);case _:
   return null;
 
 }
@@ -222,7 +226,7 @@ return $default(_that.episodeId,_that.sceneId,_that.inventory,_that.everHadItems
 @JsonSerializable()
 
 class _GameState extends GameState {
-  const _GameState({required this.episodeId, required this.sceneId, final  List<String> inventory = const <String>[], final  Set<String> everHadItems = const <String>{}, final  Map<String, Object> flags = const <String, Object>{}, final  Set<String> solvedPuzzles = const <String>{}, final  Map<String, int> revealedHints = const <String, int>{}, this.completed = false}): _inventory = inventory,_everHadItems = everHadItems,_flags = flags,_solvedPuzzles = solvedPuzzles,_revealedHints = revealedHints,super._();
+  const _GameState({required this.episodeId, required this.sceneId, final  List<String> inventory = const <String>[], final  Set<String> everHadItems = const <String>{}, final  Map<String, Object> flags = const <String, Object>{}, final  Set<String> solvedPuzzles = const <String>{}, final  Map<String, int> revealedHints = const <String, int>{}, final  Set<String> words = const <String>{}, this.secretFound = false, this.completed = false}): _inventory = inventory,_everHadItems = everHadItems,_flags = flags,_solvedPuzzles = solvedPuzzles,_revealedHints = revealedHints,_words = words,super._();
   factory _GameState.fromJson(Map<String, dynamic> json) => _$GameStateFromJson(json);
 
 @override final  String episodeId;
@@ -274,6 +278,17 @@ class _GameState extends GameState {
   return EqualUnmodifiableMapView(_revealedHints);
 }
 
+/// Words the player has noted down ([WordDef] ids).
+ final  Set<String> _words;
+/// Words the player has noted down ([WordDef] ids).
+@override@JsonKey() Set<String> get words {
+  if (_words is EqualUnmodifiableSetView) return _words;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableSetView(_words);
+}
+
+/// Whether the episode's secret has been found.
+@override@JsonKey() final  bool secretFound;
 @override@JsonKey() final  bool completed;
 
 /// Create a copy of GameState
@@ -289,16 +304,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GameState&&(identical(other.episodeId, episodeId) || other.episodeId == episodeId)&&(identical(other.sceneId, sceneId) || other.sceneId == sceneId)&&const DeepCollectionEquality().equals(other._inventory, _inventory)&&const DeepCollectionEquality().equals(other._everHadItems, _everHadItems)&&const DeepCollectionEquality().equals(other._flags, _flags)&&const DeepCollectionEquality().equals(other._solvedPuzzles, _solvedPuzzles)&&const DeepCollectionEquality().equals(other._revealedHints, _revealedHints)&&(identical(other.completed, completed) || other.completed == completed));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GameState&&(identical(other.episodeId, episodeId) || other.episodeId == episodeId)&&(identical(other.sceneId, sceneId) || other.sceneId == sceneId)&&const DeepCollectionEquality().equals(other._inventory, _inventory)&&const DeepCollectionEquality().equals(other._everHadItems, _everHadItems)&&const DeepCollectionEquality().equals(other._flags, _flags)&&const DeepCollectionEquality().equals(other._solvedPuzzles, _solvedPuzzles)&&const DeepCollectionEquality().equals(other._revealedHints, _revealedHints)&&const DeepCollectionEquality().equals(other._words, _words)&&(identical(other.secretFound, secretFound) || other.secretFound == secretFound)&&(identical(other.completed, completed) || other.completed == completed));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,episodeId,sceneId,const DeepCollectionEquality().hash(_inventory),const DeepCollectionEquality().hash(_everHadItems),const DeepCollectionEquality().hash(_flags),const DeepCollectionEquality().hash(_solvedPuzzles),const DeepCollectionEquality().hash(_revealedHints),completed);
+int get hashCode => Object.hash(runtimeType,episodeId,sceneId,const DeepCollectionEquality().hash(_inventory),const DeepCollectionEquality().hash(_everHadItems),const DeepCollectionEquality().hash(_flags),const DeepCollectionEquality().hash(_solvedPuzzles),const DeepCollectionEquality().hash(_revealedHints),const DeepCollectionEquality().hash(_words),secretFound,completed);
 
 @override
 String toString() {
-  return 'GameState(episodeId: $episodeId, sceneId: $sceneId, inventory: $inventory, everHadItems: $everHadItems, flags: $flags, solvedPuzzles: $solvedPuzzles, revealedHints: $revealedHints, completed: $completed)';
+  return 'GameState(episodeId: $episodeId, sceneId: $sceneId, inventory: $inventory, everHadItems: $everHadItems, flags: $flags, solvedPuzzles: $solvedPuzzles, revealedHints: $revealedHints, words: $words, secretFound: $secretFound, completed: $completed)';
 }
 
 
@@ -309,7 +324,7 @@ abstract mixin class _$GameStateCopyWith<$Res> implements $GameStateCopyWith<$Re
   factory _$GameStateCopyWith(_GameState value, $Res Function(_GameState) _then) = __$GameStateCopyWithImpl;
 @override @useResult
 $Res call({
- String episodeId, String sceneId, List<String> inventory, Set<String> everHadItems, Map<String, Object> flags, Set<String> solvedPuzzles, Map<String, int> revealedHints, bool completed
+ String episodeId, String sceneId, List<String> inventory, Set<String> everHadItems, Map<String, Object> flags, Set<String> solvedPuzzles, Map<String, int> revealedHints, Set<String> words, bool secretFound, bool completed
 });
 
 
@@ -326,7 +341,7 @@ class __$GameStateCopyWithImpl<$Res>
 
 /// Create a copy of GameState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? episodeId = null,Object? sceneId = null,Object? inventory = null,Object? everHadItems = null,Object? flags = null,Object? solvedPuzzles = null,Object? revealedHints = null,Object? completed = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? episodeId = null,Object? sceneId = null,Object? inventory = null,Object? everHadItems = null,Object? flags = null,Object? solvedPuzzles = null,Object? revealedHints = null,Object? words = null,Object? secretFound = null,Object? completed = null,}) {
   return _then(_GameState(
 episodeId: null == episodeId ? _self.episodeId : episodeId // ignore: cast_nullable_to_non_nullable
 as String,sceneId: null == sceneId ? _self.sceneId : sceneId // ignore: cast_nullable_to_non_nullable
@@ -335,7 +350,9 @@ as List<String>,everHadItems: null == everHadItems ? _self._everHadItems : everH
 as Set<String>,flags: null == flags ? _self._flags : flags // ignore: cast_nullable_to_non_nullable
 as Map<String, Object>,solvedPuzzles: null == solvedPuzzles ? _self._solvedPuzzles : solvedPuzzles // ignore: cast_nullable_to_non_nullable
 as Set<String>,revealedHints: null == revealedHints ? _self._revealedHints : revealedHints // ignore: cast_nullable_to_non_nullable
-as Map<String, int>,completed: null == completed ? _self.completed : completed // ignore: cast_nullable_to_non_nullable
+as Map<String, int>,words: null == words ? _self._words : words // ignore: cast_nullable_to_non_nullable
+as Set<String>,secretFound: null == secretFound ? _self.secretFound : secretFound // ignore: cast_nullable_to_non_nullable
+as bool,completed: null == completed ? _self.completed : completed // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

@@ -443,6 +443,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The candle for the next hint is still catching. Keep looking a little longer.'**
   String get hintKindling;
+
+  /// Heading of the keeper's note in a jar's dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'The keeper\'s note'**
+  String get keeperNoteTitle;
+
+  /// Shown when the player finds an episode's secret.
+  ///
+  /// In en, this message translates to:
+  /// **'You found one of the keeper\'s notes.'**
+  String get keeperNoteFound;
+
+  /// Toast when the player notes a word from a text.
+  ///
+  /// In en, this message translates to:
+  /// **'Noted: {word}'**
+  String wordNoted(String word);
+
+  /// Instruction on the deduction (jar label) screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Write the jar\'s label: tap a blank, then a word you have noted.'**
+  String get deductionInstruction;
+
+  /// Button that checks the deduction.
+  ///
+  /// In en, this message translates to:
+  /// **'Distil'**
+  String get deductionCheck;
+
+  /// Deduction checked with empty blanks.
+  ///
+  /// In en, this message translates to:
+  /// **'Some blanks are still empty.'**
+  String get deductionIncomplete;
+
+  /// Deduction checked with a few wrong blanks.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{One of these is not right yet.} other{{count} of these are not right yet.}}'**
+  String deductionNearMiss(int count);
+
+  /// Deduction checked with many wrong blanks.
+  ///
+  /// In en, this message translates to:
+  /// **'Something here is not right.'**
+  String get deductionWrong;
+
+  /// Deduction screen when no words are noted.
+  ///
+  /// In en, this message translates to:
+  /// **'You have not noted any words yet. Tap the underlined words in what you read.'**
+  String get deductionNoWords;
+
+  /// Instruction on a wipe-to-reveal puzzle.
+  ///
+  /// In en, this message translates to:
+  /// **'Wipe it with your finger.'**
+  String get revealWipe;
+
+  /// Instruction on a rub-to-reveal puzzle.
+  ///
+  /// In en, this message translates to:
+  /// **'Shade it with the pencil: rub with your finger.'**
+  String get revealRub;
+
+  /// Shown under a text with underlined words until the player notes a first word.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap an underlined word to note it down.'**
+  String get wordTapTip;
 }
 
 class _AppLocalizationsDelegate

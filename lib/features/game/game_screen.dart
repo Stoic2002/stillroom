@@ -18,6 +18,7 @@ import 'flame/stillroom_game.dart';
 import 'widgets/ending_overlay.dart';
 import 'widgets/exit_buttons.dart';
 import 'widgets/game_effects.dart';
+import 'widgets/game_toasts.dart';
 import 'widgets/hint_button.dart';
 import 'widgets/text_box.dart';
 
@@ -168,6 +169,7 @@ class _GameView extends StatelessWidget {
           logicalHeight: config.logicalHeight,
           child: TextBox(episodeId: episodeId),
         ),
+        GameToasts(episodeId: episodeId),
         EndingOverlay(episodeId: episodeId),
         GameEffects(
           episodeId: episodeId,

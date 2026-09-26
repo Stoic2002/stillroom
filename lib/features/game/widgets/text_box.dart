@@ -4,10 +4,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../content/content_strings.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/stillroom_palette.dart';
+import '../../../core/widgets/marked_text.dart';
+import '../../../engine/engine.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../../../state/game_session.dart';
 
 /// Shows the first queued text on a scrap of aged paper (PRD FR-07). While
-/// it is up, any tap closes it and nothing underneath reacts.
+/// it is up, any tap closes it and nothing underneath reacts, except a tap
+/// on a marked word, which notes the word down.
 class TextBox extends ConsumerWidget {
   const TextBox({required this.episodeId, super.key});
 
@@ -20,14 +24,20 @@ class TextBox extends ConsumerWidget {
     final key = session?.currentText;
     if (session == null || key == null) return const SizedBox.shrink();
 
-    final text = contentText(
-      session.episode.strings,
-      Localizations.localeOf(context).languageCode,
-      key,
-    );
+    final language = Localizations.localeOf(context).languageCode;
+    final text = contentText(session.episode.strings, language, key);
+    final notifier = ref.read(provider.notifier);
+    // Until the player notes a first word, say how.
+    final given = {
+      for (final w in session.engine.content.config.words.values)
+        if (w.given) w.id,
+    };
+    final showTip =
+        markedWords(text).isNotEmpty &&
+        session.game.words.difference(given).isEmpty;
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: ref.read(provider.notifier).dismissText,
+      onTap: notifier.dismissText,
       child: Align(
         alignment: Alignment.bottomCenter,
         child: Padding(
@@ -44,14 +54,38 @@ class TextBox extends ConsumerWidget {
                     padding: const EdgeInsets.fromLTRB(22, 16, 22, 22),
                     child: SizedBox(
                       width: double.infinity,
-                      child: Text(
-                        text,
-                        style: const TextStyle(
-                          fontFamily: AppTheme.serif,
-                          fontSize: 18,
-                          height: 1.4,
-                          color: StillroomPalette.inkOnPaper,
-                        ),
+                      // Marked words can be tapped to note them; a tap
+                      // anywhere else closes the text.
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          MarkedText(
+                            text,
+                            labelOf: (id) => session.wordLabel(language, id),
+                            isNoted: session.game.words.contains,
+                            onWord: notifier.noteWord,
+                            style: const TextStyle(
+                              fontFamily: AppTheme.serif,
+                              fontSize: 18,
+                              height: 1.4,
+                              color: StillroomPalette.inkOnPaper,
+                            ),
+                          ),
+                          if (showTip)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8),
+                              child: Text(
+                                AppLocalizations.of(context).wordTapTip,
+                                style: const TextStyle(
+                                  fontFamily: AppTheme.serif,
+                                  fontStyle: FontStyle.italic,
+                                  fontSize: 14,
+                                  color: StillroomPalette.faded,
+                                ),
+                              ),
+                            ),
+                        ],
                       ),
                     ),
                   ),

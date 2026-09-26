@@ -55,5 +55,17 @@
   "jarLockedTitle": "尚未开启",
   "jarLocked": "{count, plural, other{再蒸馏{count}个故事，即可打开这个瓶子。}}",
   "languageKorean": "한국어",
-  "hintKindling": "下一条提示的蜡烛还没有点亮。再四处找找吧。"
+  "hintKindling": "下一条提示的蜡烛还没有点亮。再四处找找吧。",
+  "keeperNoteTitle": "看守者的字条",
+  "keeperNoteFound": "你找到了看守者的一张字条。",
+  "wordNoted": "已记下：{word}",
+  "deductionInstruction": "写下瓶子的标签：点一个空格，再点一个你记下的词。",
+  "deductionCheck": "蒸馏",
+  "deductionIncomplete": "还有空格没有填。",
+  "deductionNearMiss": "{count, plural, other{其中还有{count}处不对。}}",
+  "deductionWrong": "这里有些地方不对。",
+  "deductionNoWords": "你还没有记下任何词。点一下所读文字中带下划线的词。",
+  "revealWipe": "用手指擦一擦。",
+  "revealRub": "用铅笔涂一涂：用手指来回擦。",
+  "wordTapTip": "点一下带下划线的词，就能把它记下来。"
 }

@@ -42,6 +42,35 @@
           "key": "lawang_sewu_1945.corridor.endless"
         }
       ]
+    },
+    {
+      "id": "door_929",
+      "rect": [
+        0.465,
+        0.36,
+        0.07,
+        0.2
+      ],
+      "when": [
+        {
+          "puzzleSolved": "locker_door"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "door_rattle"
+        },
+        {
+          "type": "setFlag",
+          "flag": "found_929",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "lawang_sewu_1945.corridor.door_929"
+        }
+      ]
     }
   ],
   "layers": [
@@ -63,6 +92,21 @@
         0.18,
         0.18,
         0.66
+      ]
+    },
+    {
+      "id": "door_929_sprite",
+      "image": "images/objects/lawang_sewu_1945/door_929_sprite.png",
+      "rect": [
+        0.465,
+        0.36,
+        0.07,
+        0.2
+      ],
+      "when": [
+        {
+          "puzzleSolved": "locker_door"
+        }
       ]
     }
   ]

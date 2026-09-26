@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import '../theme/stillroom_palette.dart';
 import 'art_kit.dart';
+import 'whitechapel_1888_art.dart' show jarLabelBoard;
 
 /// Code-drawn stand-in art for "Semarang, 1945" (Lawang Sewu), keyed by the
 /// image paths in the episode's JSON. A real file at the same path wins.
@@ -16,6 +17,9 @@ const _o = 'images/objects/lawang_sewu_1945';
 const _i = 'images/items/lawang_sewu_1945';
 
 final Map<String, ArtPainter> lawangSewuArt = {
+  '$_s/label_close.png': (c, s) => jarLabelBoard(Art(c, s), _wall),
+  '$_o/telegram_pad_rubbed.png': (c, s) => _telegramRubbed(Art(c, s)),
+  '$_o/door_929_sprite.png': (c, s) => _door929(Art(c, s)),
   // Scenes.
   '$_s/landing.png': (c, s) => _landing(Art(c, s)),
   '$_s/corridor_west.png': (c, s) => _corridor(Art(c, s)),
@@ -1097,4 +1101,55 @@ void _jar(Art a) {
   a
     ..fill(a.r(0.28, 0.08, 0.44, 0.09), StillroomPalette.walnutLight)
     ..rbox(a.r(0.3, 0, 0.4, 0.1), 3, const Color(0xFF7A5A3A), line: 0);
+}
+
+// ---------------------------------------------------------------------------
+// Reveal puzzle and the secret door
+
+/// A telegram pad shaded with pencil: the pressed-in writing shows white.
+void _telegramRubbed(Art a) {
+  a.fill(Offset.zero & a.size, const Color(0xFF3C3C3E));
+  final random = math.Random(9);
+  for (var i = 0; i < 260; i++) {
+    final p = a.p(random.nextDouble(), random.nextDouble());
+    a.hairline(p, p + Offset(a.u * 6, -a.u * 3), const Color(0x33101012), 0.5);
+  }
+  const pressed = Color(0xDDE9E6DC);
+  a
+    ..label(
+      'TELEGRAM',
+      a.p(0.5, 0.2),
+      a.size.height * 0.06,
+      const Color(0x99E9E6DC),
+    )
+    ..hairline(a.p(0.2, 0.26), a.p(0.8, 0.26), const Color(0x88E9E6DC), 0.5)
+    ..scrawl(
+      a.r(0.22, 0.3, 0.56, 0.36),
+      pressed,
+      lines: 4,
+      seed: 29,
+      width: 0.6,
+    );
+}
+
+/// Door 929: smaller than the rest, no year, only a number.
+void _door929(Art a) {
+  a
+    ..glow(
+      a.p(0.5, 0.5),
+      a.size.width * 0.9,
+      const Color(0xFF9FB3A8),
+      strength: 0.12,
+    )
+    ..box(a.r(0.1, 0.05, 0.8, 0.95), _teakDark, line: 0.6)
+    ..box(a.r(0.2, 0.14, 0.6, 0.34), _teak, line: 0.3)
+    ..box(a.r(0.2, 0.54, 0.6, 0.34), _teak, line: 0.3)
+    ..box(a.r(0.3, 0.02, 0.4, 0.1), StillroomPalette.paperShade, line: 0.3)
+    ..label(
+      '929',
+      a.p(0.5, 0.07),
+      a.size.height * 0.07,
+      StillroomPalette.inkOnPaper,
+    )
+    ..circle(a.p(0.76, 0.56), a.u * 2, StillroomPalette.brass, line: 0.3);
 }

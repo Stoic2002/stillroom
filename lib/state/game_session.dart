@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../content/content_strings.dart';
 import '../core/services/hint_gate.dart';
-
 import '../engine/engine.dart';
 import 'content_providers.dart';
 import 'save_repository.dart';
@@ -46,6 +46,14 @@ final class GameSessionState {
   final int revision;
 
   String? get currentText => texts.firstOrNull;
+
+  /// How word [wordId] reads in [languageCode].
+  String wordLabel(String languageCode, String wordId) {
+    final key = engine.content.config.words[wordId]?.labelKey;
+    return key == null
+        ? wordId
+        : contentText(episode.strings, languageCode, key);
+  }
 
   GameSessionState _next({
     GameState? game,
@@ -270,6 +278,14 @@ class GameSession extends _$GameSession {
     return true;
   }
 
+  /// Notes down a word the player tapped in a text (`[[id]]`). Works while
+  /// the text is showing.
+  void noteWord(String wordId) {
+    final session = _ready;
+    if (session == null) return;
+    _apply(session, session.engine.noteWord(session.game, wordId));
+  }
+
   /// Closes the text box on screen and shows the next queued one, if any.
   void dismissText() {
     final session = _ready;
@@ -336,6 +352,10 @@ class GameSession extends _$GameSession {
           examined = () => itemId;
         case OpenPuzzleEvent(:final puzzleId):
           puzzle = () => puzzleId;
+        case SecretFoundEvent(:final noteKey):
+          ref
+              .read(saveRepositoryProvider.notifier)
+              .recordKeeperNote(episodeId, noteKey);
         default:
           break;
       }

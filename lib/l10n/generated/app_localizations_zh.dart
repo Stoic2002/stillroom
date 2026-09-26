@@ -182,4 +182,49 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get hintKindling => '下一条提示的蜡烛还没有点亮。再四处找找吧。';
+
+  @override
+  String get keeperNoteTitle => '看守者的字条';
+
+  @override
+  String get keeperNoteFound => '你找到了看守者的一张字条。';
+
+  @override
+  String wordNoted(String word) {
+    return '已记下：$word';
+  }
+
+  @override
+  String get deductionInstruction => '写下瓶子的标签：点一个空格，再点一个你记下的词。';
+
+  @override
+  String get deductionCheck => '蒸馏';
+
+  @override
+  String get deductionIncomplete => '还有空格没有填。';
+
+  @override
+  String deductionNearMiss(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '其中还有$count处不对。',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get deductionWrong => '这里有些地方不对。';
+
+  @override
+  String get deductionNoWords => '你还没有记下任何词。点一下所读文字中带下划线的词。';
+
+  @override
+  String get revealWipe => '用手指擦一擦。';
+
+  @override
+  String get revealRub => '用铅笔涂一涂：用手指来回擦。';
+
+  @override
+  String get wordTapTip => '点一下带下划线的词，就能把它记下来。';
 }

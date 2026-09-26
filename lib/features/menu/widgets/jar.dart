@@ -16,6 +16,7 @@ class Jar extends StatelessWidget {
     this.sealed = false,
     this.locked = false,
     this.distilled = false,
+    this.keeperNote = false,
     this.series,
     this.onTap,
     super.key,
@@ -36,6 +37,9 @@ class Jar extends StatelessWidget {
 
   /// Completed: wax seal on the label.
   final bool distilled;
+
+  /// Its secret was found: a small brass star glints on the glass.
+  final bool keeperNote;
 
   /// Jars of one series wear a ribbon of the same colour at the neck.
   final String? series;
@@ -84,6 +88,25 @@ class Jar extends StatelessWidget {
                         id,
                         background: false,
                       ).withValues(alpha: 1),
+                    ),
+                  ),
+                if (keeperNote)
+                  Positioned(
+                    top: size.height * 0.24,
+                    right: size.width * 0.22,
+                    child: const Text(
+                      '✦',
+                      key: ValueKey('keeper_mark'),
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: StillroomPalette.gaslight,
+                        shadows: [
+                          Shadow(
+                            color: StillroomPalette.gaslight,
+                            blurRadius: 8,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 if (locked)

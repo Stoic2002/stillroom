@@ -4,7 +4,8 @@
     "drawer_open": false,
     "candles_ready": false,
     "letter_unfolded": false,
-    "names_restored": false
+    "names_restored": false,
+    "hearth_seen": false
   },
   "logicalResolution": [
     1920,
@@ -15,7 +16,7 @@
   "music": "whitechapel_fog",
   "hintStages": [
     {
-      "id": "leave",
+      "id": "write_label",
       "when": [
         {
           "flag": "names_restored",
@@ -24,7 +25,10 @@
       ],
       "hints": [
         {
-          "key": "hint.whitechapel_1888.leave.1"
+          "key": "hint.whitechapel_1888.write_label.1"
+        },
+        {
+          "key": "hint.whitechapel_1888.write_label.2"
         }
       ]
     },
@@ -104,8 +108,86 @@
         },
         {
           "key": "hint.whitechapel_1888.find_names.2"
+        },
+        {
+          "key": "hint.whitechapel_1888.find_names.3"
         }
       ]
     }
-  ]
+  ],
+  "words": [
+    {
+      "id": "nichols",
+      "labelKey": "item.whitechapel_1888.name_card_nichols.name",
+      "kind": "name"
+    },
+    {
+      "id": "chapman",
+      "labelKey": "item.whitechapel_1888.name_card_chapman.name",
+      "kind": "name"
+    },
+    {
+      "id": "stride",
+      "labelKey": "item.whitechapel_1888.name_card_stride.name",
+      "kind": "name"
+    },
+    {
+      "id": "eddowes",
+      "labelKey": "item.whitechapel_1888.name_card_eddowes.name",
+      "kind": "name"
+    },
+    {
+      "id": "kelly",
+      "labelKey": "item.whitechapel_1888.name_card_kelly.name",
+      "kind": "name"
+    },
+    {
+      "id": "bucks_row",
+      "labelKey": "whitechapel_1888.street.bucks_row",
+      "kind": "place"
+    },
+    {
+      "id": "hanbury_street",
+      "labelKey": "whitechapel_1888.street.hanbury_street",
+      "kind": "place"
+    },
+    {
+      "id": "berner_street",
+      "labelKey": "whitechapel_1888.street.berner_street",
+      "kind": "place"
+    },
+    {
+      "id": "mitre_square",
+      "labelKey": "whitechapel_1888.street.mitre_square",
+      "kind": "place"
+    },
+    {
+      "id": "millers_court",
+      "labelKey": "whitechapel_1888.street.millers_court",
+      "kind": "place"
+    },
+    {
+      "id": "aug31",
+      "labelKey": "whitechapel_1888.frame.aug31",
+      "kind": "date"
+    },
+    {
+      "id": "sep08",
+      "labelKey": "whitechapel_1888.frame.sep08",
+      "kind": "date"
+    },
+    {
+      "id": "nov09",
+      "labelKey": "whitechapel_1888.frame.nov09",
+      "kind": "date"
+    }
+  ],
+  "secret": {
+    "when": [
+      {
+        "puzzleSolved": "hearth_ash"
+      }
+    ],
+    "noteKey": "whitechapel_1888.keeper.note"
+  }
 }

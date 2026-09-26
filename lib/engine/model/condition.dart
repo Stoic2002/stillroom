@@ -14,6 +14,7 @@ sealed class Condition {
   /// - `{ "hasItem": "id", "equals": true }` (currently held)
   /// - `{ "everHadItem": "id", "equals": true }` (ever picked up)
   /// - `{ "puzzleSolved": "id", "equals": true }`
+  /// - `{ "wordNoted": "id", "equals": true }` (a word the player noted)
   ///
   /// `equals` is required for `flag` and defaults to `true` otherwise.
   factory Condition.fromJson(JsonReader json) {
@@ -35,6 +36,7 @@ sealed class Condition {
     return switch (subject) {
       'hasItem' => HasItemCondition(id, expected: expected),
       'everHadItem' => EverHadItemCondition(id, expected: expected),
+      'wordNoted' => WordNotedCondition(id, expected: expected),
       _ => PuzzleSolvedCondition(id, expected: expected),
     };
   }
@@ -44,6 +46,7 @@ sealed class Condition {
     'hasItem',
     'everHadItem',
     'puzzleSolved',
+    'wordNoted',
   ];
 
   static List<Condition> listFromJson(JsonReader parent, String key) => [
@@ -113,6 +116,19 @@ final class PuzzleSolvedCondition extends Condition {
   @override
   bool isMet(GameState state) =>
       state.solvedPuzzles.contains(puzzleId) == expected;
+}
+
+final class WordNotedCondition extends Condition {
+  const WordNotedCondition(this.wordId, {this.expected = true});
+
+  final String wordId;
+  final bool expected;
+
+  @override
+  ContentRef get reference => ContentRef.word(wordId);
+
+  @override
+  bool isMet(GameState state) => state.words.contains(wordId) == expected;
 }
 
 extension ConditionListX on List<Condition> {

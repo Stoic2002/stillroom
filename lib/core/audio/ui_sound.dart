@@ -48,7 +48,19 @@ enum UiSound {
   step('step', Haptic.none),
 
   /// A jar is opened on the shelf.
-  jarOpen('jar_open', Haptic.light);
+  jarOpen('jar_open', Haptic.light),
+
+  /// A word is noted down: a pencil scratch.
+  note('note', Haptic.selection),
+
+  /// The keeper's note is found.
+  secret('secret', Haptic.medium),
+
+  /// A finger wipes fog, dust or ash.
+  wipe('wipe', Haptic.none),
+
+  /// A pencil shades paper.
+  rub('rub', Haptic.none);
 
   const UiSound(this.id, this.haptic);
 

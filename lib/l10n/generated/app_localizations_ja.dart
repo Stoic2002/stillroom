@@ -182,4 +182,49 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get hintKindling => '次のヒントのろうそくは、まだ灯りきっていない。もう少し探してみよう。';
+
+  @override
+  String get keeperNoteTitle => '番人の覚え書き';
+
+  @override
+  String get keeperNoteFound => '番人の覚え書きをひとつ見つけた。';
+
+  @override
+  String wordNoted(String word) {
+    return '書き留めた：$word';
+  }
+
+  @override
+  String get deductionInstruction => '瓶のラベルを書こう。空欄をタップし、書き留めた言葉を選ぶ。';
+
+  @override
+  String get deductionCheck => '蒸留する';
+
+  @override
+  String get deductionIncomplete => 'まだ空欄がある。';
+
+  @override
+  String deductionNearMiss(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'まだ$countつが正しくない。',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get deductionWrong => 'どこかが正しくない。';
+
+  @override
+  String get deductionNoWords => 'まだ何も書き留めていない。読んだ文の下線付きの言葉をタップしよう。';
+
+  @override
+  String get revealWipe => '指でぬぐおう。';
+
+  @override
+  String get revealRub => '鉛筆でこすろう。指でなぞる。';
+
+  @override
+  String get wordTapTip => '下線付きの言葉をタップすると書き留められる。';
 }

@@ -1,6 +1,7 @@
 import '../json/json_reader.dart';
 import 'condition.dart';
 import 'puzzle.dart';
+import 'word.dart';
 
 enum ScreenOrientation { landscape, portrait }
 
@@ -15,6 +16,8 @@ final class GameConfig {
     this.sceneTransitionMs = defaultSceneTransitionMs,
     this.music,
     this.hintStages = const [],
+    this.words = const {},
+    this.secret,
   });
 
   factory GameConfig.fromJson(JsonReader json) {
@@ -26,6 +29,8 @@ final class GameConfig {
       'sceneTransitionMs',
       'music',
       'hintStages',
+      'words',
+      'secret',
     });
     final flagsJson = json.object('flags');
     final flags = <String, Object>{};
@@ -61,6 +66,15 @@ final class GameConfig {
         json.fail('duplicate id "${s.id}"', 'hintStages');
       }
     }
+    final words = <String, WordDef>{};
+    for (final w in json.objects('words', optional: true)) {
+      final word = WordDef.fromJson(w);
+      if (words.containsKey(word.id)) {
+        json.fail('duplicate id "${word.id}"', 'words');
+      }
+      words[word.id] = word;
+    }
+    final secret = json.optionalObject('secret');
     return GameConfig(
       startScene: json.string('startScene'),
       flags: Map.unmodifiable(flags),
@@ -70,6 +84,8 @@ final class GameConfig {
       sceneTransitionMs: transitionMs,
       music: json.optionalString('music'),
       hintStages: List.unmodifiable(stages),
+      words: Map.unmodifiable(words),
+      secret: secret == null ? null : SecretDef.fromJson(secret),
     );
   }
 
@@ -93,6 +109,12 @@ final class GameConfig {
   /// Hints outside puzzles, by stage of the episode. The first stage whose
   /// `when` is met is the current one.
   final List<HintStage> hintStages;
+
+  /// Words the player can note down, by id, in declaration order.
+  final Map<String, WordDef> words;
+
+  /// The episode's optional secret.
+  final SecretDef? secret;
 }
 
 /// A step of the episode with its own hints (PRD FR-08: "tahap").

@@ -55,5 +55,17 @@
   "jarLockedTitle": "Todavía no",
   "jarLocked": "{count, plural, =1{Destila un relato más para abrir este frasco.} other{Destila {count} relatos más para abrir este frasco.}}",
   "languageKorean": "한국어",
-  "hintKindling": "La vela de la siguiente pista aún está prendiendo. Sigue buscando un poco más."
+  "hintKindling": "La vela de la siguiente pista aún está prendiendo. Sigue buscando un poco más.",
+  "keeperNoteTitle": "La nota del guardián",
+  "keeperNoteFound": "Has encontrado una de las notas del guardián.",
+  "wordNoted": "Anotado: {word}",
+  "deductionInstruction": "Escribe la etiqueta del frasco: toca un hueco y luego una palabra que hayas anotado.",
+  "deductionCheck": "Destilar",
+  "deductionIncomplete": "Aún quedan huecos vacíos.",
+  "deductionNearMiss": "{count, plural, =1{Una todavía no es correcta.} other{{count} todavía no son correctas.}}",
+  "deductionWrong": "Algo aquí no está bien.",
+  "deductionNoWords": "Aún no has anotado ninguna palabra. Toca las palabras subrayadas en lo que leas.",
+  "revealWipe": "Límpialo con el dedo.",
+  "revealRub": "Sombréalo con el lápiz: frota con el dedo.",
+  "wordTapTip": "Toca una palabra subrayada para anotarla."
 }

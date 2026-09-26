@@ -30,8 +30,13 @@ final class SaveSnapshot {
     return state == null || state.completed ? null : id;
   }
 
+  /// Finished at least once, even if since started over.
   bool isCompleted(String episodeId) =>
-      file.episodes[episodeId]?.completed ?? false;
+      file.distilled.contains(episodeId) ||
+      (file.episodes[episodeId]?.completed ?? false);
+
+  /// The text key of the keeper's note found in [episodeId], if any.
+  String? keeperNote(String episodeId) => file.keeperNotes[episodeId];
 }
 
 /// The single save slot (PRD FR-09): loaded once at start-up, written on
@@ -58,10 +63,24 @@ class SaveRepository extends _$SaveRepository {
 
   /// Stores the latest state of an episode and marks it as last played.
   void saveEpisode(GameState game) {
+    final file = state.file;
+    _write(
+      file.copyWith(
+        lastEpisodeId: game.episodeId,
+        episodes: {...file.episodes, game.episodeId: game},
+        distilled: game.completed
+            ? {...file.distilled, game.episodeId}
+            : file.distilled,
+      ),
+    );
+  }
+
+  /// Keeps the keeper's note found in [episodeId] for the shelf.
+  void recordKeeperNote(String episodeId, String noteKey) {
+    if (state.file.keeperNotes[episodeId] == noteKey) return;
     _write(
       state.file.copyWith(
-        lastEpisodeId: game.episodeId,
-        episodes: {...state.file.episodes, game.episodeId: game},
+        keeperNotes: {...state.file.keeperNotes, episodeId: noteKey},
       ),
     );
   }
