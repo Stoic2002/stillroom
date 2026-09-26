@@ -68,5 +68,7 @@
   "revealWipe": "指でぬぐおう。",
   "revealRub": "鉛筆でこすろう。指でなぞる。",
   "wordTapTip": "下線付きの言葉をタップすると書き留められる。",
-  "crankInstruction": "取っ手をぐるぐる回そう。"
+  "crankInstruction": "取っ手をぐるぐる回そう。",
+  "mapTitle": "物語の地図",
+  "mapHint": "ピンのひとつひとつが物語。指で広げて近づこう。"
 }

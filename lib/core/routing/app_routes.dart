@@ -14,4 +14,7 @@ abstract final class AppRoutes {
 
   /// The shelf of jars: pick an episode.
   static const shelf = '/shelf';
+
+  /// The map of tales: pick an episode by where it happened.
+  static const map = '/map';
 }

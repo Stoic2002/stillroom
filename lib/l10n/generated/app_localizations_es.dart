@@ -239,4 +239,11 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get crankInstruction => 'Gira la manivela, vuelta tras vuelta.';
+
+  @override
+  String get mapTitle => 'El mapa de las historias';
+
+  @override
+  String get mapHint =>
+      'Cada alfiler es una historia. Pellizca para acercarte.';
 }

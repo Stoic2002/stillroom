@@ -6,7 +6,11 @@
       "teaserKey": "episode.whitechapel_1888.teaser",
       "jarImage": "images/ui/jar_whitechapel_1888.png",
       "shelf": 1,
-      "series": "whitechapel"
+      "series": "whitechapel",
+      "place": [
+        51.52,
+        -0.07
+      ]
     },
     {
       "id": "lawang_sewu_1945",
@@ -14,7 +18,11 @@
       "teaserKey": "episode.lawang_sewu_1945.teaser",
       "jarImage": "images/ui/jar_lawang_sewu_1945.png",
       "shelf": 1,
-      "unlockAfter": 1
+      "unlockAfter": 1,
+      "place": [
+        -6.98,
+        110.41
+      ]
     },
     {
       "id": "flannan_isles_1900",
@@ -22,7 +30,11 @@
       "teaserKey": "episode.flannan_isles_1900.teaser",
       "jarImage": "images/ui/jar_flannan_isles_1900.png",
       "shelf": 2,
-      "unlockAfter": 2
+      "unlockAfter": 2,
+      "place": [
+        58.29,
+        -7.59
+      ]
     },
     {
       "id": "sealed_whitechapel_1891",

@@ -238,6 +238,45 @@ final class EpisodeCatalogProvider
 
 String _$episodeCatalogHash() => r'38fac223fba871dec4275cc61e188da710968965';
 
+/// The coastlines for the map of tales.
+
+@ProviderFor(worldMap)
+final worldMapProvider = WorldMapProvider._();
+
+/// The coastlines for the map of tales.
+
+final class WorldMapProvider
+    extends
+        $FunctionalProvider<AsyncValue<WorldMap>, WorldMap, FutureOr<WorldMap>>
+    with $FutureModifier<WorldMap>, $FutureProvider<WorldMap> {
+  /// The coastlines for the map of tales.
+  WorldMapProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'worldMapProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$worldMapHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<WorldMap> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<WorldMap> create(Ref ref) {
+    return worldMap(ref);
+  }
+}
+
+String _$worldMapHash() => r'3f7f54c3b7ce12fe8c4b8b51e506a4b74243260d';
+
 /// Every bundled asset path, to choose between art and placeholders.
 
 @ProviderFor(bundledAssets)

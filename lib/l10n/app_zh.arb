@@ -68,5 +68,7 @@
   "revealWipe": "用手指擦一擦。",
   "revealRub": "用铅笔涂一涂：用手指来回擦。",
   "wordTapTip": "点一下带下划线的词，就能把它记下来。",
-  "crankInstruction": "握住把手，一圈又一圈地转动。"
+  "crankInstruction": "握住把手，一圈又一圈地转动。",
+  "mapTitle": "故事地图",
+  "mapHint": "每一枚图钉都是一个故事。双指张开可放大。"
 }

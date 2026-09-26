@@ -68,5 +68,7 @@
   "revealWipe": "Límpialo con el dedo.",
   "revealRub": "Sombréalo con el lápiz: frota con el dedo.",
   "wordTapTip": "Toca una palabra subrayada para anotarla.",
-  "crankInstruction": "Gira la manivela, vuelta tras vuelta."
+  "crankInstruction": "Gira la manivela, vuelta tras vuelta.",
+  "mapTitle": "El mapa de las historias",
+  "mapHint": "Cada alfiler es una historia. Pellizca para acercarte."
 }

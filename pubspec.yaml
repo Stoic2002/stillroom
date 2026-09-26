@@ -41,6 +41,7 @@ flutter:
   assets:
     - assets/content/
     - assets/content/strings/
+    - assets/map/
     # One block per episode.
     - assets/content/episodes/whitechapel_1888/
     - assets/content/episodes/whitechapel_1888/scenes/

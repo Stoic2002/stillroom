@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:stillroom/content/episode_catalog.dart';
+import 'package:stillroom/content/world_map.dart';
 import 'package:stillroom/engine/engine.dart';
 
 import '../engine/fixtures/test_episode.dart';
@@ -65,5 +68,32 @@ void main() {
         'debug',
       ]);
     });
+  });
+
+  test('place is [latitude, longitude] within range', () {
+    EpisodeEntry parsePlace(Object place) => EpisodeEntry.fromJson(
+      JsonReader.root({
+        'id': 'e',
+        'titleKey': 't',
+        'place': place,
+      }, source: 'episodes.json'),
+    );
+    expect(parsePlace([51.5, -0.1]).place, (lat: 51.5, lon: -0.1));
+    expect(() => parsePlace([95, 0]), throwsA(isA<ContentFormatException>()));
+  });
+
+  test('the bundled world map loads its coastlines', () {
+    final map = WorldMap.fromJson(
+      File('assets/map/land.json').readAsStringSync(),
+    );
+    expect(map.rings.length, greaterThan(50));
+    expect(
+      map.rings.every(
+        (ring) => ring.every(
+          (p) => p.lat >= WorldMap.south && p.lat <= WorldMap.north,
+        ),
+      ),
+      isTrue,
+    );
   });
 }

@@ -15,7 +15,7 @@ import 'widgets/lobby_scene.dart';
 import 'widgets/menu_music.dart';
 
 /// Main menu (PRD FR-11): Continue (when an unfinished save exists), New
-/// Game (opens the shelf to pick a tale), Settings.
+/// Game (opens the map of tales to pick one), Settings.
 class MainMenuScreen extends ConsumerStatefulWidget {
   const MainMenuScreen({super.key});
 
@@ -63,7 +63,7 @@ class _MainMenuScreenState extends ConsumerState<MainMenuScreen> {
     if (catalog.length == 1 && playable.length == 1) {
       await startEpisode(context, ref, playable.single.id);
     } else {
-      await Navigator.of(context).pushNamed(AppRoutes.shelf);
+      await Navigator.of(context).pushNamed(AppRoutes.map);
     }
   }
 

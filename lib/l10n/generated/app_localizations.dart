@@ -521,6 +521,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Turn the handle round and round.'**
   String get crankInstruction;
+
+  /// Title of the map of tales (episode picker by place).
+  ///
+  /// In en, this message translates to:
+  /// **'The map of tales'**
+  String get mapTitle;
+
+  /// Hint at the bottom of the map.
+  ///
+  /// In en, this message translates to:
+  /// **'Every pin is a tale. Pinch to look closer.'**
+  String get mapHint;
 }
 
 class _AppLocalizationsDelegate

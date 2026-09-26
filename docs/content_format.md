@@ -66,7 +66,8 @@ To add a language:
 
 ## `episodes.json`
 
-The shelves of jars shown by "New Game" (docs/stillroom_frame.md). Shelves
+The tales: "New Game" opens the map of tales, with a pin for each `place`;
+the shelves of jars (docs/stillroom_frame.md) are a button away. Shelves
 are difficulty tiers: shelf 1 (bottom) is open from the start; a jar opens
 once the player has distilled `unlockAfter` tales (finished, playable,
 non-debug episodes).
@@ -77,7 +78,7 @@ non-debug episodes).
     { "id": "whitechapel_1888", "titleKey": "episode.whitechapel_1888.title",
       "teaserKey": "episode.whitechapel_1888.teaser",
       "jarImage": "images/ui/jar_whitechapel_1888.png",
-      "shelf": 1, "series": "whitechapel" },
+      "shelf": 1, "series": "whitechapel", "place": [51.52, -0.07] },
     { "id": "sealed_whitechapel_1891", "titleKey": "episode.sealed.title", "comingSoon": true,
       "shelf": 2, "unlockAfter": 2 },
     { "id": "test_room", "titleKey": "episode.test_room.title", "debugOnly": true }
@@ -96,6 +97,11 @@ non-debug episodes).
 | `shelf` | no | Difficulty tier, default 1 (bottom, easiest). Higher = harder |
 | `unlockAfter` | no | Distilled tales needed before the jar opens, default 0 |
 | `series` | no | Links tales of one topic (e.g. two Whitechapel jars); they share a ribbon colour. Put later chapters on higher shelves |
+| `place` | no | `[latitude, longitude]` where the tale happened: its pin on the map of tales. Without it the jar is only on the shelf |
+
+The map's coastlines are `assets/map/land.json`, built by
+`tool/map/build_world_map.py` from Natural Earth 1:110m land (public
+domain).
 
 ## General rules
 
@@ -648,6 +654,7 @@ warnings show in the debug panel).
 | 2026-09-25 | post-M6 | `episodes.json` becomes a catalog of jars (`titleKey`, `teaserKey`, `jarImage`, `comingSoon`, `debugOnly`); `labelKey` on `sequence` elements and `slotPlacement` slots; episode `whitechapel_1888`. |
 | 2026-09-25 | post-M6 | Languages: Spanish (`es`), Japanese (`ja`), Simplified Chinese (`zh`), Russian (`ru`) added; all keys required in every language. |
 | 2026-09-26 | post-M6 | `episodes.json`: `shelf`, `unlockAfter`, `series` (tiered shelves). |
+| 2026-09-26 | post-M6 | `place` in `episodes.json` (the map of tales); `activeImage` on `sequence` elements. |
 | 2026-09-26 | post-M6 | `dark` scenes and the `crank` puzzle type; episode `flannan_isles_1900` (shelf II) replaces `sealed_3`. |
 | 2026-09-26 | post-M6 | Words (`words`, `[[id]]` markup, `wordNoted` condition), `deduction` and `reveal` puzzle types, `secret` in `game.json`. Save: `words`/`secretFound` per episode; `distilled` and `keeperNotes` in the save file (additive, old saves load). |
 | 2026-09-26 | post-M6 | Korean (`ko`) added. Hints paced by the hint candle. Generated audio in `assets/audio/` (docs/audio.md); music id `stillroom_menu` plays on the menu and shelf. |

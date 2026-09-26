@@ -71,6 +71,7 @@ plus the crank.
 | Where | What |
 |---|---|
 | Main menu | Title, tagline: "Every jar keeps a tale that must not be forgotten." Behind it, the living Stillroom (`LobbyScene`): glowing jars (one stirs now and then), a clock whose pendulum swings but whose hands never move, drying herbs, a candle with a moth and dust in its light; music `stillroom_menu` |
+| Map of tales | "New Game" opens an old parchment chart of the world, with a brass pin where each tale happened (a wax-red pin once distilled, grey and locked until its shelf opens, the keeper's star when its secret is found). Pinch to zoom; pins keep their size and labels dodge each other |
 | Episode picker | Tiered shelves (`episodes.json`): playable jars, locked jars on shelves not reached yet, sealed jars for tales still to come, wax seals on finished tales, series ribbons |
 | Ending screen | "The tale is distilled" |
 

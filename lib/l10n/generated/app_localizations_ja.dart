@@ -230,4 +230,10 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get crankInstruction => '取っ手をぐるぐる回そう。';
+
+  @override
+  String get mapTitle => '物語の地図';
+
+  @override
+  String get mapHint => 'ピンのひとつひとつが物語。指で広げて近づこう。';
 }

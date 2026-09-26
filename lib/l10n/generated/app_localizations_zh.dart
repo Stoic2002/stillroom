@@ -230,4 +230,10 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get crankInstruction => '握住把手，一圈又一圈地转动。';
+
+  @override
+  String get mapTitle => '故事地图';
+
+  @override
+  String get mapHint => '每一枚图钉都是一个故事。双指张开可放大。';
 }

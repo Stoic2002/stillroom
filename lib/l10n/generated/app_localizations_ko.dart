@@ -231,4 +231,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get crankInstruction => '손잡이를 계속 빙글빙글 돌리세요.';
+
+  @override
+  String get mapTitle => '이야기 지도';
+
+  @override
+  String get mapHint => '핀 하나하나가 이야기입니다. 두 손가락으로 벌려 확대하세요.';
 }

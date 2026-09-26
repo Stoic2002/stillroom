@@ -2,6 +2,9 @@ import 'dart:math' as math;
 
 import '../engine/engine.dart';
 
+/// A point on the map of tales, in degrees.
+typedef MapPlace = ({double lat, double lon});
+
 /// One jar on the Stillroom shelf: an entry of `episodes.json`.
 final class EpisodeEntry {
   const EpisodeEntry({
@@ -14,6 +17,7 @@ final class EpisodeEntry {
     this.shelf = 1,
     this.unlockAfter = 0,
     this.series,
+    this.place,
   });
 
   /// ```json
@@ -24,7 +28,8 @@ final class EpisodeEntry {
   /// ```
   /// `shelf` (default 1) is the difficulty tier, bottom = easiest;
   /// `unlockAfter` (default 0) is how many tales must be distilled first;
-  /// `series` links tales of one topic (e.g. two Whitechapel jars).
+  /// `series` links tales of one topic (e.g. two Whitechapel jars);
+  /// `place` is `[latitude, longitude]` of the tale, its pin on the map.
   factory EpisodeEntry.fromJson(JsonReader json) {
     json.allowOnly({
       'id',
@@ -36,11 +41,20 @@ final class EpisodeEntry {
       'shelf',
       'unlockAfter',
       'series',
+      'place',
     });
     final shelf = json.optionalInt('shelf') ?? 1;
     if (shelf < 1) json.fail('must be >= 1', 'shelf');
     final unlockAfter = json.optionalInt('unlockAfter') ?? 0;
     if (unlockAfter < 0) json.fail('must be >= 0', 'unlockAfter');
+    MapPlace? place;
+    if (json.has('place')) {
+      final [lat, lon] = json.numbers('place', length: 2);
+      if (lat < -90 || lat > 90 || lon < -180 || lon > 180) {
+        json.fail('expected [latitude, longitude]', 'place');
+      }
+      place = (lat: lat, lon: lon);
+    }
     return EpisodeEntry(
       id: json.string('id'),
       titleKey: json.string('titleKey'),
@@ -51,6 +65,7 @@ final class EpisodeEntry {
       shelf: shelf,
       unlockAfter: unlockAfter,
       series: json.optionalString('series'),
+      place: place,
     );
   }
 
@@ -79,6 +94,9 @@ final class EpisodeEntry {
 
   /// Tales of one topic share a series id and a ribbon on the shelf.
   final String? series;
+
+  /// Where the tale happened; jars without one have no pin on the map.
+  final MapPlace? place;
 
   bool get playable => !comingSoon;
 }

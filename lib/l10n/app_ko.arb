@@ -68,5 +68,7 @@
   "revealWipe": "손가락으로 닦아 보세요.",
   "revealRub": "연필로 칠해 보세요. 손가락으로 문지르세요.",
   "wordTapTip": "밑줄 친 낱말을 누르면 기록할 수 있습니다.",
-  "crankInstruction": "손잡이를 계속 빙글빙글 돌리세요."
+  "crankInstruction": "손잡이를 계속 빙글빙글 돌리세요.",
+  "mapTitle": "이야기 지도",
+  "mapHint": "핀 하나하나가 이야기입니다. 두 손가락으로 벌려 확대하세요."
 }

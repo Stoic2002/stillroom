@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/stillroom_palette.dart';
+import '../../../core/widgets/keeper_star.dart';
 import '../../../engine/engine.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../../state/game_session.dart';
@@ -54,7 +55,7 @@ class _GameToastsState extends ConsumerState<GameToasts> {
       for (final event in session.events) {
         switch (event) {
           case SecretFoundEvent():
-            _show('✦  ${l10n.keeperNoteFound}', golden: true);
+            _show(l10n.keeperNoteFound, golden: true);
             return;
           case WordNotedEvent(:final wordId):
             _show(
@@ -102,15 +103,24 @@ class _GameToastsState extends ConsumerState<GameToasts> {
                           horizontal: 16,
                           vertical: 8,
                         ),
-                        child: Text(
-                          message,
-                          style: TextStyle(
-                            fontFamily: AppTheme.serif,
-                            fontSize: 16,
-                            color: _golden
-                                ? StillroomPalette.gaslight
-                                : StillroomPalette.paper,
-                          ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (_golden) ...[
+                              const KeeperStar(),
+                              const SizedBox(width: 10),
+                            ],
+                            Text(
+                              message,
+                              style: TextStyle(
+                                fontFamily: AppTheme.serif,
+                                fontSize: 16,
+                                color: _golden
+                                    ? StillroomPalette.gaslight
+                                    : StillroomPalette.paper,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),

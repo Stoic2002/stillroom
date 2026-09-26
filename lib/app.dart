@@ -8,6 +8,7 @@ import 'features/inventory/examine_overlay.dart';
 import 'features/inventory/inventory_bar.dart';
 import 'features/menu/episode_shelf_screen.dart';
 import 'features/menu/main_menu_screen.dart';
+import 'features/menu/map_screen.dart';
 import 'features/puzzles/built_in_puzzle_widgets.dart';
 import 'features/puzzles/puzzle_overlay.dart';
 import 'features/settings/settings_screen.dart';
@@ -56,6 +57,10 @@ class StillroomApp extends ConsumerWidget {
               (id) => PuzzleOverlay(episodeId: id, widgets: _puzzleWidgets),
             ],
           ),
+        ),
+        AppRoutes.map => MaterialPageRoute<void>(
+          settings: settings,
+          builder: (_) => const MapScreen(),
         ),
         AppRoutes.shelf => MaterialPageRoute<void>(
           settings: settings,

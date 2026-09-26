@@ -53,6 +53,14 @@ String saveWith(GameState state) => const SaveSerializer().encode(
   SaveFile(lastEpisodeId: state.episodeId, episodes: {state.episodeId: state}),
 );
 
+/// New Game opens the map of tales; the shelf is a button away.
+Future<void> openShelf(WidgetTester tester) async {
+  await tester.tap(find.text('New Game'));
+  await tester.pumpAndSettle();
+  await tester.tap(find.byKey(const ValueKey('open_shelf')));
+  await tester.pumpAndSettle();
+}
+
 TextButton button(WidgetTester tester, String label) =>
     tester.widget<TextButton>(find.widgetWithText(TextButton, label));
 
@@ -84,8 +92,8 @@ void main() {
 
     await tester.tap(find.text('New Game'));
     await tester.pumpAndSettle();
-    expect(find.text('The shelf'), findsOneWidget);
-    // The shelf asks too; the service keeps the same music going.
+    expect(find.text('The map of tales'), findsOneWidget);
+    // The map asks too; the service keeps the same music going.
     expect(audio.calls, [
       'play assets/audio/music/stillroom_menu.ogg',
       'play assets/audio/music/stillroom_menu.ogg',
@@ -125,11 +133,45 @@ void main() {
     expect(button(tester, 'Continue').onPressed, isNull);
   });
 
-  group('the shelf', () {
-    testWidgets('New Game opens the shelf of jars', (tester) async {
+  group('the map of tales', () {
+    testWidgets('New Game opens the map, one pin per tale with a place', (
+      tester,
+    ) async {
       await pumpApp(tester);
       await tester.tap(find.text('New Game'));
       await tester.pumpAndSettle();
+      expect(find.text('The map of tales'), findsOneWidget);
+      for (final id in [
+        'whitechapel_1888',
+        'lawang_sewu_1945',
+        'flannan_isles_1900',
+      ]) {
+        expect(find.byKey(ValueKey('pin_$id')), findsOneWidget);
+      }
+      expect(find.byKey(const ValueKey('pin_test_room')), findsNothing);
+    });
+
+    testWidgets('a pin opens its jar; a locked one says not yet', (
+      tester,
+    ) async {
+      await pumpApp(tester);
+      await tester.tap(find.text('New Game'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Whitechapel, 1888'));
+      await tester.pumpAndSettle();
+      expect(find.text('Open the jar'), findsOneWidget);
+      await tester.tap(find.text('Cancel'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Flannan Isles, 1900'));
+      await tester.pumpAndSettle();
+      expect(find.text('Not yet'), findsOneWidget);
+    });
+  });
+
+  group('the shelf', () {
+    testWidgets('New Game opens the shelf of jars', (tester) async {
+      await pumpApp(tester);
+      await openShelf(tester);
       expect(find.text('The shelf'), findsOneWidget);
       expect(
         find.byKey(const ValueKey('jar_whitechapel_1888')),
@@ -145,8 +187,7 @@ void main() {
       tester,
     ) async {
       await pumpApp(tester);
-      await tester.tap(find.text('New Game'));
-      await tester.pumpAndSettle();
+      await openShelf(tester);
       await tester.tap(find.byKey(const ValueKey('jar_lawang_sewu_1945')));
       await tester.pumpAndSettle();
       expect(find.text('Not yet'), findsOneWidget);
@@ -165,8 +206,7 @@ void main() {
           ),
         },
       );
-      await tester.tap(find.text('New Game'));
-      await tester.pumpAndSettle();
+      await openShelf(tester);
       await tester.tap(find.byKey(const ValueKey('jar_lawang_sewu_1945')));
       await tester.pumpAndSettle();
       expect(find.text('Open the jar'), findsOneWidget);
@@ -179,8 +219,7 @@ void main() {
         const SaveFile(distilled: {'whitechapel_1888', 'lawang_sewu_1945'}),
       );
       await pumpApp(tester, stored: {SaveRepository.storageKey: save});
-      await tester.tap(find.text('New Game'));
-      await tester.pumpAndSettle();
+      await openShelf(tester);
       final jar = find.byKey(const ValueKey('jar_flannan_isles_1900'));
       await tester.scrollUntilVisible(
         jar,
@@ -195,8 +234,7 @@ void main() {
 
     testWidgets('a sealed jar does nothing', (tester) async {
       await pumpApp(tester);
-      await tester.tap(find.text('New Game'));
-      await tester.pumpAndSettle();
+      await openShelf(tester);
       final sealed = find.byKey(const ValueKey('jar_sealed_whitechapel_1891'));
       await tester.scrollUntilVisible(
         sealed,
@@ -216,8 +254,7 @@ void main() {
         tester,
         stored: {SaveRepository.storageKey: saveWith(state)},
       );
-      await tester.tap(find.text('New Game'));
-      await tester.pumpAndSettle();
+      await openShelf(tester);
       await tester.tap(find.byKey(const ValueKey('jar_whitechapel_1888')));
       await tester.pumpAndSettle();
       expect(find.text('You left this tale unfinished.'), findsOneWidget);
@@ -234,8 +271,7 @@ void main() {
       tester,
     ) async {
       await pumpApp(tester);
-      await tester.tap(find.text('New Game'));
-      await tester.pumpAndSettle();
+      await openShelf(tester);
       await tester.tap(find.byKey(const ValueKey('jar_whitechapel_1888')));
       await tester.pumpAndSettle();
       expect(
@@ -260,8 +296,7 @@ void main() {
           ),
         },
       );
-      await tester.tap(find.text('New Game'));
-      await tester.pumpAndSettle();
+      await openShelf(tester);
       expect(find.byIcon(Icons.water_drop), findsOneWidget);
     });
   });

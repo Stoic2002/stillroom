@@ -7,6 +7,7 @@ import '../content/content_loader.dart';
 import '../content/content_validator.dart';
 import '../content/episode_catalog.dart';
 import '../content/flutter_asset_source.dart';
+import '../content/world_map.dart';
 import '../engine/engine.dart';
 
 part 'content_providers.g.dart';
@@ -38,6 +39,11 @@ Future<List<EpisodeEntry>> episodeCatalog(Ref ref) async {
       if (showDebug || !e.debugOnly) e,
   ];
 }
+
+/// The coastlines for the map of tales.
+@Riverpod(keepAlive: true)
+Future<WorldMap> worldMap(Ref ref) =>
+    WorldMap.load(ref.watch(assetSourceProvider));
 
 /// Every bundled asset path, to choose between art and placeholders.
 @riverpod

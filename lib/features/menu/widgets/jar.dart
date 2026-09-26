@@ -4,6 +4,7 @@ import '../../../core/art/vector_art.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/placeholder_palette.dart';
 import '../../../core/theme/stillroom_palette.dart';
+import '../../../core/widgets/keeper_star.dart';
 
 /// A jar on the shelf: glass, cork, murky contents, and a paper label.
 /// Drawn in code until [image] art exists.
@@ -94,19 +95,9 @@ class Jar extends StatelessWidget {
                   Positioned(
                     top: size.height * 0.24,
                     right: size.width * 0.22,
-                    child: const Text(
-                      '✦',
+                    child: const KeeperStar(
                       key: ValueKey('keeper_mark'),
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: StillroomPalette.gaslight,
-                        shadows: [
-                          Shadow(
-                            color: StillroomPalette.gaslight,
-                            blurRadius: 8,
-                          ),
-                        ],
-                      ),
+                      size: 16,
                     ),
                   ),
                 if (locked)

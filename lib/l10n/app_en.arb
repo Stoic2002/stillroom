@@ -290,5 +290,13 @@
   "crankInstruction": "Turn the handle round and round.",
   "@crankInstruction": {
     "description": "Instruction on a crank (winding) puzzle."
+  },
+  "mapTitle": "The map of tales",
+  "@mapTitle": {
+    "description": "Title of the map of tales (episode picker by place)."
+  },
+  "mapHint": "Every pin is a tale. Pinch to look closer.",
+  "@mapHint": {
+    "description": "Hint at the bottom of the map."
   }
 }

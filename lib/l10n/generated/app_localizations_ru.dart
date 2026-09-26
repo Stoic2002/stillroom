@@ -242,4 +242,11 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get crankInstruction => 'Крутите рукоятку по кругу.';
+
+  @override
+  String get mapTitle => 'Карта историй';
+
+  @override
+  String get mapHint =>
+      'Каждая булавка — история. Разведите пальцы, чтобы приблизить.';
 }

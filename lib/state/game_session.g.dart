@@ -59,7 +59,7 @@ final class GameSessionProvider
   }
 }
 
-String _$gameSessionHash() => r'e064d1b0d10cf3f5a154c563fb471e29589acd83';
+String _$gameSessionHash() => r'2fe33244609a79638b712e716142be8075cc9b38';
 
 /// Wraps [GameEngine] for the UI and owns the interaction rules: what a tap
 /// means depends on whether text is showing, a puzzle or examine view is

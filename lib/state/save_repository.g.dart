@@ -47,7 +47,7 @@ final class SaveRepositoryProvider
   }
 }
 
-String _$saveRepositoryHash() => r'0a3a0a696a3002d2978de1121ad9aed1076a25ab';
+String _$saveRepositoryHash() => r'4480847b6ae90bae0a880e4dcd950f05eac640c0';
 
 /// The single save slot (PRD FR-09): loaded once at start-up, written on
 /// every meaningful change. Writes are queued so they land in order.

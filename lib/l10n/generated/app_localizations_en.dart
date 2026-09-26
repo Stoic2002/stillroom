@@ -239,4 +239,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get crankInstruction => 'Turn the handle round and round.';
+
+  @override
+  String get mapTitle => 'The map of tales';
+
+  @override
+  String get mapHint => 'Every pin is a tale. Pinch to look closer.';
 }

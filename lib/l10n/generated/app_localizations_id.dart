@@ -236,4 +236,11 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get crankInstruction => 'Putar engkolnya terus-menerus.';
+
+  @override
+  String get mapTitle => 'Peta kisah';
+
+  @override
+  String get mapHint =>
+      'Setiap pin adalah sebuah kisah. Cubit untuk memperbesar.';
 }
