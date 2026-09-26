@@ -25,8 +25,8 @@ final Map<String, ArtPainter> lawangSewuArt = {
   '$_o/echo_clerk.png': (c, s) => paintEcho(Art(c, s), EchoFigure.clerk),
   // Scenes.
   '$_s/landing.png': (c, s) => _landing(Art(c, s)),
-  '$_s/corridor_west.png': (c, s) => _corridor(Art(c, s)),
-  '$_s/corridor_east.png': (c, s) => _corridor(Art(c, s)),
+  '$_s/corridor_west.png': (c, s) => _corridor(Art(c, s), east: false),
+  '$_s/corridor_east.png': (c, s) => _corridor(Art(c, s), east: true),
   '$_s/office_1907.png': (c, s) => _office(Art(c, s)),
   '$_s/window_1945.png': (c, s) => _window1945(Art(c, s)),
   '$_s/cellar_1942.png': (c, s) => _cellar(Art(c, s)),
@@ -200,13 +200,21 @@ void _landing(Art a) {
     // Side archways into the corridors.
     ..path(_archPath(a.r(-0.04, 0.18, 0.12, 0.6)), const Color(0xFF0B0E0D))
     ..path(_archPath(a.r(0.92, 0.18, 0.12, 0.6)), const Color(0xFF0B0E0D))
+    // Signs over the archways: which years lie down each corridor.
+    ..rbox(a.r(0.005, 0.1, 0.1, 0.06), a.u, _enamel, line: 0.4)
+    ..label('1907 · 1942', a.p(0.055, 0.13), a.size.height * 0.028, _enamelBlue)
+    ..rbox(a.r(0.895, 0.1, 0.1, 0.06), a.u, _enamel, line: 0.4)
+    ..label('1945', a.p(0.945, 0.13), a.size.height * 0.035, _enamelBlue)
     // Cornice.
     ..fill(a.r(0, 0.0, 1, 0.025), _plaster)
     ..fade(a.r(0, 0, 1, 0.3), const Color(0xCC000000), const Color(0x00000000));
   _tiledFloor(a, 0.78);
 }
 
-void _corridor(Art a) {
+/// The two corridors must not look alike: the west one (1907, 1942) keeps
+/// the old building's cold, grey-green dark; the east one (1945) glows at
+/// its far end with the orange of October 1945.
+void _corridor(Art a, {required bool east}) {
   final w = a.size.width;
   final h = a.size.height;
   final vp = Offset(w / 2, h * 0.45);
@@ -241,9 +249,17 @@ void _corridor(Art a) {
       );
     }
   }
-  a
-    ..glow(vp, w * 0.08, StillroomPalette.fog, strength: 0.25)
-    ..fade(a.r(0, 0, 1, 0.3), const Color(0xCC000000), const Color(0x00000000));
+  if (east) {
+    a
+      ..fill(Offset.zero & a.size, const Color(0x22E07A2A))
+      ..glow(vp, w * 0.3, const Color(0xFFE07A2A), strength: 0.35)
+      ..glow(vp, w * 0.08, const Color(0xFFF2B36A), strength: 0.4);
+  } else {
+    a
+      ..fill(Offset.zero & a.size, const Color(0x1A5E7A8A))
+      ..glow(vp, w * 0.08, StillroomPalette.fog, strength: 0.25);
+  }
+  a.fade(a.r(0, 0, 1, 0.3), const Color(0xCC000000), const Color(0x00000000));
   _tiledFloor(a, 0.72);
 }
 
@@ -602,9 +618,10 @@ void _door(Art a, String? year, {bool dial = false}) {
   }
   a.circle(a.p(0.46, 0.64), a.u * 2.5, StillroomPalette.brass, line: 0.3);
   if (year != null) {
+    // A large enamel plate, readable at a glance from the corridor.
     a
-      ..rbox(a.r(0.3, 0.26, 0.4, 0.06), a.u, _enamel, line: 0.3)
-      ..label(year, a.p(0.5, 0.29), a.size.height * 0.035, _enamelBlue);
+      ..rbox(a.r(0.16, 0.22, 0.68, 0.1), a.u, _enamel, line: 0.4)
+      ..label(year, a.p(0.5, 0.27), a.size.height * 0.07, _enamelBlue);
   }
   if (dial) {
     a
@@ -1187,8 +1204,8 @@ void _doorOpen(Art a, String year) {
     )
     ..path(_archPath(a.r(0.08, 0.02, 0.84, 0.3)), const Color(0xFF1A2220))
     ..strokePath(_archPath(a.r(0.08, 0.02, 0.84, 0.3)), _teak, width: 1.2)
-    ..rbox(a.r(0.3, 0.26, 0.4, 0.06), a.u, _enamel, line: 0.3)
-    ..label(year, a.p(0.5, 0.29), a.size.height * 0.035, _enamelBlue)
+    ..rbox(a.r(0.16, 0.22, 0.68, 0.1), a.u, _enamel, line: 0.4)
+    ..label(year, a.p(0.5, 0.27), a.size.height * 0.07, _enamelBlue)
     // One leaf swung inward, seen edge-on.
     ..wood(a.r(0.02, 0.32, 0.1, 0.68), base: _teak, grain: 1, vertical: true);
 }
