@@ -1,0 +1,29 @@
+{
+  "id": "door_emblems",
+  "type": "slotPlacement",
+  "background": "images/scenes/test_room/door_close.png",
+  "config": {
+    "pieces": [
+      { "id": "sun", "image": "images/objects/test_room/emblem_sun.png" },
+      { "id": "moon", "image": "images/objects/test_room/emblem_moon.png" },
+      { "id": "star", "image": "images/objects/test_room/emblem_star.png" },
+      { "id": "gem", "item": "gem" }
+    ],
+    "slots": [
+      { "id": "top", "rect": [0.45, 0.10, 0.10, 0.18] },
+      { "id": "left", "rect": [0.33, 0.35, 0.10, 0.18] },
+      { "id": "right", "rect": [0.57, 0.35, 0.10, 0.18] },
+      { "id": "bottom", "rect": [0.45, 0.58, 0.10, 0.18] }
+    ],
+    "solution": { "top": "sun", "left": "moon", "right": "star", "bottom": "gem" }
+  },
+  "onSolved": [
+    { "type": "removeItem", "item": "gem" },
+    { "type": "showText", "key": "test_room.door.emblems_set" }
+  ],
+  "hints": [
+    { "key": "hint.door_emblems.1" },
+    { "key": "hint.door_emblems.2", "when": [{ "hasItem": "gem", "equals": false }] },
+    { "key": "hint.door_emblems.3" }
+  ]
+}

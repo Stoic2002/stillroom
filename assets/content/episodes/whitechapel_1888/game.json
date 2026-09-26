@@ -1,0 +1,111 @@
+{
+  "startScene": "room_north",
+  "flags": {
+    "drawer_open": false,
+    "candles_ready": false,
+    "letter_unfolded": false,
+    "names_restored": false
+  },
+  "logicalResolution": [
+    1920,
+    1080
+  ],
+  "orientation": "landscape",
+  "sceneTransitionMs": 500,
+  "music": "whitechapel_fog",
+  "hintStages": [
+    {
+      "id": "leave",
+      "when": [
+        {
+          "flag": "names_restored",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.whitechapel_1888.leave.1"
+        }
+      ]
+    },
+    {
+      "id": "place_names",
+      "when": [
+        {
+          "hasItem": "name_card_nichols"
+        },
+        {
+          "hasItem": "name_card_chapman"
+        },
+        {
+          "hasItem": "name_card_stride"
+        },
+        {
+          "hasItem": "name_card_eddowes"
+        },
+        {
+          "hasItem": "name_card_kelly"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.whitechapel_1888.place_names.1"
+        },
+        {
+          "key": "hint.whitechapel_1888.place_names.2"
+        }
+      ]
+    },
+    {
+      "id": "light_candles",
+      "when": [
+        {
+          "hasItem": "matches"
+        },
+        {
+          "puzzleSolved": "candles",
+          "equals": false
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.whitechapel_1888.light_candles.1"
+        },
+        {
+          "key": "hint.whitechapel_1888.light_candles.2"
+        }
+      ]
+    },
+    {
+      "id": "open_drawer",
+      "when": [
+        {
+          "puzzleSolved": "desk_drawer",
+          "equals": false
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.whitechapel_1888.open_drawer.1"
+        },
+        {
+          "key": "hint.whitechapel_1888.open_drawer.2"
+        },
+        {
+          "key": "hint.whitechapel_1888.open_drawer.3"
+        }
+      ]
+    },
+    {
+      "id": "find_names",
+      "hints": [
+        {
+          "key": "hint.whitechapel_1888.find_names.1"
+        },
+        {
+          "key": "hint.whitechapel_1888.find_names.2"
+        }
+      ]
+    }
+  ]
+}

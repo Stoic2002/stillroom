@@ -1,0 +1,295 @@
+{
+  "id": "room_east",
+  "background": "images/scenes/test_room/room_east.png",
+  "exits": [
+    {
+      "direction": "left",
+      "to": "room_north"
+    },
+    {
+      "direction": "right",
+      "to": "room_south"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "lamp_switch_0",
+      "rect": [
+        0.62,
+        0.45,
+        0.06,
+        0.1
+      ],
+      "when": [
+        {
+          "flag": "lamp_level",
+          "equals": 0
+        }
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "lamp_level",
+          "value": 1
+        },
+        {
+          "type": "playSound",
+          "sound": "switch_click"
+        }
+      ]
+    },
+    {
+      "id": "lamp_switch_1",
+      "rect": [
+        0.62,
+        0.45,
+        0.06,
+        0.1
+      ],
+      "when": [
+        {
+          "flag": "lamp_level",
+          "equals": 1
+        }
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "lamp_level",
+          "value": 2
+        },
+        {
+          "type": "playSound",
+          "sound": "switch_click"
+        }
+      ]
+    },
+    {
+      "id": "lamp_switch_2",
+      "rect": [
+        0.62,
+        0.45,
+        0.06,
+        0.1
+      ],
+      "when": [
+        {
+          "flag": "lamp_level",
+          "equals": 2
+        }
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "lamp_level",
+          "value": 0
+        },
+        {
+          "type": "playSound",
+          "sound": "switch_click"
+        }
+      ]
+    },
+    {
+      "id": "lens",
+      "rect": [
+        0.8,
+        0.52,
+        0.06,
+        0.06
+      ],
+      "when": [
+        {
+          "flag": "lamp_level",
+          "equals": 2
+        },
+        {
+          "everHadItem": "lens",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "pickItem",
+          "item": "lens"
+        }
+      ]
+    },
+    {
+      "id": "ring_dial",
+      "rect": [
+        0.05,
+        0.25,
+        0.14,
+        0.25
+      ],
+      "when": [
+        {
+          "puzzleSolved": "wall_rings",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "openPuzzle",
+          "puzzle": "wall_rings"
+        }
+      ]
+    },
+    {
+      "id": "frame",
+      "rect": [
+        0.07,
+        0.55,
+        0.1,
+        0.14
+      ],
+      "when": [
+        {
+          "flag": "rings_aligned",
+          "equals": true
+        },
+        {
+          "everHadItem": "frame",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "pickItem",
+          "item": "frame"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "lamp_sprite",
+      "image": "images/objects/test_room/lamp.png",
+      "rect": [
+        0.28,
+        0.2,
+        0.18,
+        0.55
+      ]
+    },
+    {
+      "id": "switch_sprite",
+      "image": "images/objects/test_room/switch.png",
+      "rect": [
+        0.62,
+        0.45,
+        0.06,
+        0.1
+      ]
+    },
+    {
+      "id": "shelf_sprite",
+      "image": "images/objects/test_room/shelf.png",
+      "rect": [
+        0.72,
+        0.58,
+        0.22,
+        0.05
+      ]
+    },
+    {
+      "id": "lamp_glow_dim",
+      "image": "images/objects/test_room/lamp_glow.png",
+      "rect": [
+        0.2,
+        0.1,
+        0.35,
+        0.6
+      ],
+      "when": [
+        {
+          "flag": "lamp_level",
+          "equals": 1
+        }
+      ]
+    },
+    {
+      "id": "lamp_glow_bright",
+      "image": "images/objects/test_room/lamp_glow_bright.png",
+      "rect": [
+        0.15,
+        0.05,
+        0.45,
+        0.7
+      ],
+      "when": [
+        {
+          "flag": "lamp_level",
+          "equals": 2
+        }
+      ]
+    },
+    {
+      "id": "lens_sprite",
+      "image": "images/objects/test_room/lens.png",
+      "rect": [
+        0.8,
+        0.52,
+        0.06,
+        0.06
+      ],
+      "when": [
+        {
+          "flag": "lamp_level",
+          "equals": 2
+        },
+        {
+          "everHadItem": "lens",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "ring_dial_sprite",
+      "image": "images/objects/test_room/ring_dial.png",
+      "rect": [
+        0.05,
+        0.25,
+        0.14,
+        0.25
+      ]
+    },
+    {
+      "id": "niche_open",
+      "image": "images/objects/test_room/niche_open.png",
+      "rect": [
+        0.05,
+        0.52,
+        0.14,
+        0.2
+      ],
+      "when": [
+        {
+          "flag": "rings_aligned",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "frame_sprite",
+      "image": "images/objects/test_room/frame.png",
+      "rect": [
+        0.07,
+        0.55,
+        0.1,
+        0.14
+      ],
+      "when": [
+        {
+          "flag": "rings_aligned",
+          "equals": true
+        },
+        {
+          "everHadItem": "frame",
+          "equals": false
+        }
+      ]
+    }
+  ]
+}

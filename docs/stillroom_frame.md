@@ -1,0 +1,79 @@
+# The Stillroom — Anthology Frame
+
+Status: **direction approved** by the developer on 2026-09-25. The final
+writing is the developer's; this file holds the premise the game is built
+around.
+
+## Premise
+
+In old houses a *stillroom* was where medicines, perfumes, and preserves were
+distilled. **The Stillroom** is such a room outside of time: it distils dark
+tales from around the world (mysteries, legends, true crimes) and keeps each
+one sealed in a glass jar, labelled with a place and a year.
+
+- **The player** is a nameless visitor who becomes the room's new keeper.
+- **The old keeper** is never seen whole; they are present only through notes,
+  labels, and objects left behind.
+- **Opening a jar** means entering its tale: one room, several views,
+  8–12 puzzles (PRD §1).
+- **Finishing a tale distils it**: the jar is sealed with wax on the shelf.
+
+## Shelves and difficulty
+
+The shelves are difficulty tiers (decided 2026-09-26):
+
+- **One jar = one complete tale**, playable on its own.
+- **Bottom shelf** is open from the start; each higher shelf opens after a
+  number of tales are distilled (`unlockAfter` in `episodes.json`).
+- **A topic can continue** in a later jar on a higher shelf, linked by a
+  `series` ribbon (e.g. *Whitechapel, 1888* on shelf I, *Whitechapel, 1891*
+  on shelf III). The player never has to finish one topic before trying
+  another country.
+- **The top shelf** will hold the old keeper's own tale.
+
+How difficulty rises from shelf to shelf:
+
+| Lever | Lower shelves | Higher shelves |
+|---|---|---|
+| Clues | One clue, near its puzzle | Spread across rooms or eras; must be combined |
+| Chains | One puzzle, one reward | Rewards feed other puzzles |
+| Red herrings | None | Some misleading objects and notes |
+| Hints | Three levels down to the solution; candle waits 45 s / 90 s / 150 s | Vaguer; the solution only at the last level; candles burn longer (×1.5 shelf II, ×2 shelf III) |
+| Mechanics | Basic puzzle types | Types combined, layered puzzles |
+| Length | 8–10 beats | 10–12 beats, parallel branches |
+
+Current placement: *Whitechapel, 1888* (shelf I, the easiest, doubling as the
+tutorial); *Semarang, 1945* (shelf I, opens after Whitechapel; a step up: clues across three eras).
+
+## How it shows in the game
+
+| Where | What |
+|---|---|
+| Main menu | Title, tagline: "Every jar keeps a tale that must not be forgotten." Behind it, the living Stillroom (`LobbyScene`): glowing jars (one stirs now and then), a clock whose pendulum swings but whose hands never move, drying herbs, a candle with a moth and dust in its light; music `stillroom_menu` |
+| Episode picker | Tiered shelves (`episodes.json`): playable jars, locked jars on shelves not reached yet, sealed jars for tales still to come, wax seals on finished tales, series ribbons |
+| Ending screen | "The tale is distilled" |
+
+## Long arc (_open_)
+
+When every jar is distilled, the old keeper's own tale is revealed: why the
+room exists, and who has been collecting these tales. This can become the
+final episode. Details are open.
+
+## Tone guardrails
+
+- Atmospheric and psychological horror; no gore, violence off screen.
+- For tales about **real people**, centre the people who suffered, not the
+  perpetrator. Use their real names with care, state only historical facts,
+  and do not invent intimate details of their lives or deaths.
+- Every tale ends with something restored (a name, a memory, a truth), not
+  only with escape.
+
+## Episodes
+
+| Id | Label | Status | Design |
+|---|---|---|---|
+| `whitechapel_1888` | Whitechapel, 1888 | Structure built, placeholders | [episodes/whitechapel_1888.md](episodes/whitechapel_1888.md) |
+| `lawang_sewu_1945` | Semarang, 1945 | Built, draft text, code-drawn art (shelf I, opens after 1 tale) | [episodes/lawang_sewu_1945.md](episodes/lawang_sewu_1945.md) |
+| `sealed_3` | Sealed jar (shelf II) | Coming soon (no content) | — |
+| `sealed_whitechapel_1891` | Sealed jar (shelf III, series whitechapel) | Idea: the six other names in the police file | — |
+| `test_room` | Test room | Debug builds only | Feature test room |

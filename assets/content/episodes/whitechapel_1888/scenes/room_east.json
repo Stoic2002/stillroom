@@ -1,0 +1,199 @@
+{
+  "id": "room_east",
+  "background": "images/scenes/whitechapel_1888/room_east.png",
+  "exits": [
+    {
+      "direction": "left",
+      "to": "room_north"
+    },
+    {
+      "direction": "right",
+      "to": "room_south"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "clock",
+      "rect": [
+        0.44,
+        0.14,
+        0.12,
+        0.18
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "clock_tick"
+        },
+        {
+          "type": "showText",
+          "key": "whitechapel_1888.clock.look"
+        }
+      ]
+    },
+    {
+      "id": "candles_cold",
+      "rect": [
+        0.28,
+        0.34,
+        0.44,
+        0.16
+      ],
+      "when": [
+        {
+          "flag": "candles_ready",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1888.candles.cold"
+        }
+      ],
+      "onUseItem": [
+        {
+          "item": "matches",
+          "actions": [
+            {
+              "type": "setFlag",
+              "flag": "candles_ready",
+              "value": true
+            },
+            {
+              "type": "playSound",
+              "sound": "match_strike"
+            },
+            {
+              "type": "openPuzzle",
+              "puzzle": "candles"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "candles",
+      "rect": [
+        0.28,
+        0.34,
+        0.44,
+        0.16
+      ],
+      "when": [
+        {
+          "flag": "candles_ready",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "candles",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "openPuzzle",
+          "puzzle": "candles"
+        }
+      ]
+    },
+    {
+      "id": "candles_lit",
+      "rect": [
+        0.28,
+        0.34,
+        0.44,
+        0.16
+      ],
+      "when": [
+        {
+          "puzzleSolved": "candles"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1888.candles.lit"
+        }
+      ]
+    },
+    {
+      "id": "hearth",
+      "rect": [
+        0.3,
+        0.55,
+        0.4,
+        0.35
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1888.hearth.look"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "fireplace_sprite",
+      "image": "images/objects/whitechapel_1888/fireplace_sprite.png",
+      "rect": [
+        0.26,
+        0.5,
+        0.48,
+        0.46
+      ]
+    },
+    {
+      "id": "mantel_sprite",
+      "image": "images/objects/whitechapel_1888/mantel_sprite.png",
+      "rect": [
+        0.22,
+        0.48,
+        0.56,
+        0.04
+      ]
+    },
+    {
+      "id": "clock_sprite",
+      "image": "images/objects/whitechapel_1888/clock_sprite.png",
+      "rect": [
+        0.44,
+        0.14,
+        0.12,
+        0.18
+      ]
+    },
+    {
+      "id": "candles_cold_sprite",
+      "image": "images/objects/whitechapel_1888/candles_cold_sprite.png",
+      "rect": [
+        0.28,
+        0.34,
+        0.44,
+        0.16
+      ],
+      "when": [
+        {
+          "puzzleSolved": "candles",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "candles_lit_sprite",
+      "image": "images/objects/whitechapel_1888/candles_lit_sprite.png",
+      "rect": [
+        0.26,
+        0.24,
+        0.48,
+        0.26
+      ],
+      "when": [
+        {
+          "puzzleSolved": "candles"
+        }
+      ]
+    }
+  ]
+}

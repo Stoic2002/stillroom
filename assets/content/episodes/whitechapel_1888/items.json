@@ -1,0 +1,124 @@
+{
+  "items": [
+    {
+      "id": "matches",
+      "nameKey": "item.whitechapel_1888.matches.name",
+      "descKey": "item.whitechapel_1888.matches.desc",
+      "icon": "images/items/whitechapel_1888/matches.png"
+    },
+    {
+      "id": "letter",
+      "nameKey": "item.whitechapel_1888.letter.name",
+      "descKey": "item.whitechapel_1888.letter.desc",
+      "icon": "images/items/whitechapel_1888/letter.png",
+      "examine": {
+        "image": "images/items/whitechapel_1888/letter_examine.png",
+        "hotspots": [
+          {
+            "id": "fold",
+            "rect": [
+              0.1,
+              0.62,
+              0.8,
+              0.28
+            ],
+            "when": [
+              {
+                "flag": "letter_unfolded",
+                "equals": false
+              }
+            ],
+            "onTap": [
+              {
+                "type": "setFlag",
+                "flag": "letter_unfolded",
+                "value": true
+              },
+              {
+                "type": "playSound",
+                "sound": "paper"
+              },
+              {
+                "type": "showText",
+                "key": "whitechapel_1888.letter.unfolded"
+              }
+            ]
+          }
+        ],
+        "layers": [
+          {
+            "id": "letter_street_names",
+            "image": "images/objects/whitechapel_1888/letter_street_names.png",
+            "rect": [
+              0.1,
+              0.62,
+              0.8,
+              0.28
+            ],
+            "when": [
+              {
+                "flag": "letter_unfolded",
+                "equals": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "lens",
+      "nameKey": "item.whitechapel_1888.lens.name",
+      "descKey": "item.whitechapel_1888.lens.desc",
+      "icon": "images/items/whitechapel_1888/lens.png"
+    },
+    {
+      "id": "brass_frame",
+      "nameKey": "item.whitechapel_1888.brass_frame.name",
+      "descKey": "item.whitechapel_1888.brass_frame.desc",
+      "icon": "images/items/whitechapel_1888/brass_frame.png"
+    },
+    {
+      "id": "magnifier",
+      "nameKey": "item.whitechapel_1888.magnifier.name",
+      "descKey": "item.whitechapel_1888.magnifier.desc",
+      "icon": "images/items/whitechapel_1888/magnifier.png"
+    },
+    {
+      "id": "name_card_nichols",
+      "nameKey": "item.whitechapel_1888.name_card_nichols.name",
+      "descKey": "item.whitechapel_1888.name_card_nichols.desc",
+      "icon": "images/items/whitechapel_1888/name_card.png"
+    },
+    {
+      "id": "name_card_chapman",
+      "nameKey": "item.whitechapel_1888.name_card_chapman.name",
+      "descKey": "item.whitechapel_1888.name_card_chapman.desc",
+      "icon": "images/items/whitechapel_1888/name_card.png"
+    },
+    {
+      "id": "name_card_stride",
+      "nameKey": "item.whitechapel_1888.name_card_stride.name",
+      "descKey": "item.whitechapel_1888.name_card_stride.desc",
+      "icon": "images/items/whitechapel_1888/name_card.png"
+    },
+    {
+      "id": "name_card_eddowes",
+      "nameKey": "item.whitechapel_1888.name_card_eddowes.name",
+      "descKey": "item.whitechapel_1888.name_card_eddowes.desc",
+      "icon": "images/items/whitechapel_1888/name_card.png"
+    },
+    {
+      "id": "name_card_kelly",
+      "nameKey": "item.whitechapel_1888.name_card_kelly.name",
+      "descKey": "item.whitechapel_1888.name_card_kelly.desc",
+      "icon": "images/items/whitechapel_1888/name_card.png"
+    }
+  ],
+  "combinations": [
+    {
+      "a": "lens",
+      "b": "brass_frame",
+      "result": "magnifier"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "id": "locker_door",
+  "type": "codeLock",
+  "background": "images/scenes/lawang_sewu_1945/locker_door_close.png",
+  "config": {
+    "slots": 3,
+    "symbols": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "solution": [
+      "9",
+      "2",
+      "8"
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "door_creak"
+    },
+    {
+      "type": "showText",
+      "key": "lawang_sewu_1945.corridor.locker_door_opened"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.lawang_sewu_1945.locker_door.1"
+    },
+    {
+      "key": "hint.lawang_sewu_1945.locker_door.2"
+    },
+    {
+      "key": "hint.lawang_sewu_1945.locker_door.3"
+    }
+  ]
+}

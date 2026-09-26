@@ -1,0 +1,318 @@
+{
+  "items": [
+    {
+      "id": "ledger",
+      "nameKey": "item.lawang_sewu_1945.ledger.name",
+      "descKey": "item.lawang_sewu_1945.ledger.desc",
+      "icon": "images/items/lawang_sewu_1945/ledger.png",
+      "examine": {
+        "image": "images/items/lawang_sewu_1945/ledger_examine.png",
+        "hotspots": [
+          {
+            "id": "read_0",
+            "rect": [
+              0.06,
+              0.06,
+              0.66,
+              0.88
+            ],
+            "when": [
+              {
+                "flag": "ledger_page",
+                "equals": 0
+              }
+            ],
+            "onTap": [
+              {
+                "type": "showText",
+                "key": "lawang_sewu_1945.ledger.page_0"
+              }
+            ]
+          },
+          {
+            "id": "turn_0",
+            "rect": [
+              0.74,
+              0.06,
+              0.2,
+              0.88
+            ],
+            "when": [
+              {
+                "flag": "ledger_page",
+                "equals": 0
+              }
+            ],
+            "onTap": [
+              {
+                "type": "setFlag",
+                "flag": "ledger_page",
+                "value": 1
+              },
+              {
+                "type": "playSound",
+                "sound": "page_turn"
+              }
+            ]
+          },
+          {
+            "id": "read_1",
+            "rect": [
+              0.06,
+              0.06,
+              0.66,
+              0.88
+            ],
+            "when": [
+              {
+                "flag": "ledger_page",
+                "equals": 1
+              }
+            ],
+            "onTap": [
+              {
+                "type": "showText",
+                "key": "lawang_sewu_1945.ledger.page_1"
+              }
+            ]
+          },
+          {
+            "id": "turn_1",
+            "rect": [
+              0.74,
+              0.06,
+              0.2,
+              0.88
+            ],
+            "when": [
+              {
+                "flag": "ledger_page",
+                "equals": 1
+              }
+            ],
+            "onTap": [
+              {
+                "type": "setFlag",
+                "flag": "ledger_page",
+                "value": 2
+              },
+              {
+                "type": "playSound",
+                "sound": "page_turn"
+              }
+            ]
+          },
+          {
+            "id": "read_2",
+            "rect": [
+              0.06,
+              0.06,
+              0.66,
+              0.88
+            ],
+            "when": [
+              {
+                "flag": "ledger_page",
+                "equals": 2
+              }
+            ],
+            "onTap": [
+              {
+                "type": "showText",
+                "key": "lawang_sewu_1945.ledger.page_2"
+              }
+            ]
+          },
+          {
+            "id": "turn_2",
+            "rect": [
+              0.74,
+              0.06,
+              0.2,
+              0.88
+            ],
+            "when": [
+              {
+                "flag": "ledger_page",
+                "equals": 2
+              }
+            ],
+            "onTap": [
+              {
+                "type": "setFlag",
+                "flag": "ledger_page",
+                "value": 3
+              },
+              {
+                "type": "playSound",
+                "sound": "page_turn"
+              }
+            ]
+          },
+          {
+            "id": "read_3",
+            "rect": [
+              0.06,
+              0.06,
+              0.66,
+              0.88
+            ],
+            "when": [
+              {
+                "flag": "ledger_page",
+                "equals": 3
+              }
+            ],
+            "onTap": [
+              {
+                "type": "showText",
+                "key": "lawang_sewu_1945.ledger.page_3"
+              }
+            ]
+          },
+          {
+            "id": "turn_3",
+            "rect": [
+              0.74,
+              0.06,
+              0.2,
+              0.88
+            ],
+            "when": [
+              {
+                "flag": "ledger_page",
+                "equals": 3
+              }
+            ],
+            "onTap": [
+              {
+                "type": "setFlag",
+                "flag": "ledger_page",
+                "value": 0
+              },
+              {
+                "type": "playSound",
+                "sound": "page_turn"
+              }
+            ]
+          }
+        ],
+        "layers": [
+          {
+            "id": "page_0",
+            "image": "images/items/lawang_sewu_1945/ledger_page_0.png",
+            "rect": [
+              0.06,
+              0.06,
+              0.88,
+              0.88
+            ],
+            "when": [
+              {
+                "flag": "ledger_page",
+                "equals": 0
+              }
+            ]
+          },
+          {
+            "id": "page_1",
+            "image": "images/items/lawang_sewu_1945/ledger_page_1.png",
+            "rect": [
+              0.06,
+              0.06,
+              0.88,
+              0.88
+            ],
+            "when": [
+              {
+                "flag": "ledger_page",
+                "equals": 1
+              }
+            ]
+          },
+          {
+            "id": "page_2",
+            "image": "images/items/lawang_sewu_1945/ledger_page_2.png",
+            "rect": [
+              0.06,
+              0.06,
+              0.88,
+              0.88
+            ],
+            "when": [
+              {
+                "flag": "ledger_page",
+                "equals": 2
+              }
+            ]
+          },
+          {
+            "id": "page_3",
+            "image": "images/items/lawang_sewu_1945/ledger_page_3.png",
+            "rect": [
+              0.06,
+              0.06,
+              0.88,
+              0.88
+            ],
+            "when": [
+              {
+                "flag": "ledger_page",
+                "equals": 3
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "lamp_oil",
+      "nameKey": "item.lawang_sewu_1945.lamp_oil.name",
+      "descKey": "item.lawang_sewu_1945.lamp_oil.desc",
+      "icon": "images/items/lawang_sewu_1945/lamp_oil.png"
+    },
+    {
+      "id": "lantern",
+      "nameKey": "item.lawang_sewu_1945.lantern.name",
+      "descKey": "item.lawang_sewu_1945.lantern.desc",
+      "icon": "images/items/lawang_sewu_1945/lantern.png"
+    },
+    {
+      "id": "lit_lantern",
+      "nameKey": "item.lawang_sewu_1945.lit_lantern.name",
+      "descKey": "item.lawang_sewu_1945.lit_lantern.desc",
+      "icon": "images/items/lawang_sewu_1945/lit_lantern.png"
+    },
+    {
+      "id": "ticket_punch",
+      "nameKey": "item.lawang_sewu_1945.ticket_punch.name",
+      "descKey": "item.lawang_sewu_1945.ticket_punch.desc",
+      "icon": "images/items/lawang_sewu_1945/ticket_punch.png"
+    },
+    {
+      "id": "telegraph_key",
+      "nameKey": "item.lawang_sewu_1945.telegraph_key.name",
+      "descKey": "item.lawang_sewu_1945.telegraph_key.desc",
+      "icon": "images/items/lawang_sewu_1945/telegraph_key.png"
+    },
+    {
+      "id": "driver_cap",
+      "nameKey": "item.lawang_sewu_1945.driver_cap.name",
+      "descKey": "item.lawang_sewu_1945.driver_cap.desc",
+      "icon": "images/items/lawang_sewu_1945/driver_cap.png"
+    },
+    {
+      "id": "whistle",
+      "nameKey": "item.lawang_sewu_1945.whistle.name",
+      "descKey": "item.lawang_sewu_1945.whistle.desc",
+      "icon": "images/items/lawang_sewu_1945/whistle.png"
+    }
+  ],
+  "combinations": [
+    {
+      "a": "lantern",
+      "b": "lamp_oil",
+      "result": "lit_lantern"
+    }
+  ]
+}

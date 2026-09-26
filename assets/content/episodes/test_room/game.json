@@ -1,0 +1,77 @@
+{
+  "startScene": "room_north",
+  "flags": {
+    "saw_clock": false,
+    "drawer_open": false,
+    "box_open": false,
+    "saw_hidden_mark": false,
+    "door_unlocked": false,
+    "rings_aligned": false,
+    "lamp_level": 0
+  },
+  "logicalResolution": [
+    1920,
+    1080
+  ],
+  "orientation": "landscape",
+  "sceneTransitionMs": 400,
+  "music": "test_room_ambience",
+  "hintStages": [
+    {
+      "id": "use_key",
+      "when": [
+        {
+          "puzzleSolved": "door_emblems"
+        },
+        {
+          "hasItem": "small_key"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.stage.use_key.1"
+        },
+        {
+          "key": "hint.stage.use_key.2"
+        }
+      ]
+    },
+    {
+      "id": "find_key",
+      "when": [
+        {
+          "everHadItem": "small_key",
+          "equals": false
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.stage.find_key.1"
+        },
+        {
+          "key": "hint.stage.find_key.2",
+          "when": [
+            {
+              "flag": "saw_clock",
+              "equals": true
+            }
+          ]
+        },
+        {
+          "key": "hint.stage.find_key.3"
+        }
+      ]
+    },
+    {
+      "id": "explore",
+      "hints": [
+        {
+          "key": "hint.stage.explore.1"
+        },
+        {
+          "key": "hint.stage.explore.2"
+        }
+      ]
+    }
+  ]
+}

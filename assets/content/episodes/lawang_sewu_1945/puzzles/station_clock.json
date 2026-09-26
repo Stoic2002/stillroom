@@ -1,0 +1,52 @@
+{
+  "id": "station_clock",
+  "type": "codeLock",
+  "background": "images/scenes/lawang_sewu_1945/clock_close.png",
+  "config": {
+    "slots": 4,
+    "symbols": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "solution": [
+      "1",
+      "5",
+      "1",
+      "0"
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "clock_tick"
+    },
+    {
+      "type": "shake",
+      "durationMs": 250,
+      "strength": 0.2
+    },
+    {
+      "type": "showText",
+      "key": "lawang_sewu_1945.landing.clock_solved"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.lawang_sewu_1945.station_clock.1"
+    },
+    {
+      "key": "hint.lawang_sewu_1945.station_clock.2"
+    },
+    {
+      "key": "hint.lawang_sewu_1945.station_clock.3"
+    }
+  ]
+}

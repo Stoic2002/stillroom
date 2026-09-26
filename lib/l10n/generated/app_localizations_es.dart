@@ -1,0 +1,191 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for Spanish Castilian (`es`).
+class AppLocalizationsEs extends AppLocalizations {
+  AppLocalizationsEs([String locale = 'es']) : super(locale);
+
+  @override
+  String get appTitle => 'Stillroom';
+
+  @override
+  String get menuContinue => 'Continuar';
+
+  @override
+  String get menuNewGame => 'Nueva partida';
+
+  @override
+  String get menuSettings => 'Ajustes';
+
+  @override
+  String get navLeft => 'Girar a la izquierda';
+
+  @override
+  String get navRight => 'Girar a la derecha';
+
+  @override
+  String get navBack => 'Retroceder';
+
+  @override
+  String get contentLoadError => 'No se pudo cargar el contenido del juego.';
+
+  @override
+  String get backToMenu => 'Volver al menú';
+
+  @override
+  String get examineItem => 'Examinar';
+
+  @override
+  String get closeExamine => 'Cerrar';
+
+  @override
+  String get inventoryLabel => 'Inventario';
+
+  @override
+  String get closePuzzle => 'Cerrar';
+
+  @override
+  String get dialNext => 'Símbolo siguiente';
+
+  @override
+  String get dialPrevious => 'Símbolo anterior';
+
+  @override
+  String get newGameConfirmTitle => '¿Empezar una nueva partida?';
+
+  @override
+  String get newGameConfirmBody =>
+      'Perderás tu progreso actual en este episodio.';
+
+  @override
+  String get actionCancel => 'Cancelar';
+
+  @override
+  String get actionStartOver => 'Empezar de nuevo';
+
+  @override
+  String get saveCorruptedTitle => 'No se puede leer la partida guardada';
+
+  @override
+  String get saveCorruptedBody =>
+      'Tu progreso guardado está dañado y no se puede continuar. Puedes empezar una nueva partida.';
+
+  @override
+  String get settingsMusicVolume => 'Volumen de la música';
+
+  @override
+  String get settingsSfxVolume => 'Volumen de los efectos';
+
+  @override
+  String get settingsLanguage => 'Idioma';
+
+  @override
+  String get languageDevice => 'Idioma del dispositivo';
+
+  @override
+  String get languageEnglish => 'English';
+
+  @override
+  String get languageIndonesian => 'Bahasa Indonesia';
+
+  @override
+  String get settingsVibration => 'Vibración';
+
+  @override
+  String get settingsResetProgress => 'Borrar progreso';
+
+  @override
+  String get resetConfirmTitle => '¿Borrar todo el progreso?';
+
+  @override
+  String get resetConfirmBody =>
+      'Se borrará todo el progreso guardado. Tus ajustes se conservan.';
+
+  @override
+  String get actionReset => 'Borrar';
+
+  @override
+  String get progressResetDone => 'Se ha borrado el progreso.';
+
+  @override
+  String get episodeComplete => 'El relato ha sido destilado';
+
+  @override
+  String get hintButton => 'Pista';
+
+  @override
+  String get hintTitle => 'Pistas';
+
+  @override
+  String get hintRevealNext => 'Mostrar una pista';
+
+  @override
+  String get hintNoneAvailable => 'No hay pistas por ahora.';
+
+  @override
+  String get hintAllShown => 'Esas son todas las pistas por ahora.';
+
+  @override
+  String get actionClose => 'Cerrar';
+
+  @override
+  String get menuTagline =>
+      'Cada frasco guarda un relato que no debe olvidarse.';
+
+  @override
+  String get shelfTitle => 'La estantería';
+
+  @override
+  String get shelfHint => 'Elige un frasco para abrir su relato.';
+
+  @override
+  String get jarSealed => 'Aún sellado';
+
+  @override
+  String get jarDistilled => 'Destilado';
+
+  @override
+  String get jarUnfinished => 'Dejaste este relato sin terminar.';
+
+  @override
+  String get actionContinue => 'Continuar';
+
+  @override
+  String get actionOpenJar => 'Abrir el frasco';
+
+  @override
+  String get languageSpanish => 'Español';
+
+  @override
+  String get languageJapanese => '日本語';
+
+  @override
+  String get languageChinese => '简体中文';
+
+  @override
+  String get languageRussian => 'Русский';
+
+  @override
+  String get jarLockedTitle => 'Todavía no';
+
+  @override
+  String jarLocked(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Destila $count relatos más para abrir este frasco.',
+      one: 'Destila un relato más para abrir este frasco.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get languageKorean => '한국어';
+
+  @override
+  String get hintKindling =>
+      'La vela de la siguiente pista aún está prendiendo. Sigue buscando un poco más.';
+}

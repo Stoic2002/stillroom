@@ -1,0 +1,158 @@
+{
+  "id": "room_south",
+  "background": "images/scenes/whitechapel_1888/room_south.png",
+  "exits": [
+    {
+      "direction": "left",
+      "to": "room_east"
+    },
+    {
+      "direction": "right",
+      "to": "room_west"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "door_locked",
+      "rect": [
+        0.38,
+        0.1,
+        0.24,
+        0.82
+      ],
+      "when": [
+        {
+          "flag": "names_restored",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "door_rattle"
+        },
+        {
+          "type": "showText",
+          "key": "whitechapel_1888.door.locked"
+        }
+      ]
+    },
+    {
+      "id": "door_open",
+      "rect": [
+        0.38,
+        0.1,
+        0.24,
+        0.82
+      ],
+      "when": [
+        {
+          "flag": "names_restored",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "door_creak"
+        },
+        {
+          "type": "showText",
+          "key": "whitechapel_1888.door.leave"
+        },
+        {
+          "type": "endEpisode"
+        }
+      ]
+    },
+    {
+      "id": "coat",
+      "rect": [
+        0.72,
+        0.18,
+        0.16,
+        0.5
+      ],
+      "when": [
+        {
+          "everHadItem": "lens",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "pickItem",
+          "item": "lens"
+        },
+        {
+          "type": "showText",
+          "key": "whitechapel_1888.coat.pocket"
+        }
+      ]
+    },
+    {
+      "id": "coat_empty",
+      "rect": [
+        0.72,
+        0.18,
+        0.16,
+        0.5
+      ],
+      "when": [
+        {
+          "everHadItem": "lens"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1888.coat.look"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "door_closed_sprite",
+      "image": "images/objects/whitechapel_1888/door_closed_sprite.png",
+      "rect": [
+        0.38,
+        0.1,
+        0.24,
+        0.82
+      ],
+      "when": [
+        {
+          "flag": "names_restored",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "door_open_sprite",
+      "image": "images/objects/whitechapel_1888/door_open_sprite.png",
+      "rect": [
+        0.38,
+        0.1,
+        0.24,
+        0.82
+      ],
+      "when": [
+        {
+          "flag": "names_restored",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "coat_rack_sprite",
+      "image": "images/objects/whitechapel_1888/coat_rack_sprite.png",
+      "rect": [
+        0.72,
+        0.12,
+        0.16,
+        0.8
+      ]
+    }
+  ]
+}

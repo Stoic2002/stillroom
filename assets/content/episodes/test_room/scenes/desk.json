@@ -1,0 +1,160 @@
+{
+  "id": "desk",
+  "background": "images/scenes/test_room/desk.png",
+  "music": "test_room_desk",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "room_north"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "drawer_locked",
+      "rect": [
+        0.35,
+        0.6,
+        0.3,
+        0.2
+      ],
+      "when": [
+        {
+          "puzzleSolved": "drawer_lock",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "openPuzzle",
+          "puzzle": "drawer_lock"
+        }
+      ]
+    },
+    {
+      "id": "drawer_closed",
+      "rect": [
+        0.35,
+        0.6,
+        0.3,
+        0.2
+      ],
+      "when": [
+        {
+          "puzzleSolved": "drawer_lock"
+        },
+        {
+          "flag": "drawer_open",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "drawer_open",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "drawer_open",
+      "rect": [
+        0.33,
+        0.58,
+        0.34,
+        0.3
+      ],
+      "when": [
+        {
+          "flag": "drawer_open",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "drawer_open",
+          "value": false
+        }
+      ]
+    },
+    {
+      "id": "box",
+      "rect": [
+        0.44,
+        0.66,
+        0.12,
+        0.12
+      ],
+      "when": [
+        {
+          "flag": "drawer_open",
+          "equals": true
+        },
+        {
+          "everHadItem": "box",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "pickItem",
+          "item": "box"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "drawer_closed_sprite",
+      "image": "images/objects/test_room/drawer_closed.png",
+      "rect": [
+        0.35,
+        0.6,
+        0.3,
+        0.2
+      ],
+      "when": [
+        {
+          "flag": "drawer_open",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "drawer_open_sprite",
+      "image": "images/objects/test_room/drawer_open.png",
+      "rect": [
+        0.33,
+        0.58,
+        0.34,
+        0.3
+      ],
+      "when": [
+        {
+          "flag": "drawer_open",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "box_sprite",
+      "image": "images/objects/test_room/box.png",
+      "rect": [
+        0.44,
+        0.66,
+        0.12,
+        0.12
+      ],
+      "when": [
+        {
+          "flag": "drawer_open",
+          "equals": true
+        },
+        {
+          "everHadItem": "box",
+          "equals": false
+        }
+      ]
+    }
+  ]
+}

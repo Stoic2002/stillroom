@@ -1,0 +1,80 @@
+{
+  "id": "window_panes",
+  "type": "sequence",
+  "background": "images/scenes/test_room/window_close.png",
+  "config": {
+    "elements": [
+      {
+        "id": "pane_1",
+        "rect": [
+          0.3,
+          0.12,
+          0.19,
+          0.36
+        ],
+        "image": "images/objects/test_room/pane_1.png"
+      },
+      {
+        "id": "pane_2",
+        "rect": [
+          0.51,
+          0.12,
+          0.19,
+          0.36
+        ],
+        "image": "images/objects/test_room/pane_2.png"
+      },
+      {
+        "id": "pane_3",
+        "rect": [
+          0.3,
+          0.52,
+          0.19,
+          0.36
+        ],
+        "image": "images/objects/test_room/pane_3.png"
+      },
+      {
+        "id": "pane_4",
+        "rect": [
+          0.51,
+          0.52,
+          0.19,
+          0.36
+        ],
+        "image": "images/objects/test_room/pane_4.png"
+      }
+    ],
+    "solution": [
+      "pane_2",
+      "pane_4",
+      "pane_1",
+      "pane_3"
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "chime"
+    },
+    {
+      "type": "pickItem",
+      "item": "gem"
+    },
+    {
+      "type": "showText",
+      "key": "test_room.window.solved"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.window_panes.1"
+    },
+    {
+      "key": "hint.window_panes.2"
+    },
+    {
+      "key": "hint.window_panes.3"
+    }
+  ]
+}

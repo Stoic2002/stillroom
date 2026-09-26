@@ -1,0 +1,41 @@
+{
+  "episodes": [
+    {
+      "id": "whitechapel_1888",
+      "titleKey": "episode.whitechapel_1888.title",
+      "teaserKey": "episode.whitechapel_1888.teaser",
+      "jarImage": "images/ui/jar_whitechapel_1888.png",
+      "shelf": 1,
+      "series": "whitechapel"
+    },
+    {
+      "id": "lawang_sewu_1945",
+      "titleKey": "episode.lawang_sewu_1945.title",
+      "teaserKey": "episode.lawang_sewu_1945.teaser",
+      "jarImage": "images/ui/jar_lawang_sewu_1945.png",
+      "shelf": 1,
+      "unlockAfter": 1
+    },
+    {
+      "id": "sealed_3",
+      "titleKey": "episode.sealed.title",
+      "comingSoon": true,
+      "shelf": 2,
+      "unlockAfter": 2
+    },
+    {
+      "id": "sealed_whitechapel_1891",
+      "titleKey": "episode.sealed.title",
+      "comingSoon": true,
+      "shelf": 3,
+      "unlockAfter": 4,
+      "series": "whitechapel"
+    },
+    {
+      "id": "test_room",
+      "titleKey": "episode.test_room.title",
+      "debugOnly": true,
+      "shelf": 1
+    }
+  ]
+}

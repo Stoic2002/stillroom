@@ -1,0 +1,127 @@
+{
+  "id": "corridor_east",
+  "background": "images/scenes/lawang_sewu_1945/corridor_east.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "landing"
+    },
+    {
+      "id": "door_1945",
+      "to": "window_1945",
+      "rect": [
+        0.12,
+        0.18,
+        0.18,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "telegram_sent",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "door_lockers",
+      "to": "lockers",
+      "rect": [
+        0.7,
+        0.18,
+        0.18,
+        0.66
+      ],
+      "when": [
+        {
+          "puzzleSolved": "locker_door",
+          "equals": true
+        }
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "door_1945_locked",
+      "rect": [
+        0.12,
+        0.18,
+        0.18,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "telegram_sent",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "door_rattle"
+        },
+        {
+          "type": "showText",
+          "key": "lawang_sewu_1945.corridor.door_1945_locked"
+        }
+      ]
+    },
+    {
+      "id": "locker_door",
+      "rect": [
+        0.7,
+        0.18,
+        0.18,
+        0.66
+      ],
+      "when": [
+        {
+          "puzzleSolved": "locker_door",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "openPuzzle",
+          "puzzle": "locker_door"
+        }
+      ]
+    },
+    {
+      "id": "doors",
+      "rect": [
+        0.36,
+        0.24,
+        0.28,
+        0.44
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "lawang_sewu_1945.corridor.endless"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "door_1945_sprite",
+      "image": "images/objects/lawang_sewu_1945/door_1945_sprite.png",
+      "rect": [
+        0.12,
+        0.18,
+        0.18,
+        0.66
+      ]
+    },
+    {
+      "id": "door_lockers_sprite",
+      "image": "images/objects/lawang_sewu_1945/door_lockers_sprite.png",
+      "rect": [
+        0.7,
+        0.18,
+        0.18,
+        0.66
+      ]
+    }
+  ]
+}

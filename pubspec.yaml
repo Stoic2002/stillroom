@@ -1,0 +1,97 @@
+name: stillroom
+description: "Stillroom — a surreal point-and-click escape room puzzle game."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  flame: ^1.38.2
+  flame_audio: ^2.12.2
+  flutter_riverpod: ^3.3.1
+  freezed_annotation: ^3.1.0
+  intl: ^0.20.2
+  json_annotation: ^4.11.0
+  riverpod_annotation: ^4.0.2
+  shared_preferences: ^2.5.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.15.1
+  flutter_lints: ^6.0.0
+  freezed: ^3.2.5
+  json_serializable: ^6.13.0
+  riverpod_generator: ^4.0.3
+  # 3.1.3 is the newest release compatible with the `meta` version pinned by
+  # Flutter 3.41.7; newer releases require analyzer 12 / meta ^1.18.
+  riverpod_lint: ^3.1.3
+
+flutter:
+  uses-material-design: true
+  generate: true
+
+  # Asset folders are listed per directory (Flutter does not recurse).
+  assets:
+    - assets/content/
+    - assets/content/strings/
+    # One block per episode.
+    - assets/content/episodes/whitechapel_1888/
+    - assets/content/episodes/whitechapel_1888/scenes/
+    - assets/content/episodes/whitechapel_1888/puzzles/
+    - assets/content/episodes/lawang_sewu_1945/
+    - assets/content/episodes/lawang_sewu_1945/scenes/
+    - assets/content/episodes/lawang_sewu_1945/puzzles/
+    - assets/content/episodes/test_room/
+    - assets/content/episodes/test_room/scenes/
+    - assets/content/episodes/test_room/puzzles/
+    - assets/images/scenes/
+    - assets/images/scenes/test_room/
+    - assets/images/scenes/whitechapel_1888/
+    - assets/images/scenes/lawang_sewu_1945/
+    - assets/images/objects/
+    - assets/images/objects/test_room/
+    - assets/images/objects/whitechapel_1888/
+    - assets/images/objects/lawang_sewu_1945/
+    - assets/images/items/
+    - assets/images/items/test_room/
+    - assets/images/items/whitechapel_1888/
+    - assets/images/items/lawang_sewu_1945/
+    - assets/images/ui/
+    - assets/audio/music/
+    - assets/audio/sfx/
+    - assets/fonts/licenses/
+
+  # All fonts: SIL Open Font License 1.1 (assets/fonts/licenses/, shown on
+  # the app's license page via main.dart). IM FELL English: Latin; Old
+  # Standard TT: Cyrillic; Noto Serif JP/SC: subset by
+  # tool/fonts/subset_cjk_fonts.py.
+  fonts:
+    - family: IMFell
+      fonts:
+        - asset: assets/fonts/IMFeENrm28P.ttf
+        - asset: assets/fonts/IMFeENit28P.ttf
+          style: italic
+    - family: IMFellSC
+      fonts:
+        - asset: assets/fonts/IMFeENsc28P.ttf
+    - family: OldStandard
+      fonts:
+        - asset: assets/fonts/OldStandard-Regular.ttf
+        - asset: assets/fonts/OldStandard-Italic.ttf
+          style: italic
+    - family: NotoSerifJP
+      fonts:
+        - asset: assets/fonts/NotoSerifJP-Regular-subset.ttf
+    - family: NotoSerifSC
+      fonts:
+        - asset: assets/fonts/NotoSerifSC-Regular-subset.ttf
+    - family: NotoSerifKR
+      fonts:
+        - asset: assets/fonts/NotoSerifKR-Regular-subset.ttf

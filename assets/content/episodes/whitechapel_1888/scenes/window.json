@@ -1,0 +1,90 @@
+{
+  "id": "window",
+  "background": "images/scenes/whitechapel_1888/window.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "room_north"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "street_map",
+      "rect": [
+        0.6,
+        0.2,
+        0.26,
+        0.44
+      ],
+      "when": [
+        {
+          "puzzleSolved": "street_compass",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "openPuzzle",
+          "puzzle": "street_compass"
+        }
+      ]
+    },
+    {
+      "id": "street_map_done",
+      "rect": [
+        0.6,
+        0.2,
+        0.26,
+        0.44
+      ],
+      "when": [
+        {
+          "puzzleSolved": "street_compass"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1888.street_map.done"
+        }
+      ]
+    },
+    {
+      "id": "fog",
+      "rect": [
+        0.08,
+        0.1,
+        0.46,
+        0.7
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1888.fog.look"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "street_map_sprite",
+      "image": "images/objects/whitechapel_1888/street_map_sprite.png",
+      "rect": [
+        0.6,
+        0.2,
+        0.26,
+        0.44
+      ]
+    },
+    {
+      "id": "gaslamp_sprite",
+      "image": "images/objects/whitechapel_1888/gaslamp_sprite.png",
+      "rect": [
+        0.14,
+        0.47,
+        0.06,
+        0.36
+      ]
+    }
+  ]
+}

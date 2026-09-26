@@ -1,0 +1,264 @@
+{
+  "id": "landing",
+  "background": "images/scenes/lawang_sewu_1945/landing.png",
+  "exits": [
+    {
+      "direction": "left",
+      "to": "corridor_west"
+    },
+    {
+      "direction": "right",
+      "to": "corridor_east"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "clock",
+      "rect": [
+        0.07,
+        0.16,
+        0.14,
+        0.24
+      ],
+      "when": [
+        {
+          "puzzleSolved": "station_clock",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "clock_tick"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "station_clock"
+        }
+      ]
+    },
+    {
+      "id": "clock_running",
+      "rect": [
+        0.07,
+        0.16,
+        0.14,
+        0.24
+      ],
+      "when": [
+        {
+          "puzzleSolved": "station_clock",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "lawang_sewu_1945.landing.clock_running"
+        }
+      ]
+    },
+    {
+      "id": "lantern",
+      "rect": [
+        0.085,
+        0.41,
+        0.11,
+        0.13
+      ],
+      "when": [
+        {
+          "puzzleSolved": "station_clock",
+          "equals": true
+        },
+        {
+          "everHadItem": "lantern",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "pickItem",
+          "item": "lantern"
+        },
+        {
+          "type": "showText",
+          "key": "lawang_sewu_1945.landing.lantern"
+        }
+      ]
+    },
+    {
+      "id": "glass_dark",
+      "rect": [
+        0.38,
+        0.06,
+        0.24,
+        0.4
+      ],
+      "when": [
+        {
+          "flag": "belongings_returned",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "lawang_sewu_1945.landing.glass_dark"
+        }
+      ]
+    },
+    {
+      "id": "glass",
+      "rect": [
+        0.38,
+        0.06,
+        0.24,
+        0.4
+      ],
+      "when": [
+        {
+          "flag": "belongings_returned",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "stained_glass",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "openPuzzle",
+          "puzzle": "stained_glass"
+        }
+      ]
+    },
+    {
+      "id": "stairs",
+      "rect": [
+        0.3,
+        0.52,
+        0.4,
+        0.46
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "lawang_sewu_1945.landing.stairs"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "staircase_sprite",
+      "image": "images/objects/lawang_sewu_1945/staircase_sprite.png",
+      "rect": [
+        0.28,
+        0.5,
+        0.44,
+        0.5
+      ]
+    },
+    {
+      "id": "glass_dark_sprite",
+      "image": "images/objects/lawang_sewu_1945/glass_dark_sprite.png",
+      "rect": [
+        0.38,
+        0.06,
+        0.24,
+        0.4
+      ],
+      "when": [
+        {
+          "puzzleSolved": "stained_glass",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "glass_lit_sprite",
+      "image": "images/objects/lawang_sewu_1945/glass_lit_sprite.png",
+      "rect": [
+        0.38,
+        0.06,
+        0.24,
+        0.4
+      ],
+      "when": [
+        {
+          "puzzleSolved": "stained_glass",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "clock_stopped_sprite",
+      "image": "images/objects/lawang_sewu_1945/clock_stopped_sprite.png",
+      "rect": [
+        0.07,
+        0.16,
+        0.14,
+        0.24
+      ],
+      "when": [
+        {
+          "puzzleSolved": "station_clock",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "clock_running_sprite",
+      "image": "images/objects/lawang_sewu_1945/clock_running_sprite.png",
+      "rect": [
+        0.07,
+        0.16,
+        0.14,
+        0.24
+      ],
+      "when": [
+        {
+          "puzzleSolved": "station_clock",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "clock_niche_sprite",
+      "image": "images/objects/lawang_sewu_1945/clock_niche_sprite.png",
+      "rect": [
+        0.085,
+        0.41,
+        0.11,
+        0.13
+      ],
+      "when": [
+        {
+          "puzzleSolved": "station_clock",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "lantern_sprite",
+      "image": "images/objects/lawang_sewu_1945/lantern_sprite.png",
+      "rect": [
+        0.105,
+        0.42,
+        0.07,
+        0.11
+      ],
+      "when": [
+        {
+          "puzzleSolved": "station_clock",
+          "equals": true
+        },
+        {
+          "everHadItem": "lantern",
+          "equals": false
+        }
+      ]
+    }
+  ]
+}

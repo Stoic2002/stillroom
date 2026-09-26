@@ -1,0 +1,88 @@
+{
+  "id": "lockers",
+  "background": "images/scenes/lawang_sewu_1945/lockers.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "corridor_east"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "lockers",
+      "rect": [
+        0.08,
+        0.12,
+        0.84,
+        0.7
+      ],
+      "when": [
+        {
+          "puzzleSolved": "lockers",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "openPuzzle",
+          "puzzle": "lockers"
+        }
+      ]
+    },
+    {
+      "id": "lockers_done",
+      "rect": [
+        0.08,
+        0.12,
+        0.84,
+        0.7
+      ],
+      "when": [
+        {
+          "puzzleSolved": "lockers",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "lawang_sewu_1945.lockers.done"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "lockers_empty_sprite",
+      "image": "images/objects/lawang_sewu_1945/lockers_empty_sprite.png",
+      "rect": [
+        0.08,
+        0.12,
+        0.84,
+        0.7
+      ],
+      "when": [
+        {
+          "puzzleSolved": "lockers",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "lockers_filled_sprite",
+      "image": "images/objects/lawang_sewu_1945/lockers_filled_sprite.png",
+      "rect": [
+        0.08,
+        0.12,
+        0.84,
+        0.7
+      ],
+      "when": [
+        {
+          "puzzleSolved": "lockers",
+          "equals": true
+        }
+      ]
+    }
+  ]
+}

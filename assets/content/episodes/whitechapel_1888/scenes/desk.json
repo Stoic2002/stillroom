@@ -1,0 +1,161 @@
+{
+  "id": "desk",
+  "background": "images/scenes/whitechapel_1888/desk.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "room_north"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "clippings",
+      "rect": [
+        0.08,
+        0.08,
+        0.34,
+        0.4
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "showText",
+          "key": "whitechapel_1888.clippings.look"
+        }
+      ]
+    },
+    {
+      "id": "faded_paper",
+      "rect": [
+        0.52,
+        0.12,
+        0.3,
+        0.3
+      ],
+      "when": [
+        {
+          "everHadItem": "name_card_kelly",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1888.faded_paper.look"
+        }
+      ],
+      "onUseItem": [
+        {
+          "item": "magnifier",
+          "actions": [
+            {
+              "type": "pickItem",
+              "item": "name_card_kelly"
+            },
+            {
+              "type": "showText",
+              "key": "whitechapel_1888.faded_paper.read"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "drawer_locked",
+      "rect": [
+        0.3,
+        0.66,
+        0.4,
+        0.22
+      ],
+      "when": [
+        {
+          "puzzleSolved": "desk_drawer",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "openPuzzle",
+          "puzzle": "desk_drawer"
+        }
+      ]
+    },
+    {
+      "id": "drawer",
+      "rect": [
+        0.3,
+        0.66,
+        0.4,
+        0.22
+      ],
+      "when": [
+        {
+          "puzzleSolved": "desk_drawer"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1888.drawer.empty"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "clippings_sprite",
+      "image": "images/objects/whitechapel_1888/clippings_sprite.png",
+      "rect": [
+        0.08,
+        0.08,
+        0.34,
+        0.4
+      ]
+    },
+    {
+      "id": "faded_paper_sprite",
+      "image": "images/objects/whitechapel_1888/faded_paper_sprite.png",
+      "rect": [
+        0.52,
+        0.12,
+        0.3,
+        0.3
+      ]
+    },
+    {
+      "id": "drawer_closed_sprite",
+      "image": "images/objects/whitechapel_1888/drawer_closed_sprite.png",
+      "rect": [
+        0.3,
+        0.66,
+        0.4,
+        0.22
+      ],
+      "when": [
+        {
+          "puzzleSolved": "desk_drawer",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "drawer_open_sprite",
+      "image": "images/objects/whitechapel_1888/drawer_open_sprite.png",
+      "rect": [
+        0.28,
+        0.64,
+        0.44,
+        0.3
+      ],
+      "when": [
+        {
+          "puzzleSolved": "desk_drawer"
+        }
+      ]
+    }
+  ]
+}

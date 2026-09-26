@@ -1,0 +1,234 @@
+{
+  "id": "office_1907",
+  "background": "images/scenes/lawang_sewu_1945/office_1907.png",
+  "music": "lawang_sewu_1907",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "corridor_west"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "ledger",
+      "rect": [
+        0.16,
+        0.46,
+        0.2,
+        0.12
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "examineItem",
+          "item": "ledger"
+        }
+      ]
+    },
+    {
+      "id": "timetable",
+      "rect": [
+        0.54,
+        0.08,
+        0.38,
+        0.4
+      ],
+      "when": [
+        {
+          "puzzleSolved": "timetable",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "openPuzzle",
+          "puzzle": "timetable"
+        }
+      ]
+    },
+    {
+      "id": "timetable_done",
+      "rect": [
+        0.54,
+        0.08,
+        0.38,
+        0.4
+      ],
+      "when": [
+        {
+          "puzzleSolved": "timetable",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "lawang_sewu_1945.office.timetable_done"
+        }
+      ]
+    },
+    {
+      "id": "telegraph",
+      "rect": [
+        0.58,
+        0.58,
+        0.24,
+        0.22
+      ],
+      "when": [
+        {
+          "puzzleSolved": "telegraph",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "openPuzzle",
+          "puzzle": "telegraph"
+        }
+      ]
+    },
+    {
+      "id": "telegraph_done",
+      "rect": [
+        0.58,
+        0.58,
+        0.24,
+        0.22
+      ],
+      "when": [
+        {
+          "puzzleSolved": "telegraph",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "lawang_sewu_1945.office.telegraph_done"
+        }
+      ]
+    },
+    {
+      "id": "telegram_form",
+      "rect": [
+        0.84,
+        0.62,
+        0.12,
+        0.14
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "showText",
+          "key": "lawang_sewu_1945.office.telegram_form"
+        }
+      ]
+    },
+    {
+      "id": "oil_can",
+      "rect": [
+        0.06,
+        0.15,
+        0.08,
+        0.15
+      ],
+      "when": [
+        {
+          "everHadItem": "lamp_oil",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "pickItem",
+          "item": "lamp_oil"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "shelf_sprite",
+      "image": "images/objects/lawang_sewu_1945/shelf_sprite.png",
+      "rect": [
+        0.02,
+        0.3,
+        0.2,
+        0.03
+      ]
+    },
+    {
+      "id": "oil_can_sprite",
+      "image": "images/objects/lawang_sewu_1945/oil_can_sprite.png",
+      "rect": [
+        0.06,
+        0.15,
+        0.08,
+        0.15
+      ],
+      "when": [
+        {
+          "everHadItem": "lamp_oil",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "office_desk_sprite",
+      "image": "images/objects/lawang_sewu_1945/office_desk_sprite.png",
+      "rect": [
+        0.06,
+        0.52,
+        0.44,
+        0.44
+      ]
+    },
+    {
+      "id": "ledger_sprite",
+      "image": "images/objects/lawang_sewu_1945/ledger_sprite.png",
+      "rect": [
+        0.16,
+        0.46,
+        0.2,
+        0.12
+      ]
+    },
+    {
+      "id": "timetable_board_sprite",
+      "image": "images/objects/lawang_sewu_1945/timetable_board_sprite.png",
+      "rect": [
+        0.54,
+        0.08,
+        0.38,
+        0.4
+      ]
+    },
+    {
+      "id": "telegraph_sprite",
+      "image": "images/objects/lawang_sewu_1945/telegraph_sprite.png",
+      "rect": [
+        0.58,
+        0.58,
+        0.24,
+        0.22
+      ]
+    },
+    {
+      "id": "telegram_form_sprite",
+      "image": "images/objects/lawang_sewu_1945/telegram_form_sprite.png",
+      "rect": [
+        0.84,
+        0.62,
+        0.12,
+        0.14
+      ]
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "id": "lockers",
+  "type": "slotPlacement",
+  "background": "images/scenes/lawang_sewu_1945/lockers_close.png",
+  "config": {
+    "pieces": [
+      {
+        "id": "driver",
+        "item": "driver_cap"
+      },
+      {
+        "id": "conductor",
+        "item": "ticket_punch"
+      },
+      {
+        "id": "telegraphist",
+        "item": "telegraph_key"
+      },
+      {
+        "id": "shunter",
+        "item": "lit_lantern"
+      },
+      {
+        "id": "stationmaster",
+        "item": "whistle"
+      }
+    ],
+    "slots": [
+      {
+        "id": "locker_stationmaster",
+        "rect": [
+          0.08,
+          0.18,
+          0.12,
+          0.4
+        ],
+        "labelKey": "lawang_sewu_1945.role.stationmaster"
+      },
+      {
+        "id": "locker_telegraphist",
+        "rect": [
+          0.26,
+          0.18,
+          0.12,
+          0.4
+        ],
+        "labelKey": "lawang_sewu_1945.role.telegraphist"
+      },
+      {
+        "id": "locker_driver",
+        "rect": [
+          0.44,
+          0.18,
+          0.12,
+          0.4
+        ],
+        "labelKey": "lawang_sewu_1945.role.driver"
+      },
+      {
+        "id": "locker_shunter",
+        "rect": [
+          0.62,
+          0.18,
+          0.12,
+          0.4
+        ],
+        "labelKey": "lawang_sewu_1945.role.shunter"
+      },
+      {
+        "id": "locker_conductor",
+        "rect": [
+          0.7999999999999999,
+          0.18,
+          0.12,
+          0.4
+        ],
+        "labelKey": "lawang_sewu_1945.role.conductor"
+      }
+    ],
+    "solution": {
+      "locker_driver": "driver",
+      "locker_conductor": "conductor",
+      "locker_telegraphist": "telegraphist",
+      "locker_shunter": "shunter",
+      "locker_stationmaster": "stationmaster"
+    }
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "locker_close"
+    },
+    {
+      "type": "removeItem",
+      "item": "driver_cap"
+    },
+    {
+      "type": "removeItem",
+      "item": "ticket_punch"
+    },
+    {
+      "type": "removeItem",
+      "item": "telegraph_key"
+    },
+    {
+      "type": "removeItem",
+      "item": "lit_lantern"
+    },
+    {
+      "type": "removeItem",
+      "item": "whistle"
+    },
+    {
+      "type": "setFlag",
+      "flag": "belongings_returned",
+      "value": true
+    },
+    {
+      "type": "showText",
+      "key": "lawang_sewu_1945.lockers.solved"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.lawang_sewu_1945.lockers.1"
+    },
+    {
+      "key": "hint.lawang_sewu_1945.lockers.2"
+    },
+    {
+      "key": "hint.lawang_sewu_1945.lockers.3"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+/// Stillroom game engine: pure Dart, no Flutter or Flame imports.
+library;
+
+export 'actions/built_in_actions.dart';
+export 'actions/game_action.dart';
+export 'engine_exception.dart';
+export 'game_engine.dart';
+export 'game_event.dart';
+export 'json/json_reader.dart';
+export 'model/condition.dart';
+export 'model/content_ref.dart';
+export 'model/episode_content.dart';
+export 'model/game_config.dart';
+export 'model/item.dart';
+export 'model/normalized_rect.dart';
+export 'model/puzzle.dart';
+export 'model/scene.dart';
+export 'puzzles/built_in_puzzles.dart';
+export 'puzzles/code_lock.dart';
+export 'puzzles/puzzle_type.dart';
+export 'puzzles/rotary_align.dart';
+export 'puzzles/sequence.dart';
+export 'puzzles/slot_placement.dart';
+export 'save/save_file.dart';
+export 'save/save_serializer.dart';
+export 'state/game_state.dart';

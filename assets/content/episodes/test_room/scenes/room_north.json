@@ -1,0 +1,125 @@
+{
+  "id": "room_north",
+  "background": "images/scenes/test_room/room_north.png",
+  "exits": [
+    {
+      "direction": "left",
+      "to": "room_west"
+    },
+    {
+      "direction": "right",
+      "to": "room_east"
+    },
+    {
+      "id": "desk",
+      "to": "desk",
+      "rect": [
+        0.3,
+        0.55,
+        0.4,
+        0.35
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "painting",
+      "rect": [
+        0.38,
+        0.12,
+        0.24,
+        0.3
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "test_room.painting.look"
+        }
+      ],
+      "onUseItem": [
+        {
+          "item": "magnifier",
+          "actions": [
+            {
+              "type": "setFlag",
+              "flag": "saw_hidden_mark",
+              "value": true
+            },
+            {
+              "type": "showText",
+              "key": "test_room.painting.magnified"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "clock",
+      "rect": [
+        0.78,
+        0.15,
+        0.1,
+        0.18
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "saw_clock",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "test_room.clock.look"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "desk_sprite",
+      "image": "images/objects/test_room/desk.png",
+      "rect": [
+        0.3,
+        0.55,
+        0.4,
+        0.35
+      ]
+    },
+    {
+      "id": "painting_sprite",
+      "image": "images/objects/test_room/painting.png",
+      "rect": [
+        0.38,
+        0.12,
+        0.24,
+        0.3
+      ]
+    },
+    {
+      "id": "hidden_mark",
+      "image": "images/objects/test_room/hidden_mark.png",
+      "rect": [
+        0.47,
+        0.22,
+        0.06,
+        0.08
+      ],
+      "when": [
+        {
+          "flag": "saw_hidden_mark",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "clock_sprite",
+      "image": "images/objects/test_room/clock.png",
+      "rect": [
+        0.78,
+        0.15,
+        0.1,
+        0.18
+      ]
+    }
+  ]
+}

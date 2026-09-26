@@ -1,0 +1,70 @@
+{
+  "id": "telegraph",
+  "type": "sequence",
+  "background": "images/scenes/lawang_sewu_1945/telegraph_close.png",
+  "config": {
+    "elements": [
+      {
+        "id": "dot",
+        "rect": [
+          0.26,
+          0.4,
+          0.18,
+          0.3
+        ],
+        "image": "images/objects/lawang_sewu_1945/key_dot.png",
+        "labelKey": "lawang_sewu_1945.telegraph.dot"
+      },
+      {
+        "id": "dash",
+        "rect": [
+          0.56,
+          0.4,
+          0.18,
+          0.3
+        ],
+        "image": "images/objects/lawang_sewu_1945/key_dash.png",
+        "labelKey": "lawang_sewu_1945.telegraph.dash"
+      }
+    ],
+    "solution": [
+      "dash",
+      "dot",
+      "dot",
+      "dot",
+      "dot",
+      "dot",
+      "dot"
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "telegraph_click"
+    },
+    {
+      "type": "setFlag",
+      "flag": "telegram_sent",
+      "value": true
+    },
+    {
+      "type": "pickItem",
+      "item": "telegraph_key"
+    },
+    {
+      "type": "showText",
+      "key": "lawang_sewu_1945.office.telegraph_solved"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.lawang_sewu_1945.telegraph.1"
+    },
+    {
+      "key": "hint.lawang_sewu_1945.telegraph.2"
+    },
+    {
+      "key": "hint.lawang_sewu_1945.telegraph.3"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "id": "timetable",
+  "type": "sequence",
+  "background": "images/scenes/lawang_sewu_1945/timetable_close.png",
+  "config": {
+    "elements": [
+      {
+        "id": "brumbung",
+        "rect": [
+          0.06,
+          0.38,
+          0.16,
+          0.22
+        ],
+        "image": "images/objects/lawang_sewu_1945/station_plate.png",
+        "labelKey": "lawang_sewu_1945.station.brumbung"
+      },
+      {
+        "id": "samarang",
+        "rect": [
+          0.3,
+          0.38,
+          0.16,
+          0.22
+        ],
+        "image": "images/objects/lawang_sewu_1945/station_plate.png",
+        "labelKey": "lawang_sewu_1945.station.samarang"
+      },
+      {
+        "id": "tanggung",
+        "rect": [
+          0.54,
+          0.38,
+          0.16,
+          0.22
+        ],
+        "image": "images/objects/lawang_sewu_1945/station_plate.png",
+        "labelKey": "lawang_sewu_1945.station.tanggung"
+      },
+      {
+        "id": "alastua",
+        "rect": [
+          0.78,
+          0.38,
+          0.16,
+          0.22
+        ],
+        "image": "images/objects/lawang_sewu_1945/station_plate.png",
+        "labelKey": "lawang_sewu_1945.station.alastua"
+      }
+    ],
+    "solution": [
+      "samarang",
+      "alastua",
+      "brumbung",
+      "tanggung"
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "station_bell"
+    },
+    {
+      "type": "pickItem",
+      "item": "ticket_punch"
+    },
+    {
+      "type": "showText",
+      "key": "lawang_sewu_1945.office.timetable_solved"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.lawang_sewu_1945.timetable.1"
+    },
+    {
+      "key": "hint.lawang_sewu_1945.timetable.2"
+    },
+    {
+      "key": "hint.lawang_sewu_1945.timetable.3"
+    }
+  ]
+}

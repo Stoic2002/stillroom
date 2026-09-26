@@ -1,0 +1,232 @@
+{
+  "@@locale": "en",
+  "appTitle": "Stillroom",
+  "@appTitle": {
+    "description": "Game title shown in the task switcher and main menu."
+  },
+  "menuContinue": "Continue",
+  "@menuContinue": {
+    "description": "Main menu button: resume saved game."
+  },
+  "menuNewGame": "New Game",
+  "@menuNewGame": {
+    "description": "Main menu button: start a new game."
+  },
+  "menuSettings": "Settings",
+  "@menuSettings": {
+    "description": "Main menu button: open settings."
+  },
+  "navLeft": "Turn left",
+  "@navLeft": {
+    "description": "Accessibility label of the left scene arrow."
+  },
+  "navRight": "Turn right",
+  "@navRight": {
+    "description": "Accessibility label of the right scene arrow."
+  },
+  "navBack": "Step back",
+  "@navBack": {
+    "description": "Accessibility label of the back / zoom-out arrow."
+  },
+  "contentLoadError": "The game content could not be loaded.",
+  "@contentLoadError": {
+    "description": "Shown when episode content fails to load."
+  },
+  "backToMenu": "Back to menu",
+  "@backToMenu": {
+    "description": "Button returning to the main menu."
+  },
+  "examineItem": "Examine",
+  "@examineItem": {
+    "description": "Button that opens the close-up view of the selected inventory item."
+  },
+  "closeExamine": "Close",
+  "@closeExamine": {
+    "description": "Button that closes the item close-up view."
+  },
+  "inventoryLabel": "Inventory",
+  "@inventoryLabel": {
+    "description": "Accessibility label of the inventory bar."
+  },
+  "closePuzzle": "Close",
+  "@closePuzzle": {
+    "description": "Button that closes a puzzle screen without solving it."
+  },
+  "dialNext": "Next symbol",
+  "@dialNext": {
+    "description": "Accessibility label: turn a code-lock dial forward."
+  },
+  "dialPrevious": "Previous symbol",
+  "@dialPrevious": {
+    "description": "Accessibility label: turn a code-lock dial back."
+  },
+  "newGameConfirmTitle": "Start a new game?",
+  "@newGameConfirmTitle": {
+    "description": "Confirm dialog title before overwriting progress."
+  },
+  "newGameConfirmBody": "Your current progress in this episode will be lost.",
+  "@newGameConfirmBody": {
+    "description": "Confirm dialog body before a new game."
+  },
+  "actionCancel": "Cancel",
+  "@actionCancel": {
+    "description": "Generic cancel button."
+  },
+  "actionStartOver": "Start over",
+  "@actionStartOver": {
+    "description": "Confirms starting a new game."
+  },
+  "saveCorruptedTitle": "Saved game can't be read",
+  "@saveCorruptedTitle": {
+    "description": "Dialog title when the save is damaged."
+  },
+  "saveCorruptedBody": "Your saved progress is damaged and can't be continued. You can start a new game.",
+  "@saveCorruptedBody": {
+    "description": "Dialog body when the save is damaged."
+  },
+  "settingsMusicVolume": "Music volume",
+  "@settingsMusicVolume": {
+    "description": "Settings slider label."
+  },
+  "settingsSfxVolume": "Sound effects volume",
+  "@settingsSfxVolume": {
+    "description": "Settings slider label."
+  },
+  "settingsLanguage": "Language",
+  "@settingsLanguage": {
+    "description": "Settings section label."
+  },
+  "languageDevice": "Device language",
+  "@languageDevice": {
+    "description": "Language option that follows the device setting."
+  },
+  "languageEnglish": "English",
+  "@languageEnglish": {
+    "description": "Language option, in its own language."
+  },
+  "languageIndonesian": "Bahasa Indonesia",
+  "@languageIndonesian": {
+    "description": "Language option, in its own language."
+  },
+  "settingsVibration": "Vibration",
+  "@settingsVibration": {
+    "description": "Settings switch label."
+  },
+  "settingsResetProgress": "Reset progress",
+  "@settingsResetProgress": {
+    "description": "Settings button that deletes all saved progress."
+  },
+  "resetConfirmTitle": "Reset all progress?",
+  "@resetConfirmTitle": {
+    "description": "Confirm dialog title for resetting progress."
+  },
+  "resetConfirmBody": "All saved progress will be deleted. Your settings are kept.",
+  "@resetConfirmBody": {
+    "description": "Confirm dialog body for resetting progress."
+  },
+  "actionReset": "Reset",
+  "@actionReset": {
+    "description": "Confirms resetting progress."
+  },
+  "progressResetDone": "Progress has been reset.",
+  "@progressResetDone": {
+    "description": "Snackbar after resetting progress."
+  },
+  "episodeComplete": "The tale is distilled",
+  "@episodeComplete": {
+    "description": "Title of the end-of-episode screen."
+  },
+  "hintButton": "Hint",
+  "@hintButton": {
+    "description": "Tooltip of the hint button."
+  },
+  "hintTitle": "Hints",
+  "@hintTitle": {
+    "description": "Title of the hint dialog."
+  },
+  "hintRevealNext": "Show a hint",
+  "@hintRevealNext": {
+    "description": "Button that reveals the next hint."
+  },
+  "hintNoneAvailable": "No hints right now.",
+  "@hintNoneAvailable": {
+    "description": "Hint dialog when nothing is on offer."
+  },
+  "hintAllShown": "That's every hint for now.",
+  "@hintAllShown": {
+    "description": "Hint dialog when all hints are revealed."
+  },
+  "actionClose": "Close",
+  "@actionClose": {
+    "description": "Generic close button."
+  },
+  "menuTagline": "Every jar keeps a tale that must not be forgotten.",
+  "@menuTagline": {
+    "description": "Tagline under the title on the main menu."
+  },
+  "shelfTitle": "The shelf",
+  "@shelfTitle": {
+    "description": "Title of the episode picker (a shelf of jars)."
+  },
+  "shelfHint": "Choose a jar to open its tale.",
+  "@shelfHint": {
+    "description": "Instruction on the episode picker."
+  },
+  "jarSealed": "Still sealed",
+  "@jarSealed": {
+    "description": "Label on a jar whose episode is not available yet."
+  },
+  "jarDistilled": "Distilled",
+  "@jarDistilled": {
+    "description": "Badge on a jar whose episode is completed."
+  },
+  "jarUnfinished": "You left this tale unfinished.",
+  "@jarUnfinished": {
+    "description": "Dialog body when opening a jar with saved progress."
+  },
+  "actionContinue": "Continue",
+  "@actionContinue": {
+    "description": "Resume saved progress."
+  },
+  "actionOpenJar": "Open the jar",
+  "@actionOpenJar": {
+    "description": "Starts an episode from the shelf."
+  },
+  "languageSpanish": "Español",
+  "@languageSpanish": {
+    "description": "Language option, in its own language."
+  },
+  "languageJapanese": "日本語",
+  "@languageJapanese": {
+    "description": "Language option, in its own language."
+  },
+  "languageChinese": "简体中文",
+  "@languageChinese": {
+    "description": "Language option, in its own language (Simplified Chinese)."
+  },
+  "languageRussian": "Русский",
+  "@languageRussian": {
+    "description": "Language option, in its own language."
+  },
+  "jarLockedTitle": "Not yet",
+  "jarLocked": "{count, plural, =1{Distil one more tale to open this jar.} other{Distil {count} more tales to open this jar.}}",
+  "@jarLockedTitle": {
+    "description": "Dialog title when a jar on a higher shelf is still locked."
+  },
+  "@jarLocked": {
+    "description": "How many more tales must be finished before a locked jar opens.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "languageKorean": "한국어",
+  "@languageKorean": {
+    "description": "Language option, in its own language."
+  },
+  "hintKindling": "The candle for the next hint is still catching. Keep looking a little longer.",
+  "@hintKindling": {
+    "description": "Hint dialog while the next hint's candle is still burning (hints are paced)."
+  }
+}

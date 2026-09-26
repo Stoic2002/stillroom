@@ -1,0 +1,127 @@
+{
+  "id": "room_west",
+  "background": "images/scenes/whitechapel_1888/room_west.png",
+  "exits": [
+    {
+      "direction": "left",
+      "to": "room_south"
+    },
+    {
+      "direction": "right",
+      "to": "room_north"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "frames",
+      "rect": [
+        0.14,
+        0.1,
+        0.72,
+        0.46
+      ],
+      "when": [
+        {
+          "puzzleSolved": "five_frames",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "openPuzzle",
+          "puzzle": "five_frames"
+        }
+      ]
+    },
+    {
+      "id": "frames_restored",
+      "rect": [
+        0.14,
+        0.1,
+        0.72,
+        0.46
+      ],
+      "when": [
+        {
+          "puzzleSolved": "five_frames"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1888.frames.restored"
+        }
+      ]
+    },
+    {
+      "id": "brass_frame",
+      "rect": [
+        0.6,
+        0.8,
+        0.1,
+        0.1
+      ],
+      "when": [
+        {
+          "everHadItem": "brass_frame",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "pickItem",
+          "item": "brass_frame"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "frames_empty_sprite",
+      "image": "images/objects/whitechapel_1888/frames_empty_sprite.png",
+      "rect": [
+        0.14,
+        0.1,
+        0.72,
+        0.46
+      ],
+      "when": [
+        {
+          "puzzleSolved": "five_frames",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "frames_restored_sprite",
+      "image": "images/objects/whitechapel_1888/frames_restored_sprite.png",
+      "rect": [
+        0.14,
+        0.1,
+        0.72,
+        0.46
+      ],
+      "when": [
+        {
+          "puzzleSolved": "five_frames"
+        }
+      ]
+    },
+    {
+      "id": "floor_frame_sprite",
+      "image": "images/objects/whitechapel_1888/brass_frame.png",
+      "rect": [
+        0.6,
+        0.8,
+        0.1,
+        0.1
+      ],
+      "when": [
+        {
+          "everHadItem": "brass_frame",
+          "equals": false
+        }
+      ]
+    }
+  ]
+}

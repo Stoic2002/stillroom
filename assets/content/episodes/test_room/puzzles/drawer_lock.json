@@ -1,0 +1,53 @@
+{
+  "id": "drawer_lock",
+  "type": "codeLock",
+  "config": {
+    "slots": 4,
+    "symbols": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "solution": [
+      "3",
+      "1",
+      "4",
+      "1"
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "setFlag",
+      "flag": "drawer_open",
+      "value": true
+    },
+    {
+      "type": "playSound",
+      "sound": "drawer_open"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.drawer_lock.1"
+    },
+    {
+      "key": "hint.drawer_lock.2",
+      "when": [
+        {
+          "flag": "saw_clock",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "key": "hint.drawer_lock.3"
+    }
+  ]
+}

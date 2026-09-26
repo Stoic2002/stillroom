@@ -1,0 +1,120 @@
+{
+  "id": "room_west",
+  "background": "images/scenes/test_room/room_west.png",
+  "exits": [
+    {
+      "direction": "left",
+      "to": "room_south"
+    },
+    {
+      "direction": "right",
+      "to": "room_north"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "window_puzzle",
+      "rect": [
+        0.3,
+        0.12,
+        0.4,
+        0.4
+      ],
+      "onTap": [
+        {
+          "type": "openPuzzle",
+          "puzzle": "window_panes"
+        }
+      ],
+      "when": [
+        {
+          "puzzleSolved": "window_panes",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "window",
+      "rect": [
+        0.3,
+        0.12,
+        0.4,
+        0.4
+      ],
+      "when": [
+        {
+          "puzzleSolved": "window_panes"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "test_room.window.look"
+        }
+      ]
+    },
+    {
+      "id": "note",
+      "rect": [
+        0.55,
+        0.7,
+        0.08,
+        0.06
+      ],
+      "when": [
+        {
+          "everHadItem": "note",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "pickItem",
+          "item": "note"
+        },
+        {
+          "type": "examineItem",
+          "item": "note"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "window_sprite",
+      "image": "images/objects/test_room/window.png",
+      "rect": [
+        0.3,
+        0.12,
+        0.4,
+        0.4
+      ]
+    },
+    {
+      "id": "table_sprite",
+      "image": "images/objects/test_room/side_table.png",
+      "rect": [
+        0.45,
+        0.76,
+        0.28,
+        0.2
+      ]
+    },
+    {
+      "id": "note_sprite",
+      "image": "images/objects/test_room/note.png",
+      "rect": [
+        0.55,
+        0.7,
+        0.08,
+        0.06
+      ],
+      "when": [
+        {
+          "everHadItem": "note",
+          "equals": false
+        }
+      ]
+    }
+  ]
+}

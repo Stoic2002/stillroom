@@ -1,0 +1,262 @@
+import '../engine/engine.dart';
+import 'audio_paths.dart';
+import 'content_loader.dart';
+
+enum IssueSeverity {
+  /// Broken content: the game may crash or misbehave.
+  error,
+
+  /// Allowed while content is unfinished, e.g. art not delivered yet
+  /// (a placeholder is drawn instead).
+  warning,
+}
+
+final class ContentIssue {
+  const ContentIssue(this.severity, this.location, this.message);
+
+  final IssueSeverity severity;
+
+  /// Human-readable position, e.g. `scene desk › hotspot music_box › onTap[0]`.
+  final String location;
+  final String message;
+
+  bool get isError => severity == IssueSeverity.error;
+
+  @override
+  String toString() => '[${severity.name}] $location: $message';
+}
+
+/// Thrown in debug builds when content has validation errors.
+final class ContentValidationException implements Exception {
+  const ContentValidationException(this.issues);
+
+  final List<ContentIssue> issues;
+
+  @override
+  String toString() =>
+      'ContentValidationException:\n${issues.map((i) => '  $i').join('\n')}';
+}
+
+/// Checks an episode for broken references (PRD §9):
+///
+/// - scenes, items, and puzzles that are referenced exist
+/// - flags are declared, and compared/assigned values match their type
+/// - every text key exists in every language, and all languages have the
+///   same keys
+/// - every `rect` lies within 0–1
+/// - images and sounds exist (missing ones are warnings: placeholders are used)
+///
+/// [assets] are full asset paths (`assets/...`).
+List<ContentIssue> validateEpisode(
+  EpisodeContent content, {
+  required Set<String> assets,
+  required StringTables strings,
+}) => _Validator(content, assets, strings).run();
+
+final class _Validator {
+  _Validator(this.content, this.assets, this.strings);
+
+  final EpisodeContent content;
+  final Set<String> assets;
+  final StringTables strings;
+  final List<ContentIssue> issues = [];
+
+  List<ContentIssue> run() {
+    final episode = 'episode ${content.id}';
+    if (!content.scenes.containsKey(content.config.startScene)) {
+      _error(
+        '$episode › game.json',
+        'startScene "${content.config.startScene}" does not exist',
+      );
+    }
+    if (strings.isEmpty) _error(episode, 'no content string tables found');
+    if (content.config.music case final music?) {
+      _ref('$episode › game.json', ContentRef.music(music));
+    }
+    for (final stage in content.config.hintStages) {
+      final at = 'game.json › hintStages ${stage.id}';
+      _conditions(at, stage.when);
+      for (final (i, hint) in stage.hints.indexed) {
+        _ref('$at › hints[$i]', ContentRef.text(hint.textKey));
+        _conditions('$at › hints[$i]', hint.when);
+      }
+    }
+    _checkStringTablesMatch();
+
+    for (final scene in content.scenes.values) {
+      final at = 'scene ${scene.id}';
+      _ref(at, ContentRef.image(scene.background));
+      if (scene.music case final music?) _ref(at, ContentRef.music(music));
+      for (final exit in scene.exits) {
+        final exitAt = '$at › exit ${exit.id}';
+        _ref(exitAt, ContentRef.scene(exit.to));
+        if (exit.rect case final rect?) _rect(exitAt, rect);
+        _conditions(exitAt, exit.when);
+      }
+      for (final hotspot in scene.hotspots) {
+        _hotspot('$at › hotspot ${hotspot.id}', hotspot);
+      }
+      for (final layer in scene.layers) {
+        _layer('$at › layer ${layer.id}', layer);
+      }
+    }
+
+    for (final item in content.items.values) {
+      final at = 'item ${item.id}';
+      _ref(at, ContentRef.text(item.nameKey));
+      _ref(at, ContentRef.text(item.descKey));
+      _ref(at, ContentRef.image(item.icon));
+      if (item.examine case final examine?) {
+        _ref('$at › examine', ContentRef.image(examine.image));
+        for (final hotspot in examine.hotspots) {
+          _hotspot('$at › examine › hotspot ${hotspot.id}', hotspot);
+        }
+        for (final layer in examine.layers) {
+          _layer('$at › examine › layer ${layer.id}', layer);
+        }
+      }
+    }
+
+    for (final (i, c) in content.combinations.indexed) {
+      final at = 'items.json › combinations[$i]';
+      for (final id in [c.a, c.b, c.result]) {
+        _ref(at, ContentRef.item(id));
+      }
+    }
+
+    for (final puzzle in content.puzzles.values) {
+      final at = 'puzzle ${puzzle.id}';
+      if (puzzle.background case final background?) {
+        _ref(at, ContentRef.image(background));
+      }
+      for (final ref in puzzle.config.references) {
+        _ref('$at › config', ref);
+      }
+      _actions('$at › onSolved', puzzle.onSolved);
+      for (final (i, hint) in puzzle.hints.indexed) {
+        _ref('$at › hints[$i]', ContentRef.text(hint.textKey));
+        _conditions('$at › hints[$i]', hint.when);
+      }
+    }
+    return issues;
+  }
+
+  void _hotspot(String at, Hotspot hotspot) {
+    _rect(at, hotspot.rect);
+    _conditions(at, hotspot.when);
+    _actions('$at › onTap', hotspot.onTap);
+    for (final use in hotspot.onUseItem) {
+      final useAt = '$at › onUseItem ${use.itemId}';
+      _ref(useAt, ContentRef.item(use.itemId));
+      _actions(useAt, use.actions);
+    }
+  }
+
+  void _layer(String at, SceneLayer layer) {
+    _ref(at, ContentRef.image(layer.image));
+    _rect(at, layer.rect);
+    _conditions(at, layer.when);
+  }
+
+  void _conditions(String at, List<Condition> conditions) {
+    for (final (i, c) in conditions.indexed) {
+      _ref('$at › when[$i]', c.reference);
+    }
+  }
+
+  void _actions(String at, List<GameAction> actions) {
+    for (final (i, action) in actions.indexed) {
+      for (final ref in action.references) {
+        _ref('$at[$i] ${action.type}', ref);
+      }
+    }
+  }
+
+  void _rect(String at, NormalizedRect rect) {
+    if (!rect.isWithinUnit) _error(at, 'rect $rect is outside 0–1');
+  }
+
+  void _ref(String at, ContentRef ref) {
+    switch (ref.kind) {
+      case RefKind.scene:
+        if (!content.scenes.containsKey(ref.id)) {
+          _error(at, 'unknown scene "${ref.id}"');
+        }
+      case RefKind.item:
+        if (!content.items.containsKey(ref.id)) {
+          _error(at, 'unknown item "${ref.id}"');
+        }
+      case RefKind.puzzle:
+        if (!content.puzzles.containsKey(ref.id)) {
+          _error(at, 'unknown puzzle "${ref.id}"');
+        }
+      case RefKind.flag:
+        _flag(at, ref);
+      case RefKind.text:
+        final missing = [
+          for (final MapEntry(key: locale, value: table) in strings.entries)
+            if (!table.containsKey(ref.id)) locale,
+        ];
+        if (missing.isNotEmpty) {
+          _error(at, 'text key "${ref.id}" missing in ${missing.join(', ')}');
+        }
+      case RefKind.image:
+        if (!assets.contains('assets/${ref.id}')) {
+          _warning(at, 'image "${ref.id}" not found; placeholder is drawn');
+        }
+      case RefKind.sound:
+        if (resolveSfx(ref.id, assets) == null) {
+          _warning(
+            at,
+            'sound "${ref.id}" not found '
+            '(${sfxAssetPath(ref.id, '{${audioExtensions.join(',')}}')}); '
+            'plays silently',
+          );
+        }
+      case RefKind.music:
+        if (resolveMusic(ref.id, assets) == null) {
+          _warning(
+            at,
+            'music "${ref.id}" not found '
+            '(${musicAssetPath(ref.id, '{${audioExtensions.join(',')}}')}); '
+            'plays silently',
+          );
+        }
+    }
+  }
+
+  void _flag(String at, ContentRef ref) {
+    final declared = content.config.flags[ref.id];
+    if (declared == null) {
+      _error(at, 'flag "${ref.id}" is not declared in game.json');
+      return;
+    }
+    final value = ref.flagValue;
+    if (value != null && (declared is bool) != (value is bool)) {
+      _error(
+        at,
+        'flag "${ref.id}" is ${declared is bool ? 'bool' : 'int'} '
+        'but is used with $value',
+      );
+    }
+  }
+
+  void _checkStringTablesMatch() {
+    final allKeys = {for (final table in strings.values) ...table.keys};
+    for (final MapEntry(key: locale, value: table) in strings.entries) {
+      final missing = allKeys.difference(table.keys.toSet()).toList()..sort();
+      if (missing.isNotEmpty) {
+        _error(
+          'strings/$locale.json',
+          'missing keys present in other languages: ${missing.join(', ')}',
+        );
+      }
+    }
+  }
+
+  void _error(String at, String message) =>
+      issues.add(ContentIssue(IssueSeverity.error, at, message));
+
+  void _warning(String at, String message) =>
+      issues.add(ContentIssue(IssueSeverity.warning, at, message));
+}

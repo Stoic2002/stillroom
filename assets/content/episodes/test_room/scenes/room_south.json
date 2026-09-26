@@ -1,0 +1,149 @@
+{
+  "id": "room_south",
+  "background": "images/scenes/test_room/room_south.png",
+  "exits": [
+    {
+      "direction": "left",
+      "to": "room_east"
+    },
+    {
+      "direction": "right",
+      "to": "room_west"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "door_locked",
+      "rect": [
+        0.4,
+        0.15,
+        0.2,
+        0.75
+      ],
+      "when": [
+        {
+          "flag": "door_unlocked",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "test_room.door.locked"
+        }
+      ],
+      "onUseItem": [
+        {
+          "item": "small_key",
+          "actions": [
+            {
+              "type": "removeItem",
+              "item": "small_key"
+            },
+            {
+              "type": "setFlag",
+              "flag": "door_unlocked",
+              "value": true
+            },
+            {
+              "type": "playSound",
+              "sound": "door_unlock"
+            },
+            {
+              "type": "showText",
+              "key": "test_room.door.unlocked"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "door_open",
+      "rect": [
+        0.4,
+        0.15,
+        0.2,
+        0.75
+      ],
+      "when": [
+        {
+          "flag": "door_unlocked",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "door_emblems"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "endEpisode"
+        }
+      ]
+    },
+    {
+      "id": "emblem_panel",
+      "rect": [
+        0.45,
+        0.3,
+        0.1,
+        0.2
+      ],
+      "when": [
+        {
+          "puzzleSolved": "door_emblems",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "openPuzzle",
+          "puzzle": "door_emblems"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "door_closed_sprite",
+      "image": "images/objects/test_room/door_closed.png",
+      "rect": [
+        0.4,
+        0.15,
+        0.2,
+        0.75
+      ],
+      "when": [
+        {
+          "flag": "door_unlocked",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "door_open_sprite",
+      "image": "images/objects/test_room/door_open.png",
+      "rect": [
+        0.4,
+        0.15,
+        0.2,
+        0.75
+      ],
+      "when": [
+        {
+          "flag": "door_unlocked",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "emblem_panel_sprite",
+      "image": "images/objects/test_room/emblem_panel.png",
+      "rect": [
+        0.45,
+        0.3,
+        0.1,
+        0.2
+      ]
+    }
+  ]
+}

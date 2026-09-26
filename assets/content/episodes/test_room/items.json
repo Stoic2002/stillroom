@@ -1,0 +1,150 @@
+{
+  "items": [
+    {
+      "id": "box",
+      "nameKey": "item.box.name",
+      "descKey": "item.box.desc",
+      "icon": "images/items/test_room/box.png",
+      "examine": {
+        "image": "images/items/test_room/box_examine.png",
+        "hotspots": [
+          {
+            "id": "lid",
+            "rect": [
+              0.2,
+              0.25,
+              0.6,
+              0.3
+            ],
+            "when": [
+              {
+                "flag": "box_open",
+                "equals": false
+              }
+            ],
+            "onTap": [
+              {
+                "type": "setFlag",
+                "flag": "box_open",
+                "value": true
+              }
+            ]
+          },
+          {
+            "id": "key_inside",
+            "rect": [
+              0.42,
+              0.55,
+              0.16,
+              0.12
+            ],
+            "when": [
+              {
+                "flag": "box_open",
+                "equals": true
+              },
+              {
+                "everHadItem": "small_key",
+                "equals": false
+              }
+            ],
+            "onTap": [
+              {
+                "type": "pickItem",
+                "item": "small_key"
+              },
+              {
+                "type": "showText",
+                "key": "test_room.box.key_found"
+              }
+            ]
+          }
+        ],
+        "layers": [
+          {
+            "id": "lid_open",
+            "image": "images/objects/test_room/box_lid_open.png",
+            "rect": [
+              0.2,
+              0.1,
+              0.6,
+              0.2
+            ],
+            "when": [
+              {
+                "flag": "box_open",
+                "equals": true
+              }
+            ]
+          },
+          {
+            "id": "key_in_box",
+            "image": "images/objects/test_room/key_in_box.png",
+            "rect": [
+              0.42,
+              0.55,
+              0.16,
+              0.12
+            ],
+            "when": [
+              {
+                "flag": "box_open",
+                "equals": true
+              },
+              {
+                "everHadItem": "small_key",
+                "equals": false
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "small_key",
+      "nameKey": "item.small_key.name",
+      "descKey": "item.small_key.desc",
+      "icon": "images/items/test_room/small_key.png"
+    },
+    {
+      "id": "note",
+      "nameKey": "item.note.name",
+      "descKey": "item.note.desc",
+      "icon": "images/items/test_room/note.png",
+      "examine": {
+        "image": "images/items/test_room/note_examine.png"
+      }
+    },
+    {
+      "id": "lens",
+      "nameKey": "item.lens.name",
+      "descKey": "item.lens.desc",
+      "icon": "images/items/test_room/lens.png"
+    },
+    {
+      "id": "frame",
+      "nameKey": "item.frame.name",
+      "descKey": "item.frame.desc",
+      "icon": "images/items/test_room/frame.png"
+    },
+    {
+      "id": "magnifier",
+      "nameKey": "item.magnifier.name",
+      "descKey": "item.magnifier.desc",
+      "icon": "images/items/test_room/magnifier.png"
+    },
+    {
+      "id": "gem",
+      "nameKey": "item.gem.name",
+      "descKey": "item.gem.desc",
+      "icon": "images/items/test_room/gem.png"
+    }
+  ],
+  "combinations": [
+    {
+      "a": "lens",
+      "b": "frame",
+      "result": "magnifier"
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "id": "window_1945",
+  "background": "images/scenes/lawang_sewu_1945/window_1945.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "corridor_east"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "outside",
+      "rect": [
+        0.08,
+        0.08,
+        0.52,
+        0.56
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "distant_bells"
+        },
+        {
+          "type": "showText",
+          "key": "lawang_sewu_1945.window.outside"
+        }
+      ]
+    },
+    {
+      "id": "calendar",
+      "rect": [
+        0.7,
+        0.12,
+        0.14,
+        0.28
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "saw_calendar",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "lawang_sewu_1945.window.calendar"
+        }
+      ]
+    },
+    {
+      "id": "cap",
+      "rect": [
+        0.3,
+        0.7,
+        0.12,
+        0.08
+      ],
+      "when": [
+        {
+          "everHadItem": "driver_cap",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "pickItem",
+          "item": "driver_cap"
+        },
+        {
+          "type": "showText",
+          "key": "lawang_sewu_1945.window.cap"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "calendar_sprite",
+      "image": "images/objects/lawang_sewu_1945/calendar_sprite.png",
+      "rect": [
+        0.7,
+        0.12,
+        0.14,
+        0.28
+      ]
+    },
+    {
+      "id": "cap_sprite",
+      "image": "images/objects/lawang_sewu_1945/cap_sprite.png",
+      "rect": [
+        0.3,
+        0.7,
+        0.12,
+        0.08
+      ],
+      "when": [
+        {
+          "everHadItem": "driver_cap",
+          "equals": false
+        }
+      ]
+    }
+  ]
+}

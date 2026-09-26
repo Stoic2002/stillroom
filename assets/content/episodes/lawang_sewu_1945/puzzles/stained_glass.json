@@ -1,0 +1,79 @@
+{
+  "id": "stained_glass",
+  "type": "rotaryAlign",
+  "background": "images/scenes/lawang_sewu_1945/glass_close.png",
+  "config": {
+    "rings": [
+      {
+        "id": "flora",
+        "steps": 8,
+        "initial": 3,
+        "target": 0,
+        "image": "images/objects/lawang_sewu_1945/glass_outer.png",
+        "links": [
+          {
+            "ring": "cities",
+            "steps": 1
+          }
+        ]
+      },
+      {
+        "id": "cities",
+        "steps": 8,
+        "initial": 6,
+        "target": 0,
+        "image": "images/objects/lawang_sewu_1945/glass_middle.png",
+        "links": [
+          {
+            "ring": "wheel",
+            "steps": 1
+          }
+        ]
+      },
+      {
+        "id": "wheel",
+        "steps": 6,
+        "initial": 2,
+        "target": 0,
+        "image": "images/objects/lawang_sewu_1945/glass_inner.png"
+      }
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "glass_chime"
+    },
+    {
+      "type": "shake",
+      "durationMs": 500,
+      "strength": 0.25
+    },
+    {
+      "type": "showText",
+      "key": "lawang_sewu_1945.landing.glass_solved"
+    },
+    {
+      "type": "showText",
+      "key": "lawang_sewu_1945.ending.battle"
+    },
+    {
+      "type": "showText",
+      "key": "lawang_sewu_1945.ending.tugu"
+    },
+    {
+      "type": "endEpisode"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.lawang_sewu_1945.stained_glass.1"
+    },
+    {
+      "key": "hint.lawang_sewu_1945.stained_glass.2"
+    },
+    {
+      "key": "hint.lawang_sewu_1945.stained_glass.3"
+    }
+  ]
+}

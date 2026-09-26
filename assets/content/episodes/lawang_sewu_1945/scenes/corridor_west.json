@@ -1,0 +1,69 @@
+{
+  "id": "corridor_west",
+  "background": "images/scenes/lawang_sewu_1945/corridor_west.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "landing"
+    },
+    {
+      "id": "door_1907",
+      "to": "office_1907",
+      "rect": [
+        0.12,
+        0.18,
+        0.18,
+        0.66
+      ]
+    },
+    {
+      "id": "door_1942",
+      "to": "cellar_1942",
+      "rect": [
+        0.7,
+        0.18,
+        0.18,
+        0.66
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "doors",
+      "rect": [
+        0.36,
+        0.24,
+        0.28,
+        0.44
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "lawang_sewu_1945.corridor.endless"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "door_1907_sprite",
+      "image": "images/objects/lawang_sewu_1945/door_1907_sprite.png",
+      "rect": [
+        0.12,
+        0.18,
+        0.18,
+        0.66
+      ]
+    },
+    {
+      "id": "door_1942_sprite",
+      "image": "images/objects/lawang_sewu_1945/door_1942_sprite.png",
+      "rect": [
+        0.7,
+        0.18,
+        0.18,
+        0.66
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+targets:
+  $default:
+    builders:
+      json_serializable:
+        options:
+          # Wrap type errors in CheckedFromJsonException so a corrupt save
+          # surfaces as a recoverable error (NFR-06).
+          checked: true
+          explicit_to_json: true

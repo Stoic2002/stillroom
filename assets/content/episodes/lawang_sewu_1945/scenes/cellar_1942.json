@@ -1,0 +1,182 @@
+{
+  "id": "cellar_1942",
+  "background": "images/scenes/lawang_sewu_1945/cellar_1942.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "corridor_west"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "darkness",
+      "rect": [
+        0.0,
+        0.0,
+        1.0,
+        0.86
+      ],
+      "when": [
+        {
+          "flag": "cellar_lit",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "water_drip"
+        },
+        {
+          "type": "showText",
+          "key": "lawang_sewu_1945.cellar.dark"
+        }
+      ],
+      "onUseItem": [
+        {
+          "item": "lit_lantern",
+          "actions": [
+            {
+              "type": "setFlag",
+              "flag": "cellar_lit",
+              "value": true
+            },
+            {
+              "type": "playSound",
+              "sound": "lantern_light"
+            },
+            {
+              "type": "showText",
+              "key": "lawang_sewu_1945.cellar.lit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tally",
+      "rect": [
+        0.64,
+        0.2,
+        0.2,
+        0.26
+      ],
+      "when": [
+        {
+          "flag": "cellar_lit",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "lawang_sewu_1945.cellar.tally"
+        }
+      ]
+    },
+    {
+      "id": "chair",
+      "rect": [
+        0.2,
+        0.46,
+        0.14,
+        0.32
+      ],
+      "when": [
+        {
+          "flag": "cellar_lit",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "lawang_sewu_1945.cellar.chair"
+        }
+      ]
+    },
+    {
+      "id": "whistle",
+      "rect": [
+        0.46,
+        0.8,
+        0.06,
+        0.05
+      ],
+      "when": [
+        {
+          "flag": "cellar_lit",
+          "equals": true
+        },
+        {
+          "everHadItem": "whistle",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "pickItem",
+          "item": "whistle"
+        },
+        {
+          "type": "showText",
+          "key": "lawang_sewu_1945.cellar.whistle"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "tally_sprite",
+      "image": "images/objects/lawang_sewu_1945/tally_sprite.png",
+      "rect": [
+        0.64,
+        0.2,
+        0.2,
+        0.26
+      ]
+    },
+    {
+      "id": "chair_sprite",
+      "image": "images/objects/lawang_sewu_1945/chair_sprite.png",
+      "rect": [
+        0.2,
+        0.46,
+        0.14,
+        0.32
+      ]
+    },
+    {
+      "id": "whistle_sprite",
+      "image": "images/objects/lawang_sewu_1945/whistle_sprite.png",
+      "rect": [
+        0.46,
+        0.8,
+        0.06,
+        0.05
+      ],
+      "when": [
+        {
+          "everHadItem": "whistle",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "darkness_sprite",
+      "image": "images/objects/lawang_sewu_1945/darkness_sprite.png",
+      "rect": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "when": [
+        {
+          "flag": "cellar_lit",
+          "equals": false
+        }
+      ]
+    }
+  ]
+}

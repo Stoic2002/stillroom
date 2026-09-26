@@ -1,0 +1,159 @@
+{
+  "startScene": "landing",
+  "flags": {
+    "ledger_page": 0,
+    "telegram_sent": false,
+    "saw_calendar": false,
+    "cellar_lit": false,
+    "belongings_returned": false
+  },
+  "logicalResolution": [
+    1920,
+    1080
+  ],
+  "orientation": "landscape",
+  "sceneTransitionMs": 600,
+  "music": "lawang_sewu_night",
+  "hintStages": [
+    {
+      "id": "light_the_glass",
+      "when": [
+        {
+          "flag": "belongings_returned",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.lawang_sewu_1945.light_the_glass.1"
+        },
+        {
+          "key": "hint.lawang_sewu_1945.light_the_glass.2"
+        }
+      ]
+    },
+    {
+      "id": "return_belongings",
+      "when": [
+        {
+          "hasItem": "ticket_punch"
+        },
+        {
+          "hasItem": "telegraph_key"
+        },
+        {
+          "hasItem": "lit_lantern"
+        },
+        {
+          "hasItem": "whistle"
+        },
+        {
+          "hasItem": "driver_cap"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.lawang_sewu_1945.return_belongings.1"
+        },
+        {
+          "key": "hint.lawang_sewu_1945.return_belongings.2"
+        }
+      ]
+    },
+    {
+      "id": "light_the_cellar",
+      "when": [
+        {
+          "flag": "cellar_lit",
+          "equals": false
+        },
+        {
+          "everHadItem": "lantern",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.lawang_sewu_1945.light_the_cellar.1"
+        },
+        {
+          "key": "hint.lawang_sewu_1945.light_the_cellar.2"
+        }
+      ]
+    },
+    {
+      "id": "open_the_lockers",
+      "when": [
+        {
+          "puzzleSolved": "locker_door",
+          "equals": false
+        },
+        {
+          "flag": "telegram_sent",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.lawang_sewu_1945.open_the_lockers.1"
+        },
+        {
+          "key": "hint.lawang_sewu_1945.open_the_lockers.2"
+        }
+      ]
+    },
+    {
+      "id": "set_the_clock",
+      "when": [
+        {
+          "puzzleSolved": "station_clock",
+          "equals": false
+        },
+        {
+          "flag": "saw_calendar",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.lawang_sewu_1945.set_the_clock.1"
+        },
+        {
+          "key": "hint.lawang_sewu_1945.set_the_clock.2"
+        }
+      ]
+    },
+    {
+      "id": "send_the_telegram",
+      "when": [
+        {
+          "flag": "telegram_sent",
+          "equals": false
+        },
+        {
+          "puzzleSolved": "timetable",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.lawang_sewu_1945.send_the_telegram.1"
+        },
+        {
+          "key": "hint.lawang_sewu_1945.send_the_telegram.2"
+        }
+      ]
+    },
+    {
+      "id": "read_the_ledger",
+      "hints": [
+        {
+          "key": "hint.lawang_sewu_1945.read_the_ledger.1"
+        },
+        {
+          "key": "hint.lawang_sewu_1945.read_the_ledger.2"
+        }
+      ]
+    }
+  ]
+}

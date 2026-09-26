@@ -1,0 +1,21 @@
+{
+  "id": "wall_rings",
+  "type": "rotaryAlign",
+  "background": "images/scenes/test_room/wall_rings_close.png",
+  "config": {
+    "rings": [
+      { "id": "outer", "steps": 8, "initial": 2, "target": 0, "links": [{ "ring": "middle", "steps": 1 }] },
+      { "id": "middle", "steps": 8, "initial": 5, "target": 0 },
+      { "id": "inner", "steps": 6, "initial": 4, "target": 0 }
+    ]
+  },
+  "onSolved": [
+    { "type": "setFlag", "flag": "rings_aligned", "value": true },
+    { "type": "shake" }
+  ],
+  "hints": [
+    { "key": "hint.wall_rings.1" },
+    { "key": "hint.wall_rings.2" },
+    { "key": "hint.wall_rings.3" }
+  ]
+}
