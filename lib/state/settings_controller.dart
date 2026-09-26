@@ -42,6 +42,9 @@ class SettingsController extends _$SettingsController {
   void setVibration({required bool enabled}) =>
       _update(state.copyWith(vibration: enabled));
 
+  void setShowFps({required bool enabled}) =>
+      _update(state.copyWith(showFps: enabled));
+
   void _update(Settings next) {
     if (next == state) return;
     state = next;

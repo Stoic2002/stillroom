@@ -70,5 +70,6 @@
   "wordTapTip": "点一下带下划线的词，就能把它记下来。",
   "crankInstruction": "握住把手，一圈又一圈地转动。",
   "mapTitle": "故事地图",
-  "mapHint": "每一枚图钉都是一个故事。双指张开可放大。"
+  "mapHint": "每一枚图钉都是一个故事。双指张开可放大。",
+  "settingsShowFps": "显示帧率（FPS）"
 }

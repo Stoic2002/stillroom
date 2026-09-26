@@ -243,4 +243,7 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get mapHint =>
       'Setiap pin adalah sebuah kisah. Cubit untuk memperbesar.';
+
+  @override
+  String get settingsShowFps => 'Tampilkan frame rate (FPS)';
 }

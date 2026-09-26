@@ -18,7 +18,8 @@ mixin _$Settings {
 /// 0–1.
  double get musicVolume;/// 0–1.
  double get sfxVolume;/// UI and content language, e.g. `id`. `null` follows the device.
- String? get languageCode; bool get vibration;
+ String? get languageCode; bool get vibration;/// Shows the frame-rate readout (for checking performance).
+ bool get showFps;
 /// Create a copy of Settings
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -31,16 +32,16 @@ $SettingsCopyWith<Settings> get copyWith => _$SettingsCopyWithImpl<Settings>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Settings&&(identical(other.musicVolume, musicVolume) || other.musicVolume == musicVolume)&&(identical(other.sfxVolume, sfxVolume) || other.sfxVolume == sfxVolume)&&(identical(other.languageCode, languageCode) || other.languageCode == languageCode)&&(identical(other.vibration, vibration) || other.vibration == vibration));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Settings&&(identical(other.musicVolume, musicVolume) || other.musicVolume == musicVolume)&&(identical(other.sfxVolume, sfxVolume) || other.sfxVolume == sfxVolume)&&(identical(other.languageCode, languageCode) || other.languageCode == languageCode)&&(identical(other.vibration, vibration) || other.vibration == vibration)&&(identical(other.showFps, showFps) || other.showFps == showFps));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,musicVolume,sfxVolume,languageCode,vibration);
+int get hashCode => Object.hash(runtimeType,musicVolume,sfxVolume,languageCode,vibration,showFps);
 
 @override
 String toString() {
-  return 'Settings(musicVolume: $musicVolume, sfxVolume: $sfxVolume, languageCode: $languageCode, vibration: $vibration)';
+  return 'Settings(musicVolume: $musicVolume, sfxVolume: $sfxVolume, languageCode: $languageCode, vibration: $vibration, showFps: $showFps)';
 }
 
 
@@ -51,7 +52,7 @@ abstract mixin class $SettingsCopyWith<$Res>  {
   factory $SettingsCopyWith(Settings value, $Res Function(Settings) _then) = _$SettingsCopyWithImpl;
 @useResult
 $Res call({
- double musicVolume, double sfxVolume, String? languageCode, bool vibration
+ double musicVolume, double sfxVolume, String? languageCode, bool vibration, bool showFps
 });
 
 
@@ -68,12 +69,13 @@ class _$SettingsCopyWithImpl<$Res>
 
 /// Create a copy of Settings
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? musicVolume = null,Object? sfxVolume = null,Object? languageCode = freezed,Object? vibration = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? musicVolume = null,Object? sfxVolume = null,Object? languageCode = freezed,Object? vibration = null,Object? showFps = null,}) {
   return _then(_self.copyWith(
 musicVolume: null == musicVolume ? _self.musicVolume : musicVolume // ignore: cast_nullable_to_non_nullable
 as double,sfxVolume: null == sfxVolume ? _self.sfxVolume : sfxVolume // ignore: cast_nullable_to_non_nullable
 as double,languageCode: freezed == languageCode ? _self.languageCode : languageCode // ignore: cast_nullable_to_non_nullable
 as String?,vibration: null == vibration ? _self.vibration : vibration // ignore: cast_nullable_to_non_nullable
+as bool,showFps: null == showFps ? _self.showFps : showFps // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -159,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( double musicVolume,  double sfxVolume,  String? languageCode,  bool vibration)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( double musicVolume,  double sfxVolume,  String? languageCode,  bool vibration,  bool showFps)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Settings() when $default != null:
-return $default(_that.musicVolume,_that.sfxVolume,_that.languageCode,_that.vibration);case _:
+return $default(_that.musicVolume,_that.sfxVolume,_that.languageCode,_that.vibration,_that.showFps);case _:
   return orElse();
 
 }
@@ -180,10 +182,10 @@ return $default(_that.musicVolume,_that.sfxVolume,_that.languageCode,_that.vibra
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( double musicVolume,  double sfxVolume,  String? languageCode,  bool vibration)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( double musicVolume,  double sfxVolume,  String? languageCode,  bool vibration,  bool showFps)  $default,) {final _that = this;
 switch (_that) {
 case _Settings():
-return $default(_that.musicVolume,_that.sfxVolume,_that.languageCode,_that.vibration);case _:
+return $default(_that.musicVolume,_that.sfxVolume,_that.languageCode,_that.vibration,_that.showFps);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -200,10 +202,10 @@ return $default(_that.musicVolume,_that.sfxVolume,_that.languageCode,_that.vibra
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( double musicVolume,  double sfxVolume,  String? languageCode,  bool vibration)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( double musicVolume,  double sfxVolume,  String? languageCode,  bool vibration,  bool showFps)?  $default,) {final _that = this;
 switch (_that) {
 case _Settings() when $default != null:
-return $default(_that.musicVolume,_that.sfxVolume,_that.languageCode,_that.vibration);case _:
+return $default(_that.musicVolume,_that.sfxVolume,_that.languageCode,_that.vibration,_that.showFps);case _:
   return null;
 
 }
@@ -215,7 +217,7 @@ return $default(_that.musicVolume,_that.sfxVolume,_that.languageCode,_that.vibra
 @JsonSerializable()
 
 class _Settings implements Settings {
-  const _Settings({this.musicVolume = 0.8, this.sfxVolume = 1.0, this.languageCode, this.vibration = true});
+  const _Settings({this.musicVolume = 0.8, this.sfxVolume = 1.0, this.languageCode, this.vibration = true, this.showFps = false});
   factory _Settings.fromJson(Map<String, dynamic> json) => _$SettingsFromJson(json);
 
 /// 0–1.
@@ -225,6 +227,8 @@ class _Settings implements Settings {
 /// UI and content language, e.g. `id`. `null` follows the device.
 @override final  String? languageCode;
 @override@JsonKey() final  bool vibration;
+/// Shows the frame-rate readout (for checking performance).
+@override@JsonKey() final  bool showFps;
 
 /// Create a copy of Settings
 /// with the given fields replaced by the non-null parameter values.
@@ -239,16 +243,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Settings&&(identical(other.musicVolume, musicVolume) || other.musicVolume == musicVolume)&&(identical(other.sfxVolume, sfxVolume) || other.sfxVolume == sfxVolume)&&(identical(other.languageCode, languageCode) || other.languageCode == languageCode)&&(identical(other.vibration, vibration) || other.vibration == vibration));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Settings&&(identical(other.musicVolume, musicVolume) || other.musicVolume == musicVolume)&&(identical(other.sfxVolume, sfxVolume) || other.sfxVolume == sfxVolume)&&(identical(other.languageCode, languageCode) || other.languageCode == languageCode)&&(identical(other.vibration, vibration) || other.vibration == vibration)&&(identical(other.showFps, showFps) || other.showFps == showFps));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,musicVolume,sfxVolume,languageCode,vibration);
+int get hashCode => Object.hash(runtimeType,musicVolume,sfxVolume,languageCode,vibration,showFps);
 
 @override
 String toString() {
-  return 'Settings(musicVolume: $musicVolume, sfxVolume: $sfxVolume, languageCode: $languageCode, vibration: $vibration)';
+  return 'Settings(musicVolume: $musicVolume, sfxVolume: $sfxVolume, languageCode: $languageCode, vibration: $vibration, showFps: $showFps)';
 }
 
 
@@ -259,7 +263,7 @@ abstract mixin class _$SettingsCopyWith<$Res> implements $SettingsCopyWith<$Res>
   factory _$SettingsCopyWith(_Settings value, $Res Function(_Settings) _then) = __$SettingsCopyWithImpl;
 @override @useResult
 $Res call({
- double musicVolume, double sfxVolume, String? languageCode, bool vibration
+ double musicVolume, double sfxVolume, String? languageCode, bool vibration, bool showFps
 });
 
 
@@ -276,12 +280,13 @@ class __$SettingsCopyWithImpl<$Res>
 
 /// Create a copy of Settings
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? musicVolume = null,Object? sfxVolume = null,Object? languageCode = freezed,Object? vibration = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? musicVolume = null,Object? sfxVolume = null,Object? languageCode = freezed,Object? vibration = null,Object? showFps = null,}) {
   return _then(_Settings(
 musicVolume: null == musicVolume ? _self.musicVolume : musicVolume // ignore: cast_nullable_to_non_nullable
 as double,sfxVolume: null == sfxVolume ? _self.sfxVolume : sfxVolume // ignore: cast_nullable_to_non_nullable
 as double,languageCode: freezed == languageCode ? _self.languageCode : languageCode // ignore: cast_nullable_to_non_nullable
 as String?,vibration: null == vibration ? _self.vibration : vibration // ignore: cast_nullable_to_non_nullable
+as bool,showFps: null == showFps ? _self.showFps : showFps // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

@@ -237,4 +237,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get mapHint => '핀 하나하나가 이야기입니다. 두 손가락으로 벌려 확대하세요.';
+
+  @override
+  String get settingsShowFps => '프레임 속도(FPS) 표시';
 }

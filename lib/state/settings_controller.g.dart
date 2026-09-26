@@ -48,7 +48,7 @@ final class SettingsControllerProvider
 }
 
 String _$settingsControllerHash() =>
-    r'7dedd51e8ddc954248233e24e997d09c2a302d66';
+    r'cbdc3da9aa9bc20b57e3e99dc0c8c6768184d3d3';
 
 /// Player settings, persisted on every change. Unreadable stored settings
 /// fall back to defaults.

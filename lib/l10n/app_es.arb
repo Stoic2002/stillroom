@@ -70,5 +70,6 @@
   "wordTapTip": "Toca una palabra subrayada para anotarla.",
   "crankInstruction": "Gira la manivela, vuelta tras vuelta.",
   "mapTitle": "El mapa de las historias",
-  "mapHint": "Cada alfiler es una historia. Pellizca para acercarte."
+  "mapHint": "Cada alfiler es una historia. Pellizca para acercarte.",
+  "settingsShowFps": "Mostrar fotogramas por segundo (FPS)"
 }

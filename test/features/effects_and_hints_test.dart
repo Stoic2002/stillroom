@@ -37,6 +37,9 @@ final class _FakeAudio implements AudioService {
 
   @override
   Future<void> stopMusic({String? ifPlaying}) async => calls.add('stop');
+
+  @override
+  Future<void> preload(Iterable<String> assetPaths) async {}
 }
 
 void main() {

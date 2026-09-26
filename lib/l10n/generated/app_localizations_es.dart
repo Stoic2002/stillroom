@@ -246,4 +246,7 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get mapHint =>
       'Cada alfiler es una historia. Pellizca para acercarte.';
+
+  @override
+  String get settingsShowFps => 'Mostrar fotogramas por segundo (FPS)';
 }

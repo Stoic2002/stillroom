@@ -236,4 +236,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get mapHint => '每一枚图钉都是一个故事。双指张开可放大。';
+
+  @override
+  String get settingsShowFps => '显示帧率（FPS）';
 }

@@ -19,6 +19,7 @@ _Settings _$SettingsFromJson(Map<String, dynamic> json) =>
         ),
         languageCode: $checkedConvert('languageCode', (v) => v as String?),
         vibration: $checkedConvert('vibration', (v) => v as bool? ?? true),
+        showFps: $checkedConvert('showFps', (v) => v as bool? ?? false),
       );
       return val;
     });
@@ -28,4 +29,5 @@ Map<String, dynamic> _$SettingsToJson(_Settings instance) => <String, dynamic>{
   'sfxVolume': instance.sfxVolume,
   'languageCode': instance.languageCode,
   'vibration': instance.vibration,
+  'showFps': instance.showFps,
 };

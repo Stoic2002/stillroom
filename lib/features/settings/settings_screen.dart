@@ -82,6 +82,13 @@ class SettingsScreen extends ConsumerWidget {
                     onChanged: (enabled) =>
                         controller.setVibration(enabled: enabled),
                   ),
+                  SwitchListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text(l10n.settingsShowFps),
+                    value: settings.showFps,
+                    onChanged: (enabled) =>
+                        controller.setShowFps(enabled: enabled),
+                  ),
                   const Divider(height: 32),
                   Align(
                     alignment: Alignment.centerLeft,

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -9,6 +11,7 @@ import '../../core/widgets/confirm_dialog.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../../state/content_providers.dart';
 import '../../state/save_repository.dart';
+import '../../state/services_providers.dart';
 import '../../state/ui_feedback.dart';
 import 'episode_launcher.dart';
 import 'widgets/lobby_scene.dart';
@@ -29,7 +32,15 @@ class _MainMenuScreenState extends ConsumerState<MainMenuScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _reportCorruption());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _reportCorruption();
+      // Interface sounds answer every touch: get them ready now.
+      unawaited(
+        ref.read(audioServiceProvider).preload([
+          for (final s in UiSound.values) s.assetPath,
+        ]),
+      );
+    });
   }
 
   /// Tells the player once per launch that the save could not be read

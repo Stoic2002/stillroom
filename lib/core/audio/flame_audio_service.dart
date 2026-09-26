@@ -18,13 +18,38 @@ final class FlameAudioService implements AudioService {
   /// The music file playing, if any.
   String? _current;
 
+  /// A small pool of ready players per sound effect: playing one is just
+  /// "resume", with no player to create and no file to copy first.
+  final Map<String, Future<AudioPool>> _pools = {};
+
+  Future<AudioPool> _pool(String assetPath) =>
+      _pools[assetPath] ??= AudioPool.createFromAsset(
+        path: assetPath,
+        maxPlayers: 3,
+        audioCache: FlameAudio.audioCache,
+      );
+
+  @override
+  Future<void> preload(Iterable<String> assetPaths) async {
+    // One at a time, so preparing them never stalls a frame.
+    for (final path in assetPaths) {
+      try {
+        await _pool(path);
+      } on Object catch (e) {
+        _pools.remove(path)?.ignore();
+        debugPrint('Sound failed to load: $path: $e');
+      }
+    }
+  }
+
   @override
   Future<void> playSfx(String assetPath, {required double volume}) async {
     if (volume <= 0) return;
     try {
-      final player = await FlameAudio.play(assetPath, volume: volume);
-      unawaited(player.onPlayerComplete.first.then((_) => player.dispose()));
+      final pool = await _pool(assetPath);
+      await pool.start(volume: volume);
     } on Object catch (e) {
+      _pools.remove(assetPath)?.ignore();
       debugPrint('Sound failed: $assetPath: $e');
     }
   }

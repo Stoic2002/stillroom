@@ -2,6 +2,8 @@
 /// and music ids to `assets/audio/music/<id>.<ext>`.
 library;
 
+import '../engine/engine.dart';
+
 const audioExtensions = ['ogg', 'mp3', 'wav'];
 
 String sfxAssetPath(String soundId, String extension) =>
@@ -24,4 +26,36 @@ String? _first(Iterable<String> candidates, Set<String> assets) {
     if (assets.contains(path)) return path;
   }
   return null;
+}
+
+/// Every sound id the episode's actions can play, to load them ahead.
+Set<String> soundIdsOf(EpisodeContent content) {
+  final ids = <String>{};
+  void scan(Iterable<GameAction> actions) {
+    for (final action in actions) {
+      for (final ref in action.references) {
+        if (ref.kind == RefKind.sound) ids.add(ref.id);
+      }
+    }
+  }
+
+  void hotspots(Iterable<Hotspot> list) {
+    for (final h in list) {
+      scan(h.onTap);
+      for (final use in h.onUseItem) {
+        scan(use.actions);
+      }
+    }
+  }
+
+  for (final scene in content.scenes.values) {
+    hotspots(scene.hotspots);
+  }
+  for (final item in content.items.values) {
+    hotspots(item.examine?.hotspots ?? const []);
+  }
+  for (final puzzle in content.puzzles.values) {
+    scan(puzzle.onSolved);
+  }
+  return ids;
 }

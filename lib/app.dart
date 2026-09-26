@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/routing/app_routes.dart';
 import 'core/theme/app_theme.dart';
+import 'core/widgets/fps_overlay.dart';
 import 'features/game/game_screen.dart';
 import 'features/inventory/examine_overlay.dart';
 import 'features/inventory/inventory_bar.dart';
@@ -26,6 +27,9 @@ class StillroomApp extends ConsumerWidget {
     final languageCode = ref.watch(
       settingsControllerProvider.select((s) => s.languageCode),
     );
+    final showFps = ref.watch(
+      settingsControllerProvider.select((s) => s.showFps),
+    );
     final supported = AppLocalizations.supportedLocales.map(
       (l) => l.languageCode,
     );
@@ -39,6 +43,8 @@ class StillroomApp extends ConsumerWidget {
     return MaterialApp(
       onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
       debugShowCheckedModeBanner: false,
+      builder: (context, child) =>
+          Stack(children: [?child, if (showFps) const FpsOverlay()]),
       theme: AppTheme.dark(languageCode: activeLanguage),
       // null follows the device; switching applies without a restart.
       locale: languageCode == null ? null : Locale(languageCode),

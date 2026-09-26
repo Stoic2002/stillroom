@@ -17,6 +17,9 @@ abstract class Settings with _$Settings {
     /// UI and content language, e.g. `id`. `null` follows the device.
     String? languageCode,
     @Default(true) bool vibration,
+
+    /// Shows the frame-rate readout (for checking performance).
+    @Default(false) bool showFps,
   }) = _Settings;
 
   factory Settings.fromJson(Map<String, dynamic> json) =>

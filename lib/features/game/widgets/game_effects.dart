@@ -64,7 +64,15 @@ class _GameEffectsState extends ConsumerState<GameEffects> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final session = ref.read(gameSessionProvider(widget.episodeId)).value;
-      if (mounted && session != null) _updateMusic(session);
+      if (!mounted || session == null) return;
+      _updateMusic(session);
+      // Ready the episode's sounds, so the first of each plays on time.
+      unawaited(
+        _audio.preload([
+          for (final id in soundIdsOf(session.engine.content))
+            ?resolveSfx(id, session.episode.assets),
+        ]),
+      );
     });
   }
 

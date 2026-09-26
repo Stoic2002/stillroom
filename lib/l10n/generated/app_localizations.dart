@@ -533,6 +533,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Every pin is a tale. Pinch to look closer.'**
   String get mapHint;
+
+  /// Settings switch: show the frame-rate readout.
+  ///
+  /// In en, this message translates to:
+  /// **'Show frame rate (FPS)'**
+  String get settingsShowFps;
 }
 
 class _AppLocalizationsDelegate

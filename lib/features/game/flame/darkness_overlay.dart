@@ -32,30 +32,19 @@ class DarknessOverlay extends PositionComponent {
     final rect = Offset.zero & size.toSize();
     final center = light.toOffset();
     final circle = Rect.fromCircle(center: center, radius: r);
-    canvas
-      ..saveLayer(rect, Paint())
-      ..drawRect(rect, Paint()..color = const Color(0xF7040302))
-      ..drawCircle(
-        center,
-        r,
-        Paint()
-          ..blendMode = BlendMode.dstOut
-          ..shader = const RadialGradient(
-            colors: [Color(0xFF000000), Color(0xEE000000), Color(0x00000000)],
-            stops: [0, 0.55, 1],
-          ).createShader(circle),
-      )
-      ..restore()
-      ..drawCircle(
-        center,
-        r,
-        Paint()
-          ..shader = RadialGradient(
-            colors: [
-              StillroomPalette.gaslight.withValues(alpha: 0.14),
-              StillroomPalette.gaslight.withValues(alpha: 0),
-            ],
-          ).createShader(circle),
-      );
+    // One gradient does it all: clear at the lantern, black past its reach
+    // (the gradient clamps to its last colour), no extra layer per frame.
+    canvas.drawRect(
+      rect,
+      Paint()
+        ..shader = RadialGradient(
+          colors: [
+            StillroomPalette.gaslight.withValues(alpha: 0.1),
+            const Color(0x11040302),
+            const Color(0xF7040302),
+          ],
+          stops: const [0, 0.55, 1],
+        ).createShader(circle),
+    );
   }
 }

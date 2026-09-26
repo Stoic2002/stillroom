@@ -236,4 +236,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get mapHint => 'ピンのひとつひとつが物語。指で広げて近づこう。';
+
+  @override
+  String get settingsShowFps => 'フレームレート（FPS）を表示';
 }

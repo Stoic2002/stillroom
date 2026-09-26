@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:stillroom/app.dart';
 import 'package:stillroom/content/flutter_asset_source.dart';
 import 'package:stillroom/core/audio/audio_service.dart';
+import 'package:stillroom/core/widgets/fps_overlay.dart';
 import 'package:stillroom/core/storage/key_value_store.dart';
 import 'package:stillroom/engine/engine.dart';
 import 'package:stillroom/state/content_providers.dart';
@@ -80,6 +81,9 @@ final class _MusicLog implements AudioService {
   @override
   Future<void> stopMusic({String? ifPlaying}) async =>
       calls.add('stop $ifPlaying');
+
+  @override
+  Future<void> preload(Iterable<String> assetPaths) async {}
 }
 
 void main() {
@@ -356,11 +360,28 @@ void main() {
 
     testWidgets('vibration switch is saved', (tester) async {
       final store = await openSettings(tester);
-      await tester.tap(find.byType(Switch));
+      await tester.tap(find.byType(Switch).first);
       await tester.pumpAndSettle();
       expect(
         jsonDecode(store.values[SettingsController.storageKey]!),
         containsPair('vibration', false),
+      );
+    });
+
+    testWidgets('the frame-rate readout can be switched on', (tester) async {
+      final store = await openSettings(tester);
+      expect(find.byType(FpsOverlay), findsNothing);
+      await tester.scrollUntilVisible(
+        find.text('Show frame rate (FPS)'),
+        100,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.tap(find.text('Show frame rate (FPS)'));
+      await tester.pumpAndSettle();
+      expect(find.byType(FpsOverlay), findsOneWidget);
+      expect(
+        jsonDecode(store.values[SettingsController.storageKey]!),
+        containsPair('showFps', true),
       );
     });
 

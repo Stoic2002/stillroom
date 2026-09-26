@@ -298,5 +298,9 @@
   "mapHint": "Every pin is a tale. Pinch to look closer.",
   "@mapHint": {
     "description": "Hint at the bottom of the map."
+  },
+  "settingsShowFps": "Show frame rate (FPS)",
+  "@settingsShowFps": {
+    "description": "Settings switch: show the frame-rate readout."
   }
 }

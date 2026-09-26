@@ -663,15 +663,21 @@ class _LifePainter extends CustomPainter {
       final span = size.width * 1.8;
       final x =
           (i * 0.37 + t * (0.006 + 0.003 * i)) % 1.0 * span - size.width * 0.4;
+      // A soft-edged gradient, not a blur: blurs are costly every frame.
+      final oval = Rect.fromCenter(
+        center: Offset(x, l.floor - l.s * 0.02 * i),
+        width: size.width * 0.7,
+        height: l.s * 0.2,
+      );
       a.canvas.drawOval(
-        Rect.fromCenter(
-          center: Offset(x, l.floor - l.s * 0.02 * i),
-          width: size.width * 0.7,
-          height: l.s * 0.14,
-        ),
+        oval,
         Paint()
-          ..color = StillroomPalette.fog.withValues(alpha: 0.07)
-          ..maskFilter = MaskFilter.blur(BlurStyle.normal, l.s * 0.04),
+          ..shader = RadialGradient(
+            colors: [
+              StillroomPalette.fog.withValues(alpha: 0.09),
+              StillroomPalette.fog.withValues(alpha: 0),
+            ],
+          ).createShader(oval),
       );
     }
   }

@@ -70,5 +70,6 @@
   "wordTapTip": "Ketuk kata bergaris bawah untuk mencatatnya.",
   "crankInstruction": "Putar engkolnya terus-menerus.",
   "mapTitle": "Peta kisah",
-  "mapHint": "Setiap pin adalah sebuah kisah. Cubit untuk memperbesar."
+  "mapHint": "Setiap pin adalah sebuah kisah. Cubit untuk memperbesar.",
+  "settingsShowFps": "Tampilkan frame rate (FPS)"
 }

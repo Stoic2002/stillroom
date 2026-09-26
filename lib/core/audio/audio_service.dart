@@ -3,6 +3,9 @@
 abstract interface class AudioService {
   Future<void> playSfx(String assetPath, {required double volume});
 
+  /// Gets short sounds ready ahead of time, so they play without delay.
+  Future<void> preload(Iterable<String> assetPaths);
+
   /// Loops [assetPath]; replaces any music already playing.
   Future<void> playMusic(String assetPath, {required double volume});
 
@@ -19,6 +22,9 @@ final class SilentAudioService implements AudioService {
 
   @override
   Future<void> playSfx(String assetPath, {required double volume}) async {}
+
+  @override
+  Future<void> preload(Iterable<String> assetPaths) async {}
 
   @override
   Future<void> playMusic(String assetPath, {required double volume}) async {}

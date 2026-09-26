@@ -249,4 +249,7 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get mapHint =>
       'Каждая булавка — история. Разведите пальцы, чтобы приблизить.';
+
+  @override
+  String get settingsShowFps => 'Показывать частоту кадров (FPS)';
 }

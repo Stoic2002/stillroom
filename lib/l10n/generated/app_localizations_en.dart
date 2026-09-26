@@ -245,4 +245,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mapHint => 'Every pin is a tale. Pinch to look closer.';
+
+  @override
+  String get settingsShowFps => 'Show frame rate (FPS)';
 }
