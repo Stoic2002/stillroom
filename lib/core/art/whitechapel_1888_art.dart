@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import '../theme/stillroom_palette.dart';
 import 'art_kit.dart';
+import 'echo_art.dart';
 
 /// Code-drawn stand-in art for "Whitechapel, 1888", keyed by the image paths
 /// used in the episode's JSON. A real file at the same path always wins.
@@ -28,6 +29,8 @@ final Map<String, ArtPainter> whitechapelArt = {
   '$_s/label_close.png': (c, s) => jarLabelBoard(Art(c, s), _north.base),
   // Reveal puzzles: what shows through, and the ash on top.
   '$_o/fog_writing.png': (c, s) => _fogWritingBoard(Art(c, s)),
+  '$_o/echo_constable.png': (c, s) =>
+      paintEcho(Art(c, s), EchoFigure.constable),
   '$_o/fog_writing_sprite.png': (c, s) => _fogWriting(Art(c, s)),
   '$_o/hearth_note.png': (c, s) => _hearthNote(Art(c, s)),
   '$_o/hearth_ash.png': (c, s) => _ash(Art(c, s)),

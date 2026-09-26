@@ -109,5 +109,22 @@
         }
       ]
     }
+  ],
+  "echoes": [
+    {
+      "id": "worker",
+      "image": "images/objects/lawang_sewu_1945/echo_worker.png",
+      "rect": [
+        0.47,
+        0.33,
+        0.06,
+        0.28
+      ],
+      "chance": 0.6,
+      "drift": [
+        0.0,
+        -0.02
+      ]
+    }
   ]
 }

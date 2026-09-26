@@ -306,5 +306,18 @@
         }
       ]
     }
+  ],
+  "echoes": [
+    {
+      "id": "clerk",
+      "image": "images/objects/lawang_sewu_1945/echo_clerk.png",
+      "rect": [
+        0.36,
+        0.22,
+        0.1,
+        0.34
+      ],
+      "chance": 0.4
+    }
   ]
 }

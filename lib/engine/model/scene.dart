@@ -13,6 +13,7 @@ final class Scene {
     this.layers = const [],
     this.music,
     this.dark,
+    this.echoes = const [],
   });
 
   factory Scene.fromJson(JsonReader json, ActionRegistry actions) {
@@ -24,6 +25,7 @@ final class Scene {
       'hotspots',
       'layers',
       'dark',
+      'echoes',
     });
     final exits = [
       for (final e in json.objects('exits', optional: true))
@@ -40,6 +42,11 @@ final class Scene {
     _requireUniqueIds(json, 'exits', exits.map((e) => e.id));
     _requireUniqueIds(json, 'hotspots', hotspots.map((h) => h.id));
     _requireUniqueIds(json, 'layers', layers.map((l) => l.id));
+    final echoes = [
+      for (final e in json.objects('echoes', optional: true))
+        SceneEcho.fromJson(e),
+    ];
+    _requireUniqueIds(json, 'echoes', echoes.map((e) => e.id));
     return Scene(
       id: json.string('id'),
       background: json.string('background'),
@@ -47,6 +54,7 @@ final class Scene {
       hotspots: hotspots,
       layers: layers,
       music: json.optionalString('music'),
+      echoes: echoes,
       dark: switch (json.optionalObject('dark')) {
         final dark? => SceneDarkness.fromJson(dark),
         null => null,
@@ -59,6 +67,9 @@ final class Scene {
   /// Makes the scene dark: only a circle of lantern light around the
   /// player's finger shows it.
   final SceneDarkness? dark;
+
+  /// Faceless figures of memory that sometimes appear in the scene.
+  final List<SceneEcho> echoes;
 
   /// Overrides the episode music while this scene is shown.
   final String? music;
@@ -256,4 +267,56 @@ final class SceneDarkness {
 
   final List<Condition> when;
   final double radius;
+}
+
+/// An echo (`echoes` in a scene file): a faint, faceless figure of memory.
+/// It never has a face or a name, and it never blocks a tap.
+///
+/// ```json
+/// { "id": "keeper", "image": "images/objects/.../echo_keeper.png",
+///   "rect": [0.3, 0.4, 0.07, 0.28], "when": [...], "chance": 0.6,
+///   "drift": [-0.04, 0.02] }
+/// ```
+/// Each time the scene is entered and `when` holds, it appears with
+/// probability `chance` (default 1) a moment later, drifts by `drift`
+/// (normalized, default none), and fades away when the player taps near
+/// it or after a while.
+final class SceneEcho {
+  const SceneEcho({
+    required this.id,
+    required this.image,
+    required this.rect,
+    this.when = const [],
+    this.chance = 1,
+    this.driftX = 0,
+    this.driftY = 0,
+  });
+
+  factory SceneEcho.fromJson(JsonReader json) {
+    json.allowOnly({'id', 'image', 'rect', 'when', 'chance', 'drift'});
+    final chance = json.optionalNumber('chance') ?? 1;
+    if (chance <= 0 || chance > 1) {
+      json.fail('must be above 0 and at most 1', 'chance');
+    }
+    final drift = json.has('drift')
+        ? json.numbers('drift', length: 2)
+        : const [0.0, 0.0];
+    return SceneEcho(
+      id: json.string('id'),
+      image: json.string('image'),
+      rect: NormalizedRect.fromJson(json, 'rect'),
+      when: Condition.listFromJson(json, 'when'),
+      chance: chance,
+      driftX: drift[0],
+      driftY: drift[1],
+    );
+  }
+
+  final String id;
+  final String image;
+  final NormalizedRect rect;
+  final List<Condition> when;
+  final double chance;
+  final double driftX;
+  final double driftY;
 }

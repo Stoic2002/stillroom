@@ -76,4 +76,55 @@ void main() {
       );
     });
   });
+
+  group('echoes', () {
+    Map<String, Object?> roomWithEcho(Map<String, Object?> echo) => {
+      ...roomNorthJson(),
+      'echoes': [echo],
+    };
+
+    test('an echo may appear only while its conditions hold', () {
+      final engine = GameEngine(
+        buildTestEpisode(
+          scenes: [
+            roomWithEcho({
+              'id': 'figure',
+              'image': 'images/echo.png',
+              'rect': [0.4, 0.3, 0.1, 0.3],
+              'when': [
+                {'flag': 'saw_clock', 'equals': true},
+              ],
+              'chance': 0.5,
+              'drift': [0.1, 0],
+            }),
+            deskJson(),
+          ],
+        ),
+      );
+      final start = engine.newGame();
+      expect(engine.possibleEchoes(start), isEmpty);
+      final echo = engine
+          .possibleEchoes(engine.tapHotspot(start, 'clock').state)
+          .single;
+      expect(echo.chance, 0.5);
+      expect(echo.driftX, 0.1);
+    });
+
+    test('chance must be above 0 and at most 1', () {
+      expect(
+        () => buildTestEpisode(
+          scenes: [
+            roomWithEcho({
+              'id': 'figure',
+              'image': 'images/echo.png',
+              'rect': [0.4, 0.3, 0.1, 0.3],
+              'chance': 0,
+            }),
+            deskJson(),
+          ],
+        ),
+        throwsA(isA<ContentFormatException>()),
+      );
+    });
+  });
 }

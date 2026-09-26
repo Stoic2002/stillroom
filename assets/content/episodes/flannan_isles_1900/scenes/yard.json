@@ -187,5 +187,28 @@
         }
       ]
     }
+  ],
+  "echoes": [
+    {
+      "id": "keeper_path",
+      "image": "images/objects/flannan_isles_1900/echo_keeper.png",
+      "rect": [
+        0.84,
+        0.5,
+        0.045,
+        0.18
+      ],
+      "when": [
+        {
+          "flag": "lamp_lit",
+          "equals": false
+        }
+      ],
+      "chance": 0.5,
+      "drift": [
+        0.06,
+        0.02
+      ]
+    }
   ]
 }

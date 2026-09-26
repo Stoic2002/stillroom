@@ -1,8 +1,12 @@
+import 'dart:math' as math;
+import 'dart:ui';
+
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 
 import '../../../core/art/vector_art.dart';
 import '../../../engine/engine.dart';
+import 'echo_component.dart';
 import 'hotspot_outlines.dart';
 import 'placeholder_box.dart';
 import 'stillroom_game.dart';
@@ -46,6 +50,45 @@ class SceneView extends PositionComponent
     add(_layers);
     add(_outlines);
     _rebuild();
+    await _spawnEchoes();
+  }
+
+  /// Echoes are rolled once each time the scene is shown.
+  Future<void> _spawnEchoes() async {
+    final random = math.Random();
+    for (final echo in game.engine.possibleEchoes(_state)) {
+      if (random.nextDouble() > echo.chance) continue;
+      final r = echo.rect;
+      final box = Vector2(r.width * size.x, r.height * size.y);
+      final image = await _imageFor(echo.image, box);
+      if (image == null || !isMounted) continue;
+      add(
+        EchoComponent(
+          image: image,
+          drift: Vector2(echo.driftX * size.x, echo.driftY * size.y),
+          random: random,
+          position: Vector2(r.x * size.x, r.y * size.y),
+          size: box,
+        ),
+      );
+    }
+  }
+
+  /// A raster of [path]: its bundled file, else its code-drawn art.
+  Future<Image?> _imageFor(String path, Vector2 box) async {
+    final sprite = sprites[path];
+    if (sprite != null) return sprite.image;
+    final art = vectorArtFor(path);
+    if (art == null) return null;
+    final recorder = PictureRecorder();
+    art(Canvas(recorder), box.toSize());
+    final picture = recorder.endRecording();
+    final image = await picture.toImage(
+      box.x.ceil().clamp(1, 4096),
+      box.y.ceil().clamp(1, 4096),
+    );
+    picture.dispose();
+    return image;
   }
 
   void refresh(GameState state) {
@@ -112,6 +155,13 @@ class SceneView extends PositionComponent
   @override
   void onTapUp(TapUpEvent event) {
     final p = event.localPosition;
+    // Reaching for an echo makes it go; the tap still counts below.
+    for (final echo in children.whereType<EchoComponent>()) {
+      if (echo.isVisible &&
+          echo.toRect().inflate(size.x * 0.04).contains(p.toOffset())) {
+        echo.dissolve();
+      }
+    }
     game.handleSceneTap(p.x / size.x, p.y / size.y);
   }
 }

@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import '../theme/stillroom_palette.dart';
 import 'art_kit.dart';
+import 'echo_art.dart';
 import 'whitechapel_1888_art.dart' show jarLabelBoard;
 
 /// Code-drawn stand-in art for "Semarang, 1945" (Lawang Sewu), keyed by the
@@ -20,6 +21,8 @@ final Map<String, ArtPainter> lawangSewuArt = {
   '$_s/label_close.png': (c, s) => jarLabelBoard(Art(c, s), _wall),
   '$_o/telegram_pad_rubbed.png': (c, s) => _telegramRubbed(Art(c, s)),
   '$_o/door_929_sprite.png': (c, s) => _door929(Art(c, s)),
+  '$_o/echo_worker.png': (c, s) => paintEcho(Art(c, s), EchoFigure.worker),
+  '$_o/echo_clerk.png': (c, s) => paintEcho(Art(c, s), EchoFigure.clerk),
   // Scenes.
   '$_s/landing.png': (c, s) => _landing(Art(c, s)),
   '$_s/corridor_west.png': (c, s) => _corridor(Art(c, s)),

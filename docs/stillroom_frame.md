@@ -66,6 +66,18 @@ when not watched), F (listening puzzles). D (light and dark) arrived with
 *Flannan Isles, 1900* on shelf II: dark scenes searched by lantern light,
 plus the crank.
 
+## Echoes (decided 2026-09-26)
+
+Rusty Lake shows its people; the Stillroom mostly shows their things. The
+developer chose **echoes**: pale, faceless figures of memory that sometimes
+stand in a tale for a few seconds and dissolve when approached. They carry
+no names and no faces, so no real person is ever given invented features:
+
+- *Whitechapel:* a constable with a lantern, beyond the fogged window.
+- *Semarang:* a railway worker far down the endless corridor, and a clerk
+  in the 1907 office.
+- *Flannan:* a keeper in oilskins on the west landing and on the path west.
+
 ## How it shows in the game
 
 | Where | What |

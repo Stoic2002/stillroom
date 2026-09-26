@@ -153,6 +153,12 @@ final class GameEngine {
     return dark != null && dark.when.allMet(state) ? dark : null;
   }
 
+  /// Echoes that may appear in the current scene right now.
+  List<SceneEcho> possibleEchoes(GameState state) => [
+    for (final e in currentScene(state).echoes)
+      if (e.when.allMet(state)) e,
+  ];
+
   List<SceneLayer> visibleLayers(GameState state) => [
     for (final l in currentScene(state).layers)
       if (l.when.allMet(state)) l,

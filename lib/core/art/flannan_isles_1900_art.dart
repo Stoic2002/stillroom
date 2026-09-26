@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import '../theme/stillroom_palette.dart';
 import 'art_kit.dart';
+import 'echo_art.dart';
 import 'whitechapel_1888_art.dart' show jarLabelBoard;
 
 /// Code-drawn art for "Flannan Isles, 1900" (docs/episodes/
@@ -36,6 +37,7 @@ final Map<String, ArtPainter> flannanArt = {
   '$_o/lens_dark_sprite.png': (c, s) => _lens(Art(c, s), lit: false),
   '$_o/lens_lit_sprite.png': (c, s) => _lens(Art(c, s), lit: true),
   '$_o/rope_plate.png': (c, s) => _ropePlate(Art(c, s)),
+  '$_o/echo_keeper.png': (c, s) => paintEcho(Art(c, s), EchoFigure.keeper),
   '$_o/rope_plate_clean_sprite.png': (c, s) => _ropePlateSmall(Art(c, s)),
   '$_o/door_open_sprite.png': (c, s) => _stairDoorOpen(Art(c, s)),
   '$_o/clockwork_wound_sprite.png': (c, s) => _clockworkWound(Art(c, s)),

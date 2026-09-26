@@ -230,6 +230,26 @@ that use the same id.
   `{ "hasItem": "lit_lantern" }` and a hotspot in its place that says it is
   too dark.
 
+### Echoes
+
+```json
+"echoes": [
+  { "id": "keeper", "image": "images/objects/flannan_isles_1900/echo_keeper.png",
+    "rect": [0.3, 0.4, 0.07, 0.28], "when": [ ... ], "chance": 0.8,
+    "drift": [-0.05, 0.05] }
+]
+```
+
+- **What they are:** faint, faceless figures of memory. **Never a face,
+  never a name** (tone guardrails).
+- **When they appear:** each time the scene is shown and `when` holds, an
+  echo appears with probability `chance` (default 1) a moment later. It
+  breathes and drifts by `drift` (normalized), then dissolves when the
+  player taps near it or after a while.
+- **Taps:** they never block a tap.
+- **Art:** figures are drawn pale by `lib/core/art/echo_art.dart`
+  (`EchoFigure`).
+
 ### Exit
 
 ```json
@@ -654,6 +674,7 @@ warnings show in the debug panel).
 | 2026-09-25 | post-M6 | `episodes.json` becomes a catalog of jars (`titleKey`, `teaserKey`, `jarImage`, `comingSoon`, `debugOnly`); `labelKey` on `sequence` elements and `slotPlacement` slots; episode `whitechapel_1888`. |
 | 2026-09-25 | post-M6 | Languages: Spanish (`es`), Japanese (`ja`), Simplified Chinese (`zh`), Russian (`ru`) added; all keys required in every language. |
 | 2026-09-26 | post-M6 | `episodes.json`: `shelf`, `unlockAfter`, `series` (tiered shelves). |
+| 2026-09-26 | post-M6 | `echoes` in scenes (faceless figures of memory). |
 | 2026-09-26 | post-M6 | `place` in `episodes.json` (the map of tales); `activeImage` on `sequence` elements. |
 | 2026-09-26 | post-M6 | `dark` scenes and the `crank` puzzle type; episode `flannan_isles_1900` (shelf II) replaces `sealed_3`. |
 | 2026-09-26 | post-M6 | Words (`words`, `[[id]]` markup, `wordNoted` condition), `deduction` and `reveal` puzzle types, `secret` in `game.json`. Save: `words`/`secretFound` per episode; `distilled` and `keeperNotes` in the save file (additive, old saves load). |
