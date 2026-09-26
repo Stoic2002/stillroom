@@ -9,6 +9,7 @@ import 'package:flutter/painting.dart';
 
 import '../../../core/theme/stillroom_palette.dart';
 import '../../../engine/engine.dart';
+import 'darkness_overlay.dart';
 import 'scene_view.dart';
 import 'tap_ripple.dart';
 
@@ -58,6 +59,7 @@ class StillroomGame extends FlameGame {
   SceneView? _view;
   Set<String> _loadedImages = {};
   late final RectangleComponent _fade;
+  late final DarknessOverlay _darkness;
   bool _transitioning = false;
 
   @override
@@ -71,7 +73,10 @@ class StillroomGame extends FlameGame {
       paint: Paint()..color = StillroomPalette.ink,
       priority: 1000,
     )..opacity = 0;
-    world.add(_fade);
+    _darkness = DarknessOverlay(size: logicalSize);
+    world
+      ..add(_fade)
+      ..add(_darkness);
     await _showCurrentScene();
     // The state may have moved on while the first scene was loading.
     if (_view?.scene.id != _state.sceneId) unawaited(_transition());
@@ -85,7 +90,18 @@ class StillroomGame extends FlameGame {
       unawaited(_transition());
     } else if (!_transitioning) {
       _view?.refresh(state);
+      _updateDarkness();
     }
+  }
+
+  /// Moves the lantern light in a dark scene to a point of the scene
+  /// (normalized).
+  void moveLight(double x, double y) =>
+      _darkness.light = Vector2(x, y)..multiply(logicalSize);
+
+  void _updateDarkness() {
+    final dark = engine.darkness(_state);
+    _darkness.radius = dark == null ? null : dark.radius * logicalSize.x;
   }
 
   set showHotspots(bool value) {
@@ -115,6 +131,7 @@ class StillroomGame extends FlameGame {
 
   void handleSceneTap(double x, double y) {
     if (_transitioning) return;
+    moveLight(x, y);
     world.add(TapRipple(position: Vector2(x, y)..multiply(logicalSize)));
     final scale = math.min(size.x / logicalSize.x, size.y / logicalSize.y);
     onSceneTap(
@@ -181,5 +198,6 @@ class StillroomGame extends FlameGame {
     );
     _view = view;
     await world.add(view);
+    _updateDarkness();
   }
 }

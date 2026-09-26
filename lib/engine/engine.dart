@@ -19,6 +19,7 @@ export 'model/text_markup.dart';
 export 'model/word.dart';
 export 'puzzles/built_in_puzzles.dart';
 export 'puzzles/code_lock.dart';
+export 'puzzles/crank.dart';
 export 'puzzles/deduction.dart';
 export 'puzzles/puzzle_type.dart';
 export 'puzzles/reveal.dart';

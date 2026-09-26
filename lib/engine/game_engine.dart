@@ -147,6 +147,12 @@ final class GameEngine {
       if (e.when.allMet(state)) e,
   ];
 
+  /// The darkness of the current scene, if it is dark right now.
+  SceneDarkness? darkness(GameState state) {
+    final dark = currentScene(state).dark;
+    return dark != null && dark.when.allMet(state) ? dark : null;
+  }
+
   List<SceneLayer> visibleLayers(GameState state) => [
     for (final l in currentScene(state).layers)
       if (l.when.allMet(state)) l,

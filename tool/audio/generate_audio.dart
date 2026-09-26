@@ -875,9 +875,79 @@ Buf lawangSewu1907() => loop(32, (seconds) {
   return reverb(b, size: 0.4, mix: 0.25);
 });
 
+/// A ship's steam horn, far off in fog: two long, low blasts.
+Buf shipHorn() {
+  final b = Buf(6);
+  for (final at in [0.1, 2.6]) {
+    final horn = shape(
+      sum([
+        for (final (f, g) in [
+          (110.0, 1.0),
+          (220.0, 0.5),
+          (330.0, 0.3),
+          (138.6, 0.6),
+        ])
+          gain(tone(2.0, (t) => f * (1 + 0.003 * math.sin(t * 6))), g),
+      ]),
+      (t) => swell(t, 0.25, 0.5, 2.0),
+    );
+    b.add(lowpass(horn, (_) => 700), at: at, gain: 0.5, pan: -0.3);
+  }
+  return reverb(b, size: 0.95, mix: 0.45, damp: 0.6);
+}
+
+/// A heavy wave breaking against rock.
+Buf waveCrash() {
+  final rng = math.Random(14);
+  final b = Buf(4.5);
+  final crash = shape(
+    lowpass(noise(4, rng), (t) => 300 + 2500 * math.exp(-t / 0.5)),
+    (t) => swell(t, 0.15, 3.0, 4.0),
+  );
+  b
+    ..add(gain(crash, 2.2))
+    ..add(
+      gain(
+        shape(lowpass(brown(4, rng), (_) => 120), (t) => swell(t, 0.3, 3, 4)),
+        0.8,
+      ),
+    );
+  for (var i = 0; i < 40; i++) {
+    b.add(
+      click(rng, centre: 2000 + rng.nextDouble() * 4000, time: 0.003),
+      at: 0.6 + rng.nextDouble() * 2.5,
+      gain: 0.15,
+      pan: rng.nextDouble() - 0.5,
+    );
+  }
+  return reverb(b, size: 0.7, mix: 0.3);
+}
+
+/// A great lamp taking its flame: a soft rush, then a steady roar.
+Buf lampLight() {
+  final rng = math.Random(15);
+  final b = Buf(3)
+    ..add(modal(0.3, 2800, const [(1, 1, 0.05), (1.7, 0.4, 0.03)]), gain: 0.25)
+    ..add(
+      gain(
+        shape(
+          lowpass(noise(2.8, rng), (t) => 250 + 900 * math.exp(-t / 0.3)),
+          (t) => swell(t, 0.1, 1.2, 2.8),
+        ),
+        2.4,
+      ),
+      at: 0.1,
+    )
+    ..add(glassNote(880, 2.5), at: 0.4, gain: 0.08);
+  return reverb(b, size: 0.5, mix: 0.3);
+}
+
 // ---------------------------------------------------------------------------
 
 final sfx = <String, Buf Function()>{
+  'ship_horn': shipHorn,
+  'wave_crash': waveCrash,
+  'lamp_light': lampLight,
   'clock_tick': clockTick,
   'match_strike': matchStrike,
   'door_rattle': doorRattle,
@@ -895,7 +965,38 @@ final sfx = <String, Buf Function()>{
   'station_bell': stationBell,
 };
 
+/// Flannan Isles: wind over a bare island, the sea below, a low drone.
+Buf flannanWind() => loop(48, (seconds) {
+  final rng = math.Random(24);
+  final b = Buf(seconds)
+    ..add(
+      drone(seconds, loopSeconds: 48, const [
+        (61.74, 0.45, 24),
+        (92.5, 0.25, 16),
+        (146.8, 0.1, 12),
+      ]),
+      gain: 0.4,
+    );
+  final wind = shape(
+    bandpass(
+      noise(seconds, rng),
+      (t) => 700 + 450 * math.sin(tau * t / 12),
+      1.2,
+    ),
+    (t) => 0.4 + 0.6 * math.pow(math.sin(tau * t / 16), 2),
+  );
+  final swell = shape(
+    lowpass(brown(seconds, rng), (_) => 180),
+    (t) => 0.5 + 0.5 * math.sin(tau * t / 8),
+  );
+  b
+    ..add(gain(wind, 0.3), pan: 0.4)
+    ..add(gain(swell, 0.6), pan: -0.3);
+  return reverb(b, size: 0.9, mix: 0.4, damp: 0.5);
+});
+
 final music = <String, Buf Function()>{
+  'flannan_wind': flannanWind,
   'stillroom_menu': menuMusic,
   'whitechapel_fog': whitechapelFog,
   'lawang_sewu_night': lawangSewuNight,

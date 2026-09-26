@@ -236,4 +236,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get wordTapTip => 'Tap an underlined word to note it down.';
+
+  @override
+  String get crankInstruction => 'Turn the handle round and round.';
 }

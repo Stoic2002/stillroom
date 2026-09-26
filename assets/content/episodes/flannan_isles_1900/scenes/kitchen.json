@@ -1,0 +1,205 @@
+{
+  "id": "kitchen",
+  "background": "images/scenes/flannan_isles_1900/kitchen.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "yard"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "clock",
+      "rect": [
+        0.44,
+        0.08,
+        0.1,
+        0.18
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "clock_tick"
+        },
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.kitchen.clock"
+        }
+      ]
+    },
+    {
+      "id": "stove",
+      "rect": [
+        0.04,
+        0.38,
+        0.2,
+        0.42
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.kitchen.stove"
+        }
+      ]
+    },
+    {
+      "id": "matches",
+      "rect": [
+        0.08,
+        0.34,
+        0.07,
+        0.06
+      ],
+      "when": [
+        {
+          "everHadItem": "matches",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "pickItem",
+          "item": "matches"
+        }
+      ]
+    },
+    {
+      "id": "table",
+      "rect": [
+        0.34,
+        0.56,
+        0.3,
+        0.2
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.kitchen.table"
+        }
+      ]
+    },
+    {
+      "id": "log",
+      "rect": [
+        0.38,
+        0.5,
+        0.1,
+        0.08
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.kitchen.log"
+        }
+      ]
+    },
+    {
+      "id": "slate",
+      "rect": [
+        0.58,
+        0.18,
+        0.1,
+        0.14
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.kitchen.slate"
+        }
+      ]
+    },
+    {
+      "id": "hooks",
+      "rect": [
+        0.74,
+        0.14,
+        0.16,
+        0.46
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.kitchen.hooks"
+        }
+      ]
+    },
+    {
+      "id": "lantern",
+      "rect": [
+        0.9,
+        0.4,
+        0.07,
+        0.16
+      ],
+      "when": [
+        {
+          "everHadItem": "hand_lantern",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "pickItem",
+          "item": "hand_lantern"
+        }
+      ]
+    },
+    {
+      "id": "magazine",
+      "rect": [
+        0.24,
+        0.1,
+        0.12,
+        0.12
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.kitchen.magazine"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "matches_sprite",
+      "image": "images/objects/flannan_isles_1900/matches_sprite.png",
+      "rect": [
+        0.08,
+        0.34,
+        0.07,
+        0.06
+      ],
+      "when": [
+        {
+          "everHadItem": "matches",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "lantern_sprite",
+      "image": "images/objects/flannan_isles_1900/lantern_sprite.png",
+      "rect": [
+        0.9,
+        0.4,
+        0.07,
+        0.16
+      ],
+      "when": [
+        {
+          "everHadItem": "hand_lantern",
+          "equals": false
+        }
+      ]
+    }
+  ]
+}

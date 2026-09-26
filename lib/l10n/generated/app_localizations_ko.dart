@@ -228,4 +228,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get wordTapTip => '밑줄 친 낱말을 누르면 기록할 수 있습니다.';
+
+  @override
+  String get crankInstruction => '손잡이를 계속 빙글빙글 돌리세요.';
 }

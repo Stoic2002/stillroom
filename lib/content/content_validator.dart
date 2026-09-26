@@ -113,6 +113,7 @@ final class _Validator {
       for (final layer in scene.layers) {
         _layer('$at › layer ${layer.id}', layer);
       }
+      if (scene.dark case final dark?) _conditions('$at › dark', dark.when);
     }
 
     for (final item in content.items.values) {

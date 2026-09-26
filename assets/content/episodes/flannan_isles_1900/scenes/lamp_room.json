@@ -1,0 +1,251 @@
+{
+  "id": "lamp_room",
+  "background": "images/scenes/flannan_isles_1900/lamp_room.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "stair"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "lamp_unwound",
+      "rect": [
+        0.38,
+        0.2,
+        0.24,
+        0.44
+      ],
+      "when": [
+        {
+          "puzzleSolved": "clockwork",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.lamp.lamp"
+        }
+      ],
+      "onUseItem": [
+        {
+          "item": "lit_lantern",
+          "actions": [
+            {
+              "type": "showText",
+              "key": "flannan_isles_1900.lamp.need_wind"
+            }
+          ]
+        },
+        {
+          "item": "paraffin",
+          "actions": [
+            {
+              "type": "showText",
+              "key": "flannan_isles_1900.lamp.full"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lamp_ready",
+      "rect": [
+        0.38,
+        0.2,
+        0.24,
+        0.44
+      ],
+      "when": [
+        {
+          "puzzleSolved": "clockwork",
+          "equals": true
+        },
+        {
+          "flag": "lamp_lit",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.lamp.lamp"
+        }
+      ],
+      "onUseItem": [
+        {
+          "item": "lit_lantern",
+          "actions": [
+            {
+              "type": "setFlag",
+              "flag": "lamp_lit",
+              "value": true
+            },
+            {
+              "type": "playSound",
+              "sound": "lamp_light"
+            },
+            {
+              "type": "shake",
+              "durationMs": 500,
+              "strength": 0.2
+            },
+            {
+              "type": "showText",
+              "key": "flannan_isles_1900.lamp.lit"
+            }
+          ]
+        },
+        {
+          "item": "paraffin",
+          "actions": [
+            {
+              "type": "showText",
+              "key": "flannan_isles_1900.lamp.full"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lamp_label",
+      "rect": [
+        0.38,
+        0.2,
+        0.24,
+        0.44
+      ],
+      "when": [
+        {
+          "flag": "lamp_lit",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "jar_label",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.lamp.label_needed"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "jar_label"
+        }
+      ]
+    },
+    {
+      "id": "clockwork",
+      "rect": [
+        0.04,
+        0.5,
+        0.22,
+        0.32
+      ],
+      "when": [
+        {
+          "puzzleSolved": "clockwork",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.lamp.clockwork"
+        }
+      ],
+      "onUseItem": [
+        {
+          "item": "crank_handle",
+          "actions": [
+            {
+              "type": "openPuzzle",
+              "puzzle": "clockwork"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "clockwork_done",
+      "rect": [
+        0.04,
+        0.5,
+        0.22,
+        0.32
+      ],
+      "when": [
+        {
+          "puzzleSolved": "clockwork",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "clock_tick"
+        },
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.lamp.clockwork_done"
+        }
+      ]
+    },
+    {
+      "id": "legend_log",
+      "rect": [
+        0.76,
+        0.54,
+        0.12,
+        0.14
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.lamp.legend_log"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "lens_dark_sprite",
+      "image": "images/objects/flannan_isles_1900/lens_dark_sprite.png",
+      "rect": [
+        0.38,
+        0.2,
+        0.24,
+        0.44
+      ],
+      "when": [
+        {
+          "flag": "lamp_lit",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "lens_lit_sprite",
+      "image": "images/objects/flannan_isles_1900/lens_lit_sprite.png",
+      "rect": [
+        0.38,
+        0.2,
+        0.24,
+        0.44
+      ],
+      "when": [
+        {
+          "flag": "lamp_lit",
+          "equals": true
+        }
+      ]
+    }
+  ]
+}

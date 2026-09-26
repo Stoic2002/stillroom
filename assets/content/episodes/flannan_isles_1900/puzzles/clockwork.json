@@ -1,0 +1,27 @@
+{
+  "id": "clockwork",
+  "type": "crank",
+  "background": "images/scenes/flannan_isles_1900/clockwork_close.png",
+  "config": {
+    "turns": 4,
+    "clockwise": true
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "clock_tick"
+    },
+    {
+      "type": "showText",
+      "key": "flannan_isles_1900.lamp.clockwork_wound"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.flannan_isles_1900.clockwork.1"
+    },
+    {
+      "key": "hint.flannan_isles_1900.clockwork.2"
+    }
+  ]
+}

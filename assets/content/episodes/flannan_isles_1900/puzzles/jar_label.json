@@ -1,0 +1,80 @@
+{
+  "id": "jar_label",
+  "type": "deduction",
+  "background": "images/scenes/flannan_isles_1900/label_close.png",
+  "config": {
+    "sentences": [
+      {
+        "textKey": "flannan_isles_1900.label.s1",
+        "blanks": [
+          "date_15dec",
+          "time_9am"
+        ]
+      },
+      {
+        "textKey": "flannan_isles_1900.label.s2",
+        "blanks": [
+          "ducat",
+          "marshall",
+          "west_landing",
+          "mcarthur",
+          "shirtsleeves"
+        ]
+      },
+      {
+        "textKey": "flannan_isles_1900.label.s3",
+        "blanks": [
+          "great_sea"
+        ]
+      }
+    ],
+    "words": [
+      "date_15dec",
+      "date_13dec",
+      "time_9am",
+      "ducat",
+      "marshall",
+      "mcarthur",
+      "west_landing",
+      "east_landing",
+      "shirtsleeves",
+      "great_sea",
+      "chair",
+      "meal",
+      "storm_log"
+    ],
+    "nearMiss": 1
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "ship_horn"
+    },
+    {
+      "type": "showText",
+      "key": "flannan_isles_1900.label.done"
+    },
+    {
+      "type": "showText",
+      "key": "flannan_isles_1900.ending.light"
+    },
+    {
+      "type": "showText",
+      "key": "flannan_isles_1900.ending.names"
+    },
+    {
+      "type": "endEpisode"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.flannan_isles_1900.jar_label.1"
+    },
+    {
+      "key": "hint.flannan_isles_1900.jar_label.2"
+    },
+    {
+      "key": "hint.flannan_isles_1900.jar_label.3"
+    }
+  ]
+}

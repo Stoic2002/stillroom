@@ -41,6 +41,9 @@ fvm dart run tool/audio/generate_audio.dart bell_toll  # one or more ids
 | `glass_chime` | Lawang Sewu stained glass | A rising arpeggio of glassy tones |
 | `telegraph_click` | Lawang Sewu telegraph | A sounder tapping out **N·I·S** in Morse, the puzzle's own answer |
 | `station_bell` | Lawang Sewu timetable | A handbell rung four times |
+| `ship_horn` | Flannan: the relief boat; the ending | Two long, low steam-horn blasts, far off in fog |
+| `wave_crash` | Flannan: the west landing | A heavy sea breaking on rock |
+| `lamp_light` | Flannan: the great lamp is lit | A soft rush, then a steady roar, and a glassy ring |
 
 ## Music
 
@@ -49,6 +52,7 @@ fvm dart run tool/audio/generate_audio.dart bell_toll  # one or more ids
 | `stillroom_menu` | Main menu and shelf | 36 s | A low A drone; a quiet pendulum tick every second, matching the lobby clock's swing; a faint glass shimmer twice per loop |
 | `whitechapel_fog` | Whitechapel | 48 s | A D-minor drone; wind; one distant bell; six footsteps that never come closer |
 | `lawang_sewu_night` | Lawang Sewu (default) | 48 s | A low C-minor drone; two crickets (a tropical night); a far train whistle |
+| `flannan_wind` | Flannan Isles | 48 s | A low drone; wind over the bare island; the swell below |
 | `lawang_sewu_1907` | Lawang Sewu, 1907 office | 32 s | A warm F-major drone; the office clock; record-like crackle; the NIS telegraph far off |
 
 ## Interface sounds (`assets/audio/ui/`)

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -146,6 +147,38 @@ void main() {
       }
       await tester.pump(const Duration(milliseconds: 100));
       expect(sounds, contains(UiSound.wipe));
+      expect(sounds.last, UiSound.solved);
+      await tester.pump(SolvesAfterPause.pause);
+      expect(solved.single, 1);
+    });
+  });
+
+  group('crank', () {
+    testWidgets('winding round and round solves it', (tester) async {
+      final flannan = await tester.runAsync(
+        () => ContentLoader(
+          FileAssetSource(Directory.current),
+        ).loadEpisode('flannan_isles_1900', ContentRegistries.withBuiltIns()),
+      );
+      content = flannan!;
+      final (solved, sounds) = await pumpPuzzle(tester, 'clockwork');
+      expect(find.text('Turn the handle round and round.'), findsOneWidget);
+      final box = tester.getRect(find.byKey(const ValueKey('crank')));
+      final center = box.center;
+      final radius = box.shortestSide * 0.3;
+      final gesture = await tester.startGesture(center + Offset(radius, 0));
+      for (var step = 1; step <= 4 * 24 + 4; step++) {
+        final angle = step * math.pi / 12;
+        await gesture.moveTo(
+          center + Offset(math.cos(angle), math.sin(angle)) * radius,
+        );
+      }
+      await gesture.up();
+      await tester.pump(const Duration(milliseconds: 100));
+      expect(
+        sounds.where((s) => s == UiSound.dial),
+        hasLength(greaterThan(10)),
+      );
       expect(sounds.last, UiSound.solved);
       await tester.pump(SolvesAfterPause.pause);
       expect(solved.single, 1);

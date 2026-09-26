@@ -1,0 +1,47 @@
+{
+  "items": [
+    {
+      "id": "matches",
+      "nameKey": "item.flannan_isles_1900.matches.name",
+      "descKey": "item.flannan_isles_1900.matches.desc",
+      "icon": "images/items/flannan_isles_1900/matches.png"
+    },
+    {
+      "id": "hand_lantern",
+      "nameKey": "item.flannan_isles_1900.hand_lantern.name",
+      "descKey": "item.flannan_isles_1900.hand_lantern.desc",
+      "icon": "images/items/flannan_isles_1900/hand_lantern.png"
+    },
+    {
+      "id": "lit_lantern",
+      "nameKey": "item.flannan_isles_1900.lit_lantern.name",
+      "descKey": "item.flannan_isles_1900.lit_lantern.desc",
+      "icon": "images/items/flannan_isles_1900/lit_lantern.png"
+    },
+    {
+      "id": "paraffin",
+      "nameKey": "item.flannan_isles_1900.paraffin.name",
+      "descKey": "item.flannan_isles_1900.paraffin.desc",
+      "icon": "images/items/flannan_isles_1900/paraffin.png"
+    },
+    {
+      "id": "crank_handle",
+      "nameKey": "item.flannan_isles_1900.crank_handle.name",
+      "descKey": "item.flannan_isles_1900.crank_handle.desc",
+      "icon": "images/items/flannan_isles_1900/crank_handle.png"
+    },
+    {
+      "id": "lamp_key",
+      "nameKey": "item.flannan_isles_1900.lamp_key.name",
+      "descKey": "item.flannan_isles_1900.lamp_key.desc",
+      "icon": "images/items/flannan_isles_1900/lamp_key.png"
+    }
+  ],
+  "combinations": [
+    {
+      "a": "hand_lantern",
+      "b": "matches",
+      "result": "lit_lantern"
+    }
+  ]
+}

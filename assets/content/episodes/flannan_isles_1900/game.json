@@ -1,0 +1,209 @@
+{
+  "startScene": "east_landing",
+  "flags": {
+    "lamp_door_open": false,
+    "lamp_lit": false,
+    "found_hook": false
+  },
+  "logicalResolution": [
+    1920,
+    1080
+  ],
+  "orientation": "landscape",
+  "sceneTransitionMs": 600,
+  "music": "flannan_wind",
+  "words": [
+    {
+      "id": "date_15dec",
+      "labelKey": "flannan_isles_1900.word.date_15dec",
+      "kind": "date"
+    },
+    {
+      "id": "date_13dec",
+      "labelKey": "flannan_isles_1900.word.date_13dec",
+      "kind": "date"
+    },
+    {
+      "id": "time_9am",
+      "labelKey": "flannan_isles_1900.word.time_9am",
+      "kind": "date"
+    },
+    {
+      "id": "ducat",
+      "labelKey": "flannan_isles_1900.word.ducat",
+      "kind": "name"
+    },
+    {
+      "id": "marshall",
+      "labelKey": "flannan_isles_1900.word.marshall",
+      "kind": "name"
+    },
+    {
+      "id": "mcarthur",
+      "labelKey": "flannan_isles_1900.word.mcarthur",
+      "kind": "name"
+    },
+    {
+      "id": "west_landing",
+      "labelKey": "flannan_isles_1900.word.west_landing",
+      "kind": "place"
+    },
+    {
+      "id": "east_landing",
+      "labelKey": "flannan_isles_1900.word.east_landing",
+      "kind": "place"
+    },
+    {
+      "id": "shirtsleeves",
+      "labelKey": "flannan_isles_1900.word.shirtsleeves",
+      "kind": "thing"
+    },
+    {
+      "id": "great_sea",
+      "labelKey": "flannan_isles_1900.word.great_sea",
+      "kind": "thing"
+    },
+    {
+      "id": "chair",
+      "labelKey": "flannan_isles_1900.word.chair",
+      "kind": "thing"
+    },
+    {
+      "id": "meal",
+      "labelKey": "flannan_isles_1900.word.meal",
+      "kind": "thing"
+    },
+    {
+      "id": "storm_log",
+      "labelKey": "flannan_isles_1900.word.storm_log",
+      "kind": "thing"
+    }
+  ],
+  "secret": {
+    "when": [
+      {
+        "flag": "found_hook",
+        "equals": true
+      }
+    ],
+    "noteKey": "flannan_isles_1900.stair.hook_note"
+  },
+  "hintStages": [
+    {
+      "id": "write_label",
+      "when": [
+        {
+          "flag": "lamp_lit",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "rope_plate",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.flannan_isles_1900.write_label.1"
+        },
+        {
+          "key": "hint.flannan_isles_1900.write_label.2"
+        }
+      ]
+    },
+    {
+      "id": "go_west",
+      "when": [
+        {
+          "flag": "lamp_lit",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.flannan_isles_1900.go_west.1"
+        },
+        {
+          "key": "hint.flannan_isles_1900.go_west.2"
+        }
+      ]
+    },
+    {
+      "id": "light_lamp",
+      "when": [
+        {
+          "puzzleSolved": "clockwork",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.flannan_isles_1900.light_lamp.1"
+        },
+        {
+          "key": "hint.flannan_isles_1900.light_lamp.2"
+        }
+      ]
+    },
+    {
+      "id": "wind_clockwork",
+      "when": [
+        {
+          "flag": "lamp_door_open",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.flannan_isles_1900.wind_clockwork.1"
+        },
+        {
+          "key": "hint.flannan_isles_1900.wind_clockwork.2"
+        }
+      ]
+    },
+    {
+      "id": "climb_tower",
+      "when": [
+        {
+          "hasItem": "lit_lantern"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.flannan_isles_1900.climb_tower.1"
+        },
+        {
+          "key": "hint.flannan_isles_1900.climb_tower.2"
+        }
+      ]
+    },
+    {
+      "id": "light_lantern",
+      "when": [
+        {
+          "puzzleSolved": "gate_lock",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.flannan_isles_1900.light_lantern.1"
+        },
+        {
+          "key": "hint.flannan_isles_1900.light_lantern.2"
+        }
+      ]
+    },
+    {
+      "id": "open_gate",
+      "hints": [
+        {
+          "key": "hint.flannan_isles_1900.open_gate.1"
+        },
+        {
+          "key": "hint.flannan_isles_1900.open_gate.2"
+        }
+      ]
+    }
+  ]
+}

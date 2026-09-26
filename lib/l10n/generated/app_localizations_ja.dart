@@ -227,4 +227,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get wordTapTip => '下線付きの言葉をタップすると書き留められる。';
+
+  @override
+  String get crankInstruction => '取っ手をぐるぐる回そう。';
 }

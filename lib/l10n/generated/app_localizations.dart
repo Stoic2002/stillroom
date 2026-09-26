@@ -515,6 +515,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tap an underlined word to note it down.'**
   String get wordTapTip;
+
+  /// Instruction on a crank (winding) puzzle.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn the handle round and round.'**
+  String get crankInstruction;
 }
 
 class _AppLocalizationsDelegate

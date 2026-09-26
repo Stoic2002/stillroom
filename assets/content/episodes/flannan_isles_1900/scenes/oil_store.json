@@ -1,0 +1,106 @@
+{
+  "id": "oil_store",
+  "background": "images/scenes/flannan_isles_1900/oil_store.png",
+  "dark": {
+    "radius": 0.15
+  },
+  "exits": [
+    {
+      "direction": "back",
+      "to": "yard"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "cans",
+      "rect": [
+        0.06,
+        0.36,
+        0.3,
+        0.44
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.store.cans"
+        }
+      ]
+    },
+    {
+      "id": "paraffin",
+      "rect": [
+        0.42,
+        0.52,
+        0.08,
+        0.18
+      ],
+      "when": [
+        {
+          "everHadItem": "paraffin",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "pickItem",
+          "item": "paraffin"
+        }
+      ]
+    },
+    {
+      "id": "handle",
+      "rect": [
+        0.74,
+        0.58,
+        0.1,
+        0.07
+      ],
+      "when": [
+        {
+          "everHadItem": "crank_handle",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "pickItem",
+          "item": "crank_handle"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "paraffin_sprite",
+      "image": "images/objects/flannan_isles_1900/paraffin_sprite.png",
+      "rect": [
+        0.42,
+        0.52,
+        0.08,
+        0.18
+      ],
+      "when": [
+        {
+          "everHadItem": "paraffin",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "handle_sprite",
+      "image": "images/objects/flannan_isles_1900/handle_sprite.png",
+      "rect": [
+        0.74,
+        0.58,
+        0.1,
+        0.07
+      ],
+      "when": [
+        {
+          "everHadItem": "crank_handle",
+          "equals": false
+        }
+      ]
+    }
+  ]
+}

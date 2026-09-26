@@ -319,6 +319,7 @@ void main() {
       'slotPlacement',
       'deduction',
       'reveal',
+      'crank',
     ]);
   });
 }

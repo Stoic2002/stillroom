@@ -12,7 +12,7 @@ import 'vector_art_component.dart';
 /// (in debug) hotspot outlines. Forwards taps to the game as normalized
 /// coordinates; it holds no game rules.
 class SceneView extends PositionComponent
-    with TapCallbacks, HasGameReference<StillroomGame> {
+    with TapCallbacks, DragCallbacks, HasGameReference<StillroomGame> {
   SceneView({
     required this.scene,
     required this.sprites,
@@ -95,6 +95,19 @@ class SceneView extends PositionComponent
       size: size,
     );
   }
+
+  /// In a dark scene the lantern follows the finger.
+  @override
+  void onDragStart(DragStartEvent event) {
+    super.onDragStart(event);
+    _moveLight(event.localPosition);
+  }
+
+  @override
+  void onDragUpdate(DragUpdateEvent event) =>
+      _moveLight(event.localEndPosition);
+
+  void _moveLight(Vector2 p) => game.moveLight(p.x / size.x, p.y / size.y);
 
   @override
   void onTapUp(TapUpEvent event) {

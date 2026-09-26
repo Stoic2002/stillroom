@@ -1,0 +1,191 @@
+{
+  "id": "yard",
+  "background": "images/scenes/flannan_isles_1900/yard.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "east_landing"
+    },
+    {
+      "id": "quarters",
+      "to": "kitchen",
+      "rect": [
+        0.06,
+        0.34,
+        0.18,
+        0.44
+      ]
+    },
+    {
+      "id": "store",
+      "to": "oil_store",
+      "rect": [
+        0.3,
+        0.46,
+        0.1,
+        0.28
+      ],
+      "when": [
+        {
+          "hasItem": "lit_lantern"
+        }
+      ]
+    },
+    {
+      "id": "tower",
+      "to": "stair",
+      "rect": [
+        0.55,
+        0.36,
+        0.08,
+        0.3
+      ],
+      "when": [
+        {
+          "hasItem": "lit_lantern"
+        }
+      ]
+    },
+    {
+      "id": "west",
+      "to": "west_landing",
+      "rect": [
+        0.78,
+        0.52,
+        0.2,
+        0.3
+      ],
+      "when": [
+        {
+          "flag": "lamp_lit",
+          "equals": true
+        }
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "store_dark",
+      "rect": [
+        0.3,
+        0.46,
+        0.1,
+        0.28
+      ],
+      "when": [
+        {
+          "hasItem": "lit_lantern",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.yard.store_dark"
+        }
+      ]
+    },
+    {
+      "id": "tower_dark",
+      "rect": [
+        0.55,
+        0.36,
+        0.08,
+        0.3
+      ],
+      "when": [
+        {
+          "hasItem": "lit_lantern",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.yard.tower_dark"
+        }
+      ]
+    },
+    {
+      "id": "path_blocked",
+      "rect": [
+        0.78,
+        0.52,
+        0.2,
+        0.3
+      ],
+      "when": [
+        {
+          "flag": "lamp_lit",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.yard.path_blocked"
+        }
+      ]
+    },
+    {
+      "id": "tower_look",
+      "rect": [
+        0.5,
+        0.02,
+        0.18,
+        0.3
+      ],
+      "when": [
+        {
+          "flag": "lamp_lit",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.yard.tower"
+        }
+      ]
+    },
+    {
+      "id": "tower_lit",
+      "rect": [
+        0.5,
+        0.02,
+        0.18,
+        0.3
+      ],
+      "when": [
+        {
+          "flag": "lamp_lit",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.yard.tower_lit"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "beam_sprite",
+      "image": "images/objects/flannan_isles_1900/beam_sprite.png",
+      "rect": [
+        0.3,
+        0.0,
+        0.7,
+        0.3
+      ],
+      "when": [
+        {
+          "flag": "lamp_lit",
+          "equals": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "id": "west_landing",
+  "background": "images/scenes/flannan_isles_1900/west_landing.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "yard"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "railings",
+      "rect": [
+        0.04,
+        0.44,
+        0.36,
+        0.32
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "wave_crash"
+        },
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.west.railings"
+        }
+      ]
+    },
+    {
+      "id": "rope_plate",
+      "rect": [
+        0.46,
+        0.18,
+        0.18,
+        0.18
+      ],
+      "when": [
+        {
+          "puzzleSolved": "rope_plate",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "openPuzzle",
+          "puzzle": "rope_plate"
+        }
+      ]
+    },
+    {
+      "id": "rope_box",
+      "rect": [
+        0.46,
+        0.18,
+        0.18,
+        0.18
+      ],
+      "when": [
+        {
+          "puzzleSolved": "rope_plate",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.west.rope_box"
+        }
+      ]
+    },
+    {
+      "id": "turf",
+      "rect": [
+        0.66,
+        0.02,
+        0.32,
+        0.14
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.west.turf"
+        }
+      ]
+    },
+    {
+      "id": "crane",
+      "rect": [
+        0.8,
+        0.24,
+        0.12,
+        0.42
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.west.crane"
+        }
+      ]
+    }
+  ]
+}

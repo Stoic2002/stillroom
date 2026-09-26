@@ -61,8 +61,10 @@ Case of the Golden Idol*, Strange Horticulture):
   note stays on the shelf. The notes are drafts; their arc is the
   developer's (OPEN).
 
-Later shelves can add more: C (a lens between eras), D (light and dark), E (a
-room that changes when not watched), F (listening puzzles).
+Later shelves can add more: C (a lens between eras), E (a room that changes
+when not watched), F (listening puzzles). D (light and dark) arrived with
+*Flannan Isles, 1900* on shelf II: dark scenes searched by lantern light,
+plus the crank.
 
 ## How it shows in the game
 
@@ -93,6 +95,6 @@ final episode. Details are open.
 |---|---|---|---|
 | `whitechapel_1888` | Whitechapel, 1888 | Structure built, placeholders | [episodes/whitechapel_1888.md](episodes/whitechapel_1888.md) |
 | `lawang_sewu_1945` | Semarang, 1945 | Built, draft text, code-drawn art (shelf I, opens after 1 tale) | [episodes/lawang_sewu_1945.md](episodes/lawang_sewu_1945.md) |
-| `sealed_3` | Sealed jar (shelf II) | Coming soon (no content) | — |
+| `flannan_isles_1900` | Flannan Isles, 1900 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). Dark scenes, crank, legend as red herrings | [episodes/flannan_isles_1900.md](episodes/flannan_isles_1900.md) |
 | `sealed_whitechapel_1891` | Sealed jar (shelf III, series whitechapel) | Idea: the six other names in the police file | — |
 | `test_room` | Test room | Debug builds only | Feature test room |

@@ -137,7 +137,7 @@ void main() {
       );
       expect(find.text('Whitechapel, 1888'), findsOneWidget);
       // Sealed jars are shown but not playable; the test room is debug-only.
-      expect(find.text('Still sealed'), findsNWidgets(2));
+      expect(find.text('Still sealed'), findsOneWidget);
       expect(find.byKey(const ValueKey('jar_test_room')), findsOneWidget);
     });
 
@@ -172,11 +172,32 @@ void main() {
       expect(find.text('Open the jar'), findsOneWidget);
     });
 
+    testWidgets('Flannan Isles, 1900 opens once both tales below are done', (
+      tester,
+    ) async {
+      final save = const SaveSerializer().encode(
+        const SaveFile(distilled: {'whitechapel_1888', 'lawang_sewu_1945'}),
+      );
+      await pumpApp(tester, stored: {SaveRepository.storageKey: save});
+      await tester.tap(find.text('New Game'));
+      await tester.pumpAndSettle();
+      final jar = find.byKey(const ValueKey('jar_flannan_isles_1900'));
+      await tester.scrollUntilVisible(
+        jar,
+        100,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.tap(jar);
+      await tester.pumpAndSettle();
+      expect(find.text('Flannan Isles, 1900'), findsWidgets);
+      expect(find.text('Open the jar'), findsOneWidget);
+    });
+
     testWidgets('a sealed jar does nothing', (tester) async {
       await pumpApp(tester);
       await tester.tap(find.text('New Game'));
       await tester.pumpAndSettle();
-      final sealed = find.byKey(const ValueKey('jar_sealed_3'));
+      final sealed = find.byKey(const ValueKey('jar_sealed_whitechapel_1891'));
       await tester.scrollUntilVisible(
         sealed,
         100,

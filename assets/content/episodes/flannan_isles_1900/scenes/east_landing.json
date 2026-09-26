@@ -1,0 +1,132 @@
+{
+  "id": "east_landing",
+  "background": "images/scenes/flannan_isles_1900/east_landing.png",
+  "exits": [
+    {
+      "id": "gate",
+      "to": "yard",
+      "rect": [
+        0.44,
+        0.26,
+        0.14,
+        0.46
+      ],
+      "when": [
+        {
+          "puzzleSolved": "gate_lock",
+          "equals": true
+        }
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "plaque",
+      "rect": [
+        0.6,
+        0.36,
+        0.08,
+        0.1
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.east.plaque"
+        }
+      ]
+    },
+    {
+      "id": "gate",
+      "rect": [
+        0.44,
+        0.26,
+        0.14,
+        0.46
+      ],
+      "when": [
+        {
+          "puzzleSolved": "gate_lock",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.east.gate_locked"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "gate_lock"
+        }
+      ]
+    },
+    {
+      "id": "flagpole",
+      "rect": [
+        0.24,
+        0.06,
+        0.05,
+        0.5
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.east.flagpole"
+        }
+      ]
+    },
+    {
+      "id": "boat",
+      "rect": [
+        0.0,
+        0.62,
+        0.24,
+        0.2
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "ship_horn"
+        },
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.east.boat"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "gate_closed_sprite",
+      "image": "images/objects/flannan_isles_1900/gate_closed_sprite.png",
+      "rect": [
+        0.44,
+        0.26,
+        0.14,
+        0.46
+      ],
+      "when": [
+        {
+          "puzzleSolved": "gate_lock",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "gate_open_sprite",
+      "image": "images/objects/flannan_isles_1900/gate_open_sprite.png",
+      "rect": [
+        0.44,
+        0.26,
+        0.14,
+        0.46
+      ],
+      "when": [
+        {
+          "puzzleSolved": "gate_lock",
+          "equals": true
+        }
+      ]
+    }
+  ]
+}

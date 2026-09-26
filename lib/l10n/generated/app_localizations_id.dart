@@ -233,4 +233,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get wordTapTip => 'Ketuk kata bergaris bawah untuk mencatatnya.';
+
+  @override
+  String get crankInstruction => 'Putar engkolnya terus-menerus.';
 }

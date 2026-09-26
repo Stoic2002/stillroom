@@ -239,4 +239,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get wordTapTip => 'Коснитесь подчёркнутого слова, чтобы записать его.';
+
+  @override
+  String get crankInstruction => 'Крутите рукоятку по кругу.';
 }

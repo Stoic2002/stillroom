@@ -12,6 +12,7 @@ final class Scene {
     this.hotspots = const [],
     this.layers = const [],
     this.music,
+    this.dark,
   });
 
   factory Scene.fromJson(JsonReader json, ActionRegistry actions) {
@@ -22,6 +23,7 @@ final class Scene {
       'exits',
       'hotspots',
       'layers',
+      'dark',
     });
     final exits = [
       for (final e in json.objects('exits', optional: true))
@@ -45,10 +47,18 @@ final class Scene {
       hotspots: hotspots,
       layers: layers,
       music: json.optionalString('music'),
+      dark: switch (json.optionalObject('dark')) {
+        final dark? => SceneDarkness.fromJson(dark),
+        null => null,
+      },
     );
   }
 
   final String id;
+
+  /// Makes the scene dark: only a circle of lantern light around the
+  /// player's finger shows it.
+  final SceneDarkness? dark;
 
   /// Overrides the episode music while this scene is shown.
   final String? music;
@@ -218,4 +228,32 @@ final class SceneLayer {
   final String image;
   final NormalizedRect rect;
   final List<Condition> when;
+}
+
+/// A dark scene (`dark` in a scene file), searched by lantern light:
+///
+/// ```json
+/// "dark": { "when": [{ "flag": "lamp_lit", "equals": false }], "radius": 0.16 }
+/// ```
+/// While every `when` holds (always, without `when`), the scene is black
+/// except a circle of light that follows the player's finger. `radius` is a
+/// share of the scene's width (default 0.16). Content decides how the player
+/// gets in (for example an exit that needs a lit lantern).
+final class SceneDarkness {
+  const SceneDarkness({this.when = const [], this.radius = 0.16});
+
+  factory SceneDarkness.fromJson(JsonReader json) {
+    json.allowOnly({'when', 'radius'});
+    final radius = json.optionalNumber('radius') ?? 0.16;
+    if (radius <= 0 || radius > 0.5) {
+      json.fail('must be above 0 and at most 0.5', 'radius');
+    }
+    return SceneDarkness(
+      when: Condition.listFromJson(json, 'when'),
+      radius: radius,
+    );
+  }
+
+  final List<Condition> when;
+  final double radius;
 }

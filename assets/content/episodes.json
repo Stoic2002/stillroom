@@ -17,9 +17,10 @@
       "unlockAfter": 1
     },
     {
-      "id": "sealed_3",
-      "titleKey": "episode.sealed.title",
-      "comingSoon": true,
+      "id": "flannan_isles_1900",
+      "titleKey": "episode.flannan_isles_1900.title",
+      "teaserKey": "episode.flannan_isles_1900.teaser",
+      "jarImage": "images/ui/jar_flannan_isles_1900.png",
       "shelf": 2,
       "unlockAfter": 2
     },

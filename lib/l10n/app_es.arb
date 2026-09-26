@@ -67,5 +67,6 @@
   "deductionNoWords": "Aún no has anotado ninguna palabra. Toca las palabras subrayadas en lo que leas.",
   "revealWipe": "Límpialo con el dedo.",
   "revealRub": "Sombréalo con el lápiz: frota con el dedo.",
-  "wordTapTip": "Toca una palabra subrayada para anotarla."
+  "wordTapTip": "Toca una palabra subrayada para anotarla.",
+  "crankInstruction": "Gira la manivela, vuelta tras vuelta."
 }

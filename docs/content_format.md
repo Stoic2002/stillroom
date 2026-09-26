@@ -78,7 +78,7 @@ non-debug episodes).
       "teaserKey": "episode.whitechapel_1888.teaser",
       "jarImage": "images/ui/jar_whitechapel_1888.png",
       "shelf": 1, "series": "whitechapel" },
-    { "id": "sealed_3", "titleKey": "episode.sealed.title", "comingSoon": true,
+    { "id": "sealed_whitechapel_1891", "titleKey": "episode.sealed.title", "comingSoon": true,
       "shelf": 2, "unlockAfter": 2 },
     { "id": "test_room", "titleKey": "episode.test_room.title", "debugOnly": true }
   ]
@@ -207,6 +207,22 @@ registering a parser in `ActionRegistry` (`lib/engine/actions/`).
 `exits`, `hotspots`, and `layers` are optional. `music` (optional) overrides
 the episode music while the scene is shown; music keeps playing across scenes
 that use the same id.
+
+### Dark scenes
+
+```json
+"dark": { "when": [{ "flag": "lamp_lit", "equals": false }], "radius": 0.15 }
+```
+
+- **While dark:** while every `when` holds (always, without `when`), the
+  scene is black except a circle of lantern light, `radius` wide as a share
+  of the scene's width (default 0.16).
+- **The light follows the finger:** a drag moves it, and a tap moves it
+  before it hits.
+- **Getting in:** the scene itself doesn't need a lantern. Content decides
+  how the player gets in, usually an exit with
+  `{ "hasItem": "lit_lantern" }` and a hotspot in its place that says it is
+  too dark.
 
 ### Exit
 
@@ -417,6 +433,19 @@ filled slot swaps them.
   episode shows (validated, as an error). Mark each answer somewhere the
   player can come back to (a hotspot, not only a one-time text).
 
+### `crank`: wind it
+
+```json
+"config": { "turns": 4, "clockwise": true, "image": "images/…/drum.png" }
+```
+
+- **Winding:** drag round the wheel. `turns` full circles wind it (default
+  3), in the direction `clockwise` says (default `true`).
+- **Ratchet:** turning the wrong way does nothing. A ratchet click (and
+  vibration) sounds every quarter turn.
+- **Image:** `image` (optional) turns with the handle; without it, a brass
+  wheel is drawn.
+
 ### `reveal`: wipe or rub
 
 ```json
@@ -615,5 +644,6 @@ warnings show in the debug panel).
 | 2026-09-25 | post-M6 | `episodes.json` becomes a catalog of jars (`titleKey`, `teaserKey`, `jarImage`, `comingSoon`, `debugOnly`); `labelKey` on `sequence` elements and `slotPlacement` slots; episode `whitechapel_1888`. |
 | 2026-09-25 | post-M6 | Languages: Spanish (`es`), Japanese (`ja`), Simplified Chinese (`zh`), Russian (`ru`) added; all keys required in every language. |
 | 2026-09-26 | post-M6 | `episodes.json`: `shelf`, `unlockAfter`, `series` (tiered shelves). |
+| 2026-09-26 | post-M6 | `dark` scenes and the `crank` puzzle type; episode `flannan_isles_1900` (shelf II) replaces `sealed_3`. |
 | 2026-09-26 | post-M6 | Words (`words`, `[[id]]` markup, `wordNoted` condition), `deduction` and `reveal` puzzle types, `secret` in `game.json`. Save: `words`/`secretFound` per episode; `distilled` and `keeperNotes` in the save file (additive, old saves load). |
 | 2026-09-26 | post-M6 | Korean (`ko`) added. Hints paced by the hint candle. Generated audio in `assets/audio/` (docs/audio.md); music id `stillroom_menu` plays on the menu and shelf. |

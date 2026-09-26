@@ -286,5 +286,9 @@
   "wordTapTip": "Tap an underlined word to note it down.",
   "@wordTapTip": {
     "description": "Shown under a text with underlined words until the player notes a first word."
+  },
+  "crankInstruction": "Turn the handle round and round.",
+  "@crankInstruction": {
+    "description": "Instruction on a crank (winding) puzzle."
   }
 }

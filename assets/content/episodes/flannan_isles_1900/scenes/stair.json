@@ -1,0 +1,135 @@
+{
+  "id": "stair",
+  "background": "images/scenes/flannan_isles_1900/stair.png",
+  "dark": {
+    "radius": 0.15
+  },
+  "exits": [
+    {
+      "direction": "back",
+      "to": "yard"
+    },
+    {
+      "id": "up",
+      "to": "lamp_room",
+      "rect": [
+        0.4,
+        0.04,
+        0.2,
+        0.32
+      ],
+      "when": [
+        {
+          "flag": "lamp_door_open",
+          "equals": true
+        }
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "key",
+      "rect": [
+        0.72,
+        0.36,
+        0.05,
+        0.08
+      ],
+      "when": [
+        {
+          "everHadItem": "lamp_key",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "pickItem",
+          "item": "lamp_key"
+        }
+      ]
+    },
+    {
+      "id": "fourth_hook",
+      "rect": [
+        0.16,
+        0.46,
+        0.06,
+        0.1
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "found_hook",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.stair.hook_note"
+        }
+      ]
+    },
+    {
+      "id": "door_locked",
+      "rect": [
+        0.4,
+        0.04,
+        0.2,
+        0.32
+      ],
+      "when": [
+        {
+          "flag": "lamp_door_open",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.stair.door_locked"
+        }
+      ],
+      "onUseItem": [
+        {
+          "item": "lamp_key",
+          "actions": [
+            {
+              "type": "removeItem",
+              "item": "lamp_key"
+            },
+            {
+              "type": "setFlag",
+              "flag": "lamp_door_open",
+              "value": true
+            },
+            {
+              "type": "playSound",
+              "sound": "door_creak"
+            },
+            {
+              "type": "showText",
+              "key": "flannan_isles_1900.stair.door_opened"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "key_sprite",
+      "image": "images/objects/flannan_isles_1900/key_sprite.png",
+      "rect": [
+        0.72,
+        0.36,
+        0.05,
+        0.08
+      ],
+      "when": [
+        {
+          "everHadItem": "lamp_key",
+          "equals": false
+        }
+      ]
+    }
+  ]
+}

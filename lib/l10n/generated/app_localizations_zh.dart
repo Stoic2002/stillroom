@@ -227,4 +227,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get wordTapTip => '点一下带下划线的词，就能把它记下来。';
+
+  @override
+  String get crankInstruction => '握住把手，一圈又一圈地转动。';
 }
