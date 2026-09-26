@@ -153,6 +153,27 @@ void main() {
     });
   });
 
+  group('sequence', () {
+    testWidgets('each candle lights the moment it is lit in order', (
+      tester,
+    ) async {
+      await pumpPuzzle(tester, 'candles');
+      const lit = ValueKey('images/objects/whitechapel_1888/candle_lit.png');
+      expect(find.byKey(lit), findsNothing);
+      await tester.tap(find.byKey(const ValueKey('element_bucks_row')));
+      await tester.pump(const Duration(milliseconds: 300));
+      expect(find.byKey(lit), findsOneWidget);
+      await tester.tap(find.byKey(const ValueKey('element_hanbury_street')));
+      await tester.pump(const Duration(milliseconds: 300));
+      expect(find.byKey(lit), findsNWidgets(2));
+
+      // A wrong candle puts them all out.
+      await tester.tap(find.byKey(const ValueKey('element_millers_court')));
+      await tester.pumpAndSettle();
+      expect(find.byKey(lit), findsNothing);
+    });
+  });
+
   group('crank', () {
     testWidgets('winding round and round solves it', (tester) async {
       final flannan = await tester.runAsync(

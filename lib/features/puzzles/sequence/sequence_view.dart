@@ -23,6 +23,10 @@ class _SequenceViewState extends State<SequenceView>
     with SolvesAfterPause<SequenceView> {
   late final _config = widget.context.puzzle.config as SequenceConfig;
   late SequenceState _state = _config.start();
+  late final Map<String, int> _uses = {
+    for (final id in _config.solution.toSet())
+      id: _config.solution.where((s) => s == id).length,
+  };
   String? _pressed;
   bool _mistake = false;
   Timer? _feedback;
@@ -75,13 +79,14 @@ class _SequenceViewState extends State<SequenceView>
                     child: AnimatedScale(
                       scale: _pressed == e.id ? 0.92 : 1,
                       duration: const Duration(milliseconds: 90),
-                      child: SizedBox.fromSize(
+                      child: _Element(
+                        element: e,
                         size: boardRect(e.rect, board).size,
-                        child: ContentImage(
-                          path: e.image ?? '',
-                          label: e.id,
-                          assets: widget.context.assets,
-                        ),
+                        active: _state.active.contains(e.id),
+                        // Elements used more than once (e.g. Morse dots)
+                        // don't stay lit: it would say nothing.
+                        glow: _uses[e.id] == 1,
+                        assets: widget.context.assets,
                       ),
                     ),
                   ),
@@ -110,6 +115,50 @@ class _SequenceViewState extends State<SequenceView>
           ],
         );
       },
+    );
+  }
+}
+
+/// One element: its image, or its `activeImage` once it is part of the
+/// progress; without one, a soft gaslight glow marks it instead.
+class _Element extends StatelessWidget {
+  const _Element({
+    required this.element,
+    required this.size,
+    required this.active,
+    required this.glow,
+    required this.assets,
+  });
+
+  final SequenceElement element;
+  final Size size;
+  final bool active;
+  final bool glow;
+  final Set<String> assets;
+
+  @override
+  Widget build(BuildContext context) {
+    final activeImage = element.activeImage;
+    final image =
+        (active && activeImage != null ? activeImage : element.image) ?? '';
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 250),
+      width: size.width,
+      height: size.height,
+      decoration: BoxDecoration(
+        boxShadow: active && glow && activeImage == null
+            ? const [BoxShadow(color: Color(0x88E0A84A), blurRadius: 18)]
+            : null,
+      ),
+      child: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 200),
+        child: ContentImage(
+          key: ValueKey(image),
+          path: image,
+          label: element.id,
+          assets: assets,
+        ),
+      ),
     );
   }
 }

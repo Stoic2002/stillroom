@@ -359,6 +359,10 @@ counts as the first step if it matches the first element).
 
 `image` and `labelKey` (a caption under the element) are optional. An
 element may appear several times in `solution`.
+- An element's optional `activeImage` replaces its `image` from the moment it
+  is tapped in the right place (a candle lights at once) until a wrong tap
+  resets the sequence. Elements without one glow instead, unless they appear
+  more than once in `solution`.
 
 ### `rotaryAlign`
 

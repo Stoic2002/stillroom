@@ -55,7 +55,11 @@ final Map<String, ArtPainter> whitechapelArt = {
   '$_o/gaslamp_sprite.png': (c, s) => _gaslamp(Art(c, s)),
   '$_o/candle.png': (c, s) {
     final a = Art(c, s);
-    a.candle(a.p(0.5, 0.98), s.height * 0.9);
+    a.candle(a.p(0.5, 0.98), s.height * 0.66);
+  },
+  '$_o/candle_lit.png': (c, s) {
+    final a = Art(c, s);
+    a.candle(a.p(0.5, 0.98), s.height * 0.66, lit: true);
   },
   '$_o/compass_outer.png': (c, s) =>
       _ring(Art(c, s), inner: 0.72, steps: 8, tone: StillroomPalette.paper),

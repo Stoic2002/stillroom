@@ -14,8 +14,10 @@ import 'puzzle_type.dart';
 /// }
 /// ```
 /// Rects are normalized to the puzzle board. `image` and `labelKey` (text
-/// shown under the element) are optional. The same element may appear more
-/// than once in `solution`.
+/// shown under the element) are optional. `activeImage` (optional) replaces
+/// `image` once the element has been tapped in the right place, e.g. a
+/// candle that lights at once; a wrong tap puts them all out again. The same
+/// element may appear more than once in `solution`.
 final class SequenceType implements PuzzleType {
   const SequenceType();
 
@@ -49,15 +51,17 @@ final class SequenceElement {
     required this.id,
     required this.rect,
     this.image,
+    this.activeImage,
     this.labelKey,
   });
 
   factory SequenceElement._fromJson(JsonReader json) {
-    json.allowOnly({'id', 'rect', 'image', 'labelKey'});
+    json.allowOnly({'id', 'rect', 'image', 'activeImage', 'labelKey'});
     return SequenceElement(
       id: json.string('id'),
       rect: NormalizedRect.fromJson(json, 'rect'),
       image: json.optionalString('image'),
+      activeImage: json.optionalString('activeImage'),
       labelKey: json.optionalString('labelKey'),
     );
   }
@@ -65,6 +69,9 @@ final class SequenceElement {
   final String id;
   final NormalizedRect rect;
   final String? image;
+
+  /// Shown instead of [image] once the element is part of the progress.
+  final String? activeImage;
   final String? labelKey;
 }
 
@@ -84,6 +91,7 @@ final class SequenceConfig implements PuzzleConfig {
   Iterable<ContentRef> get references => [
     for (final e in elements) ...[
       if (e.image case final image?) ContentRef.image(image),
+      if (e.activeImage case final image?) ContentRef.image(image),
       if (e.labelKey case final key?) ContentRef.text(key),
     ],
   ];
@@ -109,6 +117,9 @@ final class SequenceState {
   final int progress;
 
   bool get isSolved => progress == config.solution.length;
+
+  /// Elements tapped in the right place so far: they stay lit.
+  Set<String> get active => config.solution.take(progress).toSet();
 
   (SequenceState, SequenceOutcome) tap(String elementId) {
     if (isSolved) return (this, SequenceOutcome.solved);

@@ -13,7 +13,8 @@
           0.4
         ],
         "image": "images/objects/whitechapel_1888/candle.png",
-        "labelKey": "whitechapel_1888.street.bucks_row"
+        "labelKey": "whitechapel_1888.street.bucks_row",
+        "activeImage": "images/objects/whitechapel_1888/candle_lit.png"
       },
       {
         "id": "hanbury_street",
@@ -24,7 +25,8 @@
           0.4
         ],
         "image": "images/objects/whitechapel_1888/candle.png",
-        "labelKey": "whitechapel_1888.street.hanbury_street"
+        "labelKey": "whitechapel_1888.street.hanbury_street",
+        "activeImage": "images/objects/whitechapel_1888/candle_lit.png"
       },
       {
         "id": "berner_street",
@@ -35,7 +37,8 @@
           0.4
         ],
         "image": "images/objects/whitechapel_1888/candle.png",
-        "labelKey": "whitechapel_1888.street.berner_street"
+        "labelKey": "whitechapel_1888.street.berner_street",
+        "activeImage": "images/objects/whitechapel_1888/candle_lit.png"
       },
       {
         "id": "mitre_square",
@@ -46,7 +49,8 @@
           0.4
         ],
         "image": "images/objects/whitechapel_1888/candle.png",
-        "labelKey": "whitechapel_1888.street.mitre_square"
+        "labelKey": "whitechapel_1888.street.mitre_square",
+        "activeImage": "images/objects/whitechapel_1888/candle_lit.png"
       },
       {
         "id": "millers_court",
@@ -57,7 +61,8 @@
           0.4
         ],
         "image": "images/objects/whitechapel_1888/candle.png",
-        "labelKey": "whitechapel_1888.street.millers_court"
+        "labelKey": "whitechapel_1888.street.millers_court",
+        "activeImage": "images/objects/whitechapel_1888/candle_lit.png"
       }
     ],
     "solution": [
