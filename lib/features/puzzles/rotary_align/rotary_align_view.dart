@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../../../core/art/vector_art.dart';
+import '../../../core/audio/ui_sound.dart';
 import '../../../core/theme/placeholder_palette.dart';
 import '../../../core/theme/stillroom_palette.dart';
 import '../../../engine/engine.dart';
@@ -40,7 +41,11 @@ class _RotaryAlignViewState extends State<RotaryAlignView>
       }
       _state = next;
     });
-    if (_state.isSolved) markSolved(widget.context.onSolved);
+    widget.context.feedback(UiSound.turn);
+    if (_state.isSolved) {
+      widget.context.feedback(UiSound.solved);
+      markSolved(widget.context.onSolved);
+    }
   }
 
   @override

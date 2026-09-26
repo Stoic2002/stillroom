@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/audio/ui_sound.dart';
 import '../../../core/theme/stillroom_palette.dart';
 import '../../../engine/engine.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -20,10 +21,20 @@ class _CodeLockViewState extends State<CodeLockView>
   late CodeLockState _state = (widget.context.puzzle.config as CodeLockConfig)
       .start();
 
+  /// Direction of each dial's last turn, for the rolling animation.
+  late final List<int> _lastDelta = List.filled(_state.positions.length, 0);
+
   void _rotate(int slot, int delta) {
     if (isSolved) return;
-    setState(() => _state = _state.rotate(slot, delta));
-    if (_state.isSolved) markSolved(widget.context.onSolved);
+    setState(() {
+      _state = _state.rotate(slot, delta);
+      _lastDelta[slot] = delta;
+    });
+    widget.context.feedback(UiSound.dial);
+    if (_state.isSolved) {
+      widget.context.feedback(UiSound.solved);
+      markSolved(widget.context.onSolved);
+    }
   }
 
   @override
@@ -62,13 +73,32 @@ class _CodeLockViewState extends State<CodeLockView>
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: color, width: 2),
                           ),
-                          child: Text(
-                            _state.symbolAt(slot),
-                            key: ValueKey('dial_$slot'),
-                            style: TextStyle(
-                              fontSize: dial * 0.5,
-                              color: color,
-                              fontFamily: 'IMFell',
+                          // The new symbol rolls in from the side it came.
+                          child: TweenAnimationBuilder<double>(
+                            key: ValueKey(
+                              'roll_${slot}_${_state.symbolAt(slot)}',
+                            ),
+                            tween: Tween(begin: 1, end: 0),
+                            duration: const Duration(milliseconds: 160),
+                            curve: Curves.easeOutCubic,
+                            builder: (_, t, child) => Transform.translate(
+                              offset: Offset(
+                                0,
+                                t * dial * 0.35 * _lastDelta[slot],
+                              ),
+                              child: Opacity(
+                                opacity: 1 - t * 0.7,
+                                child: child,
+                              ),
+                            ),
+                            child: Text(
+                              _state.symbolAt(slot),
+                              key: ValueKey('dial_$slot'),
+                              style: TextStyle(
+                                fontSize: dial * 0.5,
+                                color: color,
+                                fontFamily: 'IMFell',
+                              ),
                             ),
                           ),
                         ),

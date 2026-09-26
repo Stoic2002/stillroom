@@ -2,12 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/audio/ui_sound.dart';
 import '../../core/theme/stillroom_palette.dart';
 import '../../core/widgets/atmosphere.dart';
 import '../../core/widgets/content_image.dart';
 import '../../core/widgets/scene_frame.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../../state/game_session.dart';
+import '../../state/ui_feedback.dart';
 import 'puzzle_view.dart';
 
 /// Full-screen puzzle (PRD FR-04), opened by the `openPuzzle` action. The
@@ -67,6 +69,7 @@ class PuzzleOverlay extends ConsumerWidget {
                         assets: session.episode.assets,
                         strings: session.episode.strings,
                         onSolved: () => notifier.solvePuzzle(puzzleId),
+                        feedback: ref.read(uiFeedbackProvider).call,
                       ),
                     ),
                   )
@@ -83,7 +86,10 @@ class PuzzleOverlay extends ConsumerWidget {
               child: IconButton(
                 tooltip: AppLocalizations.of(context).closePuzzle,
                 icon: const Icon(Icons.close),
-                onPressed: notifier.closePuzzle,
+                onPressed: () {
+                  ref.read(uiFeedbackProvider)(UiSound.close);
+                  notifier.closePuzzle();
+                },
               ),
             ),
           ),

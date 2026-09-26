@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import '../../../core/audio/ui_sound.dart';
 import '../../../core/theme/stillroom_palette.dart';
 import '../../../core/widgets/content_image.dart';
 import '../../../engine/engine.dart';
@@ -47,6 +48,11 @@ class _SequenceViewState extends State<SequenceView>
         _pressed = null;
         _mistake = false;
       });
+    });
+    widget.context.feedback(switch (outcome) {
+      SequenceOutcome.mistake => UiSound.mistake,
+      SequenceOutcome.solved => UiSound.solved,
+      SequenceOutcome.progress => UiSound.press,
     });
     if (outcome == SequenceOutcome.solved) markSolved(widget.context.onSolved);
   }

@@ -10,6 +10,7 @@ import 'package:flutter/painting.dart';
 import '../../../core/theme/stillroom_palette.dart';
 import '../../../engine/engine.dart';
 import 'scene_view.dart';
+import 'tap_ripple.dart';
 
 /// Called with a tap position and the minimum tap area, all normalized to
 /// the scene (0–1).
@@ -114,6 +115,7 @@ class StillroomGame extends FlameGame {
 
   void handleSceneTap(double x, double y) {
     if (_transitioning) return;
+    world.add(TapRipple(position: Vector2(x, y)..multiply(logicalSize)));
     final scale = math.min(size.x / logicalSize.x, size.y / logicalSize.y);
     onSceneTap(
       x,

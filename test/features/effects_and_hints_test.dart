@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:stillroom/content/content_loader.dart';
 import 'package:stillroom/content/file_asset_source.dart';
 import 'package:stillroom/core/audio/audio_service.dart';
+import 'package:stillroom/core/audio/ui_sound.dart';
 import 'package:stillroom/core/storage/key_value_store.dart';
 import 'package:stillroom/engine/engine.dart';
 import 'package:stillroom/features/game/widgets/game_effects.dart';
@@ -139,7 +140,9 @@ void main() {
         ..debugJumpToScene('room_east')
         ..tapScene(0.65, 0.50); // lamp switch: playSound switch_click
       await tester.pump();
-      expect(audio.calls, ['sfx assets/audio/sfx/switch_click.ogg @0.5']);
+      expect(audio.calls.where((c) => c.contains('/sfx/')), [
+        'sfx assets/audio/sfx/switch_click.ogg @0.5',
+      ]);
 
       audio.calls.clear();
       notifier()
@@ -147,7 +150,17 @@ void main() {
         ..tapScene(0.5, 0.7)
         ..solvePuzzle('drawer_lock'); // playSound drawer_open: no file
       await tester.pump();
-      expect(audio.calls.where((c) => c.startsWith('sfx')), isEmpty);
+      expect(audio.calls.where((c) => c.contains('/sfx/')), isEmpty);
+    });
+
+    testWidgets('pickups and moves answer with interface sounds', (
+      tester,
+    ) async {
+      await pump(tester, stored: {'settings': '{"sfxVolume": 0.5}'});
+      audio.calls.clear();
+      notifier().debugJumpToScene('room_east');
+      await tester.pump();
+      expect(audio.calls, ['sfx assets/audio/ui/step.ogg @0.5']);
     });
 
     testWidgets('shake events reach the camera', (tester) async {
@@ -229,6 +242,24 @@ void main() {
       await tester.tap(find.byTooltip('Hint'));
       await tester.pumpAndSettle();
       expect(showHint(tester).onPressed, isNull);
+    });
+  });
+
+  group('interfaceSoundFor', () {
+    test('picks the most telling sound of a batch', () {
+      expect(
+        interfaceSoundFor(const [ShowTextEvent('a'), ItemPickedEvent('b')]),
+        UiSound.pickup,
+      );
+      expect(interfaceSoundFor(const []), isNull);
+    });
+
+    test('a text box stays quiet when the content plays a sound', () {
+      expect(interfaceSoundFor(const [ShowTextEvent('a')]), UiSound.page);
+      expect(
+        interfaceSoundFor(const [PlaySoundEvent('x'), ShowTextEvent('a')]),
+        isNull,
+      );
     });
   });
 }

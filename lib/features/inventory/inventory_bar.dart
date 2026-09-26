@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../content/content_strings.dart';
+import '../../core/audio/ui_sound.dart';
 import '../../core/theme/stillroom_palette.dart';
 import '../../core/widgets/content_image.dart';
 import '../../engine/engine.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../../state/game_session.dart';
+import '../../state/ui_feedback.dart';
 
 /// Always-visible inventory (PRD FR-03). Tap to select, tap the selected
 /// item again to deselect, tap another item to combine, long-press or use
@@ -32,6 +34,9 @@ class InventoryBar extends ConsumerStatefulWidget {
 class _InventoryBarState extends ConsumerState<InventoryBar>
     with SingleTickerProviderStateMixin {
   late final AnimationController _shake;
+
+  /// Items already shown, so only new arrivals get the arrival animation.
+  Set<String>? _known;
 
   @override
   void initState() {
@@ -70,17 +75,31 @@ class _InventoryBarState extends ConsumerState<InventoryBar>
     final items = session.engine.inventoryItems(session.game);
     final selected = session.selectedItem;
     final vertical = widget.axis == Axis.vertical;
+    final ids = {for (final item in items) item.id};
+    final known = _known ?? ids;
+    _known = ids;
 
     final slots = [
       for (final item in items)
-        _Slot(
-          item: item,
-          name: contentText(session.episode.strings, language, item.nameKey),
-          assets: session.episode.assets,
-          selected: item.id == selected,
-          shake: item.id == selected ? _shake : null,
-          onTap: () => notifier.tapInventoryItem(item.id),
-          onLongPress: () => notifier.examineItem(item.id),
+        _Arrival(
+          key: ValueKey(item.id),
+          arriving: !known.contains(item.id),
+          child: _Slot(
+            item: item,
+            name: contentText(session.episode.strings, language, item.nameKey),
+            assets: session.episode.assets,
+            selected: item.id == selected,
+            shake: item.id == selected ? _shake : null,
+            onTap: () {
+              // Selecting or deselecting clicks; a combination attempt is
+              // answered by its own sound.
+              if (selected == null || selected == item.id) {
+                ref.read(uiFeedbackProvider)(UiSound.tap);
+              }
+              notifier.tapInventoryItem(item.id);
+            },
+            onLongPress: () => notifier.examineItem(item.id),
+          ),
         ),
     ];
 
@@ -140,6 +159,68 @@ class _InventoryBarState extends ConsumerState<InventoryBar>
           ),
         ),
       ),
+    );
+  }
+}
+
+/// A newly found item drops into its compartment with a gaslight glow.
+class _Arrival extends StatefulWidget {
+  const _Arrival({required this.arriving, required this.child, super.key});
+
+  final bool arriving;
+  final Widget child;
+
+  @override
+  State<_Arrival> createState() => _ArrivalState();
+}
+
+class _ArrivalState extends State<_Arrival>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 900),
+    value: widget.arriving ? 0 : 1,
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.arriving) _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (_, child) {
+        final t = _controller.value;
+        final scale = Curves.elasticOut.transform((t / 0.6).clamp(0.0, 1.0));
+        final glow = math.sin(math.pi * t);
+        return Transform.scale(
+          scale: 0.3 + 0.7 * scale,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: StillroomPalette.gaslight.withValues(
+                    alpha: 0.55 * glow,
+                  ),
+                  blurRadius: 18 * glow,
+                  spreadRadius: 2 * glow,
+                ),
+              ],
+            ),
+            child: child,
+          ),
+        );
+      },
+      child: widget.child,
     );
   }
 }

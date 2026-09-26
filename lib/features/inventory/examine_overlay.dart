@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../content/content_strings.dart';
+import '../../core/audio/ui_sound.dart';
 import '../../core/theme/stillroom_palette.dart';
 import '../../core/widgets/content_image.dart';
 import '../../debug/debug_settings.dart';
 import '../../engine/engine.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../../state/game_session.dart';
+import '../../state/ui_feedback.dart';
 
 /// Close-up view of an item (PRD FR-03): a square image with its own layers
 /// and hotspots, plus the item's name and description. Tapping outside the
@@ -31,6 +33,11 @@ class ExamineOverlay extends ConsumerWidget {
     if (session == null || itemId == null) return const SizedBox.shrink();
 
     final notifier = ref.read(provider.notifier);
+    void close() {
+      ref.read(uiFeedbackProvider)(UiSound.close);
+      notifier.closeExamine();
+    }
+
     final l10n = AppLocalizations.of(context);
     final language = Localizations.localeOf(context).languageCode;
     final engine = session.engine;
@@ -42,7 +49,7 @@ class ExamineOverlay extends ConsumerWidget {
       color: StillroomPalette.ink.withValues(alpha: 0.92),
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
-        onTap: notifier.closeExamine,
+        onTap: close,
         child: LayoutBuilder(
           builder: (context, constraints) {
             final landscape = constraints.maxWidth >= constraints.maxHeight;
@@ -162,7 +169,7 @@ class ExamineOverlay extends ConsumerWidget {
                     child: IconButton(
                       tooltip: l10n.closeExamine,
                       icon: const Icon(Icons.close),
-                      onPressed: notifier.closeExamine,
+                      onPressed: close,
                     ),
                   ),
                 ),

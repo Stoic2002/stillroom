@@ -51,6 +51,32 @@ fvm dart run tool/audio/generate_audio.dart bell_toll  # one or more ids
 | `lawang_sewu_night` | Lawang Sewu (default) | 48 s | A low C-minor drone; two crickets (a tropical night); a far train whistle |
 | `lawang_sewu_1907` | Lawang Sewu, 1907 office | 32 s | A warm F-major drone; the office clock; record-like crackle; the NIS telegraph far off |
 
+## Interface sounds (`assets/audio/ui/`)
+
+Not content: the game answers every touch (`UiSound`, played through
+`UiFeedback` at the effects volume, with a light vibration where noted when
+vibration is on). Quieter than content sounds (−9 dBFS peak).
+
+| Id | When | Vibration |
+|---|---|---|
+| `tap` | Menu buttons, selecting an inventory item, a jar on the shelf | selection |
+| `dial` | A code-lock dial clicks over | selection |
+| `press` | A sequence element is pressed | selection |
+| `mistake` | A wrong move in a sequence | medium |
+| `lift` / `place` | Picking up / setting down a piece in a slot puzzle | — / light |
+| `turn` | A ring of a rotary puzzle turns | selection |
+| `solved` | Any puzzle gives way (before its own `onSolved` sounds) | light |
+| `pickup` | An item goes into the inventory | light |
+| `combine` | Two items become one | light |
+| `reject` | An item doesn't fit; a locked jar | (the existing light buzz) |
+| `open` / `close` | A puzzle or close-up opens / closes | — |
+| `page` | A text box appears (only when the content plays no sound) | — |
+| `step` | The view moves to another scene | — |
+| `jar_open` | Opening or continuing a tale: a cork and a glass ring | light |
+
+Engine events pick at most one interface sound per tap
+(`interfaceSoundFor` in `game_effects.dart`).
+
 ## Playback
 
 - **Missing files** play silently and show as validator warnings (PRD §0).

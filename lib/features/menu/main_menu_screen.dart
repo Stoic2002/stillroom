@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/audio/ui_sound.dart';
 import '../../core/routing/app_routes.dart';
 import '../../core/theme/stillroom_palette.dart';
 import '../../core/widgets/atmosphere.dart';
@@ -8,6 +9,7 @@ import '../../core/widgets/confirm_dialog.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../../state/content_providers.dart';
 import '../../state/save_repository.dart';
+import '../../state/ui_feedback.dart';
 import 'episode_launcher.dart';
 import 'widgets/lobby_scene.dart';
 import 'widgets/menu_music.dart';
@@ -130,7 +132,9 @@ class _MainMenuScreenState extends ConsumerState<MainMenuScreen> {
             highlighted: continueId != null,
             onPressed: continueId == null
                 ? null
-                : () => continueEpisode(context, continueId),
+                : () => continueEpisode(context, ref, continueId),
+            // Opening the jar has its own sound.
+            click: false,
           ),
           _MenuButton(
             label: l10n.menuNewGame,
@@ -177,11 +181,12 @@ class _Rule extends StatelessWidget {
   }
 }
 
-class _MenuButton extends StatelessWidget {
+class _MenuButton extends ConsumerWidget {
   const _MenuButton({
     required this.label,
     this.onPressed,
     this.highlighted = false,
+    this.click = true,
   });
 
   final String label;
@@ -190,12 +195,21 @@ class _MenuButton extends StatelessWidget {
   /// The suggested next step glows like gaslight.
   final bool highlighted;
 
+  /// Whether pressing plays the interface tap.
+  final bool click;
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: TextButton(
-        onPressed: onPressed,
+        onPressed: switch (onPressed) {
+          null => null,
+          final press => () {
+            if (click) ref.read(uiFeedbackProvider)(UiSound.tap);
+            press();
+          },
+        },
         style: highlighted
             ? TextButton.styleFrom(foregroundColor: StillroomPalette.gaslight)
             : null,

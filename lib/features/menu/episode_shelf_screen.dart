@@ -3,12 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../content/content_strings.dart';
 import '../../content/episode_catalog.dart';
+import '../../core/audio/ui_sound.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/theme/stillroom_palette.dart';
 import '../../core/widgets/atmosphere.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../../state/content_providers.dart';
 import '../../state/save_repository.dart';
+import '../../state/ui_feedback.dart';
 import 'episode_launcher.dart';
 import 'widgets/jar.dart';
 import 'widgets/menu_music.dart';
@@ -79,12 +81,18 @@ class EpisodeShelfScreen extends ConsumerWidget {
                           onTap: !entry.playable
                               ? null
                               : progress.isUnlocked(entry)
-                              ? () => _open(context, ref, entry, text)
-                              : () => _showLocked(
-                                  context,
-                                  text(entry.titleKey),
-                                  progress.remaining(entry),
-                                ),
+                              ? () {
+                                  ref.read(uiFeedbackProvider)(UiSound.tap);
+                                  _open(context, ref, entry, text);
+                                }
+                              : () {
+                                  ref.read(uiFeedbackProvider)(UiSound.reject);
+                                  _showLocked(
+                                    context,
+                                    text(entry.titleKey),
+                                    progress.remaining(entry),
+                                  );
+                                },
                         ),
                     ],
                   ),
@@ -169,7 +177,7 @@ class EpisodeShelfScreen extends ConsumerWidget {
     if (!context.mounted || choice == null) return;
     switch (choice) {
       case _JarChoice.resume:
-        await continueEpisode(context, entry.id);
+        await continueEpisode(context, ref, entry.id);
       case _JarChoice.restart:
         await startEpisode(context, ref, entry.id);
     }

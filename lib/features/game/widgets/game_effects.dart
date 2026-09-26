@@ -6,13 +6,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../content/audio_paths.dart';
 import '../../../core/audio/audio_service.dart';
+import '../../../core/audio/ui_sound.dart';
 import '../../../engine/engine.dart';
 import '../../../state/game_session.dart';
 import '../../../state/services_providers.dart';
 import '../../../state/settings_controller.dart';
+import '../../../state/ui_feedback.dart';
+
+/// The interface sound for one batch of engine events, if any: the most
+/// telling one only, so a single tap never stacks several. A text box stays
+/// quiet when the content plays its own sound.
+UiSound? interfaceSoundFor(List<GameEvent> events) {
+  bool any<T extends GameEvent>() => events.any((e) => e is T);
+  if (any<ItemsCombinedEvent>()) return UiSound.combine;
+  if (any<ItemPickedEvent>()) return UiSound.pickup;
+  if (any<CombinationFailedEvent>() || any<ItemRejectedEvent>()) {
+    return UiSound.reject;
+  }
+  if (any<OpenPuzzleEvent>() || any<ExamineItemEvent>()) return UiSound.open;
+  if (any<SceneChangedEvent>()) return UiSound.step;
+  if (any<ShowTextEvent>() && !any<PlaySoundEvent>()) return UiSound.page;
+  return null;
+}
 
 /// Plays back the engine's audiovisual events: sound effects, scene music,
-/// camera shake, and haptics (respecting the settings). Renders nothing.
+/// camera shake, haptics (respecting the settings), and the interface
+/// sounds of pickups, combinations, and moves ([interfaceSoundFor]).
+/// Renders nothing.
 ///
 /// Missing audio files are silent placeholders (PRD §0 rule 2).
 class GameEffects extends ConsumerStatefulWidget {
@@ -70,6 +90,8 @@ class _GameEffectsState extends ConsumerState<GameEffects> {
           break;
       }
     }
+    final sound = interfaceSoundFor(session.events);
+    if (sound != null) ref.read(uiFeedbackProvider)(sound);
     _updateMusic(session);
   }
 

@@ -5,7 +5,7 @@
 // Usage (needs ffmpeg on PATH for the Ogg Vorbis encode):
 //   fvm dart run tool/audio/generate_audio.dart [id ...]
 //
-// With no ids, writes all of them to assets/audio/{sfx,music}/<id>.ogg.
+// With no ids, writes all of them to assets/audio/{sfx,music,ui}/<id>.ogg.
 // Everything is seeded, so a rerun gives the same files.
 import 'dart:io';
 import 'dart:math' as math;
@@ -902,18 +902,290 @@ final music = <String, Buf Function()>{
   'lawang_sewu_1907': lawangSewu1907,
 };
 
+// ---------------------------------------------------------------------------
+// Interface sounds (assets/audio/ui): short, soft, played for every touch.
+
+Buf tapSound() {
+  final rng = math.Random(30);
+  final b = Buf(0.25)
+    ..add(modal(0.2, 620, const [(1, 1, 0.02), (2.3, 0.4, 0.012)]), gain: 0.6)
+    ..add(click(rng, centre: 1800, time: 0.0015), gain: 0.5);
+  return reverb(b, size: 0.15, mix: 0.12);
+}
+
+Buf dialSound() {
+  final rng = math.Random(31);
+  final b = Buf(0.25);
+  for (final (at, f) in [(0.0, 3200.0), (0.035, 2700.0)]) {
+    b
+      ..add(
+        modal(0.1, f, const [(1, 1, 0.01), (1.9, 0.5, 0.006)]),
+        at: at,
+        gain: 0.6,
+      )
+      ..add(click(rng, centre: f, time: 0.001), at: at, gain: 0.4);
+  }
+  return reverb(b, size: 0.1, mix: 0.1);
+}
+
+Buf pressSound() {
+  final rng = math.Random(32);
+  final b = Buf(0.3)
+    ..add(
+      shape(tone(0.15, (t) => 180 - 60 * t), (t) => decay(t, 0.03)),
+      gain: 0.8,
+    )
+    ..add(click(rng, centre: 2400, time: 0.0012), gain: 0.35);
+  return reverb(b, size: 0.2, mix: 0.15);
+}
+
+Buf mistakeSound() {
+  final rng = math.Random(33);
+  final b = Buf(0.6)
+    ..add(
+      shape(tone(0.5, (t) => 92 - 20 * t), (t) => decay(t, 0.12)),
+      gain: 0.9,
+    )
+    ..add(shape(tone(0.5, (t) => 97 - 22 * t), (t) => decay(t, 0.1)), gain: 0.5)
+    ..add(
+      gain(
+        shape(lowpass(noise(0.2, rng), (_) => 500), (t) => decay(t, 0.03)),
+        1.2,
+      ),
+    );
+  return reverb(b, size: 0.35, mix: 0.2);
+}
+
+Buf liftSound() {
+  final rng = math.Random(34);
+  final b = Buf(0.3)
+    ..add(
+      gain(
+        shape(
+          bandpass(noise(0.2, rng), (t) => 1500 + 6000 * t, 1),
+          (t) => swell(t, 0.02, 0.12, 0.2),
+        ),
+        0.8,
+      ),
+    );
+  return reverb(b, size: 0.1, mix: 0.1);
+}
+
+Buf placeSound() {
+  final rng = math.Random(35);
+  final b = Buf(0.4)
+    ..add(
+      gain(
+        shape(
+          bandpass(noise(0.12, rng), (t) => 3000 - 12000 * t, 1),
+          (t) => swell(t, 0.01, 0.06, 0.12),
+        ),
+        0.6,
+      ),
+    )
+    ..add(
+      shape(tone(0.2, (_) => 140), (t) => decay(t, 0.035)),
+      at: 0.1,
+      gain: 0.7,
+    )
+    ..add(click(rng, centre: 1500, time: 0.002), at: 0.1, gain: 0.4);
+  return reverb(b, size: 0.2, mix: 0.12);
+}
+
+Buf turnSound() {
+  final rng = math.Random(36);
+  final b = Buf(0.4)
+    ..add(
+      gain(
+        shape(
+          bandpass(noise(0.22, rng), (_) => 900, 3),
+          (t) => swell(t, 0.03, 0.1, 0.22),
+        ),
+        1.2,
+      ),
+    )
+    ..add(
+      modal(0.15, 1400, const [(1, 1, 0.015), (2.6, 0.5, 0.01)]),
+      at: 0.2,
+      gain: 0.5,
+    );
+  return reverb(b, size: 0.25, mix: 0.15);
+}
+
+Buf solvedSound() {
+  final rng = math.Random(37);
+  final b = Buf(1.6)
+    ..add(modal(0.2, 1900, const [(1, 1, 0.02), (2.2, 0.5, 0.012)]), gain: 0.5)
+    ..add(click(rng, centre: 2500, time: 0.002), gain: 0.4)
+    ..add(glassNote(1046.5, 1.4), at: 0.08, gain: 0.25)
+    ..add(glassNote(1568, 1.2), at: 0.16, gain: 0.18);
+  return reverb(b, size: 0.5, mix: 0.3);
+}
+
+Buf pickupSound() {
+  final rng = math.Random(38);
+  final b = Buf(0.9)
+    ..add(
+      gain(
+        shape(
+          bandpass(noise(0.3, rng), (t) => 800 + 3000 * t, 0.9),
+          (t) => swell(t, 0.05, 0.2, 0.3),
+        ),
+        0.7,
+      ),
+    )
+    ..add(glassNote(1318.5, 0.8), at: 0.12, gain: 0.18);
+  return reverb(b, size: 0.3, mix: 0.2);
+}
+
+Buf combineSound() {
+  final rng = math.Random(39);
+  final b = Buf(1.2)
+    ..add(modal(0.3, 1100, const [(1, 1, 0.05), (2.4, 0.5, 0.03)]), gain: 0.5)
+    ..add(
+      modal(0.3, 1500, const [(1, 1, 0.04), (2.1, 0.4, 0.025)]),
+      at: 0.07,
+      gain: 0.5,
+    )
+    ..add(click(rng, centre: 3000, time: 0.0015), at: 0.07, gain: 0.3)
+    ..add(glassNote(1760, 0.9), at: 0.15, gain: 0.15)
+    ..add(glassNote(2217.5, 0.8), at: 0.22, gain: 0.12);
+  return reverb(b, size: 0.4, mix: 0.25);
+}
+
+Buf rejectSound() {
+  final rng = math.Random(40);
+  final b = Buf(0.35)
+    ..add(shape(tone(0.25, (_) => 110), (t) => decay(t, 0.05)), gain: 0.7)
+    ..add(
+      gain(
+        shape(lowpass(noise(0.1, rng), (_) => 700), (t) => decay(t, 0.02)),
+        0.9,
+      ),
+    );
+  return reverb(b, size: 0.2, mix: 0.12);
+}
+
+Float64List air(math.Random rng, double seconds, {required bool rising}) =>
+    shape(
+      bandpass(
+        noise(seconds, rng),
+        (t) => rising ? 400 + 2500 * t / seconds : 2900 - 2500 * t / seconds,
+        0.7,
+      ),
+      (t) => math.pow(math.sin(math.pi * t / seconds), 2).toDouble(),
+    );
+
+Buf openSound() {
+  final rng = math.Random(41);
+  final b = Buf(0.6)..add(gain(air(rng, 0.4, rising: true), 0.8));
+  return reverb(b, size: 0.3, mix: 0.2);
+}
+
+Buf closeSound() {
+  final rng = math.Random(42);
+  final b = Buf(0.6)
+    ..add(gain(air(rng, 0.35, rising: false), 0.8))
+    ..add(
+      shape(tone(0.15, (_) => 130), (t) => decay(t, 0.03)),
+      at: 0.3,
+      gain: 0.4,
+    );
+  return reverb(b, size: 0.3, mix: 0.2);
+}
+
+Buf pageSound() {
+  final rng = math.Random(43);
+  final b = Buf(0.4)
+    ..add(
+      gain(
+        shape(
+          bandpass(noise(0.25, rng), (t) => 1200 + 5000 * t, 0.8),
+          (t) => math.pow(math.sin(math.pi * t / 0.25), 2).toDouble(),
+        ),
+        0.6,
+      ),
+    );
+  for (var i = 0; i < 5; i++) {
+    b.add(
+      click(rng, centre: 4000, time: 0.001),
+      at: 0.03 + rng.nextDouble() * 0.2,
+      gain: 0.2,
+    );
+  }
+  return reverb(b, size: 0.1, mix: 0.08);
+}
+
+Buf stepSound() {
+  final rng = math.Random(44);
+  final b = Buf(0.6)
+    ..add(lowpass(footstep(rng), (_) => 900), gain: 0.6)
+    ..add(
+      modal(0.3, 240, const [(1, 1, 0.05), (1.7, 0.4, 0.04)]),
+      at: 0.02,
+      gain: 0.08,
+    );
+  return reverb(b, size: 0.45, mix: 0.25);
+}
+
+Buf jarOpenSound() {
+  final rng = math.Random(45);
+  final pop = shape(tone(0.08, (t) => 900 - 5000 * t), (t) => decay(t, 0.012));
+  final b = Buf(2.2)
+    ..add(
+      gain(
+        shape(
+          bandpass(noise(0.15, rng), (_) => 1800, 2),
+          (t) => swell(t, 0.1, 0.02, 0.15),
+        ),
+        0.4,
+      ),
+    )
+    ..add(pop, at: 0.15, gain: 0.9)
+    ..add(glassNote(1174.7, 1.8), at: 0.17, gain: 0.3)
+    ..add(glassNote(1760, 1.5), at: 0.19, gain: 0.15)
+    ..add(gain(air(rng, 1.2, rising: false), 0.25), at: 0.25);
+  return reverb(b, size: 0.6, mix: 0.3);
+}
+
+final ui = <String, Buf Function()>{
+  'tap': tapSound,
+  'dial': dialSound,
+  'press': pressSound,
+  'mistake': mistakeSound,
+  'lift': liftSound,
+  'place': placeSound,
+  'turn': turnSound,
+  'solved': solvedSound,
+  'pickup': pickupSound,
+  'combine': combineSound,
+  'reject': rejectSound,
+  'open': openSound,
+  'close': closeSound,
+  'page': pageSound,
+  'step': stepSound,
+  'jar_open': jarOpenSound,
+};
+
 Future<void> main(List<String> args) async {
   final temp = await Directory.systemTemp.createTemp('stillroom_audio');
   try {
     for (final (folder, table, peak) in [
       ('sfx', sfx, -3.0),
       ('music', music, -6.0),
+      ('ui', ui, -9.0),
     ]) {
       for (final MapEntry(key: id, value: render) in table.entries) {
         if (args.isNotEmpty && !args.contains(id)) continue;
         final b = render()
           ..normalize(peak)
-          ..edges(fadeOut: folder == 'sfx' ? 0.05 : 0.0);
+          ..edges(
+            fadeOut: switch (folder) {
+              'sfx' => 0.05,
+              'ui' => 0.03,
+              _ => 0.0,
+            },
+          );
         final wav = File('${temp.path}/$id.wav');
         await wav.writeAsBytes(encodeWav(b));
         final out = 'assets/audio/$folder/$id.ogg';
@@ -929,7 +1201,7 @@ Future<void> main(List<String> args) async {
           '-strict',
           '-2',
           '-q:a',
-          folder == 'sfx' ? '4' : '3',
+          folder == 'music' ? '3' : '4',
           out,
         ]);
         if (result.exitCode != 0) {

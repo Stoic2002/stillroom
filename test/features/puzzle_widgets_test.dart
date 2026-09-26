@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:stillroom/content/content_loader.dart';
 import 'package:stillroom/content/file_asset_source.dart';
+import 'package:stillroom/core/audio/ui_sound.dart';
 import 'package:stillroom/engine/engine.dart';
 import 'package:stillroom/features/puzzles/built_in_puzzle_widgets.dart';
 import 'package:stillroom/features/puzzles/puzzle_view.dart';
@@ -26,6 +27,7 @@ void main() {
     WidgetTester tester,
     String puzzleId, {
     List<String> inventory = const [],
+    List<UiSound>? sounds,
   }) async {
     final solved = [0];
     final puzzle = content.requirePuzzle(puzzleId);
@@ -49,6 +51,7 @@ void main() {
                 ),
                 assets: const {},
                 onSolved: () => solved[0]++,
+                feedback: (sound) => sounds?.add(sound),
               ),
             ),
           ),
@@ -91,6 +94,20 @@ void main() {
     await tester.tap(next.first);
     await tester.pump(SolvesAfterPause.pause);
     expect(solved.single, 1);
+  });
+
+  testWidgets('moves answer with interface sounds', (tester) async {
+    final sounds = <UiSound>[];
+    await pumpPuzzle(tester, 'drawer_lock', sounds: sounds);
+    await tester.tap(find.byTooltip('Next symbol').first);
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(sounds, [UiSound.dial]);
+
+    sounds.clear();
+    await pumpPuzzle(tester, 'window_panes', sounds: sounds);
+    await tester.tap(find.byKey(const ValueKey('element_pane_1')));
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(sounds, [UiSound.mistake]);
   });
 
   testWidgets('codeLock: previous wraps to the last symbol', (tester) async {

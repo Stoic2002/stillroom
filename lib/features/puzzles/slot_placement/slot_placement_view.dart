@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/audio/ui_sound.dart';
 import '../../../core/theme/stillroom_palette.dart';
 import '../../../core/widgets/content_image.dart';
 import '../../../engine/engine.dart';
@@ -24,9 +26,21 @@ class _SlotPlacementViewState extends State<SlotPlacementView>
   static const _gold = StillroomPalette.gaslight;
 
   void _update(SlotPlacementState next) {
-    if (isSolved) return;
+    if (isSolved || identical(next, _state)) return;
+    final moved = !mapEquals(next.placed, _state.placed);
+    final lifted = next.selected != null && next.selected != _state.selected;
     setState(() => _state = next);
-    if (_state.isSolved) markSolved(widget.context.onSolved);
+    widget.context.feedback(
+      moved
+          ? UiSound.place
+          : lifted
+          ? UiSound.lift
+          : UiSound.tap,
+    );
+    if (_state.isSolved) {
+      widget.context.feedback(UiSound.solved);
+      markSolved(widget.context.onSolved);
+    }
   }
 
   /// A piece's own image, else its item's icon, else a placeholder.

@@ -4,7 +4,10 @@ import 'package:flutter/widgets.dart';
 
 import '../../content/content_loader.dart';
 import '../../content/content_strings.dart';
+import '../../core/audio/ui_sound.dart';
 import '../../engine/engine.dart';
+
+void _silent(UiSound _) {}
 
 /// What a puzzle widget gets to render one puzzle. Answer checking lives in
 /// the engine's puzzle state classes; the widget shows that state, forwards
@@ -17,6 +20,7 @@ final class PuzzleViewContext {
     required this.assets,
     required this.onSolved,
     this.strings = const {},
+    this.feedback = _silent,
   });
 
   final Puzzle puzzle;
@@ -29,6 +33,9 @@ final class PuzzleViewContext {
 
   /// Content string tables, for labels inside the puzzle.
   final StringTables strings;
+
+  /// Plays an interface sound (and its vibration) for a move.
+  final void Function(UiSound sound) feedback;
 
   /// Content text for [key] in the current language.
   String text(BuildContext context, String key) =>

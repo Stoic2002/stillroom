@@ -66,6 +66,7 @@ flutter:
     - assets/images/ui/
     - assets/audio/music/
     - assets/audio/sfx/
+    - assets/audio/ui/
     - assets/fonts/licenses/
 
   # All fonts: SIL Open Font License 1.1 (assets/fonts/licenses/, shown on
