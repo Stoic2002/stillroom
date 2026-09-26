@@ -99,5 +99,22 @@
         }
       ]
     }
+  ],
+  "layers": [
+    {
+      "id": "rope_plate_clean_sprite",
+      "image": "images/objects/flannan_isles_1900/rope_plate_clean_sprite.png",
+      "rect": [
+        0.5,
+        0.2,
+        0.1,
+        0.12
+      ],
+      "when": [
+        {
+          "puzzleSolved": "rope_plate"
+        }
+      ]
+    }
   ]
 }

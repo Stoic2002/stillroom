@@ -102,6 +102,30 @@ class _SequenceViewState extends State<SequenceView>
                     child: PuzzleLabel(widget.context.text(context, key)),
                   ),
                 ),
+            // When elements repeat (Morse dots and dashes), a paper tape
+            // shows what has been tapped so far.
+            if (_uses.values.any((n) => n > 1))
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: board.height * 0.06,
+                child: IgnorePointer(
+                  child: Center(
+                    child: _Tape(
+                      key: const ValueKey('sequence_tape'),
+                      marks: [
+                        for (final id in _config.solution.take(_state.progress))
+                          switch (_config.elements
+                              .firstWhere((e) => e.id == id)
+                              .labelKey) {
+                            final key? => widget.context.text(context, key),
+                            null => id,
+                          },
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             IgnorePointer(
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 120),
@@ -157,6 +181,35 @@ class _Element extends StatelessWidget {
           path: image,
           label: element.id,
           assets: assets,
+        ),
+      ),
+    );
+  }
+}
+
+/// A strip of telegraph tape with the marks tapped so far.
+class _Tape extends StatelessWidget {
+  const _Tape({required this.marks, super.key});
+
+  final List<String> marks;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      constraints: const BoxConstraints(minWidth: 220, minHeight: 40),
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 6),
+      decoration: BoxDecoration(
+        color: StillroomPalette.paper,
+        border: Border.all(color: StillroomPalette.paperShade),
+        boxShadow: const [BoxShadow(blurRadius: 8, color: Color(0x88000000))],
+      ),
+      child: Text(
+        marks.join('  '),
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          fontSize: 26,
+          letterSpacing: 2,
+          color: StillroomPalette.inkOnPaper,
         ),
       ),
     );

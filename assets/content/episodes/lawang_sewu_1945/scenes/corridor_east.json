@@ -111,6 +111,12 @@
         0.18,
         0.18,
         0.66
+      ],
+      "when": [
+        {
+          "flag": "telegram_sent",
+          "equals": false
+        }
       ]
     },
     {
@@ -121,6 +127,22 @@
         0.18,
         0.18,
         0.66
+      ]
+    },
+    {
+      "id": "door_1945_open_sprite",
+      "image": "images/objects/lawang_sewu_1945/door_1945_open_sprite.png",
+      "rect": [
+        0.12,
+        0.18,
+        0.18,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "telegram_sent",
+          "equals": true
+        }
       ]
     }
   ]

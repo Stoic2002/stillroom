@@ -36,6 +36,9 @@ final Map<String, ArtPainter> flannanArt = {
   '$_o/lens_dark_sprite.png': (c, s) => _lens(Art(c, s), lit: false),
   '$_o/lens_lit_sprite.png': (c, s) => _lens(Art(c, s), lit: true),
   '$_o/rope_plate.png': (c, s) => _ropePlate(Art(c, s)),
+  '$_o/rope_plate_clean_sprite.png': (c, s) => _ropePlateSmall(Art(c, s)),
+  '$_o/door_open_sprite.png': (c, s) => _stairDoorOpen(Art(c, s)),
+  '$_o/clockwork_wound_sprite.png': (c, s) => _clockworkWound(Art(c, s)),
   '$_o/salt.png': (c, s) => _salt(Art(c, s)),
   // Items.
   '$_i/matches.png': (c, s) => _matches(Art(c, s)),
@@ -737,4 +740,49 @@ void _jar(Art a) {
     );
   // Cork.
   a.box(a.r(0.3, 0.04, 0.4, 0.14), const Color(0xFF7A5A3A), line: 0.5);
+}
+
+// ---------------------------------------------------------------------------
+// After-states
+
+/// The rope-box plate on the rock, wiped clean.
+void _ropePlateSmall(Art a) => a
+  ..box(Offset.zero & a.size, const Color(0xFFB09A5E), line: 0.5)
+  ..label('ROPES', a.p(0.5, 0.4), a.size.height * 0.22, const Color(0xFF2A241A))
+  ..label(
+    '& TACKLE',
+    a.p(0.5, 0.7),
+    a.size.height * 0.16,
+    const Color(0xFF2A241A),
+  );
+
+/// The lamp-room door, open on the grey of the last evening light.
+void _stairDoorOpen(Art a) {
+  a
+    ..fill(a.r(0.1, 0.06, 0.8, 0.94), const Color(0xFF8E98A2))
+    ..glow(
+      a.p(0.5, 0.4),
+      a.size.width * 0.8,
+      const Color(0xFFB8C2CC),
+      strength: 0.3,
+    )
+    ..box(a.r(0.1, 0.06, 0.12, 0.94), const Color(0xFF2A211A), line: 0.5);
+}
+
+/// The clockwork cabinet, wound: the weights hang high and the dial glows.
+void _clockworkWound(Art a) {
+  a
+    ..box(Offset.zero & a.size, const Color(0xFF3A2C22), line: 0.6)
+    ..glow(a.p(0.5, 0.38), a.size.width * 0.5, _lamp, strength: 0.35)
+    ..circle(
+      a.p(0.5, 0.38),
+      a.size.width * 0.23,
+      StillroomPalette.brass,
+      line: 0.5,
+    )
+    ..circle(a.p(0.5, 0.38), a.size.width * 0.05, Art.outline, line: 0)
+    ..line(a.p(0.25, 0.1), a.p(0.25, 0.3), const Color(0xFF9AA0A2), width: 0.4)
+    ..box(a.r(0.2, 0.3, 0.1, 0.12), _iron, line: 0.3)
+    ..line(a.p(0.75, 0.1), a.p(0.75, 0.26), const Color(0xFF9AA0A2), width: 0.4)
+    ..box(a.r(0.7, 0.26, 0.1, 0.12), _iron, line: 0.3);
 }

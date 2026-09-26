@@ -130,6 +130,21 @@
           "puzzleSolved": "window_fog"
         }
       ]
+    },
+    {
+      "id": "street_map_solved_sprite",
+      "image": "images/objects/whitechapel_1888/street_map_solved_sprite.png",
+      "rect": [
+        0.6,
+        0.2,
+        0.26,
+        0.44
+      ],
+      "when": [
+        {
+          "puzzleSolved": "street_compass"
+        }
+      ]
     }
   ]
 }

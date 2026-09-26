@@ -130,6 +130,22 @@
           "equals": false
         }
       ]
+    },
+    {
+      "id": "door_open_sprite",
+      "image": "images/objects/flannan_isles_1900/door_open_sprite.png",
+      "rect": [
+        0.4,
+        0.04,
+        0.2,
+        0.32
+      ],
+      "when": [
+        {
+          "flag": "lamp_door_open",
+          "equals": true
+        }
+      ]
     }
   ]
 }

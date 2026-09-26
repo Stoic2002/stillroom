@@ -52,6 +52,8 @@ final Map<String, ArtPainter> whitechapelArt = {
   '$_o/drawer_closed_sprite.png': (c, s) => _drawer(Art(c, s), open: false),
   '$_o/drawer_open_sprite.png': (c, s) => _drawer(Art(c, s), open: true),
   '$_o/street_map_sprite.png': (c, s) => _streetMap(Art(c, s)),
+  '$_o/street_map_solved_sprite.png': (c, s) => _streetMapSolved(Art(c, s)),
+  '$_o/hearth_note_sprite.png': (c, s) => _hearthScrap(Art(c, s)),
   '$_o/gaslamp_sprite.png': (c, s) => _gaslamp(Art(c, s)),
   '$_o/candle.png': (c, s) {
     final a = Art(c, s);
@@ -1091,4 +1093,55 @@ void jarLabelBoard(Art a, Color wall) {
         ..color = const Color(0x22FFFFFF),
     )
     ..hairline(a.p(0.08, 0.1), a.p(0.06, 0.9), const Color(0x18FFFFFF), 2);
+}
+
+/// Over the street map once solved: five streets, five arrows, all north.
+void _streetMapSolved(Art a) {
+  a.glow(
+    a.p(0.72, 0.72),
+    a.size.shortestSide * 0.4,
+    StillroomPalette.gaslight,
+    strength: 0.3,
+  );
+  for (var i = 0; i < 5; i++) {
+    final x = 0.14 + i * 0.12;
+    final y = 0.26 + (i % 2) * 0.16;
+    a
+      ..line(a.p(x, y + 0.14), a.p(x, y), StillroomPalette.oxblood, width: 1)
+      ..path(
+        a.poly([
+          a.p(x - 0.03, y + 0.03),
+          a.p(x, y - 0.02),
+          a.p(x + 0.03, y + 0.03),
+        ]),
+        StillroomPalette.oxblood,
+        line: 0,
+      );
+  }
+}
+
+/// The scrap that would not burn, now lying clear of the ash.
+void _hearthScrap(Art a) {
+  final scrap = a.poly([
+    a.p(0.08, 0.3),
+    a.p(0.5, 0.12),
+    a.p(0.92, 0.28),
+    a.p(0.86, 0.82),
+    a.p(0.14, 0.9),
+  ]);
+  a
+    ..glow(
+      a.p(0.5, 0.5),
+      a.size.width * 0.6,
+      StillroomPalette.gaslight,
+      strength: 0.25,
+    )
+    ..path(scrap, const Color(0xFFCDBB94), line: 0.4)
+    ..scrawl(
+      a.r(0.2, 0.3, 0.6, 0.45),
+      StillroomPalette.inkOnPaper,
+      lines: 3,
+      seed: 18,
+      width: 0.2,
+    );
 }

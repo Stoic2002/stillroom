@@ -250,6 +250,21 @@
           "puzzleSolved": "candles"
         }
       ]
+    },
+    {
+      "id": "hearth_note_sprite",
+      "image": "images/objects/whitechapel_1888/hearth_note_sprite.png",
+      "rect": [
+        0.44,
+        0.8,
+        0.12,
+        0.08
+      ],
+      "when": [
+        {
+          "puzzleSolved": "hearth_ash"
+        }
+      ]
     }
   ]
 }

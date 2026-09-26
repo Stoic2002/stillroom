@@ -174,6 +174,29 @@ void main() {
     });
   });
 
+  group('telegraph tape', () {
+    testWidgets('the marks tapped so far show on a tape', (tester) async {
+      final lawang = await tester.runAsync(
+        () => ContentLoader(
+          FileAssetSource(Directory.current),
+        ).loadEpisode('lawang_sewu_1945', ContentRegistries.withBuiltIns()),
+      );
+      content = lawang!;
+      await pumpPuzzle(tester, 'telegraph');
+      Text tape() => tester.widget<Text>(
+        find.descendant(
+          of: find.byKey(const ValueKey('sequence_tape')),
+          matching: find.byType(Text),
+        ),
+      );
+      expect(tape().data, '');
+      await tester.tap(find.byKey(const ValueKey('element_dash')));
+      await tester.tap(find.byKey(const ValueKey('element_dot')));
+      await tester.pump();
+      expect(tape().data, '−  ·');
+    });
+  });
+
   group('crank', () {
     testWidgets('winding round and round solves it', (tester) async {
       final flannan = await tester.runAsync(

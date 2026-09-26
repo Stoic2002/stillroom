@@ -11,7 +11,11 @@ import '../theme/stillroom_palette.dart';
 /// adaptive icon (background, foreground, or a flat monochrome silhouette).
 enum AppIconLayer { full, background, foreground, monochrome }
 
-void paintAppIcon(Canvas canvas, Size size, {AppIconLayer layer = AppIconLayer.full}) {
+void paintAppIcon(
+  Canvas canvas,
+  Size size, {
+  AppIconLayer layer = AppIconLayer.full,
+}) {
   final s = size.shortestSide;
   if (layer == AppIconLayer.full || layer == AppIconLayer.background) {
     _background(canvas, size);
@@ -38,7 +42,11 @@ void _background(Canvas canvas, Size size) {
         ..shader = Gradient.radial(
           rect.center.translate(0, size.height * 0.05),
           size.shortestSide * 0.62,
-          [const Color(0xFF3A2A1C), const Color(0xFF1A130E), StillroomPalette.ink],
+          [
+            const Color(0xFF3A2A1C),
+            const Color(0xFF1A130E),
+            StillroomPalette.ink,
+          ],
           [0, 0.55, 1],
         ),
     );
@@ -87,11 +95,10 @@ void _jar(Canvas canvas, {required bool monochrome}) {
     ..drawRect(
       body.outerRect,
       Paint()
-        ..shader = Gradient.linear(
-          const Offset(0, -26),
-          const Offset(0, 44),
-          [const Color(0xFF2A1F17), const Color(0xFF5A3A1E)],
-        ),
+        ..shader = Gradient.linear(const Offset(0, -26), const Offset(0, 44), [
+          const Color(0xFF2A1F17),
+          const Color(0xFF5A3A1E),
+        ]),
     );
   for (var i = 0; i < 5; i++) {
     final a = i * math.pi * 0.4;

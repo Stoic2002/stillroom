@@ -54,6 +54,12 @@ final Map<String, ArtPainter> lawangSewuArt = {
   '$_o/office_desk_sprite.png': (c, s) => _officeDesk(Art(c, s)),
   '$_o/ledger_sprite.png': (c, s) => _openBook(Art(c, s), small: true),
   '$_o/timetable_board_sprite.png': (c, s) => _timetable(Art(c, s)),
+  '$_o/timetable_solved_sprite.png': (c, s) => _timetable(
+    Art(c, s),
+    stations: const ['SAMARANG', 'ALASTUA', 'BRUMBUNG', 'TANGGUNG'],
+  ),
+  '$_o/telegram_rubbed_sprite.png': (c, s) => _telegramRubbed(Art(c, s)),
+  '$_o/door_1945_open_sprite.png': (c, s) => _doorOpen(Art(c, s), '1945'),
   '$_o/telegraph_sprite.png': (c, s) => _telegraph(Art(c, s)),
   '$_o/telegram_form_sprite.png': (c, s) =>
       Art(c, s).paper(Offset.zero & s, lines: 5, angle: 0.04),
@@ -626,20 +632,32 @@ void _officeDesk(Art a) {
     ..wood(a.r(0.88, 0.64, 0.06, 0.36), base: _sepia, grain: 0);
 }
 
-void _timetable(Art a) {
+/// The station board; once in order, its plates carry the stations' names
+/// and the board is lit.
+void _timetable(Art a, {List<String>? stations}) {
   a
     ..wood(Offset.zero & a.size, base: _teak, grain: 0)
     ..box(a.r(0.04, 0.06, 0.92, 0.88), const Color(0xFF14110E), line: 0.5)
     ..label('1867', a.p(0.5, 0.16), a.size.height * 0.1, _enamel);
+  if (stations != null) {
+    a.glow(a.p(0.35, 0.55), a.size.width * 0.5, _amber, strength: 0.2);
+  }
   for (var i = 0; i < 4; i++) {
-    a
-      ..rbox(a.r(0.1, 0.28 + i * 0.16, 0.5, 0.1), a.u, _enamel, line: 0.3)
-      ..line(
-        a.p(0.66, 0.33 + i * 0.16),
-        a.p(0.9, 0.33 + i * 0.16),
-        const Color(0x88D7D1C1),
-        width: 0.4,
+    a.rbox(a.r(0.1, 0.28 + i * 0.16, 0.5, 0.1), a.u, _enamel, line: 0.3);
+    if (stations != null) {
+      a.label(
+        stations[i],
+        a.p(0.35, 0.33 + i * 0.16),
+        a.size.height * 0.06,
+        _enamelBlue,
       );
+    }
+    a.line(
+      a.p(0.66, 0.33 + i * 0.16),
+      a.p(0.9, 0.33 + i * 0.16),
+      const Color(0x88D7D1C1),
+      width: 0.4,
+    );
   }
 }
 
@@ -1152,4 +1170,22 @@ void _door929(Art a) {
       StillroomPalette.inkOnPaper,
     )
     ..circle(a.p(0.76, 0.56), a.u * 2, StillroomPalette.brass, line: 0.3);
+}
+
+/// A door standing open on another year: dark, with that year's light.
+void _doorOpen(Art a, String year) {
+  a
+    ..fill(Offset.zero & a.size, const Color(0xFF0B0A09))
+    ..glow(
+      a.p(0.5, 0.7),
+      a.size.width * 0.9,
+      const Color(0xFFE07A2A),
+      strength: 0.35,
+    )
+    ..path(_archPath(a.r(0.08, 0.02, 0.84, 0.3)), const Color(0xFF1A2220))
+    ..strokePath(_archPath(a.r(0.08, 0.02, 0.84, 0.3)), _teak, width: 1.2)
+    ..rbox(a.r(0.3, 0.26, 0.4, 0.06), a.u, _enamel, line: 0.3)
+    ..label(year, a.p(0.5, 0.29), a.size.height * 0.035, _enamelBlue)
+    // One leaf swung inward, seen edge-on.
+    ..wood(a.r(0.02, 0.32, 0.1, 0.68), base: _teak, grain: 1, vertical: true);
 }
