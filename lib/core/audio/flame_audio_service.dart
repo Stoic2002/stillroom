@@ -18,26 +18,44 @@ final class FlameAudioService implements AudioService {
   /// The music file playing, if any.
   String? _current;
 
-  /// A small pool of ready players per sound effect: playing one is just
-  /// "resume", with no player to create and no file to copy first.
-  final Map<String, Future<AudioPool>> _pools = {};
+  /// Interface sounds (short, played on every touch) are kept loaded in
+  /// Android's low-latency SoundPool, one player each: playing is just
+  /// "start from the top". Low latency holds no MediaPlayer, of which
+  /// Android allows only a few at once (too many fail with error -19).
+  final Map<String, Future<AudioPlayer?>> _quick = {};
 
-  Future<AudioPool> _pool(String assetPath) =>
-      _pools[assetPath] ??= AudioPool.createFromAsset(
-        path: assetPath,
-        maxPlayers: 3,
-        audioCache: FlameAudio.audioCache,
-      );
+  static bool _isQuick(String assetPath) =>
+      assetPath.startsWith('assets/audio/ui/');
+
+  Future<AudioPlayer?> _quickPlayer(String assetPath) =>
+      _quick[assetPath] ??= () async {
+        final player = AudioPlayer()..audioCache = FlameAudio.audioCache;
+        try {
+          await player.setReleaseMode(ReleaseMode.stop);
+          await player.setPlayerMode(PlayerMode.lowLatency);
+          await player.setSource(AssetSource(assetPath));
+          return player;
+        } on Object catch (e) {
+          debugPrint('Sound failed to load: $assetPath: $e');
+          unawaited(player.dispose());
+          return null;
+        }
+      }();
 
   @override
   Future<void> preload(Iterable<String> assetPaths) async {
-    // One at a time, so preparing them never stalls a frame.
+    // One at a time, so loading them never stalls a frame.
     for (final path in assetPaths) {
-      try {
-        await _pool(path);
-      } on Object catch (e) {
-        _pools.remove(path)?.ignore();
-        debugPrint('Sound failed to load: $path: $e');
+      if (_isQuick(path)) {
+        await _quickPlayer(path);
+      } else {
+        // Story sounds are longer and rarer: copy the file out of the
+        // bundle now, so the first play needn't.
+        try {
+          await FlameAudio.audioCache.load(path);
+        } on Object catch (e) {
+          debugPrint('Sound failed to load: $path: $e');
+        }
       }
     }
   }
@@ -45,12 +63,36 @@ final class FlameAudioService implements AudioService {
   @override
   Future<void> playSfx(String assetPath, {required double volume}) async {
     if (volume <= 0) return;
+    if (_isQuick(assetPath)) {
+      final player = await _quickPlayer(assetPath);
+      if (player == null) return;
+      try {
+        await player.stop();
+        await player.setVolume(volume);
+        await player.resume();
+      } on Object catch (e) {
+        debugPrint('Sound failed: $assetPath: $e');
+      }
+      return;
+    }
+    // A one-off player, released as soon as the sound ends.
+    final player = AudioPlayer()..audioCache = FlameAudio.audioCache;
     try {
-      final pool = await _pool(assetPath);
-      await pool.start(volume: volume);
+      await player.setReleaseMode(ReleaseMode.release);
+      unawaited(
+        player.onPlayerComplete.first.then<void>(
+          (_) => player.dispose(),
+          onError: (Object _) {},
+        ),
+      );
+      await player.play(
+        AssetSource(assetPath),
+        volume: volume,
+        mode: PlayerMode.mediaPlayer,
+      );
     } on Object catch (e) {
-      _pools.remove(assetPath)?.ignore();
       debugPrint('Sound failed: $assetPath: $e');
+      unawaited(player.dispose());
     }
   }
 
