@@ -16,11 +16,36 @@
   "music": "whitechapel_fog",
   "hintStages": [
     {
-      "id": "write_label",
+      "id": "leave",
       "when": [
         {
           "flag": "names_restored",
           "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.whitechapel_1888.leave.1"
+        }
+      ]
+    },
+    {
+      "id": "write_label",
+      "when": [
+        {
+          "everHadItem": "name_card_nichols"
+        },
+        {
+          "everHadItem": "name_card_chapman"
+        },
+        {
+          "everHadItem": "name_card_stride"
+        },
+        {
+          "everHadItem": "name_card_eddowes"
+        },
+        {
+          "everHadItem": "name_card_kelly"
         }
       ],
       "hints": [
@@ -33,41 +58,13 @@
       ]
     },
     {
-      "id": "place_names",
-      "when": [
-        {
-          "hasItem": "name_card_nichols"
-        },
-        {
-          "hasItem": "name_card_chapman"
-        },
-        {
-          "hasItem": "name_card_stride"
-        },
-        {
-          "hasItem": "name_card_eddowes"
-        },
-        {
-          "hasItem": "name_card_kelly"
-        }
-      ],
-      "hints": [
-        {
-          "key": "hint.whitechapel_1888.place_names.1"
-        },
-        {
-          "key": "hint.whitechapel_1888.place_names.2"
-        }
-      ]
-    },
-    {
       "id": "light_candles",
       "when": [
         {
           "hasItem": "matches"
         },
         {
-          "puzzleSolved": "candles",
+          "flag": "candles_ready",
           "equals": false
         }
       ],

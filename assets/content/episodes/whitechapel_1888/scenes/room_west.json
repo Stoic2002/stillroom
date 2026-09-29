@@ -22,14 +22,18 @@
       ],
       "when": [
         {
-          "puzzleSolved": "five_frames",
+          "flag": "names_restored",
           "equals": false
         }
       ],
       "onTap": [
         {
+          "type": "showText",
+          "key": "whitechapel_1888.frames.empty"
+        },
+        {
           "type": "openPuzzle",
-          "puzzle": "five_frames"
+          "puzzle": "jar_label"
         }
       ]
     },
@@ -43,7 +47,8 @@
       ],
       "when": [
         {
-          "puzzleSolved": "five_frames"
+          "flag": "names_restored",
+          "equals": true
         }
       ],
       "onTap": [
@@ -87,7 +92,7 @@
       ],
       "when": [
         {
-          "puzzleSolved": "five_frames",
+          "flag": "names_restored",
           "equals": false
         }
       ]
@@ -103,7 +108,8 @@
       ],
       "when": [
         {
-          "puzzleSolved": "five_frames"
+          "flag": "names_restored",
+          "equals": true
         }
       ]
     },

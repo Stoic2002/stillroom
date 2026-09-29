@@ -22,7 +22,6 @@ final Map<String, ArtPainter> flannanArt = {
   '$_s/stair.png': (c, s) => _stair(Art(c, s)),
   '$_s/lamp_room.png': (c, s) => _lampRoom(Art(c, s)),
   '$_s/west_landing.png': (c, s) => _westLanding(Art(c, s)),
-  '$_s/gate_lock_close.png': (c, s) => _gateBoard(Art(c, s)),
   '$_s/clockwork_close.png': (c, s) => _clockworkBoard(Art(c, s)),
   '$_s/label_close.png': (c, s) => jarLabelBoard(Art(c, s), _night),
   // Objects.
@@ -36,12 +35,10 @@ final Map<String, ArtPainter> flannanArt = {
   '$_o/key_sprite.png': (c, s) => _key(Art(c, s)),
   '$_o/lens_dark_sprite.png': (c, s) => _lens(Art(c, s), lit: false),
   '$_o/lens_lit_sprite.png': (c, s) => _lens(Art(c, s), lit: true),
-  '$_o/rope_plate.png': (c, s) => _ropePlate(Art(c, s)),
   '$_o/echo_keeper.png': (c, s) => paintEcho(Art(c, s), EchoFigure.keeper),
   '$_o/rope_plate_clean_sprite.png': (c, s) => _ropePlateSmall(Art(c, s)),
   '$_o/door_open_sprite.png': (c, s) => _stairDoorOpen(Art(c, s)),
   '$_o/clockwork_wound_sprite.png': (c, s) => _clockworkWound(Art(c, s)),
-  '$_o/salt.png': (c, s) => _salt(Art(c, s)),
   // Items.
   '$_i/matches.png': (c, s) => _matches(Art(c, s)),
   '$_i/hand_lantern.png': (c, s) => _lantern(Art(c, s), lit: false),
@@ -604,17 +601,6 @@ void _westLanding(Art a) {
 // ---------------------------------------------------------------------------
 // Puzzle boards and reveal art
 
-void _gateBoard(Art a) {
-  a.fade(Offset.zero & a.size, _night, _dusk);
-  for (var i = 0; i < 9; i++) {
-    a.line(a.p(0.05 + i * 0.11, 0), a.p(0.05 + i * 0.11, 1), _iron, width: 2.4);
-  }
-  a
-    ..box(a.r(0.24, 0.2, 0.52, 0.6), StillroomPalette.brass, line: 1)
-    ..label('DAY', a.p(0.37, 0.26), a.size.height * 0.04, Art.outline)
-    ..label('MONTH', a.p(0.63, 0.26), a.size.height * 0.04, Art.outline);
-}
-
 void _clockworkBoard(Art a) {
   a.fill(Offset.zero & a.size, const Color(0xFF1C1814));
   final random = math.Random(8);
@@ -641,54 +627,6 @@ void _clockworkBoard(Art a) {
         0.8,
       );
     }
-  }
-}
-
-void _ropePlate(Art a) {
-  a.fade(
-    Offset.zero & a.size,
-    const Color(0xFF3A3D3D),
-    const Color(0xFF232626),
-  );
-  a
-    ..box(a.r(0.24, 0.28, 0.52, 0.44), const Color(0xFF9C8A58), line: 0.8)
-    ..label(
-      'ROPES',
-      a.p(0.5, 0.42),
-      a.size.height * 0.08,
-      const Color(0xFF2A241A),
-    )
-    ..label(
-      'AND TACKLE',
-      a.p(0.5, 0.56),
-      a.size.height * 0.06,
-      const Color(0xFF2A241A),
-    );
-  for (final (x, y) in [
-    (0.27, 0.32),
-    (0.73, 0.32),
-    (0.27, 0.68),
-    (0.73, 0.68),
-  ]) {
-    a.circle(a.p(x, y), a.u * 1, _iron, line: 0);
-  }
-}
-
-void _salt(Art a) {
-  a.fill(Offset.zero & a.size, const Color(0xFF8F9794));
-  final random = math.Random(12);
-  for (var i = 0; i < 70; i++) {
-    a.canvas.drawCircle(
-      a.p(random.nextDouble(), random.nextDouble()),
-      a.u * (1 + random.nextDouble() * 4),
-      Paint()
-        ..color = Color.lerp(
-          const Color(0xFFD9DEDA),
-          const Color(0xFF6E7673),
-          random.nextDouble(),
-        )!.withValues(alpha: 0.6)
-        ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.u),
-    );
   }
 }
 

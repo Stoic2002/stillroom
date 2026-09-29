@@ -13,7 +13,7 @@
       ],
       "when": [
         {
-          "puzzleSolved": "gate_lock",
+          "flag": "gate_open",
           "equals": true
         }
       ]
@@ -45,18 +45,23 @@
       ],
       "when": [
         {
-          "puzzleSolved": "gate_lock",
+          "flag": "gate_open",
           "equals": false
         }
       ],
       "onTap": [
         {
-          "type": "showText",
-          "key": "flannan_isles_1900.east.gate_locked"
+          "type": "playSound",
+          "sound": "door_creak"
         },
         {
-          "type": "openPuzzle",
-          "puzzle": "gate_lock"
+          "type": "setFlag",
+          "flag": "gate_open",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.east.gate_open"
         }
       ]
     },
@@ -107,7 +112,7 @@
       ],
       "when": [
         {
-          "puzzleSolved": "gate_lock",
+          "flag": "gate_open",
           "equals": false
         }
       ]
@@ -123,7 +128,7 @@
       ],
       "when": [
         {
-          "puzzleSolved": "gate_lock",
+          "flag": "gate_open",
           "equals": true
         }
       ]

@@ -246,7 +246,12 @@ class _DeductionViewState extends State<DeductionView>
                 style: wire,
                 children: [
                   for (final (i, sentence) in _config.sentences.indexed) ...[
-                    ..._sentence(context, i, sentence, capitals: true),
+                    ..._sentence(
+                      context,
+                      i,
+                      sentence,
+                      telegram: stop.isNotEmpty,
+                    ),
                     if (stop.isNotEmpty) TextSpan(text: '  $stop  '),
                   ],
                 ],
@@ -313,14 +318,15 @@ class _DeductionViewState extends State<DeductionView>
   }
 
   /// Tags pinned to the picture behind, each where its sentence belongs;
-  /// the words and the check along the bottom.
+  /// the words and the check down the right-hand side, from
+  /// [boardWordsFrom] across.
   Widget _board(
     BuildContext context,
     TextStyle style,
     Widget bank,
     Widget check,
   ) {
-    final tag = style.copyWith(fontSize: 15, height: 1.45);
+    final tag = style.copyWith(fontSize: 14, height: 1.3);
     return LayoutBuilder(
       builder: (context, constraints) {
         final board = constraints.biggest;
@@ -329,29 +335,34 @@ class _DeductionViewState extends State<DeductionView>
             for (final (i, sentence) in _config.sentences.indexed)
               Positioned.fromRect(
                 rect: boardRect(sentence.rect!, board),
-                child: DecoratedBox(
-                  decoration: const BoxDecoration(
-                    color: Color(0xE6EDE4CE),
-                    boxShadow: [
-                      BoxShadow(blurRadius: 8, color: Color(0x88000000)),
-                    ],
-                  ),
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.fromLTRB(10, 6, 10, 6),
-                    child: Text.rich(
-                      TextSpan(
-                        style: tag,
-                        children: _sentence(context, i, sentence),
+                // A tag only as tall as its words: the picture shows round it.
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: DecoratedBox(
+                    decoration: const BoxDecoration(
+                      color: Color(0xCCEDE4CE),
+                      boxShadow: [
+                        BoxShadow(blurRadius: 8, color: Color(0x88000000)),
+                      ],
+                    ),
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.fromLTRB(8, 3, 8, 3),
+                      child: Text.rich(
+                        TextSpan(
+                          style: tag,
+                          children: _sentence(context, i, sentence),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
+            // The words and the check keep the right third of the board.
             Positioned(
-              left: 48,
-              right: 48,
+              left: board.width * boardWordsFrom,
+              right: 12,
+              top: 12,
               bottom: 8,
-              height: board.height * 0.3,
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -376,6 +387,7 @@ class _DeductionViewState extends State<DeductionView>
       // In a text to correct, the words as first written are print; the
       // player's are in ink.
       written: id != null && id == initial,
+      compact: _config.form == DeductionForm.board,
       onTap: () => _tapBlank(blank),
     );
   }
@@ -394,10 +406,13 @@ class _DeductionViewState extends State<DeductionView>
     BuildContext context,
     int index,
     DeductionSentence sentence, {
-    bool capitals = false,
+    bool telegram = false,
   }) {
     final written = widget.context.text(context, sentence.textKey);
-    final text = capitals ? written.toUpperCase() : written;
+    // A telegram is in capitals, and STOP stands for the full stop.
+    final text = telegram
+        ? written.toUpperCase().replaceFirst(RegExp(r'[.。]\s*$'), '')
+        : written;
     final first = _config.firstBlankOf(index);
     final spans = <InlineSpan>[];
     var at = 0;
@@ -420,6 +435,10 @@ class _DeductionViewState extends State<DeductionView>
   }
 }
 
+/// Where a board label's word column starts, as a share of the board's
+/// width: keep a board's sentence rects to the left of it.
+const boardWordsFrom = 0.64;
+
 class _Blank extends StatelessWidget {
   const _Blank({
     required this.label,
@@ -427,8 +446,12 @@ class _Blank extends StatelessWidget {
     required this.solved,
     required this.onTap,
     this.written = false,
+    this.compact = false,
     super.key,
   });
+
+  /// Smaller, for tags pinned to a picture.
+  final bool compact;
 
   final String? label;
   final bool selected;
@@ -447,9 +470,12 @@ class _Blank extends StatelessWidget {
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
-        margin: const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-        constraints: const BoxConstraints(minWidth: 72, minHeight: 32),
+        margin: EdgeInsets.symmetric(horizontal: 3, vertical: compact ? 1 : 2),
+        padding: EdgeInsets.symmetric(horizontal: 8, vertical: compact ? 1 : 3),
+        constraints: BoxConstraints(
+          minWidth: compact ? 56 : 72,
+          minHeight: compact ? 26 : 32,
+        ),
         decoration: BoxDecoration(
           color: selected
               ? StillroomPalette.gaslight.withValues(alpha: 0.35)
@@ -470,7 +496,7 @@ class _Blank extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontFamily: AppTheme.serif,
-            fontSize: 18,
+            fontSize: compact ? 15 : 18,
             fontStyle: text == null || written
                 ? FontStyle.normal
                 : FontStyle.italic,

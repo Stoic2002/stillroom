@@ -1,32 +1,62 @@
 {
   "id": "jar_label",
   "type": "deduction",
-  "background": "images/scenes/pompeii_79/label_close.png",
+  "background": "images/scenes/pompeii_79/label_section.png",
   "config": {
+    "form": "board",
     "sentences": [
       {
-        "textKey": "pompeii_79.label.s1",
+        "textKey": "pompeii_79.label.b1",
         "blanks": [
-          "autumn",
-          "pine_tree",
-          "pumice"
+          "year_1863"
+        ],
+        "rect": [
+          0.03,
+          0.035,
+          0.56,
+          0.14
         ]
       },
       {
-        "textKey": "pompeii_79.label.s2",
-        "blanks": [
-          "felix",
-          "bread",
-          "marina_gate",
-          "pillows"
-        ]
-      },
-      {
-        "textKey": "pompeii_79.label.s3",
+        "textKey": "pompeii_79.label.b2",
         "blanks": [
           "dawn",
-          "surge",
-          "year_1863"
+          "surge"
+        ],
+        "rect": [
+          0.03,
+          0.2,
+          0.56,
+          0.13
+        ]
+      },
+      {
+        "textKey": "pompeii_79.label.b3",
+        "blanks": [
+          "pine_tree",
+          "pumice",
+          "felix",
+          "marina_gate",
+          "pillows"
+        ],
+        "rect": [
+          0.03,
+          0.37,
+          0.56,
+          0.33
+        ]
+      },
+      {
+        "textKey": "pompeii_79.label.b4",
+        "blanks": [
+          "autumn",
+          "bread"
+        ],
+        "rect": [
+          0.03,
+          0.745,
+          0.56,
+          0.21
         ]
       }
     ],

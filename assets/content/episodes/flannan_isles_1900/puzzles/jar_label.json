@@ -3,11 +3,16 @@
   "type": "deduction",
   "background": "images/scenes/flannan_isles_1900/label_close.png",
   "config": {
+    "form": "correction",
     "sentences": [
       {
         "textKey": "flannan_isles_1900.label.s1",
         "blanks": [
           "date_15dec",
+          "time_9am"
+        ],
+        "initial": [
+          "date_13dec",
           "time_9am"
         ]
       },
@@ -19,11 +24,21 @@
           "west_landing",
           "mcarthur",
           "shirtsleeves"
+        ],
+        "initial": [
+          "marshall",
+          "ducat",
+          "east_landing",
+          "mcarthur",
+          "shirtsleeves"
         ]
       },
       {
         "textKey": "flannan_isles_1900.label.s3",
         "blanks": [
+          "great_sea"
+        ],
+        "initial": [
           "great_sea"
         ]
       }

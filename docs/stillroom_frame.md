@@ -70,18 +70,19 @@ tracing sheets (after *Her Trees*).
 **Every tale plays differently (decided 2026-09-29).** Each tale brings one
 or two mechanics of its own, tied to its story, and does not reuse another
 tale's puzzles just to gate the way. Only the frame is shared: the words,
-the jar's label, and the keeper's secret. The first three tales were built
-before this rule and still share puzzle types:
+the jar's label, and the keeper's secret. Even the label differs: each
+tale writes it in its own form.
 
-| Tale | Its puzzles | Shared with another tale |
+| Tale | Its own mechanics | Its label |
 |---|---|---|
-| *Whitechapel, 1888* | Candles in order, desk code lock, five frames, street compass rings, fog and hearth ash wiped | Code lock, sequence, rings, slots, wipe |
-| *Semarang, 1945* | Doors into other years, clock and locker code locks, stained-glass rings, telegraph and timetable sequences, lockers, telegram rubbing | Code lock, sequence, rings, slots |
-| *Flannan Isles, 1900* | Dark scenes by lantern light, clockwork crank, gate code lock, salt wiped from a plate | Code lock, wipe |
-| *Pompeii, 79* | Lens between eras, stack of tracing sheets | None |
+| *Whitechapel, 1888* | A clock-face lock set to the stopped hour; a red thread through five streets on a map; fog and ash wiped away; a lens and frame made into a magnifier | A ledger: the five frames, a name and a place under each date |
+| *Semarang, 1945* | Doors into other years; code locks (the station clock, the locker room); the timetable and the telegraph in order; the stained-glass rings; the lockers | A telegram, STOP between the lines |
+| *Flannan Isles, 1900* | Dark scenes by lantern light; the clockwork crank | The legend's account, to be corrected |
+| *Pompeii, 79* | The lens between eras; the stack of tracing sheets | Tags pinned to the layers of the diggers' cut |
 
-Whether to rework the older tales' shared puzzles is the developer's call
-(_open_).
+The first three tales were reworked on 2026-09-29 to follow this rule:
+Whitechapel lost its code lock, candle sequence, compass rings, and frame
+slots; Semarang its pencil rubbing; Flannan its gate code and salt wiping.
 
 ## Echoes (decided 2026-09-26)
 

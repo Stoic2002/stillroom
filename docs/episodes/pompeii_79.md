@@ -101,14 +101,17 @@ figures are hollows in the ash, not bodies turned to stone.
 | 10 | The jar's label | `deduction` at the shrine | All of the above | The tale is distilled |
 | 11 | Secret (optional) | lens → ruin | Through the lens, a clay horse pushed into the niche under the stair | The keeper's note |
 
-**The label** (draft):
+**The label** (form `board`, reworked 2026-09-29): the diggers' cut, a tag
+on every layer, read from the bottom up.
 
-1. "It was {autumn} in this house. Over Vesuvius a cloud rose like {a pine
-   tree}, and {pumice} fell on the city all afternoon and all night."
-2. "{Felix} the baker left his {bread} in the oven and led his family out
+1. Garden soil: "Beneath it all, the last ordinary day: it was {autumn}
+   in this house, and there was {bread} in the oven."
+2. Pumice: "Over Vesuvius a cloud rose like {a pine tree}, and {pumice}
+   fell all afternoon and all night. {Felix} the baker led his family out
    through {the Marina Gate}, {pillows} tied on their heads."
-3. "Those who stayed were caught at {dawn} by {a burning cloud}. In {1863}
-   the hollows they left in the ash were filled with plaster."
+3. Ash: "At {dawn}, {a burning cloud} took those who stayed."
+4. The surface: "In {1863}, the hollows they left in the ash were filled
+   with plaster."
 
 Decoys: 24 August, lava, the Vesuvius Gate, 1748.
 

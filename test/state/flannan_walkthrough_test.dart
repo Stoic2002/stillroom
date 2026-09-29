@@ -57,15 +57,6 @@ void main() {
   });
 
   test('the hinted solutions solve each puzzle', () {
-    var gate = (content().requirePuzzle('gate_lock').config as CodeLockConfig)
-        .start();
-    for (final (slot, turns) in [(0, 0), (1, 7), (2, 1), (3, 2)]) {
-      for (var i = 0; i < turns; i++) {
-        gate = gate.rotate(slot, 1);
-      }
-    }
-    expect(gate.isSolved, isTrue, reason: '7 · XII = 0712');
-
     var crank = (content().requirePuzzle('clockwork').config as CrankConfig)
         .start();
     crank = crank.turn(-math.pi); // the ratchet holds
@@ -81,12 +72,12 @@ void main() {
     expect(stage(), 'stage:open_gate');
     expect(now().engine.darkness(now().game), isNull);
 
-    // The gate: the plaque's date, day and month.
+    // The gate: its latch lifts.
     play.tapScene(0.6, 0.4); // plaque
     readAll();
     play.tapScene(0.51, 0.49); // gate
     readAll();
-    solve('gate_lock');
+    expect(now().game.flags['gate_open'], isTrue);
     play.tapScene(0.51, 0.49); // through the open gate
     expect(now().game.sceneId, 'yard');
     expect(stage(), 'stage:light_lantern');
@@ -171,8 +162,8 @@ void main() {
     expect(now().game.sceneId, 'west_landing');
     play.tapScene(0.2, 0.6); // railings
     readAll();
-    play.tapScene(0.55, 0.27); // the salt-crusted plate
-    solve('rope_plate');
+    play.tapScene(0.55, 0.27); // the plate where the rope box stood
+    readAll();
     expect(stage(), 'stage:write_label');
 
     // Back to the lamp: the jar's label.
@@ -196,6 +187,13 @@ void main() {
       containsAll(['chair', 'meal', 'storm_log', 'date_13dec']),
       reason: 'the legend and the log are there to mislead',
     );
+    // The label starts written the legend's way: wrong in four places.
+    expect(deduction.filled, hasLength(label.answers.length));
+    expect(deduction.check(), isA<DeductionWrong>());
+    expect([
+      for (final (i, answer) in label.answers.indexed)
+        if (deduction.filled[i] != answer) i,
+    ], hasLength(4));
     for (final (i, answer) in label.answers.indexed) {
       deduction = deduction.fill(i, answer);
     }

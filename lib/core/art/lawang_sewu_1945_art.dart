@@ -19,7 +19,6 @@ const _i = 'images/items/lawang_sewu_1945';
 
 final Map<String, ArtPainter> lawangSewuArt = {
   '$_s/label_close.png': (c, s) => jarLabelBoard(Art(c, s), _wall),
-  '$_o/telegram_pad_rubbed.png': (c, s) => _telegramRubbed(Art(c, s)),
   '$_o/door_929_sprite.png': (c, s) => _door929(Art(c, s)),
   '$_o/echo_worker.png': (c, s) => paintEcho(Art(c, s), EchoFigure.worker),
   '$_o/echo_clerk.png': (c, s) => paintEcho(Art(c, s), EchoFigure.clerk),

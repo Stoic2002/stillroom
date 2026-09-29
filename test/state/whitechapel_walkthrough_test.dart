@@ -52,7 +52,15 @@ void main() {
     expect(now().game.sceneId, 'room_north');
     expect(stage(), 'stage:open_drawer');
 
-    // 1. The desk drawer: code from the stopped clock.
+    // 1. The desk drawer: its clock-face lock, set to the stopped clock.
+    final drawer =
+        now().engine.content.requirePuzzle('desk_drawer').config
+            as ClockHandsConfig;
+    expect(
+      drawer.start().pointHour(3).pointMinute(40).isSolved,
+      isTrue,
+      reason: 'the hint: III and VIII, 3:40',
+    );
     play.tapScene(0.7, 0.69); // desk (exit area)
     expect(now().game.sceneId, 'desk');
     play.tapScene(0.5, 0.77); // drawer
@@ -63,22 +71,33 @@ void main() {
     );
     expect(stage(), 'stage:light_candles');
 
-    // 2. Candles on the mantel, lit in the order of the clippings.
+    // 2. The candles on the mantel, lit with the matches.
     play
       ..takeExit('back')
       ..takeExit('right')
       ..tapInventoryItem('matches')
       ..tapScene(0.5, 0.42); // candles
-    solve('candles');
+    readAll();
+    expect(now().game.flags['candles_ready'], isTrue);
     expect(now().game.inventory, contains('name_card_chapman'));
 
-    // 3. The street map by the window.
+    // 3. The street map by the window: the red thread, oldest first.
+    final thread =
+        now().engine.content.requirePuzzle('street_thread').config
+            as ThreadConfig;
+    var wool = thread.start();
+    wool = wool.reach('bucks_row').reach('berner_street');
+    expect(wool.path, isEmpty, reason: 'a wrong pin snaps the thread');
+    for (final pin in thread.solution) {
+      wool = wool.reach(pin);
+    }
+    expect(wool.isSolved, isTrue);
     play
       ..takeExit('left')
       ..tapScene(0.27, 0.35); // window (exit area)
     expect(now().game.sceneId, 'window');
     play.tapScene(0.73, 0.42); // street map
-    solve('street_compass');
+    solve('street_thread');
     expect(
       now().game.inventory,
       containsAll(['name_card_stride', 'name_card_eddowes']),
@@ -106,34 +125,26 @@ void main() {
       ..tapScene(0.67, 0.27); // faded paper
     readAll();
     expect(now().game.inventory, contains('name_card_kelly'));
-    expect(stage(), 'stage:place_names');
-
-    // 6. Return the five names to their frames.
-    play
-      ..takeExit('back')
-      ..takeExit('left') // room_west
-      ..tapScene(0.5, 0.33); // frames
-    final frames = now().engine.content.requirePuzzle('five_frames');
-    final placement = (frames.config as SlotPlacementConfig).start(now().game);
-    expect(placement.available, hasLength(5), reason: 'all names collected');
-    solve('five_frames');
-    expect(now().game.flags['names_restored'], isTrue);
-    expect(now().game.inventory, isNot(contains('name_card_kelly')));
     expect(stage(), 'stage:write_label');
 
-    // 7. Note the words the label needs: the restored frames give names
-    // and the last date, the clippings the streets.
-    play.tapScene(0.5, 0.33); // frames, restored
-    readAll();
+    // 6. Each card names her and says where she was found (read in the
+    // close-up view).
+    for (final n in ['nichols', 'chapman', 'stride', 'eddowes', 'kelly']) {
+      final desc = now()
+          .episode
+          .strings['en']!['item.whitechapel_1888.name_card_$n.desc']!;
+      markedWords(desc).forEach(play.noteWord);
+    }
+
+    // 7. The clippings give the streets too.
     play
-      ..takeExit('right') // room_north
-      ..tapScene(0.7, 0.69) // desk
+      ..takeExit('back')
       ..tapScene(0.25, 0.28); // clippings
     readAll();
+    play.takeExit('back');
 
     // 8. Wipe the fog on the window (not needed, but it helps).
     play
-      ..takeExit('back')
       ..tapScene(0.27, 0.35) // window
       ..tapScene(0.2, 0.5); // fog
     readAll();
@@ -154,10 +165,16 @@ void main() {
       'whitechapel_1888.keeper.note',
     );
 
-    // 10. The door asks for the jar's label: the deduction.
+    // 10. The frames on the west wall are the jar's label: a ledger of
+    // five dates, a name and a place under each.
     play
       ..takeExit('right') // room_south
-      ..tapScene(0.5, 0.5);
+      ..tapScene(0.5, 0.5); // the door stays shut
+    readAll();
+    expect(now().game.completed, isFalse);
+    play
+      ..takeExit('right') // room_west
+      ..tapScene(0.5, 0.33); // frames
     readAll();
     expect(now().openPuzzle, 'jar_label');
     final label =
@@ -174,6 +191,15 @@ void main() {
     }
     expect(deduction.isSolved, isTrue);
     play.solvePuzzle('jar_label');
+    readAll();
+    expect(now().game.flags['names_restored'], isTrue);
+    expect(now().game.inventory, isNot(contains('name_card_kelly')));
+    expect(stage(), 'stage:leave');
+
+    // 11. The door lets the keeper go.
+    play
+      ..takeExit('left') // room_south
+      ..tapScene(0.5, 0.5);
     readAll();
     expect(now().game.completed, isTrue);
     expect(container.read(saveRepositoryProvider).isCompleted(episode), isTrue);

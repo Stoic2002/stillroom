@@ -28,39 +28,12 @@
       ]
     },
     {
-      "id": "rope_plate",
-      "rect": [
-        0.46,
-        0.18,
-        0.18,
-        0.18
-      ],
-      "when": [
-        {
-          "puzzleSolved": "rope_plate",
-          "equals": false
-        }
-      ],
-      "onTap": [
-        {
-          "type": "openPuzzle",
-          "puzzle": "rope_plate"
-        }
-      ]
-    },
-    {
       "id": "rope_box",
       "rect": [
         0.46,
         0.18,
         0.18,
         0.18
-      ],
-      "when": [
-        {
-          "puzzleSolved": "rope_plate",
-          "equals": true
-        }
       ],
       "onTap": [
         {
@@ -109,11 +82,6 @@
         0.2,
         0.1,
         0.12
-      ],
-      "when": [
-        {
-          "puzzleSolved": "rope_plate"
-        }
       ]
     }
   ],

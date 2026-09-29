@@ -3,31 +3,45 @@
   "type": "deduction",
   "background": "images/scenes/whitechapel_1888/label_close.png",
   "config": {
+    "form": "table",
+    "columns": [
+      "whitechapel_1888.label.col_name",
+      "whitechapel_1888.label.col_place"
+    ],
     "sentences": [
       {
-        "textKey": "whitechapel_1888.label.s1",
+        "textKey": "whitechapel_1888.frame.aug31",
         "blanks": [
           "nichols",
-          "bucks_row",
+          "bucks_row"
+        ]
+      },
+      {
+        "textKey": "whitechapel_1888.frame.sep08",
+        "blanks": [
           "chapman",
           "hanbury_street"
         ]
       },
       {
-        "textKey": "whitechapel_1888.label.s2",
+        "textKey": "whitechapel_1888.frame.sep30a",
         "blanks": [
           "stride",
-          "berner_street",
+          "berner_street"
+        ]
+      },
+      {
+        "textKey": "whitechapel_1888.frame.sep30b",
+        "blanks": [
           "eddowes",
           "mitre_square"
         ]
       },
       {
-        "textKey": "whitechapel_1888.label.s3",
+        "textKey": "whitechapel_1888.frame.nov09",
         "blanks": [
           "kelly",
-          "millers_court",
-          "nov09"
+          "millers_court"
         ]
       }
     ],
@@ -54,15 +68,38 @@
       "sound": "bell_toll"
     },
     {
-      "type": "showText",
-      "key": "whitechapel_1888.label.done"
+      "type": "removeItem",
+      "item": "name_card_nichols"
+    },
+    {
+      "type": "removeItem",
+      "item": "name_card_chapman"
+    },
+    {
+      "type": "removeItem",
+      "item": "name_card_stride"
+    },
+    {
+      "type": "removeItem",
+      "item": "name_card_eddowes"
+    },
+    {
+      "type": "removeItem",
+      "item": "name_card_kelly"
+    },
+    {
+      "type": "setFlag",
+      "flag": "names_restored",
+      "value": true
+    },
+    {
+      "type": "shake",
+      "durationMs": 600,
+      "strength": 0.3
     },
     {
       "type": "showText",
-      "key": "whitechapel_1888.door.leave"
-    },
-    {
-      "type": "endEpisode"
+      "key": "whitechapel_1888.frames.solved"
     }
   ],
   "hints": [

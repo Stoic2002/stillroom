@@ -3,6 +3,7 @@
   "type": "deduction",
   "background": "images/scenes/lawang_sewu_1945/label_close.png",
   "config": {
+    "form": "telegram",
     "sentences": [
       {
         "textKey": "lawang_sewu_1945.label.s1",

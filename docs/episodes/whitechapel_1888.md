@@ -50,22 +50,20 @@ about their lives or deaths is invented.
 | `desk` | Newspaper clippings, a faded paper, the locked drawer |
 | `window` | Fog over the street, a street map pinned to the frame |
 
-## Puzzle flow
+## Puzzle flow (reworked 2026-09-29: only Whitechapel's own mechanics)
 
-| # | Puzzle | Type | Clue | Reward |
+| # | Beat | Type | Clue | Reward |
 |---|---|---|---|---|
-| 1 | `desk_drawer` | codeLock `0340` | Mantel clock stopped at 3:40 | matches, letter, **Nichols** |
-| 2 | `candles` | sequence (5 candles labelled with streets) | Clippings on the desk list the streets oldest first | **Chapman** |
-| 3 | `street_compass` | rotaryAlign (3 rings, outer drags middle) | Unfolding the letter: "every street points north" | **Stride**, **Eddowes** (the same night) |
-| 4 | lens + brass frame | combination → magnifier | Lens in the coat, frame on the floor | magnifier |
-| 5 | faded paper | use magnifier on it | — | **Kelly** |
-| 6 | `five_frames` | slotPlacement (frames labelled by date) | Dates on the frames | Names restored, door opens |
-| 7 | door | endEpisode | — | The tale is distilled |
+| 1 | `desk_drawer` | `clockHands`, set to **3:40** (starts at 9:00) | Mantel clock stopped at 3:40 | matches, letter, **Nichols** |
+| 2 | Candles | use the matches on them (no puzzle) | — | **Chapman** |
+| 3 | `street_thread` | `thread` through five pinned streets, oldest first | The clippings are pinned oldest first; the letter holds a map with red wool | **Stride**, **Eddowes** (the same night) |
+| 4 | Lens + brass frame | combination → magnifier | Lens in the coat, frame on the floor | magnifier |
+| 5 | Faded paper | use the magnifier on it | — | **Kelly** |
+| 6 | `jar_label` at the five frames | `deduction`, form `table`: a name and a place under each date | Each card names her and where she was found | Names restored, the door opens |
+| 7 | Door | leave (`endEpisode`) | — | The tale is distilled |
 
-The candles need fire first: use the matches on them (`candles_ready`).
-
-Hint stages (`game.json` → `hintStages`, first match wins): `leave` →
-`place_names` → `light_candles` → `open_drawer` → `find_names`.
+Hint stages (first match wins): `leave` → `write_label` (all five cards
+found) → `light_candles` → `open_drawer` → `find_names`.
 
 ## Text
 
@@ -82,12 +80,12 @@ When rewriting, three texts must keep their clue:
 
 | Key | Must convey |
 |---|---|
-| `whitechapel_1888.clock.look` | The clock stopped at 3:40 (code `0340`) |
-| `whitechapel_1888.clippings.look` | The five streets, oldest first |
-| `whitechapel_1888.letter.unfolded` | Every arrow points north |
+| `whitechapel_1888.clock.look` | The clock stopped at 3:40 (the drawer's clock) |
+| `whitechapel_1888.clippings.look` | The five streets, oldest first (the thread) |
+| `item.whitechapel_1888.name_card_*.desc` | Her name and where she was found, marked (the label) |
 
 Solution hints must stay correct if a puzzle changes: `desk_drawer.3`,
-`candles.3`, `street_compass.3`, and `five_frames.3`.
+`street_thread.3`, and `jar_label.3`.
 
 ## Assets to produce
 
@@ -171,14 +169,9 @@ Placeholders are drawn for anything missing; see `docs/art_style_guide.md`.
 - **The fog on the window** (`window_fog`, reveal/wipe): wiped from the
   inside, it shows *Berner St. — Mitre Sq.*, the two women found within one
   hour of each other.
-- **The jar's label** (`jar_label`, deduction): the door asks for the label
-  before it lets the player go. Three sentences, 11 blanks, 13 words in the
-  bank (the decoys are 31 August and 8 September).
-  1. "{Nichols} was found in {Buck's Row} on 31 August; eight days later,
-     {Chapman} was found in {Hanbury Street}."
-  2. "On one night, within the hour, {Stride} in {Berner Street} and
-     {Eddowes} in {Mitre Square}."
-  3. "The last, {Kelly}, was found in her own room in {Miller's Court}, on
-     {9 November 1888}."
+- **The jar's label** (`jar_label`, deduction, form `table`): the five
+  frames on the west wall. Each row is a date; the player writes her name
+  and the place she was found. Ten blanks; the three dates in the bank are
+  decoys. Writing it restores the names and opens the door.
 - **Secret:** look into the hearth a second time and brush the ash aside
   (`hearth_ash`): a scrap in the keeper's hand. The note text is a draft.

@@ -117,6 +117,17 @@ answers with her horn. "The Flannan light was lit that night by another
 keeper. It has not missed a night since." (It was automated in 1971.) The
 three names are the last thing on the label.
 
+## Rework (2026-09-29)
+
+Flannan keeps only its own mechanics: the dark scenes and the crank.
+- **The gate** has a latch the player lifts; the plaque's date stays as
+  a fact, not a code.
+- **The rope-box plate** is read at once (no salt to wipe).
+- **The jar's label** is a **correction** (form `correction`): it starts
+  as the legend tells it. The day is 13 December, the Principal and
+  his assistant are swapped, and the men are sent to the east landing.
+  The player corrects four words.
+
 ## Audio (ids)
 
 - **Music:** `flannan_wind` (the sea, the wind, a low drone).

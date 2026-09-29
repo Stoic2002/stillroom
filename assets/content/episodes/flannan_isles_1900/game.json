@@ -1,6 +1,7 @@
 {
   "startScene": "east_landing",
   "flags": {
+    "gate_open": false,
     "lamp_door_open": false,
     "lamp_lit": false,
     "found_hook": false
@@ -97,8 +98,7 @@
           "equals": true
         },
         {
-          "puzzleSolved": "rope_plate",
-          "equals": true
+          "wordNoted": "great_sea"
         }
       ],
       "hints": [
@@ -181,7 +181,7 @@
       "id": "light_lantern",
       "when": [
         {
-          "puzzleSolved": "gate_lock",
+          "flag": "gate_open",
           "equals": true
         }
       ],

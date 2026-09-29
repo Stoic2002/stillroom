@@ -23,7 +23,6 @@ final Map<String, ArtPainter> whitechapelArt = {
   '$_s/desk.png': (c, s) => _deskScene(Art(c, s)),
   '$_s/window.png': (c, s) => _windowScene(Art(c, s)),
   '$_s/drawer_lock_close.png': (c, s) => _drawerBoard(Art(c, s)),
-  '$_s/candles_close.png': (c, s) => _candleBoard(Art(c, s)),
   '$_s/street_map_close.png': (c, s) => _mapBoard(Art(c, s)),
   '$_s/frames_close.png': (c, s) => _framesBoard(Art(c, s)),
   '$_s/label_close.png': (c, s) => jarLabelBoard(Art(c, s), _north.base),
@@ -59,24 +58,6 @@ final Map<String, ArtPainter> whitechapelArt = {
   '$_o/street_map_solved_sprite.png': (c, s) => _streetMapSolved(Art(c, s)),
   '$_o/hearth_note_sprite.png': (c, s) => _hearthScrap(Art(c, s)),
   '$_o/gaslamp_sprite.png': (c, s) => _gaslamp(Art(c, s)),
-  '$_o/candle.png': (c, s) {
-    final a = Art(c, s);
-    a.candle(a.p(0.5, 0.98), s.height * 0.66);
-  },
-  '$_o/candle_lit.png': (c, s) {
-    final a = Art(c, s);
-    a.candle(a.p(0.5, 0.98), s.height * 0.66, lit: true);
-  },
-  '$_o/compass_outer.png': (c, s) =>
-      _ring(Art(c, s), inner: 0.72, steps: 8, tone: StillroomPalette.paper),
-  '$_o/compass_middle.png': (c, s) => _ring(
-    Art(c, s),
-    inner: 0.615,
-    steps: 8,
-    tone: StillroomPalette.paperShade,
-  ),
-  '$_o/compass_inner.png': (c, s) =>
-      _ring(Art(c, s), inner: 0.375, steps: 4, tone: StillroomPalette.paper),
   '$_o/letter_street_names.png': (c, s) => _letterMap(Art(c, s)),
   // Items.
   '$_i/matches.png': (c, s) => _matches(Art(c, s)),
@@ -213,6 +194,9 @@ void _windowScene(Art a) {
 // Puzzle boards (16:9)
 
 void _drawerBoard(Art a) {
+  // The drawer front, and a brass bezel round the clock-face lock.
+  final c = a.p(0.5, 0.5);
+  final r = a.size.shortestSide * 0.45;
   a
     ..wood(Offset.zero & a.size, grain: 9)
     ..wood(
@@ -220,41 +204,70 @@ void _drawerBoard(Art a) {
       base: StillroomPalette.walnutLight,
       grain: 6,
     )
-    ..rbox(a.r(0.24, 0.2, 0.52, 0.6), a.u * 2, const Color(0xFF6E5A30))
-    ..rbox(
-      a.r(0.26, 0.23, 0.48, 0.54),
-      a.u * 1.5,
-      StillroomPalette.brass,
-      line: 0.4,
-    )
-    ..circle(a.p(0.5, 0.86), a.u * 2.4, const Color(0xFF6E5A30))
-    ..fill(a.r(0.497, 0.86, 0.006, 0.05), Art.outline);
+    ..circle(c, r, const Color(0xFF6E5A30))
+    ..circle(c, r * 0.95, StillroomPalette.brass, line: 0.4)
+    ..circle(a.p(0.5, 0.94), a.u * 1.6, const Color(0xFF6E5A30));
 }
 
-void _candleBoard(Art a) {
-  a
-    ..wallpaper(a.r(0, 0, 1, 0.7), _east.base, _east.stripe, every: 0.07)
-    ..fade(a.r(0, 0, 1, 0.3), const Color(0xAA000000), const Color(0x00000000))
-    ..wood(a.r(0.02, 0.68, 0.96, 0.06), grain: 2)
-    ..fill(a.r(0.06, 0.74, 0.88, 0.26), const Color(0xFF1B1714))
-    ..fill(a.r(0.2, 0.78, 0.6, 0.22), const Color(0xFF080605));
-}
+/// Where the five places are on the street map, as in the thread puzzle
+/// (`puzzles/street_thread.json`): east is to the right.
+const _mapPlaces = [
+  (0.74, 0.3),
+  (0.46, 0.22),
+  (0.64, 0.68),
+  (0.28, 0.62),
+  (0.36, 0.36),
+];
 
 void _mapBoard(Art a) {
   a.fill(Offset.zero & a.size, const Color(0xFF1B1714));
-  final sheet = a.r(0.18, 0.03, 0.64, 0.94);
+  final sheet = a.r(0.12, 0.03, 0.76, 0.94);
   a.box(sheet, const Color(0xFFCDBD98));
+  final street = StillroomPalette.inkOnPaper.withValues(alpha: 0.45);
+  final lane = StillroomPalette.inkOnPaper.withValues(alpha: 0.22);
+  // The main roads: Whitechapel Road east to west, Commercial Street up
+  // through Spitalfields, Commercial Road down to the south-east.
+  a
+    ..line(a.p(0.2, 0.5), a.p(0.86, 0.36), street, width: 1.6)
+    ..line(a.p(0.42, 0.06), a.p(0.36, 0.5), street, width: 1.4)
+    ..line(a.p(0.36, 0.5), a.p(0.86, 0.82), street, width: 1.4);
   final random = math.Random(1888);
-  for (var i = 0; i < 14; i++) {
-    final y = sheet.top + sheet.height * random.nextDouble();
+  for (var i = 0; i < 26; i++) {
+    final x = 0.14 + random.nextDouble() * 0.72;
+    final y = 0.06 + random.nextDouble() * 0.88;
+    final horizontal = random.nextBool();
+    final length = 0.05 + random.nextDouble() * 0.1;
     a.line(
-      Offset(sheet.left, y),
-      Offset(sheet.right, y + (random.nextDouble() - 0.5) * sheet.height * 0.3),
-      StillroomPalette.inkOnPaper.withValues(alpha: 0.25),
-      width: 0.5,
+      a.p(x, y),
+      horizontal ? a.p(x + length, y + 0.01) : a.p(x + 0.01, y + length),
+      lane,
+      width: 0.6,
     );
   }
-  for (final (x, y) in [(0.2, 0.05), (0.8, 0.05), (0.2, 0.95), (0.8, 0.95)]) {
+  // The river along the bottom.
+  a.fill(a.r(0.12, 0.9, 0.76, 0.07), const Color(0xFF9DA7A0));
+  // A small cross at each place, in brown ink.
+  for (final (x, y) in _mapPlaces) {
+    a
+      ..line(
+        a.p(x - 0.012, y - 0.02),
+        a.p(x + 0.012, y + 0.02),
+        const Color(0xFF6A3A22),
+        width: 0.6,
+      )
+      ..line(
+        a.p(x + 0.012, y - 0.02),
+        a.p(x - 0.012, y + 0.02),
+        const Color(0xFF6A3A22),
+        width: 0.6,
+      );
+  }
+  for (final (x, y) in [
+    (0.14, 0.05),
+    (0.86, 0.05),
+    (0.14, 0.95),
+    (0.86, 0.95),
+  ]) {
     a.circle(a.p(x, y), a.u * 1.2, StillroomPalette.oxblood, line: 0.3);
   }
 }
@@ -615,20 +628,11 @@ void _streetMap(Art a) {
       width: 0.8,
     );
   }
-  // Compass rose.
-  final c = a.p(0.72, 0.72);
-  final r = a.size.shortestSide * 0.14;
-  a
-    ..circle(c, r, const Color(0x00000000), line: 0.5)
-    ..path(
-      a.poly([
-        c.translate(0, -r * 1.2),
-        c.translate(r * 0.2, 0),
-        c.translate(-r * 0.2, 0),
-      ]),
-      StillroomPalette.oxblood,
-      line: 0.3,
-    );
+  // Five pins, and a loose end of red wool.
+  for (final (x, y) in _mapPlaces) {
+    a.circle(a.p(x, y), a.u * 1.4, StillroomPalette.brass, line: 0.3);
+  }
+  a.line(a.p(0.74, 0.3), a.p(0.9, 0.2), const Color(0xFFB0232A), width: 0.8);
   for (final (x, y) in [
     (0.06, 0.06),
     (0.94, 0.06),
@@ -665,84 +669,32 @@ void _gaslamp(Art a) {
     );
 }
 
-/// One compass ring as a full-circle picture: an annulus from the edge to
-/// [inner] × radius, with step ticks and an arrow at step 0 (the top).
-void _ring(
-  Art a, {
-  required double inner,
-  required int steps,
-  required Color tone,
-}) {
-  final c = a.p(0.5, 0.5);
-  final outer = a.size.shortestSide / 2;
-  final width = outer * (1 - inner);
-  final mid = outer - width / 2;
-  a.canvas
-    ..drawCircle(
-      c,
-      mid,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = width * 0.94
-        ..color = tone,
-    )
-    ..drawCircle(
-      c,
-      outer * 0.995,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = a.u * 0.6
-        ..color = Art.outline,
-    )
-    ..drawCircle(
-      c,
-      outer * inner,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = a.u * 0.6
-        ..color = Art.outline,
-    );
-  for (var s = 0; s < steps; s++) {
-    final angle = 2 * math.pi * s / steps;
-    final dir = Offset(math.sin(angle), -math.cos(angle));
-    a.line(
-      c + dir * (outer - width * 0.15),
-      c + dir * (outer - width * 0.35),
-      StillroomPalette.inkOnPaper.withValues(alpha: 0.6),
-      width: 0.5,
-    );
-  }
-  a.path(
-    a.poly([
-      c.translate(0, -outer + width * 0.08),
-      c.translate(-width * 0.22, -outer + width * 0.62),
-      c.translate(width * 0.22, -outer + width * 0.62),
-    ]),
-    StillroomPalette.oxblood,
-    line: 0.3,
-  );
-}
-
+/// Inside the letter: five streets in brown ink, a pin in each, and red
+/// wool tied to the first.
 void _letterMap(Art a) {
   a.box(Offset.zero & a.size, const Color(0xFFCFC2A2), line: 0.4);
   const brown = Color(0xFF5A3A22);
-  for (var i = 0; i < 5; i++) {
-    final x = 0.12 + i * 0.19;
-    final base = a.p(x, 0.85);
-    final tip = a.p(x + (i.isEven ? 0.02 : -0.02), 0.2);
+  final random = math.Random(31);
+  for (final (x, y) in _mapPlaces) {
+    final angle = random.nextDouble() * 3.1;
+    final d = Offset(math.cos(angle), math.sin(angle)) * a.size.width * 0.1;
     a
-      ..line(base, tip, brown, width: 0.9)
-      ..path(
-        a.poly([
-          tip.translate(0, -a.u * 4),
-          tip.translate(-a.u * 2.5, a.u * 2),
-          tip.translate(a.u * 2.5, a.u * 2),
-        ]),
-        brown,
-        line: 0,
-      );
+      ..line(a.p(x, y) - d, a.p(x, y) + d, brown, width: 0.9)
+      ..circle(a.p(x, y), a.u * 2, StillroomPalette.brass, line: 0.3);
   }
-  a.label('N', a.p(0.5, 0.12), a.size.height * 0.16, brown);
+  final start = a.p(_mapPlaces.first.$1, _mapPlaces.first.$2);
+  a.strokePath(
+    Path()
+      ..moveTo(start.dx, start.dy)
+      ..quadraticBezierTo(
+        start.dx + a.size.width * 0.1,
+        start.dy + a.size.height * 0.3,
+        start.dx - a.size.width * 0.05,
+        start.dy + a.size.height * 0.5,
+      ),
+    const Color(0xFFB0232A),
+    width: 1,
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -1099,28 +1051,21 @@ void jarLabelBoard(Art a, Color wall) {
     ..hairline(a.p(0.08, 0.1), a.p(0.06, 0.9), const Color(0x18FFFFFF), 2);
 }
 
-/// Over the street map once solved: five streets, five arrows, all north.
+/// Over the street map once solved: the red thread through all five pins.
 void _streetMapSolved(Art a) {
   a.glow(
-    a.p(0.72, 0.72),
-    a.size.shortestSide * 0.4,
+    a.p(0.5, 0.45),
+    a.size.shortestSide * 0.5,
     StillroomPalette.gaslight,
-    strength: 0.3,
+    strength: 0.25,
   );
-  for (var i = 0; i < 5; i++) {
-    final x = 0.14 + i * 0.12;
-    final y = 0.26 + (i % 2) * 0.16;
-    a
-      ..line(a.p(x, y + 0.14), a.p(x, y), StillroomPalette.oxblood, width: 1)
-      ..path(
-        a.poly([
-          a.p(x - 0.03, y + 0.03),
-          a.p(x, y - 0.02),
-          a.p(x + 0.03, y + 0.03),
-        ]),
-        StillroomPalette.oxblood,
-        line: 0,
-      );
+  a.strokePath(
+    Path()..addPolygon([for (final (x, y) in _mapPlaces) a.p(x, y)], false),
+    const Color(0xFFB0232A),
+    width: 1,
+  );
+  for (final (x, y) in _mapPlaces) {
+    a.circle(a.p(x, y), a.u * 1.4, const Color(0xFFB0232A), line: 0.3);
   }
 }
 

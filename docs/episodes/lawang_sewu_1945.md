@@ -104,6 +104,10 @@ hears the building's memory of 15–19 October 1945, the Battle of Five Days;
 the young railway workers across the square at Wilhelminaplein; and, "across
 the road, one day, Tugu Muda will stand." Then the last door closes.
 
+**Reworked 2026-09-29.** The telegram pad is read directly (its pencil
+rubbing belongs to no tale now), and the jar's label is a **telegram**
+(form `telegram`): the three sentences in capitals, STOP between them.
+
 ## Hint stages (first match wins)
 
 `light_the_glass` (belongings returned) → `return_belongings` (all five

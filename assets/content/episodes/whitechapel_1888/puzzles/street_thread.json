@@ -1,0 +1,86 @@
+{
+  "id": "street_thread",
+  "type": "thread",
+  "background": "images/scenes/whitechapel_1888/street_map_close.png",
+  "config": {
+    "pins": [
+      {
+        "id": "bucks_row",
+        "at": [
+          0.74,
+          0.3
+        ],
+        "labelKey": "whitechapel_1888.street.bucks_row"
+      },
+      {
+        "id": "hanbury_street",
+        "at": [
+          0.46,
+          0.22
+        ],
+        "labelKey": "whitechapel_1888.street.hanbury_street"
+      },
+      {
+        "id": "berner_street",
+        "at": [
+          0.64,
+          0.68
+        ],
+        "labelKey": "whitechapel_1888.street.berner_street"
+      },
+      {
+        "id": "mitre_square",
+        "at": [
+          0.28,
+          0.62
+        ],
+        "labelKey": "whitechapel_1888.street.mitre_square"
+      },
+      {
+        "id": "millers_court",
+        "at": [
+          0.36,
+          0.36
+        ],
+        "labelKey": "whitechapel_1888.street.millers_court"
+      }
+    ],
+    "solution": [
+      "bucks_row",
+      "hanbury_street",
+      "berner_street",
+      "mitre_square",
+      "millers_court"
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "shake",
+      "durationMs": 400,
+      "strength": 0.4
+    },
+    {
+      "type": "pickItem",
+      "item": "name_card_stride"
+    },
+    {
+      "type": "pickItem",
+      "item": "name_card_eddowes"
+    },
+    {
+      "type": "showText",
+      "key": "whitechapel_1888.street_map.solved"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.whitechapel_1888.street_thread.1"
+    },
+    {
+      "key": "hint.whitechapel_1888.street_thread.2"
+    },
+    {
+      "key": "hint.whitechapel_1888.street_thread.3"
+    }
+  ]
+}

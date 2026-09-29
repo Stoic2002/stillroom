@@ -31,6 +31,9 @@ class _ClockHandsViewState extends State<ClockHandsView>
   _Hand? _held;
   var _moved = false;
 
+  /// The dial's radius as last laid out.
+  double? _radius;
+
   /// Clockwise from twelve, 0 to 2π.
   static double _angleOf(Offset local, Offset center) {
     final a = math.atan2(local.dx - center.dx, -(local.dy - center.dy));
@@ -45,9 +48,15 @@ class _ClockHandsViewState extends State<ClockHandsView>
   void _grab(Offset local, Offset center) {
     if (isSolved) return;
     final angle = _angleOf(local, center);
-    final hour = _ClockPainter.hourAngle(_state);
-    final minute = _ClockPainter.minuteAngle(_state);
-    _held = _gap(angle, hour) < _gap(angle, minute) ? _Hand.hour : _Hand.minute;
+    final toHour = _gap(angle, _ClockPainter.hourAngle(_state));
+    final toMinute = _gap(angle, _ClockPainter.minuteAngle(_state));
+    if ((toHour - toMinute).abs() < 0.35) {
+      // The hands lie close together: the short one is nearer the middle.
+      final reach = (local - center).distance / (_radius ?? 1);
+      _held = reach < 0.62 ? _Hand.hour : _Hand.minute;
+    } else {
+      _held = toHour < toMinute ? _Hand.hour : _Hand.minute;
+    }
     _drag(local, center);
   }
 
@@ -77,6 +86,7 @@ class _ClockHandsViewState extends State<ClockHandsView>
     return LayoutBuilder(
       builder: (context, constraints) {
         final side = constraints.biggest.shortestSide * 0.82;
+        _radius = side / 2;
         final center = Offset(
           constraints.maxWidth / 2,
           constraints.maxHeight / 2,

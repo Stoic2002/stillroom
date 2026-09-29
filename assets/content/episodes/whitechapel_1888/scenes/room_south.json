@@ -38,39 +38,6 @@
       ]
     },
     {
-      "id": "door_label",
-      "rect": [
-        0.38,
-        0.1,
-        0.24,
-        0.82
-      ],
-      "when": [
-        {
-          "flag": "names_restored",
-          "equals": true
-        },
-        {
-          "puzzleSolved": "jar_label",
-          "equals": false
-        }
-      ],
-      "onTap": [
-        {
-          "type": "playSound",
-          "sound": "door_creak"
-        },
-        {
-          "type": "showText",
-          "key": "whitechapel_1888.door.label_needed"
-        },
-        {
-          "type": "openPuzzle",
-          "puzzle": "jar_label"
-        }
-      ]
-    },
-    {
       "id": "door_open",
       "rect": [
         0.38,
@@ -82,9 +49,6 @@
         {
           "flag": "names_restored",
           "equals": true
-        },
-        {
-          "puzzleSolved": "jar_label"
         }
       ],
       "onTap": [

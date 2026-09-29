@@ -4,7 +4,6 @@ import 'dart:ui';
 import '../theme/stillroom_palette.dart';
 import 'art_kit.dart';
 import 'echo_art.dart';
-import 'whitechapel_1888_art.dart' show jarLabelBoard;
 
 /// Code-drawn art for "Pompeii, 79" (docs/episodes/pompeii_79.md): a baker's
 /// house as the diggers left it in 1863, pale and dusty under a mild sky,
@@ -27,7 +26,7 @@ final Map<String, ArtPainter> pompeiiArt = {
   '$_s/garden_79.png': (c, s) => _garden79(Art(c, s)),
   // Puzzle boards.
   '$_s/tracing_board.png': (c, s) => _tracingBoard(Art(c, s)),
-  '$_s/label_close.png': (c, s) => jarLabelBoard(Art(c, s), _dusk79),
+  '$_s/label_section.png': (c, s) => _labelSection(Art(c, s)),
   // Objects.
   '$_o/ash_bank_sprite.png': (c, s) => _ashBank(Art(c, s)),
   '$_o/lens_sprite.png': (c, s) => _lens(Art(c, s)),
@@ -1544,6 +1543,66 @@ void _drawingDone(Art a) {
   _boat(a);
   _people(a);
   _words(a);
+}
+
+// ---------------------------------------------------------------------------
+// The jar's label: the diggers' cut, a tag on every layer
+
+/// The cut through the garden, newest on top: the diggers' surface of
+/// 1863, the ash of the second morning, the pumice of the first afternoon
+/// and night, the garden soil of the last ordinary day. The label's tags sit
+/// on these bands (`puzzles/jar_label.json`); the words take the right side.
+void _labelSection(Art a) {
+  a.fill(Offset.zero & a.size, _dusk79);
+  final cut = a.r(0.02, 0.03, 0.58, 0.94);
+  final random = math.Random(63);
+  // The surface of 1863: weeds and trodden earth.
+  a
+    ..fill(
+      Rect.fromLTRB(cut.left, cut.top, cut.right, a.p(0, 0.195).dy),
+      const Color(0xFF6F6A60),
+    )
+    // The ash of the surge, set hard.
+    ..fill(
+      Rect.fromLTRB(cut.left, a.p(0, 0.195).dy, cut.right, a.p(0, 0.36).dy),
+      const Color(0xFF7C7771),
+    )
+    // The pumice.
+    ..fill(
+      Rect.fromLTRB(cut.left, a.p(0, 0.36).dy, cut.right, a.p(0, 0.725).dy),
+      _pumice,
+    )
+    // The garden soil of 79.
+    ..fill(
+      Rect.fromLTRB(cut.left, a.p(0, 0.725).dy, cut.right, cut.bottom),
+      _soil,
+    );
+  for (var i = 0; i < 160; i++) {
+    a.canvas.drawCircle(
+      Offset(
+        cut.left + random.nextDouble() * cut.width,
+        a.p(0, 0.37 + random.nextDouble() * 0.345).dy,
+      ),
+      a.u * (0.3 + random.nextDouble() * 0.6),
+      Paint()..color = const Color(0xFFA89E8A),
+    );
+  }
+  for (var i = 1; i < 5; i++) {
+    a.hairline(
+      Offset(cut.left, a.p(0, 0.195 + i * 0.03).dy),
+      Offset(cut.right, a.p(0, 0.2 + i * 0.03).dy),
+      const Color(0x44403A34),
+      0.25,
+    );
+  }
+  _weeds(
+    a,
+    Rect.fromLTWH(cut.left, cut.top, cut.width, a.size.height * 0.04),
+    seed: 13,
+  );
+  a.ink(cut, width: 0.8);
+  // The column for the words: dark wood.
+  a.wood(a.r(0.63, 0, 0.37, 1), base: const Color(0xFF3A2C22), grain: 10);
 }
 
 // ---------------------------------------------------------------------------

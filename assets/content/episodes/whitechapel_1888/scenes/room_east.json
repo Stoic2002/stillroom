@@ -65,35 +65,18 @@
               "sound": "match_strike"
             },
             {
-              "type": "openPuzzle",
-              "puzzle": "candles"
+              "type": "playSound",
+              "sound": "bell_toll"
+            },
+            {
+              "type": "pickItem",
+              "item": "name_card_chapman"
+            },
+            {
+              "type": "showText",
+              "key": "whitechapel_1888.candles.solved"
             }
           ]
-        }
-      ]
-    },
-    {
-      "id": "candles",
-      "rect": [
-        0.28,
-        0.34,
-        0.44,
-        0.16
-      ],
-      "when": [
-        {
-          "flag": "candles_ready",
-          "equals": true
-        },
-        {
-          "puzzleSolved": "candles",
-          "equals": false
-        }
-      ],
-      "onTap": [
-        {
-          "type": "openPuzzle",
-          "puzzle": "candles"
         }
       ]
     },
@@ -107,7 +90,8 @@
       ],
       "when": [
         {
-          "puzzleSolved": "candles"
+          "flag": "candles_ready",
+          "equals": true
         }
       ],
       "onTap": [
@@ -231,7 +215,7 @@
       ],
       "when": [
         {
-          "puzzleSolved": "candles",
+          "flag": "candles_ready",
           "equals": false
         }
       ]
@@ -247,7 +231,8 @@
       ],
       "when": [
         {
-          "puzzleSolved": "candles"
+          "flag": "candles_ready",
+          "equals": true
         }
       ]
     },
@@ -279,7 +264,8 @@
       ],
       "when": [
         {
-          "puzzleSolved": "candles"
+          "flag": "candles_ready",
+          "equals": true
         }
       ]
     }

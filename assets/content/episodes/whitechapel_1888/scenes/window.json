@@ -18,14 +18,14 @@
       ],
       "when": [
         {
-          "puzzleSolved": "street_compass",
+          "puzzleSolved": "street_thread",
           "equals": false
         }
       ],
       "onTap": [
         {
           "type": "openPuzzle",
-          "puzzle": "street_compass"
+          "puzzle": "street_thread"
         }
       ]
     },
@@ -39,7 +39,7 @@
       ],
       "when": [
         {
-          "puzzleSolved": "street_compass"
+          "puzzleSolved": "street_thread"
         }
       ],
       "onTap": [
@@ -142,7 +142,7 @@
       ],
       "when": [
         {
-          "puzzleSolved": "street_compass"
+          "puzzleSolved": "street_thread"
         }
       ]
     }

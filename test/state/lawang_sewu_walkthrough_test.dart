@@ -120,10 +120,9 @@ void main() {
     expect(now().game.words, containsAll(['samarang', 'year_1867', 'delft']));
     play.closeExamine();
 
-    // The telegram pad: shade it to read what was pressed into it.
+    // The telegram form, filled in and never sent.
     play.tapScene(0.9, 0.69);
     readAll();
-    solve('telegram_pad');
 
     play.tapScene(0.73, 0.28); // timetable board
     solve('timetable');

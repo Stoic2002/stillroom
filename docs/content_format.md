@@ -510,6 +510,51 @@ filled slot swaps them.
   episode shows (validated, as an error). Mark each answer somewhere the
   player can come back to (a hotspot, not only a one-time text).
 
+**Every tale writes its label in its own form** (`form`, default
+`sentences`). The check is the same for all:
+
+| `form` | Looks like | Extra fields |
+|---|---|---|
+| `sentences` | Sentences on a paper label | — |
+| `table` | A ledger. Each sentence is a row: its text is the row's heading, with no placeholders, and it has one blank per column | `columns`: heading text keys |
+| `telegram` | A telegram form, in capitals, with the UI string `telegramStop` (STOP, ТЧК; nothing in Japanese, Chinese, Korean) in place of each full stop | — |
+| `correction` | A text already written and wrong in places: every blank starts with the sentence's `initial` word; the player finds and corrects the wrong ones | `initial` on every sentence, one word per blank, all in `words`; at least one must be wrong |
+| `board` | Tags pinned to the picture behind (the puzzle `background`), each at its sentence's `rect`; the words take the right third of the board, so keep every `rect` left of x = 0.64 | `rect` on every sentence |
+
+Used so far: Whitechapel `table` (the five frames), Semarang `telegram`,
+Flannan `correction` (the legend's account), Pompeii `board` (the
+diggers' cut, a tag on every layer).
+
+### `clockHands`: set the hands
+
+```json
+"config": { "time": "3:40", "start": "9:00", "step": 5 }
+```
+
+- **Playing:** the player drags the hands round the dial. The minute hand
+  moves in `step` minutes (default 5; it must divide 60), the hour hand from
+  hour to hour, and the hand the finger is nearest to moves. When the hands
+  lie close together, a finger near the middle takes the short hand.
+- **Solved** as soon as they show `time` (hours 1 to 12). `start` (default
+  12:00) must differ from it; avoid a start where both hands overlap.
+- `image` (optional) is the dial; without it a paper dial with Roman
+  numerals is drawn.
+
+### `thread`: a red thread from pin to pin
+
+```json
+"config": {
+  "pins": [ { "id": "bucks_row", "at": [0.74, 0.3], "labelKey": "…" } ],
+  "solution": ["bucks_row", "hanbury_street", "…"]
+}
+```
+
+- **Playing:** the player drags the thread from pin to pin, or taps the
+  pins in turn. The next pin of `solution` takes the thread. A wrong pin
+  snaps it, and it starts again from `solution`'s first pin.
+- `at` is a pin's place on the board (normalized); `labelKey` (optional) is
+  written under it in ink. Draw the map in the puzzle `background`.
+
 ### `crank`: wind it
 
 ```json
@@ -756,5 +801,6 @@ warnings show in the debug panel).
 | 2026-09-26 | post-M6 | `place` in `episodes.json` (the map of tales); `activeImage` on `sequence` elements. |
 | 2026-09-26 | post-M6 | `dark` scenes and the `crank` puzzle type; episode `flannan_isles_1900` (shelf II) replaces `sealed_3`. |
 | 2026-09-26 | post-M6 | Words (`words`, `[[id]]` markup, `wordNoted` condition), `deduction` and `reveal` puzzle types, `secret` in `game.json`. Save: `words`/`secretFound` per episode; `distilled` and `keeperNotes` in the save file (additive, old saves load). |
+| 2026-09-29 | post-M6 | `form` on `deduction` (`sentences`, `table`, `telegram`, `correction`, `board`) with `columns`, and sentence `rect` and `initial`; puzzle types `clockHands` and `thread`. Whitechapel, Semarang and Flannan reworked so no puzzle type is shared between tales. |
 | 2026-09-29 | post-M6 | `lens` in scenes (a lens between eras) and the `overlay` puzzle type; episode `pompeii_79` (shelf II). |
 | 2026-09-26 | post-M6 | Korean (`ko`) added. Hints paced by the hint candle. Generated audio in `assets/audio/` (docs/audio.md); music id `stillroom_menu` plays on the menu and shelf. |

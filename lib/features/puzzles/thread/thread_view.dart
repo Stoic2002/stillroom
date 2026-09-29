@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/audio/ui_sound.dart';
+import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/stillroom_palette.dart';
 import '../../../engine/engine.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -72,6 +73,10 @@ class _ThreadViewState extends State<ThreadView>
         return GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTapUp: (d) => _reachAt(d.localPosition, board),
+          // The pin under the finger counts from the moment it touches,
+          // so a quick drag cannot skip the pin it started on.
+          onPanDown: (d) => _reachAt(d.localPosition, board),
+          // Where the drag takes hold may already be the next pin.
           onPanStart: (d) {
             _reachAt(d.localPosition, board);
             setState(() => _finger = d.localPosition);
@@ -103,8 +108,19 @@ class _ThreadViewState extends State<ThreadView>
                     left: _pinAt(pin, board).dx - 90,
                     top: _pinAt(pin, board).dy + 14,
                     width: 180,
+                    // Written on the map in ink, not floating over it.
                     child: IgnorePointer(
-                      child: PuzzleLabel(widget.context.text(context, key)),
+                      child: Text(
+                        widget.context.text(context, key),
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        style: const TextStyle(
+                          fontFamily: AppTheme.serif,
+                          fontSize: 14,
+                          height: 1.1,
+                          color: StillroomPalette.inkOnPaper,
+                        ),
+                      ),
                     ),
                   ),
               Align(

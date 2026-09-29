@@ -153,24 +153,134 @@ void main() {
     });
   });
 
-  group('sequence', () {
-    testWidgets('each candle lights the moment it is lit in order', (
+  group('clock hands', () {
+    testWidgets('dragging the hands to 3:40 opens the drawer', (tester) async {
+      final (solved, sounds) = await pumpPuzzle(tester, 'desk_drawer');
+      expect(find.text('Drag the hands round the dial.'), findsOneWidget);
+      final dial = tester.getRect(find.byKey(const ValueKey('clock_hands')));
+      final c = dial.center;
+      final r = dial.shortestSide * 0.3;
+      Offset at(double turn) =>
+          c +
+          Offset(math.sin(turn * 2 * math.pi), -math.cos(turn * 2 * math.pi)) *
+              r;
+
+      // The minute hand starts at twelve: grab it there, swing it to VIII.
+      final minute = await tester.startGesture(at(0.01));
+      for (var t = 0.02; t <= 40 / 60; t += 0.02) {
+        await minute.moveTo(at(t));
+      }
+      await minute.moveTo(at(40 / 60));
+      await minute.up();
+      // The hour hand also starts at twelve, now alone there: grab it and
+      // bring it round to III.
+      final hour = await tester.startGesture(at(0.99));
+      for (var t = 0.0; t <= 0.25; t += 0.02) {
+        await hour.moveTo(at(t));
+      }
+      await hour.moveTo(at(0.25));
+      await hour.up();
+      await tester.pump(const Duration(milliseconds: 100));
+      expect(sounds, contains(UiSound.dial));
+      expect(sounds.last, UiSound.solved);
+      await tester.pump(SolvesAfterPause.pause);
+      expect(solved.single, 1);
+    });
+  });
+
+  group('thread', () {
+    testWidgets('a wrong pin snaps the thread; the right order solves it', (
       tester,
     ) async {
-      await pumpPuzzle(tester, 'candles');
-      const lit = ValueKey('images/objects/whitechapel_1888/candle_lit.png');
-      expect(find.byKey(lit), findsNothing);
-      await tester.tap(find.byKey(const ValueKey('element_bucks_row')));
-      await tester.pump(const Duration(milliseconds: 300));
-      expect(find.byKey(lit), findsOneWidget);
-      await tester.tap(find.byKey(const ValueKey('element_hanbury_street')));
-      await tester.pump(const Duration(milliseconds: 300));
-      expect(find.byKey(lit), findsNWidgets(2));
+      final (solved, sounds) = await pumpPuzzle(tester, 'street_thread');
+      final config =
+          content.requirePuzzle('street_thread').config as ThreadConfig;
+      final board = tester.getRect(find.byKey(const ValueKey('thread')));
+      Offset pin(String id) {
+        final p = config.pin(id);
+        return board.topLeft + Offset(p.x * board.width, p.y * board.height);
+      }
 
-      // A wrong candle puts them all out.
-      await tester.tap(find.byKey(const ValueKey('element_millers_court')));
-      await tester.pumpAndSettle();
-      expect(find.byKey(lit), findsNothing);
+      await tester.tapAt(pin('bucks_row'));
+      await tester.tapAt(pin('mitre_square'));
+      await tester.pump();
+      expect(sounds.last, UiSound.mistake);
+
+      // Drag the thread through every pin, oldest first.
+      final drag = await tester.startGesture(pin(config.solution.first));
+      for (final id in config.solution.skip(1)) {
+        await drag.moveTo(pin(id));
+      }
+      await drag.up();
+      await tester.pump(const Duration(milliseconds: 100));
+      expect(sounds.last, UiSound.solved);
+      await tester.pump(SolvesAfterPause.pause);
+      expect(solved.single, 1);
+    });
+  });
+
+  group('label forms', () {
+    testWidgets('a ledger: a heading per row, a blank per column', (
+      tester,
+    ) async {
+      await pumpPuzzle(tester, 'jar_label', words: {'nichols', 'bucks_row'});
+      expect(find.text('Her name'), findsOneWidget);
+      expect(find.text('Where she was found'), findsOneWidget);
+      expect(find.text('31 August 1888'), findsOneWidget);
+      expect(find.byKey(const ValueKey('blank_9')), findsOneWidget);
+      await tester.tap(find.byKey(const ValueKey('word_nichols')));
+      await tester.pump();
+      expect(
+        find.descendant(
+          of: find.byKey(const ValueKey('blank_0')),
+          matching: find.text('Mary Ann Nichols'),
+        ),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('a correction starts written, wrong in places', (tester) async {
+      final flannan = await tester.runAsync(
+        () => ContentLoader(
+          FileAssetSource(Directory.current),
+        ).loadEpisode('flannan_isles_1900', ContentRegistries.withBuiltIns()),
+      );
+      content = flannan!;
+      final (_, sounds) = await pumpPuzzle(
+        tester,
+        'jar_label',
+        words: {'date_15dec'},
+      );
+      expect(find.text('13 December'), findsOneWidget);
+      await tester.tap(find.text('Distil'));
+      await tester.pump();
+      expect(sounds.last, UiSound.mistake, reason: 'written, but wrong');
+      await tester.tap(find.byKey(const ValueKey('blank_0')));
+      await tester.tap(find.byKey(const ValueKey('word_date_15dec')));
+      await tester.pump();
+      expect(find.text('13 December'), findsNothing);
+    });
+
+    testWidgets('a telegram and a board show their sentences', (tester) async {
+      final loader = ContentLoader(FileAssetSource(Directory.current));
+      content = (await tester.runAsync(
+        () => loader.loadEpisode(
+          'lawang_sewu_1945',
+          ContentRegistries.withBuiltIns(),
+        ),
+      ))!;
+      await pumpPuzzle(tester, 'jar_label');
+      expect(find.text('TELEGRAM'), findsOneWidget);
+      expect(find.byKey(const ValueKey('blank_0')), findsOneWidget);
+
+      content = (await tester.runAsync(
+        () =>
+            loader.loadEpisode('pompeii_79', ContentRegistries.withBuiltIns()),
+      ))!;
+      await tester.pumpWidget(const SizedBox());
+      await pumpPuzzle(tester, 'jar_label');
+      expect(find.byKey(const ValueKey('blank_9')), findsOneWidget);
+      expect(tester.takeException(), isNull);
     });
   });
 
