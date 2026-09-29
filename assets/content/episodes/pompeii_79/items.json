@@ -1,0 +1,22 @@
+{
+  "items": [
+    {
+      "id": "era_lens",
+      "nameKey": "item.pompeii_79.era_lens.name",
+      "descKey": "item.pompeii_79.era_lens.desc",
+      "icon": "images/items/pompeii_79/era_lens.png"
+    },
+    {
+      "id": "shovel",
+      "nameKey": "item.pompeii_79.shovel.name",
+      "descKey": "item.pompeii_79.shovel.desc",
+      "icon": "images/items/pompeii_79/shovel.png"
+    },
+    {
+      "id": "tracings",
+      "nameKey": "item.pompeii_79.tracings.name",
+      "descKey": "item.pompeii_79.tracings.desc",
+      "icon": "images/items/pompeii_79/tracings.png"
+    }
+  ]
+}

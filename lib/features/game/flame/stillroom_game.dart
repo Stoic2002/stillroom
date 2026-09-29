@@ -10,6 +10,7 @@ import 'package:flutter/painting.dart';
 import '../../../core/theme/stillroom_palette.dart';
 import '../../../engine/engine.dart';
 import 'darkness_overlay.dart';
+import 'lens_view.dart';
 import 'scene_view.dart';
 import 'tap_ripple.dart';
 
@@ -27,6 +28,7 @@ class StillroomGame extends FlameGame {
     required this.assetPaths,
     required GameState initialState,
     required this.onSceneTap,
+    this.onLensTap,
     this.onAmbientSound,
     bool showHotspots = false,
   }) : _state = initialState,
@@ -54,6 +56,10 @@ class StillroomGame extends FlameGame {
   final Set<String> assetPaths;
   final SceneTapCallback onSceneTap;
 
+  /// A tap inside the raised lens, normalized to the scene; it belongs to
+  /// the scene seen through the lens.
+  final SceneTapCallback? onLensTap;
+
   /// Plays a creature's sound (a content sound id), quietly.
   final void Function(String soundId)? onAmbientSound;
   final Vector2 logicalSize;
@@ -61,6 +67,8 @@ class StillroomGame extends FlameGame {
   GameState _state;
   bool _showHotspots;
   SceneView? _view;
+  LensView? _lens;
+  bool _lensUp = false;
   Set<String> _loadedImages = {};
   late final RectangleComponent _fade;
   late final DarknessOverlay _darkness;
@@ -94,9 +102,25 @@ class StillroomGame extends FlameGame {
       unawaited(_transition());
     } else if (!_transitioning) {
       _view?.refresh(state);
+      _lens?.refresh(state);
       _updateDarkness();
+      _updateLens();
     }
   }
+
+  /// Whether the player holds the lens up. It shows wherever the current
+  /// scene has a lens they can use right now.
+  bool get lensUp => _lensUp;
+  set lensUp(bool value) {
+    _lensUp = value;
+    _updateLens();
+  }
+
+  void _updateLens() =>
+      _lens?.shown = _lensUp && engine.lens(_state) != null && !_transitioning;
+
+  /// Pushes a raised lens by [delta] logical pixels.
+  void moveLensBy(Vector2 delta) => _lens?.moveBy(delta);
 
   /// Moves the lantern light in a dark scene to a point of the scene
   /// (normalized).
@@ -135,15 +159,19 @@ class StillroomGame extends FlameGame {
 
   void handleSceneTap(double x, double y) {
     if (_transitioning) return;
-    moveLight(x, y);
-    world.add(TapRipple(position: Vector2(x, y)..multiply(logicalSize)));
+    final point = Vector2(x, y)..multiply(logicalSize);
+    final lens = _lens;
+    final inLens = lens != null && lens.holds(point);
+    if (!inLens) moveLight(x, y);
+    world.add(TapRipple(position: point));
     final scale = math.min(size.x / logicalSize.x, size.y / logicalSize.y);
-    onSceneTap(
-      x,
-      y,
-      minTapSizeDp / (logicalSize.x * scale),
-      minTapSizeDp / (logicalSize.y * scale),
-    );
+    final minWidth = minTapSizeDp / (logicalSize.x * scale);
+    final minHeight = minTapSizeDp / (logicalSize.y * scale);
+    if (inLens) {
+      onLensTap?.call(x, y, minWidth, minHeight);
+    } else {
+      onSceneTap(x, y, minWidth, minHeight);
+    }
   }
 
   /// Fades out, swaps to the scene of the latest state, and fades in. State
@@ -152,6 +180,7 @@ class StillroomGame extends FlameGame {
     if (_transitioning) return;
     _transitioning = true;
     final half = engine.content.config.sceneTransitionMs / 2000;
+    _lens?.shown = false;
     if (half > 0) await _fadeTo(1, half);
     await _showCurrentScene();
     if (half > 0) await _fadeTo(0, half);
@@ -160,6 +189,8 @@ class StillroomGame extends FlameGame {
       await _transition();
     } else {
       _view?.refresh(_state);
+      _lens?.refresh(_state);
+      _updateLens();
     }
   }
 
@@ -179,9 +210,15 @@ class StillroomGame extends FlameGame {
   /// scene's images (NFR-01).
   Future<void> _showCurrentScene() async {
     final scene = engine.currentScene(_state);
+    final lensScene = switch (scene.lens) {
+      final lens? => engine.content.requireScene(lens.scene),
+      null => null,
+    };
     final paths = {
-      scene.background,
-      for (final layer in scene.layers) layer.image,
+      for (final s in [scene, ?lensScene]) ...[
+        s.background,
+        for (final layer in s.layers) layer.image,
+      ],
     }.where((p) => assetPaths.contains('assets/$p')).toSet();
 
     final sprites = <String, Sprite>{
@@ -202,6 +239,21 @@ class StillroomGame extends FlameGame {
     );
     _view = view;
     await world.add(view);
+
+    _lens?.removeFromParent();
+    _lens = null;
+    if (scene.lens case final lens? when lensScene != null) {
+      final lensView = LensView(
+        scene: lensScene,
+        sprites: sprites,
+        state: _state,
+        radius: lens.radius * logicalSize.x,
+        size: logicalSize,
+      );
+      _lens = lensView;
+      await world.add(lensView);
+    }
     _updateDarkness();
+    _updateLens();
   }
 }

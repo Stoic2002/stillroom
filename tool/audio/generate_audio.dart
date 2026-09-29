@@ -1002,9 +1002,144 @@ Buf wingsFlutter() {
   return reverb(b, size: 0.3, mix: 0.2);
 }
 
+/// An iron oven door dragged open over grit.
+Buf ovenDoor() {
+  final rng = math.Random(18);
+  final b = Buf(2.2);
+  final scrape = shape(
+    bandpass(noise(1.1, rng), (t) => 420 + 260 * math.sin(t * 9), 3),
+    (t) =>
+        swell(t, 0.05, 0.3, 1.1) * (0.5 + 0.5 * math.sin(t * tau * 17).abs()),
+  );
+  b
+    ..add(gain(scrape, 2.2))
+    ..add(
+      modal(1.2, 180, const [(1, 1, 0.4), (2.3, 0.5, 0.25), (3.9, 0.3, 0.15)]),
+      at: 1.05,
+      gain: 0.5,
+    )
+    ..add(gain(lowpass(noise(0.3, rng), (_) => 600), 0.4), at: 1.05);
+  for (var i = 0; i < 25; i++) {
+    b.add(
+      click(rng, centre: 1500 + rng.nextDouble() * 2500, time: 0.002),
+      at: 1.1 + rng.nextDouble() * 0.6,
+      gain: 0.1,
+      pan: rng.nextDouble() - 0.5,
+    );
+  }
+  return reverb(b, size: 0.35, mix: 0.2);
+}
+
+/// The mountain, far off: a long, low rumble.
+Buf rumble() {
+  final rng = math.Random(19);
+  final b = Buf(5.5)
+    ..add(
+      gain(
+        shape(
+          lowpass(brown(5, rng), (t) => 60 + 60 * math.exp(-t / 1.5)),
+          (t) => swell(t, 0.8, 3, 5),
+        ),
+        3,
+      ),
+    )
+    ..add(
+      gain(
+        shape(lowpass(noise(5, rng), (_) => 160), (t) => swell(t, 1, 2.5, 5)),
+        0.5,
+      ),
+      pan: 0.3,
+    );
+  return reverb(b, size: 0.95, mix: 0.4, damp: 0.7);
+}
+
+/// Pumice falling: light stones pattering on tiles and into water.
+Buf pumiceFall() {
+  final rng = math.Random(26);
+  final b = Buf(3.5)
+    ..add(
+      gain(
+        shape(highpass(noise(3.2, rng), 1500), (t) => swell(t, 0.5, 1, 3.2)),
+        0.08,
+      ),
+    );
+  for (var i = 0; i < 140; i++) {
+    final at = rng.nextDouble() * 3.1;
+    final edge = math.min(1.0, math.min(at / 0.6, (3.1 - at) / 0.8));
+    b.add(
+      modal(0.06, 900 + rng.nextDouble() * 1800, const [
+        (1, 1, 0.008),
+        (2.2, 0.4, 0.004),
+      ]),
+      at: at,
+      gain: (0.1 + rng.nextDouble() * 0.3) * edge,
+      pan: rng.nextDouble() * 1.4 - 0.7,
+    );
+  }
+  return reverb(b, size: 0.4, mix: 0.25);
+}
+
+/// A lava-stone mill turned a little: stone grinding on stone.
+Buf millstone() {
+  final rng = math.Random(27);
+  final b = Buf(2.4);
+  final grind = shape(
+    lowpass(noise(2, rng), (t) => 380 + 120 * math.sin(t * tau * 1.3)),
+    (t) =>
+        swell(t, 0.3, 0.6, 2) * (0.6 + 0.4 * math.sin(t * tau * 5.5).abs()),
+  );
+  b
+    ..add(gain(grind, 2.4))
+    ..add(gain(lowpass(brown(2, rng), (_) => 90), 0.8));
+  return reverb(b, size: 0.3, mix: 0.15);
+}
+
+/// A shovel biting into hard ash, three times, and the bank giving way.
+Buf shovelDig() {
+  final rng = math.Random(28);
+  final b = Buf(2.6);
+  for (final at in [0.0, 0.55, 1.1]) {
+    b
+      ..add(
+        modal(0.2, 1300 + rng.nextDouble() * 200, const [
+          (1, 1, 0.03),
+          (2.4, 0.5, 0.015),
+        ]),
+        at: at,
+        gain: 0.4,
+      )
+      ..add(
+        gain(
+          shape(
+            bandpass(noise(0.35, rng), (_) => 900, 1.5),
+            (t) => swell(t, 0.01, 0.25, 0.35),
+          ),
+          1.2,
+        ),
+        at: at + 0.02,
+      );
+  }
+  b.add(
+    gain(
+      shape(
+        lowpass(noise(0.9, rng), (t) => 1500 - 1000 * t),
+        (t) => swell(t, 0.05, 0.7, 0.9),
+      ),
+      1.6,
+    ),
+    at: 1.6,
+  );
+  return reverb(b, size: 0.3, mix: 0.15);
+}
+
 // ---------------------------------------------------------------------------
 
 final sfx = <String, Buf Function()>{
+  'shovel_dig': shovelDig,
+  'oven_door': ovenDoor,
+  'rumble': rumble,
+  'pumice_fall': pumiceFall,
+  'millstone': millstone,
   'gecko_call': geckoCall,
   'gull_cry': gullCry,
   'wings_flutter': wingsFlutter,
@@ -1058,7 +1193,53 @@ Buf flannanWind() => loop(48, (seconds) {
   return reverb(b, size: 0.9, mix: 0.4, damp: 0.5);
 });
 
+/// Pompeii: a warm drone in D, dry wind over the ruins, and a slow plucked
+/// string, like a lyre heard from another courtyard.
+Buf pompeiiAsh() => loop(48, (seconds) {
+  final rng = math.Random(25);
+  final b = Buf(seconds)
+    ..add(
+      drone(seconds, loopSeconds: 48, const [
+        (73.42, 0.4, 24),
+        (110.0, 0.22, 16),
+        (146.83, 0.1, 12),
+      ]),
+      gain: 0.4,
+    );
+  final wind = shape(
+    bandpass(
+      noise(seconds, rng),
+      (t) => 500 + 300 * math.sin(tau * t / 16),
+      1.4,
+    ),
+    (t) => 0.3 + 0.7 * math.pow(math.sin(tau * t / 24), 2),
+  );
+  b.add(gain(wind, 0.18), pan: 0.3);
+  // D dorian, a phrase every 12 seconds, never quite the same.
+  const scale = [293.66, 329.63, 349.23, 392.0, 440.0, 493.88, 587.33];
+  for (var at = 2.0; at < seconds - 3; at += 12) {
+    var degree = rng.nextInt(3) + 2;
+    for (var k = 0; k < 4; k++) {
+      final f = scale[degree];
+      b.add(
+        modal(2.5, f, const [
+          (1, 1, 0.9),
+          (2, 0.35, 0.5),
+          (3, 0.15, 0.3),
+          (4.02, 0.06, 0.2),
+        ]),
+        at: at + k * 0.9 + rng.nextDouble() * 0.15,
+        gain: 0.07,
+        pan: -0.4,
+      );
+      degree = (degree + rng.nextInt(3) - 1).clamp(0, scale.length - 1);
+    }
+  }
+  return reverb(b, size: 0.8, mix: 0.4, damp: 0.5);
+});
+
 final music = <String, Buf Function()>{
+  'pompeii_ash': pompeiiAsh,
   'flannan_wind': flannanWind,
   'stillroom_menu': menuMusic,
   'whitechapel_fog': whitechapelFog,
@@ -1372,7 +1553,18 @@ Buf rubSound() {
   return reverb(b, size: 0.1, mix: 0.05);
 }
 
+/// The lens raised or lowered: glass catching the light.
+Buf lensSound() {
+  final rng = math.Random(49);
+  final b = Buf(1.4)
+    ..add(gain(air(rng, 0.35, rising: true), 0.5))
+    ..add(glassNote(1318.5, 1.2), at: 0.05, gain: 0.25, pan: -0.2)
+    ..add(glassNote(1975.5, 1.0), at: 0.13, gain: 0.15, pan: 0.2);
+  return reverb(b, size: 0.5, mix: 0.3);
+}
+
 final ui = <String, Buf Function()>{
+  'lens': lensSound,
   'note': noteSound,
   'secret': secretSound,
   'wipe': wipeSound,

@@ -52,6 +52,9 @@ flutter:
     - assets/content/episodes/flannan_isles_1900/
     - assets/content/episodes/flannan_isles_1900/scenes/
     - assets/content/episodes/flannan_isles_1900/puzzles/
+    - assets/content/episodes/pompeii_79/
+    - assets/content/episodes/pompeii_79/scenes/
+    - assets/content/episodes/pompeii_79/puzzles/
     - assets/content/episodes/test_room/
     - assets/content/episodes/test_room/scenes/
     - assets/content/episodes/test_room/puzzles/
@@ -60,16 +63,19 @@ flutter:
     - assets/images/scenes/whitechapel_1888/
     - assets/images/scenes/lawang_sewu_1945/
     - assets/images/scenes/flannan_isles_1900/
+    - assets/images/scenes/pompeii_79/
     - assets/images/objects/
     - assets/images/objects/test_room/
     - assets/images/objects/whitechapel_1888/
     - assets/images/objects/lawang_sewu_1945/
     - assets/images/objects/flannan_isles_1900/
+    - assets/images/objects/pompeii_79/
     - assets/images/items/
     - assets/images/items/test_room/
     - assets/images/items/whitechapel_1888/
     - assets/images/items/lawang_sewu_1945/
     - assets/images/items/flannan_isles_1900/
+    - assets/images/items/pompeii_79/
     - assets/images/ui/
     - assets/audio/music/
     - assets/audio/sfx/

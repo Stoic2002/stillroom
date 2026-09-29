@@ -320,6 +320,7 @@ void main() {
       'deduction',
       'reveal',
       'crank',
+      'overlay',
     ]);
   });
 }

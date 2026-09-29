@@ -252,4 +252,14 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get settingsShowFps => 'Показывать частоту кадров (FPS)';
+
+  @override
+  String get lensRaise => 'Поднять линзу';
+
+  @override
+  String get lensLower => 'Опустить линзу';
+
+  @override
+  String get overlayInstruction =>
+      'Перетаскивайте листы. Коснитесь листа, чтобы повернуть его.';
 }

@@ -71,5 +71,8 @@
   "crankInstruction": "손잡이를 계속 빙글빙글 돌리세요.",
   "mapTitle": "이야기 지도",
   "mapHint": "핀 하나하나가 이야기입니다. 두 손가락으로 벌려 확대하세요.",
-  "settingsShowFps": "프레임 속도(FPS) 표시"
+  "settingsShowFps": "프레임 속도(FPS) 표시",
+  "lensRaise": "렌즈 들기",
+  "lensLower": "렌즈 내리기",
+  "overlayInstruction": "종이를 끌어 옮기세요. 톡 치면 돌아갑니다."
 }

@@ -1,0 +1,83 @@
+{
+  "id": "jar_label",
+  "type": "deduction",
+  "background": "images/scenes/pompeii_79/label_close.png",
+  "config": {
+    "sentences": [
+      {
+        "textKey": "pompeii_79.label.s1",
+        "blanks": [
+          "autumn",
+          "pine_tree",
+          "pumice"
+        ]
+      },
+      {
+        "textKey": "pompeii_79.label.s2",
+        "blanks": [
+          "felix",
+          "bread",
+          "marina_gate",
+          "pillows"
+        ]
+      },
+      {
+        "textKey": "pompeii_79.label.s3",
+        "blanks": [
+          "dawn",
+          "surge",
+          "year_1863"
+        ]
+      }
+    ],
+    "words": [
+      "autumn",
+      "august_24",
+      "pine_tree",
+      "pumice",
+      "lava",
+      "felix",
+      "bread",
+      "marina_gate",
+      "vesuvius_gate",
+      "pillows",
+      "dawn",
+      "surge",
+      "year_1863",
+      "year_1748"
+    ],
+    "nearMiss": 1
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "rumble"
+    },
+    {
+      "type": "showText",
+      "key": "pompeii_79.label.done"
+    },
+    {
+      "type": "showText",
+      "key": "pompeii_79.ending.autumn"
+    },
+    {
+      "type": "showText",
+      "key": "pompeii_79.ending.family"
+    },
+    {
+      "type": "endEpisode"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.pompeii_79.jar_label.1"
+    },
+    {
+      "key": "hint.pompeii_79.jar_label.2"
+    },
+    {
+      "key": "hint.pompeii_79.jar_label.3"
+    }
+  ]
+}

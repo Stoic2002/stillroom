@@ -1,0 +1,243 @@
+{
+  "id": "atrium",
+  "background": "images/scenes/pompeii_79/atrium.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "bakery"
+    },
+    {
+      "id": "to_garden",
+      "to": "garden",
+      "rect": [
+        0.44,
+        0.28,
+        0.12,
+        0.36
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "shrine",
+      "rect": [
+        0.06,
+        0.26,
+        0.14,
+        0.26
+      ],
+      "when": [
+        {
+          "puzzleSolved": "tracings",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.atrium.shrine"
+        }
+      ]
+    },
+    {
+      "id": "shrine_label",
+      "rect": [
+        0.06,
+        0.26,
+        0.14,
+        0.26
+      ],
+      "when": [
+        {
+          "puzzleSolved": "tracings"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "openPuzzle",
+          "puzzle": "jar_label"
+        }
+      ]
+    },
+    {
+      "id": "drawing",
+      "rect": [
+        0.23,
+        0.34,
+        0.15,
+        0.22
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.atrium.drawing"
+        }
+      ]
+    },
+    {
+      "id": "graffito",
+      "rect": [
+        0.6,
+        0.3,
+        0.1,
+        0.14
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.atrium.graffito"
+        }
+      ]
+    },
+    {
+      "id": "crack",
+      "rect": [
+        0.72,
+        0.16,
+        0.06,
+        0.44
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.atrium.crack"
+        }
+      ]
+    },
+    {
+      "id": "basin",
+      "rect": [
+        0.36,
+        0.7,
+        0.28,
+        0.12
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "pumice_fall"
+        },
+        {
+          "type": "showText",
+          "key": "pompeii_79.atrium.basin"
+        }
+      ]
+    },
+    {
+      "id": "tracings",
+      "rect": [
+        0.24,
+        0.64,
+        0.12,
+        0.07
+      ],
+      "when": [
+        {
+          "everHadItem": "tracings",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "pickItem",
+          "item": "tracings"
+        },
+        {
+          "type": "showText",
+          "key": "pompeii_79.atrium.tracings"
+        }
+      ]
+    },
+    {
+      "id": "niche",
+      "rect": [
+        0.82,
+        0.7,
+        0.1,
+        0.12
+      ],
+      "when": [
+        {
+          "flag": "saw_toy",
+          "equals": true
+        },
+        {
+          "flag": "found_toy",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "found_toy",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "pompeii_79.atrium.toy_found"
+        },
+        {
+          "type": "showText",
+          "key": "pompeii_79.atrium.toy_note"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "tracings_sprite",
+      "image": "images/objects/pompeii_79/tracings_sprite.png",
+      "rect": [
+        0.24,
+        0.64,
+        0.12,
+        0.07
+      ],
+      "when": [
+        {
+          "everHadItem": "tracings",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "label_sprite",
+      "image": "images/objects/pompeii_79/label_sprite.png",
+      "rect": [
+        0.09,
+        0.44,
+        0.08,
+        0.06
+      ],
+      "when": [
+        {
+          "puzzleSolved": "tracings"
+        }
+      ]
+    },
+    {
+      "id": "horse_sprite",
+      "image": "images/objects/pompeii_79/horse_sprite.png",
+      "rect": [
+        0.83,
+        0.72,
+        0.07,
+        0.08
+      ],
+      "when": [
+        {
+          "flag": "found_toy",
+          "equals": true
+        }
+      ]
+    }
+  ],
+  "lens": {
+    "scene": "atrium_79",
+    "when": [
+      {
+        "hasItem": "era_lens"
+      }
+    ]
+  }
+}

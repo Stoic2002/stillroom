@@ -323,7 +323,9 @@ class _Pin extends StatelessWidget {
       button: true,
       label: label,
       child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
+        // Only the head and the tag take taps: the empty rest of the box
+        // must not cover a neighbouring pin's label.
+        behavior: HitTestBehavior.deferToChild,
         onTap: onTap,
         child: Opacity(
           opacity: locked ? 0.7 : 1,

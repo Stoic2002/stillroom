@@ -248,4 +248,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsShowFps => 'Show frame rate (FPS)';
+
+  @override
+  String get lensRaise => 'Raise the lens';
+
+  @override
+  String get lensLower => 'Lower the lens';
+
+  @override
+  String get overlayInstruction => 'Drag the sheets. Tap one to turn it.';
 }

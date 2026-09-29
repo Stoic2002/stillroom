@@ -40,7 +40,8 @@ class SceneView extends PositionComponent
   @override
   Future<void> onLoad() async {
     add(
-      _visual(
+      sceneVisual(
+        sprites,
         path: scene.background,
         label: scene.id,
         position: Vector2.zero(),
@@ -126,7 +127,8 @@ class SceneView extends PositionComponent
     for (final layer in engine.visibleLayers(_state)) {
       final r = layer.rect;
       _layers.add(
-        _visual(
+        sceneVisual(
+          sprites,
           path: layer.image,
           label: layer.id,
           position: Vector2(r.x * size.x, r.y * size.y),
@@ -140,30 +142,8 @@ class SceneView extends PositionComponent
       ..exits = engine.visibleExits(_state);
   }
 
-  PositionComponent _visual({
-    required String path,
-    required String label,
-    required Vector2 position,
-    required Vector2 size,
-    required bool background,
-  }) {
-    final sprite = sprites[path];
-    if (sprite != null) {
-      return SpriteComponent(sprite: sprite, position: position, size: size);
-    }
-    final art = vectorArtFor(path);
-    if (art != null) {
-      return VectorArtComponent(art, position: position, size: size);
-    }
-    return PlaceholderBox(
-      label: label,
-      background: background,
-      position: position,
-      size: size,
-    );
-  }
-
-  /// In a dark scene the lantern follows the finger.
+  /// In a dark scene the lantern follows the finger; a raised lens is
+  /// pushed along by it.
   @override
   void onDragStart(DragStartEvent event) {
     super.onDragStart(event);
@@ -171,8 +151,10 @@ class SceneView extends PositionComponent
   }
 
   @override
-  void onDragUpdate(DragUpdateEvent event) =>
-      _moveLight(event.localEndPosition);
+  void onDragUpdate(DragUpdateEvent event) {
+    _moveLight(event.localEndPosition);
+    game.moveLensBy(event.localDelta);
+  }
 
   void _moveLight(Vector2 p) => game.moveLight(p.x / size.x, p.y / size.y);
 
@@ -192,4 +174,30 @@ class SceneView extends PositionComponent
     }
     game.handleSceneTap(p.x / size.x, p.y / size.y);
   }
+}
+
+/// The picture at [path]: its bundled file ([sprites]), else its
+/// code-drawn art, else a labelled placeholder.
+PositionComponent sceneVisual(
+  Map<String, Sprite> sprites, {
+  required String path,
+  required String label,
+  required Vector2 position,
+  required Vector2 size,
+  required bool background,
+}) {
+  final sprite = sprites[path];
+  if (sprite != null) {
+    return SpriteComponent(sprite: sprite, position: position, size: size);
+  }
+  final art = vectorArtFor(path);
+  if (art != null) {
+    return VectorArtComponent(art, position: position, size: size);
+  }
+  return PlaceholderBox(
+    label: label,
+    background: background,
+    position: position,
+    size: size,
+  );
 }

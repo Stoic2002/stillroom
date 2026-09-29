@@ -15,6 +15,7 @@ final class Scene {
     this.dark,
     this.echoes = const [],
     this.creatures = const [],
+    this.lens,
   });
 
   factory Scene.fromJson(JsonReader json, ActionRegistry actions) {
@@ -28,6 +29,7 @@ final class Scene {
       'dark',
       'echoes',
       'creatures',
+      'lens',
     });
     final exits = [
       for (final e in json.objects('exits', optional: true))
@@ -67,6 +69,10 @@ final class Scene {
         final dark? => SceneDarkness.fromJson(dark),
         null => null,
       },
+      lens: switch (json.optionalObject('lens')) {
+        final lens? => SceneLens.fromJson(lens),
+        null => null,
+      },
     );
   }
 
@@ -75,6 +81,10 @@ final class Scene {
   /// Makes the scene dark: only a circle of lantern light around the
   /// player's finger shows it.
   final SceneDarkness? dark;
+
+  /// A lens onto the same place in another era: inside a circle the player
+  /// drags, another scene shows through.
+  final SceneLens? lens;
 
   /// Faceless figures of memory that sometimes appear in the scene.
   final List<SceneEcho> echoes;
@@ -276,6 +286,42 @@ final class SceneDarkness {
     );
   }
 
+  final List<Condition> when;
+  final double radius;
+}
+
+/// A lens between eras (`lens` in a scene file):
+///
+/// ```json
+/// "lens": { "scene": "atrium_79", "when": [{ "hasItem": "era_lens" }], "radius": 0.2 }
+/// ```
+/// While every `when` holds, the player can raise the lens: a circle,
+/// `radius` wide as a share of the scene's width (default 0.2), that they
+/// drag around. Inside it, `scene` shows instead: its background and visible
+/// layers, and taps there reach its hotspots. The player never stands in
+/// `scene`; its exits are ignored.
+final class SceneLens {
+  const SceneLens({
+    required this.scene,
+    this.when = const [],
+    this.radius = 0.2,
+  });
+
+  factory SceneLens.fromJson(JsonReader json) {
+    json.allowOnly({'scene', 'when', 'radius'});
+    final radius = json.optionalNumber('radius') ?? 0.2;
+    if (radius <= 0 || radius > 0.5) {
+      json.fail('must be above 0 and at most 0.5', 'radius');
+    }
+    return SceneLens(
+      scene: json.string('scene'),
+      when: Condition.listFromJson(json, 'when'),
+      radius: radius,
+    );
+  }
+
+  /// The scene seen through the lens.
+  final String scene;
   final List<Condition> when;
   final double radius;
 }

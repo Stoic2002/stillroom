@@ -154,6 +154,43 @@ class GameSession extends _$GameSession {
     }
   }
 
+  /// A tap inside the raised lens, at normalized coordinates. Looking
+  /// happens through the lens: the tap reaches the hotspots of the scene seen
+  /// through it, never the scene around it. Acting happens in the present:
+  /// with an item selected, the tap goes to the scene itself, as if the lens
+  /// were lowered.
+  void tapLens(
+    double x,
+    double y, {
+    double minWidth = 0,
+    double minHeight = 0,
+  }) {
+    final session = _ready;
+    if (session == null) return;
+    if (session.selectedItem != null) {
+      tapScene(x, y, minWidth: minWidth, minHeight: minHeight);
+      return;
+    }
+    if (session.currentText != null ||
+        session.examinedItem != null ||
+        session.openPuzzle != null) {
+      return;
+    }
+    final engine = session.engine;
+    final hotspot = engine.hitTestLens(
+      session.game,
+      x,
+      y,
+      minWidth: minWidth,
+      minHeight: minHeight,
+    );
+    if (hotspot == null) return;
+    _apply(
+      session,
+      engine.tapHotspot(session.game, hotspot.id, throughLens: true),
+    );
+  }
+
   void takeExit(String exitId) {
     final session = _ready;
     if (session == null ||

@@ -239,4 +239,13 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get settingsShowFps => 'フレームレート（FPS）を表示';
+
+  @override
+  String get lensRaise => 'レンズをかざす';
+
+  @override
+  String get lensLower => 'レンズを下ろす';
+
+  @override
+  String get overlayInstruction => '紙をドラッグしよう。タップすると回せる。';
 }

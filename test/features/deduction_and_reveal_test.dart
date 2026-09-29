@@ -228,4 +228,57 @@ void main() {
       expect(solved.single, 1);
     });
   });
+
+  group('overlay', () {
+    testWidgets('turning and laying the tracings together solves it', (
+      tester,
+    ) async {
+      final pompeii = await tester.runAsync(
+        () => ContentLoader(
+          FileAssetSource(Directory.current),
+        ).loadEpisode('pompeii_79', ContentRegistries.withBuiltIns()),
+      );
+      content = pompeii!;
+      final (solved, sounds) = await pumpPuzzle(tester, 'tracings');
+      expect(find.text('Drag the sheets. Tap one to turn it.'), findsOneWidget);
+      final config = content.requirePuzzle('tracings').config as OverlayConfig;
+      final board = tester.getRect(find.byType(Scaffold));
+
+      // A corner no other sheet covers at the start (top right).
+      Offset corner(String id) =>
+          tester.getTopRight(find.byKey(ValueKey('sheet_$id'))) +
+          const Offset(-30, 30);
+
+      Future<void> turn(String id, int times) async {
+        for (var i = 0; i < times; i++) {
+          await tester.tapAt(corner(id));
+          await tester.pump(const Duration(milliseconds: 300));
+        }
+      }
+
+      Future<void> layDown(String id) async {
+        final sheet = config.sheets.firstWhere((s) => s.id == id);
+        final at = tester.getTopLeft(find.byKey(ValueKey('sheet_$id')));
+        final target = Offset(
+          board.left + sheet.rect.x * board.width,
+          board.top + sheet.rect.y * board.height,
+        );
+        await tester.dragFrom(corner(id), target - at);
+        await tester.pump(const Duration(milliseconds: 300));
+      }
+
+      // Words first: a turned sheet comes to the top.
+      await turn('words', 1);
+      await turn('people', 3);
+      expect(sounds.where((s) => s == UiSound.turn), hasLength(4));
+      // Topmost first, so each drag grabs the sheet it means to.
+      for (final id in ['people', 'words', 'boat']) {
+        await layDown(id);
+      }
+      expect(sounds.where((s) => s == UiSound.place), hasLength(3));
+      expect(sounds.last, UiSound.solved);
+      await tester.pump(SolvesAfterPause.pause);
+      expect(solved.single, 1);
+    });
+  });
 }

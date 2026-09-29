@@ -1,0 +1,204 @@
+{
+  "id": "street",
+  "background": "images/scenes/pompeii_79/street.png",
+  "exits": [
+    {
+      "id": "hut_door",
+      "to": "hut",
+      "rect": [
+        0.72,
+        0.42,
+        0.1,
+        0.32
+      ]
+    },
+    {
+      "id": "shop_door",
+      "to": "bakery",
+      "rect": [
+        0.18,
+        0.42,
+        0.16,
+        0.34
+      ],
+      "when": [
+        {
+          "flag": "door_dug",
+          "equals": true
+        }
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "vesuvius",
+      "rect": [
+        0.02,
+        0.08,
+        0.3,
+        0.26
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "rumble"
+        },
+        {
+          "type": "showText",
+          "key": "pompeii_79.street.vesuvius"
+        }
+      ]
+    },
+    {
+      "id": "plaque",
+      "rect": [
+        0.52,
+        0.44,
+        0.1,
+        0.14
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.street.plaque"
+        }
+      ]
+    },
+    {
+      "id": "notice",
+      "rect": [
+        0.05,
+        0.34,
+        0.12,
+        0.12
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.street.notice"
+        }
+      ]
+    },
+    {
+      "id": "ruts",
+      "rect": [
+        0.4,
+        0.84,
+        0.24,
+        0.12
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.street.ruts"
+        }
+      ]
+    },
+    {
+      "id": "ash_bank",
+      "rect": [
+        0.15,
+        0.52,
+        0.24,
+        0.26
+      ],
+      "when": [
+        {
+          "flag": "door_dug",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.street.ash_bank"
+        }
+      ],
+      "onUseItem": [
+        {
+          "item": "shovel",
+          "actions": [
+            {
+              "type": "playSound",
+              "sound": "shovel_dig"
+            },
+            {
+              "type": "setFlag",
+              "flag": "door_dug",
+              "value": true
+            },
+            {
+              "type": "showText",
+              "key": "pompeii_79.street.dug"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "ash_bank_sprite",
+      "image": "images/objects/pompeii_79/ash_bank_sprite.png",
+      "rect": [
+        0.15,
+        0.52,
+        0.24,
+        0.26
+      ],
+      "when": [
+        {
+          "flag": "door_dug",
+          "equals": false
+        }
+      ]
+    }
+  ],
+  "lens": {
+    "scene": "street_79",
+    "when": [
+      {
+        "hasItem": "era_lens"
+      }
+    ]
+  },
+  "echoes": [
+    {
+      "id": "digger",
+      "image": "images/objects/pompeii_79/echo_digger.png",
+      "rect": [
+        0.5,
+        0.34,
+        0.05,
+        0.2
+      ],
+      "chance": 0.7,
+      "drift": [
+        0.03,
+        0.0
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "weeds",
+      "kind": "grass",
+      "rect": [
+        0.0,
+        0.8,
+        0.14,
+        0.08
+      ]
+    },
+    {
+      "id": "weeds_hut",
+      "kind": "grass",
+      "rect": [
+        0.64,
+        0.74,
+        0.1,
+        0.06
+      ]
+    }
+  ]
+}

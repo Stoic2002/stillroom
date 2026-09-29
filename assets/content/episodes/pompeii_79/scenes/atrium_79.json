@@ -1,0 +1,87 @@
+{
+  "id": "atrium_79",
+  "background": "images/scenes/pompeii_79/atrium_79.png",
+  "hotspots": [
+    {
+      "id": "shrine",
+      "rect": [
+        0.06,
+        0.26,
+        0.14,
+        0.26
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.lens.shrine"
+        }
+      ]
+    },
+    {
+      "id": "basin",
+      "rect": [
+        0.36,
+        0.6,
+        0.28,
+        0.22
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "pumice_fall"
+        },
+        {
+          "type": "showText",
+          "key": "pompeii_79.lens.basin"
+        }
+      ]
+    },
+    {
+      "id": "niche",
+      "rect": [
+        0.8,
+        0.68,
+        0.12,
+        0.14
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "saw_toy",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "pompeii_79.lens.niche"
+        }
+      ]
+    },
+    {
+      "id": "family",
+      "rect": [
+        0.18,
+        0.34,
+        0.22,
+        0.52
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.lens.family"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "family",
+      "image": "images/objects/pompeii_79/echo_family.png",
+      "rect": [
+        0.18,
+        0.34,
+        0.22,
+        0.52
+      ]
+    }
+  ]
+}

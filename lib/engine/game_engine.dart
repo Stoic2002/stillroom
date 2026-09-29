@@ -153,6 +153,44 @@ final class GameEngine {
     return dark != null && dark.when.allMet(state) ? dark : null;
   }
 
+  /// The lens of the current scene, if the player can raise it right now.
+  SceneLens? lens(GameState state) {
+    final lens = currentScene(state).lens;
+    return lens != null && lens.when.allMet(state) ? lens : null;
+  }
+
+  /// The scene seen through the lens right now, if any.
+  Scene? lensScene(GameState state) => switch (lens(state)) {
+    final lens? => content.requireScene(lens.scene),
+    null => null,
+  };
+
+  /// Layers of the scene seen through the lens that show right now.
+  List<SceneLayer> visibleLensLayers(GameState state) => [
+    for (final l in lensScene(state)?.layers ?? const <SceneLayer>[])
+      if (l.when.allMet(state)) l,
+  ];
+
+  /// Finds the hotspot of the scene seen through the lens under the
+  /// normalized point ([x], [y]); the caller checks the point is inside the
+  /// lens. Exits are ignored: the player only looks through.
+  Hotspot? hitTestLens(
+    GameState state,
+    double x,
+    double y, {
+    double minWidth = 0,
+    double minHeight = 0,
+  }) {
+    for (final h
+        in (lensScene(state)?.hotspots ?? const <Hotspot>[]).reversed) {
+      if (h.when.allMet(state) &&
+          h.rect.expandedTo(minWidth, minHeight).contains(x, y)) {
+        return h;
+      }
+    }
+    return null;
+  }
+
   /// Creatures that may appear in the current scene right now.
   List<SceneCreature> possibleCreatures(GameState state) => [
     for (final c in currentScene(state).creatures)
@@ -196,14 +234,21 @@ final class GameEngine {
     return null;
   }
 
-  EngineResult tapHotspot(GameState state, String hotspotId) {
-    final hotspot = _sceneHotspot(state, hotspotId);
+  /// Taps a hotspot in the current scene, or with [throughLens] in the
+  /// scene seen through its lens.
+  EngineResult tapHotspot(
+    GameState state,
+    String hotspotId, {
+    bool throughLens = false,
+  }) {
+    final hotspot = _sceneHotspot(state, hotspotId, throughLens: throughLens);
     if (!hotspot.when.allMet(state)) return EngineResult(state);
     return runActions(state, hotspot.onTap);
   }
 
   /// Uses held item [itemId] on a hotspot in the current scene. Emits
-  /// [ItemRejectedEvent] when the hotspot does not accept that item.
+  /// [ItemRejectedEvent] when the hotspot does not accept that item. Items
+  /// are always used in the present, never through a lens.
   EngineResult useItemOnHotspot(
     GameState state,
     String hotspotId,
@@ -393,11 +438,22 @@ final class GameEngine {
     return EngineResult(context.state, context.events);
   }
 
-  Hotspot _sceneHotspot(GameState state, String hotspotId) =>
-      currentScene(state).hotspot(hotspotId) ??
-      (throw EngineException(
-        'unknown hotspot "$hotspotId" in scene "${state.sceneId}"',
-      ));
+  Hotspot _sceneHotspot(
+    GameState state,
+    String hotspotId, {
+    bool throughLens = false,
+  }) {
+    final scene = throughLens
+        ? lensScene(state) ??
+              (throw EngineException(
+                'no lens in scene "${state.sceneId}" right now',
+              ))
+        : currentScene(state);
+    return scene.hotspot(hotspotId) ??
+        (throw EngineException(
+          'unknown hotspot "$hotspotId" in scene "${scene.id}"',
+        ));
+  }
 
   void _requireHeld(GameState state, String itemId) {
     content.requireItem(itemId);

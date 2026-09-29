@@ -125,6 +125,19 @@ final class _Validator {
         _rect(echoAt, echo.rect);
         _conditions(echoAt, echo.when);
       }
+      if (scene.lens case final lens?) {
+        final lensAt = '$at › lens';
+        _ref(lensAt, ContentRef.scene(lens.scene));
+        _conditions(lensAt, lens.when);
+        final seen = content.scenes[lens.scene];
+        if (lens.scene == scene.id) {
+          _error(lensAt, 'a scene cannot be its own lens');
+        } else if (seen != null && seen.lens != null) {
+          _error(lensAt, 'scene "${lens.scene}" has a lens of its own');
+        } else if (seen != null && seen.exits.isNotEmpty) {
+          _warning(lensAt, 'exits of "${lens.scene}" are ignored in a lens');
+        }
+      }
     }
 
     for (final item in content.items.values) {

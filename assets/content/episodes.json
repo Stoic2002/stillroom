@@ -37,6 +37,18 @@
       ]
     },
     {
+      "id": "pompeii_79",
+      "titleKey": "episode.pompeii_79.title",
+      "teaserKey": "episode.pompeii_79.teaser",
+      "jarImage": "images/ui/jar_pompeii_79.png",
+      "shelf": 2,
+      "unlockAfter": 2,
+      "place": [
+        40.75,
+        14.49
+      ]
+    },
+    {
       "id": "sealed_whitechapel_1891",
       "titleKey": "episode.sealed.title",
       "comingSoon": true,

@@ -249,4 +249,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get settingsShowFps => 'Mostrar fotogramas por segundo (FPS)';
+
+  @override
+  String get lensRaise => 'Alzar la lente';
+
+  @override
+  String get lensLower => 'Bajar la lente';
+
+  @override
+  String get overlayInstruction => 'Arrastra las hojas. Toca una para girarla.';
 }

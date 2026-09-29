@@ -1,0 +1,82 @@
+{
+  "id": "street_79",
+  "background": "images/scenes/pompeii_79/street_79.png",
+  "hotspots": [
+    {
+      "id": "cloud",
+      "rect": [
+        0.02,
+        0.0,
+        0.32,
+        0.34
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "rumble"
+        },
+        {
+          "type": "showText",
+          "key": "pompeii_79.lens.cloud"
+        }
+      ]
+    },
+    {
+      "id": "notice",
+      "rect": [
+        0.05,
+        0.34,
+        0.12,
+        0.12
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.lens.notice"
+        }
+      ]
+    },
+    {
+      "id": "shop",
+      "rect": [
+        0.18,
+        0.42,
+        0.16,
+        0.34
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.lens.shop"
+        }
+      ]
+    },
+    {
+      "id": "people",
+      "rect": [
+        0.44,
+        0.4,
+        0.2,
+        0.34
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.lens.street_people"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "people",
+      "image": "images/objects/pompeii_79/echo_citizens.png",
+      "rect": [
+        0.44,
+        0.4,
+        0.2,
+        0.34
+      ]
+    }
+  ]
+}

@@ -71,5 +71,8 @@
   "crankInstruction": "Putar engkolnya terus-menerus.",
   "mapTitle": "Peta kisah",
   "mapHint": "Setiap pin adalah sebuah kisah. Cubit untuk memperbesar.",
-  "settingsShowFps": "Tampilkan frame rate (FPS)"
+  "settingsShowFps": "Tampilkan frame rate (FPS)",
+  "lensRaise": "Angkat lensa",
+  "lensLower": "Turunkan lensa",
+  "overlayInstruction": "Geser lembarannya. Ketuk untuk memutarnya."
 }

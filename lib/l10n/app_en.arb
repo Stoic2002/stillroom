@@ -302,5 +302,17 @@
   "settingsShowFps": "Show frame rate (FPS)",
   "@settingsShowFps": {
     "description": "Settings switch: show the frame-rate readout."
+  },
+  "lensRaise": "Raise the lens",
+  "lensLower": "Lower the lens",
+  "overlayInstruction": "Drag the sheets. Tap one to turn it.",
+  "@lensRaise": {
+    "description": "Tooltip of the button that raises the lens between eras"
+  },
+  "@lensLower": {
+    "description": "Tooltip of the button that lowers the lens between eras"
+  },
+  "@overlayInstruction": {
+    "description": "How to play the overlay puzzle: drag see-through sheets, tap to turn"
   }
 }

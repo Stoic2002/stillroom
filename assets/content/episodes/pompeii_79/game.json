@@ -1,0 +1,175 @@
+{
+  "startScene": "street",
+  "flags": {
+    "door_dug": false,
+    "oven_open": false,
+    "saw_toy": false,
+    "found_toy": false
+  },
+  "logicalResolution": [
+    1920,
+    1080
+  ],
+  "orientation": "landscape",
+  "sceneTransitionMs": 600,
+  "music": "pompeii_ash",
+  "words": [
+    {
+      "id": "autumn",
+      "labelKey": "pompeii_79.word.autumn",
+      "kind": "date"
+    },
+    {
+      "id": "august_24",
+      "labelKey": "pompeii_79.word.august_24",
+      "kind": "date"
+    },
+    {
+      "id": "pine_tree",
+      "labelKey": "pompeii_79.word.pine_tree",
+      "kind": "thing"
+    },
+    {
+      "id": "pumice",
+      "labelKey": "pompeii_79.word.pumice",
+      "kind": "thing"
+    },
+    {
+      "id": "lava",
+      "labelKey": "pompeii_79.word.lava",
+      "kind": "thing"
+    },
+    {
+      "id": "felix",
+      "labelKey": "pompeii_79.word.felix",
+      "kind": "name"
+    },
+    {
+      "id": "bread",
+      "labelKey": "pompeii_79.word.bread",
+      "kind": "thing"
+    },
+    {
+      "id": "marina_gate",
+      "labelKey": "pompeii_79.word.marina_gate",
+      "kind": "place"
+    },
+    {
+      "id": "vesuvius_gate",
+      "labelKey": "pompeii_79.word.vesuvius_gate",
+      "kind": "place"
+    },
+    {
+      "id": "pillows",
+      "labelKey": "pompeii_79.word.pillows",
+      "kind": "thing"
+    },
+    {
+      "id": "dawn",
+      "labelKey": "pompeii_79.word.dawn",
+      "kind": "date"
+    },
+    {
+      "id": "surge",
+      "labelKey": "pompeii_79.word.surge",
+      "kind": "thing"
+    },
+    {
+      "id": "year_1863",
+      "labelKey": "pompeii_79.word.year_1863",
+      "kind": "number"
+    },
+    {
+      "id": "year_1748",
+      "labelKey": "pompeii_79.word.year_1748",
+      "kind": "number"
+    }
+  ],
+  "secret": {
+    "when": [
+      {
+        "flag": "found_toy",
+        "equals": true
+      }
+    ],
+    "noteKey": "pompeii_79.atrium.toy_note"
+  },
+  "hintStages": [
+    {
+      "id": "write_label",
+      "when": [
+        {
+          "puzzleSolved": "tracings"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.pompeii_79.write_label.1"
+        },
+        {
+          "key": "hint.pompeii_79.write_label.2"
+        }
+      ]
+    },
+    {
+      "id": "trace",
+      "when": [
+        {
+          "hasItem": "tracings"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.pompeii_79.trace.1"
+        },
+        {
+          "key": "hint.pompeii_79.trace.2"
+        }
+      ]
+    },
+    {
+      "id": "into_house",
+      "when": [
+        {
+          "flag": "door_dug",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.pompeii_79.into_house.1"
+        },
+        {
+          "key": "hint.pompeii_79.into_house.2"
+        }
+      ]
+    },
+    {
+      "id": "dig",
+      "when": [
+        {
+          "everHadItem": "shovel"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.pompeii_79.dig.1"
+        },
+        {
+          "key": "hint.pompeii_79.dig.2"
+        }
+      ]
+    },
+    {
+      "id": "start",
+      "hints": [
+        {
+          "key": "hint.pompeii_79.start.1"
+        },
+        {
+          "key": "hint.pompeii_79.start.2"
+        }
+      ]
+    }
+  ]
+}

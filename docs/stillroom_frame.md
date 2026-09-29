@@ -43,7 +43,7 @@ How difficulty rises from shelf to shelf:
 | Length | 8–10 beats | 10–12 beats, parallel branches |
 
 Current placement: *Whitechapel, 1888* (shelf I, the easiest, doubling as the
-tutorial); *Semarang, 1945* (shelf I, opens after Whitechapel; a step up: clues across three eras).
+tutorial); *Semarang, 1945* (shelf I, opens after Whitechapel; a step up: clues across three eras); *Flannan Isles, 1900* and *Pompeii, 79* (shelf II, open after two tales). Shelf III opens after four.
 
 ## Signature mechanics (decided 2026-09-26)
 
@@ -61,10 +61,27 @@ Case of the Golden Idol*, Strange Horticulture):
   note stays on the shelf. The notes are drafts; their arc is the
   developer's (OPEN).
 
-Later shelves can add more: C (a lens between eras), E (a room that changes
-when not watched), F (listening puzzles). D (light and dark) arrived with
-*Flannan Isles, 1900* on shelf II: dark scenes searched by lantern light,
-plus the crank.
+Later shelves can add more: E (a room that changes when not watched), F
+(listening puzzles). D (light and dark) arrived with *Flannan Isles, 1900*
+on shelf II: dark scenes searched by lantern light, plus the crank. C (a
+lens between eras) arrived with *Pompeii, 79*, together with the stack of
+tracing sheets (after *Her Trees*).
+
+**Every tale plays differently (decided 2026-09-29).** Each tale brings one
+or two mechanics of its own, tied to its story, and does not reuse another
+tale's puzzles just to gate the way. Only the frame is shared: the words,
+the jar's label, and the keeper's secret. The first three tales were built
+before this rule and still share puzzle types:
+
+| Tale | Its puzzles | Shared with another tale |
+|---|---|---|
+| *Whitechapel, 1888* | Candles in order, desk code lock, five frames, street compass rings, fog and hearth ash wiped | Code lock, sequence, rings, slots, wipe |
+| *Semarang, 1945* | Doors into other years, clock and locker code locks, stained-glass rings, telegraph and timetable sequences, lockers, telegram rubbing | Code lock, sequence, rings, slots |
+| *Flannan Isles, 1900* | Dark scenes by lantern light, clockwork crank, gate code lock, salt wiped from a plate | Code lock, wipe |
+| *Pompeii, 79* | Lens between eras, stack of tracing sheets | None |
+
+Whether to rework the older tales' shared puzzles is the developer's call
+(_open_).
 
 ## Echoes (decided 2026-09-26)
 
@@ -77,6 +94,10 @@ no names and no faces, so no real person is ever given invented features:
 - *Semarang:* a railway worker far down the endless corridor, and a clerk
   in the 1907 office.
 - *Flannan:* a keeper in oilskins on the west landing and on the path west.
+- *Pompeii:* a digger of 1863 with a basket; through the lens, townspeople
+  looking up at the cloud, and a family at the door with cushions tied on
+  their heads. The plaster casts are only seen from afar, under the
+  diggers' canvas, never touched.
 
 ## Living things (decided 2026-09-26)
 
@@ -88,6 +109,8 @@ and season:
   passer-by, and only a rat and a moth by the candles.
 - *Semarang*: house geckos (cicak) on the walls, and bats in the cellar once
   it is lit.
+- *Pompeii* is about the people. The ruin has weeds; through the lens,
+  a donkey stands blindfolded at the mill and the fig tree has late fruit.
 - *Flannan* is in December: gulls, a fulmar on the ledge, winter grass. No
   puffins or thrift, which are summer's.
 
@@ -122,5 +145,6 @@ final episode. Details are open.
 | `whitechapel_1888` | Whitechapel, 1888 | Structure built, placeholders | [episodes/whitechapel_1888.md](episodes/whitechapel_1888.md) |
 | `lawang_sewu_1945` | Semarang, 1945 | Built, draft text, code-drawn art (shelf I, opens after 1 tale) | [episodes/lawang_sewu_1945.md](episodes/lawang_sewu_1945.md) |
 | `flannan_isles_1900` | Flannan Isles, 1900 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). Dark scenes, crank, legend as red herrings | [episodes/flannan_isles_1900.md](episodes/flannan_isles_1900.md) |
+| `pompeii_79` | Pompeii, 79 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). Lens between eras, tracing sheets, legend as red herrings | [episodes/pompeii_79.md](episodes/pompeii_79.md) |
 | `sealed_whitechapel_1891` | Sealed jar (shelf III, series whitechapel) | Idea: the six other names in the police file | — |
 | `test_room` | Test room | Debug builds only | Feature test room |

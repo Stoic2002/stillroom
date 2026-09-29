@@ -43,6 +43,11 @@ fvm dart run tool/audio/generate_audio.dart bell_toll  # one or more ids
 | `station_bell` | Lawang Sewu timetable | A handbell rung four times |
 | `ship_horn` | Flannan: the relief boat; the ending | Two long, low steam-horn blasts, far off in fog |
 | `wave_crash` | Flannan: the west landing | A heavy sea breaking on rock |
+| `rumble` | Pompeii: the mountain, the cloud, the label | A long, low rumble, far off |
+| `shovel_dig` | Pompeii: the ash bank at the shop door | A shovel biting hard ash three times; the bank giving way |
+| `oven_door` | Pompeii: the oven levered open | An iron door dragged over grit, a clank |
+| `millstone` | Pompeii: the mills | Lava stone grinding on stone |
+| `pumice_fall` | Pompeii: the basin, in the ruin and through the lens | Light stones pattering on tiles and into water |
 | `lamp_light` | Flannan: the great lamp is lit | A soft rush, then a steady roar, and a glassy ring |
 
 ## Music
@@ -53,6 +58,7 @@ fvm dart run tool/audio/generate_audio.dart bell_toll  # one or more ids
 | `whitechapel_fog` | Whitechapel | 48 s | A D-minor drone; wind; one distant bell; six footsteps that never come closer |
 | `lawang_sewu_night` | Lawang Sewu (default) | 48 s | A low C-minor drone; two crickets (a tropical night); a far train whistle |
 | `flannan_wind` | Flannan Isles | 48 s | A low drone; wind over the bare island; the swell below |
+| `pompeii_ash` | Pompeii, 79 | 48 s | A warm drone in D; dry wind; a slow plucked string in D dorian, like a lyre from another courtyard |
 | `lawang_sewu_1907` | Lawang Sewu, 1907 office | 32 s | A warm F-major drone; the office clock; record-like crackle; the NIS telegraph far off |
 
 ## Interface sounds (`assets/audio/ui/`)
@@ -67,8 +73,9 @@ vibration is on). Quieter than content sounds (−9 dBFS peak).
 | `dial` | A code-lock dial clicks over | selection |
 | `press` | A sequence element is pressed | selection |
 | `mistake` | A wrong move in a sequence | medium |
-| `lift` / `place` | Picking up / setting down a piece in a slot puzzle | — / light |
-| `turn` | A ring of a rotary puzzle turns | selection |
+| `lift` / `place` | Picking up / setting down a piece in a slot puzzle; lifting / settling a tracing sheet | — / light |
+| `turn` | A ring of a rotary puzzle turns; a tracing sheet is turned | selection |
+| `lens` | The lens between eras is raised or lowered | light |
 | `solved` | Any puzzle gives way (before its own `onSolved` sounds) | light |
 | `pickup` | An item goes into the inventory | light |
 | `combine` | Two items become one | light |

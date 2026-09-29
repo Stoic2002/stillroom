@@ -1,0 +1,75 @@
+{
+  "id": "tracings",
+  "type": "overlay",
+  "background": "images/scenes/pompeii_79/tracing_board.png",
+  "config": {
+    "sheets": [
+      {
+        "id": "boat",
+        "image": "images/objects/pompeii_79/sheet_boat.png",
+        "rect": [
+          0.3,
+          0.1,
+          0.4,
+          0.8
+        ],
+        "from": [
+          0.03,
+          0.14
+        ]
+      },
+      {
+        "id": "people",
+        "image": "images/objects/pompeii_79/sheet_people.png",
+        "rect": [
+          0.3,
+          0.1,
+          0.4,
+          0.8
+        ],
+        "from": [
+          0.58,
+          0.05
+        ],
+        "turns": 1
+      },
+      {
+        "id": "words",
+        "image": "images/objects/pompeii_79/sheet_words.png",
+        "rect": [
+          0.3,
+          0.1,
+          0.4,
+          0.8
+        ],
+        "from": [
+          0.52,
+          0.22
+        ],
+        "turns": 3
+      }
+    ],
+    "snap": 0.04
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "paper"
+    },
+    {
+      "type": "showText",
+      "key": "pompeii_79.hut.tracings_done"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.pompeii_79.tracings.1"
+    },
+    {
+      "key": "hint.pompeii_79.tracings.2"
+    },
+    {
+      "key": "hint.pompeii_79.tracings.3"
+    }
+  ]
+}

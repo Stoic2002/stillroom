@@ -21,6 +21,7 @@ export 'puzzles/built_in_puzzles.dart';
 export 'puzzles/code_lock.dart';
 export 'puzzles/crank.dart';
 export 'puzzles/deduction.dart';
+export 'puzzles/overlay.dart';
 export 'puzzles/puzzle_type.dart';
 export 'puzzles/reveal.dart';
 export 'puzzles/rotary_align.dart';

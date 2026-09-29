@@ -71,5 +71,8 @@
   "crankInstruction": "取っ手をぐるぐる回そう。",
   "mapTitle": "物語の地図",
   "mapHint": "ピンのひとつひとつが物語。指で広げて近づこう。",
-  "settingsShowFps": "フレームレート（FPS）を表示"
+  "settingsShowFps": "フレームレート（FPS）を表示",
+  "lensRaise": "レンズをかざす",
+  "lensLower": "レンズを下ろす",
+  "overlayInstruction": "紙をドラッグしよう。タップすると回せる。"
 }

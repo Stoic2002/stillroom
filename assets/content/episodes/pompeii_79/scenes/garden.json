@@ -1,0 +1,108 @@
+{
+  "id": "garden",
+  "background": "images/scenes/pompeii_79/garden.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "atrium"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "section",
+      "rect": [
+        0.62,
+        0.3,
+        0.34,
+        0.5
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.garden.section"
+        }
+      ]
+    },
+    {
+      "id": "hollow",
+      "rect": [
+        0.36,
+        0.62,
+        0.16,
+        0.14
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.garden.hollow"
+        }
+      ]
+    },
+    {
+      "id": "vesuvius",
+      "rect": [
+        0.38,
+        0.02,
+        0.26,
+        0.2
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "rumble"
+        },
+        {
+          "type": "showText",
+          "key": "pompeii_79.garden.vesuvius"
+        }
+      ]
+    }
+  ],
+  "lens": {
+    "scene": "garden_79",
+    "when": [
+      {
+        "hasItem": "era_lens"
+      }
+    ]
+  },
+  "echoes": [
+    {
+      "id": "digger",
+      "image": "images/objects/pompeii_79/echo_digger.png",
+      "rect": [
+        0.5,
+        0.4,
+        0.06,
+        0.28
+      ],
+      "chance": 0.6,
+      "drift": [
+        -0.03,
+        0.0
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "weeds",
+      "kind": "grass",
+      "rect": [
+        0.3,
+        0.84,
+        0.3,
+        0.08
+      ]
+    },
+    {
+      "id": "weeds_wall",
+      "kind": "grass",
+      "rect": [
+        0.0,
+        0.62,
+        0.12,
+        0.06
+      ]
+    }
+  ]
+}

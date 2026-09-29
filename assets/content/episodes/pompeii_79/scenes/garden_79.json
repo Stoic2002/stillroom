@@ -1,0 +1,40 @@
+{
+  "id": "garden_79",
+  "background": "images/scenes/pompeii_79/garden_79.png",
+  "hotspots": [
+    {
+      "id": "cloud",
+      "rect": [
+        0.3,
+        0.0,
+        0.44,
+        0.3
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "rumble"
+        },
+        {
+          "type": "showText",
+          "key": "pompeii_79.lens.cloud"
+        }
+      ]
+    },
+    {
+      "id": "fig",
+      "rect": [
+        0.34,
+        0.3,
+        0.2,
+        0.46
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.lens.fig"
+        }
+      ]
+    }
+  ]
+}

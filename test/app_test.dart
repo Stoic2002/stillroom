@@ -149,6 +149,7 @@ void main() {
         'whitechapel_1888',
         'lawang_sewu_1945',
         'flannan_isles_1900',
+        'pompeii_79',
       ]) {
         expect(find.byKey(ValueKey('pin_$id')), findsOneWidget);
       }

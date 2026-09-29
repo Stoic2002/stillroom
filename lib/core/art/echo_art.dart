@@ -19,6 +19,18 @@ enum EchoFigure {
 
   /// A lighthouse keeper in a sou'wester and a long oilskin.
   keeper,
+
+  /// A digger of 1863, a basket of earth on one shoulder.
+  digger,
+
+  /// A townsperson of Pompeii in a knee-length tunic and a draped cloak.
+  citizen,
+
+  /// A grown-up fleeing, a cushion tied on the head with cloth.
+  cushioned,
+
+  /// A child fleeing, a cushion tied on the head, a stick of charcoal in hand.
+  child,
 }
 
 const _mist = Color(0xFFD5DEE2);
@@ -35,7 +47,9 @@ void paintEcho(Art a, EchoFigure figure) {
         ..addPolygon([for (final (x, y) in points) Offset(x * w, y * h)], true);
 
   // Head: a plain oval, no features.
-  a.canvas.drawOval(a.r(0.36, 0.06, 0.28, 0.13), body);
+  if (figure != EchoFigure.child) {
+    a.canvas.drawOval(a.r(0.36, 0.06, 0.28, 0.13), body);
+  }
 
   switch (figure) {
     case EchoFigure.constable:
@@ -122,6 +136,81 @@ void paintEcho(Art a, EchoFigure figure) {
         )
         ..drawPath(
           shape([(0.54, 0.86), (0.7, 0.86), (0.7, 0.99), (0.54, 0.99)]),
+          body,
+        );
+    case EchoFigure.digger:
+      a.canvas
+        // The basket on the shoulder.
+        ..drawOval(a.r(0.55, 0.1, 0.4, 0.16), body)
+        ..drawPath(
+          shape([(0.3, 0.2), (0.7, 0.2), (0.74, 0.58), (0.26, 0.58)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.3, 0.57), (0.47, 0.57), (0.44, 0.98), (0.32, 0.98)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.53, 0.57), (0.7, 0.57), (0.68, 0.98), (0.56, 0.98)]),
+          body,
+        );
+    case EchoFigure.citizen:
+      a.canvas
+        ..drawPath(
+          shape([(0.26, 0.2), (0.74, 0.2), (0.8, 0.7), (0.2, 0.7)]),
+          body,
+        )
+        // The cloak falling from one shoulder.
+        ..drawPath(shape([(0.62, 0.2), (0.82, 0.3), (0.76, 0.66)]), body)
+        ..drawPath(
+          shape([(0.34, 0.68), (0.46, 0.68), (0.45, 0.99), (0.35, 0.99)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.54, 0.68), (0.66, 0.68), (0.65, 0.99), (0.55, 0.99)]),
+          body,
+        );
+    case EchoFigure.cushioned:
+      a.canvas
+        ..drawRRect(
+          RRect.fromRectAndRadius(
+            a.r(0.26, -0.01, 0.48, 0.09),
+            Radius.circular(w * 0.08),
+          ),
+          body,
+        )
+        ..drawPath(
+          shape([(0.28, 0.2), (0.72, 0.2), (0.8, 0.8), (0.2, 0.8)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.33, 0.78), (0.46, 0.78), (0.45, 0.99), (0.34, 0.99)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.54, 0.78), (0.67, 0.78), (0.66, 0.99), (0.55, 0.99)]),
+          body,
+        );
+    case EchoFigure.child:
+      a.canvas
+        ..drawOval(a.r(0.36, 0.3, 0.28, 0.12), body)
+        ..drawRRect(
+          RRect.fromRectAndRadius(
+            a.r(0.28, 0.24, 0.44, 0.08),
+            Radius.circular(w * 0.08),
+          ),
+          body,
+        )
+        ..drawPath(
+          shape([(0.3, 0.44), (0.7, 0.44), (0.76, 0.84), (0.24, 0.84)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.34, 0.82), (0.46, 0.82), (0.45, 0.99), (0.35, 0.99)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.54, 0.82), (0.66, 0.82), (0.65, 0.99), (0.55, 0.99)]),
           body,
         );
   }

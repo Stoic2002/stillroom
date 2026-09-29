@@ -240,4 +240,13 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get settingsShowFps => '프레임 속도(FPS) 표시';
+
+  @override
+  String get lensRaise => '렌즈 들기';
+
+  @override
+  String get lensLower => '렌즈 내리기';
+
+  @override
+  String get overlayInstruction => '종이를 끌어 옮기세요. 톡 치면 돌아갑니다.';
 }

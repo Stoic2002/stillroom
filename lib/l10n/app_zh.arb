@@ -71,5 +71,8 @@
   "crankInstruction": "握住把手，一圈又一圈地转动。",
   "mapTitle": "故事地图",
   "mapHint": "每一枚图钉都是一个故事。双指张开可放大。",
-  "settingsShowFps": "显示帧率（FPS）"
+  "settingsShowFps": "显示帧率（FPS）",
+  "lensRaise": "举起透镜",
+  "lensLower": "放下透镜",
+  "overlayInstruction": "拖动纸张。轻点一张可以旋转它。"
 }

@@ -230,6 +230,28 @@ that use the same id.
   `{ "hasItem": "lit_lantern" }` and a hotspot in its place that says it is
   too dark.
 
+### A lens between eras
+
+```json
+"lens": { "scene": "atrium_79", "when": [{ "hasItem": "era_lens" }], "radius": 0.2 }
+```
+
+- **The lens button:** while every `when` holds (always, without `when`), a
+  lens button shows at the bottom left. Raised, it is a brass circle,
+  `radius` wide as a share of the scene's width (default 0.2), that the
+  player pushes around by dragging.
+- **Inside the circle** the lens scene shows: its background and its
+  visible layers. Taps inside reach that scene's hotspots; taps outside
+  reach the scene as usual. **Looking happens through the lens, acting in
+  the present:** with an item selected, a tap inside the lens goes to the
+  scene itself. Echoes and creatures of the lens scene are not shown.
+- **The lens scene** is an ordinary scene file the player never stands in:
+  its exits are ignored (a warning). It cannot have a lens of its own, and a
+  scene cannot be its own lens (errors). Put pale figures in it as layers
+  with echo art.
+- **Line them up:** the two scenes are the same place in different years,
+  drawn to the same layout, so a thing moves when the lens passes over it.
+
 ### Echoes
 
 ```json
@@ -522,6 +544,36 @@ filled slot swaps them.
   uncovered (default 0.7). `brush` is the finger's radius as a share of the
   board width (default 0.05).
 
+### `overlay`: stack the sheets
+
+```json
+"config": {
+  "sheets": [
+    { "id": "boat", "image": "images/objects/pompeii_79/sheet_boat.png",
+      "rect": [0.3, 0.1, 0.4, 0.8], "from": [0.03, 0.14] },
+    { "id": "people", "image": "…", "rect": [0.3, 0.1, 0.4, 0.8],
+      "from": [0.58, 0.05], "turns": 1 }
+  ],
+  "snap": 0.04
+}
+```
+
+- **Sheets** are see-through (tracing paper, glass negatives, stencils).
+  Each belongs at `rect`, which is also its size. It starts with its
+  top-left corner at `from` (default: already in place) and `turns` quarter
+  turns clockwise (0 to 3, default 0).
+- **Playing:** drag a sheet to move it; tap it to turn it a quarter. The
+  sheet last touched lies on top.
+- **Settling:** a sheet let go within `snap` (a share of the board, default
+  0.035) of its place, the right way up, settles there and stays. Settled
+  sheets sink under the loose ones. The puzzle is solved when every sheet
+  has settled.
+- **A sheet without `from`** starts in place: a fixed base to build on. At
+  least one sheet must start out of place.
+- **Draw the sheets** so their lines only make sense together, and give
+  them marks that meet (registration crosses) so the player sees how close
+  they are.
+
 ## Words and the jar's label
 
 `words` in `game.json` declares what the player can note down:
@@ -704,4 +756,5 @@ warnings show in the debug panel).
 | 2026-09-26 | post-M6 | `place` in `episodes.json` (the map of tales); `activeImage` on `sequence` elements. |
 | 2026-09-26 | post-M6 | `dark` scenes and the `crank` puzzle type; episode `flannan_isles_1900` (shelf II) replaces `sealed_3`. |
 | 2026-09-26 | post-M6 | Words (`words`, `[[id]]` markup, `wordNoted` condition), `deduction` and `reveal` puzzle types, `secret` in `game.json`. Save: `words`/`secretFound` per episode; `distilled` and `keeperNotes` in the save file (additive, old saves load). |
+| 2026-09-29 | post-M6 | `lens` in scenes (a lens between eras) and the `overlay` puzzle type; episode `pompeii_79` (shelf II). |
 | 2026-09-26 | post-M6 | Korean (`ko`) added. Hints paced by the hint candle. Generated audio in `assets/audio/` (docs/audio.md); music id `stillroom_menu` plays on the menu and shelf. |

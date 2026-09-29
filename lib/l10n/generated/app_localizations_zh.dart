@@ -239,4 +239,13 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get settingsShowFps => '显示帧率（FPS）';
+
+  @override
+  String get lensRaise => '举起透镜';
+
+  @override
+  String get lensLower => '放下透镜';
+
+  @override
+  String get overlayInstruction => '拖动纸张。轻点一张可以旋转它。';
 }

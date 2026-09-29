@@ -60,7 +60,10 @@ enum UiSound {
   wipe('wipe', Haptic.none),
 
   /// A pencil shades paper.
-  rub('rub', Haptic.none);
+  rub('rub', Haptic.none),
+
+  /// The lens between eras is raised or lowered.
+  lens('lens', Haptic.light);
 
   const UiSound(this.id, this.haptic);
 

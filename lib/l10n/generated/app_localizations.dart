@@ -539,6 +539,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Show frame rate (FPS)'**
   String get settingsShowFps;
+
+  /// Tooltip of the button that raises the lens between eras
+  ///
+  /// In en, this message translates to:
+  /// **'Raise the lens'**
+  String get lensRaise;
+
+  /// Tooltip of the button that lowers the lens between eras
+  ///
+  /// In en, this message translates to:
+  /// **'Lower the lens'**
+  String get lensLower;
+
+  /// How to play the overlay puzzle: drag see-through sheets, tap to turn
+  ///
+  /// In en, this message translates to:
+  /// **'Drag the sheets. Tap one to turn it.'**
+  String get overlayInstruction;
 }
 
 class _AppLocalizationsDelegate

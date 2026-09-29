@@ -246,4 +246,13 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get settingsShowFps => 'Tampilkan frame rate (FPS)';
+
+  @override
+  String get lensRaise => 'Angkat lensa';
+
+  @override
+  String get lensLower => 'Turunkan lensa';
+
+  @override
+  String get overlayInstruction => 'Geser lembarannya. Ketuk untuk memutarnya.';
 }

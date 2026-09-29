@@ -23,6 +23,7 @@ import 'widgets/exit_buttons.dart';
 import 'widgets/game_effects.dart';
 import 'widgets/game_toasts.dart';
 import 'widgets/hint_button.dart';
+import 'widgets/lens_button.dart';
 import 'widgets/text_box.dart';
 
 /// Builds a widget from another feature for the running episode. Features
@@ -75,6 +76,8 @@ class _GameScreenState extends ConsumerState<GameScreen> {
       showHotspots: ref.read(showHotspotsProvider),
       onSceneTap: (x, y, minWidth, minHeight) =>
           notifier.tapScene(x, y, minWidth: minWidth, minHeight: minHeight),
+      onLensTap: (x, y, minWidth, minHeight) =>
+          notifier.tapLens(x, y, minWidth: minWidth, minHeight: minHeight),
       onAmbientSound: (id) {
         final path = resolveSfx(id, session.episode.assets);
         if (path == null) return;
@@ -165,6 +168,11 @@ class _GameView extends StatelessWidget {
           logicalWidth: config.logicalWidth,
           logicalHeight: config.logicalHeight,
           child: const _MenuButton(),
+        ),
+        SceneFrame(
+          logicalWidth: config.logicalWidth,
+          logicalHeight: config.logicalHeight,
+          child: LensButton(episodeId: episodeId, game: game),
         ),
         for (final overlay in overlays) overlay(episodeId),
         // Above puzzle screens, so it serves puzzle and stage hints alike.
