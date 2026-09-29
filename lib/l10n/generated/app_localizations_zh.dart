@@ -248,4 +248,20 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get overlayInstruction => '拖动纸张。轻点一张可以旋转它。';
+
+  @override
+  String get deductionCorrectionInstruction =>
+      '其中有些词是错的。轻点一个，再点应该在那里的词。“蒸馏”来检查。';
+
+  @override
+  String get telegramHeader => '电报';
+
+  @override
+  String get telegramStop => '';
+
+  @override
+  String get clockHandsInstruction => '拖动指针绕着表盘转。';
+
+  @override
+  String get threadInstruction => '把线从一枚图钉拉到另一枚。';
 }

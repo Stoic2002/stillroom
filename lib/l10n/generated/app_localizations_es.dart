@@ -258,4 +258,21 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get overlayInstruction => 'Arrastra las hojas. Toca una para girarla.';
+
+  @override
+  String get deductionCorrectionInstruction =>
+      'Algunas de estas palabras están mal. Toca una y luego la palabra que va ahí. «Destilar» lo comprueba.';
+
+  @override
+  String get telegramHeader => 'TELEGRAMA';
+
+  @override
+  String get telegramStop => 'STOP';
+
+  @override
+  String get clockHandsInstruction =>
+      'Arrastra las agujas alrededor de la esfera.';
+
+  @override
+  String get threadInstruction => 'Tiende el hilo de alfiler en alfiler.';
 }

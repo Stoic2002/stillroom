@@ -74,5 +74,10 @@
   "settingsShowFps": "显示帧率（FPS）",
   "lensRaise": "举起透镜",
   "lensLower": "放下透镜",
-  "overlayInstruction": "拖动纸张。轻点一张可以旋转它。"
+  "overlayInstruction": "拖动纸张。轻点一张可以旋转它。",
+  "deductionCorrectionInstruction": "其中有些词是错的。轻点一个，再点应该在那里的词。“蒸馏”来检查。",
+  "telegramHeader": "电报",
+  "telegramStop": "",
+  "clockHandsInstruction": "拖动指针绕着表盘转。",
+  "threadInstruction": "把线从一枚图钉拉到另一枚。"
 }

@@ -1,3 +1,4 @@
+import 'clock_hands.dart';
 import 'code_lock.dart';
 import 'crank.dart';
 import 'deduction.dart';
@@ -7,9 +8,10 @@ import 'reveal.dart';
 import 'rotary_align.dart';
 import 'sequence.dart';
 import 'slot_placement.dart';
+import 'thread.dart';
 
 /// Registers the built-in puzzle types (PRD FR-04, plus `deduction`,
-/// `reveal`, `crank` and `overlay`) into [registry].
+/// `reveal`, `crank`, `overlay`, `clockHands` and `thread`) into [registry].
 void registerBuiltInPuzzleTypes(PuzzleTypeRegistry registry) {
   registry
     ..register(const CodeLockType())
@@ -19,5 +21,7 @@ void registerBuiltInPuzzleTypes(PuzzleTypeRegistry registry) {
     ..register(const DeductionType())
     ..register(const RevealType())
     ..register(const CrankType())
-    ..register(const OverlayType());
+    ..register(const OverlayType())
+    ..register(const ClockHandsType())
+    ..register(const ThreadType());
 }

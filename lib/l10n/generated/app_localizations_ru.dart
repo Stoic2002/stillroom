@@ -262,4 +262,20 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get overlayInstruction =>
       'Перетаскивайте листы. Коснитесь листа, чтобы повернуть его.';
+
+  @override
+  String get deductionCorrectionInstruction =>
+      'Некоторые слова здесь неверны. Коснитесь одного, затем нужного слова. «Перегнать» проверит.';
+
+  @override
+  String get telegramHeader => 'ТЕЛЕГРАММА';
+
+  @override
+  String get telegramStop => 'ТЧК';
+
+  @override
+  String get clockHandsInstruction => 'Двигайте стрелки по циферблату.';
+
+  @override
+  String get threadInstruction => 'Протяните нить от булавки к булавке.';
 }

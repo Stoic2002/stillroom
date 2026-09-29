@@ -257,4 +257,20 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get overlayInstruction => 'Drag the sheets. Tap one to turn it.';
+
+  @override
+  String get deductionCorrectionInstruction =>
+      'Some of these words are wrong. Tap one, then the word that belongs there. \"Distil\" checks it.';
+
+  @override
+  String get telegramHeader => 'TELEGRAM';
+
+  @override
+  String get telegramStop => 'STOP';
+
+  @override
+  String get clockHandsInstruction => 'Drag the hands round the dial.';
+
+  @override
+  String get threadInstruction => 'Draw the thread from pin to pin.';
 }

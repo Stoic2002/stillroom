@@ -314,5 +314,25 @@
   },
   "@overlayInstruction": {
     "description": "How to play the overlay puzzle: drag see-through sheets, tap to turn"
+  },
+  "deductionCorrectionInstruction": "Some of these words are wrong. Tap one, then the word that belongs there. \"Distil\" checks it.",
+  "telegramHeader": "TELEGRAM",
+  "telegramStop": "STOP",
+  "clockHandsInstruction": "Drag the hands round the dial.",
+  "threadInstruction": "Draw the thread from pin to pin.",
+  "@deductionCorrectionInstruction": {
+    "description": "How to play a jar label that is written wrong in places"
+  },
+  "@telegramHeader": {
+    "description": "Heading printed on a telegram-form jar label"
+  },
+  "@telegramStop": {
+    "description": "Word between telegram sentences; empty where the language does not use one"
+  },
+  "@clockHandsInstruction": {
+    "description": "How to play the clock-hands puzzle"
+  },
+  "@threadInstruction": {
+    "description": "How to play the red-thread map puzzle"
   }
 }

@@ -1,5 +1,6 @@
 import '../json/json_reader.dart';
 import '../model/content_ref.dart';
+import '../model/normalized_rect.dart';
 import '../state/game_state.dart';
 import 'puzzle_type.dart';
 
@@ -22,6 +23,8 @@ import 'puzzle_type.dart';
 ///   words appear in it; a word can fill several blanks.
 /// - When the player checks and at most `nearMiss` blanks are wrong (default
 ///   2), they are told how many; otherwise only that it is not right.
+/// - `form` sets how the label looks, so every tale writes its own
+///   ([DeductionForm]). The check is the same for all.
 final class DeductionType implements PuzzleType {
   const DeductionType();
 
@@ -32,10 +35,50 @@ final class DeductionType implements PuzzleType {
 
   @override
   DeductionConfig parseConfig(JsonReader json) {
-    json.allowOnly({'sentences', 'words', 'nearMiss'});
+    json.allowOnly({'sentences', 'words', 'nearMiss', 'form', 'columns'});
+    final formName =
+        json.optionalString('form') ?? DeductionForm.sentences.name;
+    final form =
+        DeductionForm.values.asNameMap()[formName] ??
+        json.fail(
+          'expected one of ${DeductionForm.values.map((f) => f.name).join(', ')}',
+          'form',
+        );
     final sentences = [
       for (final s in json.objects('sentences')) DeductionSentence._fromJson(s),
     ];
+    final columns = json.has('columns') ? json.strings('columns') : <String>[];
+    if (form == DeductionForm.table) {
+      if (columns.isEmpty) json.fail('a table needs columns', 'columns');
+    } else if (columns.isNotEmpty) {
+      json.fail('only a table has columns', 'columns');
+    }
+    for (final (i, s) in sentences.indexed) {
+      final at = 'sentences[$i]';
+      if (form == DeductionForm.table && s.blanks.length != columns.length) {
+        json.fail('a row needs one blank per column', '$at.blanks');
+      }
+      if ((form == DeductionForm.board) != (s.rect != null)) {
+        json.fail(
+          form == DeductionForm.board
+              ? 'every sentence on a board needs a rect'
+              : 'only a board places sentences',
+          '$at.rect',
+        );
+      }
+      if ((form == DeductionForm.correction) != (s.initial != null)) {
+        json.fail(
+          form == DeductionForm.correction
+              ? 'a correction starts with every blank filled: needs initial'
+              : 'only a correction starts filled',
+          '$at.initial',
+        );
+      }
+      if (s.initial case final initial?
+          when initial.length != s.blanks.length) {
+        json.fail('one word per blank', '$at.initial');
+      }
+    }
     if (sentences.isEmpty) json.fail('need at least one sentence', 'sentences');
     final words = json.strings('words');
     if (words.toSet().length != words.length) {
@@ -47,6 +90,15 @@ final class DeductionType implements PuzzleType {
           json.fail('"$answer" is not in words', 'sentences[$i].blanks[$j]');
         }
       }
+      for (final (j, word) in (s.initial ?? const <String>[]).indexed) {
+        if (!words.contains(word)) {
+          json.fail('"$word" is not in words', 'sentences[$i].initial[$j]');
+        }
+      }
+    }
+    if (form == DeductionForm.correction &&
+        sentences.every((s) => _listEquals(s.initial!, s.blanks))) {
+      json.fail('the label starts right: nothing to correct', 'sentences');
     }
     final nearMiss = json.optionalInt('nearMiss') ?? 2;
     if (nearMiss < 0) json.fail('must be >= 0', 'nearMiss');
@@ -54,25 +106,72 @@ final class DeductionType implements PuzzleType {
       sentences: sentences,
       words: words,
       nearMiss: nearMiss,
+      form: form,
+      columns: columns,
     );
   }
 }
 
+bool _listEquals(List<String> a, List<String> b) {
+  if (a.length != b.length) return false;
+  for (var i = 0; i < a.length; i++) {
+    if (a[i] != b[i]) return false;
+  }
+  return true;
+}
+
+/// How a jar's label looks: every tale writes its own.
+enum DeductionForm {
+  /// Sentences on the label, their blanks filled in.
+  sentences,
+
+  /// A ledger: each sentence is a row, its text the row's heading (no
+  /// placeholders), one blank per column; `columns` holds the headings.
+  table,
+
+  /// A telegram form: the sentences in capitals, STOP between them.
+  telegram,
+
+  /// A text that is already written, and wrong in places: every blank starts
+  /// with the sentence's `initial` word, and the player corrects it.
+  correction,
+
+  /// Sentences pinned to places on the picture: each sentence's `rect` on
+  /// the puzzle background.
+  board,
+}
+
 final class DeductionSentence {
-  DeductionSentence({required this.textKey, required List<String> blanks})
-    : blanks = List.unmodifiable(blanks);
+  DeductionSentence({
+    required this.textKey,
+    required List<String> blanks,
+    this.rect,
+    List<String>? initial,
+  }) : blanks = List.unmodifiable(blanks),
+       initial = initial == null ? null : List.unmodifiable(initial);
 
   factory DeductionSentence._fromJson(JsonReader json) {
-    json.allowOnly({'textKey', 'blanks'});
+    json.allowOnly({'textKey', 'blanks', 'rect', 'initial'});
     final blanks = json.strings('blanks');
     if (blanks.isEmpty) json.fail('need at least one blank', 'blanks');
-    return DeductionSentence(textKey: json.string('textKey'), blanks: blanks);
+    return DeductionSentence(
+      textKey: json.string('textKey'),
+      blanks: blanks,
+      rect: json.has('rect') ? NormalizedRect.fromJson(json, 'rect') : null,
+      initial: json.has('initial') ? json.strings('initial') : null,
+    );
   }
 
   final String textKey;
 
   /// The right word for each placeholder: `{1}` is `blanks[0]`, ...
   final List<String> blanks;
+
+  /// Where the sentence sits on the picture (`board` labels).
+  final NormalizedRect? rect;
+
+  /// The words the text starts with (`correction` labels).
+  final List<String>? initial;
 }
 
 final class DeductionConfig implements PuzzleConfig {
@@ -80,11 +179,18 @@ final class DeductionConfig implements PuzzleConfig {
     required List<DeductionSentence> sentences,
     required List<String> words,
     this.nearMiss = 2,
-  }) : sentences = List.unmodifiable(sentences),
+    this.form = DeductionForm.sentences,
+    List<String> columns = const [],
+  }) : columns = List.unmodifiable(columns),
+       sentences = List.unmodifiable(sentences),
        words = List.unmodifiable(words),
        answers = List.unmodifiable([for (final s in sentences) ...s.blanks]);
 
   final List<DeductionSentence> sentences;
+  final DeductionForm form;
+
+  /// Column headings (text keys) of a `table` label.
+  final List<String> columns;
 
   /// The word bank: answers and decoys.
   final List<String> words;
@@ -102,19 +208,29 @@ final class DeductionConfig implements PuzzleConfig {
     return index;
   }
 
-  /// Starts with the bank words the player has noted.
+  /// Starts with the bank words the player has noted; a `correction` label
+  /// starts with its text as written.
   DeductionState start(GameState game) => DeductionState(
     this,
     available: [
       for (final w in words)
         if (game.words.contains(w)) w,
     ],
-    filled: const {},
+    filled: {
+      for (final (i, s) in sentences.indexed)
+        for (final (j, word) in (s.initial ?? const <String>[]).indexed)
+          firstBlankOf(i) + j: word,
+    },
   );
 
   @override
   Iterable<ContentRef> get references => [
-    for (final s in sentences) ContentRef.template(s.textKey, s.blanks.length),
+    for (final s in sentences)
+      form == DeductionForm.table
+          // A row's heading has no placeholders.
+          ? ContentRef.template(s.textKey, 0)
+          : ContentRef.template(s.textKey, s.blanks.length),
+    for (final c in columns) ContentRef.text(c),
     for (final w in words) ContentRef.word(w),
   ];
 }

@@ -249,4 +249,20 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get overlayInstruction => '종이를 끌어 옮기세요. 톡 치면 돌아갑니다.';
+
+  @override
+  String get deductionCorrectionInstruction =>
+      '이 중 몇 단어는 틀렸습니다. 하나를 톡 치고, 그 자리에 맞는 단어를 고르세요. \'증류하기\'로 확인합니다.';
+
+  @override
+  String get telegramHeader => '전보';
+
+  @override
+  String get telegramStop => '';
+
+  @override
+  String get clockHandsInstruction => '바늘을 끌어 문자판을 돌리세요.';
+
+  @override
+  String get threadInstruction => '핀에서 핀으로 실을 이으세요.';
 }

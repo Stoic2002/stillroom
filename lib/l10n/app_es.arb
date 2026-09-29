@@ -74,5 +74,10 @@
   "settingsShowFps": "Mostrar fotogramas por segundo (FPS)",
   "lensRaise": "Alzar la lente",
   "lensLower": "Bajar la lente",
-  "overlayInstruction": "Arrastra las hojas. Toca una para girarla."
+  "overlayInstruction": "Arrastra las hojas. Toca una para girarla.",
+  "deductionCorrectionInstruction": "Algunas de estas palabras están mal. Toca una y luego la palabra que va ahí. «Destilar» lo comprueba.",
+  "telegramHeader": "TELEGRAMA",
+  "telegramStop": "STOP",
+  "clockHandsInstruction": "Arrastra las agujas alrededor de la esfera.",
+  "threadInstruction": "Tiende el hilo de alfiler en alfiler."
 }

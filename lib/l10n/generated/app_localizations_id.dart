@@ -255,4 +255,21 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get overlayInstruction => 'Geser lembarannya. Ketuk untuk memutarnya.';
+
+  @override
+  String get deductionCorrectionInstruction =>
+      'Sebagian kata ini salah. Ketuk satu, lalu kata yang seharusnya. \"Suling\" memeriksanya.';
+
+  @override
+  String get telegramHeader => 'TELEGRAM';
+
+  @override
+  String get telegramStop => 'STOP';
+
+  @override
+  String get clockHandsInstruction =>
+      'Geser jarum-jarumnya mengelilingi piringan jam.';
+
+  @override
+  String get threadInstruction => 'Tarik benangnya dari paku ke paku.';
 }

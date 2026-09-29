@@ -74,5 +74,10 @@
   "settingsShowFps": "フレームレート（FPS）を表示",
   "lensRaise": "レンズをかざす",
   "lensLower": "レンズを下ろす",
-  "overlayInstruction": "紙をドラッグしよう。タップすると回せる。"
+  "overlayInstruction": "紙をドラッグしよう。タップすると回せる。",
+  "deductionCorrectionInstruction": "このうちいくつかの言葉がまちがっている。ひとつタップして、正しい言葉を選ぼう。「蒸留する」で確かめる。",
+  "telegramHeader": "電報",
+  "telegramStop": "",
+  "clockHandsInstruction": "針をドラッグして文字盤を回そう。",
+  "threadInstruction": "ピンからピンへ糸を引こう。"
 }

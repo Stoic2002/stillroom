@@ -248,4 +248,20 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get overlayInstruction => '紙をドラッグしよう。タップすると回せる。';
+
+  @override
+  String get deductionCorrectionInstruction =>
+      'このうちいくつかの言葉がまちがっている。ひとつタップして、正しい言葉を選ぼう。「蒸留する」で確かめる。';
+
+  @override
+  String get telegramHeader => '電報';
+
+  @override
+  String get telegramStop => '';
+
+  @override
+  String get clockHandsInstruction => '針をドラッグして文字盤を回そう。';
+
+  @override
+  String get threadInstruction => 'ピンからピンへ糸を引こう。';
 }

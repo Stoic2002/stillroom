@@ -321,6 +321,8 @@ void main() {
       'reveal',
       'crank',
       'overlay',
+      'clockHands',
+      'thread',
     ]);
   });
 }

@@ -557,6 +557,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Drag the sheets. Tap one to turn it.'**
   String get overlayInstruction;
+
+  /// How to play a jar label that is written wrong in places
+  ///
+  /// In en, this message translates to:
+  /// **'Some of these words are wrong. Tap one, then the word that belongs there. \"Distil\" checks it.'**
+  String get deductionCorrectionInstruction;
+
+  /// Heading printed on a telegram-form jar label
+  ///
+  /// In en, this message translates to:
+  /// **'TELEGRAM'**
+  String get telegramHeader;
+
+  /// Word between telegram sentences; empty where the language does not use one
+  ///
+  /// In en, this message translates to:
+  /// **'STOP'**
+  String get telegramStop;
+
+  /// How to play the clock-hands puzzle
+  ///
+  /// In en, this message translates to:
+  /// **'Drag the hands round the dial.'**
+  String get clockHandsInstruction;
+
+  /// How to play the red-thread map puzzle
+  ///
+  /// In en, this message translates to:
+  /// **'Draw the thread from pin to pin.'**
+  String get threadInstruction;
 }
 
 class _AppLocalizationsDelegate

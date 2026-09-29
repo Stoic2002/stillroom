@@ -9,7 +9,9 @@ import '../puzzle_view.dart';
 
 /// The jar's label: sentences with blanks, filled from the words the player
 /// noted. Tap a blank, then a word; tap a chosen blank again to empty it.
-/// "Distil" checks the whole label.
+/// "Distil" checks the whole label. Each tale writes its label in its own
+/// form ([DeductionForm]): sentences, a ledger, a telegram, a text to
+/// correct, or tags pinned to a picture.
 class DeductionView extends StatefulWidget {
   const DeductionView(this.context, {super.key});
 
@@ -23,7 +25,9 @@ class _DeductionViewState extends State<DeductionView>
     with SolvesAfterPause<DeductionView> {
   late final _config = widget.context.puzzle.config as DeductionConfig;
   late DeductionState _state = _config.start(widget.context.game);
-  int? _selected = 0;
+
+  /// A text to correct starts with nothing chosen: every blank is written.
+  late int? _selected = _config.form == DeductionForm.correction ? null : 0;
   DeductionVerdict? _verdict;
 
   static final _placeholder = RegExp(r'\{(\d+)\}');
@@ -88,32 +92,13 @@ class _DeductionViewState extends State<DeductionView>
       color: StillroomPalette.inkOnPaper,
     );
 
-    final label = DecoratedBox(
-      // The paper label of the jar.
-      decoration: BoxDecoration(
-        color: StillroomPalette.paper,
-        border: Border.all(color: StillroomPalette.brass, width: 1.5),
-        boxShadow: const [BoxShadow(blurRadius: 18, color: Color(0xAA000000))],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(22, 14, 22, 14),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            for (final (i, sentence) in _config.sentences.indexed)
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: Text.rich(
-                  TextSpan(
-                    style: sentenceStyle,
-                    children: _sentence(context, i, sentence),
-                  ),
-                ),
-              ),
-          ],
-        ),
-      ),
-    );
+    final label = switch (_config.form) {
+      DeductionForm.sentences ||
+      DeductionForm.correction => _paper(context, sentenceStyle),
+      DeductionForm.telegram => _telegram(context, sentenceStyle),
+      DeductionForm.table => _table(context, sentenceStyle),
+      DeductionForm.board => const SizedBox.shrink(),
+    };
 
     final bank = _state.available.isEmpty
         ? Text(
@@ -143,6 +128,32 @@ class _DeductionViewState extends State<DeductionView>
       _ => null,
     };
 
+    final check = Row(
+      children: [
+        Expanded(
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 200),
+            child: Text(
+              verdict ?? '',
+              key: ValueKey(verdict),
+              style: const TextStyle(
+                color: StillroomPalette.oxbloodBright,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          ),
+        ),
+        FilledButton(
+          onPressed: isSolved ? null : _check,
+          child: Text(l10n.deductionCheck),
+        ),
+      ],
+    );
+
+    if (_config.form == DeductionForm.board) {
+      return _board(context, sentenceStyle, bank, check);
+    }
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(56, 16, 56, 16),
       child: SingleChildScrollView(
@@ -150,7 +161,9 @@ class _DeductionViewState extends State<DeductionView>
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              l10n.deductionInstruction,
+              _config.form == DeductionForm.correction
+                  ? l10n.deductionCorrectionInstruction
+                  : l10n.deductionInstruction,
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontStyle: FontStyle.italic,
@@ -162,26 +175,82 @@ class _DeductionViewState extends State<DeductionView>
             const SizedBox(height: 14),
             bank,
             const SizedBox(height: 12),
-            Row(
-              children: [
-                Expanded(
-                  child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 200),
-                    child: Text(
-                      verdict ?? '',
-                      key: ValueKey(verdict),
-                      style: const TextStyle(
-                        color: StillroomPalette.oxbloodBright,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                  ),
+            check,
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// The paper label of the jar: sentences one under another.
+  Widget _paper(BuildContext context, TextStyle style) => DecoratedBox(
+    decoration: BoxDecoration(
+      color: StillroomPalette.paper,
+      border: Border.all(color: StillroomPalette.brass, width: 1.5),
+      boxShadow: const [BoxShadow(blurRadius: 18, color: Color(0xAA000000))],
+    ),
+    child: Padding(
+      padding: const EdgeInsets.fromLTRB(22, 14, 22, 14),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          for (final (i, sentence) in _config.sentences.indexed)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Text.rich(
+                TextSpan(
+                  style: style,
+                  children: _sentence(context, i, sentence),
                 ),
-                FilledButton(
-                  onPressed: isSolved ? null : _check,
-                  child: Text(l10n.deductionCheck),
-                ),
-              ],
+              ),
+            ),
+        ],
+      ),
+    ),
+  );
+
+  /// A telegram form: capitals, STOP between the sentences.
+  Widget _telegram(BuildContext context, TextStyle style) {
+    final l10n = AppLocalizations.of(context);
+    final wire = style.copyWith(
+      fontFamily: AppTheme.smallCaps,
+      letterSpacing: 1.2,
+      color: const Color(0xFF2A2A30),
+    );
+    final stop = l10n.telegramStop;
+    return DecoratedBox(
+      decoration: const BoxDecoration(
+        color: Color(0xFFE8DDB0),
+        border: Border(
+          top: BorderSide(color: Color(0xFF9A3A2A), width: 6),
+          bottom: BorderSide(color: Color(0xFF9A3A2A), width: 2),
+        ),
+        boxShadow: [BoxShadow(blurRadius: 18, color: Color(0xAA000000))],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(22, 10, 22, 14),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              l10n.telegramHeader,
+              style: wire.copyWith(
+                fontSize: 14,
+                letterSpacing: 4,
+                color: const Color(0xFF9A3A2A),
+              ),
+            ),
+            const Divider(color: Color(0x662A2A30), height: 12),
+            Text.rich(
+              TextSpan(
+                style: wire,
+                children: [
+                  for (final (i, sentence) in _config.sentences.indexed) ...[
+                    ..._sentence(context, i, sentence, capitals: true),
+                    if (stop.isNotEmpty) TextSpan(text: '  $stop  '),
+                  ],
+                ],
+              ),
             ),
           ],
         ),
@@ -189,12 +258,146 @@ class _DeductionViewState extends State<DeductionView>
     );
   }
 
+  /// A ledger: a heading per row, one blank per column.
+  Widget _table(BuildContext context, TextStyle style) {
+    final head = style.copyWith(
+      fontFamily: AppTheme.smallCaps,
+      fontSize: 15,
+      color: StillroomPalette.oxblood,
+    );
+    const line = BorderSide(color: Color(0x662A2420));
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: StillroomPalette.paper,
+        border: Border.all(color: StillroomPalette.brass, width: 1.5),
+        boxShadow: const [BoxShadow(blurRadius: 18, color: Color(0xAA000000))],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
+        child: Table(
+          defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+          columnWidths: const {0: IntrinsicColumnWidth()},
+          border: const TableBorder(horizontalInside: line),
+          children: [
+            TableRow(
+              children: [
+                const SizedBox.shrink(),
+                for (final key in _config.columns)
+                  Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: Text(widget.context.text(context, key), style: head),
+                  ),
+              ],
+            ),
+            for (final (i, row) in _config.sentences.indexed)
+              TableRow(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 12),
+                    child: Text(
+                      widget.context.text(context, row.textKey),
+                      style: style.copyWith(fontSize: 16),
+                    ),
+                  ),
+                  for (var j = 0; j < row.blanks.length; j++)
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: _blank(context, _config.firstBlankOf(i) + j),
+                    ),
+                ],
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// Tags pinned to the picture behind, each where its sentence belongs;
+  /// the words and the check along the bottom.
+  Widget _board(
+    BuildContext context,
+    TextStyle style,
+    Widget bank,
+    Widget check,
+  ) {
+    final tag = style.copyWith(fontSize: 15, height: 1.45);
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final board = constraints.biggest;
+        return Stack(
+          children: [
+            for (final (i, sentence) in _config.sentences.indexed)
+              Positioned.fromRect(
+                rect: boardRect(sentence.rect!, board),
+                child: DecoratedBox(
+                  decoration: const BoxDecoration(
+                    color: Color(0xE6EDE4CE),
+                    boxShadow: [
+                      BoxShadow(blurRadius: 8, color: Color(0x88000000)),
+                    ],
+                  ),
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.fromLTRB(10, 6, 10, 6),
+                    child: Text.rich(
+                      TextSpan(
+                        style: tag,
+                        children: _sentence(context, i, sentence),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            Positioned(
+              left: 48,
+              right: 48,
+              bottom: 8,
+              height: board.height * 0.3,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [bank, const SizedBox(height: 8), check],
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _blank(BuildContext context, int blank) {
+    final id = _state.filled[blank];
+    final initial = _initialOf(blank);
+    return _Blank(
+      key: ValueKey('blank_$blank'),
+      label: id == null ? null : _label(context, id),
+      selected: _selected == blank && !isSolved,
+      solved: isSolved,
+      // In a text to correct, the words as first written are print; the
+      // player's are in ink.
+      written: id != null && id == initial,
+      onTap: () => _tapBlank(blank),
+    );
+  }
+
+  String? _initialOf(int blank) {
+    for (final (i, s) in _config.sentences.indexed) {
+      final first = _config.firstBlankOf(i);
+      if (blank >= first && blank < first + s.blanks.length) {
+        return s.initial?[blank - first];
+      }
+    }
+    return null;
+  }
+
   List<InlineSpan> _sentence(
     BuildContext context,
     int index,
-    DeductionSentence sentence,
-  ) {
-    final text = widget.context.text(context, sentence.textKey);
+    DeductionSentence sentence, {
+    bool capitals = false,
+  }) {
+    final written = widget.context.text(context, sentence.textKey);
+    final text = capitals ? written.toUpperCase() : written;
     final first = _config.firstBlankOf(index);
     final spans = <InlineSpan>[];
     var at = 0;
@@ -206,16 +409,7 @@ class _DeductionViewState extends State<DeductionView>
         spans.add(
           WidgetSpan(
             alignment: PlaceholderAlignment.middle,
-            child: _Blank(
-              key: ValueKey('blank_$blank'),
-              label: switch (_state.filled[blank]) {
-                final id? => _label(context, id),
-                null => null,
-              },
-              selected: _selected == blank && !isSolved,
-              solved: isSolved,
-              onTap: () => _tapBlank(blank),
-            ),
+            child: _blank(context, blank),
           ),
         );
       }
@@ -232,12 +426,17 @@ class _Blank extends StatelessWidget {
     required this.selected,
     required this.solved,
     required this.onTap,
+    this.written = false,
     super.key,
   });
 
   final String? label;
   final bool selected;
   final bool solved;
+
+  /// The word as the text was first written (a text to correct): set in
+  /// print, not the player's ink.
+  final bool written;
   final VoidCallback onTap;
 
   @override
@@ -272,9 +471,13 @@ class _Blank extends StatelessWidget {
           style: TextStyle(
             fontFamily: AppTheme.serif,
             fontSize: 18,
-            fontStyle: text == null ? FontStyle.normal : FontStyle.italic,
+            fontStyle: text == null || written
+                ? FontStyle.normal
+                : FontStyle.italic,
             color: solved
                 ? StillroomPalette.oxblood
+                : written
+                ? StillroomPalette.inkOnPaper.withValues(alpha: 0.7)
                 : StillroomPalette.inkOnPaper,
           ),
         ),
