@@ -173,5 +173,11 @@ Placeholders are drawn for anything missing; see `docs/art_style_guide.md`.
   frames on the west wall. Each row is a date; the player writes her name
   and the place she was found. Ten blanks; the three dates in the bank are
   decoys. Writing it restores the names and opens the door.
+- **Short seal (2026-09-30).** The long fill-in bored the developer, so the
+  ledger is one row now: "From 31 August to 9 November 1888", with two
+  columns, *The first* and *The last*: {Mary Ann Nichols}, {Mary Jane
+  Kelly}. The other names, the streets and the dates are the bank's
+  decoys. Writing it still restores all five names in the frames, and the
+  text that follows names every one of them.
 - **Secret:** look into the hearth a second time and brush the ash aside
   (`hearth_ash`): a scrap in the keeper's hand. The note text is a draft.

@@ -8,20 +8,11 @@
       {
         "textKey": "lawang_sewu_1945.label.s1",
         "blanks": [
-          "samarang",
-          "tanggung",
-          "year_1867"
+          "doors_928"
         ]
       },
       {
         "textKey": "lawang_sewu_1945.label.s2",
-        "blanks": [
-          "doors_928",
-          "delft"
-        ]
-      },
-      {
-        "textKey": "lawang_sewu_1945.label.s3",
         "blanks": [
           "date_15oct",
           "five"

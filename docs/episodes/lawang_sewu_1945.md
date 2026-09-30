@@ -108,6 +108,13 @@ the road, one day, Tugu Muda will stand." Then the last door closes.
 rubbing belongs to no tale now), and the jar's label is a **telegram**
 (form `telegram`): the three sentences in capitals, STOP between them.
 
+**Short seal (2026-09-30).** The telegram is cut to two sentences and three
+blanks: "They called it a thousand doors, but there are {928}. On {15
+October 1945} the fighting began across the square, and {five} of its
+workers did not come home." The legend's "thousand" is the red herring;
+the line's stations, its year, and the glass's maker stay in the bank as
+decoys.
+
 ## Hint stages (first match wins)
 
 `light_the_glass` (belongings returned) → `return_belongings` (all five

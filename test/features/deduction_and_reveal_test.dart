@@ -224,10 +224,11 @@ void main() {
       tester,
     ) async {
       await pumpPuzzle(tester, 'jar_label', words: {'nichols', 'bucks_row'});
-      expect(find.text('Her name'), findsOneWidget);
-      expect(find.text('Where she was found'), findsOneWidget);
-      expect(find.text('31 August 1888'), findsOneWidget);
-      expect(find.byKey(const ValueKey('blank_9')), findsOneWidget);
+      expect(find.text('The first'), findsOneWidget);
+      expect(find.text('The last'), findsOneWidget);
+      expect(find.text('From 31 August to 9 November 1888'), findsOneWidget);
+      expect(find.byKey(const ValueKey('blank_1')), findsOneWidget);
+      expect(find.byKey(const ValueKey('blank_2')), findsNothing);
       await tester.tap(find.byKey(const ValueKey('word_nichols')));
       await tester.pump();
       expect(

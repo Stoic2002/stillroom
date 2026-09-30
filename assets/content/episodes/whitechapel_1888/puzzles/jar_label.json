@@ -5,43 +5,15 @@
   "config": {
     "form": "table",
     "columns": [
-      "whitechapel_1888.label.col_name",
-      "whitechapel_1888.label.col_place"
+      "whitechapel_1888.label.col_first",
+      "whitechapel_1888.label.col_last"
     ],
     "sentences": [
       {
-        "textKey": "whitechapel_1888.frame.aug31",
+        "textKey": "whitechapel_1888.label.row",
         "blanks": [
           "nichols",
-          "bucks_row"
-        ]
-      },
-      {
-        "textKey": "whitechapel_1888.frame.sep08",
-        "blanks": [
-          "chapman",
-          "hanbury_street"
-        ]
-      },
-      {
-        "textKey": "whitechapel_1888.frame.sep30a",
-        "blanks": [
-          "stride",
-          "berner_street"
-        ]
-      },
-      {
-        "textKey": "whitechapel_1888.frame.sep30b",
-        "blanks": [
-          "eddowes",
-          "mitre_square"
-        ]
-      },
-      {
-        "textKey": "whitechapel_1888.frame.nov09",
-        "blanks": [
-          "kelly",
-          "millers_court"
+          "kelly"
         ]
       }
     ],
@@ -60,7 +32,7 @@
       "sep08",
       "nov09"
     ],
-    "nearMiss": 2
+    "nearMiss": 1
   },
   "onSolved": [
     {

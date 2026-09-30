@@ -64,14 +64,18 @@ player restores the truth of the tale and seals the jar.
 
 | Shelf | Tale | Its own mechanics | Its label now |
 |---|---|---|---|
-| I | *Whitechapel, 1888* | Clock-face lock (`clockHands`), red thread on a map (`thread`), fog and ash wiped (`reveal`), a magnifier | `table`: five frames, 10 blanks (still long) |
-| I | *Semarang, 1945* (Lawang Sewu) | Doors into other years, `codeLock`, `sequence` (timetable, telegraph), `rotaryAlign` (stained glass), `slotPlacement` (lockers) | `telegram`, 7 blanks (still long) |
+| I | *Whitechapel, 1888* | Clock-face lock (`clockHands`), red thread on a map (`thread`), fog and ash wiped (`reveal`), a magnifier | `table` **seal**: one row, the first and the last name |
+| I | *Semarang, 1945* (Lawang Sewu) | Doors into other years, `codeLock`, `sequence` (timetable, telegraph), `rotaryAlign` (stained glass), `slotPlacement` (lockers) | `telegram` **seal**: two lines, 3 blanks |
 | II | *Flannan Isles, 1900* | Dark scenes by lantern light, `crank`, the beam over the island (`beamSweep`), the landing steps between waves (`swell`), who went how and when (`roster`) | `correction` **seal**: one sentence, 3 words wrong |
 | II | *Pompeii, 79* | Lens between eras **by the hour** (`lensHours`), `overlay` (fresco jigsaw, tracing sheets), `rakingLight` (wax tablets) | `board` **seal of 3 words** (the new standard) |
 
 Shelf III holds a sealed teaser jar, *Whitechapel, 1891*, which opens
 after 4 tales are distilled. The top shelf is meant for the old keeper's
 own tale; its arc is OPEN.
+
+**The plan: 16 tales on 5 shelves** (decided 2026-09-30), all real cases
+with a legend to set right. The lineup, by shelf and region, is in
+`docs/stillroom_frame.md` (*The full shelf*). Indonesian tales wait for now.
 
 ## Decisions to respect
 
@@ -110,11 +114,13 @@ own tale; its arc is OPEN.
      be enough warning (`pattern`, `interval`, `stepSeconds`);
    - whether the roster's clues (log margin, hooks, landing) are enough to
      work it out without the last hint.
-2. **Short seals for Whitechapel and Semarang** (1–2 sentences each, 2–3
-   blanks). Their forms (`table`, `telegram`) can stay if short, or change.
+2. **The next tale: *The Man in the Iron Mask, Bastille, 1703*** (shelf
+   II, Western Europe), the developer's pick from the plan. Write its
+   design doc first (facts with sources, 2–3 mechanics of its own, the
+   chain, the seal) and have it approved before building. Then the other
+   tales of the plan, in shelf order.
 3. Later, and to be asked first:
-   - episode 5 for shelf III (*Whitechapel, 1891*, or another tale, with
-     new mechanics, e.g. E: a room that changes when not watched);
+   - the Indonesian tale for shelf IV;
    - the keeper's arc (OPEN);
    - native-speaker translation review;
    - final art. The package name (`com.example.stillroom`) and release are

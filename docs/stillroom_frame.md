@@ -31,6 +31,39 @@ The shelves are difficulty tiers (decided 2026-09-26):
   another country.
 - **The top shelf** will hold the old keeper's own tale.
 
+**The full shelf (decided 2026-09-30): 16 tales on 5 shelves.** Every tale
+is a real case at least about 70 years old, with a legend to set right.
+The developer chose the regions; Indonesian tales wait for now (one slot
+is kept on shelf IV). The game can ship before all 16 exist: jars are
+data, so later tales arrive in updates.
+
+| Shelf | Tales |
+|---|---|
+| I (2) | *Whitechapel, 1888* ✓, *Semarang, 1945* ✓ |
+| II (4) | *Flannan Isles, 1900* ✓, *Pompeii, 79* ✓, **The Man in the Iron Mask, Bastille, 1703** (Western Europe), **The Emille Bell, Gyeongju, 771** (Korea) |
+| III (4) | **Whitechapel, 1891** (series), **The death of the Guangxu Emperor, Beijing, 1908** (China), **Alamut, 1256** (Middle East), **Great Zimbabwe, 1871** (Africa) |
+| IV (5) | **Dyatlov Pass, 1959** (Eastern Europe), **Honnō-ji, Kyoto, 1582** (Japan), **Roanoke, 1590** (the Americas), **The Franklin expedition, 1845** (the Arctic), *one Indonesian tale, to be chosen* |
+| V (1) | The old keeper's own tale (arc OPEN) |
+
+The legend each one sets right, in short (facts to be checked and sourced
+in each tale's design doc before it is built):
+
+| Tale | Legend (red herring) | What the record says |
+|---|---|---|
+| Iron Mask, 1703 | Louis XIV's twin, in an iron mask | A prisoner named Eustache Dauger; the mask was black velvet |
+| Emille Bell, 771 | A child was cast into the bronze for its voice | No trace of it in the bell; the sound is the founders' craft |
+| Whitechapel, 1891 | The one name the papers gave the killer | The other names in the police file |
+| Guangxu, 1908 | He died of illness | Tests in 2008 found arsenic in his remains |
+| Alamut, 1256 | Drugged killers in a garden of paradise (Marco Polo) | A fortress of scholars and a library the Mongols burned |
+| Great Zimbabwe, 1871 | Built by outsiders for the Queen of Sheba (a colonial myth) | Built by the ancestors of the Shona |
+| Dyatlov Pass, 1959 | Aliens, a yeti, a secret weapon | A slab avalanche (studies of 2019–2021) |
+| Honnō-ji, 1582 | Nobunaga escaped the burning temple | His body was never found; the fire and Akechi's betrayal are what is known |
+| Roanoke, 1590 | The colony vanished without a trace | "CROATOAN" carved on a post: they had gone to Croatoan |
+| Franklin, 1845 | Inuit testimony dismissed as tales | That testimony led to *Erebus* (2014) and *Terror* (2016) |
+
+`unlockAfter` for shelves III to V is set as the tales are built (a
+guide: shelf III after 4 tales, IV after 8, V after 13).
+
 How difficulty rises from shelf to shelf:
 
 | Lever | Lower shelves | Higher shelves |
@@ -78,8 +111,8 @@ own hardest puzzle; higher shelves have more puzzles, chained together.
 
 | Tale | Its own mechanics | Its label |
 |---|---|---|
-| *Whitechapel, 1888* | A clock-face lock set to the stopped hour; a red thread through five streets on a map; fog and ash wiped away; a lens and frame made into a magnifier | A ledger: the five frames, a name and a place under each date |
-| *Semarang, 1945* | Doors into other years; code locks (the station clock, the locker room); the timetable and the telegraph in order; the stained-glass rings; the lockers | A telegram, STOP between the lines |
+| *Whitechapel, 1888* | A clock-face lock set to the stopped hour; a red thread through five streets on a map; fog and ash wiped away; a lens and frame made into a magnifier | A ledger of one row, *from 31 August to 9 November 1888*: the first and the last name |
+| *Semarang, 1945* | Doors into other years; code locks (the station clock, the locker room); the timetable and the telegraph in order; the stained-glass rings; the lockers | A telegram of two lines: the doors counted, the day, how many did not come home |
 | *Flannan Isles, 1900* | Dark scenes by lantern light; the clockwork crank; the beam turning over the island, showing things only while it passes; down the landing steps between the waves (the swell); the roster of who went, how, and when | A seal: the legend's sentence, three words corrected |
 | *Pompeii, 79* | The lens between eras, turned through the hours of the last day; pieces laid and turned into place (the shrine's painted panel, the child's drawing); marks read by raking light | A seal of three words, pinned to the diggers' cut |
 
@@ -151,4 +184,5 @@ final episode. Details are open.
 | `flannan_isles_1900` | Flannan Isles, 1900 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). Dark scenes, crank, legend as red herrings | [episodes/flannan_isles_1900.md](episodes/flannan_isles_1900.md) |
 | `pompeii_79` | Pompeii, 79 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). Lens between eras, tracing sheets, legend as red herrings | [episodes/pompeii_79.md](episodes/pompeii_79.md) |
 | `sealed_whitechapel_1891` | Sealed jar (shelf III, series whitechapel) | Idea: the six other names in the police file | — |
+| *(planned)* | The other ten new tales | See *The full shelf* above | — |
 | `test_room` | Test room | Debug builds only | Feature test room |
