@@ -125,19 +125,84 @@ void _sky1863(Art a, {double horizon = 0.5}) =>
 void _sky79(Art a, {double horizon = 0.5}) =>
     a.fade(a.r(0, 0, 1, horizon), _sky79Top, _sky79Low);
 
-/// Vesuvius, its peak at ([x], [y]), filling down to [base].
+/// Vesuvius, its peak at ([x], [y]), filling down to [base]: the cone with
+/// its crater, the old ridge of Somma on its left shoulder, gullies down
+/// its flanks, and the lit side towards the afternoon sun on the right.
 void _vesuvius(Art a, double x, double y, double base, {Color? color}) {
+  final body = color ?? _mountain;
+  final h = base - y;
+  final outline = a.poly([
+    a.p(x - 0.28, base),
+    a.p(x - 0.2, base - h * 0.5),
+    a.p(x - 0.15, base - h * 0.7),
+    a.p(x - 0.11, base - h * 0.64),
+    a.p(x - 0.06, base - h * 0.86),
+    a.p(x - 0.025, y),
+    a.p(x, y + h * 0.05),
+    a.p(x + 0.025, y + h * 0.01),
+    a.p(x + 0.09, base - h * 0.55),
+    a.p(x + 0.16, base - h * 0.28),
+    a.p(x + 0.28, base),
+  ]);
+  a.path(outline, body, line: 0);
+  a.canvas
+    ..save()
+    ..clipPath(outline);
+  // The sunlit flank.
   a.path(
-    a.poly([
-      a.p(x - 0.24, base),
-      a.p(x - 0.12, base - (base - y) * 0.55),
-      a.p(x - 0.04, y + 0.01),
-      a.p(x + 0.03, y),
-      a.p(x + 0.12, base - (base - y) * 0.5),
-      a.p(x + 0.26, base),
-    ]),
-    color ?? _mountain,
-    line: 0.4,
+    a.poly([a.p(x + 0.012, y), a.p(x + 0.3, base), a.p(x - 0.02, base)]),
+    Color.lerp(body, const Color(0xFFE8DCC8), 0.22)!,
+    line: 0,
+  );
+  // Gullies running down from the rim.
+  final gully = Color.lerp(body, Art.outline, 0.35)!;
+  for (var i = 0; i < 9; i++) {
+    final t = (i - 4) / 4;
+    final top = a.p(x + t * 0.02, y + h * 0.08);
+    final bottom = a.p(x + t * 0.2, base);
+    final bend = a.p(x + t * 0.07 + 0.01, y + h * 0.5);
+    a.canvas.drawPath(
+      Path()
+        ..moveTo(top.dx, top.dy)
+        ..quadraticBezierTo(bend.dx, bend.dy, bottom.dx, bottom.dy),
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = a.u * 0.25
+        ..color = gully.withValues(alpha: 0.55),
+    );
+  }
+  // Somma's old wall, a darker ridge.
+  a.canvas.drawPath(
+    Path()
+      ..moveTo(a.p(x - 0.25, base).dx, a.p(0, base).dy)
+      ..lineTo(a.p(x - 0.15, base - h * 0.7).dx, a.p(0, base - h * 0.7).dy)
+      ..lineTo(a.p(x - 0.11, base - h * 0.64).dx, a.p(0, base - h * 0.64).dy)
+      ..lineTo(a.p(x - 0.08, base).dx, a.p(0, base).dy)
+      ..close(),
+    Paint()..color = gully.withValues(alpha: 0.35),
+  );
+  // The crater's dark lip.
+  a.canvas.drawOval(
+    Rect.fromCenter(
+      center: a.p(x, y + h * 0.03),
+      width: a.size.width * 0.045,
+      height: a.size.height * h * 0.06,
+    ),
+    Paint()..color = gully,
+  );
+  // Haze at the foot.
+  a.fade(
+    a.r(x - 0.3, base - h * 0.25, 0.6, h * 0.25),
+    body.withValues(alpha: 0),
+    Color.lerp(body, _skyLow, 0.5)!.withValues(alpha: 0.7),
+  );
+  a.canvas.restore();
+  a.canvas.drawPath(
+    outline,
+    Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = a.u * 0.4
+      ..color = Art.outline,
   );
 }
 
@@ -405,13 +470,8 @@ void _street(Art a) {
   a
     ..fill(a.r(0, 0.8, 0.46, 0.04), const Color(0xFF7E776E))
     ..hairline(a.p(0, 0.84), a.p(0.46, 0.84), Art.outline, 0.5);
-  // Ruts and stepping stones.
-  for (final x in [0.44, 0.6]) {
-    a.line(a.p(x, 0.86), a.p(x + 0.04, 1), Art.outline, width: 0.8);
-  }
-  for (final x in [0.47, 0.53, 0.59]) {
-    a.oval(a.r(x - 0.022, 0.78, 0.044, 0.035), const Color(0xFF6E6862));
-  }
+  _ruts(a);
+  _steppingStones(a, const Color(0xFF7A736B));
   // The diggers' hut on the right.
   a
     ..wood(a.r(0.66, 0.3, 0.28, 0.46), base: _plank, vertical: true, grain: 8)
@@ -421,10 +481,9 @@ void _street(Art a) {
     )
     ..box(a.r(0.72, 0.42, 0.1, 0.32), const Color(0xFF221A14))
     ..box(a.r(0.84, 0.4, 0.07, 0.08), const Color(0xFFBFD0DA), line: 0.4);
-  // Baskets and a barrow by the hut.
-  a
-    ..oval(a.r(0.86, 0.7, 0.06, 0.06), const Color(0xFF8C6B45))
-    ..oval(a.r(0.9, 0.72, 0.06, 0.06), const Color(0xFF7A5C3A));
+  // The diggers' baskets for carrying spoil, by the hut.
+  _basket(a, a.r(0.855, 0.68, 0.06, 0.08));
+  _basket(a, a.r(0.905, 0.7, 0.06, 0.07));
   // The diggers' board on its post.
   a
     ..line(a.p(0.57, 0.54), a.p(0.57, 0.8), const Color(0xFF4A3828), width: 0.9)
@@ -434,6 +493,77 @@ void _street(Art a) {
   _weeds(a, a.r(0, 0.76, 0.14, 0.04));
 }
 
+/// Two grooves worn into the paving by cart wheels, running into the
+/// picture, with the light catching their far edges.
+void _ruts(Art a) {
+  for (final (bottom, top) in [(0.4, 0.49), (0.66, 0.6)]) {
+    final groove = a.poly([
+      a.p(bottom - 0.018, 1),
+      a.p(bottom + 0.018, 1),
+      a.p(top + 0.006, 0.845),
+      a.p(top - 0.006, 0.845),
+    ]);
+    a.path(groove, const Color(0xFF2B2824), line: 0);
+    a
+      ..hairline(
+        a.p(bottom + 0.018, 1),
+        a.p(top + 0.006, 0.845),
+        const Color(0xFF8E877E),
+        0.4,
+      )
+      ..hairline(
+        a.p(bottom - 0.018, 1),
+        a.p(top - 0.006, 0.845),
+        Art.outline,
+        0.3,
+      );
+  }
+}
+
+/// Raised stepping stones across the street, so no one had to wade.
+void _steppingStones(Art a, Color stone) {
+  final side = Color.lerp(stone, Art.outline, 0.4)!;
+  for (final x in [0.465, 0.53, 0.595]) {
+    a
+      ..box(a.r(x - 0.026, 0.8, 0.052, 0.02), side, line: 0.4)
+      ..oval(a.r(x - 0.028, 0.786, 0.056, 0.028), stone, line: 0.4);
+  }
+}
+
+/// A wicker basket for carrying spoil.
+void _basket(Art a, Rect rect) {
+  const wicker = Color(0xFF9C7A4E);
+  final body = Path()
+    ..moveTo(rect.left, rect.top + rect.height * 0.2)
+    ..lineTo(rect.right, rect.top + rect.height * 0.2)
+    ..lineTo(rect.right - rect.width * 0.12, rect.bottom)
+    ..lineTo(rect.left + rect.width * 0.12, rect.bottom)
+    ..close();
+  a.path(body, wicker, line: 0.4);
+  final weave = Color.lerp(wicker, Art.outline, 0.45)!;
+  for (var i = 1; i < 4; i++) {
+    final y = rect.top + rect.height * (0.2 + 0.2 * i);
+    a.hairline(
+      Offset(rect.left + rect.width * 0.04 * i, y),
+      Offset(rect.right - rect.width * 0.04 * i, y),
+      weave,
+      0.25,
+    );
+  }
+  a.oval(
+    Rect.fromLTWH(
+      rect.left,
+      rect.top + rect.height * 0.1,
+      rect.width,
+      rect.height * 0.2,
+    ),
+    Color.lerp(wicker, Art.outline, 0.25)!,
+    line: 0.4,
+  );
+}
+
+/// Grey ash banked against the shop's doorway, set hard as mortar: the
+/// layers it fell in, a crust on top, lumps broken off at its foot.
 void _ashBank(Art a) {
   final random = math.Random(21);
   final top = <Offset>[a.p(0, 1)];
@@ -444,20 +574,53 @@ void _ashBank(Art a) {
     );
   }
   top.add(a.p(1, 1));
-  a.path(a.poly(top), _ash, line: 0.5);
-  for (var i = 0; i < 40; i++) {
-    a.canvas.drawCircle(
-      a.p(random.nextDouble(), 0.35 + random.nextDouble() * 0.6),
-      a.u * (0.3 + random.nextDouble() * 0.8),
-      Paint()..color = (i.isEven ? _ashDark : _pumice).withValues(alpha: 0.6),
+  final bank = a.poly(top);
+  a.path(bank, _ash, line: 0);
+  a.canvas
+    ..save()
+    ..clipPath(bank);
+  // The layers it fell in: bands of darker ash and paler pumice.
+  for (var i = 0; i < 6; i++) {
+    final y = 0.3 + i * 0.12;
+    final band = Path()..moveTo(0, a.p(0, y).dy);
+    for (var j = 1; j <= 8; j++) {
+      band.lineTo(
+        a.p(j / 8, 0).dx,
+        a.p(0, y + math.sin(j * 1.3 + i) * 0.015).dy,
+      );
+    }
+    band
+      ..lineTo(a.size.width, a.p(0, y + 0.06).dy)
+      ..lineTo(0, a.p(0, y + 0.06).dy)
+      ..close();
+    a.canvas.drawPath(
+      band,
+      Paint()..color = (i.isEven ? _ashDark : _pumice).withValues(alpha: 0.45),
     );
   }
-  for (var i = 1; i < 4; i++) {
-    a.hairline(
-      a.p(0.05, 0.4 + i * 0.14),
-      a.p(0.95, 0.42 + i * 0.14),
+  // The weathered crust along the top.
+  a.canvas.drawPath(
+    Path()..addPolygon(top.sublist(1, top.length - 1), false),
+    Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = a.u * 2.2
+      ..color = Color.lerp(_ash, _plasterDark, 0.5)!,
+  );
+  // Shadow where it meets the street.
+  a.fade(a.r(0, 0.82, 1, 0.18), _ash.withValues(alpha: 0), _ashDark);
+  a.canvas.restore();
+  a.path(bank, const Color(0x00000000), line: 0.5);
+  // Lumps broken off at its foot.
+  for (final (x, w) in [(0.08, 0.1), (0.7, 0.13), (0.86, 0.08)]) {
+    a.path(
+      a.poly([
+        a.p(x, 0.98),
+        a.p(x + w * 0.2, 0.9),
+        a.p(x + w * 0.7, 0.88),
+        a.p(x + w, 0.98),
+      ]),
       _ashDark,
-      0.3,
+      line: 0.35,
     );
   }
 }
@@ -494,9 +657,8 @@ void _street79(Art a) {
   a
     ..fill(a.r(0, 0.8, 0.46, 0.04), const Color(0xFF8E857A))
     ..hairline(a.p(0, 0.84), a.p(0.46, 0.84), Art.outline, 0.5);
-  for (final x in [0.47, 0.53, 0.59]) {
-    a.oval(a.r(x - 0.022, 0.78, 0.044, 0.035), const Color(0xFF6E6862));
-  }
+  _ruts(a);
+  _steppingStones(a, const Color(0xFF6E6862));
   // Where the hut will stand: a neighbour's snack bar with jars in its counter.
   a
     ..box(a.r(0.64, 0.24, 0.36, 0.56), const Color(0xFFD4B98C))
@@ -767,36 +929,111 @@ void _mill(Art a, Rect rect, {Color color = _lavaStone}) {
     );
 }
 
-/// The oven: a brick block with an arched mouth; [mouth] is the door area.
+/// The oven: a masonry block with its low dome on top and a flue, the
+/// mouth an arch of brick, soot above it, shut with an iron door.
 void _oven(Art a, {required Color brick, required bool glow}) {
+  final dark = Color.lerp(brick, Art.outline, 0.4)!;
+  // The dome behind the front wall, and its flue.
   a
-    ..box(a.r(0.52, 0.3, 0.3, 0.5), brick)
+    ..box(a.r(0.715, 0.1, 0.04, 0.16), Color.lerp(brick, Art.outline, 0.3)!)
     ..path(
-      a.poly([a.p(0.52, 0.3), a.p(0.67, 0.2), a.p(0.82, 0.3)]),
-      Color.lerp(brick, Art.outline, 0.2)!,
-    )
-    ..box(a.r(0.7, 0.08, 0.05, 0.14), Color.lerp(brick, Art.outline, 0.3)!);
-  for (var i = 1; i < 10; i++) {
-    a.hairline(
-      a.p(0.52, 0.3 + i * 0.05),
-      a.p(0.82, 0.3 + i * 0.05),
-      Color.lerp(brick, Art.outline, 0.4)!,
-      0.25,
+      Path()..addArc(a.r(0.55, 0.2, 0.24, 0.3), math.pi, math.pi),
+      Color.lerp(brick, Art.outline, 0.15)!,
+    );
+  // The front: rough stones set in mortar.
+  final front = a.r(0.52, 0.34, 0.3, 0.46);
+  a.box(front, brick);
+  final random = math.Random(5);
+  for (var row = 0; row < 8; row++) {
+    var x = front.left + random.nextDouble() * a.size.width * 0.02;
+    final y = front.top + front.height * row / 8;
+    while (x < front.right) {
+      final w = a.size.width * (0.03 + random.nextDouble() * 0.03);
+      a.canvas.drawRRect(
+        RRect.fromRectAndRadius(
+          Rect.fromLTWH(
+            x,
+            y + a.u * 0.4,
+            math.min(w, front.right - x) - a.u * 0.5,
+            front.height / 8 - a.u * 0.8,
+          ),
+          Radius.circular(a.u * 0.8),
+        ),
+        Paint()..color = Color.lerp(brick, dark, random.nextDouble() * 0.5)!,
+      );
+      x += w;
+    }
+  }
+  a.ink(front);
+  // Soot licked up the wall over the mouth.
+  a.canvas.drawOval(
+    a.r(0.585, 0.34, 0.17, 0.2),
+    Paint()
+      ..color = const Color(0x88151210)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.u * 2),
+  );
+  // The mouth: an arch of brick voussoirs round the door.
+  final mouth = Path()
+    ..moveTo(a.p(0.59, 0.66).dx, a.p(0, 0.66).dy)
+    ..lineTo(a.p(0.59, 0.5).dx, a.p(0, 0.5).dy)
+    ..arcTo(a.r(0.59, 0.43, 0.16, 0.14), math.pi, math.pi, false)
+    ..lineTo(a.p(0.75, 0.66).dx, a.p(0, 0.66).dy)
+    ..close();
+  a.path(mouth, const Color(0xFF9C5E40), line: 0.5);
+  for (var i = 1; i < 8; i++) {
+    final angle = math.pi + math.pi * i / 8;
+    final c = a.p(0.67, 0.5);
+    a.canvas.drawLine(
+      c +
+          Offset(
+            math.cos(angle) * a.size.width * 0.062,
+            math.sin(angle) * a.size.height * 0.055,
+          ),
+      c +
+          Offset(
+            math.cos(angle) * a.size.width * 0.08,
+            math.sin(angle) * a.size.height * 0.07,
+          ),
+      Paint()
+        ..strokeWidth = a.u * 0.3
+        ..color = Art.outline,
     );
   }
-  // The mouth, shut with an iron door.
+  // The iron door.
   a
-    ..box(a.r(0.6, 0.48, 0.14, 0.17), const Color(0xFF3A342F), line: 0.6)
-    ..box(a.r(0.615, 0.5, 0.11, 0.14), const Color(0xFF2B2A28), line: 0.4)
-    ..circle(a.p(0.71, 0.57), a.u * 0.8, const Color(0xFF6E6A66), line: 0.3);
+    ..box(a.r(0.605, 0.49, 0.13, 0.15), const Color(0xFF2B2A28), line: 0.5)
+    ..hairline(
+      a.p(0.605, 0.515),
+      a.p(0.735, 0.515),
+      const Color(0xFF55524E),
+      0.4,
+    )
+    ..hairline(
+      a.p(0.605, 0.615),
+      a.p(0.735, 0.615),
+      const Color(0xFF55524E),
+      0.4,
+    )
+    ..circle(a.p(0.715, 0.565), a.u * 0.9, const Color(0xFF6E6A66), line: 0.3);
+  // The ledge in front of the mouth, where the loaves were slid in.
+  a.box(
+    a.r(0.56, 0.66, 0.22, 0.03),
+    Color.lerp(brick, _plaster, 0.4)!,
+    line: 0.4,
+  );
   if (glow) {
     a
-      ..hairline(a.p(0.615, 0.5), a.p(0.725, 0.5), const Color(0xFFF2A447), 0.6)
       ..hairline(
-        a.p(0.615, 0.64),
-        a.p(0.725, 0.64),
+        a.p(0.605, 0.49),
+        a.p(0.735, 0.49),
         const Color(0xFFF2A447),
-        0.6,
+        0.7,
+      )
+      ..hairline(
+        a.p(0.605, 0.64),
+        a.p(0.735, 0.64),
+        const Color(0xFFF2A447),
+        0.7,
       )
       ..glow(
         a.p(0.67, 0.57),
@@ -805,6 +1042,89 @@ void _oven(Art a, {required Color brick, required bool glow}) {
         strength: 0.25,
       );
   }
+}
+
+/// A doorway into the house: lintel, jambs, a worn threshold, and the room
+/// beyond in dim light.
+void _doorway(Art a, Rect door, {required Color room, required Color panel}) {
+  a
+    ..fill(door, room)
+    ..fade(
+      Rect.fromLTWH(door.left, door.top, door.width, door.height * 0.5),
+      const Color(0x66000000),
+      const Color(0x00000000),
+    )
+    ..fill(
+      Rect.fromLTWH(
+        door.left + door.width * 0.25,
+        door.top + door.height * 0.3,
+        door.width * 0.5,
+        door.height * 0.3,
+      ),
+      panel,
+    )
+    ..fill(
+      Rect.fromLTWH(door.left, door.top, door.width * 0.14, door.height),
+      const Color(0x55000000),
+    )
+    ..ink(door)
+    ..box(
+      Rect.fromLTWH(
+        door.left - door.width * 0.12,
+        door.top - door.height * 0.05,
+        door.width * 1.24,
+        door.height * 0.05,
+      ),
+      const Color(0xFF6E5038),
+      line: 0.4,
+    )
+    ..box(
+      Rect.fromLTWH(
+        door.left - door.width * 0.06,
+        door.bottom - door.height * 0.03,
+        door.width * 1.12,
+        door.height * 0.03,
+      ),
+      const Color(0xFFB8AE9E),
+      line: 0.4,
+    );
+}
+
+/// A pomegranate, burnt black or fresh, with its little crown.
+void _pomegranateFruit(Art a, Offset c, double r, {required bool charred}) {
+  final skin = charred ? const Color(0xFF1E1A16) : _pomegranate;
+  a
+    ..path(
+      a.poly([
+        c.translate(-r * 0.35, -r * 0.8),
+        c.translate(-r * 0.2, -r * 1.25),
+        c.translate(0, -r * 0.95),
+        c.translate(r * 0.2, -r * 1.25),
+        c.translate(r * 0.35, -r * 0.8),
+      ]),
+      skin,
+      line: 0.25,
+    )
+    ..circle(c, r, skin, line: 0.3)
+    ..canvas.drawCircle(
+      c.translate(-r * 0.35, -r * 0.35),
+      r * 0.25,
+      Paint()
+        ..color = charred ? const Color(0x33FFFFFF) : const Color(0x55FFFFFF),
+    );
+}
+
+/// A chestnut: a rounded drop with a pale base.
+void _chestnut(Art a, Offset c, double r, {required bool charred}) {
+  final skin = charred ? const Color(0xFF231C16) : const Color(0xFF6A3E22);
+  a.path(
+    Path()
+      ..moveTo(c.dx, c.dy - r * 1.2)
+      ..quadraticBezierTo(c.dx + r * 1.3, c.dy, c.dx, c.dy + r)
+      ..quadraticBezierTo(c.dx - r * 1.3, c.dy, c.dx, c.dy - r * 1.2),
+    skin,
+    line: 0.2,
+  );
 }
 
 void _bakery(Art a) {
@@ -824,18 +1144,29 @@ void _bakery(Art a) {
   _mill(a, a.r(0.06, 0.36, 0.12, 0.46));
   _mill(a, a.r(0.2, 0.42, 0.1, 0.4));
   // The doorway into the house.
-  a
-    ..box(a.r(0.36, 0.3, 0.1, 0.5), const Color(0xFF2F2A25))
-    ..glow(a.p(0.41, 0.5), a.size.width * 0.05, _skyLow, strength: 0.15);
+  _doorway(
+    a,
+    a.r(0.36, 0.3, 0.1, 0.5),
+    room: const Color(0xFF7A6A58),
+    panel: _fadedRed.withValues(alpha: 0.6),
+  );
   _oven(a, brick: const Color(0xFF8C6450), glow: false);
   // The store corner: jars sunk in the floor, a shelf of charred fruit.
   a.box(a.r(0.85, 0.5, 0.14, 0.02), const Color(0xFF5A4636), line: 0.4);
-  for (var i = 0; i < 4; i++) {
-    a.circle(
-      a.p(0.87 + i * 0.03, 0.485),
-      a.u * 1.4,
-      const Color(0xFF1E1A16),
-      line: 0.3,
+  for (var i = 0; i < 3; i++) {
+    _pomegranateFruit(
+      a,
+      a.p(0.868 + i * 0.03, 0.482),
+      a.size.height * 0.016,
+      charred: true,
+    );
+  }
+  for (var i = 0; i < 3; i++) {
+    _chestnut(
+      a,
+      a.p(0.958 + i * 0.01, 0.488),
+      a.size.height * 0.009,
+      charred: true,
     );
   }
   for (var i = 0; i < 2; i++) {
@@ -885,7 +1216,12 @@ void _bakery79(Art a) {
   _mill(a, a.r(0.06, 0.36, 0.12, 0.46), color: const Color(0xFF4A4540));
   _mill(a, a.r(0.2, 0.42, 0.1, 0.4), color: const Color(0xFF4A4540));
   _donkey(a, a.r(0.0, 0.55, 0.16, 0.28));
-  a.box(a.r(0.36, 0.3, 0.1, 0.5), const Color(0xFF3A2C22));
+  _doorway(
+    a,
+    a.r(0.36, 0.3, 0.1, 0.5),
+    room: const Color(0xFF5A2A20),
+    panel: _yellow79.withValues(alpha: 0.5),
+  );
   _oven(a, brick: const Color(0xFF9A6A52), glow: true);
   // The baker's peel, leaning where it was dropped.
   a
@@ -904,11 +1240,11 @@ void _bakery79(Art a) {
     _loaf(a, a.p(0.86 + i * 0.023, 0.55), a.size.height * 0.016, fresh: true);
   }
   for (var i = 0; i < 3; i++) {
-    a.circle(
-      a.p(0.94 + (i % 2) * 0.018, 0.585 - (i ~/ 2) * 0.02),
+    _pomegranateFruit(
+      a,
+      a.p(0.94 + (i % 2) * 0.018, 0.585 - (i ~/ 2) * 0.022),
       a.size.height * 0.012,
-      _pomegranate,
-      line: 0.3,
+      charred: false,
     );
   }
   a.box(a.r(0.965, 0.53, 0.02, 0.07), const Color(0xFF8E5A36), line: 0.3);
@@ -962,9 +1298,7 @@ void _atrium(Art a) {
   }
   _flaking(a, a.r(0, 0.2, 1, 0.55), seed: 17, count: 34);
   // The opening onto the garden.
-  a
-    ..box(a.r(0.44, 0.28, 0.12, 0.38), const Color(0xFFA9B8A2))
-    ..fill(a.r(0.44, 0.54, 0.12, 0.12), const Color(0xFF7E8A6A));
+  _gardenGlimpse(a, a.r(0.44, 0.28, 0.12, 0.38));
   // The shrine: a niche and its altar, empty; the painted panel at its
   // back has fallen, leaving bare rubble.
   a
@@ -977,18 +1311,7 @@ void _atrium(Art a) {
   _flaking(a, a.r(0.085, 0.3, 0.09, 0.1), seed: 21, count: 8);
   a.box(a.r(0.09, 0.48, 0.08, 0.1), const Color(0xFF9E8A74));
   // Remnants of the child's drawing, low on the wall.
-  for (final (x1, y1, x2, y2) in [
-    (0.25, 0.5, 0.28, 0.48),
-    (0.3, 0.52, 0.31, 0.47),
-    (0.34, 0.5, 0.36, 0.5),
-  ]) {
-    a.line(
-      a.p(x1, y1),
-      a.p(x2, y2),
-      _charcoal.withValues(alpha: 0.5),
-      width: 0.35,
-    );
-  }
+  _drawingRemnant(a, a.r(0.235, 0.35, 0.14, 0.2));
   // A grown-up's graffito, scratched in.
   a.scrawl(
     a.r(0.6, 0.31, 0.1, 0.12),
@@ -998,16 +1321,7 @@ void _atrium(Art a) {
     width: 0.25,
   );
   // The earthquake crack, patched.
-  final crack = Path()..moveTo(a.p(0.75, 0.16).dx, a.p(0.75, 0.16).dy);
-  for (var i = 1; i <= 8; i++) {
-    crack.lineTo(
-      a.p(0.75 + (i.isOdd ? 0.015 : -0.01), 0.16 + i * 0.055).dx,
-      a.p(0, 0.16 + i * 0.055).dy,
-    );
-  }
-  a
-    ..fill(a.r(0.735, 0.3, 0.035, 0.12), const Color(0xFFE0D6C2))
-    ..strokePath(crack, Art.outline, width: 0.45);
+  _crack(a);
   // The floor.
   a
     ..fill(a.r(0, 0.66, 1, 0.34), const Color(0xFF8C7462))
@@ -1028,17 +1342,284 @@ void _atrium(Art a) {
       line: 0.4,
     );
   }
-  a.box(a.r(0.82, 0.7, 0.1, 0.12), const Color(0xFF3A3530));
-  // The floor and the basin full of pumice.
-  a.box(a.r(0.36, 0.7, 0.28, 0.12), const Color(0xFF6E6A62), line: 0.6);
-  final random = math.Random(31);
-  for (var i = 0; i < 80; i++) {
+  _stairNiche(a, a.r(0.82, 0.7, 0.1, 0.12));
+  // The rainwater basin in the floor, full of pumice.
+  _basin(a, a.r(0.36, 0.7, 0.28, 0.12), full: true);
+}
+
+/// The garden seen through a doorway: the jambs' depth, sky, the far wall,
+/// column stumps and weeds.
+void _gardenGlimpse(Art a, Rect door) {
+  final w = door.width;
+  final h = door.height;
+  Rect at(double x, double y, double dw, double dh) =>
+      Rect.fromLTWH(door.left + w * x, door.top + h * y, w * dw, h * dh);
+  a
+    ..fade(at(0, 0, 1, 0.45), _skyTop, _skyLow)
+    ..fill(at(0, 0.3, 1, 0.3), _plasterDark)
+    ..fill(at(0, 0.6, 1, 0.4), const Color(0xFF8A8C72));
+  for (final (x, top) in [(0.2, 0.36), (0.62, 0.44)]) {
+    a.box(at(x, top, 0.12, 0.6 - top), const Color(0xFFD2C6B0), line: 0.3);
+  }
+  _weeds(a, at(0.05, 0.56, 0.9, 0.08), seed: 12);
+  // The thickness of the wall on either side.
+  a
+    ..fill(at(0, 0, 0.08, 1), Color.lerp(_plasterDark, Art.outline, 0.3)!)
+    ..fill(at(0.92, 0, 0.08, 1), Color.lerp(_plasterDark, Art.outline, 0.15)!)
+    ..ink(door);
+}
+
+/// What is left of the child's charcoal drawing: a few islands of plaster
+/// still holding lines (a sail, a figure, a letter), the rest flaked back
+/// to the rubble.
+void _drawingRemnant(Art a, Rect rect) {
+  // Where the plaster has gone: rough rubble.
+  a.canvas.drawRRect(
+    RRect.fromRectAndRadius(rect, Radius.circular(a.u)),
+    Paint()..color = _plasterDark.withValues(alpha: 0.7),
+  );
+  final random = math.Random(8);
+  for (var i = 0; i < 26; i++) {
     a.canvas.drawCircle(
-      a.p(0.37 + random.nextDouble() * 0.26, 0.71 + random.nextDouble() * 0.1),
-      a.u * (0.4 + random.nextDouble() * 0.6),
-      Paint()..color = i.isEven ? _pumice : const Color(0xFFBDB29C),
+      Offset(
+        rect.left + random.nextDouble() * rect.width,
+        rect.top + random.nextDouble() * rect.height,
+      ),
+      a.u * (0.3 + random.nextDouble() * 0.5),
+      Paint()..color = const Color(0x66564A3E),
     );
   }
+  // The islands that held, with the drawing still on them.
+  final islands = Path();
+  for (final (x, y, w, h) in [
+    (0.62, 0.36, 0.3, 0.4),
+    (0.1, 0.4, 0.3, 0.36),
+    (0.34, 0.1, 0.22, 0.2),
+  ]) {
+    final c = Offset(
+      rect.left + rect.width * (x + w / 2),
+      rect.top + rect.height * (y + h / 2),
+    );
+    final points = <Offset>[];
+    for (var i = 0; i < 11; i++) {
+      final angle = i / 11 * 2 * math.pi;
+      final k = 0.7 + random.nextDouble() * 0.45;
+      points.add(
+        c +
+            Offset(
+              math.cos(angle) * rect.width * w / 2 * k,
+              math.sin(angle) * rect.height * h / 2 * k,
+            ),
+      );
+    }
+    islands.addPolygon(points, true);
+  }
+  a.canvas
+    ..save()
+    ..clipPath(islands)
+    ..drawRect(rect, Paint()..color = _plaster)
+    ..translate(rect.left, rect.top)
+    ..saveLayer(
+      Offset.zero & rect.size,
+      Paint()..color = const Color(0x99000000),
+    );
+  final local = Art(a.canvas, rect.size);
+  _boat(local);
+  _people(local);
+  _words(local);
+  a.canvas
+    ..restore()
+    ..restore();
+  a.canvas.drawPath(
+    islands,
+    Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = a.u * 0.2
+      ..color = const Color(0x88564A3E),
+  );
+}
+
+/// The crack from the earthquake of 62: a ragged split running down the
+/// wall with branches, a smear of newer, paler plaster over its middle.
+void _crack(Art a) {
+  final random = math.Random(62);
+  final points = <Offset>[];
+  var x = 0.752;
+  for (var i = 0; i <= 18; i++) {
+    x += (random.nextDouble() - 0.5) * 0.012;
+    points.add(a.p(x, 0.17 + i * 0.018));
+  }
+  // The patch of newer plaster, trowelled over the middle.
+  final patch = a.poly([
+    a.p(0.738, 0.29),
+    a.p(0.764, 0.285),
+    a.p(0.772, 0.33),
+    a.p(0.768, 0.39),
+    a.p(0.77, 0.415),
+    a.p(0.742, 0.41),
+    a.p(0.733, 0.36),
+  ]);
+  a.canvas
+    ..drawPath(patch, Paint()..color = const Color(0xCCD8CCB2))
+    ..drawPath(
+      patch,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = a.u * 0.25
+        ..color = const Color(0x55564A3E),
+    );
+  final crack = Path()..addPolygon(points, false);
+  a.canvas
+    ..drawPath(
+      crack,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = a.u * 0.9
+        ..strokeJoin = StrokeJoin.round
+        ..color = const Color(0xFF2A221C),
+    )
+    ..drawPath(
+      crack.shift(Offset(a.u * 0.4, 0)),
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = a.u * 0.25
+        ..color = const Color(0x55FFF4E0),
+    );
+  // Hairline branches off the main split.
+  for (final (i, dx, dy) in [
+    (3, 0.018, 0.03),
+    (13, -0.02, 0.035),
+    (16, 0.015, 0.03),
+  ]) {
+    final from = points[i];
+    a.canvas.drawLine(
+      from,
+      from + Offset(a.size.width * dx, a.size.height * dy),
+      Paint()
+        ..strokeWidth = a.u * 0.3
+        ..color = const Color(0xCC2A221C),
+    );
+  }
+  // Where the patch has cracked again, faintly.
+  a.hairline(points[7], points[11], const Color(0x662A221C), 0.3);
+}
+
+/// The little arched niche under the stair, packed with ash.
+void _stairNiche(
+  Art a,
+  Rect rect, {
+  bool ash = true,
+  Color stone = const Color(0xFF9A9186),
+}) {
+  Path arch(Rect r) => Path()
+    ..moveTo(r.left, r.bottom)
+    ..lineTo(r.left, r.top + r.height * 0.4)
+    ..quadraticBezierTo(
+      r.center.dx,
+      r.top - r.height * 0.2,
+      r.right,
+      r.top + r.height * 0.4,
+    )
+    ..lineTo(r.right, r.bottom)
+    ..close();
+  a.path(arch(rect), stone, line: 0.5);
+  final inner = arch(
+    Rect.fromLTRB(
+      rect.left + rect.width * 0.12,
+      rect.top + rect.height * 0.18,
+      rect.right - rect.width * 0.12,
+      rect.bottom,
+    ),
+  );
+  a.path(inner, const Color(0xFF2E2A26), line: 0.35);
+  if (!ash) return;
+  // Ash packed into it, heaped.
+  a.canvas
+    ..save()
+    ..clipPath(inner);
+  a.path(
+    a.poly([
+      Offset(rect.left, rect.bottom),
+      Offset(rect.left, rect.top + rect.height * 0.62),
+      Offset(rect.center.dx, rect.top + rect.height * 0.5),
+      Offset(rect.right, rect.top + rect.height * 0.66),
+      Offset(rect.right, rect.bottom),
+    ]),
+    const Color(0xFFA6A098),
+    line: 0,
+  );
+  final random = math.Random(4);
+  for (var i = 0; i < 14; i++) {
+    a.canvas.drawCircle(
+      Offset(
+        rect.left + rect.width * (0.15 + random.nextDouble() * 0.7),
+        rect.top + rect.height * (0.6 + random.nextDouble() * 0.35),
+      ),
+      a.u * 0.35,
+      Paint()..color = _ashDark,
+    );
+  }
+  a.canvas.restore();
+}
+
+/// The rainwater basin sunk in the floor, seen from above at a slant: a
+/// marble rim, and inside it either water or heaped pumice.
+void _basin(
+  Art a,
+  Rect rect, {
+  required bool full,
+  Color water = const Color(0xFF3E5566),
+}) {
+  final inset = rect.width * 0.05;
+  final rim = a.poly([
+    Offset(rect.left + inset, rect.top),
+    Offset(rect.right - inset, rect.top),
+    Offset(rect.right, rect.bottom),
+    Offset(rect.left, rect.bottom),
+  ]);
+  a.path(rim, const Color(0xFFD9D2C4), line: 0.5);
+  final pool = a.poly([
+    Offset(rect.left + inset * 1.8, rect.top + rect.height * 0.16),
+    Offset(rect.right - inset * 1.8, rect.top + rect.height * 0.16),
+    Offset(rect.right - inset * 0.9, rect.bottom - rect.height * 0.16),
+    Offset(rect.left + inset * 0.9, rect.bottom - rect.height * 0.16),
+  ]);
+  if (!full) {
+    a.path(pool, water, line: 0.4);
+    return;
+  }
+  a.path(pool, const Color(0xFF8D8574), line: 0.4);
+  a.canvas
+    ..save()
+    ..clipPath(pool);
+  final bounds = pool.getBounds();
+  final random = math.Random(31);
+  for (var i = 0; i < 110; i++) {
+    final c = Offset(
+      bounds.left + random.nextDouble() * bounds.width,
+      bounds.top + random.nextDouble() * bounds.height,
+    );
+    final r = a.u * (0.6 + random.nextDouble() * 0.7);
+    a.canvas
+      ..drawOval(
+        Rect.fromCenter(
+          center: c.translate(0, r * 0.3),
+          width: r * 2.2,
+          height: r * 1.6,
+        ),
+        Paint()..color = const Color(0xFF9E9582),
+      )
+      ..drawOval(
+        Rect.fromCenter(center: c, width: r * 2, height: r * 1.4),
+        Paint()..color = i.isEven ? _pumice : const Color(0xFFC4BAA4),
+      )
+      ..drawCircle(
+        c.translate(-r * 0.3, -r * 0.25),
+        r * 0.3,
+        Paint()..color = const Color(0x88FFFFFF),
+      );
+  }
+  a.canvas.restore();
 }
 
 /// The hours the lens can look at in the atrium.
@@ -1130,7 +1711,12 @@ void _atrium79(Art a, _Hour hour) {
       line: 0.4,
     );
   }
-  a.box(a.r(0.82, 0.7, 0.1, 0.12), const Color(0xFF2A211A));
+  _stairNiche(
+    a,
+    a.r(0.82, 0.7, 0.1, 0.12),
+    ash: false,
+    stone: const Color(0xFF7A5A40),
+  );
   if (afternoon) {
     final horse = a.r(0.835, 0.72, 0.07, 0.08);
     a.canvas
@@ -1148,7 +1734,7 @@ void _atrium79(Art a, _Hour hour) {
     a.canvas.restore();
   }
   // The basin.
-  a.box(a.r(0.36, 0.7, 0.28, 0.12), const Color(0xFF3E5462), line: 0.6);
+  _basin(a, a.r(0.36, 0.7, 0.28, 0.12), full: false);
   switch (hour) {
     case _Hour.morning:
       a
@@ -1487,26 +2073,52 @@ void _horse(Art a) {
     ..circle(a.p(0.7, 0.86), a.size.width * 0.1, const Color(0xFF5A3E28));
 }
 
-/// The draughtsman's tin tube, dropped by the wall.
+/// The draughtsman's tin tube, dropped by the wall, its cap off and the
+/// rolled tracing sheets sliding out.
 void _tube(Art a) {
+  const tin = Color(0xFF9AA2A6);
+  final body = a.r(0.04, 0.3, 0.7, 0.4);
   a
-    ..rbox(
-      a.r(0.08, 0.3, 0.8, 0.4),
-      a.size.height * 0.15,
-      const Color(0xFF9AA2A6),
+    ..box(body, tin, line: 0.5)
+    ..fade(
+      Rect.fromLTWH(body.left, body.top, body.width, body.height * 0.45),
+      const Color(0x88FFFFFF),
+      const Color(0x00FFFFFF),
     )
-    ..hairline(a.p(0.2, 0.32), a.p(0.2, 0.68), const Color(0xFF6E7478), 0.4)
-    ..hairline(a.p(0.76, 0.32), a.p(0.76, 0.68), const Color(0xFF6E7478), 0.4)
-    ..path(
-      a.poly([
-        a.p(0.86, 0.36),
-        a.p(0.98, 0.3),
-        a.p(0.98, 0.7),
-        a.p(0.86, 0.64),
-      ]),
-      _paper,
-      line: 0.3,
-    );
+    ..fill(
+      Rect.fromLTWH(
+        body.left,
+        body.bottom - body.height * 0.25,
+        body.width,
+        body.height * 0.25,
+      ),
+      const Color(0x33000000),
+    )
+    ..ink(body, width: 0.5)
+    // Seams round the tube.
+    ..hairline(a.p(0.16, 0.3), a.p(0.16, 0.7), const Color(0xFF5E6468), 0.5)
+    ..hairline(a.p(0.62, 0.3), a.p(0.62, 0.7), const Color(0xFF5E6468), 0.5)
+    // The closed end.
+    ..oval(a.r(0.0, 0.3, 0.08, 0.4), const Color(0xFF7E868A), line: 0.5);
+  // The open end, and the roll of sheets coming out of it.
+  a
+    ..oval(a.r(0.7, 0.3, 0.08, 0.4), const Color(0xFF2E3234), line: 0.5)
+    ..box(a.r(0.74, 0.34, 0.2, 0.32), _paper, line: 0.4)
+    ..oval(a.r(0.9, 0.34, 0.08, 0.32), const Color(0xFFD8CDB2), line: 0.4);
+  // The curl of the roll, and faint lines drawn on the outer sheet.
+  a.canvas.drawArc(
+    a.r(0.915, 0.4, 0.05, 0.2),
+    -math.pi / 2,
+    math.pi * 1.5,
+    false,
+    Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = a.u * 0.4
+      ..color = const Color(0xFF8A7E66),
+  );
+  for (final y in [0.42, 0.5, 0.58]) {
+    a.hairline(a.p(0.77, y), a.p(0.89, y + 0.01), const Color(0x882A2420), 0.4);
+  }
 }
 
 /// The jar's blank label, propped at the shrine.
@@ -1561,63 +2173,181 @@ void _garden(Art a) {
         ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.u * 0.4),
     );
   }
-  // The hollow where a tree stood.
-  a.oval(a.r(0.38, 0.66, 0.12, 0.08), const Color(0xFF3E3A36));
-  // The diggers' cut through the layers.
-  final cut = a.r(0.64, 0.32, 0.32, 0.48);
-  a
-    ..fill(
-      Rect.fromLTWH(cut.left, cut.top, cut.width, cut.height * 0.2),
-      const Color(0xFF7C7771),
-    )
-    ..fill(
-      Rect.fromLTWH(
-        cut.left,
-        cut.top + cut.height * 0.2,
-        cut.width,
-        cut.height * 0.6,
-      ),
-      _pumice,
-    )
-    ..fill(
-      Rect.fromLTWH(
-        cut.left,
-        cut.top + cut.height * 0.8,
-        cut.width,
-        cut.height * 0.2,
-      ),
-      _soil,
-    )
-    ..ink(cut);
-  final random = math.Random(41);
-  for (var i = 0; i < 120; i++) {
-    a.canvas.drawCircle(
-      Offset(
-        cut.left + random.nextDouble() * cut.width,
-        cut.top + cut.height * (0.22 + random.nextDouble() * 0.56),
-      ),
-      a.u * (0.3 + random.nextDouble() * 0.5),
-      Paint()..color = const Color(0xFFA89E8A),
+  _rootHollow(a, a.r(0.37, 0.64, 0.14, 0.1));
+  _excavationCut(a);
+}
+
+/// Where a tree stood: a pit in the ash, a raised lip round it, and the
+/// channels its roots left, running off under the surface.
+void _rootHollow(Art a, Rect rect) {
+  final c = rect.center;
+  final dark = Color.lerp(_ash, Art.outline, 0.6)!;
+  final random = math.Random(19);
+  // Root channels, branching outwards.
+  for (var i = 0; i < 5; i++) {
+    final angle = math.pi * (0.95 + i / 4 * 1.1) + random.nextDouble() * 0.2;
+    var from = c;
+    var length = rect.width * (0.4 + random.nextDouble() * 0.2);
+    var width = 1.1;
+    for (var step = 0; step < 3; step++) {
+      final bend = angle + (random.nextDouble() - 0.5) * 0.6;
+      final to =
+          from +
+          Offset(math.cos(bend) * length * 0.5, math.sin(bend) * length * 0.18);
+      a.canvas.drawLine(
+        from,
+        to,
+        Paint()
+          ..strokeWidth = a.u * width
+          ..strokeCap = StrokeCap.round
+          ..color = dark.withValues(alpha: 0.75),
+      );
+      from = to;
+      length *= 0.7;
+      width *= 0.6;
+    }
+  }
+  // The lip of ash round the pit.
+  a.canvas.drawOval(
+    Rect.fromCenter(
+      center: c,
+      width: rect.width * 0.72,
+      height: rect.height * 0.62,
+    ),
+    Paint()..color = Color.lerp(_ash, _pumice, 0.5)!,
+  );
+  final pit = Path();
+  final points = <Offset>[];
+  for (var i = 0; i < 12; i++) {
+    final angle = i / 12 * 2 * math.pi;
+    final k = 0.8 + random.nextDouble() * 0.3;
+    points.add(
+      c +
+          Offset(
+            math.cos(angle) * rect.width * 0.26 * k,
+            math.sin(angle) * rect.height * 0.22 * k,
+          ),
     );
   }
+  pit.addPolygon(points, true);
+  a.path(pit, const Color(0xFF1E1B18), line: 0.4);
+  // The pit's far wall catches a little light.
+  a.canvas
+    ..save()
+    ..clipPath(pit)
+    ..drawOval(
+      Rect.fromCenter(
+        center: c.translate(0, -rect.height * 0.14),
+        width: rect.width * 0.5,
+        height: rect.height * 0.2,
+      ),
+      Paint()..color = const Color(0x66A09A90),
+    )
+    ..restore();
+}
+
+/// The diggers' cut: the unexcavated ground standing as a cliff over the
+/// cleared garden, its layers showing like pages, grass on top, a striped
+/// measuring pole against it, fallen pumice at its foot, a ladder up.
+void _excavationCut(Art a) {
+  const left = 0.64;
+  const top = 0.32;
+  const foot = 0.8;
+  final random = math.Random(41);
+  final cliff = <Offset>[a.p(0.6, foot), a.p(left, top + 0.03)];
+  for (var i = 0; i <= 8; i++) {
+    cliff.add(a.p(left + 0.02 + i * 0.045, top + random.nextDouble() * 0.02));
+  }
+  cliff.addAll([a.p(1, top), a.p(1, foot)]);
+  final face = a.poly(cliff);
+  a.path(face, _pumice, line: 0);
+  a.canvas
+    ..save()
+    ..clipPath(face);
+  // The layers, newest on top: turf, fine grey ash, pumice, garden soil.
+  Path band(double from, double to, int seed) {
+    final wave = math.Random(seed);
+    final path = Path()..moveTo(0, a.p(0, from).dy);
+    for (var i = 1; i <= 10; i++) {
+      path.lineTo(
+        a.p(i / 10, 0).dx,
+        a.p(0, from + (wave.nextDouble() - 0.5) * 0.012).dy,
+      );
+    }
+    path
+      ..lineTo(a.size.width, a.p(0, to).dy)
+      ..lineTo(0, a.p(0, to).dy)
+      ..close();
+    return path;
+  }
+
+  a.canvas
+    ..drawPath(
+      band(top - 0.02, 0.36, 1),
+      Paint()..color = const Color(0xFF5E5A3C),
+    )
+    ..drawPath(band(0.36, 0.45, 2), Paint()..color = const Color(0xFF8A8580));
   for (var i = 1; i < 4; i++) {
     a.hairline(
-      Offset(cut.left, cut.top + cut.height * 0.05 * i),
-      Offset(cut.right, cut.top + cut.height * 0.05 * i),
+      a.p(left, 0.36 + i * 0.022),
+      a.p(1, 0.36 + i * 0.022),
       const Color(0x55403A34),
       0.25,
     );
   }
-  _weeds(
-    a,
-    Rect.fromLTWH(
-      cut.left,
-      cut.top - a.size.height * 0.03,
-      cut.width,
-      a.size.height * 0.03,
-    ),
-    seed: 9,
+  for (var i = 0; i < 150; i++) {
+    final p = a.p(
+      left - 0.04 + random.nextDouble() * 0.4,
+      0.46 + random.nextDouble() * 0.26,
+    );
+    final r = a.u * (0.3 + random.nextDouble() * 0.6);
+    a.canvas
+      ..drawCircle(
+        p.translate(0, r * 0.3),
+        r,
+        Paint()..color = const Color(0xFF9E9582),
+      )
+      ..drawCircle(p, r * 0.85, Paint()..color = const Color(0xFFC8BEA8));
+  }
+  a.canvas.drawPath(band(0.72, foot, 3), Paint()..color = _soil);
+  for (var i = 0; i < 6; i++) {
+    final x = left + random.nextDouble() * 0.34;
+    a.hairline(
+      a.p(x, 0.73),
+      a.p(x + (random.nextDouble() - 0.5) * 0.03, 0.79),
+      const Color(0xFF2E2419),
+      0.3,
+    );
+  }
+  // Shade under the overhang of turf.
+  a.fade(
+    a.r(0, 0.35, 1, 0.05),
+    const Color(0x55000000),
+    const Color(0x00000000),
   );
+  a.canvas.restore();
+  a.path(face, const Color(0x00000000), line: 0.5);
+  // Grass along the top edge.
+  _weeds(a, a.r(left, top - 0.035, 0.36, 0.035), seed: 9);
+  // Fallen pumice heaped at the foot.
+  a.path(
+    a.poly([
+      a.p(0.6, foot + 0.005),
+      a.p(0.625, 0.765),
+      a.p(0.66, 0.775),
+      a.p(0.7, foot + 0.005),
+    ]),
+    Color.lerp(_pumice, _ash, 0.35)!,
+    line: 0.35,
+  );
+  // A measuring pole, painted in bands, against the face.
+  for (var i = 0; i < 9; i++) {
+    a.fill(
+      a.r(0.925, 0.36 + i * 0.049, 0.012, 0.049),
+      i.isEven ? const Color(0xFFB0402E) : const Color(0xFFEDE4CE),
+    );
+  }
+  a.ink(a.r(0.925, 0.36, 0.012, 0.44), width: 0.3);
   // A ladder against the cut.
   a
     ..line(a.p(0.6, 0.84), a.p(0.66, 0.34), const Color(0xFF6E5034), width: 0.8)
