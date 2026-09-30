@@ -64,6 +64,9 @@ flutter:
     - assets/content/episodes/whitechapel_1891/
     - assets/content/episodes/whitechapel_1891/scenes/
     - assets/content/episodes/whitechapel_1891/puzzles/
+    - assets/content/episodes/chongling_1908/
+    - assets/content/episodes/chongling_1908/scenes/
+    - assets/content/episodes/chongling_1908/puzzles/
     - assets/content/episodes/test_room/
     - assets/content/episodes/test_room/scenes/
     - assets/content/episodes/test_room/puzzles/
@@ -76,6 +79,7 @@ flutter:
     - assets/images/scenes/bastille_1703/
     - assets/images/scenes/gyeongju_771/
     - assets/images/scenes/whitechapel_1891/
+    - assets/images/scenes/chongling_1908/
     - assets/images/objects/
     - assets/images/objects/test_room/
     - assets/images/objects/whitechapel_1888/
@@ -85,6 +89,7 @@ flutter:
     - assets/images/objects/bastille_1703/
     - assets/images/objects/gyeongju_771/
     - assets/images/objects/whitechapel_1891/
+    - assets/images/objects/chongling_1908/
     - assets/images/items/
     - assets/images/items/test_room/
     - assets/images/items/whitechapel_1888/

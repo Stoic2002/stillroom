@@ -1,0 +1,83 @@
+{
+  "id": "scan",
+  "type": "scan",
+  "background": "images/scenes/chongling_1908/robe_board.png",
+  "config": {
+    "layers": [
+      {
+        "id": "outer",
+        "labelKey": "chongling_1908.scan.outer",
+        "scale": 0.4
+      },
+      {
+        "id": "inner",
+        "labelKey": "chongling_1908.scan.inner",
+        "scale": 1
+      }
+    ],
+    "spots": [
+      {
+        "id": "stomach",
+        "labelKey": "chongling_1908.scan.stomach",
+        "at": [
+          0.5,
+          0.6
+        ],
+        "radius": 0.1,
+        "strength": 0.9
+      },
+      {
+        "id": "collar",
+        "labelKey": "chongling_1908.scan.collar",
+        "at": [
+          0.5,
+          0.18
+        ],
+        "radius": 0.07,
+        "strength": 0.75
+      },
+      {
+        "id": "shoulder_left",
+        "labelKey": "chongling_1908.scan.shoulder",
+        "at": [
+          0.3,
+          0.22
+        ],
+        "radius": 0.07,
+        "strength": 0.7
+      },
+      {
+        "id": "shoulder_right",
+        "labelKey": "chongling_1908.scan.shoulder",
+        "at": [
+          0.7,
+          0.22
+        ],
+        "radius": 0.07,
+        "strength": 0.7
+      }
+    ],
+    "background": 0.06
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "reactor_count"
+    },
+    {
+      "type": "showText",
+      "key": "chongling_1908.lab.robe_done"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.chongling_1908.scan.1"
+    },
+    {
+      "key": "hint.chongling_1908.scan.2"
+    },
+    {
+      "key": "hint.chongling_1908.scan.3"
+    }
+  ]
+}

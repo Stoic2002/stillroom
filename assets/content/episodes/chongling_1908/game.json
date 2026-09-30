@@ -1,0 +1,196 @@
+{
+  "startScene": "stele_court",
+  "flags": {
+    "read_notice": false,
+    "read_1980": false,
+    "read_report": false,
+    "read_rumour": false,
+    "found_note": false
+  },
+  "logicalResolution": [
+    1920,
+    1080
+  ],
+  "orientation": "landscape",
+  "sceneTransitionMs": 600,
+  "music": "chongling_winter",
+  "words": [
+    {
+      "id": "illness",
+      "labelKey": "chongling_1908.word.illness",
+      "kind": "thing"
+    },
+    {
+      "id": "arsenic",
+      "labelKey": "chongling_1908.word.arsenic",
+      "kind": "thing"
+    },
+    {
+      "id": "stomach",
+      "labelKey": "chongling_1908.word.stomach",
+      "kind": "place"
+    },
+    {
+      "id": "unknown",
+      "labelKey": "chongling_1908.word.unknown",
+      "kind": "name"
+    },
+    {
+      "id": "cixi",
+      "labelKey": "chongling_1908.word.cixi",
+      "kind": "name"
+    },
+    {
+      "id": "yuan_shikai",
+      "labelKey": "chongling_1908.word.yuan_shikai",
+      "kind": "name"
+    },
+    {
+      "id": "li_lianying",
+      "labelKey": "chongling_1908.word.li_lianying",
+      "kind": "name"
+    },
+    {
+      "id": "date_1908",
+      "labelKey": "chongling_1908.word.date_1908",
+      "kind": "date"
+    },
+    {
+      "id": "date_1938",
+      "labelKey": "chongling_1908.word.date_1938",
+      "kind": "date"
+    },
+    {
+      "id": "date_1980",
+      "labelKey": "chongling_1908.word.date_1980",
+      "kind": "date"
+    },
+    {
+      "id": "mg_201",
+      "labelKey": "chongling_1908.word.mg_201",
+      "kind": "number"
+    }
+  ],
+  "secret": {
+    "when": [
+      {
+        "flag": "found_note",
+        "equals": true
+      }
+    ],
+    "noteKey": "chongling_1908.court.keeper_note"
+  },
+  "hintStages": [
+    {
+      "id": "write_seal",
+      "when": [
+        {
+          "flag": "read_rumour",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.chongling_1908.write_seal.1"
+        },
+        {
+          "key": "hint.chongling_1908.write_seal.2"
+        }
+      ]
+    },
+    {
+      "id": "rumour",
+      "when": [
+        {
+          "flag": "read_report",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.chongling_1908.rumour.1"
+        },
+        {
+          "key": "hint.chongling_1908.rumour.2"
+        }
+      ]
+    },
+    {
+      "id": "report",
+      "when": [
+        {
+          "puzzleSolved": "scan"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.chongling_1908.report.1"
+        },
+        {
+          "key": "hint.chongling_1908.report.2"
+        }
+      ]
+    },
+    {
+      "id": "robe",
+      "when": [
+        {
+          "puzzleSolved": "strand"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.chongling_1908.robe.1"
+        },
+        {
+          "key": "hint.chongling_1908.robe.2"
+        }
+      ]
+    },
+    {
+      "id": "hair",
+      "when": [
+        {
+          "flag": "read_1980",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.chongling_1908.hair.1"
+        },
+        {
+          "key": "hint.chongling_1908.hair.2"
+        }
+      ]
+    },
+    {
+      "id": "crypt",
+      "when": [
+        {
+          "flag": "read_notice",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.chongling_1908.crypt.1"
+        },
+        {
+          "key": "hint.chongling_1908.crypt.2"
+        }
+      ]
+    },
+    {
+      "id": "start",
+      "hints": [
+        {
+          "key": "hint.chongling_1908.start.1"
+        },
+        {
+          "key": "hint.chongling_1908.start.2"
+        }
+      ]
+    }
+  ]
+}

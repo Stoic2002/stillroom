@@ -102,6 +102,7 @@ class _DeductionViewState extends State<DeductionView>
       DeductionForm.order => _order(context, sentenceStyle),
       DeductionForm.rubbing => _rubbing(context, sentenceStyle),
       DeductionForm.docket => _docket(context, sentenceStyle),
+      DeductionForm.vermilion => _vermilion(context, sentenceStyle),
       DeductionForm.board => const SizedBox.shrink(),
     };
 
@@ -385,6 +386,55 @@ class _DeductionViewState extends State<DeductionView>
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  /// A sheet of imperial yellow inside a double vermilion rule, the
+  /// sentences written in vermilion, the emperor's own ink.
+  Widget _vermilion(BuildContext context, TextStyle style) {
+    final l10n = AppLocalizations.of(context);
+    final ink = style.copyWith(
+      height: 1.7,
+      color: const Color(0xFFB02A1A),
+      fontWeight: FontWeight.w600,
+    );
+    return DecoratedBox(
+      decoration: const BoxDecoration(
+        color: Color(0xFFE9C766),
+        boxShadow: [BoxShadow(blurRadius: 18, color: Color(0xAA000000))],
+      ),
+      child: CustomPaint(
+        painter: const _VermilionRule(),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(40, 16, 40, 20),
+          child: Column(
+            children: [
+              Text(
+                l10n.vermilionCaption,
+                textAlign: TextAlign.center,
+                style: style.copyWith(
+                  fontFamily: AppTheme.smallCaps,
+                  fontSize: 13,
+                  letterSpacing: 2,
+                  color: const Color(0xFF7A5A20),
+                ),
+              ),
+              const SizedBox(height: 6),
+              for (final (i, sentence) in _config.sentences.indexed)
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 2),
+                  child: Text.rich(
+                    TextSpan(
+                      style: ink,
+                      children: _sentence(context, i, sentence),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -678,6 +728,46 @@ class _RegisterStamp extends CustomPainter {
 
   @override
   bool shouldRepaint(_RegisterStamp old) => false;
+}
+
+/// A double vermilion rule round an imperial sheet, with a cloud scroll
+/// at each corner.
+class _VermilionRule extends CustomPainter {
+  const _VermilionRule();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final ink = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2
+      ..color = const Color(0xCCB02A1A);
+    final outer = (Offset.zero & size).deflate(8);
+    final inner = outer.deflate(5);
+    canvas
+      ..drawRect(outer, ink)
+      ..drawRect(inner, ink..strokeWidth = 1);
+    ink.strokeWidth = 1.4;
+    for (final (corner, sx, sy) in [
+      (inner.topLeft, 1.0, 1.0),
+      (inner.topRight, -1.0, 1.0),
+      (inner.bottomLeft, 1.0, -1.0),
+      (inner.bottomRight, -1.0, -1.0),
+    ]) {
+      final c = corner.translate(sx * 12, sy * 12);
+      canvas
+        ..drawArc(Rect.fromCircle(center: c, radius: 6), 0, 4.7, false, ink)
+        ..drawArc(
+          Rect.fromCircle(center: c.translate(sx * 7, sy * 3), radius: 3.5),
+          3.1,
+          4.7,
+          false,
+          ink,
+        );
+    }
+  }
+
+  @override
+  bool shouldRepaint(_VermilionRule old) => false;
 }
 
 /// A red wax seal with a lily pressed into it.

@@ -504,5 +504,95 @@
   "composeWrong": "The proof reads wrong somewhere.",
   "@composeWrong": {
     "description": "Type-setting puzzle: the line is full but prints wrong somewhere."
+  },
+  "strandInstruction": "Tap a segment to measure it. Find each strand's highest reading and mark it.",
+  "@strandInstruction": {
+    "description": "Hair-strand puzzle: how to play."
+  },
+  "strandBudget": "{count, plural, =0{No readings left} =1{1 reading left} other{{count} readings left}}",
+  "@strandBudget": {
+    "description": "Hair-strand puzzle: measurements left on a strand's sample.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "strandMark": "Mark as highest",
+  "@strandMark": {
+    "description": "Button: mark the picked segment as the strand's highest."
+  },
+  "strandWrong": "Not the highest. A neighbour may read higher.",
+  "@strandWrong": {
+    "description": "Hair-strand puzzle: the marked segment is not the highest."
+  },
+  "strandNewSample": "New sample",
+  "@strandNewSample": {
+    "description": "Button: start a strand over on a fresh sample."
+  },
+  "strandOut": "No reactor time left on this sample. Take a new one.",
+  "@strandOut": {
+    "description": "Hair-strand puzzle: no measurements left on this sample."
+  },
+  "strandCurveQuestion": "How does the arsenic run along the hair?",
+  "@strandCurveQuestion": {
+    "description": "Hair-strand puzzle: question once every highest is found."
+  },
+  "strandSteady": "Steady, over years",
+  "@strandSteady": {
+    "description": "Answer: the readings run steady along the hair (chronic)."
+  },
+  "strandPeak": "Sharp peaks",
+  "@strandPeak": {
+    "description": "Answer: the readings rise to sharp peaks (a great dose at once)."
+  },
+  "strandCurveWrong": "Look again at the readings around the highest.",
+  "@strandCurveWrong": {
+    "description": "Hair-strand puzzle: wrong answer to the curve question."
+  },
+  "scanInstruction": "Drag the probe over the robe. Mark where the needle stands in the red.",
+  "@scanInstruction": {
+    "description": "Robe-scan puzzle: how to play."
+  },
+  "scanMark": "Mark here",
+  "@scanMark": {
+    "description": "Button: mark the probe's place on the robe."
+  },
+  "scanWrong": "The needle hardly moves here.",
+  "@scanWrong": {
+    "description": "Robe-scan puzzle: a mark where nothing reads."
+  },
+  "scanFaint": "The needle stirs, but not into the red. Too faint through this cloth?",
+  "@scanFaint": {
+    "description": "Robe-scan puzzle: a mark near a spot that reads too faint on this layer."
+  },
+  "scanAgain": "Already marked.",
+  "@scanAgain": {
+    "description": "Robe-scan puzzle: the place is marked already."
+  },
+  "scanFound": "Marked: {place}",
+  "@scanFound": {
+    "description": "Robe-scan puzzle: a place found.",
+    "placeholders": {
+      "place": {
+        "type": "String"
+      }
+    }
+  },
+  "scanProgress": "Places marked: {found} of {total}",
+  "@scanProgress": {
+    "description": "Robe-scan puzzle: places marked, of how many.",
+    "placeholders": {
+      "found": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "vermilionCaption": "In vermilion",
+  "@vermilionCaption": {
+    "description": "Caption over the jar label written in vermilion on imperial yellow."
   }
 }

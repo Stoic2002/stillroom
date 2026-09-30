@@ -1385,7 +1385,89 @@ Buf trainArch() {
   return reverb(b, size: 0.8, mix: 0.35);
 }
 
+/// Chongling: a marble door leaf grinding on its stone socket, then
+/// settling.
+Buf stoneDoor() {
+  final rng = math.Random(50);
+  const seconds = 2.2;
+  final grind = shape(
+    sum([
+      bandpass(brown(seconds, rng), (t) => 180 + 60 * math.sin(tau * t * 3), 3),
+      gain(bandpass(noise(seconds, rng), (_) => 900, 4), 0.25),
+    ]),
+    (t) =>
+        swell(t, 0.3, 0.4, seconds) * (0.6 + 0.4 * math.sin(tau * 7 * t).abs()),
+  );
+  final settle = sum([
+    shape(tone(0.6, (_) => 48), (t) => decay(t, 0.12)),
+    gain(shape(lowpass(noise(0.3, rng), (_) => 250), (t) => decay(t, 0.05)), 2),
+  ]);
+  final b = Buf(seconds + 1.4)
+    ..add(gain(grind, 2.2))
+    ..add(settle, at: seconds - 0.1, gain: 1.1);
+  return reverb(b, size: 0.85, mix: 0.4, damp: 0.5);
+}
+
+/// Chongling: a counter over a sample, the clicks quickening to a
+/// chatter, then the reader's short tone.
+Buf reactorCount() {
+  final rng = math.Random(51);
+  final b = Buf(2.4);
+  var t = 0.05;
+  while (t < 1.6) {
+    final perSecond = 6 + 70 * math.pow(t / 1.6, 2);
+    b.add(
+      click(rng, centre: 3200 + rng.nextDouble() * 800, time: 0.001),
+      at: t,
+      gain: 0.7,
+      pan: (rng.nextDouble() - 0.5) * 0.2,
+    );
+    t += -math.log(1 - rng.nextDouble()) / perSecond;
+  }
+  b.add(
+    shape(tone(0.18, (_) => 1320), (t) => swell(t, 0.005, 0.04, 0.18)),
+    at: 1.75,
+    gain: 0.18,
+  );
+  return reverb(b, size: 0.2, mix: 0.1);
+}
+
+/// Chongling: wind through the pines round the tombs, rising and falling
+/// like water.
+Buf windPines() {
+  final rng = math.Random(52);
+  const seconds = 4.5;
+  final b = Buf(seconds)
+    ..add(
+      gain(
+        shape(
+          bandpass(
+            noise(seconds, rng),
+            (t) => 450 + 500 * math.sin(math.pi * t / seconds),
+            1.1,
+          ),
+          (t) => swell(t, 1.4, 1.8, seconds),
+        ),
+        0.8,
+      ),
+    )
+    ..add(
+      gain(
+        shape(
+          highpass(noise(seconds, rng), 3500),
+          (t) => swell(t, 1.8, 1.6, seconds) * 0.5,
+        ),
+        0.12,
+      ),
+      pan: 0.3,
+    );
+  return reverb(b, size: 0.8, mix: 0.35);
+}
+
 final sfx = <String, Buf Function()>{
+  'stone_door': stoneDoor,
+  'reactor_count': reactorCount,
+  'wind_pines': windPines,
   'footsteps_away': footstepsAway,
   'police_whistle': policeWhistle,
   'train_arch': trainArch,
@@ -1617,7 +1699,42 @@ Buf whitechapel1891() => loop(48, (seconds) {
   return reverb(b, size: 0.9, mix: 0.4, damp: 0.55);
 });
 
+/// Chongling: a cold drone, wind in the pines, and a temple bowl struck
+/// now and then, far off.
+Buf chonglingWinter() => loop(48, (seconds) {
+  final rng = math.Random(29);
+  final b = Buf(seconds)
+    ..add(
+      drone(seconds, loopSeconds: 48, const [
+        (58.27, 0.42, 24),
+        (87.3, 0.22, 16),
+        (174.6, 0.07, 12),
+      ]),
+      gain: 0.4,
+    );
+  final wind = shape(
+    bandpass(
+      noise(seconds, rng),
+      (t) => 520 + 380 * math.sin(tau * t / 12),
+      1.2,
+    ),
+    (t) => 0.25 + 0.75 * math.pow(math.sin(tau * t / 16), 2),
+  );
+  b.add(gain(wind, 0.16), pan: -0.2);
+  // The bowl: a long, wavering ring, every 16 seconds.
+  for (var at = 6.0; at < seconds - 8; at += 16) {
+    b.add(
+      modal(9, 392, const [(1, 1, 5), (2.71, 0.35, 3), (5.15, 0.12, 1.6)]),
+      at: at,
+      gain: 0.07,
+      pan: 0.4,
+    );
+  }
+  return reverb(b, size: 0.9, mix: 0.45, damp: 0.55);
+});
+
 final music = <String, Buf Function()>{
+  'chongling_winter': chonglingWinter,
   'whitechapel_1891': whitechapel1891,
   'gyeongju_night': gyeongjuNight,
   'bastille_dawn': bastilleDawn,
@@ -2153,7 +2270,48 @@ Buf lampGutterSound() {
   return reverb(b, size: 0.2, mix: 0.1);
 }
 
+/// A counter clicking over a sample that reads low: a few sparse clicks.
+Buf geigerSound({required int clicks, required int seed}) {
+  final rng = math.Random(seed);
+  final b = Buf(0.45);
+  for (var i = 0; i < clicks; i++) {
+    b.add(
+      click(rng, centre: 3000 + rng.nextDouble() * 900, time: 0.001),
+      at: rng.nextDouble() * 0.35,
+      gain: 0.7,
+    );
+  }
+  return reverb(b, size: 0.12, mix: 0.08);
+}
+
+/// A glass sample tube set into a plastic rack.
+Buf sampleSound() {
+  final rng = math.Random(63);
+  final b = Buf(0.5)
+    ..add(
+      modal(0.4, 3400, const [
+        (1, 1, 0.08),
+        (2.2, 0.4, 0.05),
+        (3.9, 0.2, 0.03),
+      ]),
+      gain: 0.35,
+    )
+    ..add(click(rng, centre: 1400, time: 0.003), gain: 0.6);
+  return reverb(b, size: 0.15, mix: 0.12);
+}
+
+/// The probe's needle ticking over a mark on its dial.
+Buf probeTickSound() {
+  final rng = math.Random(64);
+  final b = Buf(0.12)..add(click(rng, centre: 2600, time: 0.0012), gain: 0.35);
+  return b;
+}
+
 final ui = <String, Buf Function()>{
+  'geiger': () => geigerSound(clicks: 4, seed: 61),
+  'geiger_hot': () => geigerSound(clicks: 26, seed: 62),
+  'sample': sampleSound,
+  'probe_tick': probeTickSound,
   'type_sort': typeSortSound,
   'lamp_gutter': lampGutterSound,
   'pour': pourSound,

@@ -1,0 +1,215 @@
+{
+  "id": "site_lab",
+  "background": "images/scenes/chongling_1908/site_lab.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "stele_court"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "rack",
+      "rect": [
+        0.1,
+        0.46,
+        0.26,
+        0.18
+      ],
+      "when": [
+        {
+          "puzzleSolved": "strand",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "chongling_1908.lab.rack"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "strand"
+        }
+      ]
+    },
+    {
+      "id": "rack_done",
+      "rect": [
+        0.1,
+        0.46,
+        0.26,
+        0.18
+      ],
+      "when": [
+        {
+          "puzzleSolved": "strand"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "chongling_1908.lab.rack_done"
+        }
+      ]
+    },
+    {
+      "id": "robe_wait",
+      "rect": [
+        0.44,
+        0.5,
+        0.36,
+        0.24
+      ],
+      "when": [
+        {
+          "puzzleSolved": "strand",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "chongling_1908.lab.robe_wait"
+        }
+      ]
+    },
+    {
+      "id": "robe",
+      "rect": [
+        0.44,
+        0.5,
+        0.36,
+        0.24
+      ],
+      "when": [
+        {
+          "puzzleSolved": "strand"
+        },
+        {
+          "puzzleSolved": "scan",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "chongling_1908.lab.robe"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "scan"
+        }
+      ]
+    },
+    {
+      "id": "robe_done",
+      "rect": [
+        0.44,
+        0.5,
+        0.36,
+        0.24
+      ],
+      "when": [
+        {
+          "puzzleSolved": "scan"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "chongling_1908.lab.robe_done_look"
+        }
+      ]
+    },
+    {
+      "id": "report",
+      "rect": [
+        0.84,
+        0.18,
+        0.12,
+        0.2
+      ],
+      "when": [
+        {
+          "puzzleSolved": "scan"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_report",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "chongling_1908.lab.report"
+        }
+      ]
+    },
+    {
+      "id": "sheets",
+      "rect": [
+        0.12,
+        0.12,
+        0.22,
+        0.22
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "chongling_1908.lab.sheets"
+        }
+      ]
+    },
+    {
+      "id": "heater",
+      "rect": [
+        0.86,
+        0.64,
+        0.1,
+        0.2
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "chongling_1908.lab.heater"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "report_sprite",
+      "image": "images/objects/chongling_1908/report_sprite.png",
+      "rect": [
+        0.84,
+        0.18,
+        0.12,
+        0.2
+      ],
+      "when": [
+        {
+          "puzzleSolved": "scan"
+        }
+      ]
+    }
+  ],
+  "echoes": [
+    {
+      "id": "scientist",
+      "image": "images/objects/chongling_1908/echo_scientist.png",
+      "rect": [
+        0.37,
+        0.28,
+        0.05,
+        0.34
+      ],
+      "chance": 0.8
+    }
+  ]
+}

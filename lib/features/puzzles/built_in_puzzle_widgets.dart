@@ -16,9 +16,11 @@ import 'resonance/resonance_view.dart';
 import 'reveal/reveal_view.dart';
 import 'roster/roster_view.dart';
 import 'rotary_align/rotary_align_view.dart';
+import 'scan/scan_view.dart';
 import 'sequence/sequence_view.dart';
 import 'slot_placement/slot_placement_view.dart';
 import 'sources/sources_view.dart';
+import 'strand/strand_view.dart';
 import 'swell/swell_view.dart';
 import 'thread/thread_view.dart';
 import 'unwatched/unwatched_view.dart';
@@ -26,7 +28,7 @@ import 'unwatched/unwatched_view.dart';
 /// Widgets for the built-in puzzle types (PRD FR-04, plus `deduction`,
 /// `reveal`, `crank`, `overlay`, `clockHands`, `thread`, `rakingLight`,
 /// `beamSweep`, `swell`, `roster`, `keyring`, `cipher`, `sources`, `pour`,
-/// `resonance`, `beat`, `unwatched` and `compose`).
+/// `resonance`, `beat`, `unwatched`, `compose`, `strand` and `scan`).
 PuzzleWidgetRegistry builtInPuzzleWidgets() => PuzzleWidgetRegistry()
   ..register(CodeLockType.typeId, CodeLockView.new)
   ..register(SequenceType.typeId, SequenceView.new)
@@ -49,4 +51,6 @@ PuzzleWidgetRegistry builtInPuzzleWidgets() => PuzzleWidgetRegistry()
   ..register(ResonanceType.typeId, ResonanceView.new)
   ..register(BeatType.typeId, BeatView.new)
   ..register(UnwatchedType.typeId, UnwatchedView.new)
-  ..register(ComposeType.typeId, ComposeView.new);
+  ..register(ComposeType.typeId, ComposeView.new)
+  ..register(StrandType.typeId, StrandView.new)
+  ..register(ScanType.typeId, ScanView.new);

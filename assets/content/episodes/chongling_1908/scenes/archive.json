@@ -1,0 +1,147 @@
+{
+  "id": "archive",
+  "background": "images/scenes/chongling_1908/archive.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "stele_court"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "decree",
+      "rect": [
+        0.16,
+        0.56,
+        0.18,
+        0.14
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "showText",
+          "key": "chongling_1908.archive.decree"
+        }
+      ]
+    },
+    {
+      "id": "records",
+      "rect": [
+        0.4,
+        0.56,
+        0.18,
+        0.14
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "showText",
+          "key": "chongling_1908.archive.records"
+        }
+      ]
+    },
+    {
+      "id": "memoir",
+      "rect": [
+        0.64,
+        0.56,
+        0.16,
+        0.14
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "showText",
+          "key": "chongling_1908.archive.memoir"
+        }
+      ]
+    },
+    {
+      "id": "rumour",
+      "rect": [
+        0.74,
+        0.26,
+        0.14,
+        0.16
+      ],
+      "when": [
+        {
+          "flag": "read_report",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_rumour",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "chongling_1908.archive.rumour"
+        }
+      ]
+    },
+    {
+      "id": "shelves",
+      "rect": [
+        0.04,
+        0.08,
+        0.28,
+        0.4
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "chongling_1908.archive.shelves"
+        }
+      ]
+    },
+    {
+      "id": "window",
+      "rect": [
+        0.4,
+        0.08,
+        0.2,
+        0.3
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "chongling_1908.archive.window"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "rumour_sprite",
+      "image": "images/objects/chongling_1908/rumour_sprite.png",
+      "rect": [
+        0.74,
+        0.26,
+        0.14,
+        0.16
+      ],
+      "when": [
+        {
+          "flag": "read_report",
+          "equals": true
+        }
+      ]
+    }
+  ]
+}

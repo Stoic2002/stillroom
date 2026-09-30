@@ -240,7 +240,7 @@ void main() {
     testWidgets('a sealed jar does nothing', (tester) async {
       await pumpApp(tester);
       await openShelf(tester);
-      final sealed = find.byKey(const ValueKey('jar_sealed_guangxu_1908'));
+      final sealed = find.byKey(const ValueKey('jar_sealed_alamut_1256'));
       await tester.scrollUntilVisible(
         sealed,
         100,

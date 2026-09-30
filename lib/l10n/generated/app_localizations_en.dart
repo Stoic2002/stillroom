@@ -414,4 +414,76 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get composeWrong => 'The proof reads wrong somewhere.';
+
+  @override
+  String get strandInstruction =>
+      'Tap a segment to measure it. Find each strand\'s highest reading and mark it.';
+
+  @override
+  String strandBudget(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count readings left',
+      one: '1 reading left',
+      zero: 'No readings left',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get strandMark => 'Mark as highest';
+
+  @override
+  String get strandWrong => 'Not the highest. A neighbour may read higher.';
+
+  @override
+  String get strandNewSample => 'New sample';
+
+  @override
+  String get strandOut =>
+      'No reactor time left on this sample. Take a new one.';
+
+  @override
+  String get strandCurveQuestion => 'How does the arsenic run along the hair?';
+
+  @override
+  String get strandSteady => 'Steady, over years';
+
+  @override
+  String get strandPeak => 'One sharp peak';
+
+  @override
+  String get strandCurveWrong =>
+      'Look again at the readings around the highest.';
+
+  @override
+  String get scanInstruction =>
+      'Drag the probe over the robe. Mark where the needle stands in the red.';
+
+  @override
+  String get scanMark => 'Mark here';
+
+  @override
+  String get scanWrong => 'The needle hardly moves here.';
+
+  @override
+  String get scanFaint =>
+      'The needle stirs, but not into the red. Too faint through this cloth?';
+
+  @override
+  String get scanAgain => 'Already marked.';
+
+  @override
+  String scanFound(String place) {
+    return 'Marked: $place';
+  }
+
+  @override
+  String scanProgress(int found, int total) {
+    return 'Places marked: $found of $total';
+  }
+
+  @override
+  String get vermilionCaption => 'In vermilion';
 }

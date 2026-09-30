@@ -396,4 +396,70 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get composeWrong => '교정쇄 어딘가가 틀렸다.';
+
+  @override
+  String get strandInstruction => '마디를 눌러 측정하자. 가닥마다 가장 높은 값을 찾아 표시하자.';
+
+  @override
+  String strandBudget(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '남은 측정 $count번',
+      zero: '남은 측정 없음',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get strandMark => '최고로 표시';
+
+  @override
+  String get strandWrong => '가장 높지 않다. 옆 마디가 더 높을지도 모른다.';
+
+  @override
+  String get strandNewSample => '새 시료';
+
+  @override
+  String get strandOut => '이 시료에 쓸 원자로 시간이 다 됐다. 새 시료를 쓰자.';
+
+  @override
+  String get strandCurveQuestion => '비소는 머리카락을 따라 어떻게 분포하는가?';
+
+  @override
+  String get strandSteady => '여러 해에 걸쳐 고르게';
+
+  @override
+  String get strandPeak => '날카로운 봉우리 하나';
+
+  @override
+  String get strandCurveWrong => '가장 높은 값 주변을 다시 보자.';
+
+  @override
+  String get scanInstruction => '탐침을 옷 위로 끌자. 바늘이 빨간 칸에 들어가는 곳을 표시하자.';
+
+  @override
+  String get scanMark => '여기 표시';
+
+  @override
+  String get scanWrong => '여기서는 바늘이 거의 움직이지 않는다.';
+
+  @override
+  String get scanFaint => '바늘이 움직이지만 빨간 칸까지는 아니다. 이 옷감 너머로는 너무 약한가?';
+
+  @override
+  String get scanAgain => '이미 표시했다.';
+
+  @override
+  String scanFound(String place) {
+    return '표시함: $place';
+  }
+
+  @override
+  String scanProgress(int found, int total) {
+    return '표시한 곳: $found/$total';
+  }
+
+  @override
+  String get vermilionCaption => '붉은 먹으로';
 }

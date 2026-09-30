@@ -419,4 +419,78 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get composeWrong => 'La prueba sale mal en algún sitio.';
+
+  @override
+  String get strandInstruction =>
+      'Toca un segmento para medirlo. Encuentra la lectura más alta de cada mechón y márcala.';
+
+  @override
+  String strandBudget(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Quedan $count lecturas',
+      one: 'Queda 1 lectura',
+      zero: 'No quedan lecturas',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get strandMark => 'Marcar como la más alta';
+
+  @override
+  String get strandWrong =>
+      'No es la más alta. Un segmento vecino puede dar más.';
+
+  @override
+  String get strandNewSample => 'Nueva muestra';
+
+  @override
+  String get strandOut =>
+      'No queda tiempo de reactor para esta muestra. Toma una nueva.';
+
+  @override
+  String get strandCurveQuestion =>
+      '¿Cómo se reparte el arsénico a lo largo del cabello?';
+
+  @override
+  String get strandSteady => 'Constante, durante años';
+
+  @override
+  String get strandPeak => 'Un solo pico agudo';
+
+  @override
+  String get strandCurveWrong =>
+      'Mira otra vez las lecturas en torno a la más alta.';
+
+  @override
+  String get scanInstruction =>
+      'Arrastra la sonda sobre la túnica. Marca donde la aguja entra en el rojo.';
+
+  @override
+  String get scanMark => 'Marcar aquí';
+
+  @override
+  String get scanWrong => 'Aquí la aguja apenas se mueve.';
+
+  @override
+  String get scanFaint =>
+      'La aguja se mueve, pero no llega al rojo. ¿Demasiado débil a través de esta tela?';
+
+  @override
+  String get scanAgain => 'Ya está marcado.';
+
+  @override
+  String scanFound(String place) {
+    return 'Marcado: $place';
+  }
+
+  @override
+  String scanProgress(int found, int total) {
+    return 'Lugares marcados: $found de $total';
+  }
+
+  @override
+  String get vermilionCaption => 'En bermellón';
 }

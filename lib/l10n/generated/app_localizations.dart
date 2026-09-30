@@ -815,6 +815,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The proof reads wrong somewhere.'**
   String get composeWrong;
+
+  /// Hair-strand puzzle: how to play.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a segment to measure it. Find each strand\'s highest reading and mark it.'**
+  String get strandInstruction;
+
+  /// Hair-strand puzzle: measurements left on a strand's sample.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No readings left} =1{1 reading left} other{{count} readings left}}'**
+  String strandBudget(int count);
+
+  /// Button: mark the picked segment as the strand's highest.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as highest'**
+  String get strandMark;
+
+  /// Hair-strand puzzle: the marked segment is not the highest.
+  ///
+  /// In en, this message translates to:
+  /// **'Not the highest. A neighbour may read higher.'**
+  String get strandWrong;
+
+  /// Button: start a strand over on a fresh sample.
+  ///
+  /// In en, this message translates to:
+  /// **'New sample'**
+  String get strandNewSample;
+
+  /// Hair-strand puzzle: no measurements left on this sample.
+  ///
+  /// In en, this message translates to:
+  /// **'No reactor time left on this sample. Take a new one.'**
+  String get strandOut;
+
+  /// Hair-strand puzzle: question once every highest is found.
+  ///
+  /// In en, this message translates to:
+  /// **'How does the arsenic run along the hair?'**
+  String get strandCurveQuestion;
+
+  /// Answer: the readings run steady along the hair (chronic).
+  ///
+  /// In en, this message translates to:
+  /// **'Steady, over years'**
+  String get strandSteady;
+
+  /// Answer: the readings rise to one sharp peak (acute).
+  ///
+  /// In en, this message translates to:
+  /// **'One sharp peak'**
+  String get strandPeak;
+
+  /// Hair-strand puzzle: wrong answer to the curve question.
+  ///
+  /// In en, this message translates to:
+  /// **'Look again at the readings around the highest.'**
+  String get strandCurveWrong;
+
+  /// Robe-scan puzzle: how to play.
+  ///
+  /// In en, this message translates to:
+  /// **'Drag the probe over the robe. Mark where the needle stands in the red.'**
+  String get scanInstruction;
+
+  /// Button: mark the probe's place on the robe.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark here'**
+  String get scanMark;
+
+  /// Robe-scan puzzle: a mark where nothing reads.
+  ///
+  /// In en, this message translates to:
+  /// **'The needle hardly moves here.'**
+  String get scanWrong;
+
+  /// Robe-scan puzzle: a mark near a spot that reads too faint on this layer.
+  ///
+  /// In en, this message translates to:
+  /// **'The needle stirs, but not into the red. Too faint through this cloth?'**
+  String get scanFaint;
+
+  /// Robe-scan puzzle: the place is marked already.
+  ///
+  /// In en, this message translates to:
+  /// **'Already marked.'**
+  String get scanAgain;
+
+  /// Robe-scan puzzle: a place found.
+  ///
+  /// In en, this message translates to:
+  /// **'Marked: {place}'**
+  String scanFound(String place);
+
+  /// Robe-scan puzzle: places marked, of how many.
+  ///
+  /// In en, this message translates to:
+  /// **'Places marked: {found} of {total}'**
+  String scanProgress(int found, int total);
+
+  /// Caption over the jar label written in vermilion on imperial yellow.
+  ///
+  /// In en, this message translates to:
+  /// **'In vermilion'**
+  String get vermilionCaption;
 }
 
 class _AppLocalizationsDelegate

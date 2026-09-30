@@ -1,0 +1,64 @@
+{
+  "id": "jar_label",
+  "type": "deduction",
+  "background": "images/scenes/chongling_1908/label_close.png",
+  "config": {
+    "form": "vermilion",
+    "sentences": [
+      {
+        "textKey": "chongling_1908.label.s1",
+        "blanks": [
+          "illness",
+          "arsenic",
+          "unknown"
+        ]
+      }
+    ],
+    "words": [
+      "illness",
+      "arsenic",
+      "stomach",
+      "unknown",
+      "cixi",
+      "yuan_shikai",
+      "li_lianying",
+      "date_1908",
+      "date_1938",
+      "date_1980",
+      "mg_201"
+    ],
+    "nearMiss": 1
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "wind_pines"
+    },
+    {
+      "type": "showText",
+      "key": "chongling_1908.label.done"
+    },
+    {
+      "type": "showText",
+      "key": "chongling_1908.ending.buried"
+    },
+    {
+      "type": "showText",
+      "key": "chongling_1908.ending.record"
+    },
+    {
+      "type": "endEpisode"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.chongling_1908.jar_label.1"
+    },
+    {
+      "key": "hint.chongling_1908.jar_label.2"
+    },
+    {
+      "key": "hint.chongling_1908.jar_label.3"
+    }
+  ]
+}

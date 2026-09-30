@@ -394,4 +394,70 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get composeWrong => '試し刷りがどこか違っている。';
+
+  @override
+  String get strandInstruction => '区切りをタップして測る。それぞれの髪でいちばん高い値を見つけ、印をつけよう。';
+
+  @override
+  String strandBudget(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'あと$count回',
+      zero: 'もう測れない',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get strandMark => '最高として印をつける';
+
+  @override
+  String get strandWrong => 'いちばん高くはない。隣の区切りのほうが高いかもしれない。';
+
+  @override
+  String get strandNewSample => '新しい試料';
+
+  @override
+  String get strandOut => 'この試料に使える原子炉の時間はもうない。新しい試料を取ろう。';
+
+  @override
+  String get strandCurveQuestion => 'ヒ素は髪に沿ってどう分布している？';
+
+  @override
+  String get strandSteady => '何年にもわたって一定';
+
+  @override
+  String get strandPeak => '鋭い山がひとつ';
+
+  @override
+  String get strandCurveWrong => 'いちばん高い値のまわりをもう一度見よう。';
+
+  @override
+  String get scanInstruction => '探針を衣の上で動かそう。針が赤に入る場所に印をつける。';
+
+  @override
+  String get scanMark => 'ここに印';
+
+  @override
+  String get scanWrong => 'ここでは針はほとんど動かない。';
+
+  @override
+  String get scanFaint => '針は動くが、赤には届かない。この布越しでは弱すぎる？';
+
+  @override
+  String get scanAgain => 'もう印がある。';
+
+  @override
+  String scanFound(String place) {
+    return '印をつけた：$place';
+  }
+
+  @override
+  String scanProgress(int found, int total) {
+    return '印をつけた場所：$found／$total';
+  }
+
+  @override
+  String get vermilionCaption => '朱筆にて';
 }

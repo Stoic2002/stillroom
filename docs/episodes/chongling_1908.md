@@ -1,10 +1,13 @@
 # Episode design: Chongling, 1908 (the death of the Guangxu Emperor)
 
-Status: **design draft** (2026-09-30), for the developer's approval before
-anything is built. Shelf III (opens after 4 tales), China, from the plan of
-16 tales (`docs/stillroom_frame.md`, *The full shelf*). It replaces the
-sealed teaser `sealed_guangxu_1908`. Proposed id: `chongling_1908`; jar
-label **Beijing, 1908** (see question 1 for where the tale is set).
+Status: **built** (2026-09-30): draft text in seven languages, code-drawn
+art (`lib/core/art/chongling_1908_art.dart`), generated audio, walkthrough
+test. Approved by the developer with setting B, both mechanics, and the
+`vermilion` seal leaving the hand unknown. Shelf III (opens after 4
+tales), China, from the plan of 16 tales (`docs/stillroom_frame.md`, *The
+full shelf*). It replaces the sealed teaser `sealed_guangxu_1908`; the
+teaser on shelf III is now `sealed_alamut_1256`. Id: `chongling_1908`; jar
+label **Beijing, 1908**, its map pin at Zhongnanhai.
 
 ## Premise
 
@@ -50,20 +53,23 @@ would be.
 | Fact | Used in | Source |
 |---|---|---|
 | The Guangxu Emperor died on **14 November 1908** (Guangxu 34, 10th month, 21st day), aged 38, in the **Hanyuan Hall on Yingtai**, Zhongnanhai, where he had been held since **1898**; **Cixi** died on 15 November | The court papers | [Wikipedia: Guangxu Emperor][gx]; [zh.wikipedia][zhgx] |
-| The court said he died of illness; physicians' records through 1908 describe a long illness ("no effect after long treatment") | The physicians' records (decoy "illness") | [ABC Science][abc]; [chinanews 2008][cn] |
+| The court said he died of illness; physicians' records through 1908 describe a long illness ("no effect after long treatment") | The court's announcement, the physicians' records (the legend: "illness") | [ABC Science][abc]; [chinanews 2008][cn] |
 | Dr **Qu Guiting** later wrote that three days before the death the emperor rolled in bed with **stomach pain**, his face dark and tongue yellow-black, "unrelated to his previous illness" | A later paper (Qu's memoir) | [QQ news][qq]; [zh.wikipedia][zhgx] |
 | **Chongling** was looted in **1938**: the coffin was axed open and grave goods taken | The crypt | [CCTV][cctv]; [chinanews][cns] |
 | In **June 1980** the crypt was cleared; a chemical test of the vertebrae and hair **found no poison** | A later paper (decoy "1980") | [Sina][sina1980] |
-| From **2003**, two strands of hair (26 cm and about 65 cm) were cut into **1 cm segments** and measured by **neutron activation** at the China Institute of Atomic Energy's micro-reactor; arsenic varied sharply between segments, unlike chronic poisoning; the highest was far above a Qing official's hair used for comparison | The hair (`strand`) | [Aisixiang: team report][report]; [Sina][sina] |
+| From **2003**, two strands of hair (26 cm and about 65 cm) were cut into **1 cm segments** and measured by **neutron activation** at the China Institute of Atomic Energy's micro-reactor; arsenic varied sharply between segments, unlike chronic poisoning. The first strand peaked at its **10th segment, 2404 µg/g**; the second at its 26th (362.7 µg/g) and 45th (202.1 µg/g); the roots read lower than the middle and tips. The hair read 261 times Empress Longyu's and 132 times a Qing official's | The hair (`strand`) | [Aisixiang: team report][report]; [Sina][sina]; [Sina 2008-11-03][sina2]; [Guangming Daily][gmw] |
 | Robes and remains were tested by **X-ray fluorescence** and other methods; arsenic was highest about the **stomach**, the **collar** and the **shoulders**, **inner garments more than outer** | The robe (`scan`) | [People's Daily][people]; [Sina][sina] |
 | About **201.5 mg** of arsenic in the hair, the inner clothes and residues alone; **60–200 mg** kills | The report | [abc]; [Sina][sina] |
 | **November 2008**: acute arsenic poisoning announced by the Qing history committee and the team (CCTV, CIAE, Beijing police forensic centre) | The report | [abc]; [CNN][cnn] |
 | **Who** is unknown; Cixi, Yuan Shikai, Li Lianying are named by rumour and argument; some historians (e.g. Fang Delin) dispute the tests' reading | A later paper; the seal | [Sohu][sohu]; [Zhihu: Fang Delin][fang] |
 
 Wikipedia could not be opened from the build environment; the facts above
-were checked across at least two search results each. Before building,
-the hair segment counts and the three garment areas are checked once more
-against the team's report.
+were checked across at least two search results each. The segment peaks
+were checked again before building. The game's strands are 14 segments
+each, shaped after the report: strand I peaks at its 10th segment at
+2404; strand II keeps the second strand's two peaks (363, then 202) close
+together. The other readings are the game's own and are not presented as
+the report's figures.
 
 [gx]: https://en.wikipedia.org/wiki/Guangxu_Emperor
 [zhgx]: https://zh.wikipedia.org/zh-hans/%E5%85%89%E7%BB%AA%E5%B8%9D
@@ -77,10 +83,12 @@ against the team's report.
 [sina]: https://news.sina.cn/sa/2008-11-07/detail-ikkntian1057683.d.html
 [people]: http://paper.people.com.cn/hqrw/html/2008-11/16/content_172402.htm
 [cnn]: https://www.cnn.com/2008/WORLD/asiapcf/11/04/china.emperor/index.html
+[sina2]: https://news.sina.com.cn/o/2008-11-03/061414670080s.shtml
+[gmw]: https://epaper.gmw.cn/sz/html/2010-10/01/nw.D110000sz_20101001_4-02.htm
 [sohu]: https://m.sohu.com/n/260392771/
 [fang]: https://zhuanlan.zhihu.com/p/49837817
 
-## Where it is set (question 1)
+## Where it is set
 
 - **A. Yingtai, the night of 14 November 1908** (the Forbidden City's
   lake, lanterns, the empty hall), with the 2003–2008 instruments arriving
@@ -95,7 +103,7 @@ against the team's report.
   round, from the past. Nothing has to be shown that should not be, and
   the puzzles are what really happened.
 
-The rest of this draft assumes **B**.
+Built with **B**.
 
 ## Map (B)
 
@@ -150,7 +158,7 @@ vermilion, the emperor's own ink, where the court once wrote "illness".
 "He did not die of {illness}: his hair and robe held {arsenic}, and whose
 hand gave it is {unknown}."
 
-Decoys: Cixi, Yuan Shikai, Li Lianying, 1938, 1980, chronic, stomach.
+Decoys: Cixi, Yuan Shikai, Li Lianying, 14 November 1908, 1938, 1980, 201.5 mg, the stomach.
 
 **Ending:** "The Guangxu Emperor was buried at Chongling in 1913. The
 tests of 2008 found arsenic, a lethal dose. Who gave it, no record says."
@@ -170,10 +178,48 @@ tests of 2008 found arsenic, a lethal dose. Who gave it, no record says."
   from the measurement), `wind_pines`. Interface: `probe_tick` (the scan
   probe's reading), `sample` (a tube placed).
 
-## Open questions for the developer
+## Decisions (2026-09-30)
 
-1. Where it is set: **B** (Chongling during the tests, recommended) or A
-   (Yingtai, 1908)?
-2. The two mechanics (the strand, the robe): both?
-3. The seal as a vermilion sheet (`vermilion`), with its sentence, leaving
-   the hand unknown?
+1. Setting **B**: Chongling during the tests; the 1908 papers arrive in the
+   archive as papers "that should not be here yet".
+2. Both mechanics: the strand (`strand`) and the robe (`scan`).
+3. The seal in vermilion (`vermilion`), with the hand left *not known*.
+
+## As built
+
+- **Flow:** the notice in the court (1938) opens the crypt; the 1980
+  clearance record there (no poison found) sends what was kept to the
+  work-room, which opens. The archive holds the court's announcement
+  (*illness*, 14 November 1908), the physicians' records and Qu Guiting's
+  memoir (*the stomach*) from the start. In the work-room: the hair
+  (`strand`, gives *arsenic*), then the robe (`scan`), then the report
+  (201.5 mg). The report puts the 2008 cuttings on the archive's pin
+  board: Cixi, Yuan Shikai, Li Lianying, the doubters, and *not known*.
+  The keeper's slip lies in the stone incense burner once the cuttings
+  are read; the seal is written at the stele.
+- **The strand:** two strands of 14 segments, 7 readings a sample, a new
+  sample at any time. A search that halves towards the higher neighbour
+  finds each peak within the budget (checked in the walkthrough test);
+  strand II's second peak (202) can mislead a greedy search.
+- **The robe:** the outer robe (scale 0.4) never reaches the red, so the
+  player must lay the inner garment uppermost; four places: the stomach,
+  the collar, both shoulders.
+- **Words:** *illness*, *arsenic*, *not known* (the answers); *the
+  stomach*, Cixi, Yuan Shikai, Li Lianying, 14 November 1908, 1938, 1980,
+  201.5 mg (decoys). *Chronic* was dropped: it fit the first blank too
+  well to be a fair decoy.
+- **Echoes:** a tomb keeper with a lantern in the crypt, a scientist in
+  the work-room. **Living things:** dry grass in the snow, pines.
+- **Audio:** music `chongling_winter`; effects `stone_door`,
+  `reactor_count`, `wind_pines`; interface `geiger`, `geiger_hot`,
+  `sample`, `probe_tick`.
+
+## Things to watch when tested
+
+- Whether 7 readings per sample feel tight but fair, and whether the bars
+  (against 2.2 times the strand's highest) read at phone size.
+- Whether the faint outer robe leads the player to try the inner garment
+  without the hint.
+- Whether the probe is easy to drag on the phone, and the dial readable.
+- Whether the snowy court's hotspots (the notice, the tunnel, the altar,
+  the work-room door) are found at a glance.

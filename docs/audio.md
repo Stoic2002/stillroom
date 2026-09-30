@@ -59,6 +59,9 @@ fvm dart run tool/audio/generate_audio.dart bell_toll  # one or more ids
 | `footsteps_away` | Whitechapel 1891: the arch | A man's footsteps on wet stone, walking away |
 | `police_whistle` | Whitechapel 1891: the seal | A police whistle, two blasts |
 | `train_arch` | Whitechapel 1891: the arch | A goods train over the railway arch, heard from under it |
+| `stone_door` | Beijing 1908: the crypt's marble doors | A stone leaf grinding in its socket, then settling |
+| `reactor_count` | Beijing 1908: the hair and the robe measured | A counter's clicks quickening to a chatter, then the reader's short tone |
+| `wind_pines` | Beijing 1908: the pines; the seal | Wind through pines, rising and falling like water |
 
 ## Music
 
@@ -73,6 +76,7 @@ fvm dart run tool/audio/generate_audio.dart bell_toll  # one or more ids
 | `whitechapel_1891` | Whitechapel, 1891 | 48 s | The fog's drone again, colder; rain; a train passing over an arch, once a loop |
 | `gyeongju_night` | Gyeongju, 771 | 48 s | A low drone near the bell's 64 Hz hum; winter wind; a wooden fish knocked far off, slowing, every 12 s |
 | `bastille_dawn` | Bastille, 1703 | 48 s | A cold drone in A; a draught in the court; two slow bowed notes in A aeolian every 16 s, like a viol through a wall |
+| `chongling_winter` | Beijing, 1908 | 48 s | A cold drone in B♭; wind in the pines; a temple bowl struck far off every 16 s |
 
 ## Interface sounds (`assets/audio/ui/`)
 
@@ -96,6 +100,9 @@ vibration is on). Quieter than content sounds (−9 dBFS peak).
 | `bell_strike` | Gyeongju's hollow: the great bell struck by its log (the first seconds of its ring) | medium |
 | `type_sort` | Whitechapel 1891's type case: a metal sort dropped into the stick | selection |
 | `lamp_gutter` | Whitechapel 1891's shelf: the gas lamp dips while looking away | none |
+| `geiger`, `geiger_hot` | Beijing 1908's hair: a segment measured, a few sparse clicks for a low reading, a chatter for a high one | selection / light |
+| `sample` | Beijing 1908's hair: a new sample tube set in the rack | light |
+| `probe_tick` | Beijing 1908's robe: the needle crosses a mark on its dial | none |
 | `beat_steady`, `beat_light`, `beat_clear`, `beat_deep` | Gyeongju's rim: a strike whose ring swells and fades barely, lightly, clearly, or almost to silence (two tones 1.4 Hz apart, the second as loud as the swell needs) | light |
 | `solved` | Any puzzle gives way (before its own `onSolved` sounds) | light |
 | `pickup` | An item goes into the inventory | light |

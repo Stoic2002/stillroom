@@ -1,0 +1,269 @@
+{
+  "id": "stele_court",
+  "background": "images/scenes/chongling_1908/stele_court.png",
+  "exits": [
+    {
+      "id": "archive",
+      "to": "archive",
+      "rect": [
+        0.02,
+        0.34,
+        0.14,
+        0.42
+      ]
+    },
+    {
+      "id": "crypt",
+      "to": "crypt",
+      "rect": [
+        0.42,
+        0.56,
+        0.16,
+        0.2
+      ],
+      "when": [
+        {
+          "flag": "read_notice",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "lab",
+      "to": "site_lab",
+      "rect": [
+        0.82,
+        0.36,
+        0.14,
+        0.4
+      ],
+      "when": [
+        {
+          "flag": "read_1980",
+          "equals": true
+        }
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "stele",
+      "rect": [
+        0.44,
+        0.24,
+        0.12,
+        0.22
+      ],
+      "when": [
+        {
+          "flag": "read_rumour",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "chongling_1908.court.stele"
+        }
+      ]
+    },
+    {
+      "id": "stele_seal",
+      "rect": [
+        0.44,
+        0.24,
+        0.12,
+        0.22
+      ],
+      "when": [
+        {
+          "flag": "read_rumour",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "jar_label",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "chongling_1908.court.seal_needed"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "jar_label"
+        }
+      ]
+    },
+    {
+      "id": "notice",
+      "rect": [
+        0.2,
+        0.5,
+        0.14,
+        0.16
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_notice",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "chongling_1908.court.notice"
+        }
+      ]
+    },
+    {
+      "id": "crypt_shut",
+      "rect": [
+        0.42,
+        0.56,
+        0.16,
+        0.2
+      ],
+      "when": [
+        {
+          "flag": "read_notice",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "chongling_1908.court.crypt_shut"
+        }
+      ]
+    },
+    {
+      "id": "lab_shut",
+      "rect": [
+        0.82,
+        0.36,
+        0.14,
+        0.4
+      ],
+      "when": [
+        {
+          "flag": "read_1980",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "chongling_1908.court.lab_shut"
+        }
+      ]
+    },
+    {
+      "id": "altar",
+      "rect": [
+        0.6,
+        0.64,
+        0.16,
+        0.12
+      ],
+      "when": [
+        {
+          "flag": "read_rumour",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "chongling_1908.court.altar"
+        }
+      ]
+    },
+    {
+      "id": "altar_note",
+      "rect": [
+        0.6,
+        0.64,
+        0.16,
+        0.12
+      ],
+      "when": [
+        {
+          "flag": "read_rumour",
+          "equals": true
+        },
+        {
+          "flag": "found_note",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "found_note",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "chongling_1908.court.keeper_note"
+        }
+      ]
+    },
+    {
+      "id": "altar_done",
+      "rect": [
+        0.6,
+        0.64,
+        0.16,
+        0.12
+      ],
+      "when": [
+        {
+          "flag": "found_note",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "chongling_1908.court.altar_done"
+        }
+      ]
+    },
+    {
+      "id": "pines",
+      "rect": [
+        0.66,
+        0.06,
+        0.14,
+        0.4
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "wind_pines"
+        },
+        {
+          "type": "showText",
+          "key": "chongling_1908.court.pines"
+        }
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "weeds",
+      "kind": "grass",
+      "rect": [
+        0.06,
+        0.86,
+        0.3,
+        0.08
+      ]
+    }
+  ]
+}

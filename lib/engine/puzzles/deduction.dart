@@ -151,6 +151,10 @@ enum DeductionForm {
   /// The cover sheet of a police file: printed headings, a register stamp,
   /// and the entry written in by hand.
   docket,
+
+  /// A sheet of imperial yellow written in vermilion, the emperor's own
+  /// ink.
+  vermilion,
 }
 
 final class DeductionSentence {

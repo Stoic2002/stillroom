@@ -1,0 +1,117 @@
+{
+  "id": "crypt",
+  "background": "images/scenes/chongling_1908/crypt.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "stele_court"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "coffin",
+      "rect": [
+        0.32,
+        0.44,
+        0.36,
+        0.28
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "chongling_1908.crypt.coffin"
+        }
+      ]
+    },
+    {
+      "id": "record",
+      "rect": [
+        0.76,
+        0.46,
+        0.12,
+        0.18
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_1980",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "chongling_1908.crypt.record"
+        }
+      ]
+    },
+    {
+      "id": "doors",
+      "rect": [
+        0.03,
+        0.14,
+        0.17,
+        0.68
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "stone_door"
+        },
+        {
+          "type": "showText",
+          "key": "chongling_1908.crypt.doors"
+        }
+      ]
+    },
+    {
+      "id": "lamp",
+      "rect": [
+        0.47,
+        0.06,
+        0.06,
+        0.14
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "chongling_1908.crypt.lamp"
+        }
+      ]
+    },
+    {
+      "id": "bed",
+      "rect": [
+        0.26,
+        0.74,
+        0.48,
+        0.1
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "chongling_1908.crypt.bed"
+        }
+      ]
+    }
+  ],
+  "echoes": [
+    {
+      "id": "keeper",
+      "image": "images/objects/chongling_1908/echo_keeper.png",
+      "rect": [
+        0.22,
+        0.34,
+        0.05,
+        0.34
+      ],
+      "chance": 0.8,
+      "drift": [
+        0.02,
+        0
+      ]
+    }
+  ]
+}

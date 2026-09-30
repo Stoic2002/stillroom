@@ -335,6 +335,8 @@ void main() {
       'beat',
       'unwatched',
       'compose',
+      'strand',
+      'scan',
     ]);
   });
 }

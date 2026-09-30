@@ -421,4 +421,79 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get composeWrong => 'Оттиск где-то неверен.';
+
+  @override
+  String get strandInstruction =>
+      'Нажмите на отрезок, чтобы измерить его. Найдите самое высокое показание на каждой пряди и отметьте его.';
+
+  @override
+  String strandBudget(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Осталось $count замера',
+      many: 'Осталось $count замеров',
+      few: 'Осталось $count замера',
+      one: 'Остался $count замер',
+      zero: 'Замеров не осталось',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get strandMark => 'Отметить как самый высокий';
+
+  @override
+  String get strandWrong =>
+      'Это не самый высокий. Соседний отрезок может показать больше.';
+
+  @override
+  String get strandNewSample => 'Новый образец';
+
+  @override
+  String get strandOut =>
+      'Время реактора для этого образца кончилось. Возьмите новый.';
+
+  @override
+  String get strandCurveQuestion => 'Как мышьяк распределён вдоль волоса?';
+
+  @override
+  String get strandSteady => 'Ровно, годами';
+
+  @override
+  String get strandPeak => 'Один резкий пик';
+
+  @override
+  String get strandCurveWrong =>
+      'Посмотрите ещё раз на показания рядом с самым высоким.';
+
+  @override
+  String get scanInstruction =>
+      'Ведите зонд по одеянию. Отмечайте места, где стрелка уходит в красное.';
+
+  @override
+  String get scanMark => 'Отметить здесь';
+
+  @override
+  String get scanWrong => 'Здесь стрелка почти не движется.';
+
+  @override
+  String get scanFaint =>
+      'Стрелка дрогнула, но до красного не дошла. Сквозь эту ткань слишком слабо?';
+
+  @override
+  String get scanAgain => 'Уже отмечено.';
+
+  @override
+  String scanFound(String place) {
+    return 'Отмечено: $place';
+  }
+
+  @override
+  String scanProgress(int found, int total) {
+    return 'Отмечено мест: $found из $total';
+  }
+
+  @override
+  String get vermilionCaption => 'Киноварью';
 }

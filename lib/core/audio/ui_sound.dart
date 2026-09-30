@@ -96,7 +96,19 @@ enum UiSound {
   typeSort('type_sort', Haptic.selection),
 
   /// A gas lamp gutters and dims.
-  lampGutter('lamp_gutter', Haptic.none);
+  lampGutter('lamp_gutter', Haptic.none),
+
+  /// A counter clicks over a sample reading low.
+  geiger('geiger', Haptic.selection),
+
+  /// A counter chatters over a sample reading high.
+  geigerHot('geiger_hot', Haptic.light),
+
+  /// A glass sample tube set into its rack.
+  sample('sample', Haptic.light),
+
+  /// The probe's needle ticks as the reading under it changes.
+  probeTick('probe_tick', Haptic.none);
 
   const UiSound(this.id, this.haptic);
 
@@ -112,6 +124,10 @@ enum UiSound {
     < 0.75 => beatClear,
     _ => beatDeep,
   };
+
+  /// The counter's sound for a reading, from 0 (low) to 1 (highest).
+  static UiSound forCount(double reading) =>
+      reading < 0.35 ? geiger : geigerHot;
 }
 
 enum Haptic { none, selection, light, medium }

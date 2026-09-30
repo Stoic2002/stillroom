@@ -394,4 +394,70 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get composeWrong => '校样有地方不对。';
+
+  @override
+  String get strandInstruction => '点一段来测量。找出每根头发读数最高的一段，做上标记。';
+
+  @override
+  String strandBudget(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '还能测$count次',
+      zero: '没有测量次数了',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get strandMark => '标为最高';
+
+  @override
+  String get strandWrong => '这不是最高的。旁边的一段也许更高。';
+
+  @override
+  String get strandNewSample => '新样本';
+
+  @override
+  String get strandOut => '这份样本的反应堆时间用完了。换一份新样本。';
+
+  @override
+  String get strandCurveQuestion => '砷沿着头发是怎样分布的？';
+
+  @override
+  String get strandSteady => '多年平稳';
+
+  @override
+  String get strandPeak => '一个陡峭的峰';
+
+  @override
+  String get strandCurveWrong => '再看看最高那段周围的读数。';
+
+  @override
+  String get scanInstruction => '在龙袍上拖动探头。指针进入红区的地方，做上标记。';
+
+  @override
+  String get scanMark => '标记这里';
+
+  @override
+  String get scanWrong => '这里指针几乎不动。';
+
+  @override
+  String get scanFaint => '指针动了，却没进红区。隔着这层衣料太弱了？';
+
+  @override
+  String get scanAgain => '已经标过了。';
+
+  @override
+  String scanFound(String place) {
+    return '已标记：$place';
+  }
+
+  @override
+  String scanProgress(int found, int total) {
+    return '已标记：$found／$total处';
+  }
+
+  @override
+  String get vermilionCaption => '朱批';
 }

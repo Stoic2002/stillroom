@@ -50,6 +50,13 @@ enum EchoFigure {
   /// A compositor in shirtsleeves and a long apron, a composing stick in
   /// hand.
   compositor,
+
+  /// A tomb keeper in a padded winter coat and a hat with flaps, a lantern
+  /// in hand.
+  tombKeeper,
+
+  /// A scientist in a knee-length lab coat, a clipboard held to the chest.
+  scientist,
 }
 
 const _mist = Color(0xFFD5DEE2);
@@ -337,6 +344,51 @@ void paintEcho(Art a, EchoFigure figure) {
         )
         // The composing stick, held out in the left hand.
         ..drawRect(a.r(0.04, 0.4, 0.26, 0.05), body);
+    case EchoFigure.tombKeeper:
+      a.canvas
+        // The hat, its flaps down over the ears.
+        ..drawPath(
+          shape([(0.32, 0.12), (0.34, 0.03), (0.66, 0.03), (0.68, 0.12)]),
+          body,
+        )
+        // The padded coat, wide and to the knees.
+        ..drawPath(
+          shape([(0.26, 0.2), (0.74, 0.2), (0.86, 0.82), (0.14, 0.82)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.32, 0.8), (0.46, 0.8), (0.45, 0.99), (0.33, 0.99)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.54, 0.8), (0.68, 0.8), (0.67, 0.99), (0.55, 0.99)]),
+          body,
+        );
+      a.glow(a.p(0.86, 0.62), w * 0.4, const Color(0xFFE0A84A), strength: 0.6);
+    case EchoFigure.scientist:
+      a.canvas
+        // The lab coat, open, to the knees.
+        ..drawPath(
+          shape([(0.28, 0.2), (0.72, 0.2), (0.8, 0.76), (0.2, 0.76)]),
+          Paint()
+            ..color = const Color(0xFFF0F2F2)
+            ..maskFilter = blur,
+        )
+        ..drawPath(
+          shape([(0.33, 0.74), (0.46, 0.74), (0.45, 0.99), (0.34, 0.99)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.54, 0.74), (0.67, 0.74), (0.66, 0.99), (0.55, 0.99)]),
+          body,
+        )
+        // The clipboard, held to the chest.
+        ..drawRect(
+          a.r(0.36, 0.3, 0.26, 0.2),
+          Paint()
+            ..color = const Color(0xCC8A7A60)
+            ..maskFilter = blur,
+        );
     case EchoFigure.girl:
       a.canvas
         ..drawOval(a.r(0.36, 0.3, 0.28, 0.12), body)

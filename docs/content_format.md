@@ -535,12 +535,14 @@ filled slot swaps them.
 | `order` | A royal order on parchment: the header *De par le Roy* (UI string `orderHeader`, the same in every language) over `orderSubheader`, the sentences in italic, a red wax seal | — |
 | `rubbing` | An ink rubbing (*takbon*) taken from a cast inscription: black paper, the letters pale, a band of lotus scroll, the caption `rubbingCaption` | — |
 | `docket` | The cover sheet of a police file: printed headings (`docketHeader`, `docketSubheader`), a register stamp, the entry in dark ink by hand | — |
+| `vermilion` | A sheet of imperial yellow in a double vermilion rule, the sentences in vermilion (the emperor's own ink), the caption `vermilionCaption` | — |
 
 Used so far: Whitechapel `table` (the five frames), Semarang `telegram`,
 Flannan `correction` (the legend's account), Pompeii `board` (the
 diggers' cut, a tag on every layer), Bastille `order` (a blank *lettre de
 cachet*, written with only what is known), Gyeongju `rubbing` (taken from
-the bell's bronze), Whitechapel 1891 `docket` (the file's cover).
+the bell's bronze), Whitechapel 1891 `docket` (the file's cover), Beijing
+1908 `vermilion` (written where the court once wrote "illness").
 
 ### `clockHands`: set the hands
 
@@ -902,6 +904,64 @@ the bell's bronze), Whitechapel 1891 `docket` (the file's cover).
   `reversed` letters are in the text and not mirror-symmetric
   (A H I M O T U V W X Y); `extra` letters are not in the text.
 
+### `strand`: find the highest segment on a short budget
+
+```json
+"config": {
+  "strands": [ { "readings": [9, 14, 22, 41, 88, 190, 420, 980, 1650, 2404, 1210, 530, 240, 96] } ],
+  "measurements": 7,
+  "curve": "peak"
+}
+```
+
+- **What the player sees:** each strand (I, II, III) as a row of
+  segments, root to tip, on a strip of bench paper; beside it the
+  readings left and a New sample button; a Mark as highest button below.
+- **Playing:** tap a segment to measure it (a counter's clicks,
+  `geiger` or `geiger_hot` by the reading): its reading shows as a number
+  and a bar, drawn against a ceiling of 2.2 times the strand's highest so
+  a bar alone does not give it away. A sample allows `measurements`
+  readings; New sample (`sample`) starts the strand over. Tap a measured
+  segment and Mark it: the strand's highest finds it and shows the whole
+  strand's readings; any other is a mistake. Once every strand is found,
+  say whether the readings run `steady` along the hair or rise to sharp
+  `peak`s; `curve` is the right answer.
+- **Validation:** 1 to 3 strands of 6 to 30 readings, all above 0, each
+  with one clear highest; `measurements` from 3 to one less than the
+  shortest strand; `curve` is `steady` or `peak`.
+
+### `scan`: a probe over a garment
+
+```json
+"config": {
+  "layers": [
+    { "id": "outer", "labelKey": "…", "scale": 0.4 },
+    { "id": "inner", "labelKey": "…", "scale": 1 }
+  ],
+  "spots": [
+    { "id": "stomach", "labelKey": "…", "at": [0.5, 0.6], "radius": 0.1, "strength": 0.9 }
+  ],
+  "background": 0.06
+}
+```
+
+- **What the player sees:** a robe laid flat (the layer with `scale` 1 as
+  pale inner silk, any other as the dark outer robe), a brass probe on
+  it, a dial with the top half of its scale in red, a chip per layer, and
+  a Mark here button.
+- **Playing:** drag or tap on the robe to move the probe; the needle shows
+  the reading there (`probe_tick` as it crosses each tenth): `background`
+  plus the layer's `scale` times each spot's `strength`, falling off as
+  exp(−(d/radius)²). Mark here where the reading is at least 0.5 (the red)
+  inside a spot not yet found: it is found and ringed in vermilion. Inside
+  a spot but below the red is only faint (no mistake); outside every spot
+  is a mistake. Solved when every spot is found.
+- **Validation:** 1 to 3 layers with scales above 0 up to 1, one of them 1;
+  `background` below 0.5; 1 to 6 spots with unique ids, `at` from 0 to 1,
+  `radius` 0.03 to 0.3, `strength` above 0 up to 1, each reading at least
+  0.5 at its centre on the strongest layer. Spots may share a `labelKey`
+  (both shoulders).
+
 ## Words and the jar's label
 
 `words` in `game.json` declares what the player can note down:
@@ -1092,3 +1152,4 @@ warnings show in the debug panel).
 | 2026-09-30 | post-M6 | Puzzle types `keyring`, `cipher` and `sources`; deduction form `order`; interface sound `key_try`. Episode `bastille_1703` (shelf II). |
 | 2026-09-30 | post-M6 | Puzzle types `pour`, `resonance` and `beat`; deduction form `rubbing`; interface sounds `pour`, `bell_strike`, `beat_*`. Episode `gyeongju_771` (shelf II). |
 | 2026-09-30 | post-M6 | Puzzle types `unwatched` and `compose`; deduction form `docket`; interface sounds `type_sort`, `lamp_gutter`. Episode `whitechapel_1891` (shelf III, series whitechapel) replaces the sealed jar; a sealed teaser `sealed_guangxu_1908` stands on shelf III. |
+| 2026-09-30 | post-M6 | Puzzle types `strand` and `scan`; deduction form `vermilion`; interface sounds `geiger`, `geiger_hot`, `sample`, `probe_tick`. Episode `chongling_1908` (shelf III) replaces `sealed_guangxu_1908`; the sealed teaser on shelf III is now `sealed_alamut_1256`. |

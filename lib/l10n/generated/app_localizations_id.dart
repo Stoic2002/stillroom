@@ -413,4 +413,76 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get composeWrong => 'Cetakan percobaannya salah di suatu tempat.';
+
+  @override
+  String get strandInstruction =>
+      'Ketuk satu ruas untuk mengukurnya. Temukan bacaan tertinggi tiap helai, lalu tandai.';
+
+  @override
+  String strandBudget(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Sisa $count pengukuran',
+      zero: 'Tak ada sisa pengukuran',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get strandMark => 'Tandai tertinggi';
+
+  @override
+  String get strandWrong =>
+      'Bukan yang tertinggi. Ruas di sebelahnya mungkin lebih tinggi.';
+
+  @override
+  String get strandNewSample => 'Sampel baru';
+
+  @override
+  String get strandOut =>
+      'Waktu reaktor untuk sampel ini habis. Ambil sampel baru.';
+
+  @override
+  String get strandCurveQuestion =>
+      'Bagaimana sebaran arsenik di sepanjang rambut?';
+
+  @override
+  String get strandSteady => 'Merata, bertahun-tahun';
+
+  @override
+  String get strandPeak => 'Satu puncak tajam';
+
+  @override
+  String get strandCurveWrong => 'Lihat lagi bacaan di sekitar yang tertinggi.';
+
+  @override
+  String get scanInstruction =>
+      'Geser probe di atas jubah. Tandai tempat jarumnya masuk ke merah.';
+
+  @override
+  String get scanMark => 'Tandai di sini';
+
+  @override
+  String get scanWrong => 'Jarumnya nyaris tak bergerak di sini.';
+
+  @override
+  String get scanFaint =>
+      'Jarumnya bergerak, tapi tak sampai merah. Terlalu samar lewat kain ini?';
+
+  @override
+  String get scanAgain => 'Sudah ditandai.';
+
+  @override
+  String scanFound(String place) {
+    return 'Ditandai: $place';
+  }
+
+  @override
+  String scanProgress(int found, int total) {
+    return 'Tempat ditandai: $found dari $total';
+  }
+
+  @override
+  String get vermilionCaption => 'Dengan tinta merah kaisar';
 }

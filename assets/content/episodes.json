@@ -86,7 +86,19 @@
       ]
     },
     {
-      "id": "sealed_guangxu_1908",
+      "id": "chongling_1908",
+      "titleKey": "episode.chongling_1908.title",
+      "teaserKey": "episode.chongling_1908.teaser",
+      "jarImage": "images/ui/jar_chongling_1908.png",
+      "shelf": 3,
+      "unlockAfter": 4,
+      "place": [
+        39.91,
+        116.38
+      ]
+    },
+    {
+      "id": "sealed_alamut_1256",
       "titleKey": "episode.sealed.title",
       "comingSoon": true,
       "shelf": 3,

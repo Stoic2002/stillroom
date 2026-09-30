@@ -1,0 +1,68 @@
+{
+  "id": "strand",
+  "type": "strand",
+  "background": "images/scenes/chongling_1908/bench_board.png",
+  "config": {
+    "strands": [
+      {
+        "readings": [
+          9,
+          14,
+          22,
+          41,
+          88,
+          190,
+          420,
+          980,
+          1650,
+          2404,
+          1210,
+          530,
+          240,
+          96
+        ]
+      },
+      {
+        "readings": [
+          11,
+          18,
+          30,
+          64,
+          140,
+          363,
+          205,
+          150,
+          202,
+          118,
+          60,
+          33,
+          20,
+          14
+        ]
+      }
+    ],
+    "measurements": 7,
+    "curve": "peak"
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "reactor_count"
+    },
+    {
+      "type": "showText",
+      "key": "chongling_1908.lab.strand_done"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.chongling_1908.strand.1"
+    },
+    {
+      "key": "hint.chongling_1908.strand.2"
+    },
+    {
+      "key": "hint.chongling_1908.strand.3"
+    }
+  ]
+}
