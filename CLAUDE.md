@@ -107,14 +107,11 @@ with a legend to set right. The lineup, by shelf and region, is in
 
 ## Next steps (in this order)
 
-1. **Wait for the developer's feedback on *Whitechapel, 1891*** (built
-   2026-09-30; the developer tests it on the phone), and fix what they
-   report. Gyeongju was tested and found good. Things to watch (also in
-   `docs/episodes/whitechapel_1891.md`):
-   - whether the new file is found fairly when another has moved, and
-     whether the dark while looking away is the right length;
-   - whether the mirrored letters of the type case are clear on the phone;
-   - whether the cab at the arch (to the composing room) is found.
+1. **Wait for the developer's approval of the Guangxu tale**
+   (`docs/episodes/chongling_1908.md`: where it is set, two mechanics
+   `strand` and `scan`, the `vermilion` seal), then build it. Whitechapel
+   1891 was built 2026-09-30; its feedback is still to come (watch the
+   shelf's rounds, the mirrored type, the cab at the arch, the map labels).
 2. **The next tales of the plan, in shelf order** (shelf III next:
    Guangxu 1908, Alamut 1256, Great Zimbabwe 1871).
    For each: a design doc first (facts with sources, 2–3 mechanics of its
