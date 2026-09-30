@@ -1133,7 +1133,136 @@ Buf shovelDig() {
 
 // ---------------------------------------------------------------------------
 
+/// Bastille: a big key goes in, turns against the wards, and the bolt
+/// shoots back.
+Buf keyTurn() {
+  final rng = math.Random(40);
+  final b = Buf(1.4);
+  // In: a short metal scrape.
+  b.add(
+    gain(
+      shape(
+        bandpass(noise(0.18, rng), (t) => 2600 - t * 4000, 3),
+        (t) => swell(t, 0.02, 0.08, 0.18),
+      ),
+      1.2,
+    ),
+  );
+  // The turn: wards grinding.
+  b.add(
+    gain(
+      shape(
+        bandpass(noise(0.35, rng), (t) => 900 + 300 * math.sin(t * 30), 2),
+        (t) => swell(t, 0.05, 0.1, 0.35),
+      ),
+      1.4,
+    ),
+    at: 0.25,
+  );
+  // The bolt: a heavy iron clunk, and its lighter echo from the strike.
+  final clunk = sum([
+    modal(0.5, 310, const [(1, 1, 0.08), (2.2, 0.6, 0.05), (3.7, 0.3, 0.03)]),
+    gain(
+      shape(lowpass(noise(0.1, rng), (_) => 700), (t) => decay(t, 0.015)),
+      1.5,
+    ),
+  ]);
+  b
+    ..add(clunk, at: 0.62)
+    ..add(
+      modal(0.3, 820, const [(1, 1, 0.04), (2.6, 0.5, 0.02)]),
+      at: 0.66,
+      gain: 0.35,
+      pan: 0.2,
+    );
+  return reverb(b, size: 0.55, mix: 0.3);
+}
+
+/// Bastille: a heavy iron-bound door, low on its hinges, closing on stone.
+Buf doorHeavy() {
+  final rng = math.Random(41);
+  const seconds = 1.8;
+  final pulses = Float64List(n(seconds));
+  var phase = 0.0;
+  for (var i = 0; i < pulses.length; i++) {
+    final t = i / rate;
+    final f = 22 + 30 * math.pow(math.sin(math.pi * t / seconds), 2);
+    phase += (f + rng.nextDouble() * 4) / rate;
+    if (phase >= 1) {
+      phase -= 1;
+      pulses[i] = 1;
+    }
+  }
+  final groan = sum([
+    bandpass(pulses, (_) => 280, 12),
+    gain(bandpass(pulses, (_) => 610, 12), 0.7),
+    gain(bandpass(pulses, (_) => 1150, 10), 0.3),
+  ]);
+  final thud = sum([
+    shape(tone(0.5, (_) => 62), (t) => decay(t, 0.1)),
+    gain(
+      shape(lowpass(noise(0.3, rng), (_) => 300), (t) => decay(t, 0.05)),
+      2.5,
+    ),
+  ]);
+  final b = Buf(seconds + 1.2)
+    ..add(shape(groan, (t) => swell(t, 0.2, 0.3, seconds)), gain: 3)
+    ..add(thud, at: seconds - 0.05, gain: 1.2);
+  return reverb(b, size: 0.75, mix: 0.35, damp: 0.5);
+}
+
+/// The bell of Saint-Paul, across the rooftops: two strokes, higher and
+/// further off than the bell that tolls elsewhere.
+Buf bellSaintPaul() {
+  final rng = math.Random(42);
+  final b = Buf(9);
+  for (final at in [0.0, 3.4]) {
+    b
+      ..add(lowpass(bell(247, 5.5), (_) => 2400), at: at, gain: 0.7)
+      ..add(
+        gain(
+          shape(lowpass(noise(0.05, rng), (_) => 1500), (t) => decay(t, 0.008)),
+          0.4,
+        ),
+        at: at,
+      );
+  }
+  return reverb(b, size: 0.95, mix: 0.45, damp: 0.55);
+}
+
+/// A goose quill writing a line: short scratches, a dip, then more.
+Buf quill() {
+  final rng = math.Random(43);
+  final b = Buf(1.8);
+  var t = 0.05;
+  while (t < 1.6) {
+    final len = 0.04 + rng.nextDouble() * 0.12;
+    b.add(
+      gain(
+        shape(
+          bandpass(noise(len, rng), (_) => 3500 + rng.nextDouble() * 2500, 2.5),
+          (x) => swell(x, 0.008, 0.02, len),
+        ),
+        0.8 + rng.nextDouble() * 0.5,
+      ),
+      at: t,
+      pan: -0.2 + t * 0.2,
+    );
+    t += len + 0.02 + rng.nextDouble() * 0.06;
+    // Halfway, the pen goes back to the ink.
+    if (t > 0.8 && t < 0.95) {
+      b.add(click(rng, centre: 1800, time: 0.003), at: t + 0.05, gain: 0.6);
+      t += 0.2;
+    }
+  }
+  return reverb(b, size: 0.2, mix: 0.12);
+}
+
 final sfx = <String, Buf Function()>{
+  'key_turn': keyTurn,
+  'door_heavy': doorHeavy,
+  'bell_saint_paul': bellSaintPaul,
+  'quill': quill,
   'shovel_dig': shovelDig,
   'oven_door': ovenDoor,
   'rumble': rumble,
@@ -1237,7 +1366,60 @@ Buf pompeiiAsh() => loop(48, (seconds) {
   return reverb(b, size: 0.8, mix: 0.4, damp: 0.5);
 });
 
+/// Bastille: a cold drone in A under stone, a draught in the court, and a
+/// slow bowed line, like a viol heard through a wall.
+Buf bastilleDawn() => loop(48, (seconds) {
+  final rng = math.Random(26);
+  final b = Buf(seconds)
+    ..add(
+      drone(seconds, loopSeconds: 48, const [
+        (55.0, 0.45, 24),
+        (82.41, 0.22, 16),
+        (130.81, 0.08, 12),
+      ]),
+      gain: 0.4,
+    );
+  final draught = shape(
+    bandpass(
+      noise(seconds, rng),
+      (t) => 420 + 200 * math.sin(tau * t / 16),
+      1.6,
+    ),
+    (t) => 0.3 + 0.7 * math.pow(math.sin(tau * t / 24), 2),
+  );
+  b.add(gain(draught, 0.16), pan: -0.3);
+  // A aeolian, two long bowed notes every 16 seconds.
+  const scale = [220.0, 246.94, 261.63, 293.66, 329.63, 349.23, 392.0];
+  for (var at = 3.0; at < seconds - 6; at += 16) {
+    var degree = rng.nextInt(3) + 2;
+    for (var k = 0; k < 2; k++) {
+      final f = scale[degree];
+      const len = 4.5;
+      final bow = sum([
+        tone(len, (t) => f * (1 + 0.004 * math.sin(tau * 5 * t))),
+        gain(
+          tone(len, (t) => 2 * f * (1 + 0.004 * math.sin(tau * 5 * t))),
+          0.35,
+        ),
+        gain(
+          tone(len, (t) => 3 * f * (1 + 0.004 * math.sin(tau * 5 * t))),
+          0.12,
+        ),
+      ]);
+      b.add(
+        shape(lowpass(bow, (_) => 1400), (t) => swell(t, 1.2, 2.0, len)),
+        at: at + k * 3.8,
+        gain: 0.05,
+        pan: 0.35,
+      );
+      degree = (degree + rng.nextInt(3) - 1).clamp(0, scale.length - 1);
+    }
+  }
+  return reverb(b, size: 0.85, mix: 0.45, damp: 0.5);
+});
+
 final music = <String, Buf Function()>{
+  'bastille_dawn': bastilleDawn,
   'pompeii_ash': pompeiiAsh,
   'flannan_wind': flannanWind,
   'stillroom_menu': menuMusic,
@@ -1632,7 +1814,30 @@ Buf greatSeaSound() {
   return reverb(b, size: 0.8, mix: 0.3);
 }
 
+/// A key tried in a lock that will not turn: iron scraping on the wards,
+/// a dull knock.
+Buf keyTrySound() {
+  final rng = math.Random(52);
+  final b = Buf(0.6)
+    ..add(
+      gain(
+        shape(
+          bandpass(noise(0.3, rng), (_) => 2400, 1.2),
+          (t) => math.sin(math.pi * t / 0.3),
+        ),
+        0.5,
+      ),
+    )
+    ..add(
+      modal(0.4, 620, const [(1, 1, 0.08), (2.7, 0.5, 0.05), (5.1, 0.3, 0.03)]),
+      at: 0.28,
+      gain: 0.7,
+    );
+  return reverb(b, size: 0.3, mix: 0.15);
+}
+
 final ui = <String, Buf Function()>{
+  'key_try': keyTrySound,
   'wave': waveSound,
   'great_sea': greatSeaSound,
   'lens': lensSound,

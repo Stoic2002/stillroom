@@ -1,0 +1,84 @@
+{
+  "id": "file",
+  "type": "sources",
+  "background": "images/scenes/bastille_1703/desk_board.png",
+  "config": {
+    "trays": [
+      {
+        "id": "time",
+        "labelKey": "bastille_1703.file.tray_time"
+      },
+      {
+        "id": "after",
+        "labelKey": "bastille_1703.file.tray_after"
+      }
+    ],
+    "cards": [
+      {
+        "id": "louvois_1669",
+        "titleKey": "bastille_1703.file.louvois_1669.title",
+        "textKey": "bastille_1703.file.louvois_1669.text",
+        "tray": "time"
+      },
+      {
+        "id": "saintmars_1687",
+        "titleKey": "bastille_1703.file.saintmars_1687.title",
+        "textKey": "bastille_1703.file.saintmars_1687.text",
+        "tray": "time"
+      },
+      {
+        "id": "bulonde_1691",
+        "titleKey": "bastille_1703.file.bulonde_1691.title",
+        "textKey": "bastille_1703.file.bulonde_1691.text",
+        "tray": "time"
+      },
+      {
+        "id": "junca_1698",
+        "titleKey": "bastille_1703.file.junca_1698.title",
+        "textKey": "bastille_1703.file.junca_1698.text",
+        "tray": "time"
+      },
+      {
+        "id": "register_1703",
+        "titleKey": "bastille_1703.file.register_1703.title",
+        "textKey": "bastille_1703.file.register_1703.text",
+        "tray": "time"
+      },
+      {
+        "id": "voltaire",
+        "titleKey": "bastille_1703.file.voltaire.title",
+        "textKey": "bastille_1703.file.voltaire.text",
+        "tray": "after"
+      },
+      {
+        "id": "dumas",
+        "titleKey": "bastille_1703.file.dumas.title",
+        "textKey": "bastille_1703.file.dumas.text",
+        "tray": "after"
+      },
+      {
+        "id": "bazeries",
+        "titleKey": "bastille_1703.file.bazeries.title",
+        "textKey": "bastille_1703.file.bazeries.text",
+        "tray": "after"
+      }
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "showText",
+      "key": "bastille_1703.office.file_sorted"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.bastille_1703.file.1"
+    },
+    {
+      "key": "hint.bastille_1703.file.2"
+    },
+    {
+      "key": "hint.bastille_1703.file.3"
+    }
+  ]
+}

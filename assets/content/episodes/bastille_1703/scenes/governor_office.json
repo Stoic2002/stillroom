@@ -1,0 +1,205 @@
+{
+  "id": "governor_office",
+  "background": "images/scenes/bastille_1703/governor_office.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "courtyard"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "letter_1669",
+      "rect": [
+        0.28,
+        0.52,
+        0.14,
+        0.1
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_letter",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "bastille_1703.office.letter_1669"
+        }
+      ]
+    },
+    {
+      "id": "cipher_letter",
+      "rect": [
+        0.46,
+        0.52,
+        0.13,
+        0.1
+      ],
+      "when": [
+        {
+          "hasItem": "worksheet",
+          "equals": false
+        },
+        {
+          "puzzleSolved": "cipher",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "bastille_1703.office.cipher_unread"
+        }
+      ]
+    },
+    {
+      "id": "cipher_open",
+      "rect": [
+        0.46,
+        0.52,
+        0.13,
+        0.1
+      ],
+      "when": [
+        {
+          "hasItem": "worksheet"
+        },
+        {
+          "puzzleSolved": "cipher",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "bastille_1703.office.cipher_open"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "cipher"
+        }
+      ]
+    },
+    {
+      "id": "cipher_done",
+      "rect": [
+        0.46,
+        0.52,
+        0.13,
+        0.1
+      ],
+      "when": [
+        {
+          "puzzleSolved": "cipher"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "bastille_1703.office.cipher_done"
+        }
+      ]
+    },
+    {
+      "id": "file_wait",
+      "rect": [
+        0.62,
+        0.5,
+        0.14,
+        0.12
+      ],
+      "when": [
+        {
+          "puzzleSolved": "file",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "bastille_1703.office.file_wait"
+        }
+      ]
+    },
+    {
+      "id": "file_open",
+      "rect": [
+        0.62,
+        0.5,
+        0.14,
+        0.12
+      ],
+      "when": [
+        {
+          "puzzleSolved": "file",
+          "equals": false
+        },
+        {
+          "flag": "read_register",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "cipher"
+        },
+        {
+          "flag": "saw_mask",
+          "equals": true
+        },
+        {
+          "flag": "read_letter",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "bastille_1703.office.file_open"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "file"
+        }
+      ]
+    },
+    {
+      "id": "file_done",
+      "rect": [
+        0.62,
+        0.5,
+        0.14,
+        0.12
+      ],
+      "when": [
+        {
+          "puzzleSolved": "file"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "bastille_1703.office.file_done"
+        }
+      ]
+    },
+    {
+      "id": "fire",
+      "rect": [
+        0.04,
+        0.4,
+        0.16,
+        0.36
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "bastille_1703.office.fire"
+        }
+      ]
+    }
+  ]
+}

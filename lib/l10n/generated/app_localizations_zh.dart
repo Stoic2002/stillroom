@@ -292,4 +292,35 @@ class AppLocalizationsZh extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get orderHeader => 'De par le Roy';
+
+  @override
+  String get orderSubheader => '奉国王之命';
+
+  @override
+  String get keyringInstruction => '从钥匙圈上取下一把钥匙。';
+
+  @override
+  String get keyringHand => '点钥匙把它翻过来；点锁来试一试。';
+
+  @override
+  String get keyringWrong => '转不动。';
+
+  @override
+  String get cipherInstruction => '点信里的一个数字，再点工作表上相同的数字。';
+
+  @override
+  String get sourcesInstruction => '点一份文件，再点它该放的托盘。';
+
+  @override
+  String sourcesWrong(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '有$count份文件放错了托盘。',
+    );
+    return '$_temp0';
+  }
 }

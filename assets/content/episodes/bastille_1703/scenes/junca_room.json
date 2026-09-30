@@ -1,0 +1,165 @@
+{
+  "id": "junca_room",
+  "background": "images/scenes/bastille_1703/junca_room.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "courtyard"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "journal",
+      "rect": [
+        0.34,
+        0.52,
+        0.22,
+        0.14
+      ],
+      "when": [
+        {
+          "puzzleSolved": "file",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_journal",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "bastille_1703.junca.journal"
+        }
+      ]
+    },
+    {
+      "id": "journal_note",
+      "rect": [
+        0.34,
+        0.52,
+        0.22,
+        0.14
+      ],
+      "when": [
+        {
+          "puzzleSolved": "file"
+        },
+        {
+          "flag": "found_note",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "found_note",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "bastille_1703.junca.keeper_note"
+        }
+      ]
+    },
+    {
+      "id": "journal_done",
+      "rect": [
+        0.34,
+        0.52,
+        0.22,
+        0.14
+      ],
+      "when": [
+        {
+          "flag": "found_note",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "bastille_1703.junca.journal_done"
+        }
+      ]
+    },
+    {
+      "id": "worksheet",
+      "rect": [
+        0.72,
+        0.3,
+        0.1,
+        0.14
+      ],
+      "when": [
+        {
+          "everHadItem": "worksheet",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "pickItem",
+          "item": "worksheet"
+        },
+        {
+          "type": "showText",
+          "key": "bastille_1703.junca.worksheet"
+        }
+      ]
+    },
+    {
+      "id": "window",
+      "rect": [
+        0.06,
+        0.18,
+        0.18,
+        0.34
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "bastille_1703.junca.window"
+        }
+      ]
+    },
+    {
+      "id": "candle",
+      "rect": [
+        0.6,
+        0.4,
+        0.05,
+        0.12
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "bastille_1703.junca.candle"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "worksheet_sprite",
+      "image": "images/objects/bastille_1703/worksheet_sprite.png",
+      "rect": [
+        0.72,
+        0.3,
+        0.1,
+        0.14
+      ],
+      "when": [
+        {
+          "everHadItem": "worksheet",
+          "equals": false
+        }
+      ]
+    }
+  ]
+}

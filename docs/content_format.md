@@ -532,10 +532,12 @@ filled slot swaps them.
 | `telegram` | A telegram form, in capitals, with the UI string `telegramStop` (STOP, ТЧК; nothing in Japanese, Chinese, Korean) in place of each full stop | — |
 | `correction` | A text already written and wrong in places: every blank starts with the sentence's `initial` word; the player finds and corrects the wrong ones | `initial` on every sentence, one word per blank, all in `words`; at least one must be wrong |
 | `board` | Tags pinned to the picture behind (the puzzle `background`), each at its sentence's `rect`; the words take the right third of the board, so keep every `rect` left of x = 0.64 | `rect` on every sentence |
+| `order` | A royal order on parchment: the header *De par le Roy* (UI string `orderHeader`, the same in every language) over `orderSubheader`, the sentences in italic, a red wax seal | — |
 
 Used so far: Whitechapel `table` (the five frames), Semarang `telegram`,
 Flannan `correction` (the legend's account), Pompeii `board` (the
-diggers' cut, a tag on every layer).
+diggers' cut, a tag on every layer), Bastille `order` (a blank *lettre de
+cachet*, written with only what is known).
 
 ### `clockHands`: set the hands
 
@@ -722,6 +724,77 @@ diggers' cut, a tag on every layer).
 - **Checking:** once every box is filled, a board that does not match
   `solution` says how many rows are still wrong. Solved when every row
   matches. `solution` must name every row and column with a real option.
+
+### `keyring`: find the key and turn it the right way
+
+```json
+"config": {
+  "profile": [1, 3, 0, 2, 2],
+  "keys": [
+    { "id": "a", "bits": [1, 3, 0, 2, 1] },
+    { "id": "c", "bits": [2, 2, 0, 3, 1] }
+  ]
+}
+```
+
+- **What the player sees:** a lock plate whose keyhole is cut the shape of
+  `profile`, a ring of keys, and the key in hand.
+- **Cuts:** `profile` and every key's `bits` are cut depths along the bit,
+  0 to 3, from the stem to the tip; 3 to 8 places, the same count
+  everywhere.
+- **Playing:** tap a key on the ring to take it (the right way up); tap the
+  key in hand to turn it over, which reads its bits from the tip back; tap
+  the lock to try it. A key that does not fit plays `keyTry` and says so.
+- **Validation:** at least two keys, unique ids, and exactly one (key, way
+  round) that fits.
+
+### `cipher`: read a letter in numbers
+
+```json
+"config": {
+  "groups": ["511", "208", "73", "219", "64", "401"],
+  "lines": [3],
+  "key": [
+    { "code": "511", "text": "Bu" },
+    { "code": "208", "text": "lon" }
+  ]
+}
+```
+
+- **What the player sees:** the letter, its `groups` of numbers broken into
+  lines before each index in `lines`; and beside it a worksheet of `key`
+  entries (a number and the syllable it stands for), in the order given.
+- **Playing:** tap a number in the letter, then the same number on the
+  worksheet: its syllable is written over every group with that number. A
+  wrong entry is a slip (a mistake sound).
+- **Numbers on no worksheet** (in `groups` but not `key`) cannot be picked;
+  once the rest is read they are ringed. Solved when every number that has
+  an entry is read. The key may hold decoys that are not in the letter.
+- **Validation:** at least two groups, `lines` rising inside the letter,
+  codes unique in the key, and at least one group the key can read.
+
+### `sources`: sort a file of papers
+
+```json
+"config": {
+  "trays": [
+    { "id": "time", "labelKey": "bastille_1703.file.tray_time" },
+    { "id": "after", "labelKey": "bastille_1703.file.tray_after" }
+  ],
+  "cards": [
+    { "id": "louvois_1669", "titleKey": "…", "textKey": "…", "tray": "time" }
+  ]
+}
+```
+
+- **What the player sees:** the trays across the top, the papers still to
+  sort along the bottom, each with a title (who wrote it, and when) and a
+  short text.
+- **Playing:** tap a paper, then a tray; tap a paper in a tray to take it
+  back out. Once every paper is in a tray, the file says how many are in
+  the wrong one (`sourcesWrong`); solved when none are.
+- **Validation:** at least two trays and three cards, unique ids, every
+  card's `tray` known, and at least one card for every tray.
 
 ## Words and the jar's label
 
@@ -910,3 +983,4 @@ warnings show in the debug panel).
 | 2026-09-29 | post-M6 | `lens` in scenes (a lens between eras) and the `overlay` puzzle type; episode `pompeii_79` (shelf II). |
 | 2026-09-26 | post-M6 | Korean (`ko`) added. Hints paced by the hint candle. Generated audio in `assets/audio/` (docs/audio.md); music id `stillroom_menu` plays on the menu and shelf. |
 | 2026-09-30 | post-M6 | Puzzle types `beamSweep`, `swell` and `roster`; interface sounds `wave` and `great_sea`. Flannan rebuilt around them (the gallery, the west landing steps, the hooks); its label is a short seal. |
+| 2026-09-30 | post-M6 | Puzzle types `keyring`, `cipher` and `sources`; deduction form `order`; interface sound `key_try`. Episode `bastille_1703` (shelf II). |

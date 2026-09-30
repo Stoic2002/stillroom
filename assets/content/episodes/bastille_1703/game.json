@@ -1,0 +1,205 @@
+{
+  "startScene": "courtyard",
+  "flags": {
+    "read_journal": false,
+    "read_letter": false,
+    "saw_mask": false,
+    "read_register": false,
+    "found_note": false
+  },
+  "logicalResolution": [
+    1920,
+    1080
+  ],
+  "orientation": "landscape",
+  "sceneTransitionMs": 600,
+  "music": "bastille_dawn",
+  "words": [
+    {
+      "id": "eustache_dauger",
+      "labelKey": "bastille_1703.word.eustache_dauger",
+      "kind": "name"
+    },
+    {
+      "id": "marchioly",
+      "labelKey": "bastille_1703.word.marchioly",
+      "kind": "name"
+    },
+    {
+      "id": "mattioli",
+      "labelKey": "bastille_1703.word.mattioli",
+      "kind": "name"
+    },
+    {
+      "id": "bulonde",
+      "labelKey": "bastille_1703.word.bulonde",
+      "kind": "name"
+    },
+    {
+      "id": "twin",
+      "labelKey": "bastille_1703.word.twin",
+      "kind": "name"
+    },
+    {
+      "id": "date_1669",
+      "labelKey": "bastille_1703.word.date_1669",
+      "kind": "date"
+    },
+    {
+      "id": "date_1698",
+      "labelKey": "bastille_1703.word.date_1698",
+      "kind": "date"
+    },
+    {
+      "id": "date_19nov",
+      "labelKey": "bastille_1703.word.date_19nov",
+      "kind": "date"
+    },
+    {
+      "id": "black_velvet",
+      "labelKey": "bastille_1703.word.black_velvet",
+      "kind": "thing"
+    },
+    {
+      "id": "iron",
+      "labelKey": "bastille_1703.word.iron",
+      "kind": "thing"
+    },
+    {
+      "id": "valet",
+      "labelKey": "bastille_1703.word.valet",
+      "kind": "thing"
+    }
+  ],
+  "secret": {
+    "when": [
+      {
+        "flag": "found_note",
+        "equals": true
+      }
+    ],
+    "noteKey": "bastille_1703.junca.keeper_note"
+  },
+  "hintStages": [
+    {
+      "id": "write_seal",
+      "when": [
+        {
+          "puzzleSolved": "file"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.bastille_1703.write_seal.1"
+        },
+        {
+          "key": "hint.bastille_1703.write_seal.2"
+        }
+      ]
+    },
+    {
+      "id": "sort_file",
+      "when": [
+        {
+          "puzzleSolved": "cipher"
+        },
+        {
+          "flag": "saw_mask",
+          "equals": true
+        },
+        {
+          "flag": "read_register",
+          "equals": true
+        },
+        {
+          "flag": "read_letter",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.bastille_1703.sort_file.1"
+        },
+        {
+          "key": "hint.bastille_1703.sort_file.2"
+        }
+      ]
+    },
+    {
+      "id": "climb_tower",
+      "when": [
+        {
+          "hasItem": "key_ring"
+        },
+        {
+          "flag": "saw_mask",
+          "equals": false
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.bastille_1703.climb_tower.1"
+        },
+        {
+          "key": "hint.bastille_1703.climb_tower.2"
+        }
+      ]
+    },
+    {
+      "id": "read_cipher",
+      "when": [
+        {
+          "hasItem": "worksheet"
+        },
+        {
+          "flag": "read_letter",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "cipher",
+          "equals": false
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.bastille_1703.read_cipher.1"
+        },
+        {
+          "key": "hint.bastille_1703.read_cipher.2"
+        }
+      ]
+    },
+    {
+      "id": "find_register",
+      "when": [
+        {
+          "flag": "read_journal",
+          "equals": true
+        },
+        {
+          "flag": "read_register",
+          "equals": false
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.bastille_1703.find_register.1"
+        },
+        {
+          "key": "hint.bastille_1703.find_register.2"
+        }
+      ]
+    },
+    {
+      "id": "start",
+      "hints": [
+        {
+          "key": "hint.bastille_1703.start.1"
+        },
+        {
+          "key": "hint.bastille_1703.start.2"
+        }
+      ]
+    }
+  ]
+}

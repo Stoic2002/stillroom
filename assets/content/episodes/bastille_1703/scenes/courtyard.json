@@ -1,0 +1,197 @@
+{
+  "id": "courtyard",
+  "background": "images/scenes/bastille_1703/courtyard.png",
+  "exits": [
+    {
+      "id": "tower",
+      "to": "tower_stair",
+      "rect": [
+        0.08,
+        0.42,
+        0.12,
+        0.36
+      ]
+    },
+    {
+      "id": "junca",
+      "to": "junca_room",
+      "rect": [
+        0.38,
+        0.46,
+        0.09,
+        0.3
+      ]
+    },
+    {
+      "id": "governor",
+      "to": "governor_office",
+      "rect": [
+        0.6,
+        0.44,
+        0.1,
+        0.32
+      ]
+    },
+    {
+      "id": "street",
+      "to": "saint_paul",
+      "rect": [
+        0.84,
+        0.36,
+        0.14,
+        0.46
+      ],
+      "when": [
+        {
+          "flag": "read_journal",
+          "equals": true
+        }
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "key_ring",
+      "rect": [
+        0.22,
+        0.46,
+        0.05,
+        0.1
+      ],
+      "when": [
+        {
+          "everHadItem": "key_ring",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "pickItem",
+          "item": "key_ring"
+        },
+        {
+          "type": "showText",
+          "key": "bastille_1703.courtyard.key_ring"
+        }
+      ]
+    },
+    {
+      "id": "gate_shut",
+      "rect": [
+        0.84,
+        0.36,
+        0.14,
+        0.46
+      ],
+      "when": [
+        {
+          "flag": "read_journal",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "bastille_1703.courtyard.gate_shut"
+        }
+      ]
+    },
+    {
+      "id": "cart",
+      "rect": [
+        0.28,
+        0.72,
+        0.18,
+        0.14
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "bastille_1703.courtyard.cart"
+        }
+      ]
+    },
+    {
+      "id": "towers",
+      "rect": [
+        0.2,
+        0.0,
+        0.6,
+        0.26
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "bell_saint_paul"
+        },
+        {
+          "type": "showText",
+          "key": "bastille_1703.courtyard.towers"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "gate_open_sprite",
+      "image": "images/objects/bastille_1703/gate_open_sprite.png",
+      "rect": [
+        0.84,
+        0.36,
+        0.14,
+        0.46
+      ],
+      "when": [
+        {
+          "flag": "read_journal",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "key_ring_sprite",
+      "image": "images/objects/bastille_1703/key_ring_sprite.png",
+      "rect": [
+        0.22,
+        0.46,
+        0.05,
+        0.1
+      ],
+      "when": [
+        {
+          "everHadItem": "key_ring",
+          "equals": false
+        }
+      ]
+    }
+  ],
+  "echoes": [
+    {
+      "id": "turnkey",
+      "image": "images/objects/bastille_1703/echo_turnkey.png",
+      "rect": [
+        0.26,
+        0.44,
+        0.05,
+        0.22
+      ],
+      "chance": 0.6,
+      "drift": [
+        -0.03,
+        0.0
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "weeds",
+      "kind": "grass",
+      "rect": [
+        0.5,
+        0.84,
+        0.2,
+        0.06
+      ]
+    }
+  ]
+}

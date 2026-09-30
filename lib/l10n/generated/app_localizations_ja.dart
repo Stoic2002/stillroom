@@ -292,4 +292,35 @@ class AppLocalizationsJa extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get orderHeader => 'De par le Roy';
+
+  @override
+  String get orderSubheader => '国王の命により';
+
+  @override
+  String get keyringInstruction => '輪から鍵を一本取ろう。';
+
+  @override
+  String get keyringHand => '鍵をタップで裏返し、錠をタップで試そう。';
+
+  @override
+  String get keyringWrong => '回らない。';
+
+  @override
+  String get cipherInstruction => '手紙の数字をタップし、作業表の同じ数字をタップしよう。';
+
+  @override
+  String get sourcesInstruction => '書類をタップし、入るべき箱をタップしよう。';
+
+  @override
+  String sourcesWrong(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '違う箱に入っている書類が$count枚ある。',
+    );
+    return '$_temp0';
+  }
 }

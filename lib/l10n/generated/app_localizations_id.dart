@@ -303,4 +303,38 @@ class AppLocalizationsId extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get orderHeader => 'De par le Roy';
+
+  @override
+  String get orderSubheader => 'Atas perintah Raja';
+
+  @override
+  String get keyringInstruction => 'Ambil satu kunci dari gelangnya.';
+
+  @override
+  String get keyringHand =>
+      'Ketuk kuncinya untuk membaliknya; ketuk gemboknya untuk mencobanya.';
+
+  @override
+  String get keyringWrong => 'Kuncinya tak mau berputar.';
+
+  @override
+  String get cipherInstruction =>
+      'Ketuk sebuah angka di surat, lalu angka yang sama di lembar kerja.';
+
+  @override
+  String get sourcesInstruction =>
+      'Ketuk selembar kertas, lalu baki tempatnya.';
+
+  @override
+  String sourcesWrong(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count lembar ada di baki yang salah.',
+    );
+    return '$_temp0';
+  }
 }

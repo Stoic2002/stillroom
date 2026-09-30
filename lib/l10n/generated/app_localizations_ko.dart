@@ -293,4 +293,35 @@ class AppLocalizationsKo extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get orderHeader => 'De par le Roy';
+
+  @override
+  String get orderSubheader => '국왕의 명에 따라';
+
+  @override
+  String get keyringInstruction => '고리에서 열쇠 하나를 빼세요.';
+
+  @override
+  String get keyringHand => '열쇠를 눌러 뒤집고, 자물쇠를 눌러 넣어 보세요.';
+
+  @override
+  String get keyringWrong => '돌아가지 않는다.';
+
+  @override
+  String get cipherInstruction => '편지의 숫자를 누르고, 작업표에서 같은 숫자를 누르세요.';
+
+  @override
+  String get sourcesInstruction => '문서를 누르고, 들어갈 상자를 누르세요.';
+
+  @override
+  String sourcesWrong(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '잘못된 상자에 든 문서가 $count장 있습니다.',
+    );
+    return '$_temp0';
+  }
 }

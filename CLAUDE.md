@@ -60,7 +60,7 @@ player restores the truth of the tale and seals the jar.
   - The CJK fonts are subsets: `test/content/font_coverage_test.dart` fails
     on a rare glyph, so reword it (e.g. 蹚 and 祇 were replaced).
 
-### The tales (4 playable)
+### The tales (5 playable)
 
 | Shelf | Tale | Its own mechanics | Its label now |
 |---|---|---|---|
@@ -68,6 +68,7 @@ player restores the truth of the tale and seals the jar.
 | I | *Semarang, 1945* (Lawang Sewu) | Doors into other years, `codeLock`, `sequence` (timetable, telegraph), `rotaryAlign` (stained glass), `slotPlacement` (lockers) | `telegram` **seal**: two lines, 3 blanks |
 | II | *Flannan Isles, 1900* | Dark scenes by lantern light, `crank`, the beam over the island (`beamSweep`), the landing steps between waves (`swell`), who went how and when (`roster`) | `correction` **seal**: one sentence, 3 words wrong |
 | II | *Pompeii, 79* | Lens between eras **by the hour** (`lensHours`), `overlay` (fresco jigsaw, tracing sheets), `rakingLight` (wax tablets) | `board` **seal of 3 words** (the new standard) |
+| II | *Bastille, 1703* (the Iron Mask) | The turnkey's keys (`keyring`: match the bit, turn it over), the Great Cipher (`cipher`, 330 309 left unread), the prisoner's file (`sources`: written at the time vs. told after) | `order` **seal**: a royal order, 3 words |
 
 Shelf III holds a sealed teaser jar, *Whitechapel, 1891*, which opens
 after 4 tales are distilled. The top shelf is meant for the old keeper's
@@ -104,21 +105,18 @@ with a legend to set right. The lineup, by shelf and region, is in
 
 ## Next steps (in this order)
 
-1. **Wait for the developer's feedback on Flannan v2** (built
+1. **Wait for the developer's feedback on *Bastille, 1703*** (built
    2026-09-30; the developer tests it on the phone), and fix what they
-   report. Pompeii v2 was tested and found good; its art and Flannan's
-   were redrawn so objects read at a glance. Things to watch in Flannan:
-   - whether the beam is too quick to catch things in (`period`, `spread`
-     in `puzzles/beam.json`);
-   - whether the swell is fair: the great sea's roar and draw-back should
-     be enough warning (`pattern`, `interval`, `stepSeconds`);
-   - whether the roster's clues (log margin, hooks, landing) are enough to
-     work it out without the last hint.
-2. **The next tale: *The Man in the Iron Mask, Bastille, 1703*** (shelf
-   II, Western Europe), the developer's pick from the plan. Write its
-   design doc first (facts with sources, 2–3 mechanics of its own, the
-   chain, the seal) and have it approved before building. Then the other
-   tales of the plan, in shelf order.
+   report. Flannan v2 was reviewed and found good. Things to watch in the
+   Bastille (also in `docs/episodes/bastille_1703.md`):
+   - whether the second door's "turn it over" is found without the last
+     hint (`puzzles/door_upper.json`);
+   - whether the worksheet is easy to search on the phone
+     (`cipher_view.dart`);
+   - whether sorting the file is fair (Bazeries's card is the tricky one).
+2. **The next tales of the plan, in shelf order.** For each: a design doc
+   first (facts with sources, 2–3 mechanics of its own, the chain, the
+   seal), approved by the developer before building.
 3. Later, and to be asked first:
    - the Indonesian tale for shelf IV;
    - the keeper's arc (OPEN);

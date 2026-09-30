@@ -367,5 +367,42 @@
         "type": "int"
       }
     }
+  },
+  "orderHeader": "De par le Roy",
+  "@orderHeader": {
+    "description": "Heading of a royal order (a jar label form); the historical French formula, kept in French."
+  },
+  "orderSubheader": "By order of the King",
+  "@orderSubheader": {
+    "description": "Translation under the royal order's French heading."
+  },
+  "keyringInstruction": "Take a key off the ring.",
+  "@keyringInstruction": {
+    "description": "Key-ring puzzle: before a key is chosen."
+  },
+  "keyringHand": "Tap the key to turn it over; tap the lock to try it.",
+  "@keyringHand": {
+    "description": "Key-ring puzzle: with a key in hand."
+  },
+  "keyringWrong": "It will not turn.",
+  "@keyringWrong": {
+    "description": "Key-ring puzzle: the key tried does not fit."
+  },
+  "cipherInstruction": "Tap a number in the letter, then the same number on the worksheet.",
+  "@cipherInstruction": {
+    "description": "How to play the cipher puzzle."
+  },
+  "sourcesInstruction": "Tap a paper, then the tray it belongs in.",
+  "@sourcesInstruction": {
+    "description": "How to play the file (sorting) puzzle."
+  },
+  "sourcesWrong": "{count, plural, =1{One paper is in the wrong tray.} other{{count} papers are in the wrong tray.}}",
+  "@sourcesWrong": {
+    "description": "The file puzzle is fully sorted but some papers are wrong.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

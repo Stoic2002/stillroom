@@ -1,0 +1,229 @@
+{
+  "id": "tower_stair",
+  "background": "images/scenes/bastille_1703/tower_stair.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "courtyard"
+    },
+    {
+      "id": "cell",
+      "to": "cell",
+      "rect": [
+        0.62,
+        0.06,
+        0.13,
+        0.36
+      ],
+      "when": [
+        {
+          "puzzleSolved": "door_upper"
+        }
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "door_lower_locked",
+      "rect": [
+        0.18,
+        0.3,
+        0.15,
+        0.46
+      ],
+      "when": [
+        {
+          "hasItem": "key_ring",
+          "equals": false
+        },
+        {
+          "puzzleSolved": "door_lower",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "door_heavy"
+        },
+        {
+          "type": "showText",
+          "key": "bastille_1703.stair.door_locked"
+        }
+      ]
+    },
+    {
+      "id": "door_lower",
+      "rect": [
+        0.18,
+        0.3,
+        0.15,
+        0.46
+      ],
+      "when": [
+        {
+          "hasItem": "key_ring"
+        },
+        {
+          "puzzleSolved": "door_lower",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "bastille_1703.stair.door_lower"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "door_lower"
+        }
+      ]
+    },
+    {
+      "id": "door_lower_open",
+      "rect": [
+        0.18,
+        0.3,
+        0.15,
+        0.46
+      ],
+      "when": [
+        {
+          "puzzleSolved": "door_lower"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "bastille_1703.stair.door_lower_open"
+        }
+      ]
+    },
+    {
+      "id": "door_upper_far",
+      "rect": [
+        0.62,
+        0.06,
+        0.13,
+        0.36
+      ],
+      "when": [
+        {
+          "puzzleSolved": "door_lower",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "bastille_1703.stair.door_upper_far"
+        }
+      ]
+    },
+    {
+      "id": "door_upper",
+      "rect": [
+        0.62,
+        0.06,
+        0.13,
+        0.36
+      ],
+      "when": [
+        {
+          "puzzleSolved": "door_lower"
+        },
+        {
+          "puzzleSolved": "door_upper",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "bastille_1703.stair.door_upper"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "door_upper"
+        }
+      ]
+    },
+    {
+      "id": "steps",
+      "rect": [
+        0.36,
+        0.5,
+        0.24,
+        0.4
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "bastille_1703.stair.steps"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "door_lower_open_sprite",
+      "image": "images/objects/bastille_1703/door_open_sprite.png",
+      "rect": [
+        0.18,
+        0.3,
+        0.15,
+        0.46
+      ],
+      "when": [
+        {
+          "puzzleSolved": "door_lower"
+        }
+      ]
+    },
+    {
+      "id": "door_upper_open_sprite",
+      "image": "images/objects/bastille_1703/door_open_sprite.png",
+      "rect": [
+        0.62,
+        0.06,
+        0.13,
+        0.36
+      ],
+      "when": [
+        {
+          "puzzleSolved": "door_upper"
+        }
+      ]
+    }
+  ],
+  "echoes": [
+    {
+      "id": "turnkey",
+      "image": "images/objects/bastille_1703/echo_turnkey.png",
+      "rect": [
+        0.44,
+        0.3,
+        0.05,
+        0.24
+      ],
+      "chance": 0.5,
+      "drift": [
+        0.03,
+        -0.03
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "rat",
+      "kind": "rat",
+      "rect": [
+        0.3,
+        0.86,
+        0.4,
+        0.08
+      ]
+    }
+  ]
+}

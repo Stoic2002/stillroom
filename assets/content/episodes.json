@@ -49,6 +49,18 @@
       ]
     },
     {
+      "id": "bastille_1703",
+      "titleKey": "episode.bastille_1703.title",
+      "teaserKey": "episode.bastille_1703.teaser",
+      "jarImage": "images/ui/jar_bastille_1703.png",
+      "shelf": 2,
+      "unlockAfter": 2,
+      "place": [
+        48.853,
+        2.369
+      ]
+    },
+    {
       "id": "sealed_whitechapel_1891",
       "titleKey": "episode.sealed.title",
       "comingSoon": true,

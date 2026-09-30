@@ -1,9 +1,11 @@
 # Episode design: Bastille, 1703 (the man in the mask)
 
-Status: **design draft** (2026-09-30), for the developer's approval before
-anything is built. Shelf II, Western Europe, from the plan of 16 tales
-(`docs/stillroom_frame.md`, *The full shelf*). Proposed id:
-`bastille_1703`; jar label **Bastille, 1703**.
+Status: **built** (2026-09-30): draft text in seven languages, code-drawn
+art (`lib/core/art/bastille_1703_art.dart`), generated audio, walkthrough
+test. Approved by the developer with all three mechanics, the `order` seal,
+and Voltaire, Dumas and Bazeries named. Shelf II (opens after 2 tales),
+Western Europe, from the plan of 16 tales (`docs/stillroom_frame.md`, *The
+full shelf*). Id `bastille_1703`; jar label **Bastille, 1703**.
 
 ## Premise
 
@@ -62,9 +64,16 @@ says so.
 | Bulonde was held at Pignerol from **10 July 1691**, released **11 December 1691**, and died in **1709**, after the masked man | The file (a card) | [search summary][bul] |
 | **Mattioli**, another candidate (the burial name looks like his), died on Sainte-Marguerite in **April 1694** | Saint-Paul (decoy "Mattioli") | [search summary][bul] |
 
-Before building, the dates are checked once more against a second source
-where the first was only a search summary (Wikipedia and Britannica could
-not be opened from the build environment).
+Where a source above is only a search summary, the fact was checked
+against a second result (Wikipedia and Britannica could not be opened from
+the build environment).
+
+**The cipher is a reconstruction.** Only *les ennemis* (124-22-125-46-345)
+and *330 309* are the real numbers of the Great Cipher. The other numbers
+in the 1691 letter and on the worksheet are the jar's own, chosen to read
+the letter's real words (*Bulonde, Pignerol, les ennemis, avec un…*). The
+worksheet itself is a stand-in for Bazeries's work, shown as a paper that
+"should not be here yet".
 
 [wiki]: https://en.wikipedia.org/wiki/Man_in_the_Iron_Mask
 [emf]: https://earlymodernfrance.org/journal/2016-volume-xvii/valet-marquis-louvois%E2%80%99s-invited-guest-mystery-man-iron-mask
@@ -108,8 +117,8 @@ not be opened from the build environment).
   keys that only fit one way round. After *Her Trees* (silhouettes) and
   *The Room* (tactile locks), tied to the fact of the doors behind doors.
 - **The Great Cipher (`cipher`).** A letter written in groups of numbers,
-  and a key that gives syllables for most of them. Drag each syllable
-  from the key onto its number until the letter reads. One group,
+  and a key that gives syllables for most of them. Tap a number in the
+  letter, then the same number on the worksheet, until the letter reads. One group,
   **330 309**, is in no key: the player sees for themself that "mask" was
   only ever a guess.
 - **The file (`sources`),** the height of the tale. Every paper about the
@@ -151,20 +160,31 @@ letters called him Eustache Dauger. His mask was black velvet."
 
 ## Echoes and living things
 
-- **Echoes:** the prisoner at the cell window (faceless, masked, gone when
-  approached); a turnkey with a lantern on the stair.
-- **Living things (Paris, November):** pigeons on the gutters, a rat on
-  the stair, crows over Saint-Paul's churchyard.
+- **Echoes:** the prisoner at the cell window (faceless, a dark band where
+  the mask was, gone when approached, and gone once the seal is written);
+  a turnkey with a lantern in the court and on the stair.
+- **Living things (Paris, November):** weeds between the cobbles of the
+  court, a rat on the stair and in the cell. (Pigeons and crows were
+  planned; there is no creature for them yet.)
 
-## Audio (ids, to generate)
+## Audio
 
-- **Music:** `bastille_dawn` (a low drone, far bells, wind in the towers).
-- **Effects:** `key_turn`, `lock_open`, `door_heavy`, `bell_saint_paul`,
-  `quill`. Interface: `key_try` (a key tried in a lock that does not turn).
+- **Music:** `bastille_dawn` (a cold drone in A, a draught in the court, a
+  slow bowed line).
+- **Effects:** `key_turn`, `door_heavy`, `bell_saint_paul`, `quill`.
+  Interface: `key_try` (a key tried in a lock that does not turn).
 
-## Open questions for the developer
+## Decisions (2026-09-30)
 
-1. The three mechanics (keyring, cipher, the file): all three?
-2. The seal as a royal order (`order`), and its sentence?
-3. The ending's wording, and whether Voltaire, Dumas and Bazeries appear
-   by name (recommended: yes, as authors of the later papers).
+1. All three mechanics: keyring, cipher, the file.
+2. The seal as a royal order (`order`), with the sentence above.
+3. Voltaire, Dumas and Bazeries appear by name, as authors of the later
+   papers.
+
+## Things to watch when tested
+
+- Whether the second door's "turn it over" is found without the last hint.
+- Whether the worksheet is easy to search on the phone (18 entries, in
+  order of number).
+- Whether sorting the file is fair: Bazeries's card is the tricky one (he
+  wrote in 1893, about a letter of 1691).

@@ -139,6 +139,10 @@ enum DeductionForm {
   /// Sentences pinned to places on the picture: each sentence's `rect` on
   /// the puzzle background.
   board,
+
+  /// A royal order under the king's seal ("De par le Roy"): the sentences
+  /// set out as its text.
+  order,
 }
 
 final class DeductionSentence {

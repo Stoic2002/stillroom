@@ -327,6 +327,9 @@ void main() {
       'beamSweep',
       'swell',
       'roster',
+      'keyring',
+      'cipher',
+      'sources',
     ]);
   });
 }

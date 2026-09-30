@@ -97,6 +97,7 @@ class _DeductionViewState extends State<DeductionView>
       DeductionForm.correction => _paper(context, sentenceStyle),
       DeductionForm.telegram => _telegram(context, sentenceStyle),
       DeductionForm.table => _table(context, sentenceStyle),
+      DeductionForm.order => _order(context, sentenceStyle),
       DeductionForm.board => const SizedBox.shrink(),
     };
 
@@ -208,6 +209,70 @@ class _DeductionViewState extends State<DeductionView>
       ),
     ),
   );
+
+  /// A royal order under the king's seal: "De par le Roy" at the head, the
+  /// sentences as its text, a red wax seal at the foot.
+  Widget _order(BuildContext context, TextStyle style) {
+    final l10n = AppLocalizations.of(context);
+    final hand = style.copyWith(fontStyle: FontStyle.italic, height: 1.7);
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: const Color(0xFFEDE3C8),
+        border: Border.all(color: const Color(0xFF8A6A3A), width: 1.2),
+        boxShadow: const [BoxShadow(blurRadius: 18, color: Color(0xAA000000))],
+      ),
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(28, 12, 28, 18),
+            child: Column(
+              children: [
+                Text(
+                  l10n.orderHeader,
+                  textAlign: TextAlign.center,
+                  style: style.copyWith(
+                    fontFamily: AppTheme.smallCaps,
+                    fontSize: 22,
+                    letterSpacing: 3,
+                    color: const Color(0xFF3A2A18),
+                  ),
+                ),
+                Text(
+                  l10n.orderSubheader,
+                  textAlign: TextAlign.center,
+                  style: style.copyWith(
+                    fontSize: 13,
+                    fontStyle: FontStyle.italic,
+                    color: StillroomPalette.faded,
+                  ),
+                ),
+                const Divider(color: Color(0x668A6A3A), height: 16),
+                for (final (i, sentence) in _config.sentences.indexed)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 2),
+                    child: Text.rich(
+                      TextSpan(
+                        style: hand,
+                        children: _sentence(context, i, sentence),
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          const Positioned(
+            right: 14,
+            bottom: 8,
+            child: SizedBox.square(
+              dimension: 40,
+              child: CustomPaint(painter: _WaxSeal()),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   /// A telegram form: capitals, STOP between the sentences.
   Widget _telegram(BuildContext context, TextStyle style) {
@@ -433,6 +498,73 @@ class _DeductionViewState extends State<DeductionView>
     spans.add(TextSpan(text: text.substring(at)));
     return spans;
   }
+}
+
+/// A red wax seal with a lily pressed into it.
+class _WaxSeal extends CustomPainter {
+  const _WaxSeal();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final c = size.center(Offset.zero);
+    final r = size.shortestSide / 2;
+    final wax = Paint()..color = const Color(0xFF9A2B25);
+    final path = Path();
+    for (var i = 0; i < 14; i++) {
+      final a = i / 14 * 6.283;
+      final k = i.isEven ? 1.0 : 0.9;
+      final p = c + Offset.fromDirection(a, r * k);
+      i == 0 ? path.moveTo(p.dx, p.dy) : path.lineTo(p.dx, p.dy);
+    }
+    canvas
+      ..drawPath(path..close(), wax)
+      ..drawCircle(
+        c,
+        r * 0.68,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = r * 0.06
+          ..color = const Color(0xFF6E1C18),
+      );
+    // The lily: a middle petal and two curling out, on a band.
+    final lily = Paint()..color = const Color(0xFF6E1C18);
+    canvas
+      ..drawOval(
+        Rect.fromCenter(
+          center: c.translate(0, -r * 0.12),
+          width: r * 0.22,
+          height: r * 0.6,
+        ),
+        lily,
+      )
+      ..drawOval(
+        Rect.fromCenter(
+          center: c.translate(-r * 0.24, -r * 0.02),
+          width: r * 0.34,
+          height: r * 0.18,
+        ),
+        lily,
+      )
+      ..drawOval(
+        Rect.fromCenter(
+          center: c.translate(r * 0.24, -r * 0.02),
+          width: r * 0.34,
+          height: r * 0.18,
+        ),
+        lily,
+      )
+      ..drawRect(
+        Rect.fromCenter(
+          center: c.translate(0, r * 0.2),
+          width: r * 0.5,
+          height: r * 0.08,
+        ),
+        lily,
+      );
+  }
+
+  @override
+  bool shouldRepaint(_WaxSeal old) => false;
 }
 
 /// Where a board label's word column starts, as a share of the board's

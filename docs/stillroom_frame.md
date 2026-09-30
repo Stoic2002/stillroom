@@ -76,7 +76,7 @@ How difficulty rises from shelf to shelf:
 | Length | 8–10 beats | 10–12 beats, parallel branches |
 
 Current placement: *Whitechapel, 1888* (shelf I, the easiest, doubling as the
-tutorial); *Semarang, 1945* (shelf I, opens after Whitechapel; a step up: clues across three eras); *Flannan Isles, 1900* and *Pompeii, 79* (shelf II, open after two tales). Shelf III opens after four.
+tutorial); *Semarang, 1945* (shelf I, opens after Whitechapel; a step up: clues across three eras); *Flannan Isles, 1900*, *Pompeii, 79* and *Bastille, 1703* (shelf II, open after two tales). Shelf III opens after four.
 
 ## Signature mechanics (decided 2026-09-26)
 
@@ -115,6 +115,7 @@ own hardest puzzle; higher shelves have more puzzles, chained together.
 | *Semarang, 1945* | Doors into other years; code locks (the station clock, the locker room); the timetable and the telegraph in order; the stained-glass rings; the lockers | A telegram of two lines: the doors counted, the day, how many did not come home |
 | *Flannan Isles, 1900* | Dark scenes by lantern light; the clockwork crank; the beam turning over the island, showing things only while it passes; down the landing steps between the waves (the swell); the roster of who went, how, and when | A seal: the legend's sentence, three words corrected |
 | *Pompeii, 79* | The lens between eras, turned through the hours of the last day; pieces laid and turned into place (the shrine's painted panel, the child's drawing); marks read by raking light | A seal of three words, pinned to the diggers' cut |
+| *Bastille, 1703* | The turnkey's ring: find the one key whose bit matches the keyhole, and turn it the right way (`keyring`); the king's Great Cipher read with Bazeries's worksheet, two numbers left unread (`cipher`); the prisoner's file sorted into what was written at the time and what was told after (`sources`) | A seal of three words on a blank royal order (`order`) |
 
 The first three tales were reworked on 2026-09-29 to follow this rule:
 Whitechapel lost its code lock, candle sequence, compass rings, and frame
@@ -135,6 +136,9 @@ no names and no faces, so no real person is ever given invented features:
   looking up at the cloud, and a family at the door with cushions tied on
   their heads. The plaster casts are only seen from afar, under the
   diggers' canvas, never touched.
+- *Bastille:* a turnkey with a lantern in the court and on the tower
+  stair; in the cell, the prisoner, a dark band across his blank face
+  where the mask was. He is never shown with a face.
 
 ## Living things (decided 2026-09-26)
 
@@ -150,6 +154,8 @@ and season:
   a donkey stands blindfolded at the mill and the fig tree has late fruit.
 - *Flannan* is in December: gulls, a fulmar on the ledge, winter grass. No
   puffins or thrift, which are summer's.
+- *Bastille* is about the people, in November: weeds between the cobbles
+  of the court, and rats on the tower stair and in the cell.
 
 ## How it shows in the game
 
@@ -184,6 +190,6 @@ final episode. Details are open.
 | `flannan_isles_1900` | Flannan Isles, 1900 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). Dark scenes, crank, legend as red herrings | [episodes/flannan_isles_1900.md](episodes/flannan_isles_1900.md) |
 | `pompeii_79` | Pompeii, 79 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). Lens between eras, tracing sheets, legend as red herrings | [episodes/pompeii_79.md](episodes/pompeii_79.md) |
 | `sealed_whitechapel_1891` | Sealed jar (shelf III, series whitechapel) | Idea: the six other names in the police file | — |
-| `bastille_1703` | Bastille, 1703 | Design draft, awaiting approval (shelf II) | [episodes/bastille_1703.md](episodes/bastille_1703.md) |
+| `bastille_1703` | Bastille, 1703 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). Key ring, Great Cipher, the file of sources; Voltaire, Dumas and Bazeries as red herrings | [episodes/bastille_1703.md](episodes/bastille_1703.md) |
 | *(planned)* | The other nine new tales | See *The full shelf* above | — |
 | `test_room` | Test room | Debug builds only | Feature test room |

@@ -69,7 +69,10 @@ enum UiSound {
   wave('wave', Haptic.none),
 
   /// A great sea draws back and breaks over every step.
-  greatSea('great_sea', Haptic.medium);
+  greatSea('great_sea', Haptic.medium),
+
+  /// A key tried in a lock that will not turn.
+  keyTry('key_try', Haptic.light);
 
   const UiSound(this.id, this.haptic);
 

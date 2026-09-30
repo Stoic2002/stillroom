@@ -86,5 +86,13 @@
   "swellInstruction": "点一下就往下走一级台阶。看着海，也听着海。",
   "swellCaught": "海浪把你逼回了台阶顶上。",
   "rosterInstruction": "点一下格子来更改。",
-  "rosterWrong": "{count, plural, other{还有{count}行和你的发现对不上。}}"
+  "rosterWrong": "{count, plural, other{还有{count}行和你的发现对不上。}}",
+  "orderHeader": "De par le Roy",
+  "orderSubheader": "奉国王之命",
+  "keyringInstruction": "从钥匙圈上取下一把钥匙。",
+  "keyringHand": "点钥匙把它翻过来；点锁来试一试。",
+  "keyringWrong": "转不动。",
+  "cipherInstruction": "点信里的一个数字，再点工作表上相同的数字。",
+  "sourcesInstruction": "点一份文件，再点它该放的托盘。",
+  "sourcesWrong": "{count, plural, other{有{count}份文件放错了托盘。}}"
 }

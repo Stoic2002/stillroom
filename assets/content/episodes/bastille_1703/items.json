@@ -1,0 +1,16 @@
+{
+  "items": [
+    {
+      "id": "key_ring",
+      "nameKey": "item.bastille_1703.key_ring.name",
+      "descKey": "item.bastille_1703.key_ring.desc",
+      "icon": "images/items/bastille_1703/key_ring.png"
+    },
+    {
+      "id": "worksheet",
+      "nameKey": "item.bastille_1703.worksheet.name",
+      "descKey": "item.bastille_1703.worksheet.desc",
+      "icon": "images/items/bastille_1703/worksheet.png"
+    }
+  ]
+}

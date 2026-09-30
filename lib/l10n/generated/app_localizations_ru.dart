@@ -311,4 +311,40 @@ class AppLocalizationsRu extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get orderHeader => 'De par le Roy';
+
+  @override
+  String get orderSubheader => 'По приказу короля';
+
+  @override
+  String get keyringInstruction => 'Снимите ключ со связки.';
+
+  @override
+  String get keyringHand =>
+      'Нажмите на ключ, чтобы перевернуть его; на замок — чтобы попробовать.';
+
+  @override
+  String get keyringWrong => 'Не поворачивается.';
+
+  @override
+  String get cipherInstruction =>
+      'Нажмите на число в письме, затем на то же число в таблице.';
+
+  @override
+  String get sourcesInstruction =>
+      'Нажмите на бумагу, затем на лоток, где ей место.';
+
+  @override
+  String sourcesWrong(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count бумаг лежат не в том лотке.',
+      few: '$count бумаги лежат не в том лотке.',
+      one: 'Одна бумага лежит не в том лотке.',
+    );
+    return '$_temp0';
+  }
 }

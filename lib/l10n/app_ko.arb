@@ -86,5 +86,13 @@
   "swellInstruction": "누르면 한 계단 내려갑니다. 바다를 보고, 귀를 기울이세요.",
   "swellCaught": "바다가 당신을 계단 위로 도로 밀어 올립니다.",
   "rosterInstruction": "칸을 눌러 바꾸세요.",
-  "rosterWrong": "{count, plural, other{찾아낸 것과 맞지 않는 줄이 {count}개 있습니다.}}"
+  "rosterWrong": "{count, plural, other{찾아낸 것과 맞지 않는 줄이 {count}개 있습니다.}}",
+  "orderHeader": "De par le Roy",
+  "orderSubheader": "국왕의 명에 따라",
+  "keyringInstruction": "고리에서 열쇠 하나를 빼세요.",
+  "keyringHand": "열쇠를 눌러 뒤집고, 자물쇠를 눌러 넣어 보세요.",
+  "keyringWrong": "돌아가지 않는다.",
+  "cipherInstruction": "편지의 숫자를 누르고, 작업표에서 같은 숫자를 누르세요.",
+  "sourcesInstruction": "문서를 누르고, 들어갈 상자를 누르세요.",
+  "sourcesWrong": "{count, plural, other{잘못된 상자에 든 문서가 {count}장 있습니다.}}"
 }

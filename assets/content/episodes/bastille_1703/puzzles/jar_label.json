@@ -1,0 +1,64 @@
+{
+  "id": "jar_label",
+  "type": "deduction",
+  "background": "images/scenes/bastille_1703/label_close.png",
+  "config": {
+    "form": "order",
+    "sentences": [
+      {
+        "textKey": "bastille_1703.label.s1",
+        "blanks": [
+          "black_velvet",
+          "marchioly",
+          "eustache_dauger"
+        ]
+      }
+    ],
+    "words": [
+      "black_velvet",
+      "iron",
+      "marchioly",
+      "mattioli",
+      "bulonde",
+      "eustache_dauger",
+      "twin",
+      "valet",
+      "date_1669",
+      "date_1698",
+      "date_19nov"
+    ],
+    "nearMiss": 1
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "bell_saint_paul"
+    },
+    {
+      "type": "showText",
+      "key": "bastille_1703.label.done"
+    },
+    {
+      "type": "showText",
+      "key": "bastille_1703.ending.bell"
+    },
+    {
+      "type": "showText",
+      "key": "bastille_1703.ending.names"
+    },
+    {
+      "type": "endEpisode"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.bastille_1703.jar_label.1"
+    },
+    {
+      "key": "hint.bastille_1703.jar_label.2"
+    },
+    {
+      "key": "hint.bastille_1703.jar_label.3"
+    }
+  ]
+}

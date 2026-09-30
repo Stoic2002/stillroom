@@ -1,0 +1,101 @@
+{
+  "id": "door_upper",
+  "type": "keyring",
+  "background": "images/scenes/bastille_1703/lock_board.png",
+  "config": {
+    "profile": [
+      1,
+      3,
+      0,
+      2,
+      2
+    ],
+    "keys": [
+      {
+        "id": "a",
+        "bits": [
+          1,
+          3,
+          0,
+          2,
+          1
+        ]
+      },
+      {
+        "id": "b",
+        "bits": [
+          1,
+          2,
+          0,
+          2,
+          2
+        ]
+      },
+      {
+        "id": "c",
+        "bits": [
+          2,
+          2,
+          0,
+          3,
+          1
+        ]
+      },
+      {
+        "id": "d",
+        "bits": [
+          2,
+          2,
+          1,
+          3,
+          1
+        ]
+      },
+      {
+        "id": "e",
+        "bits": [
+          1,
+          3,
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "id": "f",
+        "bits": [
+          2,
+          3,
+          0,
+          2,
+          1
+        ]
+      }
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "key_turn"
+    },
+    {
+      "type": "playSound",
+      "sound": "door_heavy"
+    },
+    {
+      "type": "showText",
+      "key": "bastille_1703.stair.door_upper_opened"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.bastille_1703.door_upper.1"
+    },
+    {
+      "key": "hint.bastille_1703.door_upper.2"
+    },
+    {
+      "key": "hint.bastille_1703.door_upper.3"
+    }
+  ]
+}

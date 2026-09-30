@@ -34,6 +34,12 @@ enum EchoFigure {
 
   /// A small child at play, bareheaded.
   girl,
+
+  /// A turnkey of the Bastille in a long coat, a lantern in hand.
+  turnkey,
+
+  /// A prisoner in a long coat; a dark band where the mask was.
+  prisoner,
 }
 
 const _mist = Color(0xFFD5DEE2);
@@ -215,6 +221,50 @@ void paintEcho(Art a, EchoFigure figure) {
         ..drawPath(
           shape([(0.54, 0.82), (0.66, 0.82), (0.65, 0.99), (0.55, 0.99)]),
           body,
+        );
+    case EchoFigure.turnkey:
+      a.canvas
+        // A tricorne's brim.
+        ..drawPath(
+          shape([(0.28, 0.09), (0.72, 0.09), (0.64, 0.03), (0.36, 0.03)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.3, 0.2), (0.7, 0.2), (0.8, 0.84), (0.2, 0.84)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.33, 0.82), (0.46, 0.82), (0.45, 0.99), (0.34, 0.99)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.54, 0.82), (0.67, 0.82), (0.66, 0.99), (0.55, 0.99)]),
+          body,
+        );
+      a.glow(a.p(0.82, 0.58), w * 0.4, const Color(0xFFE0A84A), strength: 0.6);
+    case EchoFigure.prisoner:
+      a.canvas
+        ..drawPath(
+          shape([(0.3, 0.2), (0.7, 0.2), (0.76, 0.86), (0.24, 0.86)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.34, 0.84), (0.46, 0.84), (0.45, 0.99), (0.35, 0.99)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.54, 0.84), (0.66, 0.84), (0.65, 0.99), (0.55, 0.99)]),
+          body,
+        )
+        // The mask: a dark band across the blank face, never a face.
+        ..drawRRect(
+          RRect.fromRectAndRadius(
+            a.r(0.36, 0.09, 0.28, 0.08),
+            Radius.circular(w * 0.04),
+          ),
+          Paint()
+            ..color = const Color(0xCC141114)
+            ..maskFilter = MaskFilter.blur(BlurStyle.normal, w * 0.02),
         );
     case EchoFigure.girl:
       a.canvas

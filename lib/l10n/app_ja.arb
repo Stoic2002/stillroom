@@ -86,5 +86,13 @@
   "swellInstruction": "タップで一段おりる。海を見て、耳をすまそう。",
   "swellCaught": "波に押されて、階段の上まで戻された。",
   "rosterInstruction": "ますをタップして変えよう。",
-  "rosterWrong": "{count, plural, other{見つけたことと合わない行が{count}つある。}}"
+  "rosterWrong": "{count, plural, other{見つけたことと合わない行が{count}つある。}}",
+  "orderHeader": "De par le Roy",
+  "orderSubheader": "国王の命により",
+  "keyringInstruction": "輪から鍵を一本取ろう。",
+  "keyringHand": "鍵をタップで裏返し、錠をタップで試そう。",
+  "keyringWrong": "回らない。",
+  "cipherInstruction": "手紙の数字をタップし、作業表の同じ数字をタップしよう。",
+  "sourcesInstruction": "書類をタップし、入るべき箱をタップしよう。",
+  "sourcesWrong": "{count, plural, other{違う箱に入っている書類が{count}枚ある。}}"
 }

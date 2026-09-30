@@ -86,5 +86,13 @@
   "swellInstruction": "Toca para bajar un escalón. Mira el mar y escucha.",
   "swellCaught": "El mar te hace subir de nuevo los escalones.",
   "rosterInstruction": "Toca una casilla para cambiarla.",
-  "rosterWrong": "{count, plural, =1{Una fila no cuadra con lo que encontraste.} other{{count} filas no cuadran con lo que encontraste.}}"
+  "rosterWrong": "{count, plural, =1{Una fila no cuadra con lo que encontraste.} other{{count} filas no cuadran con lo que encontraste.}}",
+  "orderHeader": "De par le Roy",
+  "orderSubheader": "Por orden del Rey",
+  "keyringInstruction": "Saca una llave de la argolla.",
+  "keyringHand": "Toca la llave para darle la vuelta; toca la cerradura para probarla.",
+  "keyringWrong": "No gira.",
+  "cipherInstruction": "Toca un número de la carta y luego el mismo número en la hoja de trabajo.",
+  "sourcesInstruction": "Toca un papel y luego la bandeja a la que pertenece.",
+  "sourcesWrong": "{count, plural, =1{Un papel está en la bandeja equivocada.} other{{count} papeles están en la bandeja equivocada.}}"
 }

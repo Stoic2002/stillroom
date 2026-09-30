@@ -305,4 +305,38 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get orderHeader => 'De par le Roy';
+
+  @override
+  String get orderSubheader => 'By order of the King';
+
+  @override
+  String get keyringInstruction => 'Take a key off the ring.';
+
+  @override
+  String get keyringHand =>
+      'Tap the key to turn it over; tap the lock to try it.';
+
+  @override
+  String get keyringWrong => 'It will not turn.';
+
+  @override
+  String get cipherInstruction =>
+      'Tap a number in the letter, then the same number on the worksheet.';
+
+  @override
+  String get sourcesInstruction => 'Tap a paper, then the tray it belongs in.';
+
+  @override
+  String sourcesWrong(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count papers are in the wrong tray.',
+      one: 'One paper is in the wrong tray.',
+    );
+    return '$_temp0';
+  }
 }

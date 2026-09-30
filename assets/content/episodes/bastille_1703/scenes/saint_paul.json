@@ -1,0 +1,89 @@
+{
+  "id": "saint_paul",
+  "background": "images/scenes/bastille_1703/saint_paul.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "courtyard"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "register",
+      "rect": [
+        0.38,
+        0.52,
+        0.22,
+        0.14
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "quill"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_register",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "bastille_1703.paul.register"
+        }
+      ]
+    },
+    {
+      "id": "dumas",
+      "rect": [
+        0.72,
+        0.62,
+        0.12,
+        0.08
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "showText",
+          "key": "bastille_1703.paul.dumas"
+        }
+      ]
+    },
+    {
+      "id": "window",
+      "rect": [
+        0.06,
+        0.12,
+        0.18,
+        0.4
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "bell_saint_paul"
+        },
+        {
+          "type": "showText",
+          "key": "bastille_1703.paul.window"
+        }
+      ]
+    },
+    {
+      "id": "candles",
+      "rect": [
+        0.64,
+        0.3,
+        0.08,
+        0.16
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "bastille_1703.paul.candles"
+        }
+      ]
+    }
+  ]
+}

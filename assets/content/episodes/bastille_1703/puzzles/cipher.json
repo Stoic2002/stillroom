@@ -1,0 +1,125 @@
+{
+  "id": "cipher",
+  "type": "cipher",
+  "background": "images/scenes/bastille_1703/desk_board.png",
+  "config": {
+    "groups": [
+      "511",
+      "208",
+      "73",
+      "219",
+      "64",
+      "401",
+      "124",
+      "22",
+      "125",
+      "46",
+      "345",
+      "58",
+      "190",
+      "267",
+      "330",
+      "309"
+    ],
+    "lines": [
+      3,
+      6,
+      11
+    ],
+    "key": [
+      {
+        "code": "22",
+        "text": "en"
+      },
+      {
+        "code": "46",
+        "text": "mi"
+      },
+      {
+        "code": "58",
+        "text": "a"
+      },
+      {
+        "code": "64",
+        "text": "gne"
+      },
+      {
+        "code": "73",
+        "text": "de"
+      },
+      {
+        "code": "77",
+        "text": "de"
+      },
+      {
+        "code": "124",
+        "text": "les"
+      },
+      {
+        "code": "125",
+        "text": "ne"
+      },
+      {
+        "code": "150",
+        "text": "la"
+      },
+      {
+        "code": "190",
+        "text": "vec"
+      },
+      {
+        "code": "208",
+        "text": "lon"
+      },
+      {
+        "code": "219",
+        "text": "Pi"
+      },
+      {
+        "code": "267",
+        "text": "un"
+      },
+      {
+        "code": "312",
+        "text": "roi"
+      },
+      {
+        "code": "345",
+        "text": "s"
+      },
+      {
+        "code": "401",
+        "text": "rol"
+      },
+      {
+        "code": "402",
+        "text": "nuit"
+      },
+      {
+        "code": "511",
+        "text": "Bu"
+      }
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "quill"
+    },
+    {
+      "type": "showText",
+      "key": "bastille_1703.office.cipher_read"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.bastille_1703.cipher.1"
+    },
+    {
+      "key": "hint.bastille_1703.cipher.2"
+    },
+    {
+      "key": "hint.bastille_1703.cipher.3"
+    }
+  ]
+}

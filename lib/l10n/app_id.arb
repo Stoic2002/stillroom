@@ -86,5 +86,13 @@
   "swellInstruction": "Ketuk untuk turun satu anak tangga. Perhatikan lautnya, dan dengarkan.",
   "swellCaught": "Laut mendorongmu naik lagi ke atas tangga.",
   "rosterInstruction": "Ketuk kotak untuk mengubahnya.",
-  "rosterWrong": "{count, plural, other{{count} baris belum cocok dengan temuanmu.}}"
+  "rosterWrong": "{count, plural, other{{count} baris belum cocok dengan temuanmu.}}",
+  "orderHeader": "De par le Roy",
+  "orderSubheader": "Atas perintah Raja",
+  "keyringInstruction": "Ambil satu kunci dari gelangnya.",
+  "keyringHand": "Ketuk kuncinya untuk membaliknya; ketuk gemboknya untuk mencobanya.",
+  "keyringWrong": "Kuncinya tak mau berputar.",
+  "cipherInstruction": "Ketuk sebuah angka di surat, lalu angka yang sama di lembar kerja.",
+  "sourcesInstruction": "Ketuk selembar kertas, lalu baki tempatnya.",
+  "sourcesWrong": "{count, plural, other{{count} lembar ada di baki yang salah.}}"
 }

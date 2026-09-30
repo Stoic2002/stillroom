@@ -629,6 +629,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, =1{One row does not fit what you found.} other{{count} rows do not fit what you found.}}'**
   String rosterWrong(int count);
+
+  /// Heading of a royal order (a jar label form); the historical French formula, kept in French.
+  ///
+  /// In en, this message translates to:
+  /// **'De par le Roy'**
+  String get orderHeader;
+
+  /// Translation under the royal order's French heading.
+  ///
+  /// In en, this message translates to:
+  /// **'By order of the King'**
+  String get orderSubheader;
+
+  /// Key-ring puzzle: before a key is chosen.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a key off the ring.'**
+  String get keyringInstruction;
+
+  /// Key-ring puzzle: with a key in hand.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the key to turn it over; tap the lock to try it.'**
+  String get keyringHand;
+
+  /// Key-ring puzzle: the key tried does not fit.
+  ///
+  /// In en, this message translates to:
+  /// **'It will not turn.'**
+  String get keyringWrong;
+
+  /// How to play the cipher puzzle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a number in the letter, then the same number on the worksheet.'**
+  String get cipherInstruction;
+
+  /// How to play the file (sorting) puzzle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a paper, then the tray it belongs in.'**
+  String get sourcesInstruction;
+
+  /// The file puzzle is fully sorted but some papers are wrong.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{One paper is in the wrong tray.} other{{count} papers are in the wrong tray.}}'**
+  String sourcesWrong(int count);
 }
 
 class _AppLocalizationsDelegate

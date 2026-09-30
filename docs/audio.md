@@ -49,6 +49,10 @@ fvm dart run tool/audio/generate_audio.dart bell_toll  # one or more ids
 | `millstone` | Pompeii: the mills | Lava stone grinding on stone |
 | `pumice_fall` | Pompeii: the basin, in the ruin and through the lens | Light stones pattering on tiles and into water |
 | `lamp_light` | Flannan: the great lamp is lit | A soft rush, then a steady roar, and a glassy ring |
+| `key_turn` | Bastille: a tower door unlocked | A key scraping in, the wards grinding, the bolt's heavy clunk |
+| `door_heavy` | Bastille: the tower doors | A low groan on the hinges and a thud on stone |
+| `bell_saint_paul` | Bastille: Saint-Paul; the ending | Two strokes of a higher bell, far off across the roofs |
+| `quill` | Bastille: the burial register; the cipher read | A quill scratching a line, a dip in the ink, more scratching |
 
 ## Music
 
@@ -60,6 +64,7 @@ fvm dart run tool/audio/generate_audio.dart bell_toll  # one or more ids
 | `flannan_wind` | Flannan Isles | 48 s | A low drone; wind over the bare island; the swell below |
 | `pompeii_ash` | Pompeii, 79 | 48 s | A warm drone in D; dry wind; a slow plucked string in D dorian, like a lyre from another courtyard |
 | `lawang_sewu_1907` | Lawang Sewu, 1907 office | 32 s | A warm F-major drone; the office clock; record-like crackle; the NIS telegraph far off |
+| `bastille_dawn` | Bastille, 1703 | 48 s | A cold drone in A; a draught in the court; two slow bowed notes in A aeolian every 16 s, like a viol through a wall |
 
 ## Interface sounds (`assets/audio/ui/`)
 
@@ -78,6 +83,7 @@ vibration is on). Quieter than content sounds (−9 dBFS peak).
 | `lens` | The lens between eras is raised or lowered | light |
 | `wave` | Flannan's swell puzzle: a small wave breaks on the landing steps | — |
 | `great_sea` | Flannan's swell puzzle: a great sea draws back with a rising roar (1.2 s), then breaks over every step | medium |
+| `key_try` | Bastille's key ring: a key tried in a lock that will not turn | light |
 | `solved` | Any puzzle gives way (before its own `onSolved` sounds) | light |
 | `pickup` | An item goes into the inventory | light |
 | `combine` | Two items become one | light |
