@@ -1,0 +1,196 @@
+{
+  "id": "file_room",
+  "background": "images/scenes/whitechapel_1891/file_room.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "leman_street"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "shelf",
+      "rect": [
+        0.18,
+        0.16,
+        0.64,
+        0.46
+      ],
+      "when": [
+        {
+          "puzzleSolved": "unwatched",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.file.shelf"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "unwatched"
+        }
+      ]
+    },
+    {
+      "id": "shelf_done",
+      "rect": [
+        0.18,
+        0.16,
+        0.64,
+        0.46
+      ],
+      "when": [
+        {
+          "puzzleSolved": "unwatched"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.file.shelf_done"
+        }
+      ]
+    },
+    {
+      "id": "docket",
+      "rect": [
+        0.4,
+        0.72,
+        0.2,
+        0.1
+      ],
+      "when": [
+        {
+          "puzzleSolved": "unwatched",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.file.docket"
+        }
+      ]
+    },
+    {
+      "id": "docket_note",
+      "rect": [
+        0.4,
+        0.72,
+        0.2,
+        0.1
+      ],
+      "when": [
+        {
+          "puzzleSolved": "unwatched"
+        },
+        {
+          "flag": "found_note",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "found_note",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.file.keeper_note"
+        }
+      ]
+    },
+    {
+      "id": "docket_done",
+      "rect": [
+        0.4,
+        0.72,
+        0.2,
+        0.1
+      ],
+      "when": [
+        {
+          "flag": "found_note",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.file.docket_done"
+        }
+      ]
+    },
+    {
+      "id": "memo",
+      "rect": [
+        0.72,
+        0.72,
+        0.14,
+        0.08
+      ],
+      "when": [
+        {
+          "puzzleSolved": "unwatched"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.file.memo"
+        }
+      ]
+    },
+    {
+      "id": "lamp",
+      "rect": [
+        0.86,
+        0.12,
+        0.06,
+        0.18
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.file.lamp"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "memo_sprite",
+      "image": "images/objects/whitechapel_1891/memo_sprite.png",
+      "rect": [
+        0.72,
+        0.72,
+        0.14,
+        0.08
+      ],
+      "when": [
+        {
+          "puzzleSolved": "unwatched"
+        }
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "moth",
+      "kind": "moth",
+      "rect": [
+        0.8,
+        0.06,
+        0.16,
+        0.22
+      ]
+    }
+  ]
+}

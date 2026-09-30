@@ -381,4 +381,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get beatWrong => 'Not here: somewhere it swells deeper.';
+
+  @override
+  String get docketHeader => 'Metropolitan Police';
+
+  @override
+  String get docketSubheader => 'Criminal Investigation Department';
+
+  @override
+  String get unwatchedInstruction => 'Look away, then look back.';
+
+  @override
+  String get unwatchedFind => 'Something on the shelf is new. Find it.';
+
+  @override
+  String get unwatchedWrong => 'That one was already there.';
+
+  @override
+  String get unwatchedLookAway => 'Look away';
+
+  @override
+  String unwatchedProgress(int found, int total) {
+    return 'New files found: $found of $total';
+  }
+
+  @override
+  String get composeInstruction =>
+      'Set her name from the case. Type is cut in mirror.';
+
+  @override
+  String get composeTakeOut => 'Take out';
+
+  @override
+  String get composeWrong => 'The proof reads wrong somewhere.';
 }

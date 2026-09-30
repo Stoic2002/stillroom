@@ -1,0 +1,124 @@
+{
+  "id": "press_room",
+  "background": "images/scenes/whitechapel_1891/press_room.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "swallow_gardens"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "forme",
+      "rect": [
+        0.34,
+        0.44,
+        0.3,
+        0.2
+      ],
+      "when": [
+        {
+          "puzzleSolved": "compose",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.press.forme"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "compose"
+        }
+      ]
+    },
+    {
+      "id": "forme_done",
+      "rect": [
+        0.34,
+        0.44,
+        0.3,
+        0.2
+      ],
+      "when": [
+        {
+          "puzzleSolved": "compose"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.press.forme_done"
+        }
+      ]
+    },
+    {
+      "id": "spike",
+      "rect": [
+        0.72,
+        0.24,
+        0.08,
+        0.26
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_letter",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.press.spike"
+        }
+      ]
+    },
+    {
+      "id": "case",
+      "rect": [
+        0.06,
+        0.5,
+        0.22,
+        0.24
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.press.case"
+        }
+      ]
+    },
+    {
+      "id": "press",
+      "rect": [
+        0.76,
+        0.6,
+        0.2,
+        0.28
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.press.press"
+        }
+      ]
+    }
+  ],
+  "echoes": [
+    {
+      "id": "compositor",
+      "image": "images/objects/whitechapel_1891/echo_compositor.png",
+      "rect": [
+        0.2,
+        0.32,
+        0.06,
+        0.34
+      ],
+      "chance": 0.8
+    }
+  ]
+}

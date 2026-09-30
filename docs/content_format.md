@@ -534,12 +534,13 @@ filled slot swaps them.
 | `board` | Tags pinned to the picture behind (the puzzle `background`), each at its sentence's `rect`; the words take the right third of the board, so keep every `rect` left of x = 0.64 | `rect` on every sentence |
 | `order` | A royal order on parchment: the header *De par le Roy* (UI string `orderHeader`, the same in every language) over `orderSubheader`, the sentences in italic, a red wax seal | — |
 | `rubbing` | An ink rubbing (*takbon*) taken from a cast inscription: black paper, the letters pale, a band of lotus scroll, the caption `rubbingCaption` | — |
+| `docket` | The cover sheet of a police file: printed headings (`docketHeader`, `docketSubheader`), a register stamp, the entry in dark ink by hand | — |
 
 Used so far: Whitechapel `table` (the five frames), Semarang `telegram`,
 Flannan `correction` (the legend's account), Pompeii `board` (the
 diggers' cut, a tag on every layer), Bastille `order` (a blank *lettre de
 cachet*, written with only what is known), Gyeongju `rubbing` (taken from
-the bell's bronze).
+the bell's bronze), Whitechapel 1891 `docket` (the file's cover).
 
 ### `clockHands`: set the hands
 
@@ -858,6 +859,49 @@ the bell's bronze).
   last struck. The deepest place solves it; any other is a mistake.
 - **Validation:** the deepest must stand at least 0.15 above every other.
 
+### `unwatched`: what changed while no one was looking
+
+```json
+"config": {
+  "items": [
+    { "id": "nichols", "labelKey": "…", "dateKey": "…" },
+    { "id": "smith", "labelKey": "…", "dateKey": "…" }
+  ],
+  "start": ["nichols"],
+  "rounds": [ { "add": "smith", "at": 0, "move": [1, 0] } ]
+}
+```
+
+- **What the player sees:** a shelf of files standing spine out, each with
+  its `labelKey` and a smaller `dateKey` line, and a Look away button.
+- **Playing:** Look away: the lamp gutters (`lamp_gutter`), the screen goes
+  dark for a moment, and the next round changes the shelf: `add` goes in
+  at `at`, then, if `move` is given, the file at `move[0]` moves to
+  `move[1]`. Tap the new file; any other is a mistake (it was already
+  there). Solved once every round's file is found.
+- **Validation:** unique ids; `start` and every `add` known; an `add` is
+  never already on the shelf; `at` and `move` within the shelf.
+
+### `compose`: set a line of type
+
+```json
+"config": { "text": "FRANCES COLES", "reversed": ["R", "N", "C", "S", "L"],
+            "extra": ["P", "D", "B"] }
+```
+
+- **What the player sees:** a proof (what the line prints), the composing
+  stick (the sorts set so far, face up), and the type case.
+- **The case:** one sort for each letter of `text` and of `extra`, cut in
+  mirror as real type is; for each letter in `reversed`, a second sort cut
+  the wrong way (it looks right on its face and prints backwards); a
+  blank quad for spaces. The case is dealt in a fixed jumble.
+- **Playing:** tap a sort to set it; Take out removes the last. A wrongly
+  cut sort shows backwards in the proof. Solved when the stick holds the
+  whole line from rightly cut sorts; a full line that is wrong says so.
+- **Validation:** `text` is 3–24 capitals A–Z and single spaces;
+  `reversed` letters are in the text and not mirror-symmetric
+  (A H I M O T U V W X Y); `extra` letters are not in the text.
+
 ## Words and the jar's label
 
 `words` in `game.json` declares what the player can note down:
@@ -1047,3 +1091,4 @@ warnings show in the debug panel).
 | 2026-09-30 | post-M6 | Puzzle types `beamSweep`, `swell` and `roster`; interface sounds `wave` and `great_sea`. Flannan rebuilt around them (the gallery, the west landing steps, the hooks); its label is a short seal. |
 | 2026-09-30 | post-M6 | Puzzle types `keyring`, `cipher` and `sources`; deduction form `order`; interface sound `key_try`. Episode `bastille_1703` (shelf II). |
 | 2026-09-30 | post-M6 | Puzzle types `pour`, `resonance` and `beat`; deduction form `rubbing`; interface sounds `pour`, `bell_strike`, `beat_*`. Episode `gyeongju_771` (shelf II). |
+| 2026-09-30 | post-M6 | Puzzle types `unwatched` and `compose`; deduction form `docket`; interface sounds `type_sort`, `lamp_gutter`. Episode `whitechapel_1891` (shelf III, series whitechapel) replaces the sealed jar; a sealed teaser `sealed_guangxu_1908` stands on shelf III. |

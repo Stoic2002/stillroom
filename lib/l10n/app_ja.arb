@@ -107,5 +107,15 @@
   "resonanceShort": "響きが印の前で消える。",
   "beatInstruction": "縁を撞こう。うなりが最も深い場所を探して、印をつけよう。",
   "beatMark": "ここに印をつける",
-  "beatWrong": "ここではない。もっと深くうなる場所がある。"
+  "beatWrong": "ここではない。もっと深くうなる場所がある。",
+  "docketHeader": "ロンドン警視庁",
+  "docketSubheader": "犯罪捜査部",
+  "unwatchedInstruction": "目をそらして、もう一度見よう。",
+  "unwatchedFind": "棚に新しいものがある。見つけよう。",
+  "unwatchedWrong": "それは前からあった。",
+  "unwatchedLookAway": "目をそらす",
+  "unwatchedProgress": "新しい綴り：{found} / {total}",
+  "composeInstruction": "活字ケースから彼女の名前を組もう。活字は鏡文字に彫られている。",
+  "composeTakeOut": "取り出す",
+  "composeWrong": "試し刷りがどこか違っている。"
 }

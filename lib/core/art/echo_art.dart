@@ -46,6 +46,10 @@ enum EchoFigure {
 
   /// A monk in a long robe, a stole across one shoulder.
   monk,
+
+  /// A compositor in shirtsleeves and a long apron, a composing stick in
+  /// hand.
+  compositor,
 }
 
 const _mist = Color(0xFFD5DEE2);
@@ -310,6 +314,29 @@ void paintEcho(Art a, EchoFigure figure) {
             ..color = const Color(0xCCB08A70)
             ..maskFilter = blur,
         );
+    case EchoFigure.compositor:
+      a.canvas
+        ..drawPath(
+          shape([(0.3, 0.2), (0.7, 0.2), (0.72, 0.56), (0.28, 0.56)]),
+          body,
+        )
+        // The apron, down to the shins.
+        ..drawPath(
+          shape([(0.32, 0.4), (0.68, 0.4), (0.7, 0.86), (0.3, 0.86)]),
+          Paint()
+            ..color = const Color(0xCCB8B0A0)
+            ..maskFilter = blur,
+        )
+        ..drawPath(
+          shape([(0.33, 0.84), (0.46, 0.84), (0.45, 0.99), (0.34, 0.99)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.54, 0.84), (0.67, 0.84), (0.66, 0.99), (0.55, 0.99)]),
+          body,
+        )
+        // The composing stick, held out in the left hand.
+        ..drawRect(a.r(0.04, 0.4, 0.26, 0.05), body);
     case EchoFigure.girl:
       a.canvas
         ..drawOval(a.r(0.36, 0.3, 0.28, 0.12), body)

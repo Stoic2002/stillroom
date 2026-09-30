@@ -388,4 +388,37 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get beatWrong => 'Не здесь: где-то волна глубже.';
+
+  @override
+  String get docketHeader => 'Столичная полиция';
+
+  @override
+  String get docketSubheader => 'Департамент уголовных расследований';
+
+  @override
+  String get unwatchedInstruction => 'Отвернитесь и посмотрите снова.';
+
+  @override
+  String get unwatchedFind => 'На полке появилось что-то новое. Найдите.';
+
+  @override
+  String get unwatchedWrong => 'Эта папка уже была.';
+
+  @override
+  String get unwatchedLookAway => 'Отвернуться';
+
+  @override
+  String unwatchedProgress(int found, int total) {
+    return 'Новых папок найдено: $found из $total';
+  }
+
+  @override
+  String get composeInstruction =>
+      'Наберите её имя из кассы. Литеры вырезаны зеркально.';
+
+  @override
+  String get composeTakeOut => 'Вынуть';
+
+  @override
+  String get composeWrong => 'Оттиск где-то неверен.';
 }

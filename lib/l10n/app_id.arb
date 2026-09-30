@@ -107,5 +107,15 @@
   "resonanceShort": "Gaungnya padam sebelum tanda.",
   "beatInstruction": "Pukul bibir lonceng. Cari tempat gaungnya naik-turun paling dalam, lalu tandai.",
   "beatMark": "Tandai tempat ini",
-  "beatWrong": "Bukan di sini: ada tempat yang lebih dalam."
+  "beatWrong": "Bukan di sini: ada tempat yang lebih dalam.",
+  "docketHeader": "Kepolisian Metropolitan",
+  "docketSubheader": "Departemen Investigasi Kriminal",
+  "unwatchedInstruction": "Berpalinglah, lalu lihat lagi.",
+  "unwatchedFind": "Ada yang baru di rak. Temukan.",
+  "unwatchedWrong": "Yang itu sudah ada dari tadi.",
+  "unwatchedLookAway": "Berpaling",
+  "unwatchedProgress": "Berkas baru ditemukan: {found} dari {total}",
+  "composeInstruction": "Susun namanya dari kotak huruf. Huruf cetak dipahat terbalik seperti cermin.",
+  "composeTakeOut": "Ambil",
+  "composeWrong": "Cetakan percobaannya salah di suatu tempat."
 }

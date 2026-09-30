@@ -1,0 +1,81 @@
+{
+  "id": "milliner",
+  "background": "images/scenes/whitechapel_1891/milliner.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "swallow_gardens"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "order_book",
+      "rect": [
+        0.4,
+        0.54,
+        0.2,
+        0.12
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_order",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.shop.order_book"
+        }
+      ]
+    },
+    {
+      "id": "hats",
+      "rect": [
+        0.08,
+        0.18,
+        0.22,
+        0.34
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.shop.hats"
+        }
+      ]
+    },
+    {
+      "id": "window",
+      "rect": [
+        0.7,
+        0.14,
+        0.22,
+        0.4
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.shop.window"
+        }
+      ]
+    },
+    {
+      "id": "crepe",
+      "rect": [
+        0.64,
+        0.6,
+        0.14,
+        0.1
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.shop.crepe"
+        }
+      ]
+    }
+  ]
+}

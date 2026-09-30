@@ -90,7 +90,13 @@ enum UiSound {
   beatClear('beat_clear', Haptic.light),
 
   /// The rim struck: the deepest swell, fading almost to nothing and back.
-  beatDeep('beat_deep', Haptic.light);
+  beatDeep('beat_deep', Haptic.light),
+
+  /// A metal sort dropped into the composing stick.
+  typeSort('type_sort', Haptic.selection),
+
+  /// A gas lamp gutters and dims.
+  lampGutter('lamp_gutter', Haptic.none);
 
   const UiSound(this.id, this.haptic);
 

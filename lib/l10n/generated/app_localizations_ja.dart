@@ -362,4 +362,36 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get beatWrong => 'ここではない。もっと深くうなる場所がある。';
+
+  @override
+  String get docketHeader => 'ロンドン警視庁';
+
+  @override
+  String get docketSubheader => '犯罪捜査部';
+
+  @override
+  String get unwatchedInstruction => '目をそらして、もう一度見よう。';
+
+  @override
+  String get unwatchedFind => '棚に新しいものがある。見つけよう。';
+
+  @override
+  String get unwatchedWrong => 'それは前からあった。';
+
+  @override
+  String get unwatchedLookAway => '目をそらす';
+
+  @override
+  String unwatchedProgress(int found, int total) {
+    return '新しい綴り：$found / $total';
+  }
+
+  @override
+  String get composeInstruction => '活字ケースから彼女の名前を組もう。活字は鏡文字に彫られている。';
+
+  @override
+  String get composeTakeOut => '取り出す';
+
+  @override
+  String get composeWrong => '試し刷りがどこか違っている。';
 }

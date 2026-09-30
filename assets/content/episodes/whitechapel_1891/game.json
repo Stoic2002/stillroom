@@ -1,0 +1,179 @@
+{
+  "startScene": "leman_street",
+  "flags": {
+    "read_book": false,
+    "saw_ticket": false,
+    "read_order": false,
+    "read_letter": false,
+    "found_note": false
+  },
+  "logicalResolution": [
+    1920,
+    1080
+  ],
+  "orientation": "landscape",
+  "sceneTransitionMs": 600,
+  "music": "whitechapel_1891",
+  "words": [
+    {
+      "id": "frances_coles",
+      "labelKey": "whitechapel_1891.word.frances_coles",
+      "kind": "name"
+    },
+    {
+      "id": "emma_smith",
+      "labelKey": "whitechapel_1891.word.emma_smith",
+      "kind": "name"
+    },
+    {
+      "id": "mary_ann_nichols",
+      "labelKey": "whitechapel_1891.word.mary_ann_nichols",
+      "kind": "name"
+    },
+    {
+      "id": "mary_jane_kelly",
+      "labelKey": "whitechapel_1891.word.mary_jane_kelly",
+      "kind": "name"
+    },
+    {
+      "id": "sadler",
+      "labelKey": "whitechapel_1891.word.sadler",
+      "kind": "name"
+    },
+    {
+      "id": "jack",
+      "labelKey": "whitechapel_1891.word.jack",
+      "kind": "name"
+    },
+    {
+      "id": "swallow_gardens",
+      "labelKey": "whitechapel_1891.word.swallow_gardens",
+      "kind": "place"
+    },
+    {
+      "id": "date_13feb",
+      "labelKey": "whitechapel_1891.word.date_13feb",
+      "kind": "date"
+    },
+    {
+      "id": "date_1894",
+      "labelKey": "whitechapel_1891.word.date_1894",
+      "kind": "date"
+    },
+    {
+      "id": "eleven",
+      "labelKey": "whitechapel_1891.word.eleven",
+      "kind": "number"
+    },
+    {
+      "id": "five",
+      "labelKey": "whitechapel_1891.word.five",
+      "kind": "number"
+    }
+  ],
+  "secret": {
+    "when": [
+      {
+        "flag": "found_note",
+        "equals": true
+      }
+    ],
+    "noteKey": "whitechapel_1891.file.keeper_note"
+  },
+  "hintStages": [
+    {
+      "id": "write_seal",
+      "when": [
+        {
+          "puzzleSolved": "unwatched"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.whitechapel_1891.write_seal.1"
+        },
+        {
+          "key": "hint.whitechapel_1891.write_seal.2"
+        }
+      ]
+    },
+    {
+      "id": "grow_file",
+      "when": [
+        {
+          "puzzleSolved": "compose"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.whitechapel_1891.grow_file.1"
+        },
+        {
+          "key": "hint.whitechapel_1891.grow_file.2"
+        }
+      ]
+    },
+    {
+      "id": "set_name",
+      "when": [
+        {
+          "flag": "read_order",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.whitechapel_1891.set_name.1"
+        },
+        {
+          "key": "hint.whitechapel_1891.set_name.2"
+        }
+      ]
+    },
+    {
+      "id": "milliner",
+      "when": [
+        {
+          "flag": "saw_ticket",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.whitechapel_1891.milliner.1"
+        },
+        {
+          "key": "hint.whitechapel_1891.milliner.2"
+        }
+      ]
+    },
+    {
+      "id": "find_ticket",
+      "when": [
+        {
+          "flag": "read_book",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.whitechapel_1891.find_ticket.1"
+        },
+        {
+          "key": "hint.whitechapel_1891.find_ticket.2"
+        }
+      ]
+    },
+    {
+      "id": "start",
+      "hints": [
+        {
+          "key": "hint.whitechapel_1891.start.1"
+        },
+        {
+          "key": "hint.whitechapel_1891.start.2"
+        }
+      ]
+    }
+  ]
+}

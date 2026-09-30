@@ -1,0 +1,228 @@
+{
+  "id": "leman_street",
+  "background": "images/scenes/whitechapel_1891/leman_street.png",
+  "exits": [
+    {
+      "id": "street",
+      "to": "swallow_gardens",
+      "rect": [
+        0.84,
+        0.24,
+        0.14,
+        0.56
+      ],
+      "when": [
+        {
+          "flag": "read_book",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "file",
+      "to": "file_room",
+      "rect": [
+        0.02,
+        0.28,
+        0.13,
+        0.52
+      ],
+      "when": [
+        {
+          "puzzleSolved": "compose"
+        }
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "book",
+      "rect": [
+        0.36,
+        0.5,
+        0.24,
+        0.14
+      ],
+      "when": [
+        {
+          "puzzleSolved": "unwatched",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_book",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.station.book"
+        }
+      ]
+    },
+    {
+      "id": "book_seal",
+      "rect": [
+        0.36,
+        0.5,
+        0.24,
+        0.14
+      ],
+      "when": [
+        {
+          "puzzleSolved": "unwatched"
+        },
+        {
+          "puzzleSolved": "jar_label",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.station.seal_needed"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "jar_label"
+        }
+      ]
+    },
+    {
+      "id": "street_shut",
+      "rect": [
+        0.84,
+        0.24,
+        0.14,
+        0.56
+      ],
+      "when": [
+        {
+          "flag": "read_book",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.station.street_shut"
+        }
+      ]
+    },
+    {
+      "id": "file_locked",
+      "rect": [
+        0.02,
+        0.28,
+        0.13,
+        0.52
+      ],
+      "when": [
+        {
+          "puzzleSolved": "compose",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "door_rattle"
+        },
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.station.file_locked"
+        }
+      ]
+    },
+    {
+      "id": "charge_sheet",
+      "rect": [
+        0.64,
+        0.54,
+        0.12,
+        0.1
+      ],
+      "when": [
+        {
+          "flag": "read_order",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.station.charge_sheet"
+        }
+      ]
+    },
+    {
+      "id": "notices",
+      "rect": [
+        0.2,
+        0.18,
+        0.16,
+        0.24
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.station.notices"
+        }
+      ]
+    },
+    {
+      "id": "lamp",
+      "rect": [
+        0.62,
+        0.14,
+        0.06,
+        0.18
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.station.lamp"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "charge_sheet_sprite",
+      "image": "images/objects/whitechapel_1891/charge_sheet_sprite.png",
+      "rect": [
+        0.64,
+        0.54,
+        0.12,
+        0.1
+      ],
+      "when": [
+        {
+          "flag": "read_order",
+          "equals": true
+        }
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "moth",
+      "kind": "moth",
+      "rect": [
+        0.58,
+        0.1,
+        0.14,
+        0.22
+      ]
+    }
+  ]
+}

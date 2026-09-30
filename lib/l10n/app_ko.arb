@@ -107,5 +107,15 @@
   "resonanceShort": "울림이 표시에 닿기 전에 사라진다.",
   "beatInstruction": "종의 아랫부분을 치세요. 맥놀이가 가장 깊은 곳을 찾아 표시하세요.",
   "beatMark": "이곳에 표시",
-  "beatWrong": "여기가 아니다. 더 깊게 울리는 곳이 있다."
+  "beatWrong": "여기가 아니다. 더 깊게 울리는 곳이 있다.",
+  "docketHeader": "런던 경찰청",
+  "docketSubheader": "범죄수사과",
+  "unwatchedInstruction": "눈을 돌렸다가 다시 보세요.",
+  "unwatchedFind": "선반에 새로운 것이 있다. 찾아보세요.",
+  "unwatchedWrong": "그건 원래 있던 것이다.",
+  "unwatchedLookAway": "눈 돌리기",
+  "unwatchedProgress": "새 서류철: {found} / {total}",
+  "composeInstruction": "활자 상자에서 그녀의 이름을 조판하세요. 활자는 거울처럼 거꾸로 새겨져 있다.",
+  "composeTakeOut": "빼기",
+  "composeWrong": "교정쇄 어딘가가 틀렸다."
 }

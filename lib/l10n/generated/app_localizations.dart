@@ -755,6 +755,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Not here: somewhere it swells deeper.'**
   String get beatWrong;
+
+  /// Heading printed on a police file cover (the jar label form "docket").
+  ///
+  /// In en, this message translates to:
+  /// **'Metropolitan Police'**
+  String get docketHeader;
+
+  /// Second heading on the police file cover.
+  ///
+  /// In en, this message translates to:
+  /// **'Criminal Investigation Department'**
+  String get docketSubheader;
+
+  /// Shelf puzzle: before looking away.
+  ///
+  /// In en, this message translates to:
+  /// **'Look away, then look back.'**
+  String get unwatchedInstruction;
+
+  /// Shelf puzzle: after looking back, something new is on the shelf.
+  ///
+  /// In en, this message translates to:
+  /// **'Something on the shelf is new. Find it.'**
+  String get unwatchedFind;
+
+  /// Shelf puzzle: the file tapped was already there.
+  ///
+  /// In en, this message translates to:
+  /// **'That one was already there.'**
+  String get unwatchedWrong;
+
+  /// Button: look away from the shelf for a moment.
+  ///
+  /// In en, this message translates to:
+  /// **'Look away'**
+  String get unwatchedLookAway;
+
+  /// Shelf puzzle: how many new files have been found, of how many.
+  ///
+  /// In en, this message translates to:
+  /// **'New files found: {found} of {total}'**
+  String unwatchedProgress(int found, int total);
+
+  /// Type-setting puzzle: how to play.
+  ///
+  /// In en, this message translates to:
+  /// **'Set her name from the case. Type is cut in mirror.'**
+  String get composeInstruction;
+
+  /// Button: take the last piece of type out of the composing stick.
+  ///
+  /// In en, this message translates to:
+  /// **'Take out'**
+  String get composeTakeOut;
+
+  /// Type-setting puzzle: the line is full but prints wrong somewhere.
+  ///
+  /// In en, this message translates to:
+  /// **'The proof reads wrong somewhere.'**
+  String get composeWrong;
 }
 
 class _AppLocalizationsDelegate

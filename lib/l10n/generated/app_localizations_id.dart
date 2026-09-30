@@ -380,4 +380,37 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get beatWrong => 'Bukan di sini: ada tempat yang lebih dalam.';
+
+  @override
+  String get docketHeader => 'Kepolisian Metropolitan';
+
+  @override
+  String get docketSubheader => 'Departemen Investigasi Kriminal';
+
+  @override
+  String get unwatchedInstruction => 'Berpalinglah, lalu lihat lagi.';
+
+  @override
+  String get unwatchedFind => 'Ada yang baru di rak. Temukan.';
+
+  @override
+  String get unwatchedWrong => 'Yang itu sudah ada dari tadi.';
+
+  @override
+  String get unwatchedLookAway => 'Berpaling';
+
+  @override
+  String unwatchedProgress(int found, int total) {
+    return 'Berkas baru ditemukan: $found dari $total';
+  }
+
+  @override
+  String get composeInstruction =>
+      'Susun namanya dari kotak huruf. Huruf cetak dipahat terbalik seperti cermin.';
+
+  @override
+  String get composeTakeOut => 'Ambil';
+
+  @override
+  String get composeWrong => 'Cetakan percobaannya salah di suatu tempat.';
 }

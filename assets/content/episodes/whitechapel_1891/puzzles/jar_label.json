@@ -1,0 +1,64 @@
+{
+  "id": "jar_label",
+  "type": "deduction",
+  "background": "images/scenes/whitechapel_1891/label_close.png",
+  "config": {
+    "form": "docket",
+    "sentences": [
+      {
+        "textKey": "whitechapel_1891.label.s1",
+        "blanks": [
+          "emma_smith",
+          "frances_coles",
+          "eleven"
+        ]
+      }
+    ],
+    "words": [
+      "frances_coles",
+      "emma_smith",
+      "mary_ann_nichols",
+      "mary_jane_kelly",
+      "sadler",
+      "jack",
+      "swallow_gardens",
+      "date_13feb",
+      "date_1894",
+      "eleven",
+      "five"
+    ],
+    "nearMiss": 1
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "police_whistle"
+    },
+    {
+      "type": "showText",
+      "key": "whitechapel_1891.label.done"
+    },
+    {
+      "type": "showText",
+      "key": "whitechapel_1891.ending.buried"
+    },
+    {
+      "type": "showText",
+      "key": "whitechapel_1891.ending.file"
+    },
+    {
+      "type": "endEpisode"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.whitechapel_1891.jar_label.1"
+    },
+    {
+      "key": "hint.whitechapel_1891.jar_label.2"
+    },
+    {
+      "key": "hint.whitechapel_1891.jar_label.3"
+    }
+  ]
+}

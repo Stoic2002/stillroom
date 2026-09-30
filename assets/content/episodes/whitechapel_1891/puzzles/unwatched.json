@@ -1,0 +1,134 @@
+{
+  "id": "unwatched",
+  "type": "unwatched",
+  "background": "images/scenes/whitechapel_1891/shelf_board.png",
+  "config": {
+    "items": [
+      {
+        "id": "smith",
+        "labelKey": "whitechapel_1891.file.smith",
+        "dateKey": "whitechapel_1891.file.smith_date"
+      },
+      {
+        "id": "tabram",
+        "labelKey": "whitechapel_1891.file.tabram",
+        "dateKey": "whitechapel_1891.file.tabram_date"
+      },
+      {
+        "id": "nichols",
+        "labelKey": "whitechapel_1891.file.nichols",
+        "dateKey": "whitechapel_1891.file.nichols_date"
+      },
+      {
+        "id": "chapman",
+        "labelKey": "whitechapel_1891.file.chapman",
+        "dateKey": "whitechapel_1891.file.chapman_date"
+      },
+      {
+        "id": "stride",
+        "labelKey": "whitechapel_1891.file.stride",
+        "dateKey": "whitechapel_1891.file.stride_date"
+      },
+      {
+        "id": "eddowes",
+        "labelKey": "whitechapel_1891.file.eddowes",
+        "dateKey": "whitechapel_1891.file.eddowes_date"
+      },
+      {
+        "id": "kelly",
+        "labelKey": "whitechapel_1891.file.kelly",
+        "dateKey": "whitechapel_1891.file.kelly_date"
+      },
+      {
+        "id": "mylett",
+        "labelKey": "whitechapel_1891.file.mylett",
+        "dateKey": "whitechapel_1891.file.mylett_date"
+      },
+      {
+        "id": "mckenzie",
+        "labelKey": "whitechapel_1891.file.mckenzie",
+        "dateKey": "whitechapel_1891.file.mckenzie_date"
+      },
+      {
+        "id": "pinchin",
+        "labelKey": "whitechapel_1891.file.pinchin",
+        "dateKey": "whitechapel_1891.file.pinchin_date"
+      },
+      {
+        "id": "coles",
+        "labelKey": "whitechapel_1891.file.coles",
+        "dateKey": "whitechapel_1891.file.coles_date"
+      }
+    ],
+    "start": [
+      "nichols",
+      "chapman",
+      "stride",
+      "eddowes",
+      "kelly"
+    ],
+    "rounds": [
+      {
+        "add": "smith",
+        "at": 0
+      },
+      {
+        "add": "tabram",
+        "at": 1
+      },
+      {
+        "add": "mylett",
+        "at": 7,
+        "move": [
+          3,
+          5
+        ]
+      },
+      {
+        "add": "mckenzie",
+        "at": 8,
+        "move": [
+          5,
+          3
+        ]
+      },
+      {
+        "add": "pinchin",
+        "at": 9,
+        "move": [
+          0,
+          2
+        ]
+      },
+      {
+        "add": "coles",
+        "at": 10,
+        "move": [
+          2,
+          0
+        ]
+      }
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "page_turn"
+    },
+    {
+      "type": "showText",
+      "key": "whitechapel_1891.file.whole"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.whitechapel_1891.unwatched.1"
+    },
+    {
+      "key": "hint.whitechapel_1891.unwatched.2"
+    },
+    {
+      "key": "hint.whitechapel_1891.unwatched.3"
+    }
+  ]
+}

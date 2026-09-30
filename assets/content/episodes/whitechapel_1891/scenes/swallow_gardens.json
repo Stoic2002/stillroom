@@ -1,0 +1,203 @@
+{
+  "id": "swallow_gardens",
+  "background": "images/scenes/whitechapel_1891/swallow_gardens.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "leman_street"
+    },
+    {
+      "id": "milliner",
+      "to": "milliner",
+      "rect": [
+        0.02,
+        0.36,
+        0.14,
+        0.44
+      ],
+      "when": [
+        {
+          "flag": "saw_ticket",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "cab",
+      "to": "press_room",
+      "rect": [
+        0.8,
+        0.44,
+        0.18,
+        0.32
+      ],
+      "when": [
+        {
+          "flag": "read_order",
+          "equals": true
+        }
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "arch",
+      "rect": [
+        0.3,
+        0.16,
+        0.4,
+        0.46
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "footsteps_away"
+        },
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.arch.arch"
+        }
+      ]
+    },
+    {
+      "id": "hat",
+      "rect": [
+        0.46,
+        0.7,
+        0.1,
+        0.1
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "saw_ticket",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.arch.hat"
+        }
+      ]
+    },
+    {
+      "id": "chalk",
+      "rect": [
+        0.28,
+        0.8,
+        0.14,
+        0.08
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.arch.chalk"
+        }
+      ]
+    },
+    {
+      "id": "lamp",
+      "rect": [
+        0.12,
+        0.14,
+        0.06,
+        0.22
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.arch.lamp"
+        }
+      ]
+    },
+    {
+      "id": "corner",
+      "rect": [
+        0.02,
+        0.36,
+        0.14,
+        0.44
+      ],
+      "when": [
+        {
+          "flag": "saw_ticket",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.arch.corner"
+        }
+      ]
+    },
+    {
+      "id": "train",
+      "rect": [
+        0.3,
+        0.02,
+        0.4,
+        0.12
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "train_arch"
+        },
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.arch.train"
+        }
+      ]
+    },
+    {
+      "id": "cab_waiting",
+      "rect": [
+        0.8,
+        0.44,
+        0.18,
+        0.32
+      ],
+      "when": [
+        {
+          "flag": "read_order",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "whitechapel_1891.arch.cab_early"
+        }
+      ]
+    }
+  ],
+  "echoes": [
+    {
+      "id": "constable",
+      "image": "images/objects/whitechapel_1891/echo_constable.png",
+      "rect": [
+        0.64,
+        0.4,
+        0.05,
+        0.3
+      ],
+      "chance": 0.8,
+      "drift": [
+        -0.02,
+        0
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "rat",
+      "kind": "rat",
+      "rect": [
+        0.3,
+        0.88,
+        0.4,
+        0.06
+      ]
+    }
+  ]
+}

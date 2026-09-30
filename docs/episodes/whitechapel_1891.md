@@ -1,7 +1,9 @@
 # Episode design: Whitechapel, 1891 (the file of eleven)
 
-Status: **design draft** (2026-09-30), for the developer's approval before
-anything is built. Shelf III (opens after 4 tales), series *whitechapel*,
+Status: **built** (2026-09-30): draft text in seven languages, code-drawn
+art (`lib/core/art/whitechapel_1891_art.dart`), generated audio,
+walkthrough test. Approved by the developer with both mechanics, the
+`docket` seal, and the newspaper name kept to the headline and the letter. Shelf III (opens after 4 tales), series *whitechapel*,
 from the plan of 16 tales (`docs/stillroom_frame.md`, *The full shelf*).
 It replaces the sealed teaser jar `sealed_whitechapel_1891`. Proposed id:
 `whitechapel_1891`; jar label **Whitechapel, 1891**.
@@ -56,9 +58,9 @@ jar opens the whole file.
 | **Macnaghten**'s memorandum (23 Feb 1894): "the Whitechapel Murderer had 5 victims – & 5 victims only"; it became known in the late 1950s and set the "canonical five" | A later paper (decoy "five") | [jtro Macnaghten][mac]; [Wikipedia: Jack the Ripper][jtr] |
 
 Wikipedia could not be opened from the build environment; facts above
-were checked across at least two search results. Before building, Frances
-Coles's age (given as about 31–32) and the Pinchin Street date are checked
-once more.
+were checked across at least two search results. The Pinchin Street date
+(10 September 1889) was checked again before building; Frances Coles's age
+varies between sources and is not given in the tale.
 
 [wm]: https://en.wikipedia.org/wiki/Whitechapel_murders
 [jtro]: https://www.jack-the-ripper.org/victims-of-jack-the-ripper.htm
@@ -143,22 +145,45 @@ found.
 
 - **Echoes:** a constable with a lantern at the arch (the 1888 figure);
   a compositor at the case. Faceless, as always. No woman is shown.
-- **Living things (February night):** a rat under the arch; a moth by the
-  gas lamp in the file room.
+- **Living things (February night):** a rat under the arch; moths by the
+  gas in the station and the file room.
 
-## Audio (ids, to generate)
+## Audio
 
 - **Music:** `whitechapel_1891` (a colder return of *whitechapel_fog*:
-  drone, rain, a train over the arch now and then).
-- **Effects:** `footsteps_away` (a man's steps fading), `police_whistle`,
-  `train_arch`. Interface: `type_sort` (a metal sort dropped into the
-  stick), `lamp_gutter` (the lamp dips when looking away).
+  drone, rain, a train over the arch once a loop).
+- **Effects:** `footsteps_away`, `police_whistle`, `train_arch`.
+  Interface: `type_sort`, `lamp_gutter`.
 
-## Open questions for the developer
+## Decisions (2026-09-30)
 
-1. The two mechanics (the file that grows, setting her name): both? A
-   third is possible (e.g. PC Thompson's beat and whistle), but two strong
-   ones plus a long chain feel right for this tale.
-2. The seal as a police docket (`docket`), and its sentence?
-3. Whether the killer's newspaper name appears at all (recommended: yes,
-   only as the headline and the letter, told as the police saw it).
+1. Both mechanics: the file that grows (`unwatched`), her name set in type
+   (`compose`).
+2. The seal on the file's cover (`docket`), with the sentence above.
+3. "Jack the Ripper" appears only as the forme's headline and the 1888
+   letter's signature, told as the police saw it.
+
+## As built
+
+- **Flow:** the occurrence book; the arch (the hat's ticket); the
+  milliner's; a reporter's cab from the arch to the composing room
+  (`compose`); back at Leman Street the charge sheet (a later paper) and the
+  file room, now open (`unwatched`, six rounds); Macnaghten's memorandum;
+  the seal on the occurrence book. The keeper's slip is inside the file's
+  cover once the file is whole.
+- **The shelf's rounds:** Smith and Tabram go in before the five; from the
+  third round on, one other file moves each time (and moves back the
+  next), so the eye must really check. The shelf ends in date order.
+- **The type case:** R, N, C, S and L each have a wrongly cut twin; P, D
+  and B are extra sorts.
+- **Shelf III** now shows this jar and a sealed teaser
+  (`sealed_guangxu_1908`) for the tales still to come.
+
+## Things to watch when tested
+
+- Whether the new file is found fairly on the phone, especially when
+  another file has moved; and whether the dark while looking away is too
+  long or too short (900 ms).
+- Whether the mirrored letters in the type case are clear at phone size.
+- Whether the chain from the milliner's to the composing room (the cab at
+  the arch) is found without hints.

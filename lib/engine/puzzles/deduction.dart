@@ -147,6 +147,10 @@ enum DeductionForm {
   /// An ink rubbing taken from a cast inscription: black paper, the
   /// sentences left pale.
   rubbing,
+
+  /// The cover sheet of a police file: printed headings, a register stamp,
+  /// and the entry written in by hand.
+  docket,
 }
 
 final class DeductionSentence {

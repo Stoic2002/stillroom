@@ -73,12 +73,24 @@
       ]
     },
     {
-      "id": "sealed_whitechapel_1891",
+      "id": "whitechapel_1891",
+      "titleKey": "episode.whitechapel_1891.title",
+      "teaserKey": "episode.whitechapel_1891.teaser",
+      "jarImage": "images/ui/jar_whitechapel_1891.png",
+      "shelf": 3,
+      "unlockAfter": 4,
+      "series": "whitechapel",
+      "place": [
+        51.51,
+        -0.066
+      ]
+    },
+    {
+      "id": "sealed_guangxu_1908",
       "titleKey": "episode.sealed.title",
       "comingSoon": true,
       "shelf": 3,
-      "unlockAfter": 4,
-      "series": "whitechapel"
+      "unlockAfter": 4
     },
     {
       "id": "test_room",

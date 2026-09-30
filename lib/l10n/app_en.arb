@@ -456,5 +456,53 @@
   "beatWrong": "Not here: somewhere it swells deeper.",
   "@beatWrong": {
     "description": "Bell rim puzzle: the marked place is not the deepest swell."
+  },
+  "docketHeader": "Metropolitan Police",
+  "@docketHeader": {
+    "description": "Heading printed on a police file cover (the jar label form \"docket\")."
+  },
+  "docketSubheader": "Criminal Investigation Department",
+  "@docketSubheader": {
+    "description": "Second heading on the police file cover."
+  },
+  "unwatchedInstruction": "Look away, then look back.",
+  "@unwatchedInstruction": {
+    "description": "Shelf puzzle: before looking away."
+  },
+  "unwatchedFind": "Something on the shelf is new. Find it.",
+  "@unwatchedFind": {
+    "description": "Shelf puzzle: after looking back, something new is on the shelf."
+  },
+  "unwatchedWrong": "That one was already there.",
+  "@unwatchedWrong": {
+    "description": "Shelf puzzle: the file tapped was already there."
+  },
+  "unwatchedLookAway": "Look away",
+  "@unwatchedLookAway": {
+    "description": "Button: look away from the shelf for a moment."
+  },
+  "unwatchedProgress": "New files found: {found} of {total}",
+  "@unwatchedProgress": {
+    "description": "Shelf puzzle: how many new files have been found, of how many.",
+    "placeholders": {
+      "found": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "composeInstruction": "Set her name from the case. Type is cut in mirror.",
+  "@composeInstruction": {
+    "description": "Type-setting puzzle: how to play."
+  },
+  "composeTakeOut": "Take out",
+  "@composeTakeOut": {
+    "description": "Button: take the last piece of type out of the composing stick."
+  },
+  "composeWrong": "The proof reads wrong somewhere.",
+  "@composeWrong": {
+    "description": "Type-setting puzzle: the line is full but prints wrong somewhere."
   }
 }

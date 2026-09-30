@@ -56,6 +56,9 @@ fvm dart run tool/audio/generate_audio.dart bell_toll  # one or more ids
 | `bronze_pour` | Gyeongju: the bell is cast | A long rush of molten metal, bubbling and settling |
 | `great_bell` | Gyeongju: the bell rung; the ending | The great bell's full ring, 20 s: each partial split in two (64.07/64.42 Hz, 168.52/168.63 Hz, …) so it swells and fades, as measured |
 | `striker_creak` | Gyeongju: the striker's rope tied | A rope creaking on a beam |
+| `footsteps_away` | Whitechapel 1891: the arch | A man's footsteps on wet stone, walking away |
+| `police_whistle` | Whitechapel 1891: the seal | A police whistle, two blasts |
+| `train_arch` | Whitechapel 1891: the arch | A goods train over the railway arch, heard from under it |
 
 ## Music
 
@@ -67,6 +70,7 @@ fvm dart run tool/audio/generate_audio.dart bell_toll  # one or more ids
 | `flannan_wind` | Flannan Isles | 48 s | A low drone; wind over the bare island; the swell below |
 | `pompeii_ash` | Pompeii, 79 | 48 s | A warm drone in D; dry wind; a slow plucked string in D dorian, like a lyre from another courtyard |
 | `lawang_sewu_1907` | Lawang Sewu, 1907 office | 32 s | A warm F-major drone; the office clock; record-like crackle; the NIS telegraph far off |
+| `whitechapel_1891` | Whitechapel, 1891 | 48 s | The fog's drone again, colder; rain; a train passing over an arch, once a loop |
 | `gyeongju_night` | Gyeongju, 771 | 48 s | A low drone near the bell's 64 Hz hum; winter wind; a wooden fish knocked far off, slowing, every 12 s |
 | `bastille_dawn` | Bastille, 1703 | 48 s | A cold drone in A; a draught in the court; two slow bowed notes in A aeolian every 16 s, like a viol through a wall |
 
@@ -90,6 +94,8 @@ vibration is on). Quieter than content sounds (−9 dBFS peak).
 | `key_try` | Bastille's key ring: a key tried in a lock that will not turn | light |
 | `pour` | Gyeongju's pour: bronze runs down the channels | light |
 | `bell_strike` | Gyeongju's hollow: the great bell struck by its log (the first seconds of its ring) | medium |
+| `type_sort` | Whitechapel 1891's type case: a metal sort dropped into the stick | selection |
+| `lamp_gutter` | Whitechapel 1891's shelf: the gas lamp dips while looking away | none |
 | `beat_steady`, `beat_light`, `beat_clear`, `beat_deep` | Gyeongju's rim: a strike whose ring swells and fades barely, lightly, clearly, or almost to silence (two tones 1.4 Hz apart, the second as loud as the swell needs) | light |
 | `solved` | Any puzzle gives way (before its own `onSolved` sounds) | light |
 | `pickup` | An item goes into the inventory | light |

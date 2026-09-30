@@ -386,4 +386,37 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get beatWrong => 'Aquí no: en otro sitio crece más hondo.';
+
+  @override
+  String get docketHeader => 'Policía Metropolitana';
+
+  @override
+  String get docketSubheader => 'Departamento de Investigación Criminal';
+
+  @override
+  String get unwatchedInstruction => 'Aparta la vista y vuelve a mirar.';
+
+  @override
+  String get unwatchedFind => 'Hay algo nuevo en el estante. Encuéntralo.';
+
+  @override
+  String get unwatchedWrong => 'Ese ya estaba ahí.';
+
+  @override
+  String get unwatchedLookAway => 'Apartar la vista';
+
+  @override
+  String unwatchedProgress(int found, int total) {
+    return 'Expedientes nuevos: $found de $total';
+  }
+
+  @override
+  String get composeInstruction =>
+      'Compón su nombre con la caja de tipos. Los tipos están tallados en espejo.';
+
+  @override
+  String get composeTakeOut => 'Sacar';
+
+  @override
+  String get composeWrong => 'La prueba sale mal en algún sitio.';
 }

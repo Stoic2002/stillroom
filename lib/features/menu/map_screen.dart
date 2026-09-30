@@ -150,17 +150,14 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                               child: CustomPaint(painter: _ChartPainter(map)),
                             ),
                           ),
-                          for (final (:entry, :at) in pinned)
+                          for (final (i, (:entry, at: _)) in pinned.indexed)
                             _PositionedPin(
                               key: ValueKey('pin_${entry.id}'),
-                              at: at,
-                              others: [
-                                for (final other in pinned)
-                                  if (other.entry != entry) other.at,
-                              ],
+                              index: i,
+                              all: [for (final p in pinned) p.at],
                               transform: _transform,
-                              pin: (labelAbove) => _Pin(
-                                labelAbove: labelAbove,
+                              pin: (place) => _Pin(
+                                place: place,
                                 label: text(entry.titleKey),
                                 shelf: entry.shelf,
                                 locked: !progress.isUnlocked(entry),
@@ -209,23 +206,77 @@ class _MapScreenState extends ConsumerState<MapScreen> {
 /// however far the chart is zoomed.
 class _PositionedPin extends StatelessWidget {
   const _PositionedPin({
-    required this.at,
-    required this.others,
+    required this.index,
+    required this.all,
     required this.transform,
     required this.pin,
     super.key,
   });
 
-  final Offset at;
+  /// This pin's place in [all].
+  final int index;
 
-  /// The other pins, so labels can dodge them.
-  final List<Offset> others;
+  /// Every pin's point, so labels can dodge each other.
+  final List<Offset> all;
+
+  Offset get at => all[index];
   final TransformationController transform;
-  final Widget Function(bool labelAbove) pin;
+  final Widget Function(_LabelPlace place) pin;
 
   static const width = _Pin.width;
   static const height = _Pin.height;
   static const head = _Pin.head;
+
+  /// About how wide a pin's label is on screen, for dodging.
+  static const labelWidth = 124.0;
+
+  /// About how tall a pin's label is on screen.
+  static const labelHeight = 24.0;
+
+  /// Where pin [i]'s label goes at [scale]. Pins are placed in list order.
+  /// A label goes below its head, or above, where it covers neither a
+  /// label already placed nor another pin; failing that, where it covers
+  /// no label; failing that it is hidden until the chart is zoomed in (the
+  /// pin still opens its jar). Pins on one spot, a series in one city,
+  /// thus take turns.
+  static _LabelPlace labelPlaceAt(List<Offset> all, int i, double scale) {
+    Rect label(Offset at, _LabelPlace place) {
+      final p = at * scale;
+      final top = place == _LabelPlace.above
+          ? p.dy - head / 2 - labelHeight
+          : p.dy + head / 2;
+      return Rect.fromLTWH(p.dx - labelWidth / 2, top, labelWidth, labelHeight);
+    }
+
+    bool clear(Rect r, Iterable<Rect> others) =>
+        others.every((o) => !r.overlaps(o));
+
+    final heads = [
+      for (final o in all)
+        Rect.fromCenter(center: o * scale, width: head, height: head),
+    ];
+    final placed = <Rect>[];
+    var result = _LabelPlace.below;
+    for (var k = 0; k <= i; k++) {
+      final otherHeads = [
+        for (final (j, h) in heads.indexed)
+          if (j != k) h,
+      ];
+      result = _LabelPlace.hidden;
+      for (final strict in [true, false]) {
+        for (final place in [_LabelPlace.below, _LabelPlace.above]) {
+          final r = label(all[k], place);
+          if (clear(r, placed) && (!strict || clear(r, otherHeads))) {
+            result = place;
+            break;
+          }
+        }
+        if (result != _LabelPlace.hidden) break;
+      }
+      if (result != _LabelPlace.hidden) placed.add(label(all[k], result));
+    }
+    return result;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -233,13 +284,8 @@ class _PositionedPin extends StatelessWidget {
       animation: transform,
       builder: (context, _) {
         final scale = transform.value.getMaxScaleOnAxis();
-        // A label goes above its pin when another pin sits just below.
-        final labelAbove = others.any((o) {
-          final dx = (o.dx - at.dx).abs() * scale;
-          final dy = (o.dy - at.dy) * scale;
-          return dx < width && dy > 0 && dy < height + 8;
-        });
-        final headY = labelAbove ? height - head / 2 : head / 2;
+        final place = labelPlaceAt(all, index, scale);
+        final headY = place == _LabelPlace.above ? height - head / 2 : head / 2;
         final k = 1 / scale;
         return Positioned(
           left: at.dx - width / 2,
@@ -249,7 +295,7 @@ class _PositionedPin extends StatelessWidget {
           child: Transform(
             origin: Offset(width / 2, headY),
             transform: Matrix4.diagonal3Values(k, k, 1),
-            child: pin(labelAbove),
+            child: pin(place),
           ),
         );
       },
@@ -257,9 +303,12 @@ class _PositionedPin extends StatelessWidget {
   }
 }
 
+/// Where a pin's label goes.
+enum _LabelPlace { below, above, hidden }
+
 class _Pin extends StatelessWidget {
   const _Pin({
-    required this.labelAbove,
+    required this.place,
     required this.label,
     required this.shelf,
     required this.locked,
@@ -272,8 +321,11 @@ class _Pin extends StatelessWidget {
   static const width = 190.0;
   static const height = 60.0;
 
-  /// The label sits above the head instead of below it.
-  final bool labelAbove;
+  /// Where the label sits: below the head, above it, or hidden until the
+  /// chart is zoomed in.
+  final _LabelPlace place;
+
+  bool get labelAbove => place == _LabelPlace.above;
   static const _numerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'];
 
   final String label;
@@ -372,7 +424,10 @@ class _Pin extends StatelessWidget {
                         ),
                       ),
               ),
-              if (!labelAbove) ...[const SizedBox(height: 4), _tag()],
+              if (place == _LabelPlace.below) ...[
+                const SizedBox(height: 4),
+                _tag(),
+              ],
             ],
           ),
         ),

@@ -363,4 +363,37 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get beatWrong => '여기가 아니다. 더 깊게 울리는 곳이 있다.';
+
+  @override
+  String get docketHeader => '런던 경찰청';
+
+  @override
+  String get docketSubheader => '범죄수사과';
+
+  @override
+  String get unwatchedInstruction => '눈을 돌렸다가 다시 보세요.';
+
+  @override
+  String get unwatchedFind => '선반에 새로운 것이 있다. 찾아보세요.';
+
+  @override
+  String get unwatchedWrong => '그건 원래 있던 것이다.';
+
+  @override
+  String get unwatchedLookAway => '눈 돌리기';
+
+  @override
+  String unwatchedProgress(int found, int total) {
+    return '새 서류철: $found / $total';
+  }
+
+  @override
+  String get composeInstruction =>
+      '활자 상자에서 그녀의 이름을 조판하세요. 활자는 거울처럼 거꾸로 새겨져 있다.';
+
+  @override
+  String get composeTakeOut => '빼기';
+
+  @override
+  String get composeWrong => '교정쇄 어딘가가 틀렸다.';
 }

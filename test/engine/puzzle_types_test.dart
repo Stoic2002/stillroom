@@ -333,6 +333,8 @@ void main() {
       'pour',
       'resonance',
       'beat',
+      'unwatched',
+      'compose',
     ]);
   });
 }

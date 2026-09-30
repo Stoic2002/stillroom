@@ -362,4 +362,36 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get beatWrong => '不是这里：别处起伏更深。';
+
+  @override
+  String get docketHeader => '伦敦警察厅';
+
+  @override
+  String get docketSubheader => '刑事调查部';
+
+  @override
+  String get unwatchedInstruction => '移开视线，再看回来。';
+
+  @override
+  String get unwatchedFind => '架子上多了点什么。找出来。';
+
+  @override
+  String get unwatchedWrong => '那一份本来就在。';
+
+  @override
+  String get unwatchedLookAway => '移开视线';
+
+  @override
+  String unwatchedProgress(int found, int total) {
+    return '找到的新卷宗：$found / $total';
+  }
+
+  @override
+  String get composeInstruction => '从字盘里排出她的名字。铅字是反着刻的。';
+
+  @override
+  String get composeTakeOut => '取出';
+
+  @override
+  String get composeWrong => '校样有地方不对。';
 }

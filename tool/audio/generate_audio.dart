@@ -1327,7 +1327,68 @@ Buf strikerCreak() {
   return reverb(b, size: 0.5, mix: 0.25);
 }
 
+/// Whitechapel 1891: a man's footsteps on wet stone, walking away.
+Buf footstepsAway() {
+  final rng = math.Random(47);
+  final b = Buf(4.2);
+  for (var i = 0; i < 7; i++) {
+    final far = i / 6;
+    b.add(
+      lowpass(footstep(rng), (_) => 900 - far * 600),
+      at: 0.1 + i * 0.52,
+      gain: 0.9 * (1 - far * 0.8),
+      pan: 0.2 + far * 0.5,
+    );
+  }
+  return reverb(b, size: 0.7, mix: 0.35);
+}
+
+/// Whitechapel 1891: a police whistle, two long blasts.
+Buf policeWhistle() {
+  final rng = math.Random(48);
+  final b = Buf(2.6);
+  for (final at in [0.05, 1.1]) {
+    final trill = shape(
+      sum([
+        tone(0.8, (t) => 2900 + 90 * math.sin(tau * 32 * t)),
+        gain(tone(0.8, (t) => 3150 + 90 * math.sin(tau * 32 * t)), 0.6),
+        gain(bandpass(noise(0.8, rng), (_) => 3000, 2), 0.3),
+      ]),
+      (t) => swell(t, 0.03, 0.1, 0.8),
+    );
+    b.add(gain(trill, 0.5), at: at);
+  }
+  return reverb(b, size: 0.6, mix: 0.3);
+}
+
+/// Whitechapel 1891: a train over the railway arch, heard from under it.
+Buf trainArch() {
+  final rng = math.Random(49);
+  const seconds = 6.0;
+  final b = Buf(seconds)
+    ..add(
+      gain(
+        shape(
+          lowpass(brown(seconds, rng), (_) => 160),
+          (t) => math.sin(math.pi * t / seconds),
+        ),
+        1.4,
+      ),
+    );
+  // Wheels over the rail joints.
+  for (var t = 0.8; t < seconds - 0.8; t += 0.42) {
+    final loud = math.sin(math.pi * t / seconds);
+    b
+      ..add(lowpass(footstep(rng), (_) => 300), at: t, gain: 0.8 * loud)
+      ..add(lowpass(footstep(rng), (_) => 300), at: t + 0.09, gain: 0.7 * loud);
+  }
+  return reverb(b, size: 0.8, mix: 0.35);
+}
+
 final sfx = <String, Buf Function()>{
+  'footsteps_away': footstepsAway,
+  'police_whistle': policeWhistle,
+  'train_arch': trainArch,
   'bronze_pour': bronzePour,
   'great_bell': greatBell,
   'striker_creak': strikerCreak,
@@ -1530,7 +1591,34 @@ Buf gyeongjuNight() => loop(48, (seconds) {
   return reverb(b, size: 0.85, mix: 0.45, damp: 0.5);
 });
 
+/// Whitechapel 1891: the fog's drone again, colder, with rain, and a
+/// train passing over an arch, far off, once a loop.
+Buf whitechapel1891() => loop(48, (seconds) {
+  final rng = math.Random(28);
+  final b = Buf(seconds)
+    ..add(
+      drone(seconds, loopSeconds: 48, const [
+        (69.3, 0.45, 24),
+        (103.8, 0.26, 16),
+        (164.8, 0.1, 12),
+      ]),
+      gain: 0.42,
+    );
+  final rain = shape(
+    highpass(noise(seconds, rng), 2200),
+    (t) => 0.5 + 0.2 * math.sin(tau * t / 12),
+  );
+  b.add(gain(rain, 0.05));
+  final train = shape(
+    lowpass(brown(8, rng), (_) => 140),
+    (t) => math.sin(math.pi * t / 8),
+  );
+  b.add(gain(train, 0.5), at: 26, pan: 0.4);
+  return reverb(b, size: 0.9, mix: 0.4, damp: 0.55);
+});
+
 final music = <String, Buf Function()>{
+  'whitechapel_1891': whitechapel1891,
   'gyeongju_night': gyeongjuNight,
   'bastille_dawn': bastilleDawn,
   'pompeii_ash': pompeiiAsh,
@@ -2032,7 +2120,42 @@ Buf pourSound() {
   return reverb(b, size: 0.3, mix: 0.15);
 }
 
+/// A metal sort dropped into the composing stick: a small bright click.
+Buf typeSortSound() {
+  final rng = math.Random(59);
+  final b = Buf(0.3)
+    ..add(
+      modal(0.2, 2900, const [
+        (1, 1, 0.02),
+        (2.4, 0.5, 0.012),
+        (4.2, 0.3, 0.008),
+      ]),
+      gain: 0.7,
+    )
+    ..add(gain(click(rng, centre: 5200, time: 0.0015), 0.8));
+  return reverb(b, size: 0.15, mix: 0.1);
+}
+
+/// A gas lamp gutters: a soft hiss that dips and comes back.
+Buf lampGutterSound() {
+  final rng = math.Random(60);
+  const seconds = 0.9;
+  final b = Buf(seconds)
+    ..add(
+      gain(
+        shape(
+          bandpass(noise(seconds, rng), (_) => 1800, 0.8),
+          (t) => 0.3 + 0.7 * (1 - math.sin(math.pi * t / seconds)),
+        ),
+        0.35,
+      ),
+    );
+  return reverb(b, size: 0.2, mix: 0.1);
+}
+
 final ui = <String, Buf Function()>{
+  'type_sort': typeSortSound,
+  'lamp_gutter': lampGutterSound,
   'pour': pourSound,
   'bell_strike': bellStrikeSound,
   'beat_steady': () => beatRimSound(0.15, 55),

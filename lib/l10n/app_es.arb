@@ -107,5 +107,15 @@
   "resonanceShort": "El tañido se apaga antes de la marca.",
   "beatInstruction": "Golpea el borde. Busca dónde el tañido crece y mengua más hondo, y márcalo.",
   "beatMark": "Marcar este lugar",
-  "beatWrong": "Aquí no: en otro sitio crece más hondo."
+  "beatWrong": "Aquí no: en otro sitio crece más hondo.",
+  "docketHeader": "Policía Metropolitana",
+  "docketSubheader": "Departamento de Investigación Criminal",
+  "unwatchedInstruction": "Aparta la vista y vuelve a mirar.",
+  "unwatchedFind": "Hay algo nuevo en el estante. Encuéntralo.",
+  "unwatchedWrong": "Ese ya estaba ahí.",
+  "unwatchedLookAway": "Apartar la vista",
+  "unwatchedProgress": "Expedientes nuevos: {found} de {total}",
+  "composeInstruction": "Compón su nombre con la caja de tipos. Los tipos están tallados en espejo.",
+  "composeTakeOut": "Sacar",
+  "composeWrong": "La prueba sale mal en algún sitio."
 }

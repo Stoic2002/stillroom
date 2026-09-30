@@ -41,7 +41,7 @@ data, so later tales arrive in updates.
 |---|---|
 | I (2) | *Whitechapel, 1888* ✓, *Semarang, 1945* ✓ |
 | II (4) | *Flannan Isles, 1900* ✓, *Pompeii, 79* ✓, *Bastille, 1703* ✓ (Western Europe), *Gyeongju, 771* ✓ (Korea) |
-| III (4) | **Whitechapel, 1891** (series), **The death of the Guangxu Emperor, Beijing, 1908** (China), **Alamut, 1256** (Middle East), **Great Zimbabwe, 1871** (Africa) |
+| III (4) | *Whitechapel, 1891* ✓ (series), **The death of the Guangxu Emperor, Beijing, 1908** (China), **Alamut, 1256** (Middle East), **Great Zimbabwe, 1871** (Africa) |
 | IV (5) | **Dyatlov Pass, 1959** (Eastern Europe), **Honnō-ji, Kyoto, 1582** (Japan), **Roanoke, 1590** (the Americas), **The Franklin expedition, 1845** (the Arctic), *one Indonesian tale, to be chosen* |
 | V (1) | The old keeper's own tale (arc OPEN) |
 
@@ -76,7 +76,7 @@ How difficulty rises from shelf to shelf:
 | Length | 8–10 beats | 10–12 beats, parallel branches |
 
 Current placement: *Whitechapel, 1888* (shelf I, the easiest, doubling as the
-tutorial); *Semarang, 1945* (shelf I, opens after Whitechapel; a step up: clues across three eras); *Flannan Isles, 1900*, *Pompeii, 79*, *Bastille, 1703* and *Gyeongju, 771* (shelf II, open after two tales; the shelf is full). Shelf III opens after four.
+tutorial); *Semarang, 1945* (shelf I, opens after Whitechapel; a step up: clues across three eras); *Flannan Isles, 1900*, *Pompeii, 79*, *Bastille, 1703* and *Gyeongju, 771* (shelf II, open after two tales; the shelf is full). Shelf III opens after four: *Whitechapel, 1891*, and a sealed teaser jar (`sealed_guangxu_1908`) for the tales still to come.
 
 ## Signature mechanics (decided 2026-09-26)
 
@@ -94,7 +94,8 @@ Case of the Golden Idol*, Strange Horticulture):
   note stays on the shelf. The notes are drafts; their arc is the
   developer's (OPEN).
 
-Later shelves can add more: E (a room that changes when not watched). F
+E (a room that changes when not watched) arrived with *Whitechapel,
+1891*: the file shelf that grows while the player looks away. F
 (listening) arrived with Flannan v2: the swell, whose great sea is heard
 coming (and seen, and felt). D (light and dark) arrived with *Flannan Isles, 1900*
 on shelf II: dark scenes searched by lantern light, plus the crank. C (a
@@ -115,6 +116,7 @@ own hardest puzzle; higher shelves have more puzzles, chained together.
 | *Semarang, 1945* | Doors into other years; code locks (the station clock, the locker room); the timetable and the telegraph in order; the stained-glass rings; the lockers | A telegram of two lines: the doors counted, the day, how many did not come home |
 | *Flannan Isles, 1900* | Dark scenes by lantern light; the clockwork crank; the beam turning over the island, showing things only while it passes; down the landing steps between the waves (the swell); the roster of who went, how, and when | A seal: the legend's sentence, three words corrected |
 | *Pompeii, 79* | The lens between eras, turned through the hours of the last day; pieces laid and turned into place (the shrine's painted panel, the child's drawing); marks read by raking light | A seal of three words, pinned to the diggers' cut |
+| *Whitechapel, 1891* | The file that grows when no one is looking: turn away and back, and find the new file on the shelf (`unwatched`, the long-planned **E**); her name set in mirrored type from a compositor's case, where some sorts are cut the wrong way (`compose`) | A seal of three words on the file's cover (`docket`) |
 | *Gyeongju, 771* | Bronze routed from three furnaces into the mould (`pour`); the log striker and the hollow under the bell, dug until the ring lasts (`resonance`); the rim struck all round to find where the ring swells deepest, the "cry" that is a beat (`beat`) | A seal of three words taken as an ink rubbing from the bronze (`rubbing`) |
 | *Bastille, 1703* | The turnkey's ring: find the one key whose bit matches the keyhole, and turn it the right way (`keyring`); the king's Great Cipher read with Bazeries's worksheet, two numbers left unread (`cipher`); the prisoner's file sorted into what was written at the time and what was told after (`sources`) | A seal of three words on a blank royal order (`order`) |
 
@@ -140,6 +142,8 @@ no names and no faces, so no real person is ever given invented features:
 - *Bastille:* a turnkey with a lantern in the court and on the tower
   stair; in the cell, the prisoner, a dark band across his blank face
   where the mask was. He is never shown with a face.
+- *Whitechapel 1891:* the constable with a lantern at the arch; a
+  compositor at the type case. No woman is shown.
 - *Gyeongju:* a founder with a long ladle by the casting pit; a monk in
   the hall and at the pavilion. The legend's child and mother are never
   drawn, echoed, or voiced.
@@ -160,6 +164,8 @@ and season:
   puffins or thrift, which are summer's.
 - *Bastille* is about the people, in November: weeds between the cobbles
   of the court, and rats on the tower stair and in the cell.
+- *Whitechapel 1891* is a February night of rain: a rat under the arch,
+  moths at the gas in the station and the file room.
 - *Gyeongju* is a midwinter night: frosted grass in the temple yard, a rat
   in the founders' shed, falling snow.
 
@@ -168,7 +174,7 @@ and season:
 | Where | What |
 |---|---|
 | Main menu | Title, tagline: "Every jar keeps a tale that must not be forgotten." Behind it, the living Stillroom (`LobbyScene`): glowing jars (one stirs now and then), a clock whose pendulum swings but whose hands never move, drying herbs, a candle with a moth and dust in its light; music `stillroom_menu` |
-| Map of tales | "New Game" opens an old parchment chart of the world, with a brass pin where each tale happened (a wax-red pin once distilled, grey and locked until its shelf opens, the keeper's star when its secret is found). Pinch to zoom; pins keep their size and labels dodge each other |
+| Map of tales | "New Game" opens an old parchment chart of the world, with a brass pin where each tale happened (a wax-red pin once distilled, grey and locked until its shelf opens, the keeper's star when its secret is found). Pinch to zoom; pins keep their size; each label goes below or above its pin, wherever it covers no other label or pin, and one with no room is hidden until the chart is zoomed in (pins on one spot, like the two Whitechapel jars, take turns) |
 | Episode picker | Tiered shelves (`episodes.json`): playable jars, locked jars on shelves not reached yet, sealed jars for tales still to come, wax seals on finished tales, series ribbons |
 | Ending screen | "The tale is distilled" |
 
@@ -195,7 +201,7 @@ final episode. Details are open.
 | `lawang_sewu_1945` | Semarang, 1945 | Built, draft text, code-drawn art (shelf I, opens after 1 tale) | [episodes/lawang_sewu_1945.md](episodes/lawang_sewu_1945.md) |
 | `flannan_isles_1900` | Flannan Isles, 1900 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). Dark scenes, crank, legend as red herrings | [episodes/flannan_isles_1900.md](episodes/flannan_isles_1900.md) |
 | `pompeii_79` | Pompeii, 79 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). Lens between eras, tracing sheets, legend as red herrings | [episodes/pompeii_79.md](episodes/pompeii_79.md) |
-| `whitechapel_1891` | Whitechapel, 1891 | Design draft, awaiting approval (shelf III, series whitechapel; replaces the sealed jar) | [episodes/whitechapel_1891.md](episodes/whitechapel_1891.md) |
+| `whitechapel_1891` | Whitechapel, 1891 | Built, draft text, code-drawn art (shelf III, series whitechapel, opens after 4 tales). The file that grows, her name set in type; "Jack the Ripper" and "five" as red herrings | [episodes/whitechapel_1891.md](episodes/whitechapel_1891.md) |
 | `gyeongju_771` | Gyeongju, 771 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). The pour, the hollow, the beat; the child legend, Seoul and 1925 as red herrings | [episodes/gyeongju_771.md](episodes/gyeongju_771.md) |
 | `bastille_1703` | Bastille, 1703 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). Key ring, Great Cipher, the file of sources; Voltaire, Dumas and Bazeries as red herrings | [episodes/bastille_1703.md](episodes/bastille_1703.md) |
 | *(planned)* | The other nine new tales | See *The full shelf* above | — |

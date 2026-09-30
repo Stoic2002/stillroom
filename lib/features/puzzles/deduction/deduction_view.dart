@@ -101,6 +101,7 @@ class _DeductionViewState extends State<DeductionView>
       DeductionForm.table => _table(context, sentenceStyle),
       DeductionForm.order => _order(context, sentenceStyle),
       DeductionForm.rubbing => _rubbing(context, sentenceStyle),
+      DeductionForm.docket => _docket(context, sentenceStyle),
       DeductionForm.board => const SizedBox.shrink(),
     };
 
@@ -321,6 +322,69 @@ class _DeductionViewState extends State<DeductionView>
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  /// The cover sheet of a police file: printed headings, a register
+  /// stamp, the entry written in by hand in dark ink.
+  Widget _docket(BuildContext context, TextStyle style) {
+    final l10n = AppLocalizations.of(context);
+    final print = style.copyWith(
+      fontFamily: AppTheme.smallCaps,
+      color: const Color(0xFF2A2420),
+    );
+    final hand = style.copyWith(
+      fontStyle: FontStyle.italic,
+      height: 1.7,
+      color: const Color(0xFF1A2438),
+    );
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: const Color(0xFFD9C9A0),
+        border: Border.all(color: const Color(0xFF8A7448), width: 1.2),
+        boxShadow: const [BoxShadow(blurRadius: 18, color: Color(0xAA000000))],
+      ),
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(24, 10, 24, 16),
+            child: Column(
+              children: [
+                Text(
+                  l10n.docketHeader,
+                  textAlign: TextAlign.center,
+                  style: print.copyWith(fontSize: 20, letterSpacing: 2),
+                ),
+                Text(
+                  l10n.docketSubheader,
+                  textAlign: TextAlign.center,
+                  style: print.copyWith(fontSize: 13),
+                ),
+                const Divider(color: Color(0x888A7448), height: 14),
+                for (final (i, sentence) in _config.sentences.indexed)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 2),
+                    child: Text.rich(
+                      TextSpan(
+                        style: hand,
+                        children: _sentence(context, i, sentence),
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          const Positioned(
+            right: 12,
+            top: 8,
+            child: SizedBox.square(
+              dimension: 42,
+              child: CustomPaint(painter: _RegisterStamp()),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -592,6 +656,28 @@ class _InkRubbing extends CustomPainter {
 
   @override
   bool shouldRepaint(_InkRubbing old) => false;
+}
+
+/// A round register stamp in faded violet ink, a bar across it.
+class _RegisterStamp extends CustomPainter {
+  const _RegisterStamp();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final c = size.center(Offset.zero);
+    final r = size.shortestSide / 2;
+    final ink = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = r * 0.08
+      ..color = const Color(0x996A4A8A);
+    canvas
+      ..drawCircle(c, r * 0.92, ink)
+      ..drawCircle(c, r * 0.7, ink)
+      ..drawLine(c.translate(-r * 0.7, 0), c.translate(r * 0.7, 0), ink);
+  }
+
+  @override
+  bool shouldRepaint(_RegisterStamp old) => false;
 }
 
 /// A red wax seal with a lily pressed into it.

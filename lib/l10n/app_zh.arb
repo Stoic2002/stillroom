@@ -107,5 +107,15 @@
   "resonanceShort": "余音在标记前就消失了。",
   "beatInstruction": "敲击钟口。找出余音起伏最深的地方，做上记号。",
   "beatMark": "在这里做记号",
-  "beatWrong": "不是这里：别处起伏更深。"
+  "beatWrong": "不是这里：别处起伏更深。",
+  "docketHeader": "伦敦警察厅",
+  "docketSubheader": "刑事调查部",
+  "unwatchedInstruction": "移开视线，再看回来。",
+  "unwatchedFind": "架子上多了点什么。找出来。",
+  "unwatchedWrong": "那一份本来就在。",
+  "unwatchedLookAway": "移开视线",
+  "unwatchedProgress": "找到的新卷宗：{found} / {total}",
+  "composeInstruction": "从字盘里排出她的名字。铅字是反着刻的。",
+  "composeTakeOut": "取出",
+  "composeWrong": "校样有地方不对。"
 }

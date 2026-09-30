@@ -1,0 +1,41 @@
+{
+  "id": "compose",
+  "type": "compose",
+  "background": "images/scenes/whitechapel_1891/case_board.png",
+  "config": {
+    "text": "FRANCES COLES",
+    "reversed": [
+      "R",
+      "N",
+      "C",
+      "S",
+      "L"
+    ],
+    "extra": [
+      "P",
+      "D",
+      "B"
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "page_turn"
+    },
+    {
+      "type": "showText",
+      "key": "whitechapel_1891.press.name_set"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.whitechapel_1891.compose.1"
+    },
+    {
+      "key": "hint.whitechapel_1891.compose.2"
+    },
+    {
+      "key": "hint.whitechapel_1891.compose.3"
+    }
+  ]
+}
