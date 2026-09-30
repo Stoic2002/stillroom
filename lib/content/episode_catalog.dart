@@ -104,7 +104,7 @@ final class EpisodeEntry {
 /// Which jars the player may open, given the tales they have distilled.
 /// Pure logic, so the rules are testable apart from the UI.
 final class ShelfProgress {
-  ShelfProgress(this.catalog, Set<String> completed)
+  ShelfProgress(this.catalog, Set<String> completed, {this.unlockAll = false})
     : distilled = catalog
           .where((e) => e.playable && !e.debugOnly && completed.contains(e.id))
           .length;
@@ -114,11 +114,15 @@ final class ShelfProgress {
   /// Finished tales that count towards unlocking (debug jars don't).
   final int distilled;
 
-  bool isUnlocked(EpisodeEntry entry) => distilled >= entry.unlockAfter;
+  /// Every jar is open, for the developer's test runs.
+  final bool unlockAll;
+
+  bool isUnlocked(EpisodeEntry entry) =>
+      unlockAll || distilled >= entry.unlockAfter;
 
   /// Tales still to distil before [entry] opens.
   int remaining(EpisodeEntry entry) =>
-      math.max(0, entry.unlockAfter - distilled);
+      unlockAll ? 0 : math.max(0, entry.unlockAfter - distilled);
 
   /// Shelves from the top (hardest) down, each in catalog order.
   List<(int, List<EpisodeEntry>)> get shelvesTopDown {

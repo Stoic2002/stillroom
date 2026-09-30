@@ -14,6 +14,9 @@ works, what the game is, where things stand, and what comes next.
   trying, give them this command, and say when a full restart or "New
   Game" is needed:
   `fvm flutter run --release -d RRCY201XN5H`
+  To check a tale without finishing the shelves below it, add
+  `--dart-define=STILLROOM_UNLOCK_ALL=true`: every jar opens
+  (`lib/debug/tester_flags.dart`). A build without it plays normally.
 - **Check your work with:**
   - `fvm dart format lib test`, then `fvm dart fix --apply` (directive
     order);

@@ -58,6 +58,14 @@ void main() {
       expect(progress.isUnlocked(byId('hard')), isFalse);
     });
 
+    test('unlockAll opens every jar, whatever is distilled', () {
+      final progress = ShelfProgress(catalog, {}, unlockAll: true);
+      expect(progress.isUnlocked(byId('mid')), isTrue);
+      expect(progress.isUnlocked(byId('hard')), isTrue);
+      expect(progress.remaining(byId('hard')), 0);
+      expect(progress.distilled, 0);
+    });
+
     test('shelves are listed top (hardest) down, jars in catalog order', () {
       final shelves = ShelfProgress(catalog, {}).shelvesTopDown;
       expect(shelves.map((s) => s.$1), [3, 2, 1]);

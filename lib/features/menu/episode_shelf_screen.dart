@@ -6,6 +6,7 @@ import '../../content/episode_catalog.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/theme/stillroom_palette.dart';
 import '../../core/widgets/atmosphere.dart';
+import '../../debug/tester_flags.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../../state/content_providers.dart';
 import '../../state/save_repository.dart';
@@ -31,7 +32,7 @@ class EpisodeShelfScreen extends ConsumerWidget {
     final progress = ShelfProgress(catalog, {
       for (final e in catalog)
         if (save.isCompleted(e.id)) e.id,
-    });
+    }, unlockAll: unlockAllJars);
 
     String text(String key) => contentText(strings, language, key);
 
