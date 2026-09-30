@@ -190,6 +190,7 @@ final episode. Details are open.
 | `flannan_isles_1900` | Flannan Isles, 1900 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). Dark scenes, crank, legend as red herrings | [episodes/flannan_isles_1900.md](episodes/flannan_isles_1900.md) |
 | `pompeii_79` | Pompeii, 79 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). Lens between eras, tracing sheets, legend as red herrings | [episodes/pompeii_79.md](episodes/pompeii_79.md) |
 | `sealed_whitechapel_1891` | Sealed jar (shelf III, series whitechapel) | Idea: the six other names in the police file | — |
+| `gyeongju_771` | Gyeongju, 771 | Design draft, awaiting approval (shelf II) | [episodes/gyeongju_771.md](episodes/gyeongju_771.md) |
 | `bastille_1703` | Bastille, 1703 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). Key ring, Great Cipher, the file of sources; Voltaire, Dumas and Bazeries as red herrings | [episodes/bastille_1703.md](episodes/bastille_1703.md) |
 | *(planned)* | The other nine new tales | See *The full shelf* above | — |
 | `test_room` | Test room | Debug builds only | Feature test room |

@@ -105,10 +105,11 @@ with a legend to set right. The lineup, by shelf and region, is in
 
 ## Next steps (in this order)
 
-1. **Wait for the developer's feedback on *Bastille, 1703*** (built
-   2026-09-30; the developer tests it on the phone), and fix what they
-   report. Flannan v2 was reviewed and found good. Things to watch in the
-   Bastille (also in `docs/episodes/bastille_1703.md`):
+1. **Wait for the developer's approval of *Gyeongju, 771*** (the Emille
+   Bell, `docs/episodes/gyeongju_771.md`: its three mechanics, the
+   `rubbing` seal, the legend kept to later papers), then build it.
+   The Bastille was tested and found good ("lumayan bagus"); still worth
+   watching (also in `docs/episodes/bastille_1703.md`):
    - whether the second door's "turn it over" is found without the last
      hint (`puzzles/door_upper.json`);
    - whether the worksheet is easy to search on the phone
