@@ -27,6 +27,9 @@ class MapScreen extends ConsumerStatefulWidget {
   /// Width : height of the chart (equirectangular, 360° by 142°).
   static const aspect = 360 / (WorldMap.north - WorldMap.south);
 
+  /// How far the chart can be zoomed in.
+  static const maxZoom = 6.0;
+
   @override
   ConsumerState<MapScreen> createState() => _MapScreenState();
 }
@@ -139,7 +142,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                       viewport.width / chart.width,
                       viewport.height / chart.height,
                     ),
-                    maxScale: 6,
+                    maxScale: MapScreen.maxZoom,
                     child: SizedBox.fromSize(
                       size: chart,
                       child: Stack(
@@ -219,7 +222,6 @@ class _PositionedPin extends StatelessWidget {
   /// Every pin's point, so labels can dodge each other.
   final List<Offset> all;
 
-  Offset get at => all[index];
   final TransformationController transform;
   final Widget Function(_LabelPlace place) pin;
 
@@ -233,12 +235,47 @@ class _PositionedPin extends StatelessWidget {
   /// About how tall a pin's label is on screen.
   static const labelHeight = 24.0;
 
+  /// Space between the heads of pins moved apart by [spreadAt].
+  static const spreadGap = 6.0;
+
+  /// Where each pin is shown at [scale]. Pins on one spot, whose heads
+  /// would overlap even at the chart's closest zoom (a series in one city:
+  /// the two Whitechapel jars lie less than a mile apart), are set side by
+  /// side, in list order, centred on the spot they share. Pins that only
+  /// crowd at a far zoom stay where they are and part as the chart is
+  /// zoomed in.
+  static List<Offset> spreadAt(List<Offset> all, double scale) {
+    final group = List<int>.generate(all.length, (i) => i);
+    int root(int i) => group[i] == i ? i : group[i] = root(group[i]);
+    for (var i = 0; i < all.length; i++) {
+      for (var j = i + 1; j < all.length; j++) {
+        if ((all[i] - all[j]).distance * MapScreen.maxZoom < head + spreadGap) {
+          group[root(j)] = root(i);
+        }
+      }
+    }
+    final shown = List<Offset>.of(all);
+    final members = <int, List<int>>{};
+    for (var i = 0; i < all.length; i++) {
+      members.putIfAbsent(root(i), () => []).add(i);
+    }
+    for (final m in members.values.where((m) => m.length > 1)) {
+      final centre =
+          m.fold(Offset.zero, (sum, i) => sum + all[i]) / m.length.toDouble();
+      for (final (k, i) in m.indexed) {
+        final dx = (k - (m.length - 1) / 2) * (head + spreadGap) / scale;
+        shown[i] = centre + Offset(dx, 0);
+      }
+    }
+    return shown;
+  }
+
   /// Where pin [i]'s label goes at [scale]. Pins are placed in list order.
   /// A label goes below its head, or above, where it covers neither a
   /// label already placed nor another pin; failing that, where it covers
   /// no label; failing that it is hidden until the chart is zoomed in (the
-  /// pin still opens its jar). Pins on one spot, a series in one city,
-  /// thus take turns.
+  /// pin still opens its jar). [all] are the points as shown
+  /// ([spreadAt]), so pins set side by side take turns above and below.
   static _LabelPlace labelPlaceAt(List<Offset> all, int i, double scale) {
     Rect label(Offset at, _LabelPlace place) {
       final p = at * scale;
@@ -284,7 +321,9 @@ class _PositionedPin extends StatelessWidget {
       animation: transform,
       builder: (context, _) {
         final scale = transform.value.getMaxScaleOnAxis();
-        final place = labelPlaceAt(all, index, scale);
+        final shown = spreadAt(all, scale);
+        final at = shown[index];
+        final place = labelPlaceAt(shown, index, scale);
         final headY = place == _LabelPlace.above ? height - head / 2 : head / 2;
         final k = 1 / scale;
         return Positioned(

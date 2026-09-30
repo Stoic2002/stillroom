@@ -156,6 +156,32 @@ void main() {
       expect(find.byKey(const ValueKey('pin_test_room')), findsNothing);
     });
 
+    testWidgets('two pins on one spot stand side by side, both tappable', (
+      tester,
+    ) async {
+      await pumpApp(tester);
+      await tester.tap(find.text('New Game'));
+      await tester.pumpAndSettle();
+      Rect head(String id) => tester.getRect(
+        find.descendant(
+          of: find.byKey(ValueKey('pin_$id')),
+          matching: find.byWidgetPredicate(
+            (w) =>
+                w is Container &&
+                w.decoration is BoxDecoration &&
+                (w.decoration! as BoxDecoration).shape == BoxShape.circle,
+          ),
+        ),
+      );
+      final first = head('whitechapel_1888');
+      final second = head('whitechapel_1891');
+      expect(first.overlaps(second), isFalse);
+      expect((first.center.dy - second.center.dy).abs(), lessThan(1));
+      await tester.tapAt(second.center);
+      await tester.pumpAndSettle();
+      expect(find.text('Not yet'), findsOneWidget);
+    });
+
     testWidgets('a pin opens its jar; a locked one says not yet', (
       tester,
     ) async {

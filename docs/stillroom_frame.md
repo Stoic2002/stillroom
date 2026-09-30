@@ -180,7 +180,7 @@ and season:
 | Where | What |
 |---|---|
 | Main menu | Title, tagline: "Every jar keeps a tale that must not be forgotten." Behind it, the living Stillroom (`LobbyScene`): glowing jars (one stirs now and then), a clock whose pendulum swings but whose hands never move, drying herbs, a candle with a moth and dust in its light; music `stillroom_menu` |
-| Map of tales | "New Game" opens an old parchment chart of the world, with a brass pin where each tale happened (a wax-red pin once distilled, grey and locked until its shelf opens, the keeper's star when its secret is found). Pinch to zoom; pins keep their size; each label goes below or above its pin, wherever it covers no other label or pin, and one with no room is hidden until the chart is zoomed in (pins on one spot, like the two Whitechapel jars, take turns) |
+| Map of tales | "New Game" opens an old parchment chart of the world, with a brass pin where each tale happened (a wax-red pin once distilled, grey and locked until its shelf opens, the keeper's star when its secret is found). Pinch to zoom; pins keep their size; each label goes below or above its pin, wherever it covers no other label or pin, and one with no room is hidden until the chart is zoomed in (pins on one spot, like the two Whitechapel jars, stand side by side) |
 | Episode picker | Tiered shelves (`episodes.json`): playable jars, locked jars on shelves not reached yet, sealed jars for tales still to come, wax seals on finished tales, series ribbons |
 | Ending screen | "The tale is distilled" |
 
