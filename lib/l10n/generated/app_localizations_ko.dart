@@ -430,7 +430,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get strandSteady => '여러 해에 걸쳐 고르게';
 
   @override
-  String get strandPeak => '날카로운 봉우리 하나';
+  String get strandPeak => '날카로운 봉우리들';
 
   @override
   String get strandCurveWrong => '가장 높은 값 주변을 다시 보자.';

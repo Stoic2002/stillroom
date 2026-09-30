@@ -864,10 +864,10 @@ abstract class AppLocalizations {
   /// **'Steady, over years'**
   String get strandSteady;
 
-  /// Answer: the readings rise to one sharp peak (acute).
+  /// Answer: the readings rise to sharp peaks (a great dose at once).
   ///
   /// In en, this message translates to:
-  /// **'One sharp peak'**
+  /// **'Sharp peaks'**
   String get strandPeak;
 
   /// Hair-strand puzzle: wrong answer to the curve question.

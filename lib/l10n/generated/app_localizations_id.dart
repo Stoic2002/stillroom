@@ -451,7 +451,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get strandSteady => 'Merata, bertahun-tahun';
 
   @override
-  String get strandPeak => 'Satu puncak tajam';
+  String get strandPeak => 'Puncak-puncak tajam';
 
   @override
   String get strandCurveWrong => 'Lihat lagi bacaan di sekitar yang tertinggi.';

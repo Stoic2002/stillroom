@@ -451,7 +451,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get strandSteady => 'Steady, over years';
 
   @override
-  String get strandPeak => 'One sharp peak';
+  String get strandPeak => 'Sharp peaks';
 
   @override
   String get strandCurveWrong =>

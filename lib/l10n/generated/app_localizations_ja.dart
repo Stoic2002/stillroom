@@ -428,7 +428,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get strandSteady => '何年にもわたって一定';
 
   @override
-  String get strandPeak => '鋭い山がひとつ';
+  String get strandPeak => '鋭い山がいくつか';
 
   @override
   String get strandCurveWrong => 'いちばん高い値のまわりをもう一度見よう。';

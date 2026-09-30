@@ -461,7 +461,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get strandSteady => 'Ровно, годами';
 
   @override
-  String get strandPeak => 'Один резкий пик';
+  String get strandPeak => 'Резкие пики';
 
   @override
   String get strandCurveWrong =>

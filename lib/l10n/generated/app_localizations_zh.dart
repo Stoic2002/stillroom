@@ -428,7 +428,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get strandSteady => '多年平稳';
 
   @override
-  String get strandPeak => '一个陡峭的峰';
+  String get strandPeak => '陡峭的峰值';
 
   @override
   String get strandCurveWrong => '再看看最高那段周围的读数。';
