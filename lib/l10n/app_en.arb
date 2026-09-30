@@ -338,5 +338,34 @@
   "rakingLightInstruction": "Move the lamp round the tablet, close and low.",
   "@rakingLightInstruction": {
     "description": "How to play the raking-light puzzle: move a lamp round a surface"
+  },
+  "beamSweepInstruction": "Watch the beam. Tap what it shows while it is lit.",
+  "@beamSweepInstruction": {
+    "description": "How to play the beam puzzle: tap things while the turning lighthouse beam lights them."
+  },
+  "beamSweepMiss": "Too dark there. Wait for the beam.",
+  "@beamSweepMiss": {
+    "description": "Shown when the player taps a target in the beam puzzle while it is dark."
+  },
+  "swellInstruction": "Tap to go down a step. Watch the sea, and listen.",
+  "@swellInstruction": {
+    "description": "How to play the swell puzzle: step down to the sea between the waves."
+  },
+  "swellCaught": "The sea drives you back up the steps.",
+  "@swellCaught": {
+    "description": "Shown when a wave catches the player in the swell puzzle and sends them back to the top."
+  },
+  "rosterInstruction": "Tap a box to change it.",
+  "@rosterInstruction": {
+    "description": "How to play the roster puzzle: tap cells to change them."
+  },
+  "rosterWrong": "{count, plural, =1{One row does not fit what you found.} other{{count} rows do not fit what you found.}}",
+  "@rosterWrong": {
+    "description": "Shown when the roster board is full but some rows are wrong.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

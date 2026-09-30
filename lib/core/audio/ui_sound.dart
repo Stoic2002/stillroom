@@ -63,7 +63,13 @@ enum UiSound {
   rub('rub', Haptic.none),
 
   /// The lens between eras is raised or lowered.
-  lens('lens', Haptic.light);
+  lens('lens', Haptic.light),
+
+  /// A small wave breaks on the landing steps.
+  wave('wave', Haptic.none),
+
+  /// A great sea draws back and breaks over every step.
+  greatSea('great_sea', Haptic.medium);
 
   const UiSound(this.id, this.haptic);
 

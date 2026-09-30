@@ -80,5 +80,11 @@
   "telegramStop": "STOP",
   "clockHandsInstruction": "Arrastra las agujas alrededor de la esfera.",
   "threadInstruction": "Tiende el hilo de alfiler en alfiler.",
-  "rakingLightInstruction": "Mueve la lucerna alrededor de la tablilla, cerca y baja."
+  "rakingLightInstruction": "Mueve la lucerna alrededor de la tablilla, cerca y baja.",
+  "beamSweepInstruction": "Mira el haz. Toca lo que muestra mientras esté iluminado.",
+  "beamSweepMiss": "Ahí está demasiado oscuro. Espera al haz.",
+  "swellInstruction": "Toca para bajar un escalón. Mira el mar y escucha.",
+  "swellCaught": "El mar te hace subir de nuevo los escalones.",
+  "rosterInstruction": "Toca una casilla para cambiarla.",
+  "rosterWrong": "{count, plural, =1{Una fila no cuadra con lo que encontraste.} other{{count} filas no cuadran con lo que encontraste.}}"
 }

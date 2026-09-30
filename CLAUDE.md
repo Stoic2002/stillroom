@@ -66,7 +66,7 @@ player restores the truth of the tale and seals the jar.
 |---|---|---|---|
 | I | *Whitechapel, 1888* | Clock-face lock (`clockHands`), red thread on a map (`thread`), fog and ash wiped (`reveal`), a magnifier | `table`: five frames, 10 blanks (still long) |
 | I | *Semarang, 1945* (Lawang Sewu) | Doors into other years, `codeLock`, `sequence` (timetable, telegraph), `rotaryAlign` (stained glass), `slotPlacement` (lockers) | `telegram`, 7 blanks (still long) |
-| II | *Flannan Isles, 1900* | Dark scenes by lantern light, `crank` | `correction`: the legend's account, 4 words wrong (still long) |
+| II | *Flannan Isles, 1900* | Dark scenes by lantern light, `crank`, the beam over the island (`beamSweep`), the landing steps between waves (`swell`), who went how and when (`roster`) | `correction` **seal**: one sentence, 3 words wrong |
 | II | *Pompeii, 79* | Lens between eras **by the hour** (`lensHours`), `overlay` (fresco jigsaw, tracing sheets), `rakingLight` (wax tablets) | `board` **seal of 3 words** (the new standard) |
 
 Shelf III holds a sealed teaser jar, *Whitechapel, 1891*, which opens
@@ -100,23 +100,19 @@ own tale; its arc is OPEN.
 
 ## Next steps (in this order)
 
-1. **Wait for the developer's feedback on Pompeii v2** (tested on the
-   phone), and fix what they report. Things to watch:
-   - whether the hour tag beside the lens button is easy to find;
-   - how the raking-light lamp feels under a finger;
-   - whether the fresco is too easy, since its faint underdrawing is a
-     strong guide.
-2. **Rework Flannan the same way** (the developer chose "Pompeii first,
-   then Flannan"):
-   - It now has only dark scenes and the crank, which is too thin for
-     shelf II.
-   - Add 2–3 new Flannan-only mechanics, chained into 8–10 beats. Earlier
-     idea: *listening to the sea*, a sound puzzle (mechanic F), such as
-     judging the waves by ear before going down to the west landing.
-   - Turn its label into a short seal.
-3. **Short seals for Whitechapel and Semarang** (1–2 sentences each, 2–3
+1. **Wait for the developer's feedback on Flannan v2** (built
+   2026-09-30; the developer tests it on the phone), and fix what they
+   report. Pompeii v2 was tested and found good; its art and Flannan's
+   were redrawn so objects read at a glance. Things to watch in Flannan:
+   - whether the beam is too quick to catch things in (`period`, `spread`
+     in `puzzles/beam.json`);
+   - whether the swell is fair: the great sea's roar and draw-back should
+     be enough warning (`pattern`, `interval`, `stepSeconds`);
+   - whether the roster's clues (log margin, hooks, landing) are enough to
+     work it out without the last hint.
+2. **Short seals for Whitechapel and Semarang** (1–2 sentences each, 2–3
    blanks). Their forms (`table`, `telegram`) can stay if short, or change.
-4. Later, and to be asked first:
+3. Later, and to be asked first:
    - episode 5 for shelf III (*Whitechapel, 1891*, or another tale, with
      new mechanics, e.g. E: a room that changes when not watched);
    - the keeper's arc (OPEN);
@@ -141,6 +137,9 @@ own tale; its arc is OPEN.
   other sheet covers: the last-touched sheet lies on top.
 - **Pan gestures:** a drag's first movement is swallowed by the slop, so
   views react in `onPanDown` and `onPanStart` too (see `thread_view.dart`).
+- **A cloud session has no FVM:** install Flutter 3.41.7 from the release
+  archive (and `ffmpeg` for `tool/audio/generate_audio.dart`) to run the
+  checks; the developer still does every build.
 - **Python heredocs that write strings:** write `\"` for a quote inside a
   JSON value, never `\\"`.
 

@@ -80,5 +80,11 @@
   "telegramStop": "",
   "clockHandsInstruction": "바늘을 끌어 문자판을 돌리세요.",
   "threadInstruction": "핀에서 핀으로 실을 이으세요.",
-  "rakingLightInstruction": "등잔을 판 둘레로, 낮고 가깝게 움직이세요."
+  "rakingLightInstruction": "등잔을 판 둘레로, 낮고 가깝게 움직이세요.",
+  "beamSweepInstruction": "빛줄기를 지켜보세요. 빛이 비추는 동안 보이는 것을 누르세요.",
+  "beamSweepMiss": "거기는 너무 어둡습니다. 빛이 오기를 기다리세요.",
+  "swellInstruction": "누르면 한 계단 내려갑니다. 바다를 보고, 귀를 기울이세요.",
+  "swellCaught": "바다가 당신을 계단 위로 도로 밀어 올립니다.",
+  "rosterInstruction": "칸을 눌러 바꾸세요.",
+  "rosterWrong": "{count, plural, other{찾아낸 것과 맞지 않는 줄이 {count}개 있습니다.}}"
 }

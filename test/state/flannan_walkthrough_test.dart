@@ -152,18 +152,73 @@ void main() {
     expect(now().game.flags['lamp_lit'], isTrue);
     play.tapScene(0.82, 0.61); // the legend's pages
     readAll();
+    expect(stage(), 'stage:watch_beam');
+
+    // The gallery: the beam over the island shows the way west.
+    play.tapScene(0.94, 0.5);
+    readAll();
+    expect(now().openPuzzle, 'beam');
+    solve('beam');
+    expect(now().game.flags['path_seen'], isTrue);
     expect(stage(), 'stage:go_west');
 
-    // The west landing, lit by the beam.
+    // The yard: the rail dragged off the path west.
     play
       ..takeExit('back')
       ..takeExit('back')
       ..tapScene(0.88, 0.67);
+    expect(now().game.sceneId, 'yard', reason: 'the rail is still there');
+    readAll();
+    expect(now().game.flags['rail_moved'], isTrue);
+    expect(stage(), 'stage:go_down');
+    play.tapScene(0.88, 0.67);
     expect(now().game.sceneId, 'west_landing');
     play.tapScene(0.2, 0.6); // railings
     readAll();
     play.tapScene(0.55, 0.27); // the plate where the rope box stood
     readAll();
+    expect(now().game.words, isNot(contains('great_sea')));
+
+    // Down the steps between the waves.
+    play.tapScene(0.6, 0.7);
+    readAll();
+    expect(now().openPuzzle, 'swell');
+    final swell = content().requirePuzzle('swell').config as SwellConfig;
+    final great = [
+      for (var i = 0; i < swell.pattern.length; i++)
+        if (swell.isGreat(i)) i,
+    ].first;
+    var down = swell.start().advance(swell.breakTime(great) + 0.05);
+    for (var i = 0; i < swell.steps; i++) {
+      down = down.stepDown(
+        swell.breakTime(great) + 0.05 + i * swell.stepSeconds,
+      );
+    }
+    expect(down.isSolved, isTrue, reason: 'right after the great sea');
+    solve('swell');
+    expect(now().game.words, contains('great_sea'));
+    expect(stage(), 'stage:who_went');
+
+    // The hooks by the kitchen door: who went, how, and when.
+    play
+      ..takeExit('back')
+      ..tapScene(0.15, 0.56);
+    expect(now().game.sceneId, 'kitchen');
+    play.tapScene(0.8, 0.3);
+    readAll();
+    expect(now().openPuzzle, 'roster');
+    final roster = content().requirePuzzle('roster').config as RosterConfig;
+    var board = roster.start();
+    for (final row in roster.rows) {
+      for (final column in roster.columns) {
+        while (board.pick(row.id, column.id) !=
+            roster.solution[row.id]![column.id]) {
+          board = board.cycle(row.id, column.id);
+        }
+      }
+    }
+    expect(board.isSolved, isTrue);
+    solve('roster');
     expect(stage(), 'stage:write_label');
 
     // Back to the lamp: the jar's label.
@@ -187,13 +242,13 @@ void main() {
       containsAll(['chair', 'meal', 'storm_log', 'date_13dec']),
       reason: 'the legend and the log are there to mislead',
     );
-    // The label starts written the legend's way: wrong in four places.
+    // The seal starts written the legend's way: wrong in three places.
     expect(deduction.filled, hasLength(label.answers.length));
     expect(deduction.check(), isA<DeductionWrong>());
     expect([
       for (final (i, answer) in label.answers.indexed)
         if (deduction.filled[i] != answer) i,
-    ], hasLength(4));
+    ], hasLength(3));
     for (final (i, answer) in label.answers.indexed) {
       deduction = deduction.fill(i, answer);
     }

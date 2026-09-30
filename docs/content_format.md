@@ -648,6 +648,81 @@ diggers' cut, a tag on every layer).
   them marks that meet (registration crosses) so the player sees how close
   they are.
 
+### `beamSweep`: what the beam shows
+
+```json
+"config": {
+  "pivot": [0.5, 0.9],
+  "period": 7,
+  "spread": 0.3,
+  "targets": [
+    { "id": "rail", "rect": [0.6, 0.5, 0.1, 0.08],
+      "labelKey": "flannan_isles_1900.beam.rail" }
+  ]
+}
+```
+
+- **The beam** turns clockwise round `pivot` (where the lamp is), once
+  every `period` seconds (default 8, from 2 to 60), starting pointing
+  right. `spread` is half its width in radians (default 0.2). Everything
+  outside it is dark.
+- **Targets** are lit while the beam's centre line is within `spread` of
+  their centre, as seen from the pivot on the board as drawn. Tapping a lit
+  target finds it (ringed in gaslight, `labelKey` written under it);
+  tapping it in the dark is a miss. Solved when every target is found.
+- **The background** is the whole scene, drawn as if lit; the puzzle
+  darkens it.
+
+### `swell`: down the steps between the waves
+
+```json
+"config": {
+  "steps": 6,
+  "stepSeconds": 0.55,
+  "interval": 2.2,
+  "pattern": [2, 1, 3, 2, 1, 4, 6, 1, 1, 2]
+}
+```
+
+- **The player** starts on the top step (0) and goes down one step per tap,
+  no faster than one every `stepSeconds` (default 0.6). Reaching step
+  `steps` (the bottom, 2 to 12) solves it.
+- **Waves** break every `interval` seconds (default 2.2), the first one
+  `interval` seconds in. Each covers `pattern[i]` steps from the bottom
+  (1 to `steps`), the pattern looping. A wave that covers the player's step
+  sends them back to the top. A wave of `steps` is a great sea: it covers
+  all but the top.
+- **Cues:** before each wave the water draws back, further before a bigger
+  one; before a great sea it draws right back while the `great_sea` roar
+  rises (1.2 s). Small waves play `wave`. Being caught plays `mistake` and a
+  vibration, so the puzzle also works with the sound off.
+- **Background:** the sky and the cliff; the puzzle draws the steps, the
+  sea, and the player's lantern.
+
+### `roster`: who, what, when
+
+```json
+"config": {
+  "rows": [ { "id": "ducat", "labelKey": "flannan_isles_1900.word.ducat" } ],
+  "columns": [
+    { "id": "wore", "labelKey": "flannan_isles_1900.roster.wore",
+      "options": [
+        { "id": "oilskins", "labelKey": "…" },
+        { "id": "shirtsleeves", "labelKey": "…" }
+      ] }
+  ],
+  "solution": { "ducat": { "wore": "oilskins" } }
+}
+```
+
+- **A board on paper:** a row per person (at least two), a column per thing
+  to work out (at least one), each column with two or more options.
+- **Playing:** tap a box to step through its column's options, from blank
+  round and round.
+- **Checking:** once every box is filled, a board that does not match
+  `solution` says how many rows are still wrong. Solved when every row
+  matches. `solution` must name every row and column with a real option.
+
 ## Words and the jar's label
 
 `words` in `game.json` declares what the player can note down:
@@ -834,3 +909,4 @@ warnings show in the debug panel).
 | 2026-09-29 | post-M6 | `form` on `deduction` (`sentences`, `table`, `telegram`, `correction`, `board`) with `columns`, and sentence `rect` and `initial`; puzzle types `clockHands` and `thread`. Whitechapel, Semarang and Flannan reworked so no puzzle type is shared between tales. |
 | 2026-09-29 | post-M6 | `lens` in scenes (a lens between eras) and the `overlay` puzzle type; episode `pompeii_79` (shelf II). |
 | 2026-09-26 | post-M6 | Korean (`ko`) added. Hints paced by the hint candle. Generated audio in `assets/audio/` (docs/audio.md); music id `stillroom_menu` plays on the menu and shelf. |
+| 2026-09-30 | post-M6 | Puzzle types `beamSweep`, `swell` and `roster`; interface sounds `wave` and `great_sea`. Flannan rebuilt around them (the gallery, the west landing steps, the hooks); its label is a short seal. |

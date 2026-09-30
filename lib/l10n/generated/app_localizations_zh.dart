@@ -267,4 +267,29 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get rakingLightInstruction => '把油灯绕着蜡板移动，放低，靠近。';
+
+  @override
+  String get beamSweepInstruction => '看着光束。趁它照亮时，点一下它照出的东西。';
+
+  @override
+  String get beamSweepMiss => '那里太暗了。等光束转过来。';
+
+  @override
+  String get swellInstruction => '点一下就往下走一级台阶。看着海，也听着海。';
+
+  @override
+  String get swellCaught => '海浪把你逼回了台阶顶上。';
+
+  @override
+  String get rosterInstruction => '点一下格子来更改。';
+
+  @override
+  String rosterWrong(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '还有$count行和你的发现对不上。',
+    );
+    return '$_temp0';
+  }
 }

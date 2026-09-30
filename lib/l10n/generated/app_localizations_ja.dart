@@ -267,4 +267,29 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get rakingLightInstruction => 'ランプを板のまわりで、低く近くに動かそう。';
+
+  @override
+  String get beamSweepInstruction => '光の帯を見よう。照らされているうちに、見えたものをタップ。';
+
+  @override
+  String get beamSweepMiss => 'そこは暗すぎる。光が来るのを待とう。';
+
+  @override
+  String get swellInstruction => 'タップで一段おりる。海を見て、耳をすまそう。';
+
+  @override
+  String get swellCaught => '波に押されて、階段の上まで戻された。';
+
+  @override
+  String get rosterInstruction => 'ますをタップして変えよう。';
+
+  @override
+  String rosterWrong(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '見つけたことと合わない行が$countつある。',
+    );
+    return '$_temp0';
+  }
 }

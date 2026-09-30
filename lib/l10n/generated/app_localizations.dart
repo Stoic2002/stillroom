@@ -593,6 +593,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Move the lamp round the tablet, close and low.'**
   String get rakingLightInstruction;
+
+  /// How to play the beam puzzle: tap things while the turning lighthouse beam lights them.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch the beam. Tap what it shows while it is lit.'**
+  String get beamSweepInstruction;
+
+  /// Shown when the player taps a target in the beam puzzle while it is dark.
+  ///
+  /// In en, this message translates to:
+  /// **'Too dark there. Wait for the beam.'**
+  String get beamSweepMiss;
+
+  /// How to play the swell puzzle: step down to the sea between the waves.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to go down a step. Watch the sea, and listen.'**
+  String get swellInstruction;
+
+  /// Shown when a wave catches the player in the swell puzzle and sends them back to the top.
+  ///
+  /// In en, this message translates to:
+  /// **'The sea drives you back up the steps.'**
+  String get swellCaught;
+
+  /// How to play the roster puzzle: tap cells to change them.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a box to change it.'**
+  String get rosterInstruction;
+
+  /// Shown when the roster board is full but some rows are wrong.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{One row does not fit what you found.} other{{count} rows do not fit what you found.}}'**
+  String rosterWrong(int count);
 }
 
 class _AppLocalizationsDelegate

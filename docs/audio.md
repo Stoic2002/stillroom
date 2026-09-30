@@ -76,6 +76,8 @@ vibration is on). Quieter than content sounds (−9 dBFS peak).
 | `lift` / `place` | Picking up / setting down a piece in a slot puzzle; lifting / settling a tracing sheet | — / light |
 | `turn` | A ring of a rotary puzzle turns; a tracing sheet is turned | selection |
 | `lens` | The lens between eras is raised or lowered | light |
+| `wave` | Flannan's swell puzzle: a small wave breaks on the landing steps | — |
+| `great_sea` | Flannan's swell puzzle: a great sea draws back with a rising roar (1.2 s), then breaks over every step | medium |
 | `solved` | Any puzzle gives way (before its own `onSolved` sounds) | light |
 | `pickup` | An item goes into the inventory | light |
 | `combine` | Two items become one | light |

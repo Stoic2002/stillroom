@@ -125,6 +125,60 @@
           "type": "showText",
           "key": "flannan_isles_1900.kitchen.hooks"
         }
+      ],
+      "when": [
+        {
+          "puzzleSolved": "swell",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "hooks_roster",
+      "rect": [
+        0.74,
+        0.14,
+        0.16,
+        0.46
+      ],
+      "when": [
+        {
+          "puzzleSolved": "swell"
+        },
+        {
+          "puzzleSolved": "roster",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.kitchen.hooks_roster"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "roster"
+        }
+      ]
+    },
+    {
+      "id": "hooks_done",
+      "rect": [
+        0.74,
+        0.14,
+        0.16,
+        0.46
+      ],
+      "when": [
+        {
+          "puzzleSolved": "roster"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.kitchen.hooks_done"
+        }
       ]
     },
     {

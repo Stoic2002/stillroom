@@ -80,5 +80,11 @@
   "telegramStop": "",
   "clockHandsInstruction": "針をドラッグして文字盤を回そう。",
   "threadInstruction": "ピンからピンへ糸を引こう。",
-  "rakingLightInstruction": "ランプを板のまわりで、低く近くに動かそう。"
+  "rakingLightInstruction": "ランプを板のまわりで、低く近くに動かそう。",
+  "beamSweepInstruction": "光の帯を見よう。照らされているうちに、見えたものをタップ。",
+  "beamSweepMiss": "そこは暗すぎる。光が来るのを待とう。",
+  "swellInstruction": "タップで一段おりる。海を見て、耳をすまそう。",
+  "swellCaught": "波に押されて、階段の上まで戻された。",
+  "rosterInstruction": "ますをタップして変えよう。",
+  "rosterWrong": "{count, plural, other{見つけたことと合わない行が{count}つある。}}"
 }

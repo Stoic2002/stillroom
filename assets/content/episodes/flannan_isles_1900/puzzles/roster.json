@@ -1,0 +1,103 @@
+{
+  "id": "roster",
+  "type": "roster",
+  "background": "images/scenes/flannan_isles_1900/kitchen.png",
+  "config": {
+    "rows": [
+      {
+        "id": "ducat",
+        "labelKey": "flannan_isles_1900.word.ducat"
+      },
+      {
+        "id": "marshall",
+        "labelKey": "flannan_isles_1900.word.marshall"
+      },
+      {
+        "id": "mcarthur",
+        "labelKey": "flannan_isles_1900.word.mcarthur"
+      }
+    ],
+    "columns": [
+      {
+        "id": "post",
+        "labelKey": "flannan_isles_1900.roster.post",
+        "options": [
+          {
+            "id": "principal",
+            "labelKey": "flannan_isles_1900.roster.principal"
+          },
+          {
+            "id": "second",
+            "labelKey": "flannan_isles_1900.roster.second"
+          },
+          {
+            "id": "occasional",
+            "labelKey": "flannan_isles_1900.roster.occasional"
+          }
+        ]
+      },
+      {
+        "id": "wore",
+        "labelKey": "flannan_isles_1900.roster.wore",
+        "options": [
+          {
+            "id": "oilskins",
+            "labelKey": "flannan_isles_1900.roster.oilskins"
+          },
+          {
+            "id": "shirtsleeves",
+            "labelKey": "flannan_isles_1900.roster.shirtsleeves"
+          }
+        ]
+      },
+      {
+        "id": "went",
+        "labelKey": "flannan_isles_1900.roster.went",
+        "options": [
+          {
+            "id": "first",
+            "labelKey": "flannan_isles_1900.roster.first"
+          },
+          {
+            "id": "after",
+            "labelKey": "flannan_isles_1900.roster.after"
+          }
+        ]
+      }
+    ],
+    "solution": {
+      "ducat": {
+        "post": "principal",
+        "wore": "oilskins",
+        "went": "first"
+      },
+      "marshall": {
+        "post": "second",
+        "wore": "oilskins",
+        "went": "first"
+      },
+      "mcarthur": {
+        "post": "occasional",
+        "wore": "shirtsleeves",
+        "went": "after"
+      }
+    }
+  },
+  "onSolved": [
+    {
+      "type": "showText",
+      "key": "flannan_isles_1900.roster.done"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.flannan_isles_1900.roster.1"
+    },
+    {
+      "key": "hint.flannan_isles_1900.roster.2"
+    },
+    {
+      "key": "hint.flannan_isles_1900.roster.3"
+    }
+  ]
+}

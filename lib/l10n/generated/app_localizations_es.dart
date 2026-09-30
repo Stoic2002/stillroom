@@ -280,4 +280,32 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get rakingLightInstruction =>
       'Mueve la lucerna alrededor de la tablilla, cerca y baja.';
+
+  @override
+  String get beamSweepInstruction =>
+      'Mira el haz. Toca lo que muestra mientras esté iluminado.';
+
+  @override
+  String get beamSweepMiss => 'Ahí está demasiado oscuro. Espera al haz.';
+
+  @override
+  String get swellInstruction =>
+      'Toca para bajar un escalón. Mira el mar y escucha.';
+
+  @override
+  String get swellCaught => 'El mar te hace subir de nuevo los escalones.';
+
+  @override
+  String get rosterInstruction => 'Toca una casilla para cambiarla.';
+
+  @override
+  String rosterWrong(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count filas no cuadran con lo que encontraste.',
+      one: 'Una fila no cuadra con lo que encontraste.',
+    );
+    return '$_temp0';
+  }
 }

@@ -282,4 +282,33 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get rakingLightInstruction =>
       'Водите светильник вокруг таблички, низко и близко.';
+
+  @override
+  String get beamSweepInstruction =>
+      'Следите за лучом. Нажмите на то, что он освещает, пока светло.';
+
+  @override
+  String get beamSweepMiss => 'Там слишком темно. Дождитесь луча.';
+
+  @override
+  String get swellInstruction =>
+      'Нажмите, чтобы спуститься на ступень. Смотрите на море и слушайте.';
+
+  @override
+  String get swellCaught => 'Море загоняет вас обратно наверх.';
+
+  @override
+  String get rosterInstruction => 'Нажмите на клетку, чтобы изменить её.';
+
+  @override
+  String rosterWrong(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count строк не сходятся с тем, что вы нашли.',
+      few: '$count строки не сходятся с тем, что вы нашли.',
+      one: 'Одна строка не сходится с тем, что вы нашли.',
+    );
+    return '$_temp0';
+  }
 }

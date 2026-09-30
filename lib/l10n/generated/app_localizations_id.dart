@@ -276,4 +276,31 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get rakingLightInstruction =>
       'Gerakkan pelita mengelilingi lempeng, rendah dan dekat.';
+
+  @override
+  String get beamSweepInstruction =>
+      'Perhatikan sinarnya. Ketuk apa yang tampak selagi disinari.';
+
+  @override
+  String get beamSweepMiss => 'Terlalu gelap di situ. Tunggu sinarnya.';
+
+  @override
+  String get swellInstruction =>
+      'Ketuk untuk turun satu anak tangga. Perhatikan lautnya, dan dengarkan.';
+
+  @override
+  String get swellCaught => 'Laut mendorongmu naik lagi ke atas tangga.';
+
+  @override
+  String get rosterInstruction => 'Ketuk kotak untuk mengubahnya.';
+
+  @override
+  String rosterWrong(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count baris belum cocok dengan temuanmu.',
+    );
+    return '$_temp0';
+  }
 }

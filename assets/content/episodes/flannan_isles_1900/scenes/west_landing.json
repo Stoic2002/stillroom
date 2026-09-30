@@ -71,6 +71,55 @@
           "key": "flannan_isles_1900.west.crane"
         }
       ]
+    },
+    {
+      "id": "steps",
+      "rect": [
+        0.44,
+        0.5,
+        0.3,
+        0.42
+      ],
+      "when": [
+        {
+          "puzzleSolved": "swell",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "wave_crash"
+        },
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.west.steps"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "swell"
+        }
+      ]
+    },
+    {
+      "id": "steps_done",
+      "rect": [
+        0.44,
+        0.5,
+        0.3,
+        0.42
+      ],
+      "when": [
+        {
+          "puzzleSolved": "swell"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.west.steps_done"
+        }
+      ]
     }
   ],
   "layers": [

@@ -80,5 +80,11 @@
   "telegramStop": "",
   "clockHandsInstruction": "拖动指针绕着表盘转。",
   "threadInstruction": "把线从一枚图钉拉到另一枚。",
-  "rakingLightInstruction": "把油灯绕着蜡板移动，放低，靠近。"
+  "rakingLightInstruction": "把油灯绕着蜡板移动，放低，靠近。",
+  "beamSweepInstruction": "看着光束。趁它照亮时，点一下它照出的东西。",
+  "beamSweepMiss": "那里太暗了。等光束转过来。",
+  "swellInstruction": "点一下就往下走一级台阶。看着海，也听着海。",
+  "swellCaught": "海浪把你逼回了台阶顶上。",
+  "rosterInstruction": "点一下格子来更改。",
+  "rosterWrong": "{count, plural, other{还有{count}行和你的发现对不上。}}"
 }

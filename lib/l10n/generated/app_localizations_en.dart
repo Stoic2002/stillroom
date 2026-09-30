@@ -277,4 +277,32 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get rakingLightInstruction =>
       'Move the lamp round the tablet, close and low.';
+
+  @override
+  String get beamSweepInstruction =>
+      'Watch the beam. Tap what it shows while it is lit.';
+
+  @override
+  String get beamSweepMiss => 'Too dark there. Wait for the beam.';
+
+  @override
+  String get swellInstruction =>
+      'Tap to go down a step. Watch the sea, and listen.';
+
+  @override
+  String get swellCaught => 'The sea drives you back up the steps.';
+
+  @override
+  String get rosterInstruction => 'Tap a box to change it.';
+
+  @override
+  String rosterWrong(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count rows do not fit what you found.',
+      one: 'One row does not fit what you found.',
+    );
+    return '$_temp0';
+  }
 }

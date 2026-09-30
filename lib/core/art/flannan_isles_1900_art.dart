@@ -23,6 +23,8 @@ final Map<String, ArtPainter> flannanArt = {
   '$_s/lamp_room.png': (c, s) => _lampRoom(Art(c, s)),
   '$_s/west_landing.png': (c, s) => _westLanding(Art(c, s)),
   '$_s/clockwork_close.png': (c, s) => _clockworkBoard(Art(c, s)),
+  '$_s/beam_board.png': (c, s) => _beamBoard(Art(c, s)),
+  '$_s/swell_board.png': (c, s) => _swellBoard(Art(c, s)),
   '$_s/label_close.png': (c, s) => jarLabelBoard(Art(c, s), _night),
   // Objects.
   '$_o/gate_closed_sprite.png': (c, s) => _gate(Art(c, s), open: false),
@@ -39,6 +41,8 @@ final Map<String, ArtPainter> flannanArt = {
   '$_o/rope_plate_clean_sprite.png': (c, s) => _ropePlateSmall(Art(c, s)),
   '$_o/door_open_sprite.png': (c, s) => _stairDoorOpen(Art(c, s)),
   '$_o/clockwork_wound_sprite.png': (c, s) => _clockworkWound(Art(c, s)),
+  '$_o/rail_sprite.png': (c, s) => _railAcross(Art(c, s)),
+  '$_o/rail_aside_sprite.png': (c, s) => _railAside(Art(c, s)),
   // Items.
   '$_i/matches.png': (c, s) => _matches(Art(c, s)),
   '$_i/hand_lantern.png': (c, s) => _lantern(Art(c, s), lit: false),
@@ -278,27 +282,6 @@ void _yard(Art a) {
       width: 0.8,
     );
   }
-  // A rail torn out and flung across the way, bent at one end.
-  a.strokePath(
-    Path()
-      ..moveTo(a.p(0.78, 0.8).dx, a.p(0, 0.8).dy)
-      ..lineTo(a.p(0.95, 0.72).dx, a.p(0, 0.72).dy)
-      ..quadraticBezierTo(
-        a.p(0.98, 0.7).dx,
-        a.p(0, 0.7).dy,
-        a.p(0.99, 0.64).dx,
-        a.p(0, 0.64).dy,
-      ),
-    const Color(0xFFA8A298),
-    width: 1.8,
-  );
-  a.strokePath(
-    Path()
-      ..moveTo(a.p(0.78, 0.8).dx, a.p(0, 0.8).dy)
-      ..lineTo(a.p(0.95, 0.72).dx, a.p(0, 0.72).dy),
-    Art.outline,
-    width: 0.3,
-  );
 }
 
 void _beam(Art a, {Offset? from}) {
@@ -762,6 +745,16 @@ void _lampRoom(Art a) {
     ..paper(a.r(0.81, 0.56, 0.05, 0.1), lines: 5, angle: -0.05);
   // The pedestal.
   a.box(a.r(0.42, 0.64, 0.16, 0.16), _iron, line: 0.5);
+  // The little iron door out onto the gallery.
+  a
+    ..box(a.r(0.895, 0.28, 0.1, 0.52), const Color(0xFF2A3036), line: 0.5)
+    ..box(a.r(0.905, 0.3, 0.08, 0.48), _iron, line: 0.4)
+    ..box(a.r(0.92, 0.34, 0.05, 0.1), const Color(0xFF3A4658), line: 0.3)
+    ..hairline(a.p(0.945, 0.34), a.p(0.945, 0.44), _iron, 0.4)
+    ..circle(a.p(0.915, 0.56), a.u * 0.8, StillroomPalette.brass, line: 0.2);
+  for (final y in [0.36, 0.7]) {
+    a.box(a.r(0.905, y, 0.025, 0.02), const Color(0xFF3E4448), line: 0.2);
+  }
 }
 
 /// The great lens: a drum of glass in a brass frame, the bull's-eye panel
@@ -855,6 +848,7 @@ void _westLanding(Art a) {
     )
     ..fill(a.r(0.66, 0.0, 0.34, 0.14), _grass);
   _tornTurf(a);
+  _landingSteps(a);
   _twistedRailings(a);
   // The brackets where the rope box stood, and its plate.
   a
@@ -870,6 +864,20 @@ void _westLanding(Art a) {
       strength: 0.25,
     );
   }
+}
+
+/// Steps cut down the rock to the landing, the surf at their foot.
+void _landingSteps(Art a) {
+  const stone = Color(0xFF4F5456);
+  const top = Color(0xFF6E7478);
+  for (var i = 0; i < 7; i++) {
+    final x = 0.46 + i * 0.038;
+    final y = 0.52 + i * 0.055;
+    a
+      ..box(a.r(x, y, 0.09, 0.055), stone, line: 0.35)
+      ..fill(a.r(x, y, 0.09, 0.008), top);
+  }
+  a.glow(a.p(0.72, 0.92), a.size.width * 0.08, _foam, strength: 0.35);
 }
 
 /// The cliff top, sixty metres up, with the turf ripped off in sods: brown
@@ -1033,6 +1041,187 @@ void _crane(Art a) {
     const Color(0xFF9AA0A2),
     width: 0.8,
   );
+}
+
+/// The rail torn from the tramway, flung across the path west and bent at
+/// one end (the yard's `rail_sprite`, [0.76, 0.6, 0.24, 0.24]).
+void _railAcross(Art a) {
+  final path = Path()
+    ..moveTo(a.p(0.08, 0.83).dx, a.p(0, 0.83).dy)
+    ..lineTo(a.p(0.79, 0.5).dx, a.p(0, 0.5).dy)
+    ..quadraticBezierTo(
+      a.p(0.92, 0.42).dx,
+      a.p(0, 0.42).dy,
+      a.p(0.96, 0.17).dx,
+      a.p(0, 0.17).dy,
+    );
+  a.canvas
+    ..drawPath(
+      path,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = a.size.height * 0.09
+        ..strokeCap = StrokeCap.round
+        ..color = Art.outline,
+    )
+    ..drawPath(
+      path,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = a.size.height * 0.06
+        ..strokeCap = StrokeCap.round
+        ..color = const Color(0xFFA8A298),
+    );
+}
+
+/// The same rail, dragged off the path onto the grass.
+void _railAside(Art a) {
+  a.canvas
+    ..drawLine(
+      a.p(0.05, 0.62),
+      a.p(0.95, 0.42),
+      Paint()
+        ..strokeWidth = a.size.height * 0.24
+        ..strokeCap = StrokeCap.round
+        ..color = Art.outline,
+    )
+    ..drawLine(
+      a.p(0.05, 0.62),
+      a.p(0.95, 0.42),
+      Paint()
+        ..strokeWidth = a.size.height * 0.16
+        ..strokeCap = StrokeCap.round
+        ..color = const Color(0xFF8E887E),
+    );
+}
+
+/// The island at night seen from the gallery, looking west: the lamp
+/// behind you at the bottom, the path running away over the grass to the
+/// west landing, the cliff top on the left, the sea all round. The beam
+/// puzzle darkens it and lets the beam show it piece by piece.
+void _beamBoard(Art a) {
+  _sky(a, horizon: 0.16);
+  // The island's back, a long rise of grass falling to cliffs.
+  a.path(
+    a.poly([
+      a.p(0, 0.3),
+      a.p(0.1, 0.26),
+      a.p(0.3, 0.3),
+      a.p(0.55, 0.26),
+      a.p(0.78, 0.3),
+      a.p(0.92, 0.24),
+      a.p(1, 0.3),
+      a.p(1, 1),
+      a.p(0, 1),
+    ]),
+    _grass,
+    line: 0.5,
+  );
+  _grassTufts(a, a.r(0, 0.5, 1, 0.03));
+  // The path west, from the foot of the tower to the landing.
+  a.path(
+    a.poly([
+      a.p(0.46, 0.86),
+      a.p(0.56, 0.86),
+      a.p(0.7, 0.56),
+      a.p(0.84, 0.38),
+      a.p(0.82, 0.37),
+      a.p(0.64, 0.54),
+    ]),
+    const Color(0xFF3A3A36),
+    line: 0,
+  );
+  for (var i = 0; i < 9; i++) {
+    final t = i / 8;
+    a.hairline(
+      a.p(0.5 + t * 0.3, 0.84 - t * 0.44),
+      a.p(0.54 + t * 0.29, 0.84 - t * 0.44),
+      const Color(0xFF4A3E32),
+      0.6,
+    );
+  }
+  // The rail across it.
+  a.canvas.drawLine(
+    a.p(0.6, 0.57),
+    a.p(0.71, 0.51),
+    Paint()
+      ..strokeWidth = a.u * 1.4
+      ..strokeCap = StrokeCap.round
+      ..color = const Color(0xFFA8A298),
+  );
+  // The torn turf at the cliff top, bare earth showing.
+  for (final (x, y) in [(0.15, 0.28), (0.19, 0.3), (0.23, 0.28)]) {
+    a.oval(a.r(x, y, 0.035, 0.018), const Color(0xFF4A3526), line: 0.3);
+  }
+  // The crane at the landing, over the drop.
+  a
+    ..line(a.p(0.83, 0.37), a.p(0.83, 0.25), const Color(0xFF7A7E80), width: 1)
+    ..line(
+      a.p(0.83, 0.26),
+      a.p(0.805, 0.27),
+      const Color(0xFF7A7E80),
+      width: 0.8,
+    )
+    ..line(
+      a.p(0.805, 0.27),
+      a.p(0.805, 0.31),
+      const Color(0xFF9AA0A2),
+      width: 0.3,
+    );
+  // The quarters' roof below, and the gallery rail in front.
+  a
+    ..box(a.r(0.1, 0.7, 0.24, 0.12), const Color(0xFF55606A), line: 0.4)
+    ..box(a.r(0.28, 0.76, 0.08, 0.08), const Color(0xFF4A535C), line: 0.4)
+    ..fill(a.r(0, 0.9, 1, 0.1), _iron)
+    ..line(a.p(0, 0.91), a.p(1, 0.91), const Color(0xFF3E4448), width: 1.2);
+  for (var i = 0; i < 12; i++) {
+    a.line(
+      a.p(i / 11, 0.91),
+      a.p(i / 11, 1),
+      const Color(0xFF3E4448),
+      width: 0.6,
+    );
+  }
+}
+
+/// The west landing seen from the top of its steps: sky, the cliff, the
+/// crane on its ledge. The swell puzzle draws the steps and the sea over
+/// it.
+void _swellBoard(Art a) {
+  _sky(a, horizon: 0.62);
+  a.path(
+    a.poly([
+      a.p(0, 0.22),
+      a.p(0.3, 0.2),
+      a.p(0.62, 0.34),
+      a.p(0.95, 0.5),
+      a.p(1, 0.5),
+      a.p(1, 1),
+      a.p(0, 1),
+    ]),
+    _rock,
+    line: 0.5,
+  );
+  // The crevice where the rope box was kept, high on the rock.
+  a
+    ..box(a.r(0.36, 0.26, 0.06, 0.05), const Color(0xFF15191C), line: 0.3)
+    ..box(a.r(0.37, 0.215, 0.04, 0.035), const Color(0xFF8C8E86), line: 0.3);
+  // The crane on its ledge above the water.
+  a
+    ..box(a.r(0.84, 0.74, 0.14, 0.03), _stone, line: 0.4)
+    ..line(a.p(0.93, 0.74), a.p(0.93, 0.4), const Color(0xFF55595C), width: 2)
+    ..line(
+      a.p(0.93, 0.42),
+      a.p(0.86, 0.44),
+      const Color(0xFF55595C),
+      width: 1.4,
+    )
+    ..line(
+      a.p(0.86, 0.44),
+      a.p(0.86, 0.56),
+      const Color(0xFF9AA0A2),
+      width: 0.4,
+    );
 }
 
 // ---------------------------------------------------------------------------

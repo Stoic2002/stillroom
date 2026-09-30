@@ -61,8 +61,9 @@ Case of the Golden Idol*, Strange Horticulture):
   note stays on the shelf. The notes are drafts; their arc is the
   developer's (OPEN).
 
-Later shelves can add more: E (a room that changes when not watched), F
-(listening puzzles). D (light and dark) arrived with *Flannan Isles, 1900*
+Later shelves can add more: E (a room that changes when not watched). F
+(listening) arrived with Flannan v2: the swell, whose great sea is heard
+coming (and seen, and felt). D (light and dark) arrived with *Flannan Isles, 1900*
 on shelf II: dark scenes searched by lantern light, plus the crank. C (a
 lens between eras) arrived with *Pompeii, 79*, together with the stack of
 tracing sheets (after *Her Trees*).
@@ -79,7 +80,7 @@ own hardest puzzle; higher shelves have more puzzles, chained together.
 |---|---|---|
 | *Whitechapel, 1888* | A clock-face lock set to the stopped hour; a red thread through five streets on a map; fog and ash wiped away; a lens and frame made into a magnifier | A ledger: the five frames, a name and a place under each date |
 | *Semarang, 1945* | Doors into other years; code locks (the station clock, the locker room); the timetable and the telegraph in order; the stained-glass rings; the lockers | A telegram, STOP between the lines |
-| *Flannan Isles, 1900* | Dark scenes by lantern light; the clockwork crank | The legend's account, to be corrected |
+| *Flannan Isles, 1900* | Dark scenes by lantern light; the clockwork crank; the beam turning over the island, showing things only while it passes; down the landing steps between the waves (the swell); the roster of who went, how, and when | A seal: the legend's sentence, three words corrected |
 | *Pompeii, 79* | The lens between eras, turned through the hours of the last day; pieces laid and turned into place (the shrine's painted panel, the child's drawing); marks read by raking light | A seal of three words, pinned to the diggers' cut |
 
 The first three tales were reworked on 2026-09-29 to follow this rule:

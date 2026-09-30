@@ -324,6 +324,9 @@ void main() {
       'clockHands',
       'thread',
       'rakingLight',
+      'beamSweep',
+      'swell',
+      'roster',
     ]);
   });
 }

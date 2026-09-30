@@ -1085,8 +1085,7 @@ Buf millstone() {
   final b = Buf(2.4);
   final grind = shape(
     lowpass(noise(2, rng), (t) => 380 + 120 * math.sin(t * tau * 1.3)),
-    (t) =>
-        swell(t, 0.3, 0.6, 2) * (0.6 + 0.4 * math.sin(t * tau * 5.5).abs()),
+    (t) => swell(t, 0.3, 0.6, 2) * (0.6 + 0.4 * math.sin(t * tau * 5.5).abs()),
   );
   b
     ..add(gain(grind, 2.4))
@@ -1563,7 +1562,79 @@ Buf lensSound() {
   return reverb(b, size: 0.5, mix: 0.3);
 }
 
+/// A small wave breaking on the landing steps.
+Buf waveSound() {
+  final rng = math.Random(50);
+  final b = Buf(1.6)
+    ..add(
+      gain(
+        shape(
+          lowpass(noise(1.5, rng), (t) => 400 + 1800 * math.exp(-t / 0.3)),
+          (t) => swell(t, 0.08, 0.6, 1.5),
+        ),
+        1.6,
+      ),
+    );
+  for (var i = 0; i < 14; i++) {
+    b.add(
+      click(rng, centre: 2500 + rng.nextDouble() * 3000, time: 0.002),
+      at: 0.15 + rng.nextDouble() * 0.9,
+      gain: 0.1,
+      pan: rng.nextDouble() - 0.5,
+    );
+  }
+  return reverb(b, size: 0.5, mix: 0.25);
+}
+
+/// A great sea: the water sucked back off the rocks with a rising roar,
+/// then breaking over everything, 1.2 s in.
+Buf greatSeaSound() {
+  final rng = math.Random(51);
+  final b = Buf(3.6)
+    ..add(
+      gain(
+        shape(
+          lowpass(brown(1.3, rng), (t) => 150 + 500 * t),
+          (t) => math.pow(t / 1.3, 2).toDouble(),
+        ),
+        1.4,
+      ),
+    )
+    ..add(
+      gain(
+        shape(
+          highpass(noise(1.2, rng), 1800),
+          (t) => math.pow(t / 1.2, 3).toDouble() * 0.4,
+        ),
+        0.6,
+      ),
+    )
+    ..add(
+      gain(
+        shape(
+          lowpass(noise(2.4, rng), (t) => 250 + 3000 * math.exp(-t / 0.4)),
+          (t) => swell(t, 0.05, 1.2, 2.4),
+        ),
+        2.6,
+      ),
+      at: 1.2,
+    )
+    ..add(
+      gain(
+        shape(
+          lowpass(brown(2.4, rng), (_) => 90),
+          (t) => swell(t, 0.05, 1.5, 2.4),
+        ),
+        1.2,
+      ),
+      at: 1.2,
+    );
+  return reverb(b, size: 0.8, mix: 0.3);
+}
+
 final ui = <String, Buf Function()>{
+  'wave': waveSound,
+  'great_sea': greatSeaSound,
   'lens': lensSound,
   'note': noteSound,
   'secret': secretSound,

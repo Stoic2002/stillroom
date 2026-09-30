@@ -1,0 +1,43 @@
+{
+  "id": "swell",
+  "type": "swell",
+  "background": "images/scenes/flannan_isles_1900/swell_board.png",
+  "config": {
+    "steps": 6,
+    "stepSeconds": 0.55,
+    "interval": 2.2,
+    "pattern": [
+      2,
+      1,
+      3,
+      2,
+      1,
+      4,
+      6,
+      1,
+      1,
+      2
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "wave_crash"
+    },
+    {
+      "type": "showText",
+      "key": "flannan_isles_1900.west.landing"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.flannan_isles_1900.swell.1"
+    },
+    {
+      "key": "hint.flannan_isles_1900.swell.2"
+    },
+    {
+      "key": "hint.flannan_isles_1900.swell.3"
+    }
+  ]
+}

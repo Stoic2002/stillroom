@@ -268,4 +268,29 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get rakingLightInstruction => '등잔을 판 둘레로, 낮고 가깝게 움직이세요.';
+
+  @override
+  String get beamSweepInstruction => '빛줄기를 지켜보세요. 빛이 비추는 동안 보이는 것을 누르세요.';
+
+  @override
+  String get beamSweepMiss => '거기는 너무 어둡습니다. 빛이 오기를 기다리세요.';
+
+  @override
+  String get swellInstruction => '누르면 한 계단 내려갑니다. 바다를 보고, 귀를 기울이세요.';
+
+  @override
+  String get swellCaught => '바다가 당신을 계단 위로 도로 밀어 올립니다.';
+
+  @override
+  String get rosterInstruction => '칸을 눌러 바꾸세요.';
+
+  @override
+  String rosterWrong(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '찾아낸 것과 맞지 않는 줄이 $count개 있습니다.',
+    );
+    return '$_temp0';
+  }
 }

@@ -122,6 +122,9 @@
           "equals": true
         },
         {
+          "puzzleSolved": "roster"
+        },
+        {
           "puzzleSolved": "jar_label",
           "equals": false
         }
@@ -210,6 +213,76 @@
         {
           "type": "showText",
           "key": "flannan_isles_1900.lamp.legend_log"
+        }
+      ]
+    },
+    {
+      "id": "gallery",
+      "rect": [
+        0.9,
+        0.3,
+        0.09,
+        0.48
+      ],
+      "when": [
+        {
+          "flag": "lamp_lit",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "beam",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.lamp.gallery"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "beam"
+        }
+      ]
+    },
+    {
+      "id": "gallery_done",
+      "rect": [
+        0.9,
+        0.3,
+        0.09,
+        0.48
+      ],
+      "when": [
+        {
+          "puzzleSolved": "beam"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.lamp.gallery_done"
+        }
+      ]
+    },
+    {
+      "id": "gallery_dark",
+      "rect": [
+        0.9,
+        0.3,
+        0.09,
+        0.48
+      ],
+      "when": [
+        {
+          "flag": "lamp_lit",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "flannan_isles_1900.lamp.gallery_dark"
         }
       ]
     }
