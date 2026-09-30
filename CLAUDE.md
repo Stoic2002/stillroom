@@ -106,15 +106,10 @@ with a legend to set right. The lineup, by shelf and region, is in
 
 ## Next steps (in this order)
 
-1. **Wait for the developer's feedback on *Gyeongju, 771*** (built
-   2026-09-30; the developer tests it on the phone), and fix what they
-   report. Shelf II is now full (Flannan, Pompeii, Bastille, Gyeongju).
-   The Bastille was tested and found good. Things to watch in Gyeongju
-   (also in `docs/episodes/gyeongju_771.md`):
-   - whether the pour is clear (which pieces turn, where bronze spills);
-   - whether dragging the log striker feels natural, and the hollow's
-     depth is found without the last hint;
-   - whether the four rim sounds are told apart by ear on the phone.
+1. **Wait for the developer's approval of *Whitechapel, 1891***
+   (`docs/episodes/whitechapel_1891.md`: two mechanics, `unwatched` and
+   `compose`; the `docket` seal), then build it. Gyeongju was tested and
+   found good; shelf II is full.
 2. **The next tales of the plan, in shelf order** (shelf III next:
    *Whitechapel, 1891*, Guangxu 1908, Alamut 1256, Great Zimbabwe 1871).
    For each: a design doc first (facts with sources, 2–3 mechanics of its
