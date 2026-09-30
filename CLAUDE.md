@@ -60,7 +60,7 @@ player restores the truth of the tale and seals the jar.
   - The CJK fonts are subsets: `test/content/font_coverage_test.dart` fails
     on a rare glyph, so reword it (e.g. 蹚 and 祇 were replaced).
 
-### The tales (5 playable)
+### The tales (6 playable)
 
 | Shelf | Tale | Its own mechanics | Its label now |
 |---|---|---|---|
@@ -68,6 +68,7 @@ player restores the truth of the tale and seals the jar.
 | I | *Semarang, 1945* (Lawang Sewu) | Doors into other years, `codeLock`, `sequence` (timetable, telegraph), `rotaryAlign` (stained glass), `slotPlacement` (lockers) | `telegram` **seal**: two lines, 3 blanks |
 | II | *Flannan Isles, 1900* | Dark scenes by lantern light, `crank`, the beam over the island (`beamSweep`), the landing steps between waves (`swell`), who went how and when (`roster`) | `correction` **seal**: one sentence, 3 words wrong |
 | II | *Pompeii, 79* | Lens between eras **by the hour** (`lensHours`), `overlay` (fresco jigsaw, tracing sheets), `rakingLight` (wax tablets) | `board` **seal of 3 words** (the new standard) |
+| II | *Gyeongju, 771* (the Emille Bell) | Bronze routed into the mould (`pour`), the striker and the hollow under the bell (`resonance`), the rim struck round to find the deepest swell, the "cry" (`beat`) | `rubbing` **seal**: an ink rubbing, 3 words |
 | II | *Bastille, 1703* (the Iron Mask) | The turnkey's keys (`keyring`: match the bit, turn it over), the Great Cipher (`cipher`, 330 309 left unread), the prisoner's file (`sources`: written at the time vs. told after) | `order` **seal**: a royal order, 3 words |
 
 Shelf III holds a sealed teaser jar, *Whitechapel, 1891*, which opens
@@ -105,19 +106,19 @@ with a legend to set right. The lineup, by shelf and region, is in
 
 ## Next steps (in this order)
 
-1. **Wait for the developer's approval of *Gyeongju, 771*** (the Emille
-   Bell, `docs/episodes/gyeongju_771.md`: its three mechanics, the
-   `rubbing` seal, the legend kept to later papers), then build it.
-   The Bastille was tested and found good ("lumayan bagus"); still worth
-   watching (also in `docs/episodes/bastille_1703.md`):
-   - whether the second door's "turn it over" is found without the last
-     hint (`puzzles/door_upper.json`);
-   - whether the worksheet is easy to search on the phone
-     (`cipher_view.dart`);
-   - whether sorting the file is fair (Bazeries's card is the tricky one).
-2. **The next tales of the plan, in shelf order.** For each: a design doc
-   first (facts with sources, 2–3 mechanics of its own, the chain, the
-   seal), approved by the developer before building.
+1. **Wait for the developer's feedback on *Gyeongju, 771*** (built
+   2026-09-30; the developer tests it on the phone), and fix what they
+   report. Shelf II is now full (Flannan, Pompeii, Bastille, Gyeongju).
+   The Bastille was tested and found good. Things to watch in Gyeongju
+   (also in `docs/episodes/gyeongju_771.md`):
+   - whether the pour is clear (which pieces turn, where bronze spills);
+   - whether dragging the log striker feels natural, and the hollow's
+     depth is found without the last hint;
+   - whether the four rim sounds are told apart by ear on the phone.
+2. **The next tales of the plan, in shelf order** (shelf III next:
+   *Whitechapel, 1891*, Guangxu 1908, Alamut 1256, Great Zimbabwe 1871).
+   For each: a design doc first (facts with sources, 2–3 mechanics of its
+   own, the chain, the seal), approved by the developer before building.
 3. Later, and to be asked first:
    - the Indonesian tale for shelf IV;
    - the keeper's arc (OPEN);

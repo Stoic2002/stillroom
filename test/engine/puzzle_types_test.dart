@@ -330,6 +330,9 @@ void main() {
       'keyring',
       'cipher',
       'sources',
+      'pour',
+      'resonance',
+      'beat',
     ]);
   });
 }

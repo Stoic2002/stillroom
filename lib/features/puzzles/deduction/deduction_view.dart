@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 import '../../../core/audio/ui_sound.dart';
@@ -98,6 +100,7 @@ class _DeductionViewState extends State<DeductionView>
       DeductionForm.telegram => _telegram(context, sentenceStyle),
       DeductionForm.table => _table(context, sentenceStyle),
       DeductionForm.order => _order(context, sentenceStyle),
+      DeductionForm.rubbing => _rubbing(context, sentenceStyle),
       DeductionForm.board => const SizedBox.shrink(),
     };
 
@@ -270,6 +273,54 @@ class _DeductionViewState extends State<DeductionView>
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  /// An ink rubbing from a cast inscription: black paper, the letters pale
+  /// where the bronze stood up, a band of lotus scroll round the edge.
+  Widget _rubbing(BuildContext context, TextStyle style) {
+    final l10n = AppLocalizations.of(context);
+    final pale = style.copyWith(
+      color: const Color(0xFFDCD6C8),
+      height: 1.7,
+      letterSpacing: 0.4,
+    );
+    return DecoratedBox(
+      decoration: const BoxDecoration(
+        color: Color(0xFF16150F),
+        boxShadow: [BoxShadow(blurRadius: 18, color: Color(0xAA000000))],
+      ),
+      child: CustomPaint(
+        painter: const _InkRubbing(),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(34, 14, 34, 20),
+          child: Column(
+            children: [
+              Text(
+                l10n.rubbingCaption,
+                textAlign: TextAlign.center,
+                style: style.copyWith(
+                  fontSize: 13,
+                  fontStyle: FontStyle.italic,
+                  color: const Color(0xFF9A948A),
+                ),
+              ),
+              const SizedBox(height: 6),
+              for (final (i, sentence) in _config.sentences.indexed)
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 2),
+                  child: Text.rich(
+                    TextSpan(
+                      style: pale,
+                      children: _sentence(context, i, sentence),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -498,6 +549,49 @@ class _DeductionViewState extends State<DeductionView>
     spans.add(TextSpan(text: text.substring(at)));
     return spans;
   }
+}
+
+/// The texture of an ink rubbing: dabs of ink, uneven, and a pale band of
+/// lotus scroll just inside the edge, as taken from the bronze.
+class _InkRubbing extends CustomPainter {
+  const _InkRubbing();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final random = math.Random(771);
+    final dab = Paint();
+    for (var i = 0; i < 140; i++) {
+      final grey = random.nextInt(48);
+      dab.color = Color.fromARGB(18 + random.nextInt(22), grey, grey, grey);
+      canvas.drawCircle(
+        Offset(
+          random.nextDouble() * size.width,
+          random.nextDouble() * size.height,
+        ),
+        6 + random.nextDouble() * 18,
+        dab,
+      );
+    }
+    // The band: a line, and a running scroll of small lotus loops.
+    final band = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.2
+      ..color = const Color(0x88DCD6C8);
+    final inner = (Offset.zero & size).deflate(8);
+    canvas.drawRect(inner, band);
+    final scroll = Path();
+    for (var x = inner.left + 10; x < inner.right - 10; x += 18) {
+      scroll
+        ..moveTo(x, inner.top + 4)
+        ..quadraticBezierTo(x + 5, inner.top - 2, x + 9, inner.top + 4)
+        ..moveTo(x, inner.bottom - 4)
+        ..quadraticBezierTo(x + 5, inner.bottom + 2, x + 9, inner.bottom - 4);
+    }
+    canvas.drawPath(scroll, band);
+  }
+
+  @override
+  bool shouldRepaint(_InkRubbing old) => false;
 }
 
 /// A red wax seal with a lily pressed into it.

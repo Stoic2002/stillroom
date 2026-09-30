@@ -1,0 +1,94 @@
+{
+  "id": "monks_hall",
+  "background": "images/scenes/gyeongju_771/monks_hall.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "yard"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "draft",
+      "rect": [
+        0.36,
+        0.5,
+        0.26,
+        0.14
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "read_draft",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "gyeongju_771.hall.draft"
+        }
+      ]
+    },
+    {
+      "id": "hulbert",
+      "rect": [
+        0.72,
+        0.6,
+        0.12,
+        0.08
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "showText",
+          "key": "gyeongju_771.hall.hulbert"
+        }
+      ]
+    },
+    {
+      "id": "window",
+      "rect": [
+        0.06,
+        0.16,
+        0.16,
+        0.34
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "gyeongju_771.hall.window"
+        }
+      ]
+    },
+    {
+      "id": "lamp",
+      "rect": [
+        0.62,
+        0.36,
+        0.06,
+        0.14
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "gyeongju_771.hall.lamp"
+        }
+      ]
+    }
+  ],
+  "echoes": [
+    {
+      "id": "monk",
+      "image": "images/objects/gyeongju_771/echo_monk.png",
+      "rect": [
+        0.22,
+        0.36,
+        0.06,
+        0.32
+      ],
+      "chance": 0.7
+    }
+  ]
+}

@@ -94,5 +94,18 @@
   "keyringWrong": "돌아가지 않는다.",
   "cipherInstruction": "편지의 숫자를 누르고, 작업표에서 같은 숫자를 누르세요.",
   "sourcesInstruction": "문서를 누르고, 들어갈 상자를 누르세요.",
-  "sourcesWrong": "{count, plural, other{잘못된 상자에 든 문서가 {count}장 있습니다.}}"
+  "sourcesWrong": "{count, plural, other{잘못된 상자에 든 문서가 {count}장 있습니다.}}",
+  "rubbingCaption": "청동에서 뜬 탁본",
+  "pourInstruction": "물길을 돌린 다음, 가마를 여세요.",
+  "pourButton": "붓기",
+  "pourSpilt": "쇳물이 모래로 흘러나간다. 가마를 다시 닫는다.",
+  "pourShort": "흘리지는 않았지만, 빈 주입구가 있다.",
+  "resonanceInstruction": "당목을 뒤로 당겼다 놓으세요. 아래 명동을 파거나 메우세요.",
+  "resonanceDeeper": "더 깊게",
+  "resonanceShallower": "더 얕게",
+  "resonanceWeak": "너무 약하다. 당목이 청동에 거의 닿지 않는다.",
+  "resonanceShort": "울림이 표시에 닿기 전에 사라진다.",
+  "beatInstruction": "종의 아랫부분을 치세요. 맥놀이가 가장 깊은 곳을 찾아 표시하세요.",
+  "beatMark": "이곳에 표시",
+  "beatWrong": "여기가 아니다. 더 깊게 울리는 곳이 있다."
 }

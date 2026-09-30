@@ -53,6 +53,9 @@ fvm dart run tool/audio/generate_audio.dart bell_toll  # one or more ids
 | `door_heavy` | Bastille: the tower doors | A low groan on the hinges and a thud on stone |
 | `bell_saint_paul` | Bastille: Saint-Paul; the ending | Two strokes of a higher bell, far off across the roofs |
 | `quill` | Bastille: the burial register; the cipher read | A quill scratching a line, a dip in the ink, more scratching |
+| `bronze_pour` | Gyeongju: the bell is cast | A long rush of molten metal, bubbling and settling |
+| `great_bell` | Gyeongju: the bell rung; the ending | The great bell's full ring, 20 s: each partial split in two (64.07/64.42 Hz, 168.52/168.63 Hz, …) so it swells and fades, as measured |
+| `striker_creak` | Gyeongju: the striker's rope tied | A rope creaking on a beam |
 
 ## Music
 
@@ -64,6 +67,7 @@ fvm dart run tool/audio/generate_audio.dart bell_toll  # one or more ids
 | `flannan_wind` | Flannan Isles | 48 s | A low drone; wind over the bare island; the swell below |
 | `pompeii_ash` | Pompeii, 79 | 48 s | A warm drone in D; dry wind; a slow plucked string in D dorian, like a lyre from another courtyard |
 | `lawang_sewu_1907` | Lawang Sewu, 1907 office | 32 s | A warm F-major drone; the office clock; record-like crackle; the NIS telegraph far off |
+| `gyeongju_night` | Gyeongju, 771 | 48 s | A low drone near the bell's 64 Hz hum; winter wind; a wooden fish knocked far off, slowing, every 12 s |
 | `bastille_dawn` | Bastille, 1703 | 48 s | A cold drone in A; a draught in the court; two slow bowed notes in A aeolian every 16 s, like a viol through a wall |
 
 ## Interface sounds (`assets/audio/ui/`)
@@ -84,6 +88,9 @@ vibration is on). Quieter than content sounds (−9 dBFS peak).
 | `wave` | Flannan's swell puzzle: a small wave breaks on the landing steps | — |
 | `great_sea` | Flannan's swell puzzle: a great sea draws back with a rising roar (1.2 s), then breaks over every step | medium |
 | `key_try` | Bastille's key ring: a key tried in a lock that will not turn | light |
+| `pour` | Gyeongju's pour: bronze runs down the channels | light |
+| `bell_strike` | Gyeongju's hollow: the great bell struck by its log (the first seconds of its ring) | medium |
+| `beat_steady`, `beat_light`, `beat_clear`, `beat_deep` | Gyeongju's rim: a strike whose ring swells and fades barely, lightly, clearly, or almost to silence (two tones 1.4 Hz apart, the second as loud as the swell needs) | light |
 | `solved` | Any puzzle gives way (before its own `onSolved` sounds) | light |
 | `pickup` | An item goes into the inventory | light |
 | `combine` | Two items become one | light |

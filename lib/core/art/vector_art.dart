@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'art_kit.dart';
 import 'bastille_1703_art.dart';
 import 'flannan_isles_1900_art.dart';
+import 'gyeongju_771_art.dart';
 import 'lawang_sewu_1945_art.dart';
 import 'pompeii_79_art.dart';
 import 'whitechapel_1888_art.dart';
@@ -18,6 +19,7 @@ final Map<String, ArtPainter> _vectorArt = {
   ...flannanArt,
   ...pompeiiArt,
   ...bastilleArt,
+  ...gyeongjuArt,
 };
 
 ArtPainter? vectorArtFor(String path) => _vectorArt[path];

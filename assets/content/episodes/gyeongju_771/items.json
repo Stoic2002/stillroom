@@ -1,0 +1,10 @@
+{
+  "items": [
+    {
+      "id": "striker_rope",
+      "nameKey": "item.gyeongju_771.striker_rope.name",
+      "descKey": "item.gyeongju_771.striker_rope.desc",
+      "icon": "images/items/gyeongju_771/striker_rope.png"
+    }
+  ]
+}

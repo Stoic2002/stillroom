@@ -72,7 +72,25 @@ enum UiSound {
   greatSea('great_sea', Haptic.medium),
 
   /// A key tried in a lock that will not turn.
-  keyTry('key_try', Haptic.light);
+  keyTry('key_try', Haptic.light),
+
+  /// Molten bronze runs down the channels.
+  pour('pour', Haptic.light),
+
+  /// The great bell struck by its log: a long ring, fading.
+  bellStrike('bell_strike', Haptic.medium),
+
+  /// The bell's rim struck, its ring swelling and fading hardly at all.
+  beatSteady('beat_steady', Haptic.light),
+
+  /// The rim struck: a light swell.
+  beatLight('beat_light', Haptic.light),
+
+  /// The rim struck: a clear swell.
+  beatClear('beat_clear', Haptic.light),
+
+  /// The rim struck: the deepest swell, fading almost to nothing and back.
+  beatDeep('beat_deep', Haptic.light);
 
   const UiSound(this.id, this.haptic);
 
@@ -80,6 +98,14 @@ enum UiSound {
   final Haptic haptic;
 
   String get assetPath => 'assets/audio/ui/$id.ogg';
+
+  /// The rim sound for a swell depth from 0 (steady) to 1 (deepest).
+  static UiSound forSwell(double swell) => switch (swell) {
+    < 0.3 => beatSteady,
+    < 0.5 => beatLight,
+    < 0.75 => beatClear,
+    _ => beatDeep,
+  };
 }
 
 enum Haptic { none, selection, light, medium }

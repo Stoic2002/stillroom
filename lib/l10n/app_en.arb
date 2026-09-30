@@ -404,5 +404,57 @@
         "type": "int"
       }
     }
+  },
+  "rubbingCaption": "A rubbing from the bronze",
+  "@rubbingCaption": {
+    "description": "Caption over the jar label written as an ink rubbing from a bronze bell."
+  },
+  "pourInstruction": "Turn the channels, then open the furnaces.",
+  "@pourInstruction": {
+    "description": "How to play the pouring puzzle: turn clay channel pieces, then pour."
+  },
+  "pourButton": "Pour",
+  "@pourButton": {
+    "description": "Button that opens the furnaces in the pouring puzzle."
+  },
+  "pourSpilt": "The bronze runs out into the sand. The furnaces are closed again.",
+  "@pourSpilt": {
+    "description": "Pouring puzzle: the bronze ran out into the sand."
+  },
+  "pourShort": "Nothing spilt, but a cup stayed empty.",
+  "@pourShort": {
+    "description": "Pouring puzzle: nothing spilt, but some pouring cups stayed empty."
+  },
+  "resonanceInstruction": "Pull the striker back and let it go. Dig or fill the hollow below.",
+  "@resonanceInstruction": {
+    "description": "How to play the bell-and-hollow puzzle."
+  },
+  "resonanceDeeper": "Deeper",
+  "@resonanceDeeper": {
+    "description": "Button: dig the hollow under the bell deeper."
+  },
+  "resonanceShallower": "Shallower",
+  "@resonanceShallower": {
+    "description": "Button: fill the hollow under the bell in a little."
+  },
+  "resonanceWeak": "Too gentle: the log barely touches the bronze.",
+  "@resonanceWeak": {
+    "description": "Bell puzzle: the striker was pulled back too little to ring the bell."
+  },
+  "resonanceShort": "The ring dies away before the mark.",
+  "@resonanceShort": {
+    "description": "Bell puzzle: the ring faded before reaching the mark."
+  },
+  "beatInstruction": "Strike the rim. Find where the ring swells deepest, and mark it.",
+  "@beatInstruction": {
+    "description": "How to play the puzzle of striking the bell rim and finding the deepest swell."
+  },
+  "beatMark": "Mark this place",
+  "@beatMark": {
+    "description": "Button: mark the place last struck as where the swell is deepest."
+  },
+  "beatWrong": "Not here: somewhere it swells deeper.",
+  "@beatWrong": {
+    "description": "Bell rim puzzle: the marked place is not the deepest swell."
   }
 }

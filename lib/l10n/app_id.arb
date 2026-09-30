@@ -94,5 +94,18 @@
   "keyringWrong": "Kuncinya tak mau berputar.",
   "cipherInstruction": "Ketuk sebuah angka di surat, lalu angka yang sama di lembar kerja.",
   "sourcesInstruction": "Ketuk selembar kertas, lalu baki tempatnya.",
-  "sourcesWrong": "{count, plural, other{{count} lembar ada di baki yang salah.}}"
+  "sourcesWrong": "{count, plural, other{{count} lembar ada di baki yang salah.}}",
+  "rubbingCaption": "Cetakan tinta dari perunggu",
+  "pourInstruction": "Putar saluran-salurannya, lalu buka tungku.",
+  "pourButton": "Tuang",
+  "pourSpilt": "Perunggu tumpah ke pasir. Tungku ditutup lagi.",
+  "pourShort": "Tidak ada yang tumpah, tapi satu mangkuk tetap kosong.",
+  "resonanceInstruction": "Tarik pemukul ke belakang lalu lepaskan. Gali atau timbun lubang di bawahnya.",
+  "resonanceDeeper": "Lebih dalam",
+  "resonanceShallower": "Lebih dangkal",
+  "resonanceWeak": "Terlalu pelan: kayunya hampir tidak menyentuh perunggu.",
+  "resonanceShort": "Gaungnya padam sebelum tanda.",
+  "beatInstruction": "Pukul bibir lonceng. Cari tempat gaungnya naik-turun paling dalam, lalu tandai.",
+  "beatMark": "Tandai tempat ini",
+  "beatWrong": "Bukan di sini: ada tempat yang lebih dalam."
 }

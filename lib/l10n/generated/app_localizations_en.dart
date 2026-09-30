@@ -339,4 +339,46 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get rubbingCaption => 'A rubbing from the bronze';
+
+  @override
+  String get pourInstruction => 'Turn the channels, then open the furnaces.';
+
+  @override
+  String get pourButton => 'Pour';
+
+  @override
+  String get pourSpilt =>
+      'The bronze runs out into the sand. The furnaces are closed again.';
+
+  @override
+  String get pourShort => 'Nothing spilt, but a cup stayed empty.';
+
+  @override
+  String get resonanceInstruction =>
+      'Pull the striker back and let it go. Dig or fill the hollow below.';
+
+  @override
+  String get resonanceDeeper => 'Deeper';
+
+  @override
+  String get resonanceShallower => 'Shallower';
+
+  @override
+  String get resonanceWeak => 'Too gentle: the log barely touches the bronze.';
+
+  @override
+  String get resonanceShort => 'The ring dies away before the mark.';
+
+  @override
+  String get beatInstruction =>
+      'Strike the rim. Find where the ring swells deepest, and mark it.';
+
+  @override
+  String get beatMark => 'Mark this place';
+
+  @override
+  String get beatWrong => 'Not here: somewhere it swells deeper.';
 }

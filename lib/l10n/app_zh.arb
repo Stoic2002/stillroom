@@ -94,5 +94,18 @@
   "keyringWrong": "转不动。",
   "cipherInstruction": "点信里的一个数字，再点工作表上相同的数字。",
   "sourcesInstruction": "点一份文件，再点它该放的托盘。",
-  "sourcesWrong": "{count, plural, other{有{count}份文件放错了托盘。}}"
+  "sourcesWrong": "{count, plural, other{有{count}份文件放错了托盘。}}",
+  "rubbingCaption": "从青铜上拓下的拓片",
+  "pourInstruction": "转动沟槽，然后打开熔炉。",
+  "pourButton": "浇铸",
+  "pourSpilt": "铜水流进了沙里。熔炉又关上了。",
+  "pourShort": "没有洒出来，但有一个浇口是空的。",
+  "resonanceInstruction": "把撞木往后拉，再松手。把下面的坑挖深或填浅。",
+  "resonanceDeeper": "挖深",
+  "resonanceShallower": "填浅",
+  "resonanceWeak": "太轻了：撞木几乎碰不到青铜。",
+  "resonanceShort": "余音在标记前就消失了。",
+  "beatInstruction": "敲击钟口。找出余音起伏最深的地方，做上记号。",
+  "beatMark": "在这里做记号",
+  "beatWrong": "不是这里：别处起伏更深。"
 }

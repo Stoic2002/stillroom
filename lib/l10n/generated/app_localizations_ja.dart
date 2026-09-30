@@ -323,4 +323,43 @@ class AppLocalizationsJa extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get rubbingCaption => '青銅からとった拓本';
+
+  @override
+  String get pourInstruction => '水路を回してから、炉を開けよう。';
+
+  @override
+  String get pourButton => '注ぐ';
+
+  @override
+  String get pourSpilt => '青銅が砂に流れ出た。炉がまた閉じられる。';
+
+  @override
+  String get pourShort => 'こぼれはしないが、空の湯口がある。';
+
+  @override
+  String get resonanceInstruction => '撞木を引いて放そう。下の穴を掘るか、埋めよう。';
+
+  @override
+  String get resonanceDeeper => '深く';
+
+  @override
+  String get resonanceShallower => '浅く';
+
+  @override
+  String get resonanceWeak => '弱すぎる。撞木が青銅にほとんど触れない。';
+
+  @override
+  String get resonanceShort => '響きが印の前で消える。';
+
+  @override
+  String get beatInstruction => '縁を撞こう。うなりが最も深い場所を探して、印をつけよう。';
+
+  @override
+  String get beatMark => 'ここに印をつける';
+
+  @override
+  String get beatWrong => 'ここではない。もっと深くうなる場所がある。';
 }

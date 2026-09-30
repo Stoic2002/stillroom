@@ -94,5 +94,18 @@
   "keyringWrong": "回らない。",
   "cipherInstruction": "手紙の数字をタップし、作業表の同じ数字をタップしよう。",
   "sourcesInstruction": "書類をタップし、入るべき箱をタップしよう。",
-  "sourcesWrong": "{count, plural, other{違う箱に入っている書類が{count}枚ある。}}"
+  "sourcesWrong": "{count, plural, other{違う箱に入っている書類が{count}枚ある。}}",
+  "rubbingCaption": "青銅からとった拓本",
+  "pourInstruction": "水路を回してから、炉を開けよう。",
+  "pourButton": "注ぐ",
+  "pourSpilt": "青銅が砂に流れ出た。炉がまた閉じられる。",
+  "pourShort": "こぼれはしないが、空の湯口がある。",
+  "resonanceInstruction": "撞木を引いて放そう。下の穴を掘るか、埋めよう。",
+  "resonanceDeeper": "深く",
+  "resonanceShallower": "浅く",
+  "resonanceWeak": "弱すぎる。撞木が青銅にほとんど触れない。",
+  "resonanceShort": "響きが印の前で消える。",
+  "beatInstruction": "縁を撞こう。うなりが最も深い場所を探して、印をつけよう。",
+  "beatMark": "ここに印をつける",
+  "beatWrong": "ここではない。もっと深くうなる場所がある。"
 }

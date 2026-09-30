@@ -1,0 +1,131 @@
+{
+  "id": "founders_shed",
+  "background": "images/scenes/gyeongju_771/founders_shed.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "yard"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "plan",
+      "rect": [
+        0.36,
+        0.2,
+        0.22,
+        0.24
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "gyeongju_771.shed.plan"
+        }
+      ]
+    },
+    {
+      "id": "rope",
+      "rect": [
+        0.7,
+        0.56,
+        0.1,
+        0.16
+      ],
+      "when": [
+        {
+          "everHadItem": "striker_rope",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "pickItem",
+          "item": "striker_rope"
+        },
+        {
+          "type": "showText",
+          "key": "gyeongju_771.shed.rope"
+        }
+      ]
+    },
+    {
+      "id": "story_1925",
+      "rect": [
+        0.14,
+        0.62,
+        0.14,
+        0.1
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "showText",
+          "key": "gyeongju_771.shed.story_1925"
+        }
+      ]
+    },
+    {
+      "id": "tools",
+      "rect": [
+        0.46,
+        0.58,
+        0.14,
+        0.16
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "gyeongju_771.shed.tools"
+        }
+      ]
+    },
+    {
+      "id": "clay",
+      "rect": [
+        0.06,
+        0.3,
+        0.12,
+        0.2
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "gyeongju_771.shed.clay"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "rope_sprite",
+      "image": "images/objects/gyeongju_771/rope_sprite.png",
+      "rect": [
+        0.7,
+        0.56,
+        0.1,
+        0.16
+      ],
+      "when": [
+        {
+          "everHadItem": "striker_rope",
+          "equals": false
+        }
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "rat",
+      "kind": "rat",
+      "rect": [
+        0.1,
+        0.88,
+        0.5,
+        0.06
+      ]
+    }
+  ]
+}

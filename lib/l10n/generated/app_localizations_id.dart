@@ -337,4 +337,47 @@ class AppLocalizationsId extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get rubbingCaption => 'Cetakan tinta dari perunggu';
+
+  @override
+  String get pourInstruction => 'Putar saluran-salurannya, lalu buka tungku.';
+
+  @override
+  String get pourButton => 'Tuang';
+
+  @override
+  String get pourSpilt => 'Perunggu tumpah ke pasir. Tungku ditutup lagi.';
+
+  @override
+  String get pourShort =>
+      'Tidak ada yang tumpah, tapi satu mangkuk tetap kosong.';
+
+  @override
+  String get resonanceInstruction =>
+      'Tarik pemukul ke belakang lalu lepaskan. Gali atau timbun lubang di bawahnya.';
+
+  @override
+  String get resonanceDeeper => 'Lebih dalam';
+
+  @override
+  String get resonanceShallower => 'Lebih dangkal';
+
+  @override
+  String get resonanceWeak =>
+      'Terlalu pelan: kayunya hampir tidak menyentuh perunggu.';
+
+  @override
+  String get resonanceShort => 'Gaungnya padam sebelum tanda.';
+
+  @override
+  String get beatInstruction =>
+      'Pukul bibir lonceng. Cari tempat gaungnya naik-turun paling dalam, lalu tandai.';
+
+  @override
+  String get beatMark => 'Tandai tempat ini';
+
+  @override
+  String get beatWrong => 'Bukan di sini: ada tempat yang lebih dalam.';
 }

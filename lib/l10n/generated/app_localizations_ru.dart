@@ -347,4 +347,45 @@ class AppLocalizationsRu extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get rubbingCaption => 'Оттиск с бронзы';
+
+  @override
+  String get pourInstruction => 'Поверните желоба, затем откройте печи.';
+
+  @override
+  String get pourButton => 'Лить';
+
+  @override
+  String get pourSpilt => 'Бронза уходит в песок. Печи снова закрывают.';
+
+  @override
+  String get pourShort => 'Ничего не пролилось, но одна чаша осталась пустой.';
+
+  @override
+  String get resonanceInstruction =>
+      'Оттяните било и отпустите. Углубите или засыпьте яму под колоколом.';
+
+  @override
+  String get resonanceDeeper => 'Глубже';
+
+  @override
+  String get resonanceShallower => 'Мельче';
+
+  @override
+  String get resonanceWeak => 'Слишком слабо: бревно едва касается бронзы.';
+
+  @override
+  String get resonanceShort => 'Звон затихает, не дойдя до метки.';
+
+  @override
+  String get beatInstruction =>
+      'Бейте по краю. Найдите, где звон нарастает и спадает глубже всего, и отметьте.';
+
+  @override
+  String get beatMark => 'Отметить это место';
+
+  @override
+  String get beatWrong => 'Не здесь: где-то волна глубже.';
 }

@@ -1,9 +1,11 @@
 # Episode design: Gyeongju, 771 (the Emille Bell)
 
-Status: **design draft** (2026-09-30), for the developer's approval before
-anything is built. Shelf II, Korea, from the plan of 16 tales
-(`docs/stillroom_frame.md`, *The full shelf*). Proposed id:
-`gyeongju_771`; jar label **Gyeongju, 771**.
+Status: **built** (2026-09-30): draft text in seven languages, code-drawn
+art (`lib/core/art/gyeongju_771_art.dart`), generated audio, walkthrough
+test. Approved by the developer with all three mechanics, the `rubbing`
+seal, and the legend kept to later papers. Shelf II (opens after 2
+tales), Korea, from the plan of 16 tales (`docs/stillroom_frame.md`, *The
+full shelf*). Id `gyeongju_771`; jar label **Gyeongju, 771**.
 
 ## Premise
 
@@ -70,8 +72,14 @@ Wikipedia, Britannica and several Korean sites could not be opened from
 the build environment; facts marked above were checked across at least
 two search results. An earlier (1970s) report claimed traces of
 phosphorus; the tale cites only the 1998 finding and does not mention the
-number of samples. Before building, the founders' names and ranks are
-checked once more against the inscription text.
+number of samples. The founders' names and ranks were checked again
+before building: *daenama* Park Jong-il (10th rank); *nama* Park Bin-na
+and Park Han-mi (11th); *daesa* Park Bu-ak (12th).
+
+**What the jar adds:** the founders' board by the gate, the channel plan,
+the pour's grid, and the eight places round the rim with their swells are
+the jar's own. The beat itself is real; which place on the real bell
+swells deepest is not claimed.
 
 [wiki]: https://en.wikipedia.org/wiki/Bell_of_King_Seongdeok
 [gac]: https://artsandculture.google.com/story/the-bell-of-king-seongdeok-the-great-gyeongju-national-museum/AAVhcz8wEYLALw?hl=en
@@ -104,7 +112,7 @@ checked once more against the inscription text.
 | `founders_shed` | Clay, wax, ladles, the channel plan scratched on a board; the striker's rope; a later paper (the 1925 children's story) |
 | `casting_pit` | The mould buried in the ground, furnaces and clay channels (the pour); after it, the bell dug out |
 | `monks_hall` | Kim Pil-o's draft of the inscription (the date, the "perfect voice", the kings); a later book (Hulbert, 1906: a bell in Seoul) |
-| `pavilion` | The bell hung by its dragon hook over a hollow in the ground; the log striker on ropes; after the ringing, a later paper (the 1998 finding) |
+| `pavilion` | The bell hung by its dragon hook over a hollow in the ground; the log striker (one rope, the other end on a trestle); after the ringing, a later paper (the 1998 finding) |
 
 ## New mechanics (Gyeongju only)
 
@@ -165,17 +173,36 @@ cast their names into it. The cry was never a child's."
   yard; a rat in the shed. (A magpie on the pavilion roof would need a new
   creature; optional.)
 
-## Audio (ids, to generate)
+## Audio
 
-- **Music:** `gyeongju_night` (a low drone in the bell's own 64 Hz range,
+- **Music:** `gyeongju_night` (a low drone near the bell's 64 Hz hum,
   wind, a distant wooden fish).
 - **Effects:** `bronze_pour`, `great_bell` (the full ring with its beat,
-  about 20 s, faded), `striker_creak`. Interface: `bell_strike` (a short
-  struck tone for the `beat` puzzle, its swell set by the place struck).
+  20 s), `striker_creak`. Interface: `pour`, `bell_strike` (the hollow
+  puzzle), and `beat_steady`, `beat_light`, `beat_clear`, `beat_deep` (the
+  rim, by swell depth).
 
-## Open questions for the developer
+## Decisions (2026-09-30)
 
-1. The three mechanics (the pour, the hollow, the cry): all three?
-2. The seal as an ink rubbing (`rubbing`), and its sentence?
-3. The date is set in 771, with the legend only in later papers
-   (recommended: yes; the child is never shown).
+1. All three mechanics: the pour, the hollow, the cry.
+2. The seal as an ink rubbing (`rubbing`), with the sentence above.
+3. The tale is set in 771; the legend appears only in later papers, and
+   the child is never shown.
+
+## As built
+
+- **Flow:** the founders' board; the shed (the rope, the 1925 story); the
+  monks' hall (the draft, Hulbert); the pit (`pour`); the pavilion opens
+  once the bell is cast: tie the rope, then `resonance`, the 1998 paper,
+  `beat`, and the seal. The keeper's slip is behind the founders' board
+  once the cry is found.
+- **Sounds:** `great_bell` has the measured beating pairs; the rim
+  puzzle's four sounds swell more or less deeply, so it can be solved by
+  ear as well as by eye.
+
+## Things to watch when tested
+
+- Whether the pour is clear: which pieces turn, where the bronze spills.
+- Whether the drag on the log striker feels natural on the phone, and
+  whether three digs is easy to find (the trace only shows length).
+- Whether the four rim sounds are told apart by ear on the phone speaker.

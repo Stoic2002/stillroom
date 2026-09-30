@@ -61,6 +61,18 @@
       ]
     },
     {
+      "id": "gyeongju_771",
+      "titleKey": "episode.gyeongju_771.title",
+      "teaserKey": "episode.gyeongju_771.teaser",
+      "jarImage": "images/ui/jar_gyeongju_771.png",
+      "shelf": 2,
+      "unlockAfter": 2,
+      "place": [
+        35.83,
+        129.228
+      ]
+    },
+    {
       "id": "sealed_whitechapel_1891",
       "titleKey": "episode.sealed.title",
       "comingSoon": true,

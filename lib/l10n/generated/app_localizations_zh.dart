@@ -323,4 +323,43 @@ class AppLocalizationsZh extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get rubbingCaption => '从青铜上拓下的拓片';
+
+  @override
+  String get pourInstruction => '转动沟槽，然后打开熔炉。';
+
+  @override
+  String get pourButton => '浇铸';
+
+  @override
+  String get pourSpilt => '铜水流进了沙里。熔炉又关上了。';
+
+  @override
+  String get pourShort => '没有洒出来，但有一个浇口是空的。';
+
+  @override
+  String get resonanceInstruction => '把撞木往后拉，再松手。把下面的坑挖深或填浅。';
+
+  @override
+  String get resonanceDeeper => '挖深';
+
+  @override
+  String get resonanceShallower => '填浅';
+
+  @override
+  String get resonanceWeak => '太轻了：撞木几乎碰不到青铜。';
+
+  @override
+  String get resonanceShort => '余音在标记前就消失了。';
+
+  @override
+  String get beatInstruction => '敲击钟口。找出余音起伏最深的地方，做上记号。';
+
+  @override
+  String get beatMark => '在这里做记号';
+
+  @override
+  String get beatWrong => '不是这里：别处起伏更深。';
 }

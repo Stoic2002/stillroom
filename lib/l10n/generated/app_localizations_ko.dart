@@ -324,4 +324,43 @@ class AppLocalizationsKo extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get rubbingCaption => '청동에서 뜬 탁본';
+
+  @override
+  String get pourInstruction => '물길을 돌린 다음, 가마를 여세요.';
+
+  @override
+  String get pourButton => '붓기';
+
+  @override
+  String get pourSpilt => '쇳물이 모래로 흘러나간다. 가마를 다시 닫는다.';
+
+  @override
+  String get pourShort => '흘리지는 않았지만, 빈 주입구가 있다.';
+
+  @override
+  String get resonanceInstruction => '당목을 뒤로 당겼다 놓으세요. 아래 명동을 파거나 메우세요.';
+
+  @override
+  String get resonanceDeeper => '더 깊게';
+
+  @override
+  String get resonanceShallower => '더 얕게';
+
+  @override
+  String get resonanceWeak => '너무 약하다. 당목이 청동에 거의 닿지 않는다.';
+
+  @override
+  String get resonanceShort => '울림이 표시에 닿기 전에 사라진다.';
+
+  @override
+  String get beatInstruction => '종의 아랫부분을 치세요. 맥놀이가 가장 깊은 곳을 찾아 표시하세요.';
+
+  @override
+  String get beatMark => '이곳에 표시';
+
+  @override
+  String get beatWrong => '여기가 아니다. 더 깊게 울리는 곳이 있다.';
 }

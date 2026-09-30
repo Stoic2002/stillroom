@@ -677,6 +677,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, =1{One paper is in the wrong tray.} other{{count} papers are in the wrong tray.}}'**
   String sourcesWrong(int count);
+
+  /// Caption over the jar label written as an ink rubbing from a bronze bell.
+  ///
+  /// In en, this message translates to:
+  /// **'A rubbing from the bronze'**
+  String get rubbingCaption;
+
+  /// How to play the pouring puzzle: turn clay channel pieces, then pour.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn the channels, then open the furnaces.'**
+  String get pourInstruction;
+
+  /// Button that opens the furnaces in the pouring puzzle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pour'**
+  String get pourButton;
+
+  /// Pouring puzzle: the bronze ran out into the sand.
+  ///
+  /// In en, this message translates to:
+  /// **'The bronze runs out into the sand. The furnaces are closed again.'**
+  String get pourSpilt;
+
+  /// Pouring puzzle: nothing spilt, but some pouring cups stayed empty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing spilt, but a cup stayed empty.'**
+  String get pourShort;
+
+  /// How to play the bell-and-hollow puzzle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pull the striker back and let it go. Dig or fill the hollow below.'**
+  String get resonanceInstruction;
+
+  /// Button: dig the hollow under the bell deeper.
+  ///
+  /// In en, this message translates to:
+  /// **'Deeper'**
+  String get resonanceDeeper;
+
+  /// Button: fill the hollow under the bell in a little.
+  ///
+  /// In en, this message translates to:
+  /// **'Shallower'**
+  String get resonanceShallower;
+
+  /// Bell puzzle: the striker was pulled back too little to ring the bell.
+  ///
+  /// In en, this message translates to:
+  /// **'Too gentle: the log barely touches the bronze.'**
+  String get resonanceWeak;
+
+  /// Bell puzzle: the ring faded before reaching the mark.
+  ///
+  /// In en, this message translates to:
+  /// **'The ring dies away before the mark.'**
+  String get resonanceShort;
+
+  /// How to play the puzzle of striking the bell rim and finding the deepest swell.
+  ///
+  /// In en, this message translates to:
+  /// **'Strike the rim. Find where the ring swells deepest, and mark it.'**
+  String get beatInstruction;
+
+  /// Button: mark the place last struck as where the swell is deepest.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark this place'**
+  String get beatMark;
+
+  /// Bell rim puzzle: the marked place is not the deepest swell.
+  ///
+  /// In en, this message translates to:
+  /// **'Not here: somewhere it swells deeper.'**
+  String get beatWrong;
 }
 
 class _AppLocalizationsDelegate

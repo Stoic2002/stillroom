@@ -1,0 +1,172 @@
+{
+  "startScene": "yard",
+  "flags": {
+    "read_tally": false,
+    "read_draft": false,
+    "rope_tied": false,
+    "read_report": false,
+    "found_note": false
+  },
+  "logicalResolution": [
+    1920,
+    1080
+  ],
+  "orientation": "landscape",
+  "sceneTransitionMs": 600,
+  "music": "gyeongju_night",
+  "words": [
+    {
+      "id": "park_jong_il",
+      "labelKey": "gyeongju_771.word.park_jong_il",
+      "kind": "name"
+    },
+    {
+      "id": "kim_pil_o",
+      "labelKey": "gyeongju_771.word.kim_pil_o",
+      "kind": "name"
+    },
+    {
+      "id": "seongdeok",
+      "labelKey": "gyeongju_771.word.seongdeok",
+      "kind": "name"
+    },
+    {
+      "id": "seoul",
+      "labelKey": "gyeongju_771.word.seoul",
+      "kind": "place"
+    },
+    {
+      "id": "date_771",
+      "labelKey": "gyeongju_771.word.date_771",
+      "kind": "date"
+    },
+    {
+      "id": "date_1925",
+      "labelKey": "gyeongju_771.word.date_1925",
+      "kind": "date"
+    },
+    {
+      "id": "child",
+      "labelKey": "gyeongju_771.word.child",
+      "kind": "thing"
+    },
+    {
+      "id": "emille",
+      "labelKey": "gyeongju_771.word.emille",
+      "kind": "thing"
+    },
+    {
+      "id": "beat",
+      "labelKey": "gyeongju_771.word.beat",
+      "kind": "thing"
+    },
+    {
+      "id": "hollow",
+      "labelKey": "gyeongju_771.word.hollow",
+      "kind": "thing"
+    }
+  ],
+  "secret": {
+    "when": [
+      {
+        "flag": "found_note",
+        "equals": true
+      }
+    ],
+    "noteKey": "gyeongju_771.yard.keeper_note"
+  },
+  "hintStages": [
+    {
+      "id": "write_seal",
+      "when": [
+        {
+          "puzzleSolved": "beat"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.gyeongju_771.write_seal.1"
+        },
+        {
+          "key": "hint.gyeongju_771.write_seal.2"
+        }
+      ]
+    },
+    {
+      "id": "find_cry",
+      "when": [
+        {
+          "puzzleSolved": "resonance"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.gyeongju_771.find_cry.1"
+        },
+        {
+          "key": "hint.gyeongju_771.find_cry.2"
+        }
+      ]
+    },
+    {
+      "id": "ring_bell",
+      "when": [
+        {
+          "flag": "rope_tied",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.gyeongju_771.ring_bell.1"
+        },
+        {
+          "key": "hint.gyeongju_771.ring_bell.2"
+        }
+      ]
+    },
+    {
+      "id": "tie_rope",
+      "when": [
+        {
+          "puzzleSolved": "pour"
+        },
+        {
+          "hasItem": "striker_rope"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.gyeongju_771.tie_rope.1"
+        }
+      ]
+    },
+    {
+      "id": "find_rope",
+      "when": [
+        {
+          "puzzleSolved": "pour"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.gyeongju_771.find_rope.1"
+        },
+        {
+          "key": "hint.gyeongju_771.find_rope.2"
+        }
+      ]
+    },
+    {
+      "id": "start",
+      "hints": [
+        {
+          "key": "hint.gyeongju_771.start.1"
+        },
+        {
+          "key": "hint.gyeongju_771.start.2"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "id": "casting_pit",
+  "background": "images/scenes/gyeongju_771/casting_pit.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "yard"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "mould",
+      "rect": [
+        0.34,
+        0.36,
+        0.32,
+        0.4
+      ],
+      "when": [
+        {
+          "puzzleSolved": "pour",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "gyeongju_771.pit.mould"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "pour"
+        }
+      ]
+    },
+    {
+      "id": "mould_done",
+      "rect": [
+        0.34,
+        0.36,
+        0.32,
+        0.4
+      ],
+      "when": [
+        {
+          "puzzleSolved": "pour"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "gyeongju_771.pit.mould_done"
+        }
+      ]
+    },
+    {
+      "id": "furnaces",
+      "rect": [
+        0.04,
+        0.2,
+        0.2,
+        0.44
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "gyeongju_771.pit.furnaces"
+        }
+      ]
+    },
+    {
+      "id": "channels",
+      "rect": [
+        0.72,
+        0.3,
+        0.2,
+        0.3
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "gyeongju_771.pit.channels"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "mould_open_sprite",
+      "image": "images/objects/gyeongju_771/mould_open_sprite.png",
+      "rect": [
+        0.34,
+        0.36,
+        0.32,
+        0.4
+      ],
+      "when": [
+        {
+          "puzzleSolved": "pour"
+        }
+      ]
+    }
+  ],
+  "echoes": [
+    {
+      "id": "founder",
+      "image": "images/objects/gyeongju_771/echo_founder.png",
+      "rect": [
+        0.74,
+        0.34,
+        0.06,
+        0.3
+      ],
+      "when": [
+        {
+          "puzzleSolved": "pour",
+          "equals": false
+        }
+      ]
+    }
+  ]
+}

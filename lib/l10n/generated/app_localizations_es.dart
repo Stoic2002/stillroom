@@ -343,4 +343,47 @@ class AppLocalizationsEs extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get rubbingCaption => 'Un calco del bronce';
+
+  @override
+  String get pourInstruction => 'Gira los canales y luego abre los hornos.';
+
+  @override
+  String get pourButton => 'Verter';
+
+  @override
+  String get pourSpilt =>
+      'El bronce se derrama en la arena. Los hornos se cierran de nuevo.';
+
+  @override
+  String get pourShort => 'No se derramó nada, pero una copa quedó vacía.';
+
+  @override
+  String get resonanceInstruction =>
+      'Tira del badajo hacia atrás y suéltalo. Cava o rellena el hueco de abajo.';
+
+  @override
+  String get resonanceDeeper => 'Más hondo';
+
+  @override
+  String get resonanceShallower => 'Menos hondo';
+
+  @override
+  String get resonanceWeak =>
+      'Demasiado suave: el tronco apenas roza el bronce.';
+
+  @override
+  String get resonanceShort => 'El tañido se apaga antes de la marca.';
+
+  @override
+  String get beatInstruction =>
+      'Golpea el borde. Busca dónde el tañido crece y mengua más hondo, y márcalo.';
+
+  @override
+  String get beatMark => 'Marcar este lugar';
+
+  @override
+  String get beatWrong => 'Aquí no: en otro sitio crece más hondo.';
 }

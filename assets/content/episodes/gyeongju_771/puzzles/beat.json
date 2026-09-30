@@ -1,0 +1,38 @@
+{
+  "id": "beat",
+  "type": "beat",
+  "background": "images/scenes/gyeongju_771/rim_board.png",
+  "config": {
+    "swell": [
+      0.25,
+      0.45,
+      0.35,
+      0.6,
+      0.3,
+      0.92,
+      0.5,
+      0.2
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "great_bell"
+    },
+    {
+      "type": "showText",
+      "key": "gyeongju_771.pav.beat_found"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.gyeongju_771.beat.1"
+    },
+    {
+      "key": "hint.gyeongju_771.beat.2"
+    },
+    {
+      "key": "hint.gyeongju_771.beat.3"
+    }
+  ]
+}

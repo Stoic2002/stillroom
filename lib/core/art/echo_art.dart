@@ -40,6 +40,12 @@ enum EchoFigure {
 
   /// A prisoner in a long coat; a dark band where the mask was.
   prisoner,
+
+  /// A Silla bell founder in a short jacket, a long ladle in hand.
+  founder,
+
+  /// A monk in a long robe, a stole across one shoulder.
+  monk,
 }
 
 const _mist = Color(0xFFD5DEE2);
@@ -265,6 +271,44 @@ void paintEcho(Art a, EchoFigure figure) {
           Paint()
             ..color = const Color(0xCC141114)
             ..maskFilter = MaskFilter.blur(BlurStyle.normal, w * 0.02),
+        );
+    case EchoFigure.founder:
+      a.canvas
+        ..drawPath(
+          shape([(0.3, 0.2), (0.7, 0.2), (0.74, 0.52), (0.26, 0.52)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.3, 0.5), (0.47, 0.5), (0.45, 0.98), (0.32, 0.98)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.53, 0.5), (0.7, 0.5), (0.68, 0.98), (0.55, 0.98)]),
+          body,
+        )
+        // The ladle: a long handle held low, its cup near the ground.
+        ..drawLine(
+          a.p(0.7, 0.36),
+          a.p(0.98, 0.9),
+          Paint()
+            ..color = _mist
+            ..strokeWidth = w * 0.05
+            ..maskFilter = blur,
+        )
+        ..drawOval(a.r(0.84, 0.86, 0.18, 0.08), body);
+      a.glow(a.p(0.92, 0.92), w * 0.3, const Color(0xFFE08A3A), strength: 0.5);
+    case EchoFigure.monk:
+      a.canvas
+        ..drawPath(
+          shape([(0.3, 0.2), (0.7, 0.2), (0.82, 0.96), (0.18, 0.96)]),
+          body,
+        )
+        // The stole, a band from one shoulder across the robe.
+        ..drawPath(
+          shape([(0.6, 0.2), (0.72, 0.24), (0.36, 0.7), (0.26, 0.64)]),
+          Paint()
+            ..color = const Color(0xCCB08A70)
+            ..maskFilter = blur,
         );
     case EchoFigure.girl:
       a.canvas

@@ -94,5 +94,18 @@
   "keyringWrong": "No gira.",
   "cipherInstruction": "Toca un número de la carta y luego el mismo número en la hoja de trabajo.",
   "sourcesInstruction": "Toca un papel y luego la bandeja a la que pertenece.",
-  "sourcesWrong": "{count, plural, =1{Un papel está en la bandeja equivocada.} other{{count} papeles están en la bandeja equivocada.}}"
+  "sourcesWrong": "{count, plural, =1{Un papel está en la bandeja equivocada.} other{{count} papeles están en la bandeja equivocada.}}",
+  "rubbingCaption": "Un calco del bronce",
+  "pourInstruction": "Gira los canales y luego abre los hornos.",
+  "pourButton": "Verter",
+  "pourSpilt": "El bronce se derrama en la arena. Los hornos se cierran de nuevo.",
+  "pourShort": "No se derramó nada, pero una copa quedó vacía.",
+  "resonanceInstruction": "Tira del badajo hacia atrás y suéltalo. Cava o rellena el hueco de abajo.",
+  "resonanceDeeper": "Más hondo",
+  "resonanceShallower": "Menos hondo",
+  "resonanceWeak": "Demasiado suave: el tronco apenas roza el bronce.",
+  "resonanceShort": "El tañido se apaga antes de la marca.",
+  "beatInstruction": "Golpea el borde. Busca dónde el tañido crece y mengua más hondo, y márcalo.",
+  "beatMark": "Marcar este lugar",
+  "beatWrong": "Aquí no: en otro sitio crece más hondo."
 }

@@ -1258,7 +1258,79 @@ Buf quill() {
   return reverb(b, size: 0.2, mix: 0.12);
 }
 
+/// Gyeongju: bronze poured into the mould, a long rush and a settling.
+Buf bronzePour() {
+  final rng = math.Random(44);
+  const seconds = 4.0;
+  final b = Buf(seconds + 1)
+    ..add(
+      gain(
+        shape(
+          lowpass(noise(seconds, rng), (t) => 700 + 400 * math.sin(t * 3)),
+          (t) => swell(t, 0.4, 1.2, seconds),
+        ),
+        1.6,
+      ),
+    );
+  for (var i = 0; i < 40; i++) {
+    b.add(
+      modal(0.15, 70 + rng.nextDouble() * 120, const [(1, 1, 0.05)]),
+      at: rng.nextDouble() * (seconds - 0.3),
+      gain: 0.5,
+      pan: rng.nextDouble() - 0.5,
+    );
+  }
+  return reverb(b, size: 0.6, mix: 0.3);
+}
+
+/// Gyeongju: the great bell's full ring, its beat swelling and fading.
+Buf greatBell() {
+  final rng = math.Random(45);
+  final b = Buf(20)
+    ..add(greatBellRing(20))
+    ..add(
+      gain(
+        shape(lowpass(noise(0.1, rng), (_) => 500), (t) => decay(t, 0.025)),
+        1.4,
+      ),
+    );
+  return reverb(b, size: 0.9, mix: 0.35, damp: 0.55);
+}
+
+/// Gyeongju: the log striker drawn back on its ropes.
+Buf strikerCreak() {
+  final rng = math.Random(46);
+  const seconds = 1.2;
+  final pulses = Float64List(n(seconds));
+  var phase = 0.0;
+  for (var i = 0; i < pulses.length; i++) {
+    final t = i / rate;
+    phase +=
+        (30 + 25 * math.sin(math.pi * t / seconds) + rng.nextDouble() * 5) /
+        rate;
+    if (phase >= 1) {
+      phase -= 1;
+      pulses[i] = 1;
+    }
+  }
+  final b = Buf(seconds + 0.5)
+    ..add(
+      shape(
+        sum([
+          bandpass(pulses, (_) => 420, 10),
+          gain(bandpass(pulses, (_) => 900, 10), 0.6),
+        ]),
+        (t) => swell(t, 0.2, 0.3, seconds),
+      ),
+      gain: 2.5,
+    );
+  return reverb(b, size: 0.5, mix: 0.25);
+}
+
 final sfx = <String, Buf Function()>{
+  'bronze_pour': bronzePour,
+  'great_bell': greatBell,
+  'striker_creak': strikerCreak,
   'key_turn': keyTurn,
   'door_heavy': doorHeavy,
   'bell_saint_paul': bellSaintPaul,
@@ -1418,7 +1490,48 @@ Buf bastilleDawn() => loop(48, (seconds) {
   return reverb(b, size: 0.85, mix: 0.45, damp: 0.5);
 });
 
+/// Gyeongju: a low drone near the great bell's hum, winter wind in the
+/// pines, and a wooden fish (moktak) knocked far off, now and then.
+Buf gyeongjuNight() => loop(48, (seconds) {
+  final rng = math.Random(27);
+  final b = Buf(seconds)
+    ..add(
+      drone(seconds, loopSeconds: 48, const [
+        (64.0, 0.4, 24),
+        (96.0, 0.2, 16),
+        (128.0, 0.08, 12),
+      ]),
+      gain: 0.4,
+    );
+  final wind = shape(
+    bandpass(
+      noise(seconds, rng),
+      (t) => 600 + 350 * math.sin(tau * t / 16),
+      1.3,
+    ),
+    (t) => 0.3 + 0.7 * math.pow(math.sin(tau * t / 24), 2),
+  );
+  b.add(gain(wind, 0.18), pan: 0.3);
+  // The wooden fish: a run of knocks, slowing, every 12 seconds.
+  for (var at = 4.0; at < seconds - 4; at += 12) {
+    var gap = 0.45;
+    var t = at;
+    for (var k = 0; k < 5; k++) {
+      b.add(
+        modal(0.3, 520, const [(1, 1, 0.05), (2.3, 0.3, 0.03)]),
+        at: t,
+        gain: 0.06,
+        pan: -0.5,
+      );
+      t += gap;
+      gap *= 1.25;
+    }
+  }
+  return reverb(b, size: 0.85, mix: 0.45, damp: 0.5);
+});
+
 final music = <String, Buf Function()>{
+  'gyeongju_night': gyeongjuNight,
   'bastille_dawn': bastilleDawn,
   'pompeii_ash': pompeiiAsh,
   'flannan_wind': flannanWind,
@@ -1836,7 +1949,96 @@ Buf keyTrySound() {
   return reverb(b, size: 0.3, mix: 0.15);
 }
 
+/// The great bell of Gyeongju: a low hum and its partials, each split into
+/// two tones a hair apart, so the ring swells and fades (the beat). Pairs
+/// after the measured ones: 64.07/64.42 Hz (every ~3 s), 168.52/168.63 Hz
+/// (every ~9 s).
+Float64List greatBellRing(double seconds, {double scale = 1}) => sum([
+  modal(seconds, 1, [
+    (64.07, 0.8, 9 * scale),
+    (64.42, 0.8, 9 * scale),
+    (168.52, 0.55, 7 * scale),
+    (168.63, 0.55, 7 * scale),
+    (231.5, 0.3, 4 * scale),
+    (232.1, 0.3, 4 * scale),
+    (351.0, 0.18, 2.5 * scale),
+    (477.0, 0.1, 1.6 * scale),
+    (634.0, 0.06, 1.1 * scale),
+  ], attack: 0.004),
+]);
+
+/// The great bell struck by its log, for the hollow puzzle: the first
+/// seconds of the ring.
+Buf bellStrikeSound() {
+  final rng = math.Random(53);
+  final b = Buf(5)
+    ..add(greatBellRing(5, scale: 0.5))
+    ..add(
+      gain(
+        shape(lowpass(noise(0.08, rng), (_) => 600), (t) => decay(t, 0.02)),
+        1.2,
+      ),
+    );
+  return reverb(b, size: 0.7, mix: 0.3, damp: 0.5);
+}
+
+/// The rim struck, its ring swelling and fading by [swell] (0–1): two
+/// tones 1.4 Hz apart, the second as loud as the swell needs.
+Buf beatRimSound(double swell, int seed) {
+  final rng = math.Random(seed);
+  final a = swell / (2 - swell);
+  const seconds = 3.2;
+  final b = Buf(seconds)
+    ..add(
+      sum([
+        modal(seconds, 1, [
+          (168.5, 1, 2.2),
+          (168.5 + 1.4, a, 2.2),
+          (352.0, 0.35, 1.2),
+          (352.0 + 1.4, 0.35 * a, 1.2),
+          (64.2, 0.4, 2.8),
+        ], attack: 0.003),
+        gain(click(rng, centre: 1800, time: 0.004), 0.6),
+      ]),
+    );
+  return reverb(b, size: 0.5, mix: 0.25);
+}
+
+/// Molten bronze running down clay channels: a hiss and a low bubbling.
+Buf pourSound() {
+  final rng = math.Random(54);
+  const seconds = 1.6;
+  final b = Buf(seconds)
+    ..add(
+      gain(
+        shape(
+          bandpass(
+            noise(seconds, rng),
+            (t) => 900 + 300 * math.sin(t * 9),
+            1.4,
+          ),
+          (t) => swell(t, 0.1, 0.6, seconds),
+        ),
+        0.7,
+      ),
+    );
+  for (var i = 0; i < 14; i++) {
+    b.add(
+      modal(0.12, 90 + rng.nextDouble() * 80, const [(1, 1, 0.04)]),
+      at: 0.1 + rng.nextDouble() * 1.2,
+      gain: 0.4,
+    );
+  }
+  return reverb(b, size: 0.3, mix: 0.15);
+}
+
 final ui = <String, Buf Function()>{
+  'pour': pourSound,
+  'bell_strike': bellStrikeSound,
+  'beat_steady': () => beatRimSound(0.15, 55),
+  'beat_light': () => beatRimSound(0.4, 56),
+  'beat_clear': () => beatRimSound(0.62, 57),
+  'beat_deep': () => beatRimSound(0.95, 58),
   'key_try': keyTrySound,
   'wave': waveSound,
   'great_sea': greatSeaSound,

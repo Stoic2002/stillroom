@@ -1,0 +1,298 @@
+{
+  "id": "pavilion",
+  "background": "images/scenes/gyeongju_771/pavilion.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "yard"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "striker_loose",
+      "rect": [
+        0.08,
+        0.34,
+        0.24,
+        0.12
+      ],
+      "when": [
+        {
+          "flag": "rope_tied",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "gyeongju_771.pav.striker_loose"
+        }
+      ],
+      "onUseItem": [
+        {
+          "item": "striker_rope",
+          "actions": [
+            {
+              "type": "removeItem",
+              "item": "striker_rope"
+            },
+            {
+              "type": "setFlag",
+              "flag": "rope_tied",
+              "value": true
+            },
+            {
+              "type": "playSound",
+              "sound": "striker_creak"
+            },
+            {
+              "type": "showText",
+              "key": "gyeongju_771.pav.rope_tied"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "striker",
+      "rect": [
+        0.08,
+        0.34,
+        0.24,
+        0.12
+      ],
+      "when": [
+        {
+          "flag": "rope_tied",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "resonance",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "gyeongju_771.pav.striker"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "resonance"
+        }
+      ]
+    },
+    {
+      "id": "striker_done",
+      "rect": [
+        0.08,
+        0.34,
+        0.24,
+        0.12
+      ],
+      "when": [
+        {
+          "puzzleSolved": "resonance"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "great_bell"
+        },
+        {
+          "type": "showText",
+          "key": "gyeongju_771.pav.striker_done"
+        }
+      ]
+    },
+    {
+      "id": "bell_silent",
+      "rect": [
+        0.38,
+        0.1,
+        0.28,
+        0.62
+      ],
+      "when": [
+        {
+          "puzzleSolved": "resonance",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "gyeongju_771.pav.bell_silent"
+        }
+      ]
+    },
+    {
+      "id": "bell_rim",
+      "rect": [
+        0.38,
+        0.1,
+        0.28,
+        0.62
+      ],
+      "when": [
+        {
+          "puzzleSolved": "resonance"
+        },
+        {
+          "puzzleSolved": "beat",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "gyeongju_771.pav.bell_rim"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "beat"
+        }
+      ]
+    },
+    {
+      "id": "bell_seal",
+      "rect": [
+        0.38,
+        0.1,
+        0.28,
+        0.62
+      ],
+      "when": [
+        {
+          "puzzleSolved": "beat"
+        },
+        {
+          "puzzleSolved": "jar_label",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "gyeongju_771.pav.seal_needed"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "jar_label"
+        }
+      ]
+    },
+    {
+      "id": "report",
+      "rect": [
+        0.74,
+        0.7,
+        0.12,
+        0.08
+      ],
+      "when": [
+        {
+          "puzzleSolved": "resonance"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_report",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "gyeongju_771.pav.report"
+        }
+      ]
+    },
+    {
+      "id": "hollow",
+      "rect": [
+        0.4,
+        0.8,
+        0.24,
+        0.1
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "gyeongju_771.pav.hollow"
+        }
+      ]
+    },
+    {
+      "id": "apsaras",
+      "rect": [
+        0.52,
+        0.42,
+        0.1,
+        0.14
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "gyeongju_771.pav.apsaras"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "rope_tied_sprite",
+      "image": "images/objects/gyeongju_771/rope_tied_sprite.png",
+      "rect": [
+        0.08,
+        0.34,
+        0.24,
+        0.12
+      ],
+      "when": [
+        {
+          "flag": "rope_tied",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "report_sprite",
+      "image": "images/objects/gyeongju_771/report_sprite.png",
+      "rect": [
+        0.74,
+        0.7,
+        0.12,
+        0.08
+      ],
+      "when": [
+        {
+          "puzzleSolved": "resonance"
+        }
+      ]
+    }
+  ],
+  "echoes": [
+    {
+      "id": "monk",
+      "image": "images/objects/gyeongju_771/echo_monk.png",
+      "rect": [
+        0.86,
+        0.4,
+        0.05,
+        0.3
+      ],
+      "when": [
+        {
+          "puzzleSolved": "jar_label",
+          "equals": false
+        }
+      ],
+      "chance": 0.7
+    }
+  ]
+}

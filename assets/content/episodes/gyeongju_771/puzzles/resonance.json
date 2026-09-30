@@ -1,0 +1,36 @@
+{
+  "id": "resonance",
+  "type": "resonance",
+  "background": "images/scenes/gyeongju_771/pavilion_board.png",
+  "config": {
+    "depths": 5,
+    "start": 0,
+    "right": 3,
+    "mark": 0.8
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "great_bell"
+    },
+    {
+      "type": "showText",
+      "key": "gyeongju_771.pav.first_ring"
+    },
+    {
+      "type": "showText",
+      "key": "gyeongju_771.pav.hollow_found"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.gyeongju_771.resonance.1"
+    },
+    {
+      "key": "hint.gyeongju_771.resonance.2"
+    },
+    {
+      "key": "hint.gyeongju_771.resonance.3"
+    }
+  ]
+}

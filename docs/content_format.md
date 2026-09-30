@@ -533,11 +533,13 @@ filled slot swaps them.
 | `correction` | A text already written and wrong in places: every blank starts with the sentence's `initial` word; the player finds and corrects the wrong ones | `initial` on every sentence, one word per blank, all in `words`; at least one must be wrong |
 | `board` | Tags pinned to the picture behind (the puzzle `background`), each at its sentence's `rect`; the words take the right third of the board, so keep every `rect` left of x = 0.64 | `rect` on every sentence |
 | `order` | A royal order on parchment: the header *De par le Roy* (UI string `orderHeader`, the same in every language) over `orderSubheader`, the sentences in italic, a red wax seal | — |
+| `rubbing` | An ink rubbing (*takbon*) taken from a cast inscription: black paper, the letters pale, a band of lotus scroll, the caption `rubbingCaption` | — |
 
 Used so far: Whitechapel `table` (the five frames), Semarang `telegram`,
 Flannan `correction` (the legend's account), Pompeii `board` (the
 diggers' cut, a tag on every layer), Bastille `order` (a blank *lettre de
-cachet*, written with only what is known).
+cachet*, written with only what is known), Gyeongju `rubbing` (taken from
+the bell's bronze).
 
 ### `clockHands`: set the hands
 
@@ -796,6 +798,66 @@ cachet*, written with only what is known).
 - **Validation:** at least two trays and three cards, unique ids, every
   card's `tray` known, and at least one card for every tray.
 
+### `pour`: route the bronze
+
+```json
+"config": {
+  "columns": 5,
+  "furnaces": [0, 2, 4],
+  "cups": [1, 2, 3],
+  "tiles": ["straight:0", "tee:0", "straight:0", "tee:2", "straight:0",
+            "bend:0", "bend:2", "straight:0", "bend:1", "bend:3",
+            "empty", "straight:0", "straight:0", "straight:0", "bend:0"],
+  "start": [1, 1, 1, 0, 3, 2, 1, 1, 3, 2, 0, 1, 3, 1, 2]
+}
+```
+
+- **What the player sees:** furnaces over the top row (at the columns in
+  `furnaces`), the mould's pouring cups under the bottom row (at `cups`),
+  and a grid of clay channel pieces between.
+- **Pieces:** `tiles` lists the grid row by row as `kind:turns`, the
+  clockwise quarter turns each has **when solved**. Kinds: `straight`
+  (top–bottom), `bend` (top–right), `tee` (top–right–bottom), `cross`
+  (all four, cannot turn), `empty` (sand, cannot turn). `start` adds turns
+  to scramble them.
+- **Playing:** tap a piece to turn it a quarter; tap Pour. Bronze runs
+  from every furnace; where it would run into sand, air or a piece that
+  does not meet it, it splashes, and the furnaces close again.
+- **Solved** when every furnace feeds the channels, every cup fills, and
+  nothing spills. Other routes than the given one count too.
+- **Validation:** 2–8 columns, whole rows, the solved turns must pour, the
+  scrambled start must not.
+
+### `resonance`: the bell over its hollow
+
+```json
+"config": { "depths": 5, "start": 0, "right": 3, "mark": 0.8 }
+```
+
+- **What the player sees:** the bell in cross-section over a hollow in the
+  ground, a log striker on ropes, Deeper and Shallower, and a panel where
+  each strike's ring is drawn, with a mark.
+- **Playing:** drag the log back and let go. The ring's length is the pull
+  (below 0.4 it barely touches) times how well the hollow suits the bell:
+  1 at `right`, 0.75 one step off, and so on. Solved when a ring reaches
+  `mark` (above 0.75, at most 1): only a strong pull over the right depth.
+- **Validation:** 3–8 depths; `start` and `right` differ.
+
+### `beat`: find where the ring swells deepest
+
+```json
+"config": { "swell": [0.25, 0.45, 0.35, 0.6, 0.3, 0.92, 0.5, 0.2] }
+```
+
+- **What the player sees:** the bell's rim from below with a place to
+  strike for each entry of `swell` (6–12, clockwise from the top), a panel
+  for the ring's trace, and a Mark button.
+- **Playing:** tap a place to strike it: its ring swells and fades as deep
+  as its `swell` (0 steady, 1 to silence and back), heard (four sounds,
+  `beat_steady` to `beat_deep`, chosen by depth) and seen. Mark the place
+  last struck. The deepest place solves it; any other is a mistake.
+- **Validation:** the deepest must stand at least 0.15 above every other.
+
 ## Words and the jar's label
 
 `words` in `game.json` declares what the player can note down:
@@ -984,3 +1046,4 @@ warnings show in the debug panel).
 | 2026-09-26 | post-M6 | Korean (`ko`) added. Hints paced by the hint candle. Generated audio in `assets/audio/` (docs/audio.md); music id `stillroom_menu` plays on the menu and shelf. |
 | 2026-09-30 | post-M6 | Puzzle types `beamSweep`, `swell` and `roster`; interface sounds `wave` and `great_sea`. Flannan rebuilt around them (the gallery, the west landing steps, the hooks); its label is a short seal. |
 | 2026-09-30 | post-M6 | Puzzle types `keyring`, `cipher` and `sources`; deduction form `order`; interface sound `key_try`. Episode `bastille_1703` (shelf II). |
+| 2026-09-30 | post-M6 | Puzzle types `pour`, `resonance` and `beat`; deduction form `rubbing`; interface sounds `pour`, `bell_strike`, `beat_*`. Episode `gyeongju_771` (shelf II). |

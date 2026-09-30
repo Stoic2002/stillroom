@@ -40,7 +40,7 @@ data, so later tales arrive in updates.
 | Shelf | Tales |
 |---|---|
 | I (2) | *Whitechapel, 1888* ✓, *Semarang, 1945* ✓ |
-| II (4) | *Flannan Isles, 1900* ✓, *Pompeii, 79* ✓, **The Man in the Iron Mask, Bastille, 1703** (Western Europe), **The Emille Bell, Gyeongju, 771** (Korea) |
+| II (4) | *Flannan Isles, 1900* ✓, *Pompeii, 79* ✓, *Bastille, 1703* ✓ (Western Europe), *Gyeongju, 771* ✓ (Korea) |
 | III (4) | **Whitechapel, 1891** (series), **The death of the Guangxu Emperor, Beijing, 1908** (China), **Alamut, 1256** (Middle East), **Great Zimbabwe, 1871** (Africa) |
 | IV (5) | **Dyatlov Pass, 1959** (Eastern Europe), **Honnō-ji, Kyoto, 1582** (Japan), **Roanoke, 1590** (the Americas), **The Franklin expedition, 1845** (the Arctic), *one Indonesian tale, to be chosen* |
 | V (1) | The old keeper's own tale (arc OPEN) |
@@ -76,7 +76,7 @@ How difficulty rises from shelf to shelf:
 | Length | 8–10 beats | 10–12 beats, parallel branches |
 
 Current placement: *Whitechapel, 1888* (shelf I, the easiest, doubling as the
-tutorial); *Semarang, 1945* (shelf I, opens after Whitechapel; a step up: clues across three eras); *Flannan Isles, 1900*, *Pompeii, 79* and *Bastille, 1703* (shelf II, open after two tales). Shelf III opens after four.
+tutorial); *Semarang, 1945* (shelf I, opens after Whitechapel; a step up: clues across three eras); *Flannan Isles, 1900*, *Pompeii, 79*, *Bastille, 1703* and *Gyeongju, 771* (shelf II, open after two tales; the shelf is full). Shelf III opens after four.
 
 ## Signature mechanics (decided 2026-09-26)
 
@@ -115,6 +115,7 @@ own hardest puzzle; higher shelves have more puzzles, chained together.
 | *Semarang, 1945* | Doors into other years; code locks (the station clock, the locker room); the timetable and the telegraph in order; the stained-glass rings; the lockers | A telegram of two lines: the doors counted, the day, how many did not come home |
 | *Flannan Isles, 1900* | Dark scenes by lantern light; the clockwork crank; the beam turning over the island, showing things only while it passes; down the landing steps between the waves (the swell); the roster of who went, how, and when | A seal: the legend's sentence, three words corrected |
 | *Pompeii, 79* | The lens between eras, turned through the hours of the last day; pieces laid and turned into place (the shrine's painted panel, the child's drawing); marks read by raking light | A seal of three words, pinned to the diggers' cut |
+| *Gyeongju, 771* | Bronze routed from three furnaces into the mould (`pour`); the log striker and the hollow under the bell, dug until the ring lasts (`resonance`); the rim struck all round to find where the ring swells deepest, the "cry" that is a beat (`beat`) | A seal of three words taken as an ink rubbing from the bronze (`rubbing`) |
 | *Bastille, 1703* | The turnkey's ring: find the one key whose bit matches the keyhole, and turn it the right way (`keyring`); the king's Great Cipher read with Bazeries's worksheet, two numbers left unread (`cipher`); the prisoner's file sorted into what was written at the time and what was told after (`sources`) | A seal of three words on a blank royal order (`order`) |
 
 The first three tales were reworked on 2026-09-29 to follow this rule:
@@ -139,6 +140,9 @@ no names and no faces, so no real person is ever given invented features:
 - *Bastille:* a turnkey with a lantern in the court and on the tower
   stair; in the cell, the prisoner, a dark band across his blank face
   where the mask was. He is never shown with a face.
+- *Gyeongju:* a founder with a long ladle by the casting pit; a monk in
+  the hall and at the pavilion. The legend's child and mother are never
+  drawn, echoed, or voiced.
 
 ## Living things (decided 2026-09-26)
 
@@ -156,6 +160,8 @@ and season:
   puffins or thrift, which are summer's.
 - *Bastille* is about the people, in November: weeds between the cobbles
   of the court, and rats on the tower stair and in the cell.
+- *Gyeongju* is a midwinter night: frosted grass in the temple yard, a rat
+  in the founders' shed, falling snow.
 
 ## How it shows in the game
 
@@ -190,7 +196,7 @@ final episode. Details are open.
 | `flannan_isles_1900` | Flannan Isles, 1900 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). Dark scenes, crank, legend as red herrings | [episodes/flannan_isles_1900.md](episodes/flannan_isles_1900.md) |
 | `pompeii_79` | Pompeii, 79 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). Lens between eras, tracing sheets, legend as red herrings | [episodes/pompeii_79.md](episodes/pompeii_79.md) |
 | `sealed_whitechapel_1891` | Sealed jar (shelf III, series whitechapel) | Idea: the six other names in the police file | — |
-| `gyeongju_771` | Gyeongju, 771 | Design draft, awaiting approval (shelf II) | [episodes/gyeongju_771.md](episodes/gyeongju_771.md) |
+| `gyeongju_771` | Gyeongju, 771 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). The pour, the hollow, the beat; the child legend, Seoul and 1925 as red herrings | [episodes/gyeongju_771.md](episodes/gyeongju_771.md) |
 | `bastille_1703` | Bastille, 1703 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). Key ring, Great Cipher, the file of sources; Voltaire, Dumas and Bazeries as red herrings | [episodes/bastille_1703.md](episodes/bastille_1703.md) |
 | *(planned)* | The other nine new tales | See *The full shelf* above | — |
 | `test_room` | Test room | Debug builds only | Feature test room |

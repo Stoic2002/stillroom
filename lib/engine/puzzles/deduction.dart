@@ -143,6 +143,10 @@ enum DeductionForm {
   /// A royal order under the king's seal ("De par le Roy"): the sentences
   /// set out as its text.
   order,
+
+  /// An ink rubbing taken from a cast inscription: black paper, the
+  /// sentences left pale.
+  rubbing,
 }
 
 final class DeductionSentence {

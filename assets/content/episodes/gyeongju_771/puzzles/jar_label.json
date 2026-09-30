@@ -1,0 +1,63 @@
+{
+  "id": "jar_label",
+  "type": "deduction",
+  "background": "images/scenes/gyeongju_771/label_close.png",
+  "config": {
+    "form": "rubbing",
+    "sentences": [
+      {
+        "textKey": "gyeongju_771.label.s1",
+        "blanks": [
+          "date_771",
+          "park_jong_il",
+          "beat"
+        ]
+      }
+    ],
+    "words": [
+      "park_jong_il",
+      "kim_pil_o",
+      "seongdeok",
+      "seoul",
+      "date_771",
+      "date_1925",
+      "child",
+      "emille",
+      "beat",
+      "hollow"
+    ],
+    "nearMiss": 1
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "great_bell"
+    },
+    {
+      "type": "showText",
+      "key": "gyeongju_771.label.done"
+    },
+    {
+      "type": "showText",
+      "key": "gyeongju_771.ending.ring"
+    },
+    {
+      "type": "showText",
+      "key": "gyeongju_771.ending.names"
+    },
+    {
+      "type": "endEpisode"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.gyeongju_771.jar_label.1"
+    },
+    {
+      "key": "hint.gyeongju_771.jar_label.2"
+    },
+    {
+      "key": "hint.gyeongju_771.jar_label.3"
+    }
+  ]
+}

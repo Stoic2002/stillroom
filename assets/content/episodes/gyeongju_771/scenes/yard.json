@@ -1,0 +1,217 @@
+{
+  "id": "yard",
+  "background": "images/scenes/gyeongju_771/yard.png",
+  "exits": [
+    {
+      "id": "shed",
+      "to": "founders_shed",
+      "rect": [
+        0.04,
+        0.4,
+        0.15,
+        0.38
+      ]
+    },
+    {
+      "id": "hall",
+      "to": "monks_hall",
+      "rect": [
+        0.76,
+        0.36,
+        0.16,
+        0.4
+      ]
+    },
+    {
+      "id": "pit",
+      "to": "casting_pit",
+      "rect": [
+        0.38,
+        0.72,
+        0.26,
+        0.18
+      ]
+    },
+    {
+      "id": "pavilion",
+      "to": "pavilion",
+      "rect": [
+        0.42,
+        0.2,
+        0.16,
+        0.32
+      ],
+      "when": [
+        {
+          "puzzleSolved": "pour"
+        }
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "tally",
+      "rect": [
+        0.24,
+        0.46,
+        0.1,
+        0.18
+      ],
+      "when": [
+        {
+          "puzzleSolved": "beat",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "read_tally",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "gyeongju_771.yard.tally"
+        }
+      ]
+    },
+    {
+      "id": "tally_note",
+      "rect": [
+        0.24,
+        0.46,
+        0.1,
+        0.18
+      ],
+      "when": [
+        {
+          "puzzleSolved": "beat"
+        },
+        {
+          "flag": "found_note",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "found_note",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "gyeongju_771.yard.keeper_note"
+        }
+      ]
+    },
+    {
+      "id": "tally_done",
+      "rect": [
+        0.24,
+        0.46,
+        0.1,
+        0.18
+      ],
+      "when": [
+        {
+          "flag": "found_note",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "gyeongju_771.yard.tally_done"
+        }
+      ]
+    },
+    {
+      "id": "pavilion_empty",
+      "rect": [
+        0.42,
+        0.2,
+        0.16,
+        0.32
+      ],
+      "when": [
+        {
+          "puzzleSolved": "pour",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "gyeongju_771.yard.pavilion_empty"
+        }
+      ]
+    },
+    {
+      "id": "lanterns",
+      "rect": [
+        0.62,
+        0.3,
+        0.08,
+        0.16
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "gyeongju_771.yard.lanterns"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "bell_hung_sprite",
+      "image": "images/objects/gyeongju_771/bell_far_sprite.png",
+      "rect": [
+        0.42,
+        0.2,
+        0.16,
+        0.32
+      ],
+      "when": [
+        {
+          "puzzleSolved": "pour"
+        }
+      ]
+    }
+  ],
+  "echoes": [
+    {
+      "id": "founder",
+      "image": "images/objects/gyeongju_771/echo_founder.png",
+      "rect": [
+        0.33,
+        0.5,
+        0.05,
+        0.24
+      ],
+      "when": [
+        {
+          "puzzleSolved": "pour",
+          "equals": false
+        }
+      ],
+      "chance": 0.8,
+      "drift": [
+        0.02,
+        0
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "frost",
+      "kind": "grass",
+      "rect": [
+        0.66,
+        0.84,
+        0.22,
+        0.06
+      ]
+    }
+  ]
+}
