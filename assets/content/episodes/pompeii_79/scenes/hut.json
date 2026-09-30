@@ -196,6 +196,58 @@
           "item": "shovel"
         }
       ]
+    },
+    {
+      "id": "lamp",
+      "rect": [
+        0.845,
+        0.44,
+        0.06,
+        0.12
+      ],
+      "when": [
+        {
+          "puzzleSolved": "wax_tablet",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.hut.lamp"
+        }
+      ],
+      "onUseItem": [
+        {
+          "item": "wax_tablet",
+          "actions": [
+            {
+              "type": "openPuzzle",
+              "puzzle": "wax_tablet"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lamp_done",
+      "rect": [
+        0.845,
+        0.44,
+        0.06,
+        0.12
+      ],
+      "when": [
+        {
+          "puzzleSolved": "wax_tablet"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.hut.lamp_done"
+        }
+      ]
     }
   ],
   "layers": [

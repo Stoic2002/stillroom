@@ -71,14 +71,16 @@ tracing sheets (after *Her Trees*).
 or two mechanics of its own, tied to its story, and does not reuse another
 tale's puzzles just to gate the way. Only the frame is shared: the words,
 the jar's label, and the keeper's secret. Even the label differs: each
-tale writes it in its own form.
+tale writes it in its own form. And the label is short: a seal of a few
+words, not a form to fill (decided 2026-09-30). The height of a tale is its
+own hardest puzzle; higher shelves have more puzzles, chained together.
 
 | Tale | Its own mechanics | Its label |
 |---|---|---|
 | *Whitechapel, 1888* | A clock-face lock set to the stopped hour; a red thread through five streets on a map; fog and ash wiped away; a lens and frame made into a magnifier | A ledger: the five frames, a name and a place under each date |
 | *Semarang, 1945* | Doors into other years; code locks (the station clock, the locker room); the timetable and the telegraph in order; the stained-glass rings; the lockers | A telegram, STOP between the lines |
 | *Flannan Isles, 1900* | Dark scenes by lantern light; the clockwork crank | The legend's account, to be corrected |
-| *Pompeii, 79* | The lens between eras; the stack of tracing sheets | Tags pinned to the layers of the diggers' cut |
+| *Pompeii, 79* | The lens between eras, turned through the hours of the last day; pieces laid and turned into place (the shrine's painted panel, the child's drawing); marks read by raking light | A seal of three words, pinned to the diggers' cut |
 
 The first three tales were reworked on 2026-09-29 to follow this rule:
 Whitechapel lost its code lock, candle sequence, compass rings, and frame

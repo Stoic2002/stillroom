@@ -251,6 +251,18 @@ that use the same id.
   with echo art.
 - **Line them up:** the two scenes are the same place in different years,
   drawn to the same layout, so a thing moves when the lens passes over it.
+- **Hours:** with `"scenes": [ … ]` instead of `scene`, the lens looks at a
+  different hour, one scene per hour of `lensHours` in `game.json`:
+
+  ```json
+  "lensHours": { "flag": "lens_hour",
+    "labels": ["pompeii_79.hour.morning", "pompeii_79.hour.noon", "pompeii_79.hour.afternoon"] }
+  ```
+
+  A brass tag beside the raised lens names the hour; tapping it turns the
+  lens on to the next, round to the first. The int `flag` holds the hour
+  (0 = the first label), so conditions can use it. Validated: `scenes`
+  needs `lensHours` and one scene per label.
 
 ### Echoes
 
@@ -540,6 +552,23 @@ diggers' cut, a tag on every layer).
 - `image` (optional) is the dial; without it a paper dial with Roman
   numerals is drawn.
 
+### `rakingLight`: read by a low light
+
+```json
+"config": { "surface": "images/…/wax_tablet_surface.png",
+            "marks": "images/…/wax_tablet_marks.png", "from": 290, "tolerance": 14 }
+```
+
+- **Playing:** a surface in the dark and a lamp the player drags round it.
+  The faint `marks` rise out of the `surface` as the light grazes them:
+  shadows on one side of every stroke, a glint on the other.
+- **Solved** when the lamp rests for a moment within `tolerance` degrees
+  (default 12) of `from`: the direction the light must come from, clockwise
+  from the top (0 above, 90 right, 180 below, 270 left). The marks begin to
+  show within three times the tolerance. The lamp starts on the opposite
+  side.
+- Draw `marks` in any colour: the view tints it as shadow and highlight.
+
 ### `thread`: a red thread from pin to pin
 
 ```json
@@ -801,6 +830,7 @@ warnings show in the debug panel).
 | 2026-09-26 | post-M6 | `place` in `episodes.json` (the map of tales); `activeImage` on `sequence` elements. |
 | 2026-09-26 | post-M6 | `dark` scenes and the `crank` puzzle type; episode `flannan_isles_1900` (shelf II) replaces `sealed_3`. |
 | 2026-09-26 | post-M6 | Words (`words`, `[[id]]` markup, `wordNoted` condition), `deduction` and `reveal` puzzle types, `secret` in `game.json`. Save: `words`/`secretFound` per episode; `distilled` and `keeperNotes` in the save file (additive, old saves load). |
+| 2026-09-30 | post-M6 | `lensHours` in `game.json` and `scenes` (by the hour) on scene lenses; puzzle type `rakingLight`. Pompeii rebuilt around them (fresco, strongbox, wax tablets); its label is a short seal. |
 | 2026-09-29 | post-M6 | `form` on `deduction` (`sentences`, `table`, `telegram`, `correction`, `board`) with `columns`, and sentence `rect` and `initial`; puzzle types `clockHands` and `thread`. Whitechapel, Semarang and Flannan reworked so no puzzle type is shared between tales. |
 | 2026-09-29 | post-M6 | `lens` in scenes (a lens between eras) and the `overlay` puzzle type; episode `pompeii_79` (shelf II). |
 | 2026-09-26 | post-M6 | Korean (`ko`) added. Hints paced by the hint candle. Generated audio in `assets/audio/` (docs/audio.md); music id `stillroom_menu` plays on the menu and shelf. |

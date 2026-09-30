@@ -555,7 +555,7 @@ abstract class AppLocalizations {
   /// How to play the overlay puzzle: drag see-through sheets, tap to turn
   ///
   /// In en, this message translates to:
-  /// **'Drag the sheets. Tap one to turn it.'**
+  /// **'Drag the pieces. Tap one to turn it.'**
   String get overlayInstruction;
 
   /// How to play a jar label that is written wrong in places
@@ -587,6 +587,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Draw the thread from pin to pin.'**
   String get threadInstruction;
+
+  /// How to play the raking-light puzzle: move a lamp round a surface
+  ///
+  /// In en, this message translates to:
+  /// **'Move the lamp round the tablet, close and low.'**
+  String get rakingLightInstruction;
 }
 
 class _AppLocalizationsDelegate

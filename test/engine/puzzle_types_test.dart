@@ -323,6 +323,7 @@ void main() {
       'overlay',
       'clockHands',
       'thread',
+      'rakingLight',
     ]);
   });
 }

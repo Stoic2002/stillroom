@@ -1,3 +1,4 @@
+import 'actions/built_in_actions.dart';
 import 'actions/game_action.dart';
 import 'engine_exception.dart';
 import 'game_event.dart';
@@ -161,9 +162,26 @@ final class GameEngine {
 
   /// The scene seen through the lens right now, if any.
   Scene? lensScene(GameState state) => switch (lens(state)) {
-    final lens? => content.requireScene(lens.scene),
+    final lens? => content.requireScene(lens.sceneAt(lensHour(state))),
     null => null,
   };
+
+  /// The hour the lens is turned to (an index into `lensHours`), 0 without
+  /// hours.
+  int lensHour(GameState state) {
+    final hours = content.config.lensHours;
+    if (hours == null) return 0;
+    final value = state.flags[hours.flag];
+    return value is int ? value % hours.labels.length : 0;
+  }
+
+  /// Turns the lens on to the next hour, round to the first again.
+  EngineResult turnLensHour(GameState state) {
+    final hours = content.config.lensHours;
+    if (hours == null) return EngineResult(state);
+    final next = (lensHour(state) + 1) % hours.labels.length;
+    return runActions(state, [SetFlagAction(hours.flag, next)]);
+  }
 
   /// Layers of the scene seen through the lens that show right now.
   List<SceneLayer> visibleLensLayers(GameState state) => [

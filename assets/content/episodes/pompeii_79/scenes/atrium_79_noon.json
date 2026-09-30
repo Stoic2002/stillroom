@@ -1,0 +1,52 @@
+{
+  "id": "atrium_79_noon",
+  "background": "images/scenes/pompeii_79/atrium_79_noon.png",
+  "hotspots": [
+    {
+      "id": "sky",
+      "rect": [
+        0.38,
+        0.0,
+        0.24,
+        0.2
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "rumble"
+        },
+        {
+          "type": "showText",
+          "key": "pompeii_79.lens.cloud"
+        }
+      ]
+    },
+    {
+      "id": "family",
+      "rect": [
+        0.3,
+        0.34,
+        0.24,
+        0.5
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.lens.family_noon"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "family",
+      "image": "images/objects/pompeii_79/echo_family_noon.png",
+      "rect": [
+        0.3,
+        0.34,
+        0.24,
+        0.5
+      ]
+    }
+  ]
+}

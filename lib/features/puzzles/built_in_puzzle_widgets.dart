@@ -5,6 +5,7 @@ import 'crank/crank_view.dart';
 import 'deduction/deduction_view.dart';
 import 'overlay/overlay_view.dart';
 import 'puzzle_view.dart';
+import 'raking_light/raking_light_view.dart';
 import 'reveal/reveal_view.dart';
 import 'rotary_align/rotary_align_view.dart';
 import 'sequence/sequence_view.dart';
@@ -12,7 +13,7 @@ import 'slot_placement/slot_placement_view.dart';
 import 'thread/thread_view.dart';
 
 /// Widgets for the built-in puzzle types (PRD FR-04, plus `deduction`,
-/// `reveal`, `crank`, `overlay`, `clockHands` and `thread`).
+/// `reveal`, `crank`, `overlay`, `clockHands`, `thread` and `rakingLight`).
 PuzzleWidgetRegistry builtInPuzzleWidgets() => PuzzleWidgetRegistry()
   ..register(CodeLockType.typeId, CodeLockView.new)
   ..register(SequenceType.typeId, SequenceView.new)
@@ -23,4 +24,5 @@ PuzzleWidgetRegistry builtInPuzzleWidgets() => PuzzleWidgetRegistry()
   ..register(CrankType.typeId, CrankView.new)
   ..register(OverlayType.typeId, OverlayView.new)
   ..register(ClockHandsType.typeId, ClockHandsView.new)
-  ..register(ThreadType.typeId, ThreadView.new);
+  ..register(ThreadType.typeId, ThreadView.new)
+  ..register(RakingLightType.typeId, RakingLightView.new);

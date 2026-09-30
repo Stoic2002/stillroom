@@ -17,6 +17,18 @@
       "nameKey": "item.pompeii_79.tracings.name",
       "descKey": "item.pompeii_79.tracings.desc",
       "icon": "images/items/pompeii_79/tracings.png"
+    },
+    {
+      "id": "arca_key",
+      "nameKey": "item.pompeii_79.arca_key.name",
+      "descKey": "item.pompeii_79.arca_key.desc",
+      "icon": "images/items/pompeii_79/arca_key.png"
+    },
+    {
+      "id": "wax_tablet",
+      "nameKey": "item.pompeii_79.wax_tablet.name",
+      "descKey": "item.pompeii_79.wax_tablet.desc",
+      "icon": "images/items/pompeii_79/wax_tablet.png"
     }
   ]
 }

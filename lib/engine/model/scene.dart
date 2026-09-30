@@ -293,37 +293,56 @@ final class SceneDarkness {
 /// A lens between eras (`lens` in a scene file):
 ///
 /// ```json
-/// "lens": { "scene": "atrium_79", "when": [{ "hasItem": "era_lens" }], "radius": 0.2 }
+/// "lens": { "scene": "street_79", "when": [{ "hasItem": "era_lens" }], "radius": 0.2 }
+/// "lens": { "scenes": ["atrium_morning", "atrium_noon", "atrium_evening"], "when": [...] }
 /// ```
 /// While every `when` holds, the player can raise the lens: a circle,
 /// `radius` wide as a share of the scene's width (default 0.2), that they
-/// drag around. Inside it, `scene` shows instead: its background and visible
-/// layers, and taps there reach its hotspots. The player never stands in
-/// `scene`; its exits are ignored.
+/// drag around. Inside it, the lens scene shows instead: its background and
+/// visible layers, and taps there reach its hotspots. The player never
+/// stands in a lens scene; its exits are ignored.
+///
+/// With `scenes`, the lens looks at a different hour of the other era, one
+/// scene per hour of `lensHours` in `game.json`; the player turns the hour
+/// on the lens. With `scene`, every hour looks the same.
 final class SceneLens {
   const SceneLens({
-    required this.scene,
+    required this.scenes,
     this.when = const [],
     this.radius = 0.2,
   });
 
   factory SceneLens.fromJson(JsonReader json) {
-    json.allowOnly({'scene', 'when', 'radius'});
+    json.allowOnly({'scene', 'scenes', 'when', 'radius'});
     final radius = json.optionalNumber('radius') ?? 0.2;
     if (radius <= 0 || radius > 0.5) {
       json.fail('must be above 0 and at most 0.5', 'radius');
     }
+    final one = json.optionalString('scene');
+    final many = json.has('scenes') ? json.strings('scenes') : null;
+    if ((one == null) == (many == null)) {
+      json.fail('give either scene or scenes', 'scene');
+    }
+    if (many != null && many.isEmpty) json.fail('need a scene', 'scenes');
     return SceneLens(
-      scene: json.string('scene'),
+      scenes: List.unmodifiable(many ?? [one!]),
       when: Condition.listFromJson(json, 'when'),
       radius: radius,
     );
   }
 
-  /// The scene seen through the lens.
-  final String scene;
+  /// The scenes seen through the lens: one for every hour, or a single one
+  /// for all hours.
+  final List<String> scenes;
   final List<Condition> when;
   final double radius;
+
+  /// Whether what the lens shows depends on the hour it is turned to.
+  bool get turnsWithHours => scenes.length > 1;
+
+  /// The scene seen at [hour] (an index into `lensHours`).
+  String sceneAt(int hour) =>
+      turnsWithHours ? scenes[hour.clamp(0, scenes.length - 1)] : scenes.first;
 }
 
 /// An echo (`echoes` in a scene file): a faint, faceless figure of memory.

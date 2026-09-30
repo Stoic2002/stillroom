@@ -19,14 +19,106 @@
   ],
   "hotspots": [
     {
+      "id": "shrine_fallen",
+      "rect": [
+        0.06,
+        0.26,
+        0.14,
+        0.34
+      ],
+      "when": [
+        {
+          "puzzleSolved": "fresco",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.atrium.fresco_fallen"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "fresco"
+        }
+      ]
+    },
+    {
+      "id": "shrine_whole",
+      "rect": [
+        0.06,
+        0.26,
+        0.14,
+        0.34
+      ],
+      "when": [
+        {
+          "puzzleSolved": "fresco"
+        },
+        {
+          "flag": "saw_key",
+          "equals": false
+        },
+        {
+          "everHadItem": "arca_key",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.atrium.fresco_whole"
+        }
+      ]
+    },
+    {
+      "id": "shrine_key",
+      "rect": [
+        0.06,
+        0.26,
+        0.14,
+        0.34
+      ],
+      "when": [
+        {
+          "puzzleSolved": "fresco"
+        },
+        {
+          "flag": "saw_key",
+          "equals": true
+        },
+        {
+          "everHadItem": "arca_key",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "millstone"
+        },
+        {
+          "type": "pickItem",
+          "item": "arca_key"
+        },
+        {
+          "type": "showText",
+          "key": "pompeii_79.atrium.key_found"
+        }
+      ]
+    },
+    {
       "id": "shrine",
       "rect": [
         0.06,
         0.26,
         0.14,
-        0.26
+        0.34
       ],
       "when": [
+        {
+          "everHadItem": "arca_key"
+        },
         {
           "puzzleSolved": "tracings",
           "equals": false
@@ -45,7 +137,7 @@
         0.06,
         0.26,
         0.14,
-        0.26
+        0.34
       ],
       "when": [
         {
@@ -67,10 +159,36 @@
         0.15,
         0.22
       ],
+      "when": [
+        {
+          "puzzleSolved": "wax_tablet",
+          "equals": false
+        }
+      ],
       "onTap": [
         {
           "type": "showText",
           "key": "pompeii_79.atrium.drawing"
+        }
+      ]
+    },
+    {
+      "id": "drawing_traced",
+      "rect": [
+        0.23,
+        0.34,
+        0.15,
+        0.22
+      ],
+      "when": [
+        {
+          "puzzleSolved": "wax_tablet"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.atrium.drawing_traced"
         }
       ]
     },
@@ -95,12 +213,82 @@
         0.72,
         0.16,
         0.06,
-        0.44
+        0.34
       ],
       "onTap": [
         {
           "type": "showText",
           "key": "pompeii_79.atrium.crack"
+        }
+      ]
+    },
+    {
+      "id": "arca",
+      "rect": [
+        0.6,
+        0.5,
+        0.14,
+        0.16
+      ],
+      "when": [
+        {
+          "flag": "arca_open",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.atrium.arca_locked"
+        }
+      ],
+      "onUseItem": [
+        {
+          "item": "arca_key",
+          "actions": [
+            {
+              "type": "playSound",
+              "sound": "oven_door"
+            },
+            {
+              "type": "setFlag",
+              "flag": "arca_open",
+              "value": true
+            },
+            {
+              "type": "removeItem",
+              "item": "arca_key"
+            },
+            {
+              "type": "pickItem",
+              "item": "wax_tablet"
+            },
+            {
+              "type": "showText",
+              "key": "pompeii_79.atrium.arca_opened"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "arca_open",
+      "rect": [
+        0.6,
+        0.5,
+        0.14,
+        0.16
+      ],
+      "when": [
+        {
+          "flag": "arca_open",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.atrium.arca_empty"
         }
       ]
     },
@@ -127,11 +315,14 @@
       "id": "tracings",
       "rect": [
         0.24,
-        0.64,
+        0.6,
         0.12,
         0.07
       ],
       "when": [
+        {
+          "puzzleSolved": "wax_tablet"
+        },
         {
           "everHadItem": "tracings",
           "equals": false
@@ -185,15 +376,81 @@
   ],
   "layers": [
     {
+      "id": "fragments_sprite",
+      "image": "images/objects/pompeii_79/fresco_fallen_sprite.png",
+      "rect": [
+        0.05,
+        0.6,
+        0.17,
+        0.06
+      ],
+      "when": [
+        {
+          "puzzleSolved": "fresco",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "fresco_sprite",
+      "image": "images/objects/pompeii_79/fresco_whole_sprite.png",
+      "rect": [
+        0.085,
+        0.3,
+        0.09,
+        0.1
+      ],
+      "when": [
+        {
+          "puzzleSolved": "fresco"
+        }
+      ]
+    },
+    {
+      "id": "arca_closed",
+      "image": "images/objects/pompeii_79/arca_closed_sprite.png",
+      "rect": [
+        0.6,
+        0.5,
+        0.14,
+        0.16
+      ],
+      "when": [
+        {
+          "flag": "arca_open",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "arca_opened",
+      "image": "images/objects/pompeii_79/arca_open_sprite.png",
+      "rect": [
+        0.6,
+        0.5,
+        0.14,
+        0.16
+      ],
+      "when": [
+        {
+          "flag": "arca_open",
+          "equals": true
+        }
+      ]
+    },
+    {
       "id": "tracings_sprite",
       "image": "images/objects/pompeii_79/tracings_sprite.png",
       "rect": [
         0.24,
-        0.64,
+        0.6,
         0.12,
         0.07
       ],
       "when": [
+        {
+          "puzzleSolved": "wax_tablet"
+        },
         {
           "everHadItem": "tracings",
           "equals": false
@@ -233,7 +490,11 @@
     }
   ],
   "lens": {
-    "scene": "atrium_79",
+    "scenes": [
+      "atrium_79_morning",
+      "atrium_79_noon",
+      "atrium_79"
+    ],
     "when": [
       {
         "hasItem": "era_lens"

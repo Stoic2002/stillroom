@@ -47,6 +47,21 @@
           0.22
         ],
         "turns": 3
+      },
+      {
+        "id": "gate",
+        "image": "images/objects/pompeii_79/sheet_gate.png",
+        "rect": [
+          0.3,
+          0.1,
+          0.4,
+          0.8
+        ],
+        "from": [
+          0.02,
+          0.02
+        ],
+        "turns": 2
       }
     ],
     "snap": 0.04

@@ -74,10 +74,11 @@
   "settingsShowFps": "프레임 속도(FPS) 표시",
   "lensRaise": "렌즈 들기",
   "lensLower": "렌즈 내리기",
-  "overlayInstruction": "종이를 끌어 옮기세요. 톡 치면 돌아갑니다.",
+  "overlayInstruction": "조각을 끌어 옮기세요. 톡 치면 돌아갑니다.",
   "deductionCorrectionInstruction": "이 중 몇 단어는 틀렸습니다. 하나를 톡 치고, 그 자리에 맞는 단어를 고르세요. '증류하기'로 확인합니다.",
   "telegramHeader": "전보",
   "telegramStop": "",
   "clockHandsInstruction": "바늘을 끌어 문자판을 돌리세요.",
-  "threadInstruction": "핀에서 핀으로 실을 이으세요."
+  "threadInstruction": "핀에서 핀으로 실을 이으세요.",
+  "rakingLightInstruction": "등잔을 판 둘레로, 낮고 가깝게 움직이세요."
 }

@@ -305,7 +305,7 @@
   },
   "lensRaise": "Raise the lens",
   "lensLower": "Lower the lens",
-  "overlayInstruction": "Drag the sheets. Tap one to turn it.",
+  "overlayInstruction": "Drag the pieces. Tap one to turn it.",
   "@lensRaise": {
     "description": "Tooltip of the button that raises the lens between eras"
   },
@@ -334,5 +334,9 @@
   },
   "@threadInstruction": {
     "description": "How to play the red-thread map puzzle"
+  },
+  "rakingLightInstruction": "Move the lamp round the tablet, close and low.",
+  "@rakingLightInstruction": {
+    "description": "How to play the raking-light puzzle: move a lamp round a surface"
   }
 }

@@ -1,0 +1,63 @@
+{
+  "id": "atrium_79_morning",
+  "background": "images/scenes/pompeii_79/atrium_79_morning.png",
+  "hotspots": [
+    {
+      "id": "fresco",
+      "rect": [
+        0.06,
+        0.26,
+        0.14,
+        0.26
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.lens.fresco"
+        }
+      ]
+    },
+    {
+      "id": "child",
+      "rect": [
+        0.6,
+        0.52,
+        0.1,
+        0.18
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.lens.child"
+        }
+      ]
+    },
+    {
+      "id": "basin",
+      "rect": [
+        0.36,
+        0.7,
+        0.28,
+        0.12
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "pompeii_79.lens.basin_morning"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "child",
+      "image": "images/objects/pompeii_79/echo_child_play.png",
+      "rect": [
+        0.6,
+        0.52,
+        0.06,
+        0.18
+      ]
+    }
+  ]
+}

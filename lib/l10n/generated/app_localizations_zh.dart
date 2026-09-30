@@ -247,7 +247,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get lensLower => '放下透镜';
 
   @override
-  String get overlayInstruction => '拖动纸张。轻点一张可以旋转它。';
+  String get overlayInstruction => '拖动碎片。轻点一块可以旋转它。';
 
   @override
   String get deductionCorrectionInstruction =>
@@ -264,4 +264,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get threadInstruction => '把线从一枚图钉拉到另一枚。';
+
+  @override
+  String get rakingLightInstruction => '把油灯绕着蜡板移动，放低，靠近。';
 }

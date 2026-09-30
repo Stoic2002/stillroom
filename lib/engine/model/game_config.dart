@@ -18,6 +18,7 @@ final class GameConfig {
     this.hintStages = const [],
     this.words = const {},
     this.secret,
+    this.lensHours,
   });
 
   factory GameConfig.fromJson(JsonReader json) {
@@ -31,6 +32,7 @@ final class GameConfig {
       'hintStages',
       'words',
       'secret',
+      'lensHours',
     });
     final flagsJson = json.object('flags');
     final flags = <String, Object>{};
@@ -75,6 +77,7 @@ final class GameConfig {
       words[word.id] = word;
     }
     final secret = json.optionalObject('secret');
+    final lensHours = json.optionalObject('lensHours');
     return GameConfig(
       startScene: json.string('startScene'),
       flags: Map.unmodifiable(flags),
@@ -86,6 +89,7 @@ final class GameConfig {
       hintStages: List.unmodifiable(stages),
       words: Map.unmodifiable(words),
       secret: secret == null ? null : SecretDef.fromJson(secret),
+      lensHours: lensHours == null ? null : LensHours.fromJson(lensHours),
     );
   }
 
@@ -115,6 +119,38 @@ final class GameConfig {
 
   /// The episode's optional secret.
   final SecretDef? secret;
+
+  /// The hours a lens between eras can be turned to, if any.
+  final LensHours? lensHours;
+}
+
+/// The hours of the other era a lens can look at (`lensHours` in
+/// `game.json`):
+///
+/// ```json
+/// "lensHours": { "flag": "lens_hour",
+///   "labels": ["pompeii_79.hour.morning", "pompeii_79.hour.noon"] }
+/// ```
+/// The int `flag` holds the hour the lens is turned to (0 = the first
+/// label), so conditions can use it; turning the lens moves it on, round
+/// to the first again.
+final class LensHours {
+  const LensHours({required this.flag, required this.labels});
+
+  factory LensHours.fromJson(JsonReader json) {
+    json.allowOnly({'flag', 'labels'});
+    final labels = json.strings('labels');
+    if (labels.length < 2) json.fail('need at least two hours', 'labels');
+    return LensHours(
+      flag: json.string('flag'),
+      labels: List.unmodifiable(labels),
+    );
+  }
+
+  final String flag;
+
+  /// Text keys naming each hour, in order.
+  final List<String> labels;
 }
 
 /// A step of the episode with its own hints (PRD FR-08: "tahap").

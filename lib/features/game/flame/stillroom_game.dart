@@ -68,6 +68,7 @@ class StillroomGame extends FlameGame {
   bool _showHotspots;
   SceneView? _view;
   LensView? _lens;
+  Map<String, Sprite> _sprites = const {};
   bool _lensUp = false;
   Set<String> _loadedImages = {};
   late final RectangleComponent _fade;
@@ -105,6 +106,7 @@ class StillroomGame extends FlameGame {
       _lens?.refresh(state);
       _updateDarkness();
       _updateLens();
+      unawaited(_turnLens());
     }
   }
 
@@ -210,12 +212,13 @@ class StillroomGame extends FlameGame {
   /// scene's images (NFR-01).
   Future<void> _showCurrentScene() async {
     final scene = engine.currentScene(_state);
-    final lensScene = switch (scene.lens) {
-      final lens? => engine.content.requireScene(lens.scene),
-      null => null,
-    };
+    // Every hour the lens can show, so turning it needs no loading.
+    final lensScenes = [
+      for (final id in scene.lens?.scenes ?? const <String>[])
+        engine.content.requireScene(id),
+    ];
     final paths = {
-      for (final s in [scene, ?lensScene]) ...[
+      for (final s in [scene, ...lensScenes]) ...[
         s.background,
         for (final layer in s.layers) layer.image,
       ],
@@ -228,6 +231,7 @@ class StillroomGame extends FlameGame {
       images.clear(stale);
     }
     _loadedImages = paths;
+    _sprites = sprites;
 
     _view?.removeFromParent();
     final view = SceneView(
@@ -242,18 +246,40 @@ class StillroomGame extends FlameGame {
 
     _lens?.removeFromParent();
     _lens = null;
-    if (scene.lens case final lens? when lensScene != null) {
-      final lensView = LensView(
-        scene: lensScene,
-        sprites: sprites,
-        state: _state,
-        radius: lens.radius * logicalSize.x,
-        size: logicalSize,
-      );
-      _lens = lensView;
-      await world.add(lensView);
-    }
+    await _placeLens();
     _updateDarkness();
+    _updateLens();
+  }
+
+  /// Puts up the lens view of the current scene, looking at the hour the
+  /// lens is turned to; [at] keeps its place when the hour changes.
+  Future<void> _placeLens({Vector2? at, bool open = false}) async {
+    final lens = engine.currentScene(_state).lens;
+    if (lens == null) return;
+    final view = LensView(
+      scene: engine.content.requireScene(lens.sceneAt(engine.lensHour(_state))),
+      sprites: _sprites,
+      state: _state,
+      radius: lens.radius * logicalSize.x,
+      size: logicalSize,
+      center: at,
+      open: open,
+    );
+    _lens = view;
+    await world.add(view);
+  }
+
+  /// The lens was turned to another hour: show that hour in its place.
+  Future<void> _turnLens() async {
+    final old = _lens;
+    if (old == null) return;
+    final lens = engine.currentScene(_state).lens;
+    if (lens == null || old.scene.id == lens.sceneAt(engine.lensHour(_state))) {
+      return;
+    }
+    _lens = null;
+    await _placeLens(at: old.lensCenter.clone(), open: old.shown);
+    old.removeFromParent();
     _updateLens();
   }
 }

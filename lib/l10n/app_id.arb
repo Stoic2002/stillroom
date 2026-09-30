@@ -74,10 +74,11 @@
   "settingsShowFps": "Tampilkan frame rate (FPS)",
   "lensRaise": "Angkat lensa",
   "lensLower": "Turunkan lensa",
-  "overlayInstruction": "Geser lembarannya. Ketuk untuk memutarnya.",
+  "overlayInstruction": "Geser kepingannya. Ketuk untuk memutarnya.",
   "deductionCorrectionInstruction": "Sebagian kata ini salah. Ketuk satu, lalu kata yang seharusnya. \"Suling\" memeriksanya.",
   "telegramHeader": "TELEGRAM",
   "telegramStop": "STOP",
   "clockHandsInstruction": "Geser jarum-jarumnya mengelilingi piringan jam.",
-  "threadInstruction": "Tarik benangnya dari paku ke paku."
+  "threadInstruction": "Tarik benangnya dari paku ke paku.",
+  "rakingLightInstruction": "Gerakkan pelita mengelilingi lempeng, rendah dan dekat."
 }

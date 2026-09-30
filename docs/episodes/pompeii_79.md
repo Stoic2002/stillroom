@@ -85,35 +85,35 @@ figures are hollows in the ash, not bodies turned to stone.
   are dragged and turned on the drafting table until the four registration
   crosses meet and the lines make one drawing.
 
-## Puzzle flow (11 beats)
+## Puzzle flow (v2, 2026-09-30: longer, chained, shelf II)
+
+Built on three mechanics of its own, after *Gorogoa* (one place seen at
+several times), *Her Trees* (pieces laid, turned and stacked), and *The
+Room* (objects worked by hand):
 
 | # | Beat | Type | Clue | Reward |
 |---|---|---|---|---|
-| 1 | The hut | pick up | — | Lens, shovel; the day-book, Pliny, the guidebook, the town plan (words) |
-| 2 | The ash bank | use the shovel (no puzzle: wiping belongs to other tales) | The shop door is buried | Into the bakery |
-| 3 | Through the lens | lens | Every scene with a lens | Words: pine tree, Felix, autumn, pillows |
-| 4 | The oven | use the shovel as a lever | Door stuck with ash | Charred loaves: bread |
-| 5 | The store corner | examine | Sealed jars, charred pomegranates | Word: autumn |
-| 6 | The atrium | pick up | The draughtsman's tube | Tracings |
-| 7 | The drawing | `overlay`: three sheets, two turned | Registration crosses on the table | A child's drawing: a boat, three figures with pillows, AD MARE ("to the sea") |
-| 8 | The gates | town plan | "To the sea" | Marina Gate (and the decoy, the Vesuvius Gate) |
-| 9 | The garden | examine the cut | Pumice, then fine ash | Words: pumice, a burning cloud, dawn |
-| 10 | The jar's label | `deduction` at the shrine | All of the above | The tale is distilled |
-| 11 | Secret (optional) | lens → ruin | Through the lens, a clay horse pushed into the niche under the stair | The keeper's note |
+| 1 | The hut | pick up | — | Lens, shovel; the day-book (the strongbox "locked, no key"), Pliny, the guidebook, the town plan |
+| 2 | The shop door | use the shovel | Buried in ash | Into the bakery |
+| 3 | The oven | use the shovel as a lever | Door stuck with ash | Charred loaves; through the lens, the stamp FELICIS |
+| 4 | **The shrine's painted panel** | `overlay`: six pieces, five of them turned | Through the lens **in the morning** the panel is whole | The panel restored; a stone behind it is loose |
+| 5 | **The hidden key** | **lens, turned to the afternoon** | A woman hides the strongbox key behind the panel | Pressing where she pressed: the bronze key |
+| 6 | The strongbox | use the key | — | Wax tablets |
+| 7 | **The tablets** | `rakingLight` at the oil lamp in the hut | Too faint by day | Felix's note to his brother: the sea, the Marina Gate, the child's drawing by the door |
+| 8 | The drawing | pick up | The draughtsman traced it | Four tracings |
+| 9 | **The child's drawing** (the height of the tale) | `overlay`: four sheets, three turned | Registration crosses | A boat, three figures with pillows, a gate, AD MARE |
+| 10 | The seal | `deduction`, form `board`, three words | Felix, the Marina Gate, dawn | The tale is distilled |
+| — | Secret | lens → ruin | Through the lens in the afternoon, a clay horse hidden under the stair | The keeper's note |
 
-**The label** (form `board`, reworked 2026-09-29): the diggers' cut, a tag
-on every layer, read from the bottom up.
+The lens looks at three hours of the last day (`lensHours`): **morning** (the
+bread going in, the panel whole, a child at play), **noon** (the cloud
+climbing over the roof opening), and **afternoon** (stones falling, the key
+hidden, the family at the door).
 
-1. Garden soil: "Beneath it all, the last ordinary day: it was {autumn}
-   in this house, and there was {bread} in the oven."
-2. Pumice: "Over Vesuvius a cloud rose like {a pine tree}, and {pumice}
-   fell all afternoon and all night. {Felix} the baker led his family out
-   through {the Marina Gate}, {pillows} tied on their heads."
-3. Ash: "At {dawn}, {a burning cloud} took those who stayed."
-4. The surface: "In {1863}, the hollows they left in the ash were filled
-   with plaster."
+**The seal** (form `board`, 2026-09-30): "{Felix} the baker led his family
+out through {the Marina Gate}; those who stayed were taken at {dawn}."
 
-Decoys: 24 August, lava, the Vesuvius Gate, 1748.
+Decoys: everything else noted on the way (24 August, lava, the Vesuvius Gate, 1748, and the true words the seal does not need).
 
 **Ending:** the books long said 24 August; the house remembered autumn, and
 in 2018 a line of charcoal on a wall nearby, dated mid-October, made many

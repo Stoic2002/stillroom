@@ -254,7 +254,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get lensLower => 'Turunkan lensa';
 
   @override
-  String get overlayInstruction => 'Geser lembarannya. Ketuk untuk memutarnya.';
+  String get overlayInstruction => 'Geser kepingannya. Ketuk untuk memutarnya.';
 
   @override
   String get deductionCorrectionInstruction =>
@@ -272,4 +272,8 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get threadInstruction => 'Tarik benangnya dari paku ke paku.';
+
+  @override
+  String get rakingLightInstruction =>
+      'Gerakkan pelita mengelilingi lempeng, rendah dan dekat.';
 }

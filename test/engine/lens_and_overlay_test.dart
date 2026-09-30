@@ -256,4 +256,99 @@ void main() {
       );
     });
   });
+
+  group('lens hours', () {
+    Map<String, Object?> game() => {
+      ...gameJson(),
+      'flags': {...(gameJson()['flags']! as Map<String, Object?>), 'hour': 0},
+      'lensHours': {
+        'flag': 'hour',
+        'labels': ['h.morning', 'h.evening'],
+      },
+    };
+    Map<String, Object?> then(String id) => {
+      'id': id,
+      'background': 'images/scenes/$id.png',
+    };
+    Map<String, Object?> room(List<String> scenes) => {
+      ...roomNorthJson(),
+      'lens': {'scenes': scenes},
+    };
+
+    test('the lens looks at the hour it is turned to', () {
+      final e = GameEngine(
+        buildTestEpisode(
+          game: game(),
+          scenes: [
+            room(['morning', 'evening']),
+            deskJson(),
+            then('morning'),
+            then('evening'),
+          ],
+        ),
+      );
+      var state = e.newGame();
+      expect(e.lensHour(state), 0);
+      expect(e.lensScene(state)?.id, 'morning');
+      state = e.turnLensHour(state).state;
+      expect(e.lensScene(state)?.id, 'evening');
+      expect(state.flags['hour'], 1, reason: 'conditions can use it');
+      state = e.turnLensHour(state).state;
+      expect(e.lensScene(state)?.id, 'morning', reason: 'round again');
+    });
+
+    test('one scene per hour, and hours need lensHours', () {
+      List<String> errors(Map<String, Object?> g, List<String> scenes) =>
+          validateEpisode(
+            buildTestEpisode(
+              game: g,
+              scenes: [
+                room(scenes),
+                deskJson(),
+                for (final id in scenes.toSet()) then(id),
+              ],
+            ),
+            assets: const {},
+            strings: const {'en': {}},
+          ).where((i) => i.isError).map((i) => i.message).toList();
+      expect(
+        errors(game(), ['a', 'b', 'c']),
+        contains(contains('one scene per hour')),
+      );
+      expect(
+        errors(gameJson(), ['a', 'b']),
+        contains(contains('need lensHours')),
+      );
+    });
+  });
+
+  group('raking light', () {
+    test('the marks show as the lamp nears the right side', () {
+      final config = parse<RakingLightConfig>('rakingLight', {
+        'surface': 's.png',
+        'marks': 'm.png',
+        'from': 290,
+        'tolerance': 10,
+      });
+      var state = config.start();
+      expect(state.lamp, 110, reason: 'opposite the right side');
+      expect(state.clarity, 0);
+      state = state.moveTo(305);
+      expect(state.clarity, closeTo(0.75, 1e-9));
+      expect(state.isSolved, isFalse);
+      state = state.moveTo(-60);
+      expect(state.isSolved, isTrue, reason: '-60 is 300: within 10 of 290');
+    });
+
+    test('config errors', () {
+      expect(
+        () => parse<RakingLightConfig>('rakingLight', {
+          'surface': 's.png',
+          'marks': 'm.png',
+          'from': 360,
+        }),
+        throwsAt(r'$.config.from'),
+      );
+    });
+  });
 }

@@ -248,7 +248,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get lensLower => '렌즈 내리기';
 
   @override
-  String get overlayInstruction => '종이를 끌어 옮기세요. 톡 치면 돌아갑니다.';
+  String get overlayInstruction => '조각을 끌어 옮기세요. 톡 치면 돌아갑니다.';
 
   @override
   String get deductionCorrectionInstruction =>
@@ -265,4 +265,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get threadInstruction => '핀에서 핀으로 실을 이으세요.';
+
+  @override
+  String get rakingLightInstruction => '등잔을 판 둘레로, 낮고 가깝게 움직이세요.';
 }

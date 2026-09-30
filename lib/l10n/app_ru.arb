@@ -74,10 +74,11 @@
   "settingsShowFps": "Показывать частоту кадров (FPS)",
   "lensRaise": "Поднять линзу",
   "lensLower": "Опустить линзу",
-  "overlayInstruction": "Перетаскивайте листы. Коснитесь листа, чтобы повернуть его.",
+  "overlayInstruction": "Перетаскивайте части. Коснитесь, чтобы повернуть.",
   "deductionCorrectionInstruction": "Некоторые слова здесь неверны. Коснитесь одного, затем нужного слова. «Перегнать» проверит.",
   "telegramHeader": "ТЕЛЕГРАММА",
   "telegramStop": "ТЧК",
   "clockHandsInstruction": "Двигайте стрелки по циферблату.",
-  "threadInstruction": "Протяните нить от булавки к булавке."
+  "threadInstruction": "Протяните нить от булавки к булавке.",
+  "rakingLightInstruction": "Водите светильник вокруг таблички, низко и близко."
 }

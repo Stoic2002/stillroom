@@ -21,12 +21,16 @@ final Map<String, ArtPainter> pompeiiArt = {
   '$_s/bakery.png': (c, s) => _bakery(Art(c, s)),
   '$_s/bakery_79.png': (c, s) => _bakery79(Art(c, s)),
   '$_s/atrium.png': (c, s) => _atrium(Art(c, s)),
-  '$_s/atrium_79.png': (c, s) => _atrium79(Art(c, s)),
+  '$_s/atrium_79_morning.png': (c, s) => _atrium79(Art(c, s), _Hour.morning),
+  '$_s/atrium_79_noon.png': (c, s) => _atrium79(Art(c, s), _Hour.noon),
+  '$_s/atrium_79.png': (c, s) => _atrium79(Art(c, s), _Hour.afternoon),
   '$_s/garden.png': (c, s) => _garden(Art(c, s)),
   '$_s/garden_79.png': (c, s) => _garden79(Art(c, s)),
   // Puzzle boards.
   '$_s/tracing_board.png': (c, s) => _tracingBoard(Art(c, s)),
   '$_s/label_section.png': (c, s) => _labelSection(Art(c, s)),
+  '$_s/fresco_board.png': (c, s) => _frescoBoard(Art(c, s)),
+  '$_s/tablet_board.png': (c, s) => _tabletBoard(Art(c, s)),
   // Objects.
   '$_o/ash_bank_sprite.png': (c, s) => _ashBank(Art(c, s)),
   '$_o/lens_sprite.png': (c, s) => _lens(Art(c, s)),
@@ -46,14 +50,31 @@ final Map<String, ArtPainter> pompeiiArt = {
     (EchoFigure.passerby, 0.68, 0.02, 0.3, 0.98),
   ]),
   '$_o/echo_family.png': (c, s) => _group(Art(c, s), const [
-    (EchoFigure.cushioned, 0.0, 0.0, 0.36, 1.0),
-    (EchoFigure.cushioned, 0.34, 0.04, 0.34, 0.96),
-    (EchoFigure.child, 0.66, 0.34, 0.3, 0.66),
+    (EchoFigure.cushioned, 0.0, 0.0, 0.56, 1.0),
+    (EchoFigure.child, 0.52, 0.34, 0.46, 0.66),
   ]),
+  '$_o/echo_mother.png': (c, s) => paintEcho(Art(c, s), EchoFigure.cushioned),
+  '$_o/echo_child_play.png': (c, s) => paintEcho(Art(c, s), EchoFigure.girl),
+  '$_o/echo_family_noon.png': (c, s) => _group(Art(c, s), const [
+    (EchoFigure.citizen, 0.0, 0.0, 0.34, 1.0),
+    (EchoFigure.citizen, 0.32, 0.03, 0.32, 0.97),
+    (EchoFigure.girl, 0.66, 0.4, 0.28, 0.6),
+  ]),
+  '$_o/fresco_fallen_sprite.png': (c, s) => _frescoFallen(Art(c, s)),
+  '$_o/fresco_whole_sprite.png': (c, s) => _fresco(Art(c, s)),
+  for (var i = 0; i < 6; i++)
+    '$_o/fresco_piece_${i + 1}.png': (c, s) => _frescoPiece(Art(c, s), i),
+  '$_o/arca_closed_sprite.png': (c, s) => _arca(Art(c, s), open: false),
+  '$_o/arca_open_sprite.png': (c, s) => _arca(Art(c, s), open: true),
+  '$_o/wax_tablet_surface.png': (c, s) => _tabletSurface(Art(c, s)),
+  '$_o/wax_tablet_marks.png': (c, s) => _tabletMarks(Art(c, s)),
+  '$_o/sheet_gate.png': (c, s) => _sheet(Art(c, s), _gate),
   // Items.
   '$_i/era_lens.png': (c, s) => _lens(Art(c, s)),
   '$_i/shovel.png': (c, s) => _shovelIcon(Art(c, s)),
   '$_i/tracings.png': (c, s) => _tube(Art(c, s)),
+  '$_i/arca_key.png': (c, s) => _key(Art(c, s)),
+  '$_i/wax_tablet.png': (c, s) => _tabletSurface(Art(c, s)),
   // The jar on the shelf.
   'images/ui/jar_pompeii_79.png': (c, s) => _jar(Art(c, s)),
 };
@@ -635,6 +656,10 @@ void _hut(Art a) {
     ..line(a.p(0.87, 0.6), a.p(0.87, 0.84), const Color(0xFF4A3828), width: 0.8)
     ..paper(a.r(0.75, 0.52, 0.055, 0.06), lines: 4, angle: -0.05)
     ..paper(a.r(0.805, 0.52, 0.055, 0.06), lines: 4, angle: 0.05);
+  // A clay oil lamp on the little table, lit.
+  a
+    ..oval(a.r(0.855, 0.535, 0.045, 0.03), const Color(0xFFA0643E))
+    ..flame(a.p(0.892, 0.54), a.size.height * 0.05);
   // A crate of finds in straw.
   a
     ..wood(a.r(0.3, 0.78, 0.16, 0.14), base: const Color(0xFF8A6A40))
@@ -940,15 +965,16 @@ void _atrium(Art a) {
   a
     ..box(a.r(0.44, 0.28, 0.12, 0.38), const Color(0xFFA9B8A2))
     ..fill(a.r(0.44, 0.54, 0.12, 0.12), const Color(0xFF7E8A6A));
-  // The shrine: a niche with two serpents and an altar, empty.
+  // The shrine: a niche and its altar, empty; the painted panel at its
+  // back has fallen, leaving bare rubble.
   a
     ..box(a.r(0.07, 0.28, 0.12, 0.2), const Color(0xFFB08E6E))
     ..path(
       a.poly([a.p(0.06, 0.28), a.p(0.13, 0.22), a.p(0.2, 0.28)]),
       const Color(0xFFB08E6E),
     )
-    ..box(a.r(0.09, 0.3, 0.08, 0.1), const Color(0xFF6A5040), line: 0.4);
-  _serpents(a, faded: true);
+    ..box(a.r(0.085, 0.3, 0.09, 0.1), const Color(0xFF6A5A4C), line: 0.4);
+  _flaking(a, a.r(0.085, 0.3, 0.09, 0.1), seed: 21, count: 8);
   a.box(a.r(0.09, 0.48, 0.08, 0.1), const Color(0xFF9E8A74));
   // Remnants of the child's drawing, low on the wall.
   for (final (x1, y1, x2, y2) in [
@@ -1015,28 +1041,26 @@ void _atrium(Art a) {
   }
 }
 
-void _serpents(Art a, {required bool faded}) {
-  final color = faded ? const Color(0x663A5A2E) : const Color(0xFF3A5A2E);
-  for (final side in [-1.0, 1.0]) {
-    final path = Path()
-      ..moveTo(a.p(0.13 + side * 0.05, 0.47).dx, a.p(0, 0.47).dy);
-    for (var i = 1; i <= 6; i++) {
-      path.lineTo(
-        a
-            .p(0.13 + side * (0.05 - i * 0.006) + (i.isOdd ? 0.008 : -0.008), 0)
-            .dx,
-        a.p(0, 0.47 - i * 0.012).dy,
-      );
-    }
-    a.strokePath(path, color, width: 0.6);
-  }
-}
+/// The hours the lens can look at in the atrium.
+enum _Hour { morning, noon, afternoon }
 
-void _atrium79(Art a) {
-  // The roof, with its opening over the basin: dark sky and falling stones.
+void _atrium79(Art a, _Hour hour) {
+  final afternoon = hour == _Hour.afternoon;
+  // The roof, with its opening over the basin.
   a
     ..fill(a.r(0, 0, 1, 0.2), const Color(0xFF241A14))
-    ..fill(a.r(0.38, 0, 0.24, 0.18), _sky79Top);
+    ..fill(a.r(0.38, 0, 0.24, 0.18), switch (hour) {
+      _Hour.morning => const Color(0xFF9FB8CC),
+      _Hour.noon => const Color(0xFF6A5A4E),
+      _Hour.afternoon => _sky79Top,
+    });
+  if (hour == _Hour.noon) {
+    // The cloud's trunk, seen straight up through the opening.
+    a.canvas.save();
+    a.canvas.clipRect(a.r(0.38, 0, 0.24, 0.18));
+    _pineCloud(a, 0.5, 0.2, -0.02, 0.2);
+    a.canvas.restore();
+  }
   for (var i = 0; i < 8; i++) {
     a.hairline(
       a.p(i * 0.14, 0),
@@ -1057,28 +1081,48 @@ void _atrium79(Art a) {
   a
     ..box(a.r(0.44, 0.28, 0.12, 0.38), const Color(0xFF5E6A4A))
     ..fill(a.r(0.44, 0.54, 0.12, 0.12), const Color(0xFF3E4A30));
-  // The shrine, bright, its little gods being wrapped.
+  // The shrine, its painted panel whole.
   a
     ..box(a.r(0.07, 0.28, 0.12, 0.2), const Color(0xFFE6D2A6))
     ..path(
       a.poly([a.p(0.06, 0.28), a.p(0.13, 0.22), a.p(0.2, 0.28)]),
       _yellow79,
-    )
-    ..box(a.r(0.09, 0.3, 0.08, 0.1), const Color(0xFFD9C08A), line: 0.4);
-  _serpents(a, faded: false);
+    );
+  final panel = a.r(0.085, 0.3, 0.09, 0.1);
+  a.canvas
+    ..save()
+    ..translate(panel.left, panel.top);
+  _fresco(Art(a.canvas, panel.size));
+  a.canvas.restore();
   a
-    ..box(a.r(0.09, 0.48, 0.08, 0.1), const Color(0xFFD8C8B0))
-    ..box(a.r(0.1, 0.36, 0.012, 0.04), StillroomPalette.brass, line: 0.2)
-    ..oval(a.r(0.13, 0.37, 0.04, 0.03), const Color(0xFFE8E0D0), line: 0.3);
-  // The child's drawing, fresh, half hidden behind the family.
-  a
-    ..line(a.p(0.25, 0.52), a.p(0.37, 0.52), _charcoal, width: 0.4)
-    ..line(a.p(0.33, 0.4), a.p(0.33, 0.5), _charcoal, width: 0.4);
+    ..ink(panel, width: 0.4)
+    ..box(a.r(0.09, 0.48, 0.08, 0.1), const Color(0xFFD8C8B0));
+  if (afternoon) {
+    // The little gods, wrapped in a cloth to go.
+    a.oval(a.r(0.1, 0.44, 0.06, 0.04), const Color(0xFFE8E0D0), line: 0.3);
+  } else {
+    for (final x in [0.1, 0.155]) {
+      a.box(a.r(x, 0.43, 0.012, 0.05), StillroomPalette.brass, line: 0.2);
+    }
+  }
+  if (afternoon) {
+    // The child's drawing, fresh, half hidden behind the family.
+    a
+      ..line(a.p(0.25, 0.52), a.p(0.37, 0.52), _charcoal, width: 0.4)
+      ..line(a.p(0.33, 0.4), a.p(0.33, 0.5), _charcoal, width: 0.4);
+  }
+  // The strongbox against the wall.
+  final box = a.r(0.6, 0.5, 0.14, 0.16);
+  a.canvas
+    ..save()
+    ..translate(box.left, box.top);
+  _arca(Art(a.canvas, box.size), open: false);
+  a.canvas.restore();
   // The floor.
   a
     ..fill(a.r(0, 0.66, 1, 0.34), const Color(0xFF7E5A46))
     ..hairline(a.p(0, 0.66), a.p(1, 0.66), Art.outline, 0.5);
-  // Stairs and the niche, with the clay horse in it.
+  // Stairs and the niche beneath them.
   for (var i = 0; i < 6; i++) {
     a.box(
       a.r(0.8 + i * 0.03, 0.72 - i * 0.06, 0.2 - i * 0.03, 0.06),
@@ -1087,29 +1131,340 @@ void _atrium79(Art a) {
     );
   }
   a.box(a.r(0.82, 0.7, 0.1, 0.12), const Color(0xFF2A211A));
-  final horse = a.r(0.835, 0.72, 0.07, 0.08);
+  if (afternoon) {
+    final horse = a.r(0.835, 0.72, 0.07, 0.08);
+    a.canvas
+      ..save()
+      ..translate(horse.left, horse.top);
+    _horse(Art(a.canvas, horse.size));
+    a.canvas.restore();
+  } else if (hour == _Hour.morning) {
+    // At play by the basin.
+    final horse = a.r(0.67, 0.64, 0.05, 0.06);
+    a.canvas
+      ..save()
+      ..translate(horse.left, horse.top);
+    _horse(Art(a.canvas, horse.size));
+    a.canvas.restore();
+  }
+  // The basin.
+  a.box(a.r(0.36, 0.7, 0.28, 0.12), const Color(0xFF3E5462), line: 0.6);
+  switch (hour) {
+    case _Hour.morning:
+      a
+        ..glow(
+          a.p(0.5, 0.74),
+          a.size.width * 0.1,
+          const Color(0xFFBFD7E6),
+          strength: 0.3,
+        )
+        ..oval(a.r(0.46, 0.745, 0.03, 0.015), _leaf, line: 0.2);
+    case _Hour.noon:
+      break;
+    case _Hour.afternoon:
+      _falling(a, count: 70, seed: 3, inside: a.r(0.38, 0.0, 0.24, 0.8));
+      final random = math.Random(8);
+      for (var i = 0; i < 14; i++) {
+        a.oval(
+          a.r(
+            0.38 + random.nextDouble() * 0.23,
+            0.72 + random.nextDouble() * 0.08,
+            0.012,
+            0.008,
+          ),
+          _pumice,
+          line: 0.2,
+        );
+      }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// The shrine's painted panel
+
+/// A household shrine painting, as at many houses in Pompeii: the spirit of
+/// the house (the Genius) pouring an offering at an altar, a dancing god of
+/// the household (a Lar) on each side with a drinking horn, and a serpent
+/// coming to the altar below. Painted figures, no faces.
+void _fresco(Art a) {
+  a
+    ..fill(Offset.zero & a.size, _red79)
+    ..fill(a.r(0, 0.8, 1, 0.2), _black79)
+    ..canvas.drawRect(
+      a.r(0.03, 0.02, 0.94, 0.96),
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = a.size.width * 0.02
+        ..color = _yellow79,
+    );
+  // Garlands across the top.
+  for (final x in [0.1, 0.4, 0.7]) {
+    a.strokePath(
+      Path()
+        ..moveTo(a.p(x, 0.08).dx, a.p(x, 0.08).dy)
+        ..quadraticBezierTo(
+          a.p(x + 0.1, 0.18).dx,
+          a.p(x + 0.1, 0.18).dy,
+          a.p(x + 0.2, 0.08).dx,
+          a.p(x + 0.2, 0.08).dy,
+        ),
+      _green79,
+      width: 1.2,
+    );
+  }
+  // The altar.
+  a.box(a.r(0.42, 0.58, 0.16, 0.2), const Color(0xFFB8AE9C), line: 0.4);
+  a.glow(
+    a.p(0.5, 0.56),
+    a.size.width * 0.06,
+    StillroomPalette.gaslight,
+    strength: 0.6,
+  );
+  // The Genius, veiled, pouring from a dish.
+  const toga = Color(0xFFEDE3CF);
+  a
+    ..path(
+      a.poly([
+        a.p(0.44, 0.24),
+        a.p(0.56, 0.24),
+        a.p(0.6, 0.56),
+        a.p(0.4, 0.56),
+      ]),
+      toga,
+      line: 0.3,
+    )
+    ..oval(a.r(0.455, 0.12, 0.09, 0.12), const Color(0xFFD9B48A), line: 0.3)
+    ..path(
+      a.poly([
+        a.p(0.44, 0.14),
+        a.p(0.5, 0.1),
+        a.p(0.56, 0.14),
+        a.p(0.57, 0.26),
+        a.p(0.43, 0.26),
+      ]),
+      toga,
+      line: 0.3,
+    )
+    ..line(a.p(0.55, 0.32), a.p(0.52, 0.5), toga, width: 1.4)
+    ..oval(a.r(0.48, 0.5, 0.08, 0.025), StillroomPalette.brass, line: 0.2);
+  // A Lar on each side, dancing, a horn raised high.
+  const tunic = Color(0xFF6E8E5A);
+  for (final (x, flip) in [(0.18, 1.0), (0.82, -1.0)]) {
+    a
+      ..oval(a.r(x - 0.04, 0.2, 0.08, 0.1), const Color(0xFFD9B48A), line: 0.3)
+      ..path(
+        a.poly([
+          a.p(x - 0.06, 0.3),
+          a.p(x + 0.06, 0.3),
+          a.p(x + 0.1, 0.56),
+          a.p(x - 0.1, 0.56),
+        ]),
+        tunic,
+        line: 0.3,
+      )
+      ..line(
+        a.p(x - 0.04, 0.56),
+        a.p(x - 0.08 * flip, 0.76),
+        const Color(0xFFD9B48A),
+        width: 1.2,
+      )
+      ..line(
+        a.p(x + 0.03, 0.56),
+        a.p(x + 0.05 * flip, 0.76),
+        const Color(0xFFD9B48A),
+        width: 1.2,
+      )
+      ..line(
+        a.p(x + 0.05 * flip, 0.34),
+        a.p(x + 0.1 * flip, 0.16),
+        const Color(0xFFD9B48A),
+        width: 1.1,
+      )
+      ..path(
+        a.poly([
+          a.p(x + 0.1 * flip, 0.16),
+          a.p(x + 0.16 * flip, 0.1),
+          a.p(x + 0.12 * flip, 0.2),
+        ]),
+        StillroomPalette.brass,
+        line: 0.2,
+      );
+  }
+  // The serpent along the bottom, towards the altar.
+  final serpent = Path()..moveTo(a.p(0.06, 0.9).dx, a.p(0.06, 0.9).dy);
+  for (var i = 1; i <= 8; i++) {
+    serpent.quadraticBezierTo(
+      a.p(0.06 + i * 0.045 - 0.022, i.isOdd ? 0.83 : 0.95).dx,
+      a.p(0, i.isOdd ? 0.83 : 0.95).dy,
+      a.p(0.06 + i * 0.045, 0.89).dx,
+      a.p(0, 0.89).dy,
+    );
+  }
+  a
+    ..strokePath(serpent, const Color(0xFF8FA34A), width: 1.6)
+    ..oval(a.r(0.41, 0.86, 0.04, 0.05), const Color(0xFF8FA34A), line: 0.2);
+}
+
+/// One of the six pieces the panel broke into: two columns, three rows.
+void _frescoPiece(Art a, int index) {
+  final col = index % 2;
+  final row = index ~/ 2;
+  final w = a.size.width;
+  final h = a.size.height;
   a.canvas
     ..save()
-    ..translate(horse.left, horse.top);
-  _horse(Art(a.canvas, horse.size));
+    ..clipRect(Offset.zero & a.size)
+    ..translate(-col * w, -row * h);
+  _fresco(Art(a.canvas, Size(w * 2, h * 3)));
   a.canvas.restore();
-  // The basin, stones falling into the water.
-  a.box(a.r(0.36, 0.7, 0.28, 0.12), const Color(0xFF3E5462), line: 0.6);
-  _falling(a, count: 70, seed: 3, inside: a.r(0.38, 0.0, 0.24, 0.8));
-  final random = math.Random(8);
-  for (var i = 0; i < 14; i++) {
-    a.oval(
-      a.r(
-        0.38 + random.nextDouble() * 0.23,
-        0.72 + random.nextDouble() * 0.08,
-        0.012,
-        0.008,
-      ),
-      _pumice,
-      line: 0.2,
+  // Broken edges and the plaster behind.
+  final random = math.Random(index + 7);
+  final edge = Path()..moveTo(0, 0);
+  for (var i = 1; i <= 8; i++) {
+    edge.lineTo(w * i / 8, random.nextDouble() * h * 0.02);
+  }
+  for (var i = 1; i <= 8; i++) {
+    edge.lineTo(w - random.nextDouble() * w * 0.02, h * i / 8);
+  }
+  for (var i = 7; i >= 0; i--) {
+    edge.lineTo(w * i / 8, h - random.nextDouble() * h * 0.02);
+  }
+  for (var i = 7; i >= 1; i--) {
+    edge.lineTo(random.nextDouble() * w * 0.02, h * i / 8);
+  }
+  edge.close();
+  a.canvas.drawPath(
+    edge,
+    Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = a.u * 1.2
+      ..color = const Color(0xFFD9CDB6),
+  );
+  a.strokePath(edge, Art.outline, width: 0.3);
+}
+
+/// The panel's pieces where they fell, in the ash below the shrine.
+void _frescoFallen(Art a) {
+  final random = math.Random(12);
+  for (var i = 0; i < 7; i++) {
+    final x = 0.05 + i * 0.13 + random.nextDouble() * 0.04;
+    final y = 0.2 + random.nextDouble() * 0.5;
+    final color = [_red79, _black79, _yellow79][i % 3];
+    a.path(
+      a.poly([
+        a.p(x, y),
+        a.p(x + 0.1, y - 0.1 - random.nextDouble() * 0.1),
+        a.p(x + 0.12, y + 0.2),
+        a.p(x + 0.02, y + 0.26),
+      ]),
+      color,
+      line: 0.3,
     );
   }
 }
+
+/// The shrine wall close up: where the panel was, the painter's red
+/// underdrawing still shows faintly, a guide for the pieces.
+void _frescoBoard(Art a) {
+  a
+    ..fill(Offset.zero & a.size, const Color(0xFFBFAE90))
+    ..box(a.r(0.33, 0.06, 0.34, 0.86), const Color(0xFFB08E6E), line: 0.6);
+  final panel = a.r(0.36, 0.1, 0.28, 0.78);
+  a.canvas
+    ..save()
+    ..translate(panel.left, panel.top)
+    ..saveLayer(
+      Offset.zero & panel.size,
+      Paint()..color = const Color(0x2E000000),
+    );
+  _fresco(Art(a.canvas, panel.size));
+  a.canvas
+    ..restore()
+    ..restore();
+  a.ink(panel, width: 0.5);
+  _flaking(a, a.r(0, 0, 1, 1), seed: 44, count: 30);
+}
+
+// ---------------------------------------------------------------------------
+// The strongbox and the wax tablets
+
+void _arca(Art a, {required bool open}) {
+  const wood = Color(0xFF5A3E28);
+  const iron = Color(0xFF2E2C2A);
+  if (open) {
+    a
+      ..box(a.r(0.05, 0.02, 0.9, 0.3), wood)
+      ..fill(a.r(0.1, 0.34, 0.8, 0.1), const Color(0xFF140E0A));
+  }
+  a.box(a.r(0.05, open ? 0.38 : 0.2, 0.9, open ? 0.6 : 0.78), wood);
+  for (final x in [0.1, 0.48, 0.86]) {
+    a.fill(a.r(x, open ? 0.38 : 0.2, 0.04, open ? 0.6 : 0.78), iron);
+  }
+  if (!open) {
+    a
+      ..fill(a.r(0.05, 0.2, 0.9, 0.06), iron)
+      ..box(a.r(0.42, 0.42, 0.16, 0.2), StillroomPalette.brass, line: 0.3)
+      ..fill(a.r(0.49, 0.48, 0.02, 0.08), Art.outline);
+  }
+}
+
+void _key(Art a) {
+  const bronze = Color(0xFF8A6A3A);
+  a
+    ..circle(a.p(0.3, 0.3), a.size.width * 0.14, bronze)
+    ..circle(a.p(0.3, 0.3), a.size.width * 0.07, const Color(0x00000000))
+    ..line(a.p(0.38, 0.38), a.p(0.78, 0.78), bronze, width: 3)
+    ..box(a.r(0.66, 0.74, 0.08, 0.12), bronze, line: 0.3)
+    ..box(a.r(0.76, 0.66, 0.08, 0.1), bronze, line: 0.3)
+    ..glow(
+      a.p(0.3, 0.3),
+      a.size.width * 0.2,
+      const Color(0xFF6FA88A),
+      strength: 0.15,
+    );
+}
+
+/// Two wooden leaves side by side, their wax gone dark.
+void _tabletSurface(Art a) {
+  const wood = Color(0xFF8A6A48);
+  const wax = Color(0xFF2E2418);
+  for (final x in [0.04, 0.52]) {
+    a
+      ..wood(a.r(x, 0.12, 0.44, 0.76), base: wood, grain: 3)
+      ..box(a.r(x + 0.04, 0.2, 0.36, 0.6), wax, line: 0.3);
+  }
+  for (final y in [0.35, 0.65]) {
+    a.line(a.p(0.48, y), a.p(0.52, y), const Color(0xFFB09A6A), width: 1);
+  }
+}
+
+/// What was scratched into the wax: lines of cursive, the first a name.
+void _tabletMarks(Art a) {
+  a
+    ..script(
+      'FELIX RVFO S',
+      a.p(0.24, 0.27),
+      a.size.height * 0.045,
+      Art.outline,
+    )
+    ..scrawl(
+      a.r(0.1, 0.34, 0.32, 0.42),
+      Art.outline,
+      lines: 4,
+      seed: 79,
+      width: 0.5,
+    )
+    ..scrawl(
+      a.r(0.58, 0.24, 0.32, 0.52),
+      Art.outline,
+      lines: 5,
+      seed: 80,
+      width: 0.5,
+    );
+}
+
+void _tabletBoard(Art a) =>
+    a.wood(Offset.zero & a.size, base: const Color(0xFF2A1E15), grain: 12);
 
 /// A clay horse on wheels.
 void _horse(Art a) {
@@ -1530,7 +1885,31 @@ void _words(Art a) {
   );
 }
 
-/// The three tracings laid together, small, on the drafting table.
+void _gate(Art a) {
+  // A gate in the city wall, the sea beyond it, and dots walking through.
+  final arch = Path()
+    ..moveTo(a.p(0.14, 0.7).dx, a.p(0, 0.7).dy)
+    ..lineTo(a.p(0.14, 0.44).dx, a.p(0, 0.44).dy)
+    ..quadraticBezierTo(
+      a.p(0.24, 0.3).dx,
+      a.p(0, 0.3).dy,
+      a.p(0.34, 0.44).dx,
+      a.p(0, 0.44).dy,
+    )
+    ..lineTo(a.p(0.34, 0.7).dx, a.p(0, 0.7).dy);
+  a
+    ..strokePath(arch, _charcoal, width: 0.6)
+    ..line(a.p(0.06, 0.4), a.p(0.42, 0.4), _charcoal, width: 0.5);
+  for (var i = 0; i < 6; i++) {
+    a.canvas.drawCircle(
+      a.p(0.46 + i * 0.03, 0.71 - i * 0.005),
+      a.u * 0.4,
+      Paint()..color = _charcoal,
+    );
+  }
+}
+
+/// The four tracings laid together, small, on the drafting table.
 void _drawingDone(Art a) {
   a
     ..box(Offset.zero & a.size, const Color(0xFFEDE4CE), line: 0.4)
@@ -1543,6 +1922,7 @@ void _drawingDone(Art a) {
   _boat(a);
   _people(a);
   _words(a);
+  _gate(a);
 }
 
 // ---------------------------------------------------------------------------

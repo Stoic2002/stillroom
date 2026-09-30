@@ -191,6 +191,13 @@ class GameSession extends _$GameSession {
     );
   }
 
+  /// Turns the lens between eras on to its next hour.
+  void turnLensHour() {
+    final session = _ready;
+    if (session == null) return;
+    _apply(session, session.engine.turnLensHour(session.game));
+  }
+
   void takeExit(String exitId) {
     final session = _ready;
     if (session == null ||

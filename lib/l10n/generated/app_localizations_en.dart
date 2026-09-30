@@ -256,7 +256,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lensLower => 'Lower the lens';
 
   @override
-  String get overlayInstruction => 'Drag the sheets. Tap one to turn it.';
+  String get overlayInstruction => 'Drag the pieces. Tap one to turn it.';
 
   @override
   String get deductionCorrectionInstruction =>
@@ -273,4 +273,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get threadInstruction => 'Draw the thread from pin to pin.';
+
+  @override
+  String get rakingLightInstruction =>
+      'Move the lamp round the tablet, close and low.';
 }

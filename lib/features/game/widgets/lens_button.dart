@@ -3,7 +3,9 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../content/content_strings.dart';
 import '../../../core/audio/ui_sound.dart';
+import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/stillroom_palette.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../../state/game_session.dart';
@@ -12,7 +14,9 @@ import '../flame/stillroom_game.dart';
 
 /// Raises and lowers the lens between eras (scene `lens`). Shown only where
 /// the current scene has a lens the player can use; it pulses until the
-/// player has tried it once.
+/// player has tried it once. Where the lens looks at different hours
+/// (`lensHours`), a brass tag beside it names the hour; tapping it turns the
+/// lens on to the next.
 class LensButton extends ConsumerStatefulWidget {
   const LensButton({required this.episodeId, required this.game, super.key});
 
@@ -66,23 +70,103 @@ class _LensButtonState extends ConsumerState<LensButton>
     }
     final l10n = AppLocalizations.of(context);
     final up = widget.game.lensUp;
+    final engine = session.engine;
+    final hours = engine.content.config.lensHours;
+    final turns =
+        up &&
+        hours != null &&
+        (engine.currentScene(session.game).lens?.turnsWithHours ?? false);
+    final hourLabel = hours == null
+        ? ''
+        : contentText(
+            session.episode.strings,
+            Localizations.localeOf(context).languageCode,
+            hours.labels[engine.lensHour(session.game)],
+          );
     return Align(
       alignment: Alignment.bottomLeft,
       child: Padding(
         padding: const EdgeInsets.all(10),
-        child: AnimatedBuilder(
-          animation: _pulse,
-          builder: (context, _) => IconButton(
-            key: const ValueKey('lens_button'),
-            tooltip: up ? l10n.lensLower : l10n.lensRaise,
-            iconSize: 40,
-            onPressed: _toggle,
-            icon: SizedBox.square(
-              dimension: 40,
-              child: CustomPaint(
-                painter: _LensIconPainter(up: up, pulse: _pulse.value),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _lensIcon(l10n, up),
+            if (turns) _HourTag(label: hourLabel, onTap: _turnHour),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _turnHour() {
+    ref.read(uiFeedbackProvider)(UiSound.turn);
+    ref.read(gameSessionProvider(widget.episodeId).notifier).turnLensHour();
+  }
+
+  Widget _lensIcon(AppLocalizations l10n, bool up) {
+    return AnimatedBuilder(
+      animation: _pulse,
+      builder: (context, _) => IconButton(
+        key: const ValueKey('lens_button'),
+        tooltip: up ? l10n.lensLower : l10n.lensRaise,
+        iconSize: 40,
+        onPressed: _toggle,
+        icon: SizedBox.square(
+          dimension: 40,
+          child: CustomPaint(
+            painter: _LensIconPainter(up: up, pulse: _pulse.value),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// A brass tag naming the hour the lens looks at; tap to turn it on.
+class _HourTag extends StatelessWidget {
+  const _HourTag({required this.label, required this.onTap});
+
+  final String label;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      button: true,
+      child: GestureDetector(
+        key: const ValueKey('lens_hour'),
+        behavior: HitTestBehavior.opaque,
+        onTap: onTap,
+        child: Container(
+          constraints: const BoxConstraints(minHeight: 44, minWidth: 44),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: BoxDecoration(
+            color: const Color(0xCC1B1510),
+            border: Border.all(color: StillroomPalette.brass),
+            borderRadius: BorderRadius.circular(22),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(
+                Icons.wb_twilight,
+                size: 18,
+                color: StillroomPalette.brass,
               ),
-            ),
+              const SizedBox(width: 6),
+              AnimatedSwitcher(
+                duration: const Duration(milliseconds: 250),
+                child: Text(
+                  label,
+                  key: ValueKey(label),
+                  style: const TextStyle(
+                    fontFamily: AppTheme.serif,
+                    fontSize: 15,
+                    color: StillroomPalette.paper,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

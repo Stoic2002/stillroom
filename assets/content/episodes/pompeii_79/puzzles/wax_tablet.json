@@ -1,0 +1,32 @@
+{
+  "id": "wax_tablet",
+  "type": "rakingLight",
+  "background": "images/scenes/pompeii_79/tablet_board.png",
+  "config": {
+    "surface": "images/objects/pompeii_79/wax_tablet_surface.png",
+    "marks": "images/objects/pompeii_79/wax_tablet_marks.png",
+    "from": 290,
+    "tolerance": 14
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "paper"
+    },
+    {
+      "type": "showText",
+      "key": "pompeii_79.hut.tablet_read"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.pompeii_79.wax_tablet.1"
+    },
+    {
+      "key": "hint.pompeii_79.wax_tablet.2"
+    },
+    {
+      "key": "hint.pompeii_79.wax_tablet.3"
+    }
+  ]
+}

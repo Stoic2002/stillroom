@@ -24,6 +24,7 @@ export 'puzzles/crank.dart';
 export 'puzzles/deduction.dart';
 export 'puzzles/overlay.dart';
 export 'puzzles/puzzle_type.dart';
+export 'puzzles/raking_light.dart';
 export 'puzzles/reveal.dart';
 export 'puzzles/rotary_align.dart';
 export 'puzzles/sequence.dart';

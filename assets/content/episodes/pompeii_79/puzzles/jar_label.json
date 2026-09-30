@@ -6,57 +6,17 @@
     "form": "board",
     "sentences": [
       {
-        "textKey": "pompeii_79.label.b1",
+        "textKey": "pompeii_79.label.seal",
         "blanks": [
-          "year_1863"
-        ],
-        "rect": [
-          0.03,
-          0.035,
-          0.56,
-          0.14
-        ]
-      },
-      {
-        "textKey": "pompeii_79.label.b2",
-        "blanks": [
-          "dawn",
-          "surge"
-        ],
-        "rect": [
-          0.03,
-          0.2,
-          0.56,
-          0.13
-        ]
-      },
-      {
-        "textKey": "pompeii_79.label.b3",
-        "blanks": [
-          "pine_tree",
-          "pumice",
           "felix",
           "marina_gate",
-          "pillows"
+          "dawn"
         ],
         "rect": [
           0.03,
-          0.37,
+          0.4,
           0.56,
-          0.33
-        ]
-      },
-      {
-        "textKey": "pompeii_79.label.b4",
-        "blanks": [
-          "autumn",
-          "bread"
-        ],
-        "rect": [
-          0.03,
-          0.745,
-          0.56,
-          0.21
+          0.22
         ]
       }
     ],
@@ -76,7 +36,7 @@
       "year_1863",
       "year_1748"
     ],
-    "nearMiss": 1
+    "nearMiss": 0
   },
   "onSolved": [
     {

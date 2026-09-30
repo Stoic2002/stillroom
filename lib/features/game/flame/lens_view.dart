@@ -18,9 +18,13 @@ class LensView extends PositionComponent {
     required GameState state,
     required double radius,
     required super.size,
+    Vector2? center,
+    bool open = false,
   }) : _state = state,
        _radius = radius,
-       lensCenter = Vector2(size!.x * 0.5, size.y * 0.45),
+       lensCenter = center ?? Vector2(size!.x * 0.5, size.y * 0.45),
+       shown = open,
+       _open = open ? 1 : 0,
        super(priority: 900);
 
   /// The scene seen through the lens.
@@ -34,8 +38,8 @@ class LensView extends PositionComponent {
   final Vector2 lensCenter;
 
   /// Whether the player has the lens raised; it opens and closes smoothly.
-  bool shown = false;
-  double _open = 0;
+  bool shown;
+  double _open;
   double _time = 0;
 
   static const openSeconds = 0.3;

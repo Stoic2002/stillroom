@@ -31,6 +31,9 @@ enum EchoFigure {
 
   /// A child fleeing, a cushion tied on the head, a stick of charcoal in hand.
   child,
+
+  /// A small child at play, bareheaded.
+  girl,
 }
 
 const _mist = Color(0xFFD5DEE2);
@@ -47,7 +50,7 @@ void paintEcho(Art a, EchoFigure figure) {
         ..addPolygon([for (final (x, y) in points) Offset(x * w, y * h)], true);
 
   // Head: a plain oval, no features.
-  if (figure != EchoFigure.child) {
+  if (figure != EchoFigure.child && figure != EchoFigure.girl) {
     a.canvas.drawOval(a.r(0.36, 0.06, 0.28, 0.13), body);
   }
 
@@ -211,6 +214,21 @@ void paintEcho(Art a, EchoFigure figure) {
         )
         ..drawPath(
           shape([(0.54, 0.82), (0.66, 0.82), (0.65, 0.99), (0.55, 0.99)]),
+          body,
+        );
+    case EchoFigure.girl:
+      a.canvas
+        ..drawOval(a.r(0.36, 0.3, 0.28, 0.12), body)
+        ..drawPath(
+          shape([(0.3, 0.44), (0.7, 0.44), (0.78, 0.86), (0.22, 0.86)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.34, 0.84), (0.46, 0.84), (0.45, 0.99), (0.35, 0.99)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.54, 0.84), (0.66, 0.84), (0.65, 0.99), (0.55, 0.99)]),
           body,
         );
   }

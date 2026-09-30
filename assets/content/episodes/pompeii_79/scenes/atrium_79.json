@@ -5,12 +5,17 @@
     {
       "id": "shrine",
       "rect": [
-        0.06,
+        0.02,
         0.26,
-        0.14,
-        0.26
+        0.18,
+        0.4
       ],
       "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "saw_key",
+          "value": true
+        },
         {
           "type": "showText",
           "key": "pompeii_79.lens.shrine"
@@ -59,9 +64,9 @@
     {
       "id": "family",
       "rect": [
-        0.18,
-        0.34,
         0.22,
+        0.34,
+        0.16,
         0.52
       ],
       "onTap": [
@@ -74,12 +79,22 @@
   ],
   "layers": [
     {
+      "id": "mother",
+      "image": "images/objects/pompeii_79/echo_mother.png",
+      "rect": [
+        0.03,
+        0.3,
+        0.08,
+        0.36
+      ]
+    },
+    {
       "id": "family",
       "image": "images/objects/pompeii_79/echo_family.png",
       "rect": [
-        0.18,
-        0.34,
         0.22,
+        0.34,
+        0.16,
         0.52
       ]
     }

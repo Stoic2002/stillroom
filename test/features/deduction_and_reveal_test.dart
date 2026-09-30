@@ -279,7 +279,7 @@ void main() {
       ))!;
       await tester.pumpWidget(const SizedBox());
       await pumpPuzzle(tester, 'jar_label');
-      expect(find.byKey(const ValueKey('blank_9')), findsOneWidget);
+      expect(find.byKey(const ValueKey('blank_2')), findsOneWidget);
       expect(tester.takeException(), isNull);
     });
   });
@@ -350,7 +350,7 @@ void main() {
       );
       content = pompeii!;
       final (solved, sounds) = await pumpPuzzle(tester, 'tracings');
-      expect(find.text('Drag the sheets. Tap one to turn it.'), findsOneWidget);
+      expect(find.text('Drag the pieces. Tap one to turn it.'), findsOneWidget);
       final config = content.requirePuzzle('tracings').config as OverlayConfig;
       final board = tester.getRect(find.byType(Scaffold));
 
@@ -380,12 +380,13 @@ void main() {
       // Words first: a turned sheet comes to the top.
       await turn('words', 1);
       await turn('people', 3);
-      expect(sounds.where((s) => s == UiSound.turn), hasLength(4));
+      await turn('gate', 2);
+      expect(sounds.where((s) => s == UiSound.turn), hasLength(6));
       // Topmost first, so each drag grabs the sheet it means to.
-      for (final id in ['people', 'words', 'boat']) {
+      for (final id in ['gate', 'people', 'words', 'boat']) {
         await layDown(id);
       }
-      expect(sounds.where((s) => s == UiSound.place), hasLength(3));
+      expect(sounds.where((s) => s == UiSound.place), hasLength(4));
       expect(sounds.last, UiSound.solved);
       await tester.pump(SolvesAfterPause.pause);
       expect(solved.single, 1);

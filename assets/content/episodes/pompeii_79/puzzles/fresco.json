@@ -1,0 +1,121 @@
+{
+  "id": "fresco",
+  "type": "overlay",
+  "background": "images/scenes/pompeii_79/fresco_board.png",
+  "config": {
+    "sheets": [
+      {
+        "id": "piece_1",
+        "image": "images/objects/pompeii_79/fresco_piece_1.png",
+        "rect": [
+          0.36,
+          0.1,
+          0.14,
+          0.26
+        ],
+        "from": [
+          0.04,
+          0.08
+        ],
+        "turns": 1
+      },
+      {
+        "id": "piece_2",
+        "image": "images/objects/pompeii_79/fresco_piece_2.png",
+        "rect": [
+          0.5,
+          0.1,
+          0.14,
+          0.26
+        ],
+        "from": [
+          0.78,
+          0.6
+        ],
+        "turns": 2
+      },
+      {
+        "id": "piece_3",
+        "image": "images/objects/pompeii_79/fresco_piece_3.png",
+        "rect": [
+          0.36,
+          0.36,
+          0.14,
+          0.26
+        ],
+        "from": [
+          0.82,
+          0.12
+        ],
+        "turns": 0
+      },
+      {
+        "id": "piece_4",
+        "image": "images/objects/pompeii_79/fresco_piece_4.png",
+        "rect": [
+          0.5,
+          0.36,
+          0.14,
+          0.26
+        ],
+        "from": [
+          0.06,
+          0.64
+        ],
+        "turns": 3
+      },
+      {
+        "id": "piece_5",
+        "image": "images/objects/pompeii_79/fresco_piece_5.png",
+        "rect": [
+          0.36,
+          0.62,
+          0.14,
+          0.26
+        ],
+        "from": [
+          0.2,
+          0.36
+        ],
+        "turns": 2
+      },
+      {
+        "id": "piece_6",
+        "image": "images/objects/pompeii_79/fresco_piece_6.png",
+        "rect": [
+          0.5,
+          0.62,
+          0.14,
+          0.26
+        ],
+        "from": [
+          0.66,
+          0.36
+        ],
+        "turns": 1
+      }
+    ],
+    "snap": 0.03
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "millstone"
+    },
+    {
+      "type": "showText",
+      "key": "pompeii_79.atrium.fresco_restored"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.pompeii_79.fresco_puzzle.1"
+    },
+    {
+      "key": "hint.pompeii_79.fresco_puzzle.2"
+    },
+    {
+      "key": "hint.pompeii_79.fresco_puzzle.3"
+    }
+  ]
+}

@@ -3,8 +3,11 @@
   "flags": {
     "door_dug": false,
     "oven_open": false,
+    "saw_key": false,
+    "arca_open": false,
     "saw_toy": false,
-    "found_toy": false
+    "found_toy": false,
+    "lens_hour": 0
   },
   "logicalResolution": [
     1920,
@@ -96,7 +99,7 @@
   },
   "hintStages": [
     {
-      "id": "write_label",
+      "id": "seal",
       "when": [
         {
           "puzzleSolved": "tracings"
@@ -104,10 +107,10 @@
       ],
       "hints": [
         {
-          "key": "hint.pompeii_79.write_label.1"
+          "key": "hint.pompeii_79.seal.1"
         },
         {
-          "key": "hint.pompeii_79.write_label.2"
+          "key": "hint.pompeii_79.seal.2"
         }
       ]
     },
@@ -128,7 +131,74 @@
       ]
     },
     {
-      "id": "into_house",
+      "id": "find_drawing",
+      "when": [
+        {
+          "puzzleSolved": "wax_tablet"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.pompeii_79.find_drawing.1"
+        },
+        {
+          "key": "hint.pompeii_79.find_drawing.2"
+        }
+      ]
+    },
+    {
+      "id": "read_tablet",
+      "when": [
+        {
+          "everHadItem": "wax_tablet"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.pompeii_79.read_tablet.1"
+        },
+        {
+          "key": "hint.pompeii_79.read_tablet.2"
+        }
+      ]
+    },
+    {
+      "id": "open_arca",
+      "when": [
+        {
+          "hasItem": "arca_key"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.pompeii_79.open_arca.1"
+        },
+        {
+          "key": "hint.pompeii_79.open_arca.2"
+        }
+      ]
+    },
+    {
+      "id": "find_key",
+      "when": [
+        {
+          "puzzleSolved": "fresco"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.pompeii_79.find_key.1"
+        },
+        {
+          "key": "hint.pompeii_79.find_key.2"
+        },
+        {
+          "key": "hint.pompeii_79.find_key.3"
+        }
+      ]
+    },
+    {
+      "id": "fresco",
       "when": [
         {
           "flag": "door_dug",
@@ -137,10 +207,13 @@
       ],
       "hints": [
         {
-          "key": "hint.pompeii_79.into_house.1"
+          "key": "hint.pompeii_79.fresco.1"
         },
         {
-          "key": "hint.pompeii_79.into_house.2"
+          "key": "hint.pompeii_79.fresco.2"
+        },
+        {
+          "key": "hint.pompeii_79.fresco.3"
         }
       ]
     },
@@ -171,5 +244,13 @@
         }
       ]
     }
-  ]
+  ],
+  "lensHours": {
+    "flag": "lens_hour",
+    "labels": [
+      "pompeii_79.hour.morning",
+      "pompeii_79.hour.noon",
+      "pompeii_79.hour.afternoon"
+    ]
+  }
 }

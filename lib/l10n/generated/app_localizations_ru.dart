@@ -261,7 +261,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get overlayInstruction =>
-      'Перетаскивайте листы. Коснитесь листа, чтобы повернуть его.';
+      'Перетаскивайте части. Коснитесь, чтобы повернуть.';
 
   @override
   String get deductionCorrectionInstruction =>
@@ -278,4 +278,8 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get threadInstruction => 'Протяните нить от булавки к булавке.';
+
+  @override
+  String get rakingLightInstruction =>
+      'Водите светильник вокруг таблички, низко и близко.';
 }

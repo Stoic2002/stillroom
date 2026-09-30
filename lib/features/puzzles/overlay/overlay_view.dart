@@ -158,18 +158,9 @@ class _OverlayViewState extends State<OverlayView>
         child: AnimatedRotation(
           turns: place.turns / 4,
           duration: const Duration(milliseconds: 180),
+          // No drop shadow: it would show through see-through paper.
           child: DecoratedBox(
-            decoration: BoxDecoration(
-              boxShadow: settled
-                  ? const []
-                  : const [
-                      BoxShadow(
-                        color: Color(0x55000000),
-                        blurRadius: 14,
-                        offset: Offset(4, 6),
-                      ),
-                    ],
-            ),
+            decoration: const BoxDecoration(),
             child: Opacity(
               opacity: settled ? 1 : 0.92,
               child: ContentImage(
