@@ -460,4 +460,48 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get vermilionCaption => '朱筆にて';
+
+  @override
+  String get quireInstruction =>
+      '紙に触れ、次に別の紙に触れると、折丁の中で入れ替わる。紙を裏返すと二枚の葉が入れ替わる。つなぎ言葉がすべて次のページに出会うように。';
+
+  @override
+  String get quireTurn => '裏返す';
+
+  @override
+  String quireLinks(int count, int total) {
+    return 'つなぎ言葉 $total のうち $count が合っている';
+  }
+
+  @override
+  String get quirePicked => '別の紙に触れて入れ替えるか、この紙を裏返そう。';
+
+  @override
+  String get dipInstruction => '葦の棒を槽の中へ引き下ろし、水面に触れたら離して、したたり方を見よう。';
+
+  @override
+  String get dipWhat => '棒から何がしたたる？';
+
+  @override
+  String get dipWrong => 'そのしたたり方ではない。';
+
+  @override
+  String dipLevel(int percent) {
+    return '$percent% まで満ちている';
+  }
+
+  @override
+  String get dipStoresQuestion => 'すべての槽に名がついた。蓄えは尽きかけていたか、満ちていたか？';
+
+  @override
+  String get dipLow => '尽きかけていた';
+
+  @override
+  String get dipFull => '満ちていた';
+
+  @override
+  String get dipStoresWrong => 'それぞれの槽がどこまで満ちているか、もう一度見よう。';
+
+  @override
+  String get colophonCaption => 'ここに書は終わる';
 }

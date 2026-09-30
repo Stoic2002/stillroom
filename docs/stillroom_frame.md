@@ -41,7 +41,7 @@ data, so later tales arrive in updates.
 |---|---|
 | I (2) | *Whitechapel, 1888* ✓, *Semarang, 1945* ✓ |
 | II (4) | *Flannan Isles, 1900* ✓, *Pompeii, 79* ✓, *Bastille, 1703* ✓ (Western Europe), *Gyeongju, 771* ✓ (Korea) |
-| III (4) | *Whitechapel, 1891* ✓ (series), *The death of the Guangxu Emperor, Beijing, 1908* ✓ (China), **Alamut, 1256** (Middle East), **Great Zimbabwe, 1871** (Africa) |
+| III (4) | *Whitechapel, 1891* ✓ (series), *The death of the Guangxu Emperor, Beijing, 1908* ✓ (China), *Alamut, 1256* ✓ (Middle East), **Great Zimbabwe, 1871** (Africa) |
 | IV (5) | **Dyatlov Pass, 1959** (Eastern Europe), **Honnō-ji, Kyoto, 1582** (Japan), **Roanoke, 1590** (the Americas), **The Franklin expedition, 1845** (the Arctic), *one Indonesian tale, to be chosen* |
 | V (1) | The old keeper's own tale (arc OPEN) |
 
@@ -76,7 +76,7 @@ How difficulty rises from shelf to shelf:
 | Length | 8–10 beats | 10–12 beats, parallel branches |
 
 Current placement: *Whitechapel, 1888* (shelf I, the easiest, doubling as the
-tutorial); *Semarang, 1945* (shelf I, opens after Whitechapel; a step up: clues across three eras); *Flannan Isles, 1900*, *Pompeii, 79*, *Bastille, 1703* and *Gyeongju, 771* (shelf II, open after two tales; the shelf is full). Shelf III opens after four: *Whitechapel, 1891*, *Beijing, 1908*, and a sealed teaser jar (`sealed_alamut_1256`) for the tales still to come.
+tutorial); *Semarang, 1945* (shelf I, opens after Whitechapel; a step up: clues across three eras); *Flannan Isles, 1900*, *Pompeii, 79*, *Bastille, 1703* and *Gyeongju, 771* (shelf II, open after two tales; the shelf is full). Shelf III opens after four: *Whitechapel, 1891*, *Beijing, 1908*, *Alamut, 1256*, and a sealed teaser jar (`sealed_zimbabwe_1871`) for the tale still to come.
 
 ## Signature mechanics (decided 2026-09-26)
 
@@ -119,6 +119,7 @@ own hardest puzzle; higher shelves have more puzzles, chained together.
 | *Whitechapel, 1891* | The file that grows when no one is looking: turn away and back, and find the new file on the shelf (`unwatched`, the long-planned **E**); her name set in mirrored type from a compositor's case, where some sorts are cut the wrong way (`compose`) | A seal of three words on the file's cover (`docket`) |
 | *Gyeongju, 771* | Bronze routed from three furnaces into the mould (`pour`); the log striker and the hollow under the bell, dug until the ring lasts (`resonance`); the rim struck all round to find where the ring swells deepest, the "cry" that is a beat (`beat`) | A seal of three words taken as an ink rubbing from the bronze (`rubbing`) |
 | *Beijing, 1908* | His hair measured segment by segment on scarce reactor time, to find each strand's highest and say whether it rose in sharp peaks or ran steady (`strand`); a probe dragged over his robe, outer and inner, to find where the needle stands in the red (`scan`) | A seal of three words in vermilion on imperial yellow, the last word *not known* (`vermilion`) |
+| *Alamut, 1256* | Juvayni's loose sheets nested into a quire by their catchwords, turned over where they lie the wrong way (`quire`); tanks in the rock dipped with a reed and named by how it drips, then the stores judged full or low (`dip`) | A seal of three words written as a colophon, the closing lines of a book (`colophon`) |
 | *Bastille, 1703* | The turnkey's ring: find the one key whose bit matches the keyhole, and turn it the right way (`keyring`); the king's Great Cipher read with Bazeries's worksheet, two numbers left unread (`cipher`); the prisoner's file sorted into what was written at the time and what was told after (`sources`) | A seal of three words on a blank royal order (`order`) |
 
 The first three tales were reworked on 2026-09-29 to follow this rule:
@@ -151,6 +152,9 @@ no names and no faces, so no real person is ever given invented features:
 - *Beijing 1908:* a tomb keeper with a lantern in the crypt; a scientist
   in a lab coat in the work-room. No emperor, no court, and no living
   member of the team is shown or named.
+- *Alamut 1256:* a guard of the garrison with a spear, going down; a
+  librarian with a small lamp among the niches. No imam, no Mongol, no
+  Juvayni.
 
 ## Living things (decided 2026-09-26)
 
@@ -174,6 +178,9 @@ and season:
   in the founders' shed, falling snow.
 - *Beijing 1908* is winter at the tombs: dry grass through the snow,
   pines round the court, falling snow.
+- *Alamut 1256* is December in the Alborz: dry thistles in the snowy
+  court, an eagle turning over the gorge (a new creature, `eagle`), a
+  mouse in the storerooms, falling snow.
 
 ## How it shows in the game
 
@@ -208,8 +215,9 @@ final episode. Details are open.
 | `flannan_isles_1900` | Flannan Isles, 1900 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). Dark scenes, crank, legend as red herrings | [episodes/flannan_isles_1900.md](episodes/flannan_isles_1900.md) |
 | `pompeii_79` | Pompeii, 79 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). Lens between eras, tracing sheets, legend as red herrings | [episodes/pompeii_79.md](episodes/pompeii_79.md) |
 | `chongling_1908` | Beijing, 1908 (the Guangxu Emperor) | Built, draft text, code-drawn art (shelf III, opens after 4 tales). The hair, the robe; "illness", Cixi and the 1980 test as red herrings; the hand left unknown | [episodes/chongling_1908.md](episodes/chongling_1908.md) |
+| `alamut_1256` | Alamut, 1256 | Built, draft text, code-drawn art (shelf III, opens after 4 tales). The quire, the tanks; Polo's garden, drug and three-year siege, and "hashish", as red herrings | [episodes/alamut_1256.md](episodes/alamut_1256.md) |
 | `whitechapel_1891` | Whitechapel, 1891 | Built, draft text, code-drawn art (shelf III, series whitechapel, opens after 4 tales). The file that grows, her name set in type; "Jack the Ripper" and "five" as red herrings | [episodes/whitechapel_1891.md](episodes/whitechapel_1891.md) |
 | `gyeongju_771` | Gyeongju, 771 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). The pour, the hollow, the beat; the child legend, Seoul and 1925 as red herrings | [episodes/gyeongju_771.md](episodes/gyeongju_771.md) |
 | `bastille_1703` | Bastille, 1703 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). Key ring, Great Cipher, the file of sources; Voltaire, Dumas and Bazeries as red herrings | [episodes/bastille_1703.md](episodes/bastille_1703.md) |
-| *(planned)* | The other eight new tales | See *The full shelf* above | — |
+| *(planned)* | The other seven new tales | See *The full shelf* above | — |
 | `test_room` | Test room | Debug builds only | Feature test room |

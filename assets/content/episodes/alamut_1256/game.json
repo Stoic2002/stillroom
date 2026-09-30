@@ -1,0 +1,184 @@
+{
+  "startScene": "gate_court",
+  "flags": {
+    "read_order": false,
+    "read_polo": false,
+    "took_keys": false,
+    "read_later": false,
+    "found_note": false
+  },
+  "logicalResolution": [
+    1920,
+    1080
+  ],
+  "orientation": "landscape",
+  "sceneTransitionMs": 600,
+  "music": "alamut_snow",
+  "words": [
+    {
+      "id": "library",
+      "labelKey": "alamut_1256.word.library",
+      "kind": "thing"
+    },
+    {
+      "id": "juvayni",
+      "labelKey": "alamut_1256.word.juvayni",
+      "kind": "name"
+    },
+    {
+      "id": "date_1256",
+      "labelKey": "alamut_1256.word.date_1256",
+      "kind": "date"
+    },
+    {
+      "id": "garden",
+      "labelKey": "alamut_1256.word.garden",
+      "kind": "thing"
+    },
+    {
+      "id": "hashish",
+      "labelKey": "alamut_1256.word.hashish",
+      "kind": "thing"
+    },
+    {
+      "id": "hulagu",
+      "labelKey": "alamut_1256.word.hulagu",
+      "kind": "name"
+    },
+    {
+      "id": "tusi",
+      "labelKey": "alamut_1256.word.tusi",
+      "kind": "name"
+    },
+    {
+      "id": "hasan",
+      "labelKey": "alamut_1256.word.hasan",
+      "kind": "name"
+    },
+    {
+      "id": "polo",
+      "labelKey": "alamut_1256.word.polo",
+      "kind": "name"
+    },
+    {
+      "id": "date_1090",
+      "labelKey": "alamut_1256.word.date_1090",
+      "kind": "date"
+    },
+    {
+      "id": "date_1262",
+      "labelKey": "alamut_1256.word.date_1262",
+      "kind": "date"
+    },
+    {
+      "id": "three_years",
+      "labelKey": "alamut_1256.word.three_years",
+      "kind": "number"
+    }
+  ],
+  "secret": {
+    "when": [
+      {
+        "flag": "found_note",
+        "equals": true
+      }
+    ],
+    "noteKey": "alamut_1256.library.keeper_note"
+  },
+  "hintStages": [
+    {
+      "id": "write_seal",
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.alamut_1256.write_seal.1"
+        },
+        {
+          "key": "hint.alamut_1256.write_seal.2"
+        }
+      ]
+    },
+    {
+      "id": "later",
+      "when": [
+        {
+          "puzzleSolved": "quire"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.alamut_1256.later.1"
+        },
+        {
+          "key": "hint.alamut_1256.later.2"
+        }
+      ]
+    },
+    {
+      "id": "library",
+      "when": [
+        {
+          "puzzleSolved": "dip"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.alamut_1256.library.1"
+        },
+        {
+          "key": "hint.alamut_1256.library.2"
+        }
+      ]
+    },
+    {
+      "id": "stores",
+      "when": [
+        {
+          "flag": "took_keys",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.alamut_1256.stores.1"
+        },
+        {
+          "key": "hint.alamut_1256.stores.2"
+        }
+      ]
+    },
+    {
+      "id": "tower",
+      "when": [
+        {
+          "flag": "read_order",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.alamut_1256.tower.1"
+        },
+        {
+          "key": "hint.alamut_1256.tower.2"
+        }
+      ]
+    },
+    {
+      "id": "start",
+      "hints": [
+        {
+          "key": "hint.alamut_1256.start.1"
+        },
+        {
+          "key": "hint.alamut_1256.start.2"
+        }
+      ]
+    }
+  ]
+}

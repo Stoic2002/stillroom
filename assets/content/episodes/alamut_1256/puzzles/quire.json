@@ -1,0 +1,56 @@
+{
+  "id": "quire",
+  "type": "quire",
+  "background": "images/scenes/alamut_1256/quire_board.png",
+  "config": {
+    "leaves": [
+      "alamut_1256.quire.l1",
+      "alamut_1256.quire.l2",
+      "alamut_1256.quire.l3",
+      "alamut_1256.quire.l4",
+      "alamut_1256.quire.l5",
+      "alamut_1256.quire.l6",
+      "alamut_1256.quire.l7",
+      "alamut_1256.quire.l8"
+    ],
+    "start": [
+      {
+        "sheet": 2,
+        "turned": true
+      },
+      {
+        "sheet": 0,
+        "turned": false
+      },
+      {
+        "sheet": 3,
+        "turned": true
+      },
+      {
+        "sheet": 1,
+        "turned": true
+      }
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "page_turn"
+    },
+    {
+      "type": "showText",
+      "key": "alamut_1256.library.quire_done"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.alamut_1256.quire.1"
+    },
+    {
+      "key": "hint.alamut_1256.quire.2"
+    },
+    {
+      "key": "hint.alamut_1256.quire.3"
+    }
+  ]
+}

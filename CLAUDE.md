@@ -60,7 +60,7 @@ player restores the truth of the tale and seals the jar.
   - The CJK fonts are subsets: `test/content/font_coverage_test.dart` fails
     on a rare glyph, so reword it (e.g. 蹚 and 祇 were replaced).
 
-### The tales (8 playable)
+### The tales (9 playable)
 
 | Shelf | Tale | Its own mechanics | Its label now |
 |---|---|---|---|
@@ -71,11 +71,12 @@ player restores the truth of the tale and seals the jar.
 | III | *Whitechapel, 1891* (series) | The file that grows while you look away (`unwatched`), her name set in mirrored type (`compose`) | `docket` **seal**: the file's cover, 3 words |
 | III | *Beijing, 1908* (the Guangxu Emperor, set at Chongling during the 2003–08 tests) | His hair measured segment by segment on scarce reactor time (`strand`), a probe over his robe, outer and inner (`scan`) | `vermilion` **seal**: imperial yellow, 3 words, the hand *not known* |
 | II | *Gyeongju, 771* (the Emille Bell) | Bronze routed into the mould (`pour`), the striker and the hollow under the bell (`resonance`), the rim struck round to find the deepest swell, the "cry" (`beat`) | `rubbing` **seal**: an ink rubbing, 3 words |
+| III | *Alamut, 1256* (the library of the fortress) | Juvayni's loose sheets nested by their catchwords (`quire`), tanks in the rock named by how the reed drips (`dip`) | `colophon` **seal**: a book's closing lines, 3 words |
 | II | *Bastille, 1703* (the Iron Mask) | The turnkey's keys (`keyring`: match the bit, turn it over), the Great Cipher (`cipher`, 330 309 left unread), the prisoner's file (`sources`: written at the time vs. told after) | `order` **seal**: a royal order, 3 words |
 
 Shelf III opens after 4 tales are distilled: *Whitechapel, 1891*,
-*Beijing, 1908*, and a sealed teaser jar (`sealed_alamut_1256`) for the
-tales still to come. The top shelf is meant for the old keeper's
+*Beijing, 1908*, *Alamut, 1256*, and a sealed teaser jar
+(`sealed_zimbabwe_1871`) for the tale still to come. The top shelf is meant for the old keeper's
 own tale; its arc is OPEN.
 
 **The plan: 16 tales on 5 shelves** (decided 2026-09-30), all real cases
@@ -109,14 +110,15 @@ with a legend to set right. The lineup, by shelf and region, is in
 
 ## Next steps (in this order)
 
-1. **Wait for the developer's feedback on *Beijing, 1908*** (built
-   2026-09-30; `docs/episodes/chongling_1908.md`, *Things to watch*): the
-   strand's budget (7 readings of 14 segments), whether the robe's faint
-   outer layer leads to the inner, the hotspots in the snowy court.
-2. **The next tales of the plan, in shelf order** (shelf III next:
-   Alamut 1256, then Great Zimbabwe 1871).
-   For each: a design doc first (facts with sources, 2–3 mechanics of its
-   own, the chain, the seal), approved by the developer before building.
+1. **Wait for the developer's feedback on *Beijing, 1908* and *Alamut,
+   1256*** (both built 2026-09-30; each design doc has *Things to watch*).
+   Alamut: whether the catchwords read at phone size, whether the reed
+   "meeting" the surface is felt, whether the drips tell the liquids
+   apart.
+2. **The next tale of the plan:** *Great Zimbabwe, 1871* closes shelf
+   III; then shelf IV. For each: a design doc first (facts with sources,
+   2–3 mechanics of its own, the chain, the seal), approved by the
+   developer before building.
 3. Later, and to be asked first:
    - the Indonesian tale for shelf IV;
    - the keeper's arc (OPEN);
@@ -144,6 +146,10 @@ with a legend to set right. The lineup, by shelf and region, is in
 - **A cloud session has no FVM:** install Flutter 3.41.7 from the release
   archive (and `ffmpeg` for `tool/audio/generate_audio.dart`) to run the
   checks; the developer still does every build.
+- **Hint keys:** a hint stage and a puzzle both take their hints from
+  `hint.<episode>.<id>.<n>`, so a stage must not share a puzzle's id
+  (Alamut's stages are `stores` and `library`, its puzzles `dip` and
+  `quire`).
 - **Python heredocs that write strings:** write `\"` for a quote inside a
   JSON value, never `\\"`.
 

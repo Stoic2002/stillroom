@@ -420,6 +420,10 @@ enum CreatureKind {
 
   /// Tufts of grass bending in the wind.
   grass,
+
+  /// An eagle turning in slow circles high over its area, now and then
+  /// crying.
+  eagle,
 }
 
 /// A small living thing in a scene (`creatures` in a scene file):

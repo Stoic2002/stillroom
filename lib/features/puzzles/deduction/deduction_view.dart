@@ -103,6 +103,7 @@ class _DeductionViewState extends State<DeductionView>
       DeductionForm.rubbing => _rubbing(context, sentenceStyle),
       DeductionForm.docket => _docket(context, sentenceStyle),
       DeductionForm.vermilion => _vermilion(context, sentenceStyle),
+      DeductionForm.colophon => _colophon(context, sentenceStyle),
       DeductionForm.board => const SizedBox.shrink(),
     };
 
@@ -439,6 +440,57 @@ class _DeductionViewState extends State<DeductionView>
     );
   }
 
+  /// A manuscript's colophon: burnished paper scorched at one edge, a
+  /// heading, the closing lines centred and narrowing, and a triangle of
+  /// dots that brings them to a point.
+  Widget _colophon(BuildContext context, TextStyle style) {
+    final l10n = AppLocalizations.of(context);
+    final ink = style.copyWith(height: 1.7, color: const Color(0xFF3A2414));
+    return DecoratedBox(
+      decoration: const BoxDecoration(
+        color: Color(0xFFE8D9B4),
+        boxShadow: [BoxShadow(blurRadius: 18, color: Color(0xAA000000))],
+      ),
+      child: CustomPaint(
+        painter: const _ColophonFrame(),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(44, 14, 44, 12),
+          child: Column(
+            children: [
+              Text(
+                l10n.colophonCaption,
+                textAlign: TextAlign.center,
+                style: style.copyWith(
+                  fontFamily: AppTheme.smallCaps,
+                  fontSize: 13,
+                  letterSpacing: 2,
+                  color: const Color(0xFF7A2A18),
+                ),
+              ),
+              const SizedBox(height: 4),
+              for (final (i, sentence) in _config.sentences.indexed)
+                FractionallySizedBox(
+                  widthFactor: 0.86 - i * 0.1,
+                  child: Text.rich(
+                    TextSpan(
+                      style: ink,
+                      children: _sentence(context, i, sentence),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              const SizedBox(
+                width: 40,
+                height: 18,
+                child: CustomPaint(painter: _ColophonPoint()),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   /// A telegram form: capitals, STOP between the sentences.
   Widget _telegram(BuildContext context, TextStyle style) {
     final l10n = AppLocalizations.of(context);
@@ -728,6 +780,76 @@ class _RegisterStamp extends CustomPainter {
 
   @override
   bool shouldRepaint(_RegisterStamp old) => false;
+}
+
+/// A thin double rule in brown ink round a colophon, and a scorched
+/// corner where the fire reached the page.
+class _ColophonFrame extends CustomPainter {
+  const _ColophonFrame();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final ink = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.4
+      ..color = const Color(0xAA6A3A1E);
+    final outer = (Offset.zero & size).deflate(9);
+    canvas
+      ..drawRect(outer, ink)
+      ..drawRect(outer.deflate(4), ink..strokeWidth = 0.8);
+    // The scorch: a brown stain darkening to black at the lower right,
+    // kept to the page.
+    final corner = size.bottomRight(Offset.zero);
+    canvas
+      ..save()
+      ..clipRect(Offset.zero & size)
+      ..drawCircle(
+        corner,
+        size.shortestSide * 0.42,
+        Paint()
+          ..shader =
+              const RadialGradient(
+                colors: [
+                  Color(0xFF1A0E08),
+                  Color(0xCC5A2E12),
+                  Color(0x44A0602A),
+                  Color(0x00A0602A),
+                ],
+                stops: [0.18, 0.4, 0.7, 1],
+              ).createShader(
+                Rect.fromCircle(
+                  center: corner,
+                  radius: size.shortestSide * 0.42,
+                ),
+              ),
+      )
+      ..restore();
+  }
+
+  @override
+  bool shouldRepaint(_ColophonFrame old) => false;
+}
+
+/// The colophon's close: rows of dots narrowing to a single point.
+class _ColophonPoint extends CustomPainter {
+  const _ColophonPoint();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final dot = Paint()..color = const Color(0xFF7A2A18);
+    for (final (row, count) in [(0, 3), (1, 2), (2, 1)]) {
+      for (var i = 0; i < count; i++) {
+        canvas.drawCircle(
+          Offset(size.width / 2 + (i - (count - 1) / 2) * 7, 3 + row * 6.0),
+          1.8,
+          dot,
+        );
+      }
+    }
+  }
+
+  @override
+  bool shouldRepaint(_ColophonPoint old) => false;
 }
 
 /// A double vermilion rule round an imperial sheet, with a cloud scroll

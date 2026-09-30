@@ -1,0 +1,65 @@
+{
+  "id": "jar_label",
+  "type": "deduction",
+  "background": "images/scenes/alamut_1256/label_close.png",
+  "config": {
+    "form": "colophon",
+    "sentences": [
+      {
+        "textKey": "alamut_1256.label.s1",
+        "blanks": [
+          "library",
+          "juvayni",
+          "date_1256"
+        ]
+      }
+    ],
+    "words": [
+      "library",
+      "juvayni",
+      "date_1256",
+      "garden",
+      "hashish",
+      "hulagu",
+      "tusi",
+      "hasan",
+      "polo",
+      "date_1090",
+      "date_1262",
+      "three_years"
+    ],
+    "nearMiss": 1
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "wind_rock"
+    },
+    {
+      "type": "showText",
+      "key": "alamut_1256.label.done"
+    },
+    {
+      "type": "showText",
+      "key": "alamut_1256.ending.given"
+    },
+    {
+      "type": "showText",
+      "key": "alamut_1256.ending.record"
+    },
+    {
+      "type": "endEpisode"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.alamut_1256.jar_label.1"
+    },
+    {
+      "key": "hint.alamut_1256.jar_label.2"
+    },
+    {
+      "key": "hint.alamut_1256.jar_label.3"
+    }
+  ]
+}

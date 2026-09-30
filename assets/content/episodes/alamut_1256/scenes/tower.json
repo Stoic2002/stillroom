@@ -1,0 +1,166 @@
+{
+  "id": "tower",
+  "background": "images/scenes/alamut_1256/tower.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "gate_court"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "mat",
+      "rect": [
+        0.1,
+        0.7,
+        0.3,
+        0.14
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "alamut_1256.tower.mat"
+        }
+      ]
+    },
+    {
+      "id": "window",
+      "rect": [
+        0.56,
+        0.14,
+        0.3,
+        0.44
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "wind_rock"
+        },
+        {
+          "type": "showText",
+          "key": "alamut_1256.tower.window"
+        }
+      ]
+    },
+    {
+      "id": "book",
+      "rect": [
+        0.44,
+        0.7,
+        0.12,
+        0.1
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_polo",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "alamut_1256.tower.book"
+        }
+      ]
+    },
+    {
+      "id": "keys",
+      "rect": [
+        0.3,
+        0.3,
+        0.07,
+        0.14
+      ],
+      "when": [
+        {
+          "flag": "took_keys",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "keys_jingle"
+        },
+        {
+          "type": "setFlag",
+          "flag": "took_keys",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "alamut_1256.tower.keys"
+        }
+      ]
+    },
+    {
+      "id": "keys_gone",
+      "rect": [
+        0.3,
+        0.3,
+        0.07,
+        0.14
+      ],
+      "when": [
+        {
+          "flag": "took_keys",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "alamut_1256.tower.keys_gone"
+        }
+      ]
+    },
+    {
+      "id": "niche",
+      "rect": [
+        0.08,
+        0.2,
+        0.1,
+        0.22
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "alamut_1256.tower.niche"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "keys_sprite",
+      "image": "images/objects/alamut_1256/keys_sprite.png",
+      "rect": [
+        0.3,
+        0.3,
+        0.07,
+        0.14
+      ],
+      "when": [
+        {
+          "flag": "took_keys",
+          "equals": false
+        }
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "eagle",
+      "kind": "eagle",
+      "rect": [
+        0.58,
+        0.16,
+        0.26,
+        0.2
+      ]
+    }
+  ]
+}

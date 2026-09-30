@@ -337,6 +337,8 @@ void main() {
       'compose',
       'strand',
       'scan',
+      'quire',
+      'dip',
     ]);
   });
 }

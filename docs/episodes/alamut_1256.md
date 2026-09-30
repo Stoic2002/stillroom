@@ -1,11 +1,13 @@
 # Episode design: Alamut, 1256 (the library of the fortress)
 
-Status: **design draft** (2026-09-30), for the developer's approval before
-anything is built. Shelf III (opens after 4 tales), the Middle East, from
-the plan of 16 tales (`docs/stillroom_frame.md`, *The full shelf*). It
+Status: **built** (2026-09-30): draft text in seven languages, code-drawn
+art (`lib/core/art/alamut_1256_art.dart`), generated audio, walkthrough
+test. Approved by the developer with setting A, both mechanics, and seal
+sentence (a). Shelf III (opens after 4 tales), the Middle East, from the
+plan of 16 tales (`docs/stillroom_frame.md`, *The full shelf*). It
 replaces the sealed teaser `sealed_alamut_1256`; the teaser on shelf III
-becomes `sealed_zimbabwe_1871`. Proposed id: `alamut_1256`; jar label
-**Alamut, 1256**, its map pin on the rock of Alamut (Qazvin, Iran).
+is now `sealed_zimbabwe_1871`. Id: `alamut_1256`; jar label **Alamut,
+1256**, its map pin on the rock of Alamut (Qazvin, Iran).
 
 ## Premise
 
@@ -207,10 +209,62 @@ burned it."
   drip, slow or quick), `reed_touch` (the reed meets the surface),
   `catchword` (a catchword meets its page).
 
-## Open questions for the developer
+## Decisions (2026-09-30)
 
-1. Where it is set: **A** (the castle in December 1256, recommended) or B
-   (the ruin today)?
-2. The two mechanics: the quire (`quire`) and the tanks (`dip`)?
-3. The seal as a colophon (`colophon`), with sentence (a) (library /
-   Juvayni / 1256, recommended) or (b) (garden / library / Juvayni)?
+1. Setting **A**: the castle in December 1256, given up and not yet
+   burned; Juvayni's pages and Polo's book arrive as papers "that should
+   not be here yet".
+2. Both mechanics: the quire (`quire`) and the tanks (`dip`).
+3. The seal as a colophon (`colophon`), sentence (a): "The fortress kept
+   {a library}, not a garden; {Juvayni} gave its books to the fire in
+   {1256}."
+
+## As built
+
+- **Map:** the court (start) opens on the tower (always) and the
+  storerooms (with the commander's keys); the library is reached from
+  the storerooms, up the tunnel, once the stores are counted. Its door on
+  the court stays barred from within.
+
+  ```
+            tower
+              │
+  court ─ storerooms ─ library (up the tunnel)
+  ```
+- **Flow:** the order at the gate (*1256*). In the tower, Hasan's mat
+  (*Hasan-i Sabbah*, *1090*), Polo's book (*Marco Polo*, *a garden of
+  paradise*, *1262*, *three years*) and the commander's keys. The
+  storerooms: the tanks (`dip`), behind a tally board that bars the
+  tunnel until they are counted. The library: Tusi's corner (*al-Tusi*,
+  *Hulagu*), the loose sheets (`quire`, gives *a library* and *Juvayni*);
+  then a later paper on the book-stand (*hashish*; the fida'is and Nizam
+  al-Mulk; Gerdkuh 1270; 1275). The keeper's slip lies under the
+  astrolabe's empty throne once the later paper is read; the colophon is
+  written at the gate.
+- **The quire:** eight leaves, four sheets, starting with one catchword
+  in place at most; from the outside in the sheets hold pages 1 and 8, 2
+  and 7, 3 and 6, 4 and 5. The leaves paraphrase Juvayni in the first
+  person; every leaf begins with its own word in all seven languages.
+- **The tanks:** wine (0.86), vinegar (0.78), honey (0.9), water (0.7);
+  the names offered are Polo's four and vinegar. The reed drips for six
+  seconds after each dip.
+- **Words:** *a library*, *Juvayni*, *1256* (the answers); *a garden of
+  paradise*, *hashish*, *Hulagu*, *al-Tusi*, *Hasan-i Sabbah*, *Marco
+  Polo*, *1090*, *1262*, *three years* (decoys).
+- **Echoes:** a guard of the garrison by the parapet; a librarian with a
+  lamp in the library. **Living things:** thistles in the snow, an eagle
+  over the gorge and past the tower window, a mouse in the storerooms.
+- **Audio:** music `alamut_snow`; effects `wind_rock`, `tank_cover`,
+  `keys_jingle`, `eagle_cry`; interface `catchword`, `reed_touch`,
+  `drip`, `drip_slow`.
+
+## Things to watch when tested
+
+- Whether the catchwords read at phone size, and whether the arcs under
+  the pages make the nesting clear (a sheet's two leaves move together).
+- Whether lowering the reed until it "meets" the surface is felt (the
+  sound and the slowing), and whether the drips tell the liquids apart
+  without the hint.
+- Whether the storerooms' locked door sends the player to the tower
+  soon enough, and whether the tally board across the tunnel is clear.
+- Whether the eagle is seen, and not taken for something to tap.

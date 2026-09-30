@@ -155,6 +155,10 @@ enum DeductionForm {
   /// A sheet of imperial yellow written in vermilion, the emperor's own
   /// ink.
   vermilion,
+
+  /// A manuscript's colophon: the closing lines where the scribe says what
+  /// the book is and when it was finished, the text narrowing to a point.
+  colophon,
 }
 
 final class DeductionSentence {

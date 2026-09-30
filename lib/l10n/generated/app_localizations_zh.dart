@@ -460,4 +460,48 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get vermilionCaption => '朱批';
+
+  @override
+  String get quireInstruction =>
+      '点一张，再点另一张，就能交换它们在书帖中的位置。把一张翻过来，它的两叶就会对调。每个接页词都要接上它的那一页。';
+
+  @override
+  String get quireTurn => '翻过来';
+
+  @override
+  String quireLinks(int count, int total) {
+    return '$total 个接页词中有 $count 个接上了';
+  }
+
+  @override
+  String get quirePicked => '点另一张来交换位置，或者把这一张翻过来。';
+
+  @override
+  String get dipInstruction => '把芦苇往池里拖，碰到液面后松手，看它怎样滴落。';
+
+  @override
+  String get dipWhat => '芦苇上滴下的是什么？';
+
+  @override
+  String get dipWrong => '滴落的样子不是这样。';
+
+  @override
+  String dipLevel(int percent) {
+    return '满到 $percent%';
+  }
+
+  @override
+  String get dipStoresQuestion => '每个池子都叫出了名字。存货是快见底了，还是满的？';
+
+  @override
+  String get dipLow => '快见底了';
+
+  @override
+  String get dipFull => '满的';
+
+  @override
+  String get dipStoresWrong => '再看看每个池子满到哪里。';
+
+  @override
+  String get colophonCaption => '此书至此终';
 }

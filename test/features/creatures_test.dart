@@ -53,4 +53,17 @@ void main() {
     run(gecko, 90);
     expect(sounds, contains('gecko_call'));
   });
+
+  test('an eagle circles within its area and cries now and then', () {
+    final sounds = <String>[];
+    final eagle = Creature.create(
+      CreatureKind.eagle,
+      area,
+      math.Random(3),
+      sounds.add,
+    );
+    expect(eagle.near(area.center), isFalse, reason: 'too high to startle');
+    run(eagle, 90);
+    expect(sounds, contains('eagle_cry'));
+  });
 }

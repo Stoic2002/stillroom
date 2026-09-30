@@ -462,4 +462,48 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get vermilionCaption => '붉은 먹으로';
+
+  @override
+  String get quireInstruction =>
+      '종이 하나를 누르고 다른 종이를 누르면 접장 속에서 자리가 바뀐다. 종이를 뒤집으면 두 장이 서로 바뀐다. 이음말이 모두 제 쪽을 만나야 한다.';
+
+  @override
+  String get quireTurn => '뒤집기';
+
+  @override
+  String quireLinks(int count, int total) {
+    return '이음말 $total개 중 $count개가 제 쪽을 만났다';
+  }
+
+  @override
+  String get quirePicked => '다른 종이를 눌러 자리를 바꾸거나, 이 종이를 뒤집자.';
+
+  @override
+  String get dipInstruction => '갈대를 저장조 안으로 끌어내려 수면에 닿으면 놓고, 어떻게 떨어지는지 보자.';
+
+  @override
+  String get dipWhat => '갈대에서 무엇이 떨어지나?';
+
+  @override
+  String get dipWrong => '그렇게 떨어지지 않는다.';
+
+  @override
+  String dipLevel(int percent) {
+    return '$percent%까지 차 있음';
+  }
+
+  @override
+  String get dipStoresQuestion => '저장조마다 이름이 붙었다. 저장품은 바닥나고 있었을까, 가득했을까?';
+
+  @override
+  String get dipLow => '바닥나고 있었다';
+
+  @override
+  String get dipFull => '가득했다';
+
+  @override
+  String get dipStoresWrong => '저장조마다 얼마나 차 있는지 다시 보자.';
+
+  @override
+  String get colophonCaption => '여기서 책이 끝난다';
 }

@@ -1,0 +1,202 @@
+{
+  "id": "gate_court",
+  "background": "images/scenes/alamut_1256/gate_court.png",
+  "exits": [
+    {
+      "id": "storerooms",
+      "to": "storerooms",
+      "rect": [
+        0.03,
+        0.42,
+        0.13,
+        0.34
+      ],
+      "when": [
+        {
+          "flag": "took_keys",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "tower",
+      "to": "tower",
+      "rect": [
+        0.64,
+        0.44,
+        0.1,
+        0.28
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "order",
+      "rect": [
+        0.25,
+        0.46,
+        0.09,
+        0.14
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_order",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "alamut_1256.court.order"
+        }
+      ]
+    },
+    {
+      "id": "gate_seal",
+      "rect": [
+        0.25,
+        0.46,
+        0.09,
+        0.14
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "jar_label",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "alamut_1256.court.seal_needed"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "jar_label"
+        }
+      ]
+    },
+    {
+      "id": "store_shut",
+      "rect": [
+        0.03,
+        0.42,
+        0.13,
+        0.34
+      ],
+      "when": [
+        {
+          "flag": "took_keys",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "alamut_1256.court.store_shut"
+        }
+      ]
+    },
+    {
+      "id": "fires",
+      "rect": [
+        0.4,
+        0.5,
+        0.18,
+        0.1
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "wind_rock"
+        },
+        {
+          "type": "showText",
+          "key": "alamut_1256.court.fires"
+        }
+      ]
+    },
+    {
+      "id": "library_door",
+      "rect": [
+        0.83,
+        0.46,
+        0.1,
+        0.28
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "alamut_1256.court.library_door"
+        }
+      ]
+    },
+    {
+      "id": "peaks",
+      "rect": [
+        0.06,
+        0.06,
+        0.4,
+        0.26
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "alamut_1256.court.peaks"
+        }
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "thistles",
+      "kind": "grass",
+      "rect": [
+        0.18,
+        0.84,
+        0.4,
+        0.08
+      ]
+    },
+    {
+      "id": "eagle",
+      "kind": "eagle",
+      "rect": [
+        0.3,
+        0.06,
+        0.5,
+        0.22
+      ]
+    }
+  ],
+  "echoes": [
+    {
+      "id": "garrison",
+      "image": "images/objects/alamut_1256/echo_garrison.png",
+      "rect": [
+        0.38,
+        0.4,
+        0.045,
+        0.3
+      ],
+      "chance": 0.8,
+      "drift": [
+        0.03,
+        0.02
+      ]
+    }
+  ]
+}

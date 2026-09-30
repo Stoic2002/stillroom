@@ -135,5 +135,18 @@
   "scanAgain": "Sudah ditandai.",
   "scanFound": "Ditandai: {place}",
   "scanProgress": "Tempat ditandai: {found} dari {total}",
-  "vermilionCaption": "Dengan tinta merah kaisar"
+  "vermilionCaption": "Dengan tinta merah kaisar",
+  "quireInstruction": "Ketuk satu lembar, lalu lembar lain, untuk menukar tempatnya dalam susunan. Balik sebuah lembar untuk menukar kedua daunnya. Setiap kata alihan harus bertemu halamannya.",
+  "quireTurn": "Balik",
+  "quireLinks": "{count} dari {total} kata alihan bertemu halamannya",
+  "quirePicked": "Ketuk lembar lain untuk bertukar tempat, atau balik lembar ini.",
+  "dipInstruction": "Seret buluh ke dalam tangki sampai menyentuh permukaan, lalu lepaskan dan lihat tetesannya.",
+  "dipWhat": "Apa yang menetes dari buluh?",
+  "dipWrong": "Tetesannya tidak seperti itu.",
+  "dipLevel": "Terisi {percent}%",
+  "dipStoresQuestion": "Semua tangki sudah dinamai. Apakah persediaannya menipis, atau penuh?",
+  "dipLow": "Menipis",
+  "dipFull": "Penuh",
+  "dipStoresWrong": "Lihat lagi setinggi apa isi tiap tangki.",
+  "colophonCaption": "Di sinilah kitab ini tamat"
 }

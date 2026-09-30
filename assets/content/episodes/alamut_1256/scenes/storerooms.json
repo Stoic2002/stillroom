@@ -1,0 +1,157 @@
+{
+  "id": "storerooms",
+  "background": "images/scenes/alamut_1256/storerooms.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "gate_court"
+    },
+    {
+      "id": "tunnel",
+      "to": "library",
+      "rect": [
+        0.8,
+        0.2,
+        0.16,
+        0.44
+      ],
+      "when": [
+        {
+          "puzzleSolved": "dip"
+        }
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "tanks",
+      "rect": [
+        0.1,
+        0.6,
+        0.64,
+        0.26
+      ],
+      "when": [
+        {
+          "puzzleSolved": "dip",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "tank_cover"
+        },
+        {
+          "type": "showText",
+          "key": "alamut_1256.stores.tanks"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "dip"
+        }
+      ]
+    },
+    {
+      "id": "tanks_done",
+      "rect": [
+        0.1,
+        0.6,
+        0.64,
+        0.26
+      ],
+      "when": [
+        {
+          "puzzleSolved": "dip"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "alamut_1256.stores.tanks_done"
+        }
+      ]
+    },
+    {
+      "id": "tunnel_shut",
+      "rect": [
+        0.8,
+        0.2,
+        0.16,
+        0.44
+      ],
+      "when": [
+        {
+          "puzzleSolved": "dip",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "alamut_1256.stores.tunnel_shut"
+        }
+      ]
+    },
+    {
+      "id": "jars",
+      "rect": [
+        0.02,
+        0.24,
+        0.14,
+        0.32
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "alamut_1256.stores.jars"
+        }
+      ]
+    },
+    {
+      "id": "lamps",
+      "rect": [
+        0.2,
+        0.17,
+        0.55,
+        0.15
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "alamut_1256.stores.lamps"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "tally_sprite",
+      "image": "images/objects/alamut_1256/tally_sprite.png",
+      "rect": [
+        0.8,
+        0.2,
+        0.16,
+        0.44
+      ],
+      "when": [
+        {
+          "puzzleSolved": "dip",
+          "equals": false
+        }
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "mouse",
+      "kind": "rat",
+      "rect": [
+        0.2,
+        0.88,
+        0.6,
+        0.08
+      ]
+    }
+  ]
+}

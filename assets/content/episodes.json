@@ -98,7 +98,19 @@
       ]
     },
     {
-      "id": "sealed_alamut_1256",
+      "id": "alamut_1256",
+      "titleKey": "episode.alamut_1256.title",
+      "teaserKey": "episode.alamut_1256.teaser",
+      "jarImage": "images/ui/jar_alamut_1256.png",
+      "shelf": 3,
+      "unlockAfter": 4,
+      "place": [
+        36.444,
+        50.586
+      ]
+    },
+    {
+      "id": "sealed_zimbabwe_1871",
       "titleKey": "episode.sealed.title",
       "comingSoon": true,
       "shelf": 3,

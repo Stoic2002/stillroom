@@ -496,4 +496,52 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get vermilionCaption => 'Киноварью';
+
+  @override
+  String get quireInstruction =>
+      'Коснитесь листа, потом другого, чтобы поменять их местами в тетради. Переверните лист, чтобы поменять местами его половины. Каждая кустода должна встретить свою страницу.';
+
+  @override
+  String get quireTurn => 'Перевернуть';
+
+  @override
+  String quireLinks(int count, int total) {
+    return 'Кустод на своих местах: $count из $total';
+  }
+
+  @override
+  String get quirePicked =>
+      'Коснитесь другого листа, чтобы поменять их местами, или переверните этот.';
+
+  @override
+  String get dipInstruction =>
+      'Опустите тростинку в водоём, пока она не коснётся поверхности, затем отпустите и посмотрите, как с неё капает.';
+
+  @override
+  String get dipWhat => 'Что капает с тростинки?';
+
+  @override
+  String get dipWrong => 'Оно капает не так.';
+
+  @override
+  String dipLevel(int percent) {
+    return 'Полон на $percent%';
+  }
+
+  @override
+  String get dipStoresQuestion =>
+      'Все водоёмы названы. Припасы подходили к концу или были полны?';
+
+  @override
+  String get dipLow => 'Подходили к концу';
+
+  @override
+  String get dipFull => 'Были полны';
+
+  @override
+  String get dipStoresWrong =>
+      'Посмотрите ещё раз, насколько полон каждый водоём.';
+
+  @override
+  String get colophonCaption => 'Здесь кончается книга';
 }

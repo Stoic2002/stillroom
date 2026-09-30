@@ -108,7 +108,19 @@ enum UiSound {
   sample('sample', Haptic.light),
 
   /// The probe's needle ticks as the reading under it changes.
-  probeTick('probe_tick', Haptic.none);
+  probeTick('probe_tick', Haptic.none),
+
+  /// A catchword meets its page: a sheet settles into the quire.
+  catchword('catchword', Haptic.light),
+
+  /// The reed meets the surface in a dark tank.
+  reedTouch('reed_touch', Haptic.light),
+
+  /// A thin liquid dripping quickly from the reed.
+  drip('drip', Haptic.none),
+
+  /// A thick liquid falling from the reed in one slow drop.
+  dripSlow('drip_slow', Haptic.none);
 
   const UiSound(this.id, this.haptic);
 

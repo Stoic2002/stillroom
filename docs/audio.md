@@ -62,6 +62,10 @@ fvm dart run tool/audio/generate_audio.dart bell_toll  # one or more ids
 | `stone_door` | Beijing 1908: the crypt's marble doors | A stone leaf grinding in its socket, then settling |
 | `reactor_count` | Beijing 1908: the hair and the robe measured | A counter's clicks quickening to a chatter, then the reader's short tone |
 | `wind_pines` | Beijing 1908: the pines; the seal | Wind through pines, rising and falling like water |
+| `wind_rock` | Alamut 1256: the fires below, the tower window; the seal | Wind over bare rock in gusts, a low moan under it |
+| `tank_cover` | Alamut 1256: the tanks opened; the count done | A heavy wooden cover dragged aside over stone, then set down |
+| `keys_jingle` | Alamut 1256: the commander's keys | An iron ring of keys lifted from its hook |
+| `eagle_cry` | Alamut 1256: the eagle (creature) | A thin, falling scream, twice, far over the gorge |
 
 ## Music
 
@@ -77,6 +81,7 @@ fvm dart run tool/audio/generate_audio.dart bell_toll  # one or more ids
 | `gyeongju_night` | Gyeongju, 771 | 48 s | A low drone near the bell's 64 Hz hum; winter wind; a wooden fish knocked far off, slowing, every 12 s |
 | `bastille_dawn` | Bastille, 1703 | 48 s | A cold drone in A; a draught in the court; two slow bowed notes in A aeolian every 16 s, like a viol through a wall |
 | `chongling_winter` | Beijing, 1908 | 48 s | A cold drone in B♭; wind in the pines; a temple bowl struck far off every 16 s |
+| `alamut_snow` | Alamut, 1256 | 48 s | A low drone in D; wind over the rock; a long-necked lute plucked far off, a falling phrase every 16 s |
 
 ## Interface sounds (`assets/audio/ui/`)
 
@@ -103,6 +108,9 @@ vibration is on). Quieter than content sounds (−9 dBFS peak).
 | `geiger`, `geiger_hot` | Beijing 1908's hair: a segment measured, a few sparse clicks for a low reading, a chatter for a high one | selection / light |
 | `sample` | Beijing 1908's hair: a new sample tube set in the rack | light |
 | `probe_tick` | Beijing 1908's robe: the needle crosses a mark on its dial | none |
+| `catchword` | Alamut 1256's quire: a move makes a catchword meet its page (a paper slide and a small tick) | light |
+| `reed_touch` | Alamut 1256's tanks: the reed meets the surface (a soft, low plup) | light |
+| `drip`, `drip_slow` | Alamut 1256's tanks: a thin drop falling back, or a thick one letting go of its thread | none |
 | `beat_steady`, `beat_light`, `beat_clear`, `beat_deep` | Gyeongju's rim: a strike whose ring swells and fades barely, lightly, clearly, or almost to silence (two tones 1.4 Hz apart, the second as loud as the swell needs) | light |
 | `solved` | Any puzzle gives way (before its own `onSolved` sounds) | light |
 | `pickup` | An item goes into the inventory | light |

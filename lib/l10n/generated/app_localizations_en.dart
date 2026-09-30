@@ -486,4 +486,51 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get vermilionCaption => 'In vermilion';
+
+  @override
+  String get quireInstruction =>
+      'Tap a sheet, then another, to swap their places in the quire. Turn a sheet over to swap its leaves. Every catchword must meet its page.';
+
+  @override
+  String get quireTurn => 'Turn over';
+
+  @override
+  String quireLinks(int count, int total) {
+    return '$count of $total catchwords meet their pages';
+  }
+
+  @override
+  String get quirePicked =>
+      'Tap another sheet to swap places, or turn this one over.';
+
+  @override
+  String get dipInstruction =>
+      'Drag the reed down into a tank until it meets the surface, then let go and watch it drip.';
+
+  @override
+  String get dipWhat => 'What drips from the reed?';
+
+  @override
+  String get dipWrong => 'It does not drip like that.';
+
+  @override
+  String dipLevel(int percent) {
+    return 'Full to $percent%';
+  }
+
+  @override
+  String get dipStoresQuestion =>
+      'Every tank is named. Were the stores running low, or full?';
+
+  @override
+  String get dipLow => 'Running low';
+
+  @override
+  String get dipFull => 'Full';
+
+  @override
+  String get dipStoresWrong => 'Look again at how high each tank stands.';
+
+  @override
+  String get colophonCaption => 'Here the book ends';
 }

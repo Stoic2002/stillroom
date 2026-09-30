@@ -1,0 +1,68 @@
+{
+  "id": "dip",
+  "type": "dip",
+  "background": "images/scenes/alamut_1256/dip_board.png",
+  "config": {
+    "tanks": [
+      {
+        "liquid": "wine",
+        "level": 0.86
+      },
+      {
+        "liquid": "vinegar",
+        "level": 0.78
+      },
+      {
+        "liquid": "honey",
+        "level": 0.9
+      },
+      {
+        "liquid": "water",
+        "level": 0.7
+      }
+    ],
+    "names": [
+      {
+        "liquid": "wine",
+        "labelKey": "alamut_1256.dip.wine"
+      },
+      {
+        "liquid": "milk",
+        "labelKey": "alamut_1256.dip.milk"
+      },
+      {
+        "liquid": "honey",
+        "labelKey": "alamut_1256.dip.honey"
+      },
+      {
+        "liquid": "water",
+        "labelKey": "alamut_1256.dip.water"
+      },
+      {
+        "liquid": "vinegar",
+        "labelKey": "alamut_1256.dip.vinegar"
+      }
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "tank_cover"
+    },
+    {
+      "type": "showText",
+      "key": "alamut_1256.stores.dip_done"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.alamut_1256.dip.1"
+    },
+    {
+      "key": "hint.alamut_1256.dip.2"
+    },
+    {
+      "key": "hint.alamut_1256.dip.3"
+    }
+  ]
+}

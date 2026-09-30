@@ -304,6 +304,7 @@ a tap near it may startle it. They never block taps.
 | `gull` | Now and then flies across its sky band | `gull_cry` |
 | `fulmar` | Sits on a ledge; flies off when tapped, glides back | `wings_flutter` |
 | `grass` | Tufts bending in the wind | — |
+| `eagle` | Turns in slow circles high over its area, on broad still wings; too high to startle | `eagle_cry` now and then |
 
 Pick creatures that belong to the tale's place and **season**. For example,
 Flannan in December has gulls and fulmars, and no puffins or flowering
@@ -536,13 +537,15 @@ filled slot swaps them.
 | `rubbing` | An ink rubbing (*takbon*) taken from a cast inscription: black paper, the letters pale, a band of lotus scroll, the caption `rubbingCaption` | — |
 | `docket` | The cover sheet of a police file: printed headings (`docketHeader`, `docketSubheader`), a register stamp, the entry in dark ink by hand | — |
 | `vermilion` | A sheet of imperial yellow in a double vermilion rule, the sentences in vermilion (the emperor's own ink), the caption `vermilionCaption` | — |
+| `colophon` | A manuscript's colophon: burnished paper in a thin brown double rule, scorched at one corner, the caption `colophonCaption`, the sentences centred and narrowing, closed by a triangle of dots | — |
 
 Used so far: Whitechapel `table` (the five frames), Semarang `telegram`,
 Flannan `correction` (the legend's account), Pompeii `board` (the
 diggers' cut, a tag on every layer), Bastille `order` (a blank *lettre de
 cachet*, written with only what is known), Gyeongju `rubbing` (taken from
 the bell's bronze), Whitechapel 1891 `docket` (the file's cover), Beijing
-1908 `vermilion` (written where the court once wrote "illness").
+1908 `vermilion` (written where the court once wrote "illness"), Alamut
+1256 `colophon` (the closing lines of the library's last book).
 
 ### `clockHands`: set the hands
 
@@ -962,6 +965,75 @@ the bell's bronze), Whitechapel 1891 `docket` (the file's cover), Beijing
   0.5 at its centre on the strongest layer. Spots may share a `labelKey`
   (both shoulders).
 
+### `quire`: sheets nested by their catchwords
+
+```json
+"config": {
+  "leaves": ["ep.quire.l1", "ep.quire.l2", "…", "ep.quire.l8"],
+  "start": [
+    { "sheet": 2, "turned": true },
+    { "sheet": 0, "turned": false },
+    { "sheet": 3, "turned": true },
+    { "sheet": 1, "turned": true }
+  ]
+}
+```
+
+- **What the player sees:** the gathering opened flat, page by page in
+  the order the sheets now nest: each page with its first word at the
+  head, faint lines of script, and at its foot the catchword (the first
+  word of the page that truly follows it; the last page ends in a
+  triangle of dots). Between two pages a gold thread when the catchword
+  meets the next page. Beneath, an arc per sheet joining its two leaves,
+  the outermost widest. A Turn over button, the count of catchwords that
+  meet, and the page last tapped read in full.
+- **Playing:** sheet `k` is folded from leaves `k` and `n − 1 − k` (`n`
+  leaves). Tap a page to pick its sheet (both its leaves light up), then
+  a page of another sheet: the two sheets swap depths. Turn over swaps
+  the picked sheet's two leaves. A move that makes a catchword meet plays
+  `catchword`, any other `place`. Solved when every catchword meets its
+  page, which is only the true order.
+- **The catchword** is the first word of a leaf's text in the current
+  language (quotes and marks skipped); in Japanese and Chinese, its first
+  two characters. Every leaf must begin with a different one, in every
+  language, and leaf texts carry no word marks (both checked by
+  `test/features/alamut_puzzles_test.dart`).
+- **Validation:** 4 to 12 leaves, an even number, all different; `start`
+  lays every sheet once, outermost first; the start may not already read
+  through.
+
+### `dip`: tanks named by how the reed drips
+
+```json
+"config": {
+  "tanks": [
+    { "liquid": "wine", "level": 0.86 },
+    { "liquid": "honey", "level": 0.9 }
+  ],
+  "names": [
+    { "liquid": "wine", "labelKey": "…" },
+    { "liquid": "honey", "labelKey": "…" },
+    { "liquid": "milk", "labelKey": "…" }
+  ]
+}
+```
+
+- **What the player sees:** each tank in section: a dark shaft cut into
+  the rock under a wooden cover, and a reed.
+- **Playing:** drag down on a tank to lower the reed; where it meets the
+  surface it goes heavily on (`reed_touch`). Let go after touching: the
+  reed is drawn out and drips for a few seconds, each liquid its own way
+  (water clear and quick, vinegar pale and quicker, wine dark, milk white;
+  honey and oil stretch into a thread before a drop lets go: `drip` or
+  `drip_slow`), and the tank shows how full it is. Then a name button per
+  offered liquid: the right one names the tank, a wrong one is a mistake.
+  Once every tank is named, say whether the stores were running low or
+  full: full when every tank stands at least 0.6 deep.
+- **Liquids:** `water`, `wine`, `vinegar`, `honey`, `milk`, `oil`.
+- **Validation:** 2 to 5 tanks, each liquid in one tank only, `level` from
+  0.1 to 0.95; `names` each liquid once, every tank's liquid among them,
+  and at least one more to mislead.
+
 ## Words and the jar's label
 
 `words` in `game.json` declares what the player can note down:
@@ -1153,3 +1225,4 @@ warnings show in the debug panel).
 | 2026-09-30 | post-M6 | Puzzle types `pour`, `resonance` and `beat`; deduction form `rubbing`; interface sounds `pour`, `bell_strike`, `beat_*`. Episode `gyeongju_771` (shelf II). |
 | 2026-09-30 | post-M6 | Puzzle types `unwatched` and `compose`; deduction form `docket`; interface sounds `type_sort`, `lamp_gutter`. Episode `whitechapel_1891` (shelf III, series whitechapel) replaces the sealed jar; a sealed teaser `sealed_guangxu_1908` stands on shelf III. |
 | 2026-09-30 | post-M6 | Puzzle types `strand` and `scan`; deduction form `vermilion`; interface sounds `geiger`, `geiger_hot`, `sample`, `probe_tick`. Episode `chongling_1908` (shelf III) replaces `sealed_guangxu_1908`; the sealed teaser on shelf III is now `sealed_alamut_1256`. |
+| 2026-09-30 | post-M6 | Puzzle types `quire` and `dip`; deduction form `colophon`; creature `eagle`; interface sounds `catchword`, `reed_touch`, `drip`, `drip_slow`. Episode `alamut_1256` (shelf III) replaces `sealed_alamut_1256`; the sealed teaser on shelf III is now `sealed_zimbabwe_1871`. |

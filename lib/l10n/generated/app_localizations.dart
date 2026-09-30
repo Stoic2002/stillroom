@@ -923,6 +923,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'In vermilion'**
   String get vermilionCaption;
+
+  /// Quire puzzle: what to do.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a sheet, then another, to swap their places in the quire. Turn a sheet over to swap its leaves. Every catchword must meet its page.'**
+  String get quireInstruction;
+
+  /// Button: turn the picked sheet over, swapping its two leaves.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn over'**
+  String get quireTurn;
+
+  /// Quire puzzle: progress.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} of {total} catchwords meet their pages'**
+  String quireLinks(int count, int total);
+
+  /// Quire puzzle: a sheet is picked.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap another sheet to swap places, or turn this one over.'**
+  String get quirePicked;
+
+  /// Dip puzzle: what to do.
+  ///
+  /// In en, this message translates to:
+  /// **'Drag the reed down into a tank until it meets the surface, then let go and watch it drip.'**
+  String get dipInstruction;
+
+  /// Dip puzzle: name the dipped tank's liquid.
+  ///
+  /// In en, this message translates to:
+  /// **'What drips from the reed?'**
+  String get dipWhat;
+
+  /// Dip puzzle: a wrong name.
+  ///
+  /// In en, this message translates to:
+  /// **'It does not drip like that.'**
+  String get dipWrong;
+
+  /// Dip puzzle: how full a dipped tank is.
+  ///
+  /// In en, this message translates to:
+  /// **'Full to {percent}%'**
+  String dipLevel(int percent);
+
+  /// Dip puzzle: the last question.
+  ///
+  /// In en, this message translates to:
+  /// **'Every tank is named. Were the stores running low, or full?'**
+  String get dipStoresQuestion;
+
+  /// Answer: the stores were running low.
+  ///
+  /// In en, this message translates to:
+  /// **'Running low'**
+  String get dipLow;
+
+  /// Answer: the stores were full.
+  ///
+  /// In en, this message translates to:
+  /// **'Full'**
+  String get dipFull;
+
+  /// Dip puzzle: wrong answer to the stores question.
+  ///
+  /// In en, this message translates to:
+  /// **'Look again at how high each tank stands.'**
+  String get dipStoresWrong;
+
+  /// Colophon label form: the heading above the closing lines of a manuscript.
+  ///
+  /// In en, this message translates to:
+  /// **'Here the book ends'**
+  String get colophonCaption;
 }
 
 class _AppLocalizationsDelegate

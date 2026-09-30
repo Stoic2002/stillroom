@@ -135,5 +135,18 @@
   "scanAgain": "Ya está marcado.",
   "scanFound": "Marcado: {place}",
   "scanProgress": "Lugares marcados: {found} de {total}",
-  "vermilionCaption": "En bermellón"
+  "vermilionCaption": "En bermellón",
+  "quireInstruction": "Toca un pliego y luego otro para intercambiar su sitio en el cuadernillo. Da la vuelta a un pliego para intercambiar sus hojas. Cada reclamo debe encontrar su página.",
+  "quireTurn": "Dar la vuelta",
+  "quireLinks": "{count} de {total} reclamos encuentran su página",
+  "quirePicked": "Toca otro pliego para intercambiarlos, o da la vuelta a este.",
+  "dipInstruction": "Baja la caña a un depósito hasta que toque la superficie; luego suéltala y mira cómo gotea.",
+  "dipWhat": "¿Qué gotea de la caña?",
+  "dipWrong": "No gotea así.",
+  "dipLevel": "Lleno al {percent} %",
+  "dipStoresQuestion": "Todos los depósitos tienen nombre. ¿Las provisiones escaseaban o estaban llenas?",
+  "dipLow": "Escaseaban",
+  "dipFull": "Llenas",
+  "dipStoresWrong": "Vuelve a mirar hasta dónde llega cada depósito.",
+  "colophonCaption": "Aquí termina el libro"
 }

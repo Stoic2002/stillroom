@@ -594,5 +594,70 @@
   "vermilionCaption": "In vermilion",
   "@vermilionCaption": {
     "description": "Caption over the jar label written in vermilion on imperial yellow."
+  },
+  "quireInstruction": "Tap a sheet, then another, to swap their places in the quire. Turn a sheet over to swap its leaves. Every catchword must meet its page.",
+  "@quireInstruction": {
+    "description": "Quire puzzle: what to do."
+  },
+  "quireTurn": "Turn over",
+  "@quireTurn": {
+    "description": "Button: turn the picked sheet over, swapping its two leaves."
+  },
+  "quireLinks": "{count} of {total} catchwords meet their pages",
+  "@quireLinks": {
+    "description": "Quire puzzle: progress.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "quirePicked": "Tap another sheet to swap places, or turn this one over.",
+  "@quirePicked": {
+    "description": "Quire puzzle: a sheet is picked."
+  },
+  "dipInstruction": "Drag the reed down into a tank until it meets the surface, then let go and watch it drip.",
+  "@dipInstruction": {
+    "description": "Dip puzzle: what to do."
+  },
+  "dipWhat": "What drips from the reed?",
+  "@dipWhat": {
+    "description": "Dip puzzle: name the dipped tank's liquid."
+  },
+  "dipWrong": "It does not drip like that.",
+  "@dipWrong": {
+    "description": "Dip puzzle: a wrong name."
+  },
+  "dipLevel": "Full to {percent}%",
+  "@dipLevel": {
+    "description": "Dip puzzle: how full a dipped tank is.",
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "dipStoresQuestion": "Every tank is named. Were the stores running low, or full?",
+  "@dipStoresQuestion": {
+    "description": "Dip puzzle: the last question."
+  },
+  "dipLow": "Running low",
+  "@dipLow": {
+    "description": "Answer: the stores were running low."
+  },
+  "dipFull": "Full",
+  "@dipFull": {
+    "description": "Answer: the stores were full."
+  },
+  "dipStoresWrong": "Look again at how high each tank stands.",
+  "@dipStoresWrong": {
+    "description": "Dip puzzle: wrong answer to the stores question."
+  },
+  "colophonCaption": "Here the book ends",
+  "@colophonCaption": {
+    "description": "Colophon label form: the heading above the closing lines of a manuscript."
   }
 }

@@ -1,0 +1,226 @@
+{
+  "id": "library",
+  "background": "images/scenes/alamut_1256/library.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "storerooms"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "leaves",
+      "rect": [
+        0.34,
+        0.72,
+        0.3,
+        0.14
+      ],
+      "when": [
+        {
+          "puzzleSolved": "quire",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "showText",
+          "key": "alamut_1256.library.leaves"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "quire"
+        }
+      ]
+    },
+    {
+      "id": "leaves_done",
+      "rect": [
+        0.34,
+        0.72,
+        0.3,
+        0.14
+      ],
+      "when": [
+        {
+          "puzzleSolved": "quire"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "alamut_1256.library.leaves_done"
+        }
+      ]
+    },
+    {
+      "id": "niches",
+      "rect": [
+        0.03,
+        0.1,
+        0.28,
+        0.54
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "alamut_1256.library.niches"
+        }
+      ]
+    },
+    {
+      "id": "tusi",
+      "rect": [
+        0.72,
+        0.52,
+        0.22,
+        0.16
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "alamut_1256.library.tusi"
+        }
+      ]
+    },
+    {
+      "id": "later",
+      "rect": [
+        0.78,
+        0.4,
+        0.1,
+        0.1
+      ],
+      "when": [
+        {
+          "puzzleSolved": "quire"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_later",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "alamut_1256.library.later"
+        }
+      ]
+    },
+    {
+      "id": "kursi",
+      "rect": [
+        0.47,
+        0.3,
+        0.1,
+        0.3
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "alamut_1256.library.kursi"
+        }
+      ]
+    },
+    {
+      "id": "kursi_note",
+      "rect": [
+        0.47,
+        0.3,
+        0.1,
+        0.3
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": true
+        },
+        {
+          "flag": "found_note",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "found_note",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "alamut_1256.library.keeper_note"
+        }
+      ]
+    },
+    {
+      "id": "kursi_done",
+      "rect": [
+        0.47,
+        0.3,
+        0.1,
+        0.3
+      ],
+      "when": [
+        {
+          "flag": "found_note",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "alamut_1256.library.kursi_done"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "later_sprite",
+      "image": "images/objects/alamut_1256/later_sprite.png",
+      "rect": [
+        0.78,
+        0.4,
+        0.1,
+        0.1
+      ],
+      "when": [
+        {
+          "puzzleSolved": "quire"
+        }
+      ]
+    }
+  ],
+  "echoes": [
+    {
+      "id": "librarian",
+      "image": "images/objects/alamut_1256/echo_librarian.png",
+      "rect": [
+        0.34,
+        0.3,
+        0.05,
+        0.34
+      ],
+      "chance": 0.8,
+      "drift": [
+        0.02,
+        0
+      ]
+    }
+  ]
+}

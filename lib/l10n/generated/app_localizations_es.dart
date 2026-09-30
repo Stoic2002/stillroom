@@ -493,4 +493,52 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get vermilionCaption => 'En bermellón';
+
+  @override
+  String get quireInstruction =>
+      'Toca un pliego y luego otro para intercambiar su sitio en el cuadernillo. Da la vuelta a un pliego para intercambiar sus hojas. Cada reclamo debe encontrar su página.';
+
+  @override
+  String get quireTurn => 'Dar la vuelta';
+
+  @override
+  String quireLinks(int count, int total) {
+    return '$count de $total reclamos encuentran su página';
+  }
+
+  @override
+  String get quirePicked =>
+      'Toca otro pliego para intercambiarlos, o da la vuelta a este.';
+
+  @override
+  String get dipInstruction =>
+      'Baja la caña a un depósito hasta que toque la superficie; luego suéltala y mira cómo gotea.';
+
+  @override
+  String get dipWhat => '¿Qué gotea de la caña?';
+
+  @override
+  String get dipWrong => 'No gotea así.';
+
+  @override
+  String dipLevel(int percent) {
+    return 'Lleno al $percent %';
+  }
+
+  @override
+  String get dipStoresQuestion =>
+      'Todos los depósitos tienen nombre. ¿Las provisiones escaseaban o estaban llenas?';
+
+  @override
+  String get dipLow => 'Escaseaban';
+
+  @override
+  String get dipFull => 'Llenas';
+
+  @override
+  String get dipStoresWrong =>
+      'Vuelve a mirar hasta dónde llega cada depósito.';
+
+  @override
+  String get colophonCaption => 'Aquí termina el libro';
 }

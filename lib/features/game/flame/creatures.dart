@@ -42,6 +42,7 @@ abstract class Creature extends Component {
     CreatureKind.gull => _Gull(area, random, sound),
     CreatureKind.fulmar => _Fulmar(area, random, sound),
     CreatureKind.grass => _Grass(area, random, sound),
+    CreatureKind.eagle => _Eagle(area, random, sound),
   };
 }
 
@@ -683,5 +684,92 @@ class _Grass extends Creature {
           ..strokeCap = StrokeCap.round,
       );
     }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Eagle: circles slowly on broad, still wings, high over a gorge; now and
+// then it cries.
+
+class _Eagle extends Creature {
+  _Eagle(super.area, super.random, super.sound)
+    : _phase = random.nextDouble() * math.pi * 2 {
+    _nextCry = 8 + random.nextDouble() * 20;
+  }
+
+  final double _phase;
+  late double _nextCry;
+
+  /// Radians a second round its circle.
+  static const _turn = 0.22;
+
+  double get _angle => _phase + time * _turn;
+
+  Offset get _pos =>
+      area.center +
+      Offset(
+        math.cos(_angle) * area.width / 2,
+        math.sin(_angle) * area.height / 2,
+      );
+
+  @override
+  bool near(Offset p) => false;
+
+  @override
+  void startle() {}
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+    _nextCry -= dt;
+    if (_nextCry <= 0) {
+      sound('eagle_cry');
+      _nextCry = 25 + random.nextDouble() * 30;
+    }
+  }
+
+  @override
+  void render(Canvas canvas) {
+    final p = _pos;
+    // Nearer (lower on its circle) looks a little larger; the wings tilt
+    // with the turn.
+    final depth = 0.8 + 0.2 * math.sin(_angle);
+    final bank = math.cos(_angle) * 0.25;
+    final flap = math.sin(time * 1.1) > 0.97 ? math.sin(time * 18) * 4 : 0.0;
+    final body = Paint()..color = const Color(0xE62A2420);
+    canvas
+      ..save()
+      ..translate(p.dx, p.dy)
+      ..rotate(bank)
+      ..scale(depth);
+    // Broad wings, fingered at the tips.
+    for (final side in [-1.0, 1.0]) {
+      final wing = Path()
+        ..moveTo(0, -2)
+        ..quadraticBezierTo(side * 18, -8 - flap, side * 40, -5 - flap)
+        ..lineTo(side * 44, -1 - flap)
+        ..lineTo(side * 40, 1 - flap)
+        ..lineTo(side * 43, 3 - flap)
+        ..lineTo(side * 37, 4 - flap)
+        ..quadraticBezierTo(side * 18, 5, 0, 5)
+        ..close();
+      canvas.drawPath(wing, body);
+    }
+    canvas
+      // The head, and the fanned tail.
+      ..drawOval(
+        Rect.fromCenter(center: const Offset(0, -6), width: 7, height: 8),
+        body,
+      )
+      ..drawPath(
+        Path()
+          ..moveTo(-4, 4)
+          ..lineTo(-7, 14)
+          ..lineTo(7, 14)
+          ..lineTo(4, 4)
+          ..close(),
+        body,
+      )
+      ..restore();
   }
 }

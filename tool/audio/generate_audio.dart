@@ -1464,10 +1464,103 @@ Buf windPines() {
   return reverb(b, size: 0.8, mix: 0.35);
 }
 
+/// Alamut: wind over the bare rock, in gusts, with a low moan under it.
+Buf windRock() {
+  final rng = math.Random(53);
+  const seconds = 4.5;
+  final b = Buf(seconds)
+    ..add(
+      gain(
+        shape(
+          bandpass(
+            noise(seconds, rng),
+            (t) => 700 + 600 * math.sin(math.pi * t / seconds),
+            1.6,
+          ),
+          (t) =>
+              swell(t, 1.2, 1.6, seconds) *
+              (0.6 + 0.4 * math.sin(tau * t * 0.7).abs()),
+        ),
+        0.9,
+      ),
+      pan: -0.3,
+    )
+    ..add(
+      shape(
+        tone(seconds, (t) => 180 + 25 * math.sin(tau * t / 3)),
+        (t) => swell(t, 1.5, 1.5, seconds) * 0.5,
+      ),
+      gain: 0.05,
+    );
+  return reverb(b, size: 0.85, mix: 0.4);
+}
+
+/// Alamut: a heavy wooden cover dragged aside over stone, then set down.
+Buf tankCover() {
+  final rng = math.Random(54);
+  final drag = shape(
+    bandpass(brown(0.9, rng), (t) => 260 + 120 * math.sin(tau * t * 9), 2.5),
+    (t) => swell(t, 0.1, 0.2, 0.9) * (0.7 + 0.3 * math.sin(tau * t * 14).abs()),
+  );
+  final thud = sum([
+    shape(tone(0.4, (_) => 70), (t) => decay(t, 0.08)),
+    gain(shape(lowpass(noise(0.2, rng), (_) => 400), (t) => decay(t, 0.03)), 2),
+  ]);
+  final b = Buf(1.8)
+    ..add(gain(drag, 2), at: 0.02)
+    ..add(thud, at: 0.95, gain: 1.2);
+  return reverb(b, size: 0.7, mix: 0.35, damp: 0.5);
+}
+
+/// Alamut: a ring of iron keys lifted from its hook.
+Buf keysJingle() {
+  final rng = math.Random(55);
+  final b = Buf(1);
+  for (var i = 0; i < 9; i++) {
+    b.add(
+      modal(0.35, 1900 + rng.nextDouble() * 1800, const [
+        (1, 1, 0.06),
+        (2.4, 0.5, 0.04),
+        (4.1, 0.25, 0.02),
+      ]),
+      at: 0.02 + i * 0.05 + rng.nextDouble() * 0.04,
+      gain: 0.18 + rng.nextDouble() * 0.12,
+      pan: (rng.nextDouble() - 0.5) * 0.4,
+    );
+  }
+  return reverb(b, size: 0.4, mix: 0.25);
+}
+
+/// Alamut: an eagle's cry far over the gorge, a thin falling scream.
+Buf eagleCry() {
+  final b = Buf(2.6);
+  for (final (at, g, len) in [(0.0, 1.0, 0.7), (0.85, 0.6, 0.5)]) {
+    final call = shape(
+      sum([
+        for (final (h, amp) in [(1, 1.0), (2, 0.35), (3, 0.12)])
+          gain(
+            tone(
+              len,
+              (t) => (2300 - 900 * t / len + 60 * math.sin(tau * t * 22)) * h,
+            ),
+            amp,
+          ),
+      ]),
+      (t) => swell(t, 0.04, 0.3, len),
+    );
+    b.add(bandpass(call, (_) => 2400, 0.8), at: at, gain: g * 0.4, pan: 0.3);
+  }
+  return reverb(b, size: 0.95, mix: 0.55);
+}
+
 final sfx = <String, Buf Function()>{
   'stone_door': stoneDoor,
   'reactor_count': reactorCount,
   'wind_pines': windPines,
+  'wind_rock': windRock,
+  'tank_cover': tankCover,
+  'keys_jingle': keysJingle,
+  'eagle_cry': eagleCry,
   'footsteps_away': footstepsAway,
   'police_whistle': policeWhistle,
   'train_arch': trainArch,
@@ -1733,8 +1826,51 @@ Buf chonglingWinter() => loop(48, (seconds) {
   return reverb(b, size: 0.9, mix: 0.45, damp: 0.55);
 });
 
+/// Alamut: a low drone in D, wind over the rock, and a long-necked lute
+/// plucked far off now and then.
+Buf alamutSnow() => loop(48, (seconds) {
+  final rng = math.Random(30);
+  final b = Buf(seconds)
+    ..add(
+      drone(seconds, loopSeconds: 48, const [
+        (73.42, 0.42, 24),
+        (110.0, 0.22, 16),
+        (146.8, 0.08, 12),
+      ]),
+      gain: 0.4,
+    );
+  final wind = shape(
+    bandpass(
+      noise(seconds, rng),
+      (t) => 650 + 420 * math.sin(tau * t / 14),
+      1.4,
+    ),
+    (t) => 0.25 + 0.75 * math.pow(math.sin(tau * t / 18), 2),
+  );
+  b.add(gain(wind, 0.15), pan: 0.25);
+  // The lute: a falling phrase of plucked notes every 16 seconds.
+  const phrase = [293.7, 311.1, 293.7, 261.6, 220.0];
+  for (var at = 5.0; at < seconds - 8; at += 16) {
+    for (final (k, pitch) in phrase.indexed) {
+      b.add(
+        modal(2.2, pitch, const [
+          (1, 1, 0.9),
+          (2, 0.5, 0.5),
+          (3, 0.3, 0.3),
+          (4.02, 0.15, 0.2),
+        ]),
+        at: at + k * 0.55 + (k == phrase.length - 1 ? 0.4 : 0),
+        gain: 0.05,
+        pan: -0.4,
+      );
+    }
+  }
+  return reverb(b, size: 0.9, mix: 0.45, damp: 0.5);
+});
+
 final music = <String, Buf Function()>{
   'chongling_winter': chonglingWinter,
+  'alamut_snow': alamutSnow,
   'whitechapel_1891': whitechapel1891,
   'gyeongju_night': gyeongjuNight,
   'bastille_dawn': bastilleDawn,
@@ -2307,11 +2443,57 @@ Buf probeTickSound() {
   return b;
 }
 
+/// A sheet settling into the quire as a catchword meets its page: a soft
+/// paper slide and a small bright tick.
+Buf catchwordSound() {
+  final rng = math.Random(65);
+  final b = Buf(0.45)
+    ..add(
+      gain(
+        shape(
+          bandpass(noise(0.2, rng), (_) => 2400, 1.5),
+          (t) => swell(t, 0.02, 0.12, 0.2),
+        ),
+        0.35,
+      ),
+    )
+    ..add(
+      modal(0.3, 2640, const [(1, 1, 0.06), (2.7, 0.3, 0.03)]),
+      at: 0.16,
+      gain: 0.2,
+    );
+  return reverb(b, size: 0.2, mix: 0.15);
+}
+
+/// The reed meeting the surface in a dark tank: a soft, low plup.
+Buf reedTouchSound() {
+  final b = Buf(0.4)..add(plip(420), gain: 0.5);
+  return reverb(b, size: 0.6, mix: 0.35);
+}
+
+/// A thin drop falling back into the tank.
+Buf dripSound() {
+  final b = Buf(0.3)..add(plip(1400), gain: 0.35);
+  return reverb(b, size: 0.6, mix: 0.3);
+}
+
+/// A thick drop letting go of its thread: a low, heavy plop.
+Buf dripSlowSound() {
+  final b = Buf(0.5)
+    ..add(plip(520), gain: 0.5)
+    ..add(plip(360), at: 0.03, gain: 0.3);
+  return reverb(b, size: 0.6, mix: 0.3);
+}
+
 final ui = <String, Buf Function()>{
   'geiger': () => geigerSound(clicks: 4, seed: 61),
   'geiger_hot': () => geigerSound(clicks: 26, seed: 62),
   'sample': sampleSound,
   'probe_tick': probeTickSound,
+  'catchword': catchwordSound,
+  'reed_touch': reedTouchSound,
+  'drip': dripSound,
+  'drip_slow': dripSlowSound,
   'type_sort': typeSortSound,
   'lamp_gutter': lampGutterSound,
   'pour': pourSound,

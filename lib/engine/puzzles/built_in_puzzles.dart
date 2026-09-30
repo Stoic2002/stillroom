@@ -6,10 +6,12 @@ import 'code_lock.dart';
 import 'compose.dart';
 import 'crank.dart';
 import 'deduction.dart';
+import 'dip.dart';
 import 'keyring.dart';
 import 'overlay.dart';
 import 'pour.dart';
 import 'puzzle_type.dart';
+import 'quire.dart';
 import 'raking_light.dart';
 import 'resonance.dart';
 import 'reveal.dart';
@@ -27,8 +29,8 @@ import 'unwatched.dart';
 /// Registers the built-in puzzle types (PRD FR-04, plus `deduction`,
 /// `reveal`, `crank`, `overlay`, `clockHands`, `thread`, `rakingLight`,
 /// `beamSweep`, `swell`, `roster`, `keyring`, `cipher`, `sources`, `pour`,
-/// `resonance`, `beat`, `unwatched`, `compose`, `strand` and `scan`)
-/// into [registry].
+/// `resonance`, `beat`, `unwatched`, `compose`, `strand`, `scan`, `quire`
+/// and `dip`) into [registry].
 void registerBuiltInPuzzleTypes(PuzzleTypeRegistry registry) {
   registry
     ..register(const CodeLockType())
@@ -54,5 +56,7 @@ void registerBuiltInPuzzleTypes(PuzzleTypeRegistry registry) {
     ..register(const UnwatchedType())
     ..register(const ComposeType())
     ..register(const StrandType())
-    ..register(const ScanType());
+    ..register(const ScanType())
+    ..register(const QuireType())
+    ..register(const DipType());
 }

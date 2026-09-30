@@ -57,6 +57,14 @@ enum EchoFigure {
 
   /// A scientist in a knee-length lab coat, a clipboard held to the chest.
   scientist,
+
+  /// A castle guard in a long quilted coat and a pointed cap, a spear
+  /// over the shoulder, going down.
+  garrison,
+
+  /// A librarian in a long robe and a wound turban, a small oil lamp held
+  /// out in one hand.
+  librarian,
 }
 
 const _mist = Color(0xFFD5DEE2);
@@ -365,6 +373,47 @@ void paintEcho(Art a, EchoFigure figure) {
           body,
         );
       a.glow(a.p(0.86, 0.62), w * 0.4, const Color(0xFFE0A84A), strength: 0.6);
+    case EchoFigure.garrison:
+      a.canvas
+        // The pointed cap.
+        ..drawPath(shape([(0.36, 0.1), (0.5, -0.02), (0.64, 0.1)]), body)
+        // The quilted coat, long, flaring a little.
+        ..drawPath(
+          shape([(0.3, 0.2), (0.7, 0.2), (0.82, 0.8), (0.18, 0.8)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.32, 0.78), (0.46, 0.78), (0.44, 0.99), (0.34, 0.99)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.54, 0.78), (0.68, 0.78), (0.66, 0.99), (0.56, 0.99)]),
+          body,
+        )
+        // The spear over the shoulder.
+        ..drawLine(
+          a.p(0.78, 0.02),
+          a.p(0.3, 0.7),
+          Paint()
+            ..color = _mist
+            ..strokeWidth = w * 0.05
+            ..maskFilter = blur,
+        );
+    case EchoFigure.librarian:
+      a.canvas
+        // The turban, wound wide.
+        ..drawOval(a.r(0.3, 0.02, 0.4, 0.12), body)
+        // The long robe, to the ground.
+        ..drawPath(
+          shape([(0.3, 0.2), (0.7, 0.2), (0.8, 0.99), (0.2, 0.99)]),
+          body,
+        )
+        // The arm held out with the lamp.
+        ..drawPath(
+          shape([(0.66, 0.3), (0.88, 0.46), (0.84, 0.5), (0.64, 0.38)]),
+          body,
+        );
+      a.glow(a.p(0.9, 0.5), w * 0.35, const Color(0xFFE0A84A), strength: 0.7);
     case EchoFigure.scientist:
       a.canvas
         // The lab coat, open, to the knees.

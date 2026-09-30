@@ -485,4 +485,51 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get vermilionCaption => 'Dengan tinta merah kaisar';
+
+  @override
+  String get quireInstruction =>
+      'Ketuk satu lembar, lalu lembar lain, untuk menukar tempatnya dalam susunan. Balik sebuah lembar untuk menukar kedua daunnya. Setiap kata alihan harus bertemu halamannya.';
+
+  @override
+  String get quireTurn => 'Balik';
+
+  @override
+  String quireLinks(int count, int total) {
+    return '$count dari $total kata alihan bertemu halamannya';
+  }
+
+  @override
+  String get quirePicked =>
+      'Ketuk lembar lain untuk bertukar tempat, atau balik lembar ini.';
+
+  @override
+  String get dipInstruction =>
+      'Seret buluh ke dalam tangki sampai menyentuh permukaan, lalu lepaskan dan lihat tetesannya.';
+
+  @override
+  String get dipWhat => 'Apa yang menetes dari buluh?';
+
+  @override
+  String get dipWrong => 'Tetesannya tidak seperti itu.';
+
+  @override
+  String dipLevel(int percent) {
+    return 'Terisi $percent%';
+  }
+
+  @override
+  String get dipStoresQuestion =>
+      'Semua tangki sudah dinamai. Apakah persediaannya menipis, atau penuh?';
+
+  @override
+  String get dipLow => 'Menipis';
+
+  @override
+  String get dipFull => 'Penuh';
+
+  @override
+  String get dipStoresWrong => 'Lihat lagi setinggi apa isi tiap tangki.';
+
+  @override
+  String get colophonCaption => 'Di sinilah kitab ini tamat';
 }
