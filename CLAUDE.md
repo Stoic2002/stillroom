@@ -110,6 +110,13 @@ with a legend to set right. The lineup, by shelf and region, is in
    - Echoes are faceless.
    - Pompeii's plaster casts are shown only from afar and cannot be
      tapped.
+6. **Scenes are drawn in depth (decided 2026-10-01).** New tales use
+   one-point perspective from `lib/core/art/depth_kit.dart` (`Room`: back
+   wall, side walls and floor meeting at a vanishing point, boxes with
+   their visible faces, contact shadows, recesses, window light; outdoor
+   scenes get a ground plane and horizon). Hotspot rects stay where the
+   objects are. Bastille's cell is the model. The older tales' ~50 flat
+   scenes are converted in the final polish round, not before.
 
 ## Next steps (in this order)
 
