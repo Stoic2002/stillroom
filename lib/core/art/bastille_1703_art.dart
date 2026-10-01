@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import '../theme/stillroom_palette.dart';
 import 'art_kit.dart';
+import 'depth_kit.dart';
 import 'echo_art.dart';
 import 'whitechapel_1888_art.dart' show jarLabelBoard;
 
@@ -807,58 +808,116 @@ void _towerStair(Art a) {
 }
 
 void _cell(Art a) {
-  // A vaulted chamber: bare stone above, whitewashed long ago.
-  _masonry(a, a.r(0, 0, 1, 0.8), base: const Color(0xFF6E6A60), rows: 12);
+  // A stone cell seen from its door: the back wall with the high window,
+  // side walls and a flagged floor running back to it.
+  final room = Room(a, back: a.r(0.2, 0.05, 0.6, 0.6));
+  final back = room.back;
   a
-    ..fade(a.r(0, 0, 1, 0.3), const Color(0xAA000000), const Color(0x00000000))
-    ..fade(a.r(0, 0.8, 1, 0.2), _stoneDark, const Color(0xFF1C1A17))
-    ..hairline(a.p(0, 0.8), a.p(1, 0.8), Art.outline, 0.8);
-  // Scraped patches on the walls.
-  for (final (x, y, w, h) in [
-    (0.28, 0.22, 0.1, 0.16),
-    (0.84, 0.3, 0.1, 0.2),
-    (0.62, 0.16, 0.06, 0.1),
-  ]) {
-    a.fill(a.r(x, y, w, h), const Color(0x22D8D0C0));
+    ..path(room.ceiling, const Color(0xFF3A3630), line: 0)
+    ..path(room.leftWall, const Color(0xFF5E5A50), line: 0)
+    ..path(room.rightWall, const Color(0xFF686458), line: 0)
+    ..path(room.floor, const Color(0xFF3E3A34), line: 0);
+  // The side walls' courses, running back to the vanishing point.
+  for (var k = 1; k < 12; k++) {
+    final f = k / 12;
+    a
+      ..hairline(
+        Offset(0, a.size.height * f),
+        Offset(back.left, back.top + back.height * f),
+        const Color(0x55241F1A),
+        0.3,
+      )
+      ..hairline(
+        Offset(a.size.width, a.size.height * f),
+        Offset(back.right, back.top + back.height * f),
+        const Color(0x55241F1A),
+        0.3,
+      );
   }
-  // The high window, barred, dawn behind.
+  _masonry(a, back, base: const Color(0xFF6E6A60), rows: 10);
+  room
+    ..floorGrid(const Color(0x66141210), rows: 6, columns: 7, width: 0.35)
+    ..shadeCorners(strength: 0.5);
+  for (final edge in [
+    (back.topLeft, Offset.zero),
+    (back.topRight, Offset(a.size.width, 0)),
+    (back.bottomLeft, Offset(0, a.size.height)),
+    (back.bottomRight, Offset(a.size.width, a.size.height)),
+  ]) {
+    a.line(edge.$1, edge.$2, const Color(0xAA1A1714), width: 0.5);
+  }
+  a.ink(back, width: 0.5);
+  // A scraped patch on the right wall, in the wall's own slant.
+  a.path(
+    a.poly([a.p(0.86, 0.26), a.p(0.93, 0.22), a.p(0.93, 0.4), a.p(0.86, 0.42)]),
+    const Color(0x22D8D0C0),
+    line: 0,
+  );
+
+  // The high window, deep in the wall, barred, dawn behind; its light
+  // falling across the floor.
   final win = a.r(0.44, 0.12, 0.12, 0.26);
-  a.box(win.inflate(a.u * 1.4), _stoneLight, line: 0.6);
-  _dawnView(a, win);
-  a.ink(win);
+  final glass = Room.recessInner(win, thickness: 0.05);
+  room.recess(win, const Color(0xFF6E6A60), thickness: 0.05);
+  _dawnView(a, glass);
+  a.ink(glass, width: 0.4);
   for (var i = 1; i < 4; i++) {
-    final x = win.left + win.width * i / 4;
-    a.line(Offset(x, win.top), Offset(x, win.bottom), _iron, width: 1);
+    final x = glass.left + glass.width * i / 4;
+    a.line(Offset(x, glass.top), Offset(x, glass.bottom), _iron, width: 1);
   }
   a.line(
-    Offset(win.left, win.center.dy),
-    Offset(win.right, win.center.dy),
+    Offset(glass.left, glass.center.dy),
+    Offset(glass.right, glass.center.dy),
     _iron,
     width: 1,
   );
-  a.glow(win.center, a.size.width * 0.18, _dawnLow, strength: 0.18);
-  // A deep embrasure on the right, its sill wide enough for a book.
-  a
-    ..box(a.r(0.68, 0.3, 0.14, 0.14), const Color(0xFF3A3630), line: 0.6)
-    ..fill(a.r(0.73, 0.32, 0.04, 0.1), const Color(0xFF8A96A4))
-    ..box(a.r(0.66, 0.44, 0.18, 0.03), _stoneLight, line: 0.5);
-  _book(a, a.r(0.71, 0.455, 0.08, 0.05), const Color(0xFF6A2A20));
-  a.fill(a.r(0.66, 0.51, 0.18, 0.012), const Color(0x33000000));
-  // The stripped bed: planks on trestles, a bare straw pallet.
-  a
-    ..wood(a.r(0.06, 0.64, 0.26, 0.04), base: _oak, grain: 1)
-    ..box(a.r(0.08, 0.68, 0.02, 0.12), _oak, line: 0.4)
-    ..box(a.r(0.28, 0.68, 0.02, 0.12), _oak, line: 0.4)
-    ..rbox(
-      a.r(0.07, 0.6, 0.24, 0.045),
-      a.u * 1.2,
-      const Color(0xFFA08A5A),
-      line: 0.5,
+  room.beam(
+    [glass.bottomLeft, glass.bottomRight],
+    [
+      room.floorAt(0.4, 0.45),
+      room.floorAt(0.66, 0.45),
+      room.floorAt(0.7, 0.2),
+      room.floorAt(0.36, 0.2),
+    ],
+    _dawnLow,
+    strength: 0.14,
+  );
+  a.glow(glass.center, a.size.width * 0.16, _dawnLow, strength: 0.16);
+
+  // A deep embrasure on the right of the back wall, its sill wide enough
+  // for a book.
+  final niche = a.r(0.68, 0.3, 0.12, 0.14);
+  room.recess(niche, const Color(0xFF6E6A60), thickness: 0.06);
+  a.fill(Room.recessInner(niche, thickness: 0.06), const Color(0xFF2A2622));
+  room.box(
+    a.r(0.67, 0.44, 0.14, 0.025),
+    _stoneLight,
+    depth: 0.06,
+    shadow: false,
+  );
+  _book(a, a.r(0.71, 0.415, 0.08, 0.03), const Color(0xFF6A2A20));
+
+  // The stripped bed on the left: planks on trestles, a bare straw pallet.
+  for (final (x, d) in [(0.08, 0.0), (0.28, 0.0), (0.08, 0.2), (0.28, 0.2)]) {
+    final leg = a.r(x, 0.71, 0.018, 0.1);
+    room.box(
+      Rect.fromPoints(
+        room.toward(leg.topLeft, d),
+        room.toward(leg.bottomRight, d),
+      ),
+      _oak,
+      depth: 0.02,
+      line: 0.3,
+      shadow: d == 0,
     );
+  }
+  room.box(a.r(0.06, 0.67, 0.26, 0.04), _oak, depth: 0.22);
+  final palletFront = a.r(0.07, 0.64, 0.24, 0.03);
+  room.box(palletFront, const Color(0xFFA08A5A), depth: 0.2, shadow: false);
   final random = math.Random(4);
   for (var i = 0; i < 18; i++) {
-    final x = 0.08 + random.nextDouble() * 0.22;
-    final y = 0.605 + random.nextDouble() * 0.035;
+    final x = 0.09 + random.nextDouble() * 0.2;
+    final y = 0.6 + random.nextDouble() * 0.035;
     a.hairline(
       a.p(x, y),
       a.p(x + 0.015, y + 0.004),
@@ -866,16 +925,41 @@ void _cell(Art a) {
       0.3,
     );
   }
+
   // The table under the window, and on it the mask.
-  _table(a, a.r(0.4, 0.6, 0.2, 0.035), depth: 0.05);
+  for (final (x, d) in [(0.39, 0.0), (0.6, 0.0), (0.39, 0.14), (0.6, 0.14)]) {
+    final leg = a.r(x, 0.63, 0.012, 0.15);
+    room.box(
+      Rect.fromPoints(
+        room.toward(leg.topLeft, d),
+        room.toward(leg.bottomRight, d),
+      ),
+      _oak,
+      depth: 0.02,
+      line: 0.3,
+      shadow: d == 0,
+    );
+  }
+  room.box(a.r(0.38, 0.6, 0.24, 0.03), _oak, depth: 0.14, shadow: false);
+  room.contactShadow(a.r(0.38, 0.76, 0.26, 0.05), strength: 0.3);
   _mask(a, a.r(0.455, 0.525, 0.09, 0.075));
-  // A stool.
-  a
-    ..box(a.r(0.6, 0.7, 0.07, 0.02), _oak, line: 0.4)
-    ..box(a.r(0.61, 0.72, 0.01, 0.1), _oak, line: 0.4)
-    ..box(a.r(0.65, 0.72, 0.01, 0.1), _oak, line: 0.4);
+
+  // A stool, nearer, on the right.
+  for (final x in [0.63, 0.67]) {
+    room.box(a.r(x, 0.75, 0.01, 0.1), _oak, depth: 0.04, line: 0.3);
+  }
+  room.box(a.r(0.62, 0.73, 0.07, 0.02), _oak, depth: 0.08, shadow: false);
+
   // Where a bucket stood, a ring on the floor.
-  a.oval(a.r(0.86, 0.84, 0.08, 0.03), const Color(0x22000000), line: 0);
+  a.oval(
+    Rect.fromCenter(
+      center: room.floorAt(0.88, 0.25),
+      width: a.size.width * 0.07,
+      height: a.size.height * 0.025,
+    ),
+    const Color(0x33000000),
+    line: 0,
+  );
 }
 
 void _saintPaul(Art a) {
