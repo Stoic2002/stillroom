@@ -1061,6 +1061,150 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'A new map of the interior'**
   String get cartoucheCaption;
+
+  /// Snow pit: what to do.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a layer, then push something into it: the largest that goes in gives its hardness.'**
+  String get snowpitInstruction;
+
+  /// Snow pit: the object went into the layer.
+  ///
+  /// In en, this message translates to:
+  /// **'{tool}: goes in'**
+  String snowpitIn(String tool);
+
+  /// Snow pit: the object did not go in.
+  ///
+  /// In en, this message translates to:
+  /// **'{tool}: will not go in'**
+  String snowpitOut(String tool);
+
+  /// Button: mark the picked layer as the weak layer.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as weak'**
+  String get snowpitMark;
+
+  /// Snow pit: marking before testing.
+  ///
+  /// In en, this message translates to:
+  /// **'Find this layer\'s hardness, and the one above it, first.'**
+  String get snowpitUntested;
+
+  /// Snow pit: a wrong mark.
+  ///
+  /// In en, this message translates to:
+  /// **'It is not softer than the layer above it.'**
+  String get snowpitNotSofter;
+
+  /// Button: tap the shovel on the column.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap'**
+  String get snowpitTap;
+
+  /// Snow pit: taps so far and the phase.
+  ///
+  /// In en, this message translates to:
+  /// **'Taps: {count} ({phase})'**
+  String snowpitTaps(int count, String phase);
+
+  /// Compression test phase 1.
+  ///
+  /// In en, this message translates to:
+  /// **'from the wrist'**
+  String get snowpitWrist;
+
+  /// Compression test phase 2.
+  ///
+  /// In en, this message translates to:
+  /// **'from the elbow'**
+  String get snowpitElbow;
+
+  /// Compression test phase 3.
+  ///
+  /// In en, this message translates to:
+  /// **'from the shoulder'**
+  String get snowpitShoulder;
+
+  /// Snow pit: column ready.
+  ///
+  /// In en, this message translates to:
+  /// **'A column is cut down to just below the marked layer. Tap the shovel on top.'**
+  String get snowpitColumn;
+
+  /// Snow pit: column never broke.
+  ///
+  /// In en, this message translates to:
+  /// **'Thirty taps and nothing broke: the weak layer lies deeper.'**
+  String get snowpitSpent;
+
+  /// Snow pit: broke on a layer other than the marked one.
+  ///
+  /// In en, this message translates to:
+  /// **'It broke on another layer, higher up. Mark that one.'**
+  String get snowpitBrokeElsewhere;
+
+  /// Snow hardness object.
+  ///
+  /// In en, this message translates to:
+  /// **'Fist'**
+  String get toolFist;
+
+  /// Snow hardness object.
+  ///
+  /// In en, this message translates to:
+  /// **'Four fingers'**
+  String get toolFourFingers;
+
+  /// Snow hardness object.
+  ///
+  /// In en, this message translates to:
+  /// **'One finger'**
+  String get toolOneFinger;
+
+  /// Snow hardness object.
+  ///
+  /// In en, this message translates to:
+  /// **'Pencil'**
+  String get toolPencil;
+
+  /// Snow hardness object.
+  ///
+  /// In en, this message translates to:
+  /// **'Knife'**
+  String get toolKnife;
+
+  /// Darkroom: what to do.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a frame. On its test strip, tap the band to print at.'**
+  String get darkroomInstruction;
+
+  /// Darkroom: print too light.
+  ///
+  /// In en, this message translates to:
+  /// **'Too short: grey and empty. The paper is spoiled.'**
+  String get darkroomLight;
+
+  /// Darkroom: print too dark.
+  ///
+  /// In en, this message translates to:
+  /// **'Too long: the snow has gone grey. The paper is spoiled.'**
+  String get darkroomDark;
+
+  /// Darkroom: a band's exposure.
+  ///
+  /// In en, this message translates to:
+  /// **'{seconds} s'**
+  String darkroomSeconds(String seconds);
+
+  /// Route-book label form: its heading.
+  ///
+  /// In en, this message translates to:
+  /// **'Route book'**
+  String get routebookCaption;
 }
 
 class _AppLocalizationsDelegate

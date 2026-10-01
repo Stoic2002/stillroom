@@ -580,4 +580,91 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get cartoucheCaption => 'Новая карта внутренних земель';
+
+  @override
+  String get snowpitInstruction =>
+      'Коснитесь слоя, затем вдавите в него что-нибудь: самое большое, что входит, и есть его твёрдость.';
+
+  @override
+  String snowpitIn(String tool) {
+    return '$tool: входит';
+  }
+
+  @override
+  String snowpitOut(String tool) {
+    return '$tool: не входит';
+  }
+
+  @override
+  String get snowpitMark => 'Отметить как слабый';
+
+  @override
+  String get snowpitUntested =>
+      'Сначала узнайте твёрдость этого слоя и слоя над ним.';
+
+  @override
+  String get snowpitNotSofter => 'Он не мягче слоя над ним.';
+
+  @override
+  String get snowpitTap => 'Удар';
+
+  @override
+  String snowpitTaps(int count, String phase) {
+    return 'Удары: $count ($phase)';
+  }
+
+  @override
+  String get snowpitWrist => 'от запястья';
+
+  @override
+  String get snowpitElbow => 'от локтя';
+
+  @override
+  String get snowpitShoulder => 'от плеча';
+
+  @override
+  String get snowpitColumn =>
+      'Колонна вырезана до самого низа отмеченного слоя. Ударяйте лопатой сверху.';
+
+  @override
+  String get snowpitSpent =>
+      'Тридцать ударов, и ничего не сломалось: слабый слой глубже.';
+
+  @override
+  String get snowpitBrokeElsewhere =>
+      'Сломалось на другом слое, выше. Отметьте его.';
+
+  @override
+  String get toolFist => 'Кулак';
+
+  @override
+  String get toolFourFingers => 'Четыре пальца';
+
+  @override
+  String get toolOneFinger => 'Один палец';
+
+  @override
+  String get toolPencil => 'Карандаш';
+
+  @override
+  String get toolKnife => 'Нож';
+
+  @override
+  String get darkroomInstruction =>
+      'Выберите кадр. На его пробной полоске коснитесь полосы, с которой печатать.';
+
+  @override
+  String get darkroomLight =>
+      'Слишком коротко: серо и пусто. Бумага испорчена.';
+
+  @override
+  String get darkroomDark => 'Слишком долго: снег посерел. Бумага испорчена.';
+
+  @override
+  String darkroomSeconds(String seconds) {
+    return '$seconds с';
+  }
+
+  @override
+  String get routebookCaption => 'Маршрутная книжка';
 }

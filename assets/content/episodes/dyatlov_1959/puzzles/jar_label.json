@@ -1,0 +1,63 @@
+{
+  "id": "jar_label",
+  "type": "deduction",
+  "background": "images/scenes/dyatlov_1959/label_close.png",
+  "config": {
+    "form": "routebook",
+    "sentences": [
+      {
+        "textKey": "dyatlov_1959.label.s1",
+        "blanks": [
+          "slab",
+          "cut",
+          "cedar"
+        ]
+      }
+    ],
+    "words": [
+      "slab",
+      "cut",
+      "cedar",
+      "aliens",
+      "yeti",
+      "weapons",
+      "mansi",
+      "radiation",
+      "natural_force",
+      "otorten"
+    ],
+    "nearMiss": 1
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "wind_ridge"
+    },
+    {
+      "type": "showText",
+      "key": "dyatlov_1959.label.done"
+    },
+    {
+      "type": "showText",
+      "key": "dyatlov_1959.ending.pass"
+    },
+    {
+      "type": "showText",
+      "key": "dyatlov_1959.ending.record"
+    },
+    {
+      "type": "endEpisode"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.dyatlov_1959.jar_label.1"
+    },
+    {
+      "key": "hint.dyatlov_1959.jar_label.2"
+    },
+    {
+      "key": "hint.dyatlov_1959.jar_label.3"
+    }
+  ]
+}

@@ -570,4 +570,93 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get cartoucheCaption => 'Peta baru pedalaman';
+
+  @override
+  String get snowpitInstruction =>
+      'Ketuk satu lapisan, lalu dorongkan sesuatu ke dalamnya: yang terbesar yang bisa masuk menunjukkan kekerasannya.';
+
+  @override
+  String snowpitIn(String tool) {
+    return '$tool: masuk';
+  }
+
+  @override
+  String snowpitOut(String tool) {
+    return '$tool: tidak bisa masuk';
+  }
+
+  @override
+  String get snowpitMark => 'Tandai lemah';
+
+  @override
+  String get snowpitUntested =>
+      'Cari dulu kekerasan lapisan ini dan lapisan di atasnya.';
+
+  @override
+  String get snowpitNotSofter =>
+      'Lapisan ini tidak lebih lunak daripada lapisan di atasnya.';
+
+  @override
+  String get snowpitTap => 'Ketuk';
+
+  @override
+  String snowpitTaps(int count, String phase) {
+    return 'Ketukan: $count ($phase)';
+  }
+
+  @override
+  String get snowpitWrist => 'dari pergelangan';
+
+  @override
+  String get snowpitElbow => 'dari siku';
+
+  @override
+  String get snowpitShoulder => 'dari bahu';
+
+  @override
+  String get snowpitColumn =>
+      'Sebuah kolom dipotong sampai tepat di bawah lapisan yang ditandai. Ketukkan sekop di atasnya.';
+
+  @override
+  String get snowpitSpent =>
+      'Tiga puluh ketukan dan tak ada yang patah: lapisan lemahnya lebih dalam.';
+
+  @override
+  String get snowpitBrokeElsewhere =>
+      'Kolom patah di lapisan lain, lebih atas. Tandai yang itu.';
+
+  @override
+  String get toolFist => 'Kepalan';
+
+  @override
+  String get toolFourFingers => 'Empat jari';
+
+  @override
+  String get toolOneFinger => 'Satu jari';
+
+  @override
+  String get toolPencil => 'Pensil';
+
+  @override
+  String get toolKnife => 'Pisau';
+
+  @override
+  String get darkroomInstruction =>
+      'Pilih satu bingkai. Di pita ujinya, ketuk pita waktu untuk mencetak.';
+
+  @override
+  String get darkroomLight =>
+      'Terlalu singkat: abu-abu dan kosong. Kertasnya rusak.';
+
+  @override
+  String get darkroomDark =>
+      'Terlalu lama: saljunya menjadi abu-abu. Kertasnya rusak.';
+
+  @override
+  String darkroomSeconds(String seconds) {
+    return '$seconds dtk';
+  }
+
+  @override
+  String get routebookCaption => 'Buku rute';
 }

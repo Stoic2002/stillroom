@@ -539,4 +539,84 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get cartoucheCaption => '内陸部の新しい地図';
+
+  @override
+  String get snowpitInstruction => '層に触れてから、何かを押し込もう。入るもののうち最も大きいものが、その硬さを示す。';
+
+  @override
+  String snowpitIn(String tool) {
+    return '$tool：入る';
+  }
+
+  @override
+  String snowpitOut(String tool) {
+    return '$tool：入らない';
+  }
+
+  @override
+  String get snowpitMark => '弱層として印をつける';
+
+  @override
+  String get snowpitUntested => 'まずこの層と、その上の層の硬さを調べよう。';
+
+  @override
+  String get snowpitNotSofter => '上の層より柔らかくない。';
+
+  @override
+  String get snowpitTap => '叩く';
+
+  @override
+  String snowpitTaps(int count, String phase) {
+    return '叩いた回数：$count（$phase）';
+  }
+
+  @override
+  String get snowpitWrist => '手首から';
+
+  @override
+  String get snowpitElbow => '肘から';
+
+  @override
+  String get snowpitShoulder => '肩から';
+
+  @override
+  String get snowpitColumn => '印をつけた層のすぐ下まで柱を切り出した。上からシャベルを叩こう。';
+
+  @override
+  String get snowpitSpent => '三十回叩いても何も折れない。弱層はもっと深い。';
+
+  @override
+  String get snowpitBrokeElsewhere => '別の、もっと上の層で折れた。そちらに印をつけよう。';
+
+  @override
+  String get toolFist => 'こぶし';
+
+  @override
+  String get toolFourFingers => '指四本';
+
+  @override
+  String get toolOneFinger => '指一本';
+
+  @override
+  String get toolPencil => '鉛筆';
+
+  @override
+  String get toolKnife => 'ナイフ';
+
+  @override
+  String get darkroomInstruction => 'コマを選ぼう。そのテストストリップで、焼き付ける帯に触れよう。';
+
+  @override
+  String get darkroomLight => '短すぎる。灰色で空っぽだ。印画紙が無駄になった。';
+
+  @override
+  String get darkroomDark => '長すぎる。雪が灰色になった。印画紙が無駄になった。';
+
+  @override
+  String darkroomSeconds(String seconds) {
+    return '$seconds秒';
+  }
+
+  @override
+  String get routebookCaption => 'ルート帳';
 }

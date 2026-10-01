@@ -68,6 +68,9 @@ fvm dart run tool/audio/generate_audio.dart bell_toll  # one or more ids
 | `eagle_cry` | Alamut 1256: the eagle (creature); Great Zimbabwe's bateleur | A thin, falling scream, twice, far over the gorge |
 | `stone_set` | Great Zimbabwe 1871: the breach, the lintel, the wall standing | A granite block set down on another: a dull knock and grit |
 | `cicadas` | Great Zimbabwe 1871: the view from the hill; the seal | Cicadas in dry grass, a shimmering buzz that swells and falls |
+| `wind_ridge` | Dyatlov Pass 1959: the shoulder; the pit; the seal | Wind over a bare ridge, thin and high, gusting, a low rumble under it |
+| `canvas_flap` | Dyatlov Pass 1959: the slit tent | Tent canvas snapping in the wind |
+| `radio_static` | Dyatlov Pass 1959: the search camp's radio | A field radio's static, a carrier whistle drifting in it |
 | `notebook` | Great Zimbabwe 1871: Mauch's notebook; the key solved | A stiff field notebook opened, its pages flicked |
 
 ## Music
@@ -84,6 +87,7 @@ fvm dart run tool/audio/generate_audio.dart bell_toll  # one or more ids
 | `gyeongju_night` | Gyeongju, 771 | 48 s | A low drone near the bell's 64 Hz hum; winter wind; a wooden fish knocked far off, slowing, every 12 s |
 | `bastille_dawn` | Bastille, 1703 | 48 s | A cold drone in A; a draught in the court; two slow bowed notes in A aeolian every 16 s, like a viol through a wall |
 | `chongling_winter` | Beijing, 1908 | 48 s | A cold drone in B♭; wind in the pines; a temple bowl struck far off every 16 s |
+| `ural_wind` | Dyatlov Pass, 1959 | 48 s | A thin drone over a low A; wind over a bare ridge; a slow low pulse twice a loop |
 | `zimbabwe_dry` | Great Zimbabwe, 1871 | 48 s | A warm drone in E; dry wind in the grass; cicadas; a mbira-like figure plucked far off every 12 s |
 | `alamut_snow` | Alamut, 1256 | 48 s | A low drone in D; wind over the rock; a long-necked lute plucked far off, a falling phrase every 16 s |
 
@@ -114,6 +118,10 @@ vibration is on). Quieter than content sounds (−9 dBFS peak).
 | `probe_tick` | Beijing 1908's robe: the needle crosses a mark on its dial | none |
 | `catchword` | Alamut 1256's quire: a move makes a catchword meet its page (a paper slide and a small tick) | light |
 | `reed_touch` | Alamut 1256's tanks: the reed meets the surface (a soft, low plup) | light |
+| `snow_push` | Dyatlov Pass 1959's pit: a hand or tool going into a layer (a soft crunch) | selection |
+| `shovel_tap` | Dyatlov Pass 1959's pit: the shovel tapped on the column | light |
+| `column_break` | Dyatlov Pass 1959's pit: the column breaking and its top sliding off | medium |
+| `enlarger` | Dyatlov Pass 1959's darkroom: a frame printed right (the timer ticking through the exposure) | light |
 | `block_lay` | Great Zimbabwe 1871's courses: a block laid in its course | light |
 | `slab_tilt` | Great Zimbabwe 1871's courses: a chevron slab turned | selection |
 | `key_step` | Great Zimbabwe 1871's key: a step taken | selection |

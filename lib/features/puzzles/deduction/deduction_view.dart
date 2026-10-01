@@ -105,6 +105,7 @@ class _DeductionViewState extends State<DeductionView>
       DeductionForm.vermilion => _vermilion(context, sentenceStyle),
       DeductionForm.colophon => _colophon(context, sentenceStyle),
       DeductionForm.cartouche => _cartouche(context, sentenceStyle),
+      DeductionForm.routebook => _routebook(context, sentenceStyle),
       DeductionForm.board => const SizedBox.shrink(),
     };
 
@@ -492,6 +493,48 @@ class _DeductionViewState extends State<DeductionView>
     );
   }
 
+  /// A sports club's route book open at its last page: grey ruled paper,
+  /// the printed heading, a violet club stamp, and the last entry written
+  /// in ink along the lines.
+  Widget _routebook(BuildContext context, TextStyle style) {
+    final l10n = AppLocalizations.of(context);
+    final ink = style.copyWith(height: 1.75, color: const Color(0xFF1E2A4A));
+    return DecoratedBox(
+      decoration: const BoxDecoration(
+        color: Color(0xFFDCDAD0),
+        boxShadow: [BoxShadow(blurRadius: 18, color: Color(0xAA000000))],
+      ),
+      child: CustomPaint(
+        painter: const _RoutebookPage(),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(48, 12, 40, 14),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                l10n.routebookCaption,
+                style: style.copyWith(
+                  fontFamily: AppTheme.smallCaps,
+                  fontSize: 14,
+                  letterSpacing: 2,
+                  color: const Color(0xFF4A4A52),
+                ),
+              ),
+              const SizedBox(height: 6),
+              for (final (i, sentence) in _config.sentences.indexed)
+                Text.rich(
+                  TextSpan(
+                    style: ink,
+                    children: _sentence(context, i, sentence),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   /// An old map's title cartouche: a parchment panel in a scrolled frame,
   /// the map's title above, the sentences written inside.
   Widget _cartouche(BuildContext context, TextStyle style) {
@@ -814,6 +857,45 @@ class _RegisterStamp extends CustomPainter {
 
   @override
   bool shouldRepaint(_RegisterStamp old) => false;
+}
+
+/// A route book's page: a ruled margin, faint blue lines, and a round
+/// violet club stamp in the corner.
+class _RoutebookPage extends CustomPainter {
+  const _RoutebookPage();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final rule = Paint()
+      ..strokeWidth = 0.8
+      ..color = const Color(0x557A8AB0);
+    for (var y = 44.0; y < size.height - 6; y += 30) {
+      canvas.drawLine(Offset(12, y), Offset(size.width - 12, y), rule);
+    }
+    canvas.drawLine(
+      const Offset(36, 6),
+      Offset(36, size.height - 6),
+      Paint()
+        ..strokeWidth = 1
+        ..color = const Color(0x88B04A4A),
+    );
+    final stamp = Offset(size.width - 54, 34);
+    final violet = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2
+      ..color = const Color(0x996A4A9A);
+    canvas
+      ..drawCircle(stamp, 24, violet)
+      ..drawCircle(stamp, 17, violet..strokeWidth = 1)
+      ..drawLine(
+        stamp.translate(-12, 0),
+        stamp.translate(12, 0),
+        violet..strokeWidth = 1.5,
+      );
+  }
+
+  @override
+  bool shouldRepaint(_RoutebookPage old) => false;
 }
 
 /// A map's cartouche: a parchment panel with a double rule, and scrolled

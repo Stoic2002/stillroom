@@ -577,4 +577,92 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get cartoucheCaption => 'Nuevo mapa del interior';
+
+  @override
+  String get snowpitInstruction =>
+      'Toca una capa y luego empuja algo dentro: lo más grande que entra da su dureza.';
+
+  @override
+  String snowpitIn(String tool) {
+    return '$tool: entra';
+  }
+
+  @override
+  String snowpitOut(String tool) {
+    return '$tool: no entra';
+  }
+
+  @override
+  String get snowpitMark => 'Marcar como débil';
+
+  @override
+  String get snowpitUntested =>
+      'Averigua antes la dureza de esta capa y de la de encima.';
+
+  @override
+  String get snowpitNotSofter => 'No es más blanda que la capa de encima.';
+
+  @override
+  String get snowpitTap => 'Golpear';
+
+  @override
+  String snowpitTaps(int count, String phase) {
+    return 'Golpes: $count ($phase)';
+  }
+
+  @override
+  String get snowpitWrist => 'desde la muñeca';
+
+  @override
+  String get snowpitElbow => 'desde el codo';
+
+  @override
+  String get snowpitShoulder => 'desde el hombro';
+
+  @override
+  String get snowpitColumn =>
+      'Se corta una columna hasta justo debajo de la capa marcada. Golpea la pala encima.';
+
+  @override
+  String get snowpitSpent =>
+      'Treinta golpes y nada se rompió: la capa débil está más abajo.';
+
+  @override
+  String get snowpitBrokeElsewhere =>
+      'Se rompió en otra capa, más arriba. Marca esa.';
+
+  @override
+  String get toolFist => 'Puño';
+
+  @override
+  String get toolFourFingers => 'Cuatro dedos';
+
+  @override
+  String get toolOneFinger => 'Un dedo';
+
+  @override
+  String get toolPencil => 'Lápiz';
+
+  @override
+  String get toolKnife => 'Cuchillo';
+
+  @override
+  String get darkroomInstruction =>
+      'Elige un fotograma. En su tira de prueba, toca la banda a la que positivar.';
+
+  @override
+  String get darkroomLight =>
+      'Demasiado corto: gris y vacío. El papel se ha echado a perder.';
+
+  @override
+  String get darkroomDark =>
+      'Demasiado largo: la nieve se ha vuelto gris. El papel se ha echado a perder.';
+
+  @override
+  String darkroomSeconds(String seconds) {
+    return '$seconds s';
+  }
+
+  @override
+  String get routebookCaption => 'Libro de ruta';
 }

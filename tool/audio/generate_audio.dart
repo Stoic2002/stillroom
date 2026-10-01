@@ -1618,6 +1618,76 @@ Buf notebook() {
   return reverb(b, size: 0.2, mix: 0.12);
 }
 
+/// Dyatlov Pass: wind over a bare ridge, thin and high, gusting.
+Buf windRidge() {
+  final rng = math.Random(59);
+  const seconds = 4.5;
+  final b = Buf(seconds)
+    ..add(
+      gain(
+        shape(
+          bandpass(
+            noise(seconds, rng),
+            (t) => 1100 + 700 * math.sin(math.pi * t / seconds),
+            2.2,
+          ),
+          (t) =>
+              swell(t, 1.0, 1.6, seconds) *
+              (0.5 + 0.5 * math.sin(tau * t * 0.9).abs()),
+        ),
+        1.0,
+      ),
+      pan: 0.35,
+    )
+    ..add(
+      gain(
+        shape(
+          lowpass(brown(seconds, rng), (_) => 220),
+          (t) => swell(t, 1.5, 1.5, seconds),
+        ),
+        0.6,
+      ),
+    );
+  return reverb(b, size: 0.7, mix: 0.3);
+}
+
+/// Dyatlov Pass: slit tent canvas snapping in the wind.
+Buf canvasFlap() {
+  final rng = math.Random(60);
+  final b = Buf(1.6);
+  for (var i = 0; i < 5; i++) {
+    b.add(
+      shape(
+        bandpass(noise(0.14, rng), (_) => 700 + rng.nextDouble() * 500, 1.4),
+        (t) => decay(t, 0.03),
+      ),
+      at: 0.05 + i * 0.22 + rng.nextDouble() * 0.08,
+      gain: 0.9 - i * 0.1,
+      pan: (rng.nextDouble() - 0.5) * 0.3,
+    );
+  }
+  return reverb(b, size: 0.5, mix: 0.25);
+}
+
+/// Dyatlov Pass: a field radio's static, a carrier whistle drifting in it.
+Buf radioStatic() {
+  final rng = math.Random(61);
+  const seconds = 2.2;
+  final hiss = shape(
+    bandpass(noise(seconds, rng), (_) => 2200, 0.8),
+    (t) =>
+        swell(t, 0.05, 0.3, seconds) *
+        (0.6 + 0.4 * math.sin(tau * t * 3).abs()),
+  );
+  final whistle = shape(
+    tone(seconds, (t) => 1400 + 300 * math.sin(tau * t * 0.6)),
+    (t) => swell(t, 0.4, 0.6, seconds) * 0.4,
+  );
+  return Buf(seconds)
+    ..add(gain(hiss, 0.6))
+    ..add(gain(whistle, 0.05));
+}
+
 final sfx = <String, Buf Function()>{
   'stone_door': stoneDoor,
   'reactor_count': reactorCount,
@@ -1629,6 +1699,9 @@ final sfx = <String, Buf Function()>{
   'stone_set': stoneSet,
   'cicadas': cicadas,
   'notebook': notebook,
+  'wind_ridge': windRidge,
+  'canvas_flap': canvasFlap,
+  'radio_static': radioStatic,
   'footsteps_away': footstepsAway,
   'police_whistle': policeWhistle,
   'train_arch': trainArch,
@@ -1982,10 +2055,46 @@ Buf zimbabweDry() => loop(48, (seconds) {
   return reverb(b, size: 0.8, mix: 0.35, damp: 0.5);
 });
 
+/// Dyatlov Pass: a thin, high drone, wind over a bare ridge, and a low
+/// pulse far under it.
+Buf uralWind() => loop(48, (seconds) {
+  final rng = math.Random(32);
+  final b = Buf(seconds)
+    ..add(
+      drone(seconds, loopSeconds: 48, const [
+        (55.0, 0.36, 24),
+        (220.0, 0.08, 16),
+        (330.0, 0.05, 12),
+      ]),
+      gain: 0.4,
+    );
+  final wind = shape(
+    bandpass(
+      noise(seconds, rng),
+      (t) => 1000 + 600 * math.sin(tau * t / 12),
+      2.0,
+    ),
+    (t) => 0.2 + 0.8 * math.pow(math.sin(tau * t / 16), 2),
+  );
+  b.add(gain(wind, 0.18), pan: 0.3);
+  // The pulse: a slow, low throb, twice a loop.
+  for (var at = 8.0; at < seconds - 4; at += 24) {
+    for (var k = 0; k < 4; k++) {
+      b.add(
+        shape(tone(1.2, (_) => 41.2), (t) => swell(t, 0.3, 0.8, 1.2)),
+        at: at + k * 1.6,
+        gain: 0.08,
+      );
+    }
+  }
+  return reverb(b, size: 0.9, mix: 0.4, damp: 0.6);
+});
+
 final music = <String, Buf Function()>{
   'chongling_winter': chonglingWinter,
   'alamut_snow': alamutSnow,
   'zimbabwe_dry': zimbabweDry,
+  'ural_wind': uralWind,
   'whitechapel_1891': whitechapel1891,
   'gyeongju_night': gyeongjuNight,
   'bastille_dawn': bastilleDawn,
@@ -2635,6 +2744,70 @@ Buf keyStepSound() {
   return reverb(b, size: 0.15, mix: 0.1);
 }
 
+/// A hand or a tool pushed into a snow layer: a soft crunch.
+Buf snowPushSound() {
+  final rng = math.Random(69);
+  final b = Buf(0.35)
+    ..add(
+      shape(
+        bandpass(noise(0.22, rng), (t) => 1800 - t * 2000, 1.2),
+        (t) => swell(t, 0.02, 0.12, 0.22),
+      ),
+      gain: 0.6,
+    );
+  return reverb(b, size: 0.15, mix: 0.1);
+}
+
+/// The shovel's blade tapped on a snow column: a dull, padded knock.
+Buf shovelTapSound() {
+  final rng = math.Random(70);
+  final b = Buf(0.3)
+    ..add(modal(0.25, 320, const [(1, 1, 0.04), (2.6, 0.3, 0.02)]), gain: 0.35)
+    ..add(
+      shape(lowpass(noise(0.08, rng), (_) => 800), (t) => decay(t, 0.02)),
+      gain: 0.5,
+    );
+  return reverb(b, size: 0.2, mix: 0.1);
+}
+
+/// A snow column breaking clean and its top sliding off.
+Buf columnBreakSound() {
+  final rng = math.Random(71);
+  final b = Buf(1.2)
+    ..add(
+      shape(lowpass(noise(0.1, rng), (_) => 900), (t) => decay(t, 0.03)),
+      gain: 0.8,
+    )
+    ..add(
+      shape(
+        bandpass(noise(0.8, rng), (t) => 900 - t * 600, 1.2),
+        (t) => swell(t, 0.05, 0.5, 0.8),
+      ),
+      at: 0.08,
+      gain: 0.5,
+    );
+  return reverb(b, size: 0.4, mix: 0.2);
+}
+
+/// The enlarger's timer ticking through an exposure.
+Buf enlargerSound() {
+  final rng = math.Random(72);
+  final b = Buf(1.1);
+  for (var i = 0; i < 4; i++) {
+    b.add(
+      click(rng, centre: 2000, time: 0.002),
+      at: 0.05 + i * 0.25,
+      gain: 0.3,
+    );
+  }
+  b.add(
+    shape(tone(0.9, (_) => 100), (t) => swell(t, 0.02, 0.05, 0.9) * 0.3),
+    at: 0.05,
+    gain: 0.1,
+  );
+  return b;
+}
+
 final ui = <String, Buf Function()>{
   'geiger': () => geigerSound(clicks: 4, seed: 61),
   'geiger_hot': () => geigerSound(clicks: 26, seed: 62),
@@ -2647,6 +2820,10 @@ final ui = <String, Buf Function()>{
   'block_lay': blockLaySound,
   'slab_tilt': slabTiltSound,
   'key_step': keyStepSound,
+  'snow_push': snowPushSound,
+  'shovel_tap': shovelTapSound,
+  'column_break': columnBreakSound,
+  'enlarger': enlargerSound,
   'type_sort': typeSortSound,
   'lamp_gutter': lampGutterSound,
   'pour': pourSound,

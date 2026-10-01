@@ -570,4 +570,92 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cartoucheCaption => 'A new map of the interior';
+
+  @override
+  String get snowpitInstruction =>
+      'Tap a layer, then push something into it: the largest that goes in gives its hardness.';
+
+  @override
+  String snowpitIn(String tool) {
+    return '$tool: goes in';
+  }
+
+  @override
+  String snowpitOut(String tool) {
+    return '$tool: will not go in';
+  }
+
+  @override
+  String get snowpitMark => 'Mark as weak';
+
+  @override
+  String get snowpitUntested =>
+      'Find this layer\'s hardness, and the one above it, first.';
+
+  @override
+  String get snowpitNotSofter => 'It is not softer than the layer above it.';
+
+  @override
+  String get snowpitTap => 'Tap';
+
+  @override
+  String snowpitTaps(int count, String phase) {
+    return 'Taps: $count ($phase)';
+  }
+
+  @override
+  String get snowpitWrist => 'from the wrist';
+
+  @override
+  String get snowpitElbow => 'from the elbow';
+
+  @override
+  String get snowpitShoulder => 'from the shoulder';
+
+  @override
+  String get snowpitColumn =>
+      'A column is cut down to just below the marked layer. Tap the shovel on top.';
+
+  @override
+  String get snowpitSpent =>
+      'Thirty taps and nothing broke: the weak layer lies deeper.';
+
+  @override
+  String get snowpitBrokeElsewhere =>
+      'It broke on another layer, higher up. Mark that one.';
+
+  @override
+  String get toolFist => 'Fist';
+
+  @override
+  String get toolFourFingers => 'Four fingers';
+
+  @override
+  String get toolOneFinger => 'One finger';
+
+  @override
+  String get toolPencil => 'Pencil';
+
+  @override
+  String get toolKnife => 'Knife';
+
+  @override
+  String get darkroomInstruction =>
+      'Pick a frame. On its test strip, tap the band to print at.';
+
+  @override
+  String get darkroomLight =>
+      'Too short: grey and empty. The paper is spoiled.';
+
+  @override
+  String get darkroomDark =>
+      'Too long: the snow has gone grey. The paper is spoiled.';
+
+  @override
+  String darkroomSeconds(String seconds) {
+    return '$seconds s';
+  }
+
+  @override
+  String get routebookCaption => 'Route book';
 }

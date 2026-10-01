@@ -163,6 +163,10 @@ enum DeductionForm {
   /// The title cartouche of an old map: an ornamented panel where the map
   /// once named the land wrongly.
   cartouche,
+
+  /// A sports-club party's route book: a ruled page with stamped
+  /// headings, its last entry still to be written.
+  routebook,
 }
 
 final class DeductionSentence {

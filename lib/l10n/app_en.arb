@@ -712,5 +712,124 @@
   "cartoucheCaption": "A new map of the interior",
   "@cartoucheCaption": {
     "description": "Cartouche label form: the title on an old map of Africa."
+  },
+  "snowpitInstruction": "Tap a layer, then push something into it: the largest that goes in gives its hardness.",
+  "@snowpitInstruction": {
+    "description": "Snow pit: what to do."
+  },
+  "snowpitIn": "{tool}: goes in",
+  "@snowpitIn": {
+    "description": "Snow pit: the object went into the layer.",
+    "placeholders": {
+      "tool": {
+        "type": "String"
+      }
+    }
+  },
+  "snowpitOut": "{tool}: will not go in",
+  "@snowpitOut": {
+    "description": "Snow pit: the object did not go in.",
+    "placeholders": {
+      "tool": {
+        "type": "String"
+      }
+    }
+  },
+  "snowpitMark": "Mark as weak",
+  "@snowpitMark": {
+    "description": "Button: mark the picked layer as the weak layer."
+  },
+  "snowpitUntested": "Find this layer's hardness, and the one above it, first.",
+  "@snowpitUntested": {
+    "description": "Snow pit: marking before testing."
+  },
+  "snowpitNotSofter": "It is not softer than the layer above it.",
+  "@snowpitNotSofter": {
+    "description": "Snow pit: a wrong mark."
+  },
+  "snowpitTap": "Tap",
+  "@snowpitTap": {
+    "description": "Button: tap the shovel on the column."
+  },
+  "snowpitTaps": "Taps: {count} ({phase})",
+  "@snowpitTaps": {
+    "description": "Snow pit: taps so far and the phase.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "phase": {
+        "type": "String"
+      }
+    }
+  },
+  "snowpitWrist": "from the wrist",
+  "@snowpitWrist": {
+    "description": "Compression test phase 1."
+  },
+  "snowpitElbow": "from the elbow",
+  "@snowpitElbow": {
+    "description": "Compression test phase 2."
+  },
+  "snowpitShoulder": "from the shoulder",
+  "@snowpitShoulder": {
+    "description": "Compression test phase 3."
+  },
+  "snowpitColumn": "A column is cut down to just below the marked layer. Tap the shovel on top.",
+  "@snowpitColumn": {
+    "description": "Snow pit: column ready."
+  },
+  "snowpitSpent": "Thirty taps and nothing broke: the weak layer lies deeper.",
+  "@snowpitSpent": {
+    "description": "Snow pit: column never broke."
+  },
+  "snowpitBrokeElsewhere": "It broke on another layer, higher up. Mark that one.",
+  "@snowpitBrokeElsewhere": {
+    "description": "Snow pit: broke on a layer other than the marked one."
+  },
+  "toolFist": "Fist",
+  "@toolFist": {
+    "description": "Snow hardness object."
+  },
+  "toolFourFingers": "Four fingers",
+  "@toolFourFingers": {
+    "description": "Snow hardness object."
+  },
+  "toolOneFinger": "One finger",
+  "@toolOneFinger": {
+    "description": "Snow hardness object."
+  },
+  "toolPencil": "Pencil",
+  "@toolPencil": {
+    "description": "Snow hardness object."
+  },
+  "toolKnife": "Knife",
+  "@toolKnife": {
+    "description": "Snow hardness object."
+  },
+  "darkroomInstruction": "Pick a frame. On its test strip, tap the band to print at.",
+  "@darkroomInstruction": {
+    "description": "Darkroom: what to do."
+  },
+  "darkroomLight": "Too short: grey and empty. The paper is spoiled.",
+  "@darkroomLight": {
+    "description": "Darkroom: print too light."
+  },
+  "darkroomDark": "Too long: the snow has gone grey. The paper is spoiled.",
+  "@darkroomDark": {
+    "description": "Darkroom: print too dark."
+  },
+  "darkroomSeconds": "{seconds} s",
+  "@darkroomSeconds": {
+    "description": "Darkroom: a band's exposure.",
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "routebookCaption": "Route book",
+  "@routebookCaption": {
+    "description": "Route-book label form: its heading."
   }
 }

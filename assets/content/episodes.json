@@ -122,7 +122,19 @@
       ]
     },
     {
-      "id": "sealed_dyatlov_1959",
+      "id": "dyatlov_1959",
+      "titleKey": "episode.dyatlov_1959.title",
+      "teaserKey": "episode.dyatlov_1959.teaser",
+      "jarImage": "images/ui/jar_dyatlov_1959.png",
+      "shelf": 4,
+      "unlockAfter": 8,
+      "place": [
+        61.754,
+        59.459
+      ]
+    },
+    {
+      "id": "sealed_honnoji_1582",
       "titleKey": "episode.sealed.title",
       "comingSoon": true,
       "shelf": 4,

@@ -1,0 +1,56 @@
+{
+  "id": "snowpit",
+  "type": "snowpit",
+  "background": "images/scenes/dyatlov_1959/pit_board.png",
+  "config": {
+    "layers": [
+      {
+        "thickness": 12,
+        "hardness": "fist"
+      },
+      {
+        "thickness": 38,
+        "hardness": "oneFinger"
+      },
+      {
+        "thickness": 6,
+        "hardness": "fist"
+      },
+      {
+        "thickness": 34,
+        "hardness": "pencil"
+      },
+      {
+        "thickness": 4,
+        "hardness": "knife"
+      },
+      {
+        "thickness": 22,
+        "hardness": "fourFingers"
+      }
+    ],
+    "weak": 2,
+    "breakTap": 14
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "wind_ridge"
+    },
+    {
+      "type": "showText",
+      "key": "dyatlov_1959.slope.snowpit_done"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.dyatlov_1959.snowpit.1"
+    },
+    {
+      "key": "hint.dyatlov_1959.snowpit.2"
+    },
+    {
+      "key": "hint.dyatlov_1959.snowpit.3"
+    }
+  ]
+}

@@ -424,6 +424,9 @@ enum CreatureKind {
   /// An eagle turning in slow circles high over its area, now and then
   /// crying.
   eagle,
+
+  /// A raven on a branch; flies off when tapped, comes back.
+  raven,
 }
 
 /// A small living thing in a scene (`creatures` in a scene file):

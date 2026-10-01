@@ -1,12 +1,13 @@
 # Episode design: Dyatlov Pass, 1959 (the tent on the slope)
 
-Status: **design draft** (2026-10-01), for the developer's approval before
-anything is built. Shelf IV (opens after 8 tales), Eastern Europe, from
+Status: **built** (2026-10-01): draft text in seven languages, code-drawn
+art (`lib/core/art/dyatlov_1959_art.dart`), generated audio, walkthrough
+test. Approved by the developer with setting A, both mechanics, and the
+recommended seal. Shelf IV (opens after 8 tales), Eastern Europe, from
 the plan of 16 tales (`docs/stillroom_frame.md`, *The full shelf*). It
-replaces the sealed teaser `sealed_dyatlov_1959`; a teaser for the next
-tale (`sealed_honnoji_1582`) takes its place. Proposed id: `dyatlov_1959`;
-jar label **Dyatlov Pass, 1959**, its map pin on Kholat Syakhl in the
-northern Urals.
+replaces the sealed teaser `sealed_dyatlov_1959`; the teaser on shelf IV
+is now `sealed_honnoji_1582`. Id: `dyatlov_1959`; jar label **Dyatlov
+Pass, 1959**, its map pin on Kholat Syakhl in the northern Urals.
 
 ## Premise
 
@@ -183,10 +184,55 @@ the tent that night, no one saw."
   breaking), `enlarger` (an exposure ticking), `tray_rock` (the print in
   the developer).
 
-## Open questions for the developer
+## Decisions (2026-10-01)
 
-1. Where it is set: **A** (the slope during the search, February 1959,
-   recommended) or B (the pass in 2021)?
-2. The two mechanics: the pit (`snowpit`) and the darkroom (`darkroom`)?
-3. The seal as the group's route book (`routebook`), with its sentence
-   (slab / cut / cedar)?
+1. Setting **A**: the slope during the search, February 1959; the
+   2020–2021 papers and the snow kit arrive "that should not be here
+   yet".
+2. Both mechanics: the pit (`snowpit`) and the darkroom (`darkroom`).
+3. The seal as the route book (`routebook`): "A small {slab} of snow
+   broke above {the cut} made for the tent, and they walked down to {the
+   cedar}."
+
+## As built
+
+- **Map:** the slope (start) leads down to the cedar and across to the
+  search camp; the darkroom in Ivdel opens from the camp once the
+  cameras are taken.
+- **Flow:** the tent, slit from inside; the tracks (*the cedar*). In the
+  camp: the case file (*Mount Otorten*, *a compelling natural force*),
+  the rumours (*the Mansi*, *aliens*, *a weapons test*), the cameras. In
+  the darkroom, the films printed (`darkroom`, gives *the cut*). Then the
+  snow kit beside the tent (`snowpit`, gives *slab*). Then papers from the
+  future in the camp (*radiation*, *a yeti*; 2020 and 2021, and the
+  authors' caution). The keeper's slip is tucked in the cedar's broken
+  branch once those are read; the last entry is written in the route
+  book in the camp.
+- **The pit:** six layers: new snow (F, 12 cm), the wind slab (1F, 38),
+  the weak layer (F, 6), old snow (P, 34), a crust (K, 4), depth hoar
+  (4F, 22). The depth hoar under the crust is soft under hard too: a
+  column cut below it breaks higher up, on the true weak layer, at the
+  14th tap (the elbow).
+- **The darkroom:** a strip of 2, 4, 8, 16 and 32 seconds; four frames
+  (the river, the cache, the open slope, the cut) at 8, 4, 16 and 8.
+- **Words:** *slab*, *the cut*, *the cedar* (the answers); *aliens*, *a
+  yeti*, *a weapons test*, *the Mansi*, *radiation*, *a compelling natural
+  force*, *Mount Otorten* (decoys).
+- **Echoes:** a searcher with a probe on the slope; an investigator under
+  the red lamp. **Living things:** a raven in a tree at the forest edge
+  (`raven`).
+- **Audio:** music `ural_wind`; effects `wind_ridge`, `canvas_flap`,
+  `radio_static`; interface `snow_push`, `shovel_tap`, `column_break`,
+  `enlarger`.
+
+## Things to watch when tested
+
+- Whether the five pushing objects and "the largest that goes in" are
+  understood without the hint, and whether the F/4F/1F/P/K shorthand
+  helps or puzzles.
+- Whether the decoy (soft under the crust) feels fair: the column breaks
+  higher, and the message says to mark that layer.
+- Whether the test strip's bands read at phone size, and whether "too
+  short / too long" is clear from the picture alone.
+- The tone of the case file and the later papers, for a reader who knows
+  the case; the Russian names and the Russian text, for a native reader.

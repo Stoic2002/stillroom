@@ -43,6 +43,7 @@ abstract class Creature extends Component {
     CreatureKind.fulmar => _Fulmar(area, random, sound),
     CreatureKind.grass => _Grass(area, random, sound),
     CreatureKind.eagle => _Eagle(area, random, sound),
+    CreatureKind.raven => _Fulmar(area, random, sound, raven: true),
   };
 }
 
@@ -525,10 +526,19 @@ class _Gull extends Creature {
 }
 
 // ---------------------------------------------------------------------------
-// Fulmar: sits on a ledge, flies off when startled, glides back.
+// Fulmar: sits on a ledge, flies off when startled, glides back. A raven
+// does the same from a branch, in black.
 
 class _Fulmar extends Creature {
-  _Fulmar(super.area, super.random, super.sound);
+  _Fulmar(super.area, super.random, super.sound, {this.raven = false});
+
+  final bool raven;
+
+  Color get _body => raven ? const Color(0xFF16161A) : const Color(0xFFDADDDA);
+  Color get _wing => raven ? const Color(0xFF2A2A32) : const Color(0xFF8C9296);
+  Color get _head => raven ? const Color(0xFF16161A) : const Color(0xFFE4E6E4);
+  Color get _eye => raven ? const Color(0xFF8A8A92) : const Color(0xFF111111);
+  Color get _beak => raven ? const Color(0xFF24242A) : const Color(0xFF9A8A5A);
 
   /// Seconds into an absence, or -1 while sitting.
   double _away = -1;
@@ -570,7 +580,7 @@ class _Fulmar extends Creature {
             width: 40,
             height: 24,
           ),
-          Paint()..color = const Color(0xFFDADDDA),
+          Paint()..color = _body,
         )
         ..drawOval(
           Rect.fromCenter(
@@ -578,24 +588,16 @@ class _Fulmar extends Creature {
             width: 26,
             height: 14,
           ),
-          Paint()..color = const Color(0xFF8C9296),
+          Paint()..color = _wing,
         )
-        ..drawCircle(
-          seat + Offset(16, -26 + bob),
-          9,
-          Paint()..color = const Color(0xFFE4E6E4),
-        )
-        ..drawCircle(
-          seat + Offset(19, -28 + bob),
-          1.6,
-          Paint()..color = const Color(0xFF111111),
-        )
+        ..drawCircle(seat + Offset(16, -26 + bob), 9, Paint()..color = _head)
+        ..drawCircle(seat + Offset(19, -28 + bob), 1.6, Paint()..color = _eye)
         ..drawLine(
           seat + Offset(24, -25 + bob),
           seat + Offset(31, -24 + bob),
           Paint()
-            ..color = const Color(0xFF9A8A5A)
-            ..strokeWidth = 3,
+            ..color = _beak
+            ..strokeWidth = raven ? 4 : 3,
         );
       return;
     }
@@ -625,7 +627,7 @@ class _Fulmar extends Creature {
           pos.dy - flap,
         ),
       Paint()
-        ..color = const Color(0xFFDADDDA)
+        ..color = _body
         ..style = PaintingStyle.stroke
         ..strokeWidth = 5
         ..strokeCap = StrokeCap.round,

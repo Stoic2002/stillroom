@@ -6,6 +6,7 @@ import 'code_lock.dart';
 import 'compose.dart';
 import 'courses.dart';
 import 'crank.dart';
+import 'darkroom.dart';
 import 'deduction.dart';
 import 'dip.dart';
 import 'identify.dart';
@@ -22,6 +23,7 @@ import 'rotary_align.dart';
 import 'scan.dart';
 import 'sequence.dart';
 import 'slot_placement.dart';
+import 'snowpit.dart';
 import 'sources.dart';
 import 'strand.dart';
 import 'swell.dart';
@@ -32,7 +34,7 @@ import 'unwatched.dart';
 /// `reveal`, `crank`, `overlay`, `clockHands`, `thread`, `rakingLight`,
 /// `beamSweep`, `swell`, `roster`, `keyring`, `cipher`, `sources`, `pour`,
 /// `resonance`, `beat`, `unwatched`, `compose`, `strand`, `scan`, `quire`,
-/// `dip`, `courses` and `identify`) into [registry].
+/// `dip`, `courses`, `identify`, `snowpit` and `darkroom`) into [registry].
 void registerBuiltInPuzzleTypes(PuzzleTypeRegistry registry) {
   registry
     ..register(const CodeLockType())
@@ -62,5 +64,7 @@ void registerBuiltInPuzzleTypes(PuzzleTypeRegistry registry) {
     ..register(const QuireType())
     ..register(const DipType())
     ..register(const CoursesType())
-    ..register(const IdentifyType());
+    ..register(const IdentifyType())
+    ..register(const SnowpitType())
+    ..register(const DarkroomType());
 }

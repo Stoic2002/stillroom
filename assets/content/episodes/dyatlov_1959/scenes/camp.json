@@ -1,0 +1,250 @@
+{
+  "id": "camp",
+  "background": "images/scenes/dyatlov_1959/camp.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "slope"
+    },
+    {
+      "id": "darkroom",
+      "to": "darkroom",
+      "rect": [
+        0.86,
+        0.22,
+        0.12,
+        0.5
+      ],
+      "when": [
+        {
+          "flag": "took_films",
+          "equals": true
+        }
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "casefile",
+      "rect": [
+        0.2,
+        0.52,
+        0.16,
+        0.12
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_file",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "dyatlov_1959.camp.casefile"
+        }
+      ]
+    },
+    {
+      "id": "rumours",
+      "rect": [
+        0.04,
+        0.16,
+        0.16,
+        0.28
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "dyatlov_1959.camp.rumours"
+        }
+      ]
+    },
+    {
+      "id": "cameras",
+      "rect": [
+        0.44,
+        0.54,
+        0.14,
+        0.1
+      ],
+      "when": [
+        {
+          "flag": "took_films",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "took_films",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "dyatlov_1959.camp.cameras"
+        }
+      ]
+    },
+    {
+      "id": "cameras_done",
+      "rect": [
+        0.44,
+        0.54,
+        0.14,
+        0.1
+      ],
+      "when": [
+        {
+          "flag": "took_films",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "dyatlov_1959.camp.cameras_done"
+        }
+      ]
+    },
+    {
+      "id": "radio",
+      "rect": [
+        0.7,
+        0.38,
+        0.14,
+        0.18
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "radio_static"
+        },
+        {
+          "type": "showText",
+          "key": "dyatlov_1959.camp.radio"
+        }
+      ]
+    },
+    {
+      "id": "door_shut",
+      "rect": [
+        0.86,
+        0.22,
+        0.12,
+        0.5
+      ],
+      "when": [
+        {
+          "flag": "took_films",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "dyatlov_1959.camp.door_shut"
+        }
+      ]
+    },
+    {
+      "id": "later",
+      "rect": [
+        0.62,
+        0.58,
+        0.12,
+        0.1
+      ],
+      "when": [
+        {
+          "puzzleSolved": "snowpit"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_later",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "dyatlov_1959.camp.later"
+        }
+      ]
+    },
+    {
+      "id": "routebook",
+      "rect": [
+        0.4,
+        0.68,
+        0.14,
+        0.08
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "dyatlov_1959.camp.routebook"
+        }
+      ]
+    },
+    {
+      "id": "routebook_seal",
+      "rect": [
+        0.4,
+        0.68,
+        0.14,
+        0.08
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "jar_label",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "dyatlov_1959.camp.seal_needed"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "jar_label"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "later_sprite",
+      "image": "images/objects/dyatlov_1959/later_sprite.png",
+      "rect": [
+        0.62,
+        0.58,
+        0.12,
+        0.1
+      ],
+      "when": [
+        {
+          "puzzleSolved": "snowpit"
+        }
+      ]
+    }
+  ]
+}

@@ -541,4 +541,85 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get cartoucheCaption => '내륙의 새 지도';
+
+  @override
+  String get snowpitInstruction =>
+      '층을 누른 다음 무언가를 밀어 넣자. 들어가는 것 중 가장 큰 것이 그 단단함이다.';
+
+  @override
+  String snowpitIn(String tool) {
+    return '$tool: 들어간다';
+  }
+
+  @override
+  String snowpitOut(String tool) {
+    return '$tool: 들어가지 않는다';
+  }
+
+  @override
+  String get snowpitMark => '약층으로 표시';
+
+  @override
+  String get snowpitUntested => '먼저 이 층과 그 위층의 단단함을 알아내자.';
+
+  @override
+  String get snowpitNotSofter => '위층보다 무르지 않다.';
+
+  @override
+  String get snowpitTap => '두드리기';
+
+  @override
+  String snowpitTaps(int count, String phase) {
+    return '두드린 횟수: $count ($phase)';
+  }
+
+  @override
+  String get snowpitWrist => '손목으로';
+
+  @override
+  String get snowpitElbow => '팔꿈치로';
+
+  @override
+  String get snowpitShoulder => '어깨로';
+
+  @override
+  String get snowpitColumn => '표시한 층 바로 아래까지 기둥을 잘라 냈다. 위에서 삽을 두드리자.';
+
+  @override
+  String get snowpitSpent => '서른 번을 두드려도 아무것도 부러지지 않았다. 약층은 더 깊다.';
+
+  @override
+  String get snowpitBrokeElsewhere => '다른 층, 더 위에서 부러졌다. 그 층을 표시하자.';
+
+  @override
+  String get toolFist => '주먹';
+
+  @override
+  String get toolFourFingers => '손가락 네 개';
+
+  @override
+  String get toolOneFinger => '손가락 하나';
+
+  @override
+  String get toolPencil => '연필';
+
+  @override
+  String get toolKnife => '칼';
+
+  @override
+  String get darkroomInstruction => '프레임을 고르자. 그 테스트 스트립에서 인화할 띠를 누르자.';
+
+  @override
+  String get darkroomLight => '너무 짧다. 잿빛으로 비었다. 인화지를 버렸다.';
+
+  @override
+  String get darkroomDark => '너무 길다. 눈이 잿빛이 되었다. 인화지를 버렸다.';
+
+  @override
+  String darkroomSeconds(String seconds) {
+    return '$seconds초';
+  }
+
+  @override
+  String get routebookCaption => '경로 수첩';
 }

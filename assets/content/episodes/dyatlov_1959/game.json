@@ -1,0 +1,174 @@
+{
+  "startScene": "slope",
+  "flags": {
+    "read_tracks": false,
+    "read_file": false,
+    "took_films": false,
+    "read_later": false,
+    "found_note": false
+  },
+  "logicalResolution": [
+    1920,
+    1080
+  ],
+  "orientation": "landscape",
+  "sceneTransitionMs": 600,
+  "music": "ural_wind",
+  "words": [
+    {
+      "id": "slab",
+      "labelKey": "dyatlov_1959.word.slab",
+      "kind": "thing"
+    },
+    {
+      "id": "cut",
+      "labelKey": "dyatlov_1959.word.cut",
+      "kind": "thing"
+    },
+    {
+      "id": "cedar",
+      "labelKey": "dyatlov_1959.word.cedar",
+      "kind": "place"
+    },
+    {
+      "id": "aliens",
+      "labelKey": "dyatlov_1959.word.aliens",
+      "kind": "thing"
+    },
+    {
+      "id": "yeti",
+      "labelKey": "dyatlov_1959.word.yeti",
+      "kind": "thing"
+    },
+    {
+      "id": "weapons",
+      "labelKey": "dyatlov_1959.word.weapons",
+      "kind": "thing"
+    },
+    {
+      "id": "mansi",
+      "labelKey": "dyatlov_1959.word.mansi",
+      "kind": "name"
+    },
+    {
+      "id": "radiation",
+      "labelKey": "dyatlov_1959.word.radiation",
+      "kind": "thing"
+    },
+    {
+      "id": "natural_force",
+      "labelKey": "dyatlov_1959.word.natural_force",
+      "kind": "thing"
+    },
+    {
+      "id": "otorten",
+      "labelKey": "dyatlov_1959.word.otorten",
+      "kind": "place"
+    }
+  ],
+  "secret": {
+    "when": [
+      {
+        "flag": "found_note",
+        "equals": true
+      }
+    ],
+    "noteKey": "dyatlov_1959.cedar.keeper_note"
+  },
+  "hintStages": [
+    {
+      "id": "write_seal",
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.dyatlov_1959.write_seal.1"
+        },
+        {
+          "key": "hint.dyatlov_1959.write_seal.2"
+        }
+      ]
+    },
+    {
+      "id": "later",
+      "when": [
+        {
+          "puzzleSolved": "snowpit"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.dyatlov_1959.later.1"
+        },
+        {
+          "key": "hint.dyatlov_1959.later.2"
+        }
+      ]
+    },
+    {
+      "id": "pit",
+      "when": [
+        {
+          "puzzleSolved": "darkroom"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.dyatlov_1959.pit.1"
+        },
+        {
+          "key": "hint.dyatlov_1959.pit.2"
+        }
+      ]
+    },
+    {
+      "id": "films",
+      "when": [
+        {
+          "flag": "took_films",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.dyatlov_1959.films.1"
+        },
+        {
+          "key": "hint.dyatlov_1959.films.2"
+        }
+      ]
+    },
+    {
+      "id": "camp",
+      "when": [
+        {
+          "flag": "read_tracks",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.dyatlov_1959.camp.1"
+        },
+        {
+          "key": "hint.dyatlov_1959.camp.2"
+        }
+      ]
+    },
+    {
+      "id": "start",
+      "hints": [
+        {
+          "key": "hint.dyatlov_1959.start.1"
+        },
+        {
+          "key": "hint.dyatlov_1959.start.2"
+        }
+      ]
+    }
+  ]
+}

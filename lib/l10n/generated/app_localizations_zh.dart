@@ -538,4 +538,84 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get cartoucheCaption => '内陆新图';
+
+  @override
+  String get snowpitInstruction => '点一层雪，再把东西推进去：能进去的最大的那样，就是它的硬度。';
+
+  @override
+  String snowpitIn(String tool) {
+    return '$tool：能进去';
+  }
+
+  @override
+  String snowpitOut(String tool) {
+    return '$tool：进不去';
+  }
+
+  @override
+  String get snowpitMark => '标为弱层';
+
+  @override
+  String get snowpitUntested => '先测出这一层和它上面那一层的硬度。';
+
+  @override
+  String get snowpitNotSofter => '它并不比上面那层软。';
+
+  @override
+  String get snowpitTap => '敲击';
+
+  @override
+  String snowpitTaps(int count, String phase) {
+    return '敲击次数：$count（$phase）';
+  }
+
+  @override
+  String get snowpitWrist => '用手腕';
+
+  @override
+  String get snowpitElbow => '用手肘';
+
+  @override
+  String get snowpitShoulder => '用肩膀';
+
+  @override
+  String get snowpitColumn => '雪柱已切到标记层的正下方。在上面敲铲子。';
+
+  @override
+  String get snowpitSpent => '敲了三十下，什么也没断：弱层还在更深处。';
+
+  @override
+  String get snowpitBrokeElsewhere => '它断在了另一层，更靠上。去标那一层。';
+
+  @override
+  String get toolFist => '拳头';
+
+  @override
+  String get toolFourFingers => '四根手指';
+
+  @override
+  String get toolOneFinger => '一根手指';
+
+  @override
+  String get toolPencil => '铅笔';
+
+  @override
+  String get toolKnife => '小刀';
+
+  @override
+  String get darkroomInstruction => '选一格。在它的试样条上，点要用来放印的那一段。';
+
+  @override
+  String get darkroomLight => '太短：灰白一片。相纸废了。';
+
+  @override
+  String get darkroomDark => '太长：雪发灰了。相纸废了。';
+
+  @override
+  String darkroomSeconds(String seconds) {
+    return '$seconds秒';
+  }
+
+  @override
+  String get routebookCaption => '路线手册';
 }

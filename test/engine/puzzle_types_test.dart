@@ -341,6 +341,8 @@ void main() {
       'dip',
       'courses',
       'identify',
+      'snowpit',
+      'darkroom',
     ]);
   });
 }

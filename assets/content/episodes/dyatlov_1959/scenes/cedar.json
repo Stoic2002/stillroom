@@ -1,0 +1,141 @@
+{
+  "id": "cedar",
+  "background": "images/scenes/dyatlov_1959/cedar.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "slope"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "cedar",
+      "rect": [
+        0.34,
+        0.06,
+        0.26,
+        0.66
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "dyatlov_1959.cedar.tree"
+        }
+      ]
+    },
+    {
+      "id": "fire",
+      "rect": [
+        0.53,
+        0.76,
+        0.18,
+        0.1
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "dyatlov_1959.cedar.fire"
+        }
+      ]
+    },
+    {
+      "id": "branch",
+      "rect": [
+        0.6,
+        0.4,
+        0.12,
+        0.12
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "dyatlov_1959.cedar.branch"
+        }
+      ]
+    },
+    {
+      "id": "branch_note",
+      "rect": [
+        0.6,
+        0.4,
+        0.12,
+        0.12
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": true
+        },
+        {
+          "flag": "found_note",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "found_note",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "dyatlov_1959.cedar.keeper_note"
+        }
+      ]
+    },
+    {
+      "id": "branch_done",
+      "rect": [
+        0.6,
+        0.4,
+        0.12,
+        0.12
+      ],
+      "when": [
+        {
+          "flag": "found_note",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "dyatlov_1959.cedar.branch_done"
+        }
+      ]
+    },
+    {
+      "id": "forest",
+      "rect": [
+        0.74,
+        0.1,
+        0.24,
+        0.6
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "dyatlov_1959.cedar.forest"
+        }
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "raven",
+      "kind": "raven",
+      "rect": [
+        0.18,
+        0.2,
+        0.1,
+        0.1
+      ]
+    }
+  ]
+}

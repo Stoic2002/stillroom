@@ -129,7 +129,19 @@ enum UiSound {
   slabTilt('slab_tilt', Haptic.selection),
 
   /// A step taken in an identification key: a page of the key turned.
-  keyStep('key_step', Haptic.selection);
+  keyStep('key_step', Haptic.selection),
+
+  /// A hand or a tool pushed into a snow layer.
+  snowPush('snow_push', Haptic.selection),
+
+  /// The shovel tapped on a snow column.
+  shovelTap('shovel_tap', Haptic.light),
+
+  /// A snow column breaking on its weak layer.
+  columnBreak('column_break', Haptic.medium),
+
+  /// The enlarger's timer ticking through an exposure.
+  enlarger('enlarger', Haptic.light);
 
   const UiSound(this.id, this.haptic);
 

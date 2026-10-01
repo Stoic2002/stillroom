@@ -1,0 +1,126 @@
+{
+  "id": "darkroom",
+  "background": "images/scenes/dyatlov_1959/darkroom.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "camp"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "bench",
+      "rect": [
+        0.28,
+        0.42,
+        0.42,
+        0.3
+      ],
+      "when": [
+        {
+          "puzzleSolved": "darkroom",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "dyatlov_1959.darkroom.bench"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "darkroom"
+        }
+      ]
+    },
+    {
+      "id": "bench_done",
+      "rect": [
+        0.28,
+        0.42,
+        0.42,
+        0.3
+      ],
+      "when": [
+        {
+          "puzzleSolved": "darkroom"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "dyatlov_1959.darkroom.bench_done"
+        }
+      ]
+    },
+    {
+      "id": "lamp",
+      "rect": [
+        0.44,
+        0.04,
+        0.12,
+        0.16
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "dyatlov_1959.darkroom.lamp"
+        }
+      ]
+    },
+    {
+      "id": "prints",
+      "rect": [
+        0.06,
+        0.16,
+        0.2,
+        0.22
+      ],
+      "when": [
+        {
+          "puzzleSolved": "darkroom"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "dyatlov_1959.darkroom.prints"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "prints_sprite",
+      "image": "images/objects/dyatlov_1959/prints_sprite.png",
+      "rect": [
+        0.06,
+        0.16,
+        0.2,
+        0.22
+      ],
+      "when": [
+        {
+          "puzzleSolved": "darkroom"
+        }
+      ]
+    }
+  ],
+  "echoes": [
+    {
+      "id": "investigator",
+      "image": "images/objects/dyatlov_1959/echo_investigator.png",
+      "rect": [
+        0.78,
+        0.3,
+        0.05,
+        0.36
+      ],
+      "chance": 0.7,
+      "drift": [
+        0.01,
+        0
+      ]
+    }
+  ]
+}

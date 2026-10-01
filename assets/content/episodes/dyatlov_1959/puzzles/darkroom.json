@@ -1,0 +1,53 @@
+{
+  "id": "darkroom",
+  "type": "darkroom",
+  "background": "images/scenes/dyatlov_1959/darkroom_board.png",
+  "config": {
+    "strip": [
+      2,
+      4,
+      8,
+      16,
+      32
+    ],
+    "frames": [
+      {
+        "image": "images/objects/dyatlov_1959/frame_1.png",
+        "captionKey": "dyatlov_1959.frame.1",
+        "exposure": 2
+      },
+      {
+        "image": "images/objects/dyatlov_1959/frame_2.png",
+        "captionKey": "dyatlov_1959.frame.2",
+        "exposure": 1
+      },
+      {
+        "image": "images/objects/dyatlov_1959/frame_3.png",
+        "captionKey": "dyatlov_1959.frame.3",
+        "exposure": 3
+      },
+      {
+        "image": "images/objects/dyatlov_1959/frame_4.png",
+        "captionKey": "dyatlov_1959.frame.4",
+        "exposure": 2
+      }
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "showText",
+      "key": "dyatlov_1959.darkroom.done"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.dyatlov_1959.darkroom.1"
+    },
+    {
+      "key": "hint.dyatlov_1959.darkroom.2"
+    },
+    {
+      "key": "hint.dyatlov_1959.darkroom.3"
+    }
+  ]
+}

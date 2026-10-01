@@ -304,6 +304,7 @@ a tap near it may startle it. They never block taps.
 | `gull` | Now and then flies across its sky band | `gull_cry` |
 | `fulmar` | Sits on a ledge; flies off when tapped, glides back | `wings_flutter` |
 | `grass` | Tufts bending in the wind | — |
+| `raven` | Sits on a branch; flies off when tapped, comes back (the fulmar's ways, in black) | `wings_flutter` |
 | `eagle` | Turns in slow circles high over its area, on broad still wings; too high to startle | `eagle_cry` now and then |
 
 Pick creatures that belong to the tale's place and **season**. For example,
@@ -537,6 +538,7 @@ filled slot swaps them.
 | `rubbing` | An ink rubbing (*takbon*) taken from a cast inscription: black paper, the letters pale, a band of lotus scroll, the caption `rubbingCaption` | — |
 | `docket` | The cover sheet of a police file: printed headings (`docketHeader`, `docketSubheader`), a register stamp, the entry in dark ink by hand | — |
 | `vermilion` | A sheet of imperial yellow in a double vermilion rule, the sentences in vermilion (the emperor's own ink), the caption `vermilionCaption` | — |
+| `routebook` | A sports club's route book open at its last page: grey ruled paper, a red margin, a violet club stamp, the caption `routebookCaption`, the entry written in ink | — |
 | `cartouche` | An old map's title cartouche: a parchment panel in a double rule with scrolled ends, the caption `cartoucheCaption`, the sentences written inside | — |
 | `colophon` | A manuscript's colophon: burnished paper in a thin brown double rule, scorched at one corner, the caption `colophonCaption`, the sentences centred and narrowing, closed by a triangle of dots | — |
 
@@ -547,7 +549,8 @@ cachet*, written with only what is known), Gyeongju `rubbing` (taken from
 the bell's bronze), Whitechapel 1891 `docket` (the file's cover), Beijing
 1908 `vermilion` (written where the court once wrote "illness"), Alamut
 1256 `colophon` (the closing lines of the library's last book), Great
-Zimbabwe 1871 `cartouche` (where the old maps wrote Ophir).
+Zimbabwe 1871 `cartouche` (where the old maps wrote Ophir), Dyatlov Pass
+1959 `routebook` (the last entry the group never wrote).
 
 ### `clockHands`: set the hands
 
@@ -1093,6 +1096,63 @@ Zimbabwe 1871 `cartouche` (where the old maps wrote Ophir).
   across couplets and names; `start` is a couplet and `answer` a name; the
   key is a tree reaching every couplet and name exactly once.
 
+### `snowpit`: a snow profile and a column test
+
+```json
+"config": {
+  "layers": [
+    { "thickness": 12, "hardness": "fist" },
+    { "thickness": 38, "hardness": "oneFinger" },
+    { "thickness": 6, "hardness": "fist" }
+  ],
+  "weak": 2,
+  "breakTap": 14
+}
+```
+
+- **What the player sees:** the pit wall, its layers from the surface
+  down, each drawn as thick as it is (never thinner than a tap); five
+  buttons (fist, four fingers, one finger, pencil, knife), Mark as weak,
+  and Tap with the count and its phase (wrist, elbow, shoulder).
+- **Playing:** tap a layer, then push an object into it (`snow_push`, or
+  `reject` if it will not go in). A layer's hardness is known once the
+  object of its hardness went in and the next larger did not (a fist is
+  the largest); it then shows as a bar and its shorthand (F, 4F, 1F, P,
+  K). Mark a layer whose hardness, and the one above it, are known: if it
+  is not softer than the layer above, a mistake. Marking cuts a column to
+  just below it; each Tap (`shovel_tap`) counts to 30. If the `weak` layer
+  is in the column, it breaks there at `breakTap` (`column_break`): solved
+  if that is the layer marked, otherwise a mistake and the player marks
+  again. A column above the weak layer never breaks.
+- **Hardness:** `fist`, `fourFingers`, `oneFinger`, `pencil`, `knife`
+  (softest first).
+- **Validation:** 3 to 8 layers, each 2 to 80 cm; `weak` below the first
+  layer and softer than the one above it; `breakTap` 1 to 30.
+
+### `darkroom`: frames printed from a test strip
+
+```json
+"config": {
+  "strip": [2, 4, 8, 16, 32],
+  "frames": [
+    { "image": "images/objects/ep/frame_1.png", "captionKey": "…", "exposure": 2 }
+  ]
+}
+```
+
+- **What the player sees:** the roll's frames as negatives along the top
+  (printed ones as positives with a check); the picked frame's test strip,
+  a band per exposure, each a slice of the frame printed at that time; the
+  last print, with its caption once printed right.
+- **Playing:** pick a frame, tap a band to print it: the right band
+  (`exposure`) prints it (`enlarger`) and moves on to the next frame;
+  shorter comes out grey and empty, longer dark, a mistake. Solved when
+  every frame is printed. The frames are drawn in plain tones; the view
+  greys them and lightens or darkens them by the bands' distance from the
+  right one.
+- **Validation:** 3 to 7 bands, rising and above 0; 1 to 6 frames, each
+  `exposure` never the first or last band.
+
 ## Words and the jar's label
 
 `words` in `game.json` declares what the player can note down:
@@ -1286,3 +1346,4 @@ warnings show in the debug panel).
 | 2026-09-30 | post-M6 | Puzzle types `strand` and `scan`; deduction form `vermilion`; interface sounds `geiger`, `geiger_hot`, `sample`, `probe_tick`. Episode `chongling_1908` (shelf III) replaces `sealed_guangxu_1908`; the sealed teaser on shelf III is now `sealed_alamut_1256`. |
 | 2026-09-30 | post-M6 | Puzzle types `quire` and `dip`; deduction form `colophon`; creature `eagle`; interface sounds `catchword`, `reed_touch`, `drip`, `drip_slow`. Episode `alamut_1256` (shelf III) replaces `sealed_alamut_1256`; the sealed teaser on shelf III is now `sealed_zimbabwe_1871`. |
 | 2026-10-01 | post-M6 | Puzzle types `courses` and `identify`; deduction form `cartouche`; interface sounds `block_lay`, `slab_tilt`, `key_step`. Episode `great_zimbabwe_1871` (shelf III) replaces `sealed_zimbabwe_1871` and fills shelf III; a sealed teaser `sealed_dyatlov_1959` stands on shelf IV (`unlockAfter` 8). |
+| 2026-10-01 | post-M6 | Puzzle types `snowpit` and `darkroom`; deduction form `routebook`; creature `raven`; interface sounds `snow_push`, `shovel_tap`, `column_break`, `enlarger`. Episode `dyatlov_1959` (shelf IV) replaces `sealed_dyatlov_1959`; the sealed teaser on shelf IV is now `sealed_honnoji_1582`. |

@@ -73,6 +73,14 @@ enum EchoFigure {
   /// A hunter in a wide-brimmed hat and a long coat, a rifle over the
   /// shoulder.
   hunter,
+
+  /// A searcher in a padded coat and a fur hat, a long avalanche probe
+  /// held upright.
+  searcher,
+
+  /// An investigator in shirtsleeves under a red lamp, a print held up to
+  /// the light.
+  investigator,
 }
 
 const _mist = Color(0xFFD5DEE2);
@@ -475,6 +483,48 @@ void paintEcho(Art a, EchoFigure figure) {
             ..strokeWidth = w * 0.06
             ..maskFilter = blur,
         );
+    case EchoFigure.searcher:
+      a.canvas
+        // The fur hat.
+        ..drawOval(a.r(0.32, 0.02, 0.36, 0.1), body)
+        ..drawPath(
+          shape([(0.26, 0.2), (0.74, 0.2), (0.8, 0.7), (0.2, 0.7)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.32, 0.68), (0.47, 0.68), (0.46, 0.99), (0.33, 0.99)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.53, 0.68), (0.68, 0.68), (0.67, 0.99), (0.54, 0.99)]),
+          body,
+        )
+        // The long probe, upright beside him.
+        ..drawLine(
+          a.p(0.88, 0.0),
+          a.p(0.86, 0.99),
+          Paint()
+            ..color = _mist
+            ..strokeWidth = w * 0.05
+            ..maskFilter = blur,
+        );
+    case EchoFigure.investigator:
+      a.canvas
+        ..drawPath(
+          shape([(0.3, 0.2), (0.7, 0.2), (0.72, 0.62), (0.28, 0.62)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.3, 0.6), (0.7, 0.6), (0.68, 0.99), (0.32, 0.99)]),
+          body,
+        )
+        // The arm raised, a print held up.
+        ..drawPath(
+          shape([(0.64, 0.24), (0.84, 0.08), (0.88, 0.12), (0.7, 0.3)]),
+          body,
+        )
+        ..drawRect(a.r(0.78, -0.02, 0.2, 0.12), body);
+      a.glow(a.p(0.5, 0.3), w * 0.6, const Color(0xFFC0302A), strength: 0.3);
     case EchoFigure.scientist:
       a.canvas
         // The lab coat, open, to the knees.
