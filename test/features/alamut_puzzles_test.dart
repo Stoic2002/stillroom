@@ -137,6 +137,12 @@ void main() {
   });
 
   group('dip', () {
+    testWidgets('closing the tanks untouched disposes cleanly', (tester) async {
+      await pumpPuzzle(tester, 'dip');
+      await tester.pumpWidget(const SizedBox());
+      expect(tester.takeException(), isNull);
+    });
+
     Future<void> dipTank(WidgetTester tester, int t, {double by = 400}) async {
       final tank = find.byKey(ValueKey('dip_tank_$t'));
       final top = tester.getRect(tank).topCenter.translate(0, 4);

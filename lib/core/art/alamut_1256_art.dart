@@ -218,17 +218,37 @@ void _court(Art a) {
     const Color(0xFF6A6E72),
     const Color(0xFF4A4C4E),
   );
+  // The camp: rows of small tents, campfires among them, and smoke
+  // rising thin and straight in the cold air.
   final fires = math.Random(19);
-  for (var i = 0; i < 26; i++) {
-    final p = a.p(
-      0.39 + fires.nextDouble() * 0.2,
-      0.53 + fires.nextDouble() * 0.05,
+  for (var i = 0; i < 22; i++) {
+    final row = fires.nextDouble();
+    final p = a.p(0.39 + fires.nextDouble() * 0.21, 0.535 + row * 0.05);
+    final size = a.u * (0.5 + row * 0.5);
+    a.path(
+      a.poly([
+        p.translate(-size, 0),
+        p.translate(0, -size * 1.1),
+        p.translate(size, 0),
+      ]),
+      const Color(0xFFB8B4A8),
+      line: 0.15,
     );
+  }
+  for (var i = 0; i < 16; i++) {
+    final row = fires.nextDouble();
+    final p = a.p(0.4 + fires.nextDouble() * 0.19, 0.54 + row * 0.05);
     a
-      ..glow(p, a.u * 1.4, const Color(0xFFE08A3A), strength: 0.5)
+      ..line(
+        p.translate(0, -a.u * 0.6),
+        p.translate(a.u * 0.4, -a.u * (3 + row * 2)),
+        const Color(0x55C8C8C8),
+        width: 0.5,
+      )
+      ..glow(p, a.u * (1.2 + row), const Color(0xFFE08A3A), strength: 0.6)
       ..canvas.drawCircle(
         p,
-        a.u * 0.25,
+        a.u * (0.2 + row * 0.15),
         Paint()..color = const Color(0xFFFFC870),
       );
   }
@@ -847,7 +867,8 @@ void _library(Art a) {
   a
     ..line(a.p(0.79, 0.5), a.p(0.85, 0.41), _wood, width: 1)
     ..line(a.p(0.85, 0.5), a.p(0.79, 0.41), _wood, width: 1);
-  _oilLamp(a, a.p(0.935, 0.49), a.u * 1.1);
+  // A lamp on the platform's end, by the writing box.
+  _oilLamp(a, a.p(0.955, 0.588), a.u * 1.1);
 
   // The loose sheets on the floor, folded in pairs.
   for (final (x, y, angle) in [

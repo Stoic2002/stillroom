@@ -405,18 +405,39 @@ void _camp(Art a) {
       line: 0.3,
     )
     // The tent pole, and the rifle leaning on it.
-    ..line(a.p(0.84, 0.66), a.p(0.84, 0.22), _wood, width: 0.9)
+    ..line(a.p(0.84, 0.66), a.p(0.84, 0.22), _wood, width: 0.9);
+  // The rifle: a long dark barrel resting on the pole, the wooden stock
+  // on the ground, its butt widening to the foot.
+  a
     ..line(
-      a.p(0.82, 0.66),
-      a.p(0.86, 0.26),
+      a.p(0.838, 0.27),
+      a.p(0.818, 0.56),
       const Color(0xFF2A2420),
-      width: 0.8,
+      width: 0.7,
     )
     ..line(
-      a.p(0.82, 0.66),
-      a.p(0.825, 0.56),
-      const Color(0xFF5A3A22),
-      width: 1.6,
+      a.p(0.836, 0.3),
+      a.p(0.82, 0.54),
+      const Color(0xFF6A5A48),
+      width: 0.25,
+    )
+    ..path(
+      a.poly([
+        a.p(0.815, 0.54),
+        a.p(0.824, 0.54),
+        a.p(0.83, 0.63),
+        a.p(0.822, 0.665),
+        a.p(0.806, 0.665),
+        a.p(0.81, 0.6),
+      ]),
+      const Color(0xFF6A4226),
+      line: 0.35,
+    )
+    ..line(
+      a.p(0.822, 0.575),
+      a.p(0.828, 0.585),
+      const Color(0xFF8A8A84),
+      width: 0.35,
     );
 
   // The folding table.
@@ -455,9 +476,46 @@ void _camp(Art a) {
     ..line(a.p(0.61, 0.5), a.p(0.66, 0.494), _tambootie, width: 1.1)
     ..circle(a.p(0.7, 0.49), a.u * 1.6, const Color(0x88C8D8DA), line: 0.4)
     ..line(a.p(0.715, 0.5), a.p(0.73, 0.52), _wood, width: 0.8);
+  // A hurricane lantern standing on the table's end: a wire handle, a
+  // glass with the flame low, a tin base.
+  final glass = a.r(0.272, 0.452, 0.022, 0.032);
   a
-    ..box(a.r(0.27, 0.42, 0.025, 0.06), const Color(0xFF3A3A34), line: 0.3)
-    ..glow(a.p(0.283, 0.445), a.u * 6, _lamp, strength: 0.3);
+    ..glow(glass.center, a.u * 5, _lamp, strength: 0.25)
+    ..strokePath(
+      Path()..addArc(
+        Rect.fromCenter(
+          center: glass.topCenter.translate(0, -a.u * 0.2),
+          width: glass.width * 0.9,
+          height: a.u * 2.4,
+        ),
+        math.pi,
+        math.pi,
+      ),
+      const Color(0xFF3A3A34),
+      width: 0.3,
+    )
+    ..box(
+      Rect.fromLTWH(
+        glass.left - a.u * 0.2,
+        glass.top - a.u * 0.7,
+        glass.width + a.u * 0.4,
+        a.u * 0.7,
+      ),
+      const Color(0xFF4A4A42),
+      line: 0.25,
+    )
+    ..oval(glass, const Color(0xCCF2DCA0), line: 0.25)
+    ..flame(glass.center.translate(0, glass.height * 0.2), glass.height * 0.4)
+    ..box(
+      Rect.fromLTWH(
+        glass.left - a.u * 0.3,
+        glass.bottom,
+        glass.width + a.u * 0.6,
+        0.5 * a.size.height - glass.bottom,
+      ),
+      const Color(0xFF4A4A42),
+      line: 0.25,
+    );
   _dryGrass(a, 0.84, seed: 23, count: 60);
 }
 
@@ -590,15 +648,40 @@ void _hill(Art a) {
       const Color(0xFFB8A878),
       const Color(0xFFA08C5E),
     );
+  // The great enclosure far below: a thick oval of grey stone with its
+  // outer face showing, the grass inside, the tower's cone, and a hint of
+  // the chevrons along the far rim.
   final oval = a.r(0.7, 0.58, 0.2, 0.1);
+  final face = oval.translate(0, a.size.height * 0.014);
+  final inside = Rect.fromLTRB(
+    oval.left + oval.width * 0.06,
+    oval.top + oval.height * 0.14,
+    oval.right - oval.width * 0.06,
+    oval.bottom - oval.height * 0.12,
+  );
   a
-    ..oval(oval, const Color(0xFF9A9282), line: 0.4)
-    ..oval(oval.deflate(a.u * 0.8), const Color(0xFFB0A070), line: 0.3)
-    ..path(
-      a.poly([a.p(0.82, 0.63), a.p(0.825, 0.59), a.p(0.83, 0.63)]),
-      _graniteShade,
-      line: 0.2,
+    ..oval(face.inflate(a.u * 0.6), const Color(0x33000000), line: 0)
+    ..oval(face, _graniteShade, line: 0.4)
+    ..oval(oval, const Color(0xFFA8A090), line: 0.4)
+    ..oval(inside, const Color(0xFFB4A474), line: 0.3);
+  for (var i = 0; i < 9; i++) {
+    final t = math.pi * (1.15 + 0.7 * i / 8);
+    final c = Offset(
+      oval.center.dx + math.cos(t) * oval.width * 0.47,
+      oval.center.dy + math.sin(t) * oval.height * 0.44,
     );
+    a.line(
+      c.translate(-a.u * 0.25, -a.u * 0.2),
+      c.translate(a.u * 0.25, a.u * 0.2),
+      const Color(0xFFD8D0C0),
+      width: 0.18,
+    );
+  }
+  a.path(
+    a.poly([a.p(0.812, 0.645), a.p(0.82, 0.595), a.p(0.828, 0.645)]),
+    const Color(0xFF8A8474),
+    line: 0.25,
+  );
   _msasaTree(a, a.p(0.64, 0.6), a.size.height * 0.12, seed: 41);
   _msasaTree(a, a.p(0.96, 0.58), a.size.height * 0.12, seed: 42);
 
@@ -832,21 +915,37 @@ void _rubble(Art a) {
 
 /// The breach laid back: courses filling it, and the chevrons on top.
 void _mended(Art a) {
-  // Its top follows the wall's, falling a little to the left.
-  final top = a.poly([a.p(0, 0.08), a.p(1, 0), a.p(1, 1), a.p(0, 1)]);
+  // The sprite stands at [0.26, 0.22, 0.18, 0.42] in the valley: its top
+  // follows the wall's own curve there (t from 0.25 to 0.5 along it).
+  Offset curve(double t, {double drop = 0}) {
+    final x = (1 - t) * (1 - t) * 0.08 + 2 * t * (1 - t) * 0.44 + t * t * 0.8;
+    final y =
+        (1 - t) * (1 - t) * 0.34 + 2 * t * (1 - t) * 0.14 + t * t * 0.3 + drop;
+    return a.p((x - 0.26) / 0.18, (y - 0.22) / 0.42);
+  }
+
+  final shape = Path()..moveTo(curve(0.25).dx, curve(0.25).dy);
+  for (var i = 1; i <= 8; i++) {
+    final p = curve(0.25 + 0.25 * i / 8);
+    shape.lineTo(p.dx, p.dy);
+  }
+  shape
+    ..lineTo(a.size.width, a.size.height)
+    ..lineTo(0, a.size.height)
+    ..close();
   a.canvas
     ..save()
-    ..clipPath(top);
+    ..clipPath(shape);
   // Courses as tall as the wall's round it (this sprite is a narrow slice
   // of the scene, so its own unit is smaller).
   _coursed(a, a.r(0, 0, 1, 1), seed: 72, row: 6.6);
-  a.canvas.restore();
-  for (var k = 0; k < 6; k++) {
-    final t = (k + 0.5) / 6;
-    final c = a.p(t, 0.08 * (1 - t) + 0.035);
-    final lean = k.isEven ? 1.0 : -1.0;
-    final half = a.size.width * 0.025;
-    final reach = a.size.height * 0.03;
+  // The chevron band, as on the rest of the wall: 44 along the whole top,
+  // so 11 in this quarter.
+  for (var k = 0; k < 11; k++) {
+    final c = curve(0.25 + 0.25 * (k + 0.5) / 11, drop: 0.03);
+    final lean = (k + 11).isEven ? 1.0 : -1.0;
+    final half = a.size.width * 0.004 / 0.18;
+    final reach = a.size.height * 0.018 / 0.42;
     a.path(
       a.poly([
         c.translate(lean * half * 2 - half, -reach),
@@ -858,6 +957,14 @@ void _mended(Art a) {
       line: 0.15,
     );
   }
+  a.canvas.restore();
+  a.strokePath(
+    Path()..addPolygon([
+      for (var i = 0; i <= 8; i++) curve(0.25 + 0.25 * i / 8),
+    ], false),
+    Art.outline,
+    width: 0.5,
+  );
 }
 
 /// Papers laid on a stone, weighted with a pebble.

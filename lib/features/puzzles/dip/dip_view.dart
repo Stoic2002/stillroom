@@ -29,7 +29,7 @@ class _DipViewState extends State<DipView>
     with SolvesAfterPause<DipView>, SingleTickerProviderStateMixin {
   late final _config = widget.context.puzzle.config as DipConfig;
   late DipState _state = _config.start();
-  late final Ticker _ticker = createTicker(_tick);
+  late final Ticker _ticker;
 
   /// The tank the reed is in, while it is being lowered.
   int? _lowering;
@@ -46,6 +46,12 @@ class _DipViewState extends State<DipView>
 
   /// How long the reed drips after it is drawn out.
   static const _dripFor = 6.0;
+
+  @override
+  void initState() {
+    super.initState();
+    _ticker = createTicker(_tick);
+  }
 
   @override
   void dispose() {
