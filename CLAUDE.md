@@ -129,8 +129,10 @@ with a legend to set right. The lineup, by shelf and region, is in
 2. **Next:** shelf IV, in the plan's order: *Honnō-ji, 1582*, *Roanoke, 1590*, *The Franklin expedition, 1845*, and
    one Indonesian tale (to be chosen with the developer). For each: a design doc first (facts with
    sources, 2–3 mechanics of its own, the chain, the seal), approved by
-   the developer before building.
-3. Later, and to be asked first:
+   the developer before building. Draw them in depth (decision 6).
+3. **In the final polish round:** convert the older tales' scenes to
+   depth (decision 6), alongside the developer's review.
+4. Later, and to be asked first:
    - the Indonesian tale for shelf IV;
    - the keeper's arc (OPEN);
    - native-speaker translation review;
