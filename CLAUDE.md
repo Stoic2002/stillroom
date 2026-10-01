@@ -60,7 +60,7 @@ player restores the truth of the tale and seals the jar.
   - The CJK fonts are subsets: `test/content/font_coverage_test.dart` fails
     on a rare glyph, so reword it (e.g. 蹚 and 祇 were replaced).
 
-### The tales (9 playable)
+### The tales (10 playable)
 
 | Shelf | Tale | Its own mechanics | Its label now |
 |---|---|---|---|
@@ -72,11 +72,13 @@ player restores the truth of the tale and seals the jar.
 | III | *Beijing, 1908* (the Guangxu Emperor, set at Chongling during the 2003–08 tests) | His hair measured segment by segment on scarce reactor time (`strand`), a probe over his robe, outer and inner (`scan`) | `vermilion` **seal**: imperial yellow, 3 words, the hand *not known* |
 | II | *Gyeongju, 771* (the Emille Bell) | Bronze routed into the mould (`pour`), the striker and the hollow under the bell (`resonance`), the rim struck round to find the deepest swell, the "cry" (`beat`) | `rubbing` **seal**: an ink rubbing, 3 words |
 | III | *Alamut, 1256* (the library of the fortress) | Juvayni's loose sheets nested by their catchwords (`quire`), tanks in the rock named by how the reed drips (`dip`) | `colophon` **seal**: a book's closing lines, 3 words |
+| III | *Great Zimbabwe, 1871* (the city of stone) | The breach laid back course by course, no joint over a joint, then the chevron band (`courses`); Mauch's splinter named by walking a key to woods (`identify`) | `cartouche` **seal**: an old map's title panel, 3 words |
 | II | *Bastille, 1703* (the Iron Mask) | The turnkey's keys (`keyring`: match the bit, turn it over), the Great Cipher (`cipher`, 330 309 left unread), the prisoner's file (`sources`: written at the time vs. told after) | `order` **seal**: a royal order, 3 words |
 
-Shelf III opens after 4 tales are distilled: *Whitechapel, 1891*,
-*Beijing, 1908*, *Alamut, 1256*, and a sealed teaser jar
-(`sealed_zimbabwe_1871`) for the tale still to come. The top shelf is meant for the old keeper's
+Shelf III opens after 4 tales are distilled and is full: *Whitechapel,
+1891*, *Beijing, 1908*, *Alamut, 1256*, *Great Zimbabwe, 1871*. Shelf IV
+(`unlockAfter` 8) holds only a sealed teaser jar (`sealed_dyatlov_1959`)
+for its tales still to come. The top shelf is meant for the old keeper's
 own tale; its arc is OPEN.
 
 **The plan: 16 tales on 5 shelves** (decided 2026-09-30), all real cases
@@ -116,9 +118,9 @@ with a legend to set right. The lineup, by shelf and region, is in
    2026-10-01; Play Store target mid-October 2026, end of October at the
    latest). Keep each design doc's *Things to watch* as the checklist for
    that review.
-2. **Next:** *Great Zimbabwe, 1871* (design draft
-   `docs/episodes/great_zimbabwe_1871.md`, waiting for approval) closes
-   shelf III; then shelf IV. For each: a design doc first (facts with
+2. **Next:** shelf IV, in the plan's order: *Dyatlov Pass, 1959*, then
+   *Honnō-ji, 1582*, *Roanoke, 1590*, *The Franklin expedition, 1845*, and
+   one Indonesian tale (to be chosen with the developer). For each: a design doc first (facts with
    sources, 2–3 mechanics of its own, the chain, the seal), approved by
    the developer before building.
 3. Later, and to be asked first:

@@ -533,4 +533,41 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get colophonCaption => 'Here the book ends';
+
+  @override
+  String get coursesInstruction =>
+      'Lay the fallen blocks back, course by course from the left. No block may end over a joint in the course below.';
+
+  @override
+  String coursesCourse(int course, int total) {
+    return 'Course $course of $total';
+  }
+
+  @override
+  String get coursesTooLong => 'Too long: it would run past the gap.';
+
+  @override
+  String get coursesJoint => 'Joint over joint: the wall would split there.';
+
+  @override
+  String get coursesTakeBack => 'Take back';
+
+  @override
+  String get coursesBand =>
+      'The chevron band: tap a slab to lean it the other way, until they lean in turn.';
+
+  @override
+  String get identifyInstruction =>
+      'Look at the splinter. Which is true of it?';
+
+  @override
+  String identifyWrong(String name) {
+    return 'The key ends at: $name';
+  }
+
+  @override
+  String get identifyBack => 'Back to where the path went wrong.';
+
+  @override
+  String get cartoucheCaption => 'A new map of the interior';
 }

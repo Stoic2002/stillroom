@@ -148,5 +148,15 @@
   "dipLow": "Escaseaban",
   "dipFull": "Llenas",
   "dipStoresWrong": "Vuelve a mirar hasta dónde llega cada depósito.",
-  "colophonCaption": "Aquí termina el libro"
+  "colophonCaption": "Aquí termina el libro",
+  "coursesInstruction": "Vuelve a colocar los bloques caídos, hilada a hilada desde la izquierda. Ningún bloque puede acabar sobre una junta de la hilada de abajo.",
+  "coursesCourse": "Hilada {course} de {total}",
+  "coursesTooLong": "Demasiado largo: se saldría del hueco.",
+  "coursesJoint": "Junta sobre junta: el muro se partiría ahí.",
+  "coursesTakeBack": "Retirar",
+  "coursesBand": "La banda de chevrones: toca una losa para inclinarla al otro lado, hasta que se inclinen por turnos.",
+  "identifyInstruction": "Mira la astilla. ¿Qué es cierto de ella?",
+  "identifyWrong": "La clave termina en: {name}",
+  "identifyBack": "Vuelve a donde el camino se torció.",
+  "cartoucheCaption": "Nuevo mapa del interior"
 }

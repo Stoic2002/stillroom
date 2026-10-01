@@ -1,0 +1,61 @@
+{
+  "id": "courses",
+  "type": "courses",
+  "background": "images/scenes/great_zimbabwe_1871/courses_board.png",
+  "config": {
+    "width": 12,
+    "base": [
+      3,
+      4,
+      2,
+      3
+    ],
+    "courses": 3,
+    "blocks": [
+      4,
+      2,
+      4,
+      4,
+      4,
+      2,
+      4,
+      2,
+      4,
+      4,
+      2
+    ],
+    "chevrons": [
+      true,
+      true,
+      false,
+      true,
+      false,
+      false,
+      true,
+      false,
+      true,
+      true
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "stone_set"
+    },
+    {
+      "type": "showText",
+      "key": "great_zimbabwe_1871.valley.courses_done"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.great_zimbabwe_1871.courses.1"
+    },
+    {
+      "key": "hint.great_zimbabwe_1871.courses.2"
+    },
+    {
+      "key": "hint.great_zimbabwe_1871.courses.3"
+    }
+  ]
+}

@@ -159,6 +159,10 @@ enum DeductionForm {
   /// A manuscript's colophon: the closing lines where the scribe says what
   /// the book is and when it was finished, the text narrowing to a point.
   colophon,
+
+  /// The title cartouche of an old map: an ornamented panel where the map
+  /// once named the land wrongly.
+  cartouche,
 }
 
 final class DeductionSentence {

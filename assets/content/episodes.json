@@ -110,11 +110,23 @@
       ]
     },
     {
-      "id": "sealed_zimbabwe_1871",
+      "id": "great_zimbabwe_1871",
+      "titleKey": "episode.great_zimbabwe_1871.title",
+      "teaserKey": "episode.great_zimbabwe_1871.teaser",
+      "jarImage": "images/ui/jar_great_zimbabwe_1871.png",
+      "shelf": 3,
+      "unlockAfter": 4,
+      "place": [
+        -20.27,
+        30.934
+      ]
+    },
+    {
+      "id": "sealed_dyatlov_1959",
       "titleKey": "episode.sealed.title",
       "comingSoon": true,
-      "shelf": 3,
-      "unlockAfter": 4
+      "shelf": 4,
+      "unlockAfter": 8
     },
     {
       "id": "test_room",

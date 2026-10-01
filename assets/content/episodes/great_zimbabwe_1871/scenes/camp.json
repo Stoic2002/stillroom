@@ -1,0 +1,180 @@
+{
+  "id": "camp",
+  "background": "images/scenes/great_zimbabwe_1871/camp.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "valley"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "notebook",
+      "rect": [
+        0.3,
+        0.44,
+        0.16,
+        0.12
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "notebook"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_notebook",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "great_zimbabwe_1871.camp.notebook"
+        }
+      ]
+    },
+    {
+      "id": "pencil",
+      "rect": [
+        0.47,
+        0.46,
+        0.09,
+        0.08
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "great_zimbabwe_1871.camp.pencil"
+        }
+      ]
+    },
+    {
+      "id": "splinter_wait",
+      "rect": [
+        0.59,
+        0.44,
+        0.14,
+        0.1
+      ],
+      "when": [
+        {
+          "flag": "saw_lintel",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "great_zimbabwe_1871.camp.splinter_wait"
+        }
+      ]
+    },
+    {
+      "id": "splinter",
+      "rect": [
+        0.59,
+        0.44,
+        0.14,
+        0.1
+      ],
+      "when": [
+        {
+          "flag": "saw_lintel",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "identify",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "great_zimbabwe_1871.camp.splinter"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "identify"
+        }
+      ]
+    },
+    {
+      "id": "splinter_done",
+      "rect": [
+        0.59,
+        0.44,
+        0.14,
+        0.1
+      ],
+      "when": [
+        {
+          "puzzleSolved": "identify"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "great_zimbabwe_1871.camp.splinter_done"
+        }
+      ]
+    },
+    {
+      "id": "rifle",
+      "rect": [
+        0.8,
+        0.24,
+        0.07,
+        0.42
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "great_zimbabwe_1871.camp.rifle"
+        }
+      ]
+    },
+    {
+      "id": "msasa",
+      "rect": [
+        0.02,
+        0.04,
+        0.22,
+        0.4
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "great_zimbabwe_1871.camp.msasa"
+        }
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "grass",
+      "kind": "grass",
+      "rect": [
+        0.04,
+        0.88,
+        0.9,
+        0.07
+      ]
+    }
+  ],
+  "echoes": [
+    {
+      "id": "hunter",
+      "image": "images/objects/great_zimbabwe_1871/echo_hunter.png",
+      "rect": [
+        0.9,
+        0.3,
+        0.045,
+        0.36
+      ],
+      "chance": 0.7,
+      "drift": [
+        0.02,
+        0
+      ]
+    }
+  ]
+}

@@ -120,7 +120,16 @@ enum UiSound {
   drip('drip', Haptic.none),
 
   /// A thick liquid falling from the reed in one slow drop.
-  dripSlow('drip_slow', Haptic.none);
+  dripSlow('drip_slow', Haptic.none),
+
+  /// A granite block set down in its course.
+  blockLay('block_lay', Haptic.light),
+
+  /// A thin chevron slab turned to lean the other way.
+  slabTilt('slab_tilt', Haptic.selection),
+
+  /// A step taken in an identification key: a page of the key turned.
+  keyStep('key_step', Haptic.selection);
 
   const UiSound(this.id, this.haptic);
 

@@ -148,5 +148,15 @@
   "dipLow": "快见底了",
   "dipFull": "满的",
   "dipStoresWrong": "再看看每个池子满到哪里。",
-  "colophonCaption": "此书至此终"
+  "colophonCaption": "此书至此终",
+  "coursesInstruction": "从左边开始，把掉落的石块一层一层砌回去。任何石块都不能在下一层的接缝上方结束。",
+  "coursesCourse": "第{course}层，共{total}层",
+  "coursesTooLong": "太长了：会超出缺口。",
+  "coursesJoint": "接缝对接缝：墙会从那里裂开。",
+  "coursesTakeBack": "撤回",
+  "coursesBand": "人字纹带：点一块石板让它向另一边倾斜，直到它们交替倾斜。",
+  "identifyInstruction": "看看这片木屑。哪一句符合它？",
+  "identifyWrong": "检索表走到了：{name}",
+  "identifyBack": "回到走错的地方。",
+  "cartoucheCaption": "内陆新图"
 }

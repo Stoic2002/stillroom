@@ -65,6 +65,14 @@ enum EchoFigure {
   /// A librarian in a long robe and a wound turban, a small oil lamp held
   /// out in one hand.
   librarian,
+
+  /// A builder in a cloth wrapped at the waist, a granite block carried on
+  /// one shoulder.
+  builder,
+
+  /// A hunter in a wide-brimmed hat and a long coat, a rifle over the
+  /// shoulder.
+  hunter,
 }
 
 const _mist = Color(0xFFD5DEE2);
@@ -414,6 +422,59 @@ void paintEcho(Art a, EchoFigure figure) {
           body,
         );
       a.glow(a.p(0.9, 0.5), w * 0.35, const Color(0xFFE0A84A), strength: 0.7);
+    case EchoFigure.builder:
+      a.canvas
+        // The block on the shoulder, steadied by a raised arm.
+        ..drawRect(a.r(0.5, 0.0, 0.42, 0.12), body)
+        ..drawPath(
+          shape([(0.62, 0.12), (0.7, 0.1), (0.66, 0.24), (0.6, 0.24)]),
+          body,
+        )
+        // Bare shoulders and chest, then the wrapped cloth to the knee.
+        ..drawPath(
+          shape([(0.32, 0.2), (0.68, 0.2), (0.64, 0.5), (0.36, 0.5)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.33, 0.48), (0.67, 0.48), (0.7, 0.72), (0.3, 0.72)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.36, 0.7), (0.47, 0.7), (0.45, 0.99), (0.37, 0.99)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.53, 0.7), (0.64, 0.7), (0.63, 0.99), (0.55, 0.99)]),
+          body,
+        );
+    case EchoFigure.hunter:
+      a.canvas
+        // The wide brim of the hat.
+        ..drawPath(
+          shape([(0.22, 0.1), (0.78, 0.1), (0.66, 0.05), (0.34, 0.05)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.3, 0.2), (0.7, 0.2), (0.78, 0.78), (0.22, 0.78)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.33, 0.76), (0.46, 0.76), (0.45, 0.99), (0.34, 0.99)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.54, 0.76), (0.67, 0.76), (0.66, 0.99), (0.55, 0.99)]),
+          body,
+        )
+        // The rifle, barrel up over the shoulder.
+        ..drawLine(
+          a.p(0.72, 0.0),
+          a.p(0.5, 0.6),
+          Paint()
+            ..color = _mist
+            ..strokeWidth = w * 0.06
+            ..maskFilter = blur,
+        );
     case EchoFigure.scientist:
       a.canvas
         // The lab coat, open, to the knees.

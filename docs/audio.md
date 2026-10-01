@@ -65,7 +65,10 @@ fvm dart run tool/audio/generate_audio.dart bell_toll  # one or more ids
 | `wind_rock` | Alamut 1256: the fires below, the tower window; the seal | Wind over bare rock in gusts, a low moan under it |
 | `tank_cover` | Alamut 1256: the tanks opened; the count done | A heavy wooden cover dragged aside over stone, then set down |
 | `keys_jingle` | Alamut 1256: the commander's keys | An iron ring of keys lifted from its hook |
-| `eagle_cry` | Alamut 1256: the eagle (creature) | A thin, falling scream, twice, far over the gorge |
+| `eagle_cry` | Alamut 1256: the eagle (creature); Great Zimbabwe's bateleur | A thin, falling scream, twice, far over the gorge |
+| `stone_set` | Great Zimbabwe 1871: the breach, the lintel, the wall standing | A granite block set down on another: a dull knock and grit |
+| `cicadas` | Great Zimbabwe 1871: the view from the hill; the seal | Cicadas in dry grass, a shimmering buzz that swells and falls |
+| `notebook` | Great Zimbabwe 1871: Mauch's notebook; the key solved | A stiff field notebook opened, its pages flicked |
 
 ## Music
 
@@ -81,6 +84,7 @@ fvm dart run tool/audio/generate_audio.dart bell_toll  # one or more ids
 | `gyeongju_night` | Gyeongju, 771 | 48 s | A low drone near the bell's 64 Hz hum; winter wind; a wooden fish knocked far off, slowing, every 12 s |
 | `bastille_dawn` | Bastille, 1703 | 48 s | A cold drone in A; a draught in the court; two slow bowed notes in A aeolian every 16 s, like a viol through a wall |
 | `chongling_winter` | Beijing, 1908 | 48 s | A cold drone in B♭; wind in the pines; a temple bowl struck far off every 16 s |
+| `zimbabwe_dry` | Great Zimbabwe, 1871 | 48 s | A warm drone in E; dry wind in the grass; cicadas; a mbira-like figure plucked far off every 12 s |
 | `alamut_snow` | Alamut, 1256 | 48 s | A low drone in D; wind over the rock; a long-necked lute plucked far off, a falling phrase every 16 s |
 
 ## Interface sounds (`assets/audio/ui/`)
@@ -110,6 +114,9 @@ vibration is on). Quieter than content sounds (−9 dBFS peak).
 | `probe_tick` | Beijing 1908's robe: the needle crosses a mark on its dial | none |
 | `catchword` | Alamut 1256's quire: a move makes a catchword meet its page (a paper slide and a small tick) | light |
 | `reed_touch` | Alamut 1256's tanks: the reed meets the surface (a soft, low plup) | light |
+| `block_lay` | Great Zimbabwe 1871's courses: a block laid in its course | light |
+| `slab_tilt` | Great Zimbabwe 1871's courses: a chevron slab turned | selection |
+| `key_step` | Great Zimbabwe 1871's key: a step taken | selection |
 | `drip`, `drip_slow` | Alamut 1256's tanks: a thin drop falling back, or a thick one letting go of its thread | none |
 | `beat_steady`, `beat_light`, `beat_clear`, `beat_deep` | Gyeongju's rim: a strike whose ring swells and fades barely, lightly, clearly, or almost to silence (two tones 1.4 Hz apart, the second as loud as the swell needs) | light |
 | `solved` | Any puzzle gives way (before its own `onSolved` sounds) | light |

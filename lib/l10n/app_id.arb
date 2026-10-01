@@ -148,5 +148,15 @@
   "dipLow": "Menipis",
   "dipFull": "Penuh",
   "dipStoresWrong": "Lihat lagi setinggi apa isi tiap tangki.",
-  "colophonCaption": "Di sinilah kitab ini tamat"
+  "colophonCaption": "Di sinilah kitab ini tamat",
+  "coursesInstruction": "Pasang kembali balok-balok yang jatuh, lapis demi lapis dari kiri. Tak boleh ada balok yang berakhir di atas sambungan lapis di bawahnya.",
+  "coursesCourse": "Lapis {course} dari {total}",
+  "coursesTooLong": "Terlalu panjang: akan melewati celah.",
+  "coursesJoint": "Sambungan di atas sambungan: tembok akan retak di situ.",
+  "coursesTakeBack": "Ambil kembali",
+  "coursesBand": "Pita chevron: ketuk lempeng untuk memiringkannya ke arah lain, sampai miring bergantian.",
+  "identifyInstruction": "Lihat serpihan itu. Mana yang benar tentangnya?",
+  "identifyWrong": "Kunci berakhir di: {name}",
+  "identifyBack": "Kembali ke tempat jalannya salah belok.",
+  "cartoucheCaption": "Peta baru pedalaman"
 }

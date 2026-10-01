@@ -148,5 +148,15 @@
   "dipLow": "바닥나고 있었다",
   "dipFull": "가득했다",
   "dipStoresWrong": "저장조마다 얼마나 차 있는지 다시 보자.",
-  "colophonCaption": "여기서 책이 끝난다"
+  "colophonCaption": "여기서 책이 끝난다",
+  "coursesInstruction": "떨어진 돌덩어리를 왼쪽부터 한 층씩 다시 쌓자. 아래층의 이음매 위에서 돌이 끝나면 안 된다.",
+  "coursesCourse": "{total}층 중 {course}층",
+  "coursesTooLong": "너무 길다. 틈을 넘어간다.",
+  "coursesJoint": "이음매 위에 이음매. 거기서 담이 갈라진다.",
+  "coursesTakeBack": "되돌리기",
+  "coursesBand": "갈매기무늬 띠. 판석을 누르면 반대로 기운다. 번갈아 기울 때까지.",
+  "identifyInstruction": "나무 조각을 보자. 무엇이 맞는가?",
+  "identifyWrong": "검색표가 닿은 곳: {name}",
+  "identifyBack": "길을 잘못 든 곳으로 돌아간다.",
+  "cartoucheCaption": "내륙의 새 지도"
 }

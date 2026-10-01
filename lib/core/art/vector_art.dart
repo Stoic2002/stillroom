@@ -5,6 +5,7 @@ import 'art_kit.dart';
 import 'bastille_1703_art.dart';
 import 'chongling_1908_art.dart';
 import 'flannan_isles_1900_art.dart';
+import 'great_zimbabwe_1871_art.dart';
 import 'gyeongju_771_art.dart';
 import 'lawang_sewu_1945_art.dart';
 import 'pompeii_79_art.dart';
@@ -26,6 +27,7 @@ final Map<String, ArtPainter> _vectorArt = {
   ...whitechapel1891Art,
   ...chongling1908Art,
   ...alamut1256Art,
+  ...greatZimbabwe1871Art,
 };
 
 ArtPainter? vectorArtFor(String path) => _vectorArt[path];

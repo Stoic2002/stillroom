@@ -541,4 +541,40 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get colophonCaption => 'Aquí termina el libro';
+
+  @override
+  String get coursesInstruction =>
+      'Vuelve a colocar los bloques caídos, hilada a hilada desde la izquierda. Ningún bloque puede acabar sobre una junta de la hilada de abajo.';
+
+  @override
+  String coursesCourse(int course, int total) {
+    return 'Hilada $course de $total';
+  }
+
+  @override
+  String get coursesTooLong => 'Demasiado largo: se saldría del hueco.';
+
+  @override
+  String get coursesJoint => 'Junta sobre junta: el muro se partiría ahí.';
+
+  @override
+  String get coursesTakeBack => 'Retirar';
+
+  @override
+  String get coursesBand =>
+      'La banda de chevrones: toca una losa para inclinarla al otro lado, hasta que se inclinen por turnos.';
+
+  @override
+  String get identifyInstruction => 'Mira la astilla. ¿Qué es cierto de ella?';
+
+  @override
+  String identifyWrong(String name) {
+    return 'La clave termina en: $name';
+  }
+
+  @override
+  String get identifyBack => 'Vuelve a donde el camino se torció.';
+
+  @override
+  String get cartoucheCaption => 'Nuevo mapa del interior';
 }

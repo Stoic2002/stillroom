@@ -544,4 +544,40 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get colophonCaption => 'Здесь кончается книга';
+
+  @override
+  String get coursesInstruction =>
+      'Уложите упавшие блоки обратно, ряд за рядом, слева. Ни один блок не должен кончаться над швом нижнего ряда.';
+
+  @override
+  String coursesCourse(int course, int total) {
+    return 'Ряд $course из $total';
+  }
+
+  @override
+  String get coursesTooLong => 'Слишком длинный: выйдет за пролом.';
+
+  @override
+  String get coursesJoint => 'Шов над швом: стена треснет здесь.';
+
+  @override
+  String get coursesTakeBack => 'Вернуть';
+
+  @override
+  String get coursesBand =>
+      'Полоса шевронов: коснитесь плиты, чтобы наклонить её в другую сторону, пока они не наклонятся поочерёдно.';
+
+  @override
+  String get identifyInstruction => 'Посмотрите на щепку. Что о ней верно?';
+
+  @override
+  String identifyWrong(String name) {
+    return 'Определитель привёл к: $name';
+  }
+
+  @override
+  String get identifyBack => 'Назад, туда, где путь свернул не туда.';
+
+  @override
+  String get cartoucheCaption => 'Новая карта внутренних земель';
 }

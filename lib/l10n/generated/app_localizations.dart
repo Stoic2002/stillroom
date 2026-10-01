@@ -1001,6 +1001,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Here the book ends'**
   String get colophonCaption;
+
+  /// Courses puzzle: what to do.
+  ///
+  /// In en, this message translates to:
+  /// **'Lay the fallen blocks back, course by course from the left. No block may end over a joint in the course below.'**
+  String get coursesInstruction;
+
+  /// Courses puzzle: which course is being laid.
+  ///
+  /// In en, this message translates to:
+  /// **'Course {course} of {total}'**
+  String coursesCourse(int course, int total);
+
+  /// Courses puzzle: the block does not fit in what is left of the course.
+  ///
+  /// In en, this message translates to:
+  /// **'Too long: it would run past the gap.'**
+  String get coursesTooLong;
+
+  /// Courses puzzle: the block would end over a joint below.
+  ///
+  /// In en, this message translates to:
+  /// **'Joint over joint: the wall would split there.'**
+  String get coursesJoint;
+
+  /// Button: take back the last block laid.
+  ///
+  /// In en, this message translates to:
+  /// **'Take back'**
+  String get coursesTakeBack;
+
+  /// Courses puzzle: the chevron band on top.
+  ///
+  /// In en, this message translates to:
+  /// **'The chevron band: tap a slab to lean it the other way, until they lean in turn.'**
+  String get coursesBand;
+
+  /// Identify puzzle: pick the statement true of the specimen.
+  ///
+  /// In en, this message translates to:
+  /// **'Look at the splinter. Which is true of it?'**
+  String get identifyInstruction;
+
+  /// Identify puzzle: the path ended at a wrong name; its note follows.
+  ///
+  /// In en, this message translates to:
+  /// **'The key ends at: {name}'**
+  String identifyWrong(String name);
+
+  /// Identify puzzle: after a wrong end.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to where the path went wrong.'**
+  String get identifyBack;
+
+  /// Cartouche label form: the title on an old map of Africa.
+  ///
+  /// In en, this message translates to:
+  /// **'A new map of the interior'**
+  String get cartoucheCaption;
 }
 
 class _AppLocalizationsDelegate

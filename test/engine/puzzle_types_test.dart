@@ -339,6 +339,8 @@ void main() {
       'scan',
       'quire',
       'dip',
+      'courses',
+      'identify',
     ]);
   });
 }

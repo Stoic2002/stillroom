@@ -504,4 +504,39 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get colophonCaption => 'ここに書は終わる';
+
+  @override
+  String get coursesInstruction =>
+      '落ちた石材を、左から一段ずつ積み直そう。下の段の継ぎ目の上で石材を終わらせてはいけない。';
+
+  @override
+  String coursesCourse(int course, int total) {
+    return '$total段のうち$course段目';
+  }
+
+  @override
+  String get coursesTooLong => '長すぎる。隙間からはみ出してしまう。';
+
+  @override
+  String get coursesJoint => '継ぎ目の上に継ぎ目。そこで壁が割れてしまう。';
+
+  @override
+  String get coursesTakeBack => '取り戻す';
+
+  @override
+  String get coursesBand => 'シェブロンの帯。石板に触れると傾きが逆になる。交互に傾くまで続けよう。';
+
+  @override
+  String get identifyInstruction => '小片を見よう。どちらが正しい？';
+
+  @override
+  String identifyWrong(String name) {
+    return '検索表の行き着いた先：$name';
+  }
+
+  @override
+  String get identifyBack => '道を誤ったところへ戻る。';
+
+  @override
+  String get cartoucheCaption => '内陸部の新しい地図';
 }

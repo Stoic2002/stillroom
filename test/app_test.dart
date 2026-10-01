@@ -209,9 +209,15 @@ void main() {
         findsOneWidget,
       );
       expect(find.text('Whitechapel, 1888'), findsOneWidget);
-      // Sealed jars are shown but not playable; the test room is debug-only.
-      expect(find.text('Still sealed'), findsOneWidget);
+      // The test room is debug-only. Sealed jars are shown but not
+      // playable; the one for shelf IV stands at the top.
       expect(find.byKey(const ValueKey('jar_test_room')), findsOneWidget);
+      await tester.scrollUntilVisible(
+        find.text('Still sealed'),
+        100,
+        scrollable: find.byType(Scrollable).first,
+      );
+      expect(find.text('Still sealed'), findsOneWidget);
     });
 
     testWidgets('Semarang, 1945 opens once Whitechapel is distilled', (
@@ -266,7 +272,7 @@ void main() {
     testWidgets('a sealed jar does nothing', (tester) async {
       await pumpApp(tester);
       await openShelf(tester);
-      final sealed = find.byKey(const ValueKey('jar_sealed_zimbabwe_1871'));
+      final sealed = find.byKey(const ValueKey('jar_sealed_dyatlov_1959'));
       await tester.scrollUntilVisible(
         sealed,
         100,

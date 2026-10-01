@@ -659,5 +659,58 @@
   "colophonCaption": "Here the book ends",
   "@colophonCaption": {
     "description": "Colophon label form: the heading above the closing lines of a manuscript."
+  },
+  "coursesInstruction": "Lay the fallen blocks back, course by course from the left. No block may end over a joint in the course below.",
+  "@coursesInstruction": {
+    "description": "Courses puzzle: what to do."
+  },
+  "coursesCourse": "Course {course} of {total}",
+  "@coursesCourse": {
+    "description": "Courses puzzle: which course is being laid.",
+    "placeholders": {
+      "course": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "coursesTooLong": "Too long: it would run past the gap.",
+  "@coursesTooLong": {
+    "description": "Courses puzzle: the block does not fit in what is left of the course."
+  },
+  "coursesJoint": "Joint over joint: the wall would split there.",
+  "@coursesJoint": {
+    "description": "Courses puzzle: the block would end over a joint below."
+  },
+  "coursesTakeBack": "Take back",
+  "@coursesTakeBack": {
+    "description": "Button: take back the last block laid."
+  },
+  "coursesBand": "The chevron band: tap a slab to lean it the other way, until they lean in turn.",
+  "@coursesBand": {
+    "description": "Courses puzzle: the chevron band on top."
+  },
+  "identifyInstruction": "Look at the splinter. Which is true of it?",
+  "@identifyInstruction": {
+    "description": "Identify puzzle: pick the statement true of the specimen."
+  },
+  "identifyWrong": "The key ends at: {name}",
+  "@identifyWrong": {
+    "description": "Identify puzzle: the path ended at a wrong name; its note follows.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "identifyBack": "Back to where the path went wrong.",
+  "@identifyBack": {
+    "description": "Identify puzzle: after a wrong end."
+  },
+  "cartoucheCaption": "A new map of the interior",
+  "@cartoucheCaption": {
+    "description": "Cartouche label form: the title on an old map of Africa."
   }
 }

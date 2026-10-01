@@ -532,4 +532,42 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get colophonCaption => 'Di sinilah kitab ini tamat';
+
+  @override
+  String get coursesInstruction =>
+      'Pasang kembali balok-balok yang jatuh, lapis demi lapis dari kiri. Tak boleh ada balok yang berakhir di atas sambungan lapis di bawahnya.';
+
+  @override
+  String coursesCourse(int course, int total) {
+    return 'Lapis $course dari $total';
+  }
+
+  @override
+  String get coursesTooLong => 'Terlalu panjang: akan melewati celah.';
+
+  @override
+  String get coursesJoint =>
+      'Sambungan di atas sambungan: tembok akan retak di situ.';
+
+  @override
+  String get coursesTakeBack => 'Ambil kembali';
+
+  @override
+  String get coursesBand =>
+      'Pita chevron: ketuk lempeng untuk memiringkannya ke arah lain, sampai miring bergantian.';
+
+  @override
+  String get identifyInstruction =>
+      'Lihat serpihan itu. Mana yang benar tentangnya?';
+
+  @override
+  String identifyWrong(String name) {
+    return 'Kunci berakhir di: $name';
+  }
+
+  @override
+  String get identifyBack => 'Kembali ke tempat jalannya salah belok.';
+
+  @override
+  String get cartoucheCaption => 'Peta baru pedalaman';
 }

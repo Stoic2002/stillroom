@@ -506,4 +506,39 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get colophonCaption => '여기서 책이 끝난다';
+
+  @override
+  String get coursesInstruction =>
+      '떨어진 돌덩어리를 왼쪽부터 한 층씩 다시 쌓자. 아래층의 이음매 위에서 돌이 끝나면 안 된다.';
+
+  @override
+  String coursesCourse(int course, int total) {
+    return '$total층 중 $course층';
+  }
+
+  @override
+  String get coursesTooLong => '너무 길다. 틈을 넘어간다.';
+
+  @override
+  String get coursesJoint => '이음매 위에 이음매. 거기서 담이 갈라진다.';
+
+  @override
+  String get coursesTakeBack => '되돌리기';
+
+  @override
+  String get coursesBand => '갈매기무늬 띠. 판석을 누르면 반대로 기운다. 번갈아 기울 때까지.';
+
+  @override
+  String get identifyInstruction => '나무 조각을 보자. 무엇이 맞는가?';
+
+  @override
+  String identifyWrong(String name) {
+    return '검색표가 닿은 곳: $name';
+  }
+
+  @override
+  String get identifyBack => '길을 잘못 든 곳으로 돌아간다.';
+
+  @override
+  String get cartoucheCaption => '내륙의 새 지도';
 }

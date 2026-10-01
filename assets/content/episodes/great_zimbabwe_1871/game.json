@@ -1,0 +1,196 @@
+{
+  "startScene": "valley",
+  "flags": {
+    "read_notebook": false,
+    "saw_lintel": false,
+    "read_report": false,
+    "read_later": false,
+    "found_note": false
+  },
+  "logicalResolution": [
+    1920,
+    1080
+  ],
+  "orientation": "landscape",
+  "sceneTransitionMs": 600,
+  "music": "zimbabwe_dry",
+  "words": [
+    {
+      "id": "shona",
+      "labelKey": "great_zimbabwe_1871.word.shona",
+      "kind": "name"
+    },
+    {
+      "id": "c11",
+      "labelKey": "great_zimbabwe_1871.word.c11",
+      "kind": "date"
+    },
+    {
+      "id": "tambootie",
+      "labelKey": "great_zimbabwe_1871.word.tambootie",
+      "kind": "thing"
+    },
+    {
+      "id": "sheba",
+      "labelKey": "great_zimbabwe_1871.word.sheba",
+      "kind": "name"
+    },
+    {
+      "id": "phoenicians",
+      "labelKey": "great_zimbabwe_1871.word.phoenicians",
+      "kind": "name"
+    },
+    {
+      "id": "solomon",
+      "labelKey": "great_zimbabwe_1871.word.solomon",
+      "kind": "name"
+    },
+    {
+      "id": "ophir",
+      "labelKey": "great_zimbabwe_1871.word.ophir",
+      "kind": "place"
+    },
+    {
+      "id": "cedar",
+      "labelKey": "great_zimbabwe_1871.word.cedar",
+      "kind": "thing"
+    },
+    {
+      "id": "bc10",
+      "labelKey": "great_zimbabwe_1871.word.bc10",
+      "kind": "date"
+    },
+    {
+      "id": "mauch",
+      "labelKey": "great_zimbabwe_1871.word.mauch",
+      "kind": "name"
+    },
+    {
+      "id": "rhodes",
+      "labelKey": "great_zimbabwe_1871.word.rhodes",
+      "kind": "name"
+    }
+  ],
+  "secret": {
+    "when": [
+      {
+        "flag": "found_note",
+        "equals": true
+      }
+    ],
+    "noteKey": "great_zimbabwe_1871.valley.keeper_note"
+  },
+  "hintStages": [
+    {
+      "id": "write_seal",
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.great_zimbabwe_1871.write_seal.1"
+        },
+        {
+          "key": "hint.great_zimbabwe_1871.write_seal.2"
+        }
+      ]
+    },
+    {
+      "id": "birds",
+      "when": [
+        {
+          "flag": "read_report",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.great_zimbabwe_1871.birds.1"
+        },
+        {
+          "key": "hint.great_zimbabwe_1871.birds.2"
+        }
+      ]
+    },
+    {
+      "id": "report",
+      "when": [
+        {
+          "puzzleSolved": "identify"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.great_zimbabwe_1871.report.1"
+        },
+        {
+          "key": "hint.great_zimbabwe_1871.report.2"
+        }
+      ]
+    },
+    {
+      "id": "wood",
+      "when": [
+        {
+          "flag": "saw_lintel",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.great_zimbabwe_1871.wood.1"
+        },
+        {
+          "key": "hint.great_zimbabwe_1871.wood.2"
+        }
+      ]
+    },
+    {
+      "id": "lintel",
+      "when": [
+        {
+          "puzzleSolved": "courses"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.great_zimbabwe_1871.lintel.1"
+        },
+        {
+          "key": "hint.great_zimbabwe_1871.lintel.2"
+        }
+      ]
+    },
+    {
+      "id": "wall",
+      "when": [
+        {
+          "flag": "read_notebook",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.great_zimbabwe_1871.wall.1"
+        },
+        {
+          "key": "hint.great_zimbabwe_1871.wall.2"
+        }
+      ]
+    },
+    {
+      "id": "start",
+      "hints": [
+        {
+          "key": "hint.great_zimbabwe_1871.start.1"
+        },
+        {
+          "key": "hint.great_zimbabwe_1871.start.2"
+        }
+      ]
+    }
+  ]
+}

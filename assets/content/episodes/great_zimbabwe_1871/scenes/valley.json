@@ -1,0 +1,307 @@
+{
+  "id": "valley",
+  "background": "images/scenes/great_zimbabwe_1871/valley.png",
+  "exits": [
+    {
+      "id": "camp",
+      "to": "camp",
+      "rect": [
+        0.82,
+        0.4,
+        0.16,
+        0.4
+      ]
+    },
+    {
+      "id": "hill",
+      "to": "hill",
+      "rect": [
+        0.0,
+        0.34,
+        0.1,
+        0.4
+      ]
+    },
+    {
+      "id": "enclosure",
+      "to": "enclosure",
+      "rect": [
+        0.5,
+        0.48,
+        0.1,
+        0.3
+      ],
+      "when": [
+        {
+          "puzzleSolved": "courses"
+        }
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "breach",
+      "rect": [
+        0.26,
+        0.22,
+        0.18,
+        0.42
+      ],
+      "when": [
+        {
+          "puzzleSolved": "courses",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "stone_set"
+        },
+        {
+          "type": "showText",
+          "key": "great_zimbabwe_1871.valley.breach"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "courses"
+        }
+      ]
+    },
+    {
+      "id": "breach_done",
+      "rect": [
+        0.26,
+        0.22,
+        0.18,
+        0.42
+      ],
+      "when": [
+        {
+          "puzzleSolved": "courses"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "great_zimbabwe_1871.valley.breach_done"
+        }
+      ]
+    },
+    {
+      "id": "entrance_shut",
+      "rect": [
+        0.5,
+        0.48,
+        0.1,
+        0.3
+      ],
+      "when": [
+        {
+          "puzzleSolved": "courses",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "great_zimbabwe_1871.valley.entrance_shut"
+        }
+      ]
+    },
+    {
+      "id": "wall",
+      "rect": [
+        0.46,
+        0.16,
+        0.16,
+        0.12
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "great_zimbabwe_1871.valley.wall"
+        }
+      ]
+    },
+    {
+      "id": "wall_seal",
+      "rect": [
+        0.46,
+        0.16,
+        0.16,
+        0.12
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "jar_label",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "great_zimbabwe_1871.valley.seal_needed"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "jar_label"
+        }
+      ]
+    },
+    {
+      "id": "fig",
+      "rect": [
+        0.64,
+        0.06,
+        0.12,
+        0.34
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "great_zimbabwe_1871.valley.fig"
+        }
+      ]
+    },
+    {
+      "id": "fig_note",
+      "rect": [
+        0.64,
+        0.06,
+        0.12,
+        0.34
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": true
+        },
+        {
+          "flag": "found_note",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "found_note",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "great_zimbabwe_1871.valley.keeper_note"
+        }
+      ]
+    },
+    {
+      "id": "fig_done",
+      "rect": [
+        0.64,
+        0.06,
+        0.12,
+        0.34
+      ],
+      "when": [
+        {
+          "flag": "found_note",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "great_zimbabwe_1871.valley.fig_done"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "rubble_sprite",
+      "image": "images/objects/great_zimbabwe_1871/rubble_sprite.png",
+      "rect": [
+        0.5,
+        0.48,
+        0.1,
+        0.3
+      ],
+      "when": [
+        {
+          "puzzleSolved": "courses",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "mended_sprite",
+      "image": "images/objects/great_zimbabwe_1871/mended_sprite.png",
+      "rect": [
+        0.26,
+        0.22,
+        0.18,
+        0.42
+      ],
+      "when": [
+        {
+          "puzzleSolved": "courses"
+        }
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "bateleur",
+      "kind": "eagle",
+      "rect": [
+        0.24,
+        0.02,
+        0.4,
+        0.1
+      ]
+    },
+    {
+      "id": "grass",
+      "kind": "grass",
+      "rect": [
+        0.08,
+        0.86,
+        0.66,
+        0.08
+      ]
+    }
+  ],
+  "echoes": [
+    {
+      "id": "builder",
+      "image": "images/objects/great_zimbabwe_1871/echo_builder.png",
+      "rect": [
+        0.45,
+        0.46,
+        0.045,
+        0.32
+      ],
+      "chance": 0.8,
+      "drift": [
+        -0.03,
+        0
+      ]
+    }
+  ]
+}

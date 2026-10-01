@@ -1,0 +1,131 @@
+{
+  "id": "hill",
+  "background": "images/scenes/great_zimbabwe_1871/hill.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "valley"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "birds",
+      "rect": [
+        0.28,
+        0.16,
+        0.26,
+        0.36
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "great_zimbabwe_1871.hill.birds"
+        }
+      ]
+    },
+    {
+      "id": "view",
+      "rect": [
+        0.66,
+        0.48,
+        0.32,
+        0.26
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "cicadas"
+        },
+        {
+          "type": "showText",
+          "key": "great_zimbabwe_1871.hill.view"
+        }
+      ]
+    },
+    {
+      "id": "boulders",
+      "rect": [
+        0.02,
+        0.06,
+        0.2,
+        0.42
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "great_zimbabwe_1871.hill.boulders"
+        }
+      ]
+    },
+    {
+      "id": "later",
+      "rect": [
+        0.12,
+        0.64,
+        0.12,
+        0.12
+      ],
+      "when": [
+        {
+          "flag": "read_report",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_later",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "great_zimbabwe_1871.hill.later"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "later_sprite",
+      "image": "images/objects/great_zimbabwe_1871/later_sprite.png",
+      "rect": [
+        0.12,
+        0.64,
+        0.12,
+        0.12
+      ],
+      "when": [
+        {
+          "flag": "read_report",
+          "equals": true
+        }
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "lizard",
+      "kind": "gecko",
+      "rect": [
+        0.04,
+        0.12,
+        0.16,
+        0.3
+      ]
+    },
+    {
+      "id": "bateleur",
+      "kind": "eagle",
+      "rect": [
+        0.5,
+        0.04,
+        0.4,
+        0.1
+      ]
+    }
+  ]
+}

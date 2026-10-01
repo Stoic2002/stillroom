@@ -1553,6 +1553,71 @@ Buf eagleCry() {
   return reverb(b, size: 0.95, mix: 0.55);
 }
 
+/// Great Zimbabwe: a granite block set down on another, a dull knock and
+/// grit.
+Buf stoneSet() {
+  final rng = math.Random(56);
+  final knock = sum([
+    modal(0.5, 180, const [(1, 1, 0.06), (2.3, 0.5, 0.04), (3.9, 0.2, 0.02)]),
+    gain(
+      shape(lowpass(noise(0.15, rng), (_) => 900), (t) => decay(t, 0.02)),
+      1.6,
+    ),
+  ]);
+  final grit = shape(
+    bandpass(noise(0.3, rng), (_) => 2400, 2),
+    (t) => decay(t, 0.08),
+  );
+  final b = Buf(1)
+    ..add(knock, at: 0.02, gain: 1.2)
+    ..add(grit, at: 0.03, gain: 0.25);
+  return reverb(b, size: 0.4, mix: 0.2);
+}
+
+/// Great Zimbabwe: cicadas in dry grass, a shimmering buzz that swells and
+/// falls.
+Buf cicadas() {
+  final rng = math.Random(57);
+  const seconds = 4.0;
+  final buzz = shape(
+    bandpass(noise(seconds, rng), (_) => 5200, 6),
+    (t) =>
+        swell(t, 0.6, 1.2, seconds) *
+        (0.55 + 0.45 * math.sin(tau * t * 38).abs()),
+  );
+  final b = Buf(seconds)
+    ..add(gain(buzz, 1.4), pan: 0.3)
+    ..add(
+      gain(
+        shape(
+          bandpass(noise(seconds, rng), (_) => 4700, 6),
+          (t) => swell(t, 1.2, 1.0, seconds) * 0.6,
+        ),
+        1.0,
+      ),
+      pan: -0.4,
+    );
+  return reverb(b, size: 0.5, mix: 0.2);
+}
+
+/// Great Zimbabwe: a stiff field notebook opened, its pages flicked.
+Buf notebook() {
+  final rng = math.Random(58);
+  final b = Buf(0.9);
+  for (var i = 0; i < 4; i++) {
+    b.add(
+      shape(
+        bandpass(noise(0.12, rng), (_) => 1800 + i * 300, 1.4),
+        (t) => swell(t, 0.01, 0.08, 0.12),
+      ),
+      at: 0.05 + i * 0.12,
+      gain: 0.5 - i * 0.08,
+    );
+  }
+  b.add(click(rng, centre: 900, time: 0.004), at: 0.02, gain: 0.5);
+  return reverb(b, size: 0.2, mix: 0.12);
+}
+
 final sfx = <String, Buf Function()>{
   'stone_door': stoneDoor,
   'reactor_count': reactorCount,
@@ -1561,6 +1626,9 @@ final sfx = <String, Buf Function()>{
   'tank_cover': tankCover,
   'keys_jingle': keysJingle,
   'eagle_cry': eagleCry,
+  'stone_set': stoneSet,
+  'cicadas': cicadas,
+  'notebook': notebook,
   'footsteps_away': footstepsAway,
   'police_whistle': policeWhistle,
   'train_arch': trainArch,
@@ -1868,9 +1936,56 @@ Buf alamutSnow() => loop(48, (seconds) {
   return reverb(b, size: 0.9, mix: 0.45, damp: 0.5);
 });
 
+/// Great Zimbabwe: a warm drone in E, dry wind in the grass, cicadas, and
+/// a mbira-like figure plucked far off now and then.
+Buf zimbabweDry() => loop(48, (seconds) {
+  final rng = math.Random(31);
+  final b = Buf(seconds)
+    ..add(
+      drone(seconds, loopSeconds: 48, const [
+        (82.41, 0.4, 24),
+        (123.5, 0.2, 16),
+        (164.8, 0.08, 12),
+      ]),
+      gain: 0.38,
+    );
+  final wind = shape(
+    bandpass(
+      noise(seconds, rng),
+      (t) => 900 + 400 * math.sin(tau * t / 16),
+      1.2,
+    ),
+    (t) => 0.3 + 0.7 * math.pow(math.sin(tau * t / 24), 2),
+  );
+  b.add(gain(wind, 0.12), pan: -0.25);
+  final insects = shape(
+    bandpass(noise(seconds, rng), (_) => 5000, 6),
+    (t) => 0.4 + 0.6 * math.pow(math.sin(tau * t / 12), 2),
+  );
+  b.add(gain(insects, 0.04), pan: 0.4);
+  // The mbira: a short interlocking figure, every 12 seconds.
+  const figure = [329.6, 392.0, 329.6, 293.7, 246.9, 293.7];
+  for (var at = 4.0; at < seconds - 6; at += 12) {
+    for (final (k, pitch) in figure.indexed) {
+      b.add(
+        modal(1.4, pitch, const [
+          (1, 1, 0.6),
+          (3.01, 0.3, 0.2),
+          (5.4, 0.1, 0.1),
+        ]),
+        at: at + k * 0.32,
+        gain: 0.05,
+        pan: k.isEven ? -0.3 : 0.3,
+      );
+    }
+  }
+  return reverb(b, size: 0.8, mix: 0.35, damp: 0.5);
+});
+
 final music = <String, Buf Function()>{
   'chongling_winter': chonglingWinter,
   'alamut_snow': alamutSnow,
+  'zimbabwe_dry': zimbabweDry,
   'whitechapel_1891': whitechapel1891,
   'gyeongju_night': gyeongjuNight,
   'bastille_dawn': bastilleDawn,
@@ -2485,6 +2600,41 @@ Buf dripSlowSound() {
   return reverb(b, size: 0.6, mix: 0.3);
 }
 
+/// A granite block laid in a course: a soft stone knock.
+Buf blockLaySound() {
+  final rng = math.Random(66);
+  final b = Buf(0.4)
+    ..add(modal(0.3, 240, const [(1, 1, 0.05), (2.4, 0.4, 0.03)]), gain: 0.5)
+    ..add(
+      shape(lowpass(noise(0.08, rng), (_) => 1200), (t) => decay(t, 0.015)),
+      gain: 0.5,
+    );
+  return reverb(b, size: 0.25, mix: 0.15);
+}
+
+/// A thin slab turned on its edge: a light stone tick.
+Buf slabTiltSound() {
+  final rng = math.Random(67);
+  final b = Buf(0.25)
+    ..add(modal(0.2, 760, const [(1, 1, 0.03), (2.7, 0.3, 0.02)]), gain: 0.35)
+    ..add(click(rng, centre: 1800, time: 0.002), gain: 0.3);
+  return reverb(b, size: 0.2, mix: 0.12);
+}
+
+/// A step in a key: a stiff page turned.
+Buf keyStepSound() {
+  final rng = math.Random(68);
+  final b = Buf(0.35)
+    ..add(
+      shape(
+        bandpass(noise(0.18, rng), (t) => 1600 + t * 3000, 1.3),
+        (t) => swell(t, 0.02, 0.1, 0.18),
+      ),
+      gain: 0.45,
+    );
+  return reverb(b, size: 0.15, mix: 0.1);
+}
+
 final ui = <String, Buf Function()>{
   'geiger': () => geigerSound(clicks: 4, seed: 61),
   'geiger_hot': () => geigerSound(clicks: 26, seed: 62),
@@ -2494,6 +2644,9 @@ final ui = <String, Buf Function()>{
   'reed_touch': reedTouchSound,
   'drip': dripSound,
   'drip_slow': dripSlowSound,
+  'block_lay': blockLaySound,
+  'slab_tilt': slabTiltSound,
+  'key_step': keyStepSound,
   'type_sort': typeSortSound,
   'lamp_gutter': lampGutterSound,
   'pour': pourSound,

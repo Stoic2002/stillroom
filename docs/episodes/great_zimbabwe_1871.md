@@ -1,11 +1,14 @@
 # Episode design: Great Zimbabwe, 1871 (the city of stone)
 
-Status: **design draft** (2026-10-01), for the developer's approval before
-anything is built. Shelf III (opens after 4 tales), Africa, from the plan
-of 16 tales (`docs/stillroom_frame.md`, *The full shelf*). It replaces the
-sealed teaser `sealed_zimbabwe_1871` and closes shelf III. Proposed id:
-`great_zimbabwe_1871`; jar label **Great Zimbabwe, 1871**, its map pin on
-the ruins near Masvingo.
+Status: **built** (2026-10-01): draft text in seven languages, code-drawn
+art (`lib/core/art/great_zimbabwe_1871_art.dart`), generated audio,
+walkthrough test. Approved by the developer with setting A, both
+mechanics, and the recommended seal. Shelf III (opens after 4 tales),
+Africa, from the plan of 16 tales (`docs/stillroom_frame.md`, *The full
+shelf*). It replaces the sealed teaser `sealed_zimbabwe_1871` and fills
+shelf III; a sealed teaser `sealed_dyatlov_1959` now stands on shelf IV.
+Id: `great_zimbabwe_1871`; jar label **Great Zimbabwe, 1871**, its map pin
+on the ruins near Masvingo.
 
 ## Premise
 
@@ -198,10 +201,53 @@ home."
   (a block placed in a course), `slab_tilt` (a chevron slab turned),
   `key_turn_page` (a step in the key).
 
-## Open questions for the developer
+## Decisions (2026-10-01)
 
-1. Where it is set: **A** (the ruins in September 1871, recommended) or B
-   (the city about 1350)?
-2. The two mechanics: the courses (`courses`) and the key (`identify`)?
-3. The seal as a map cartouche (`cartouche`), with its sentence (the
-   ancestors of the Shona / the 11th century / tambootie)?
+1. Setting **A**: the ruins in September 1871; the later papers arrive as
+   papers "that should not be here yet".
+2. Both mechanics: the courses (`courses`) and the key (`identify`).
+3. The seal as a map cartouche (`cartouche`): "Built by {the ancestors of
+   the Shona} from {the 11th century}; the lintel Mauch called cedar was
+   {tambootie}."
+
+## As built
+
+- **Flow:** the valley (start). The camp, to the right: Mauch's notebook
+  (*Karl Mauch*, *Ophir*, *King Solomon*, *the 10th century BC*, *the
+  Phoenicians*, *the Queen of Sheba*), his pencil (*cedar of Lebanon*), the
+  splinter (waiting for the lintel). The breach (`courses`) clears the
+  entrance. Inside: the tower, the passage, the fallen lintel. Back at the
+  camp, the splinter under the lens (`identify`, gives *tambootie*). In the
+  enclosure, the archaeologists' papers (*the ancestors of the Shona*, *the
+  11th century*); on the hill, the birds and their later paper (*Cecil
+  Rhodes*). The keeper's slip lies under the fig's roots once that paper is
+  read; the cartouche is written on the wall's top.
+- **The courses:** a gap 12 units wide over a standing course (3, 4, 2,
+  3); seven long blocks (4) and four short (2); three courses. The only
+  way: 2-4-4-2, 4-4-4, 2-4-4-2. Laying the longest that fits first runs
+  out of long blocks in the last course (checked in the walkthrough test).
+  Then ten chevron slabs leaned in turn.
+- **The key:** four couplets (pores; for conifers, scent; for hardwoods,
+  pore size, then scent), five names. Mauch's way (no pores, reddish and
+  scented) ends at cedar of Lebanon, whose note says conifers have no
+  pores.
+- **Words:** *the ancestors of the Shona*, *the 11th century*,
+  *tambootie* (the answers); *the Queen of Sheba*, *the Phoenicians*,
+  *King Solomon*, *Ophir*, *cedar of Lebanon*, *the 10th century BC*,
+  *Karl Mauch*, *Cecil Rhodes* (decoys).
+- **Echoes:** a builder with a block on the shoulder by the wall; a hunter
+  at the camp. **Living things:** msasa trees, the fig, dry grass, a
+  bateleur (`eagle`), a lizard (`gecko`).
+- **Audio:** music `zimbabwe_dry`; effects `stone_set`, `cicadas`,
+  `notebook`; interface `block_lay`, `slab_tilt`, `key_step`.
+
+## Things to watch when tested
+
+- Whether the red marks of the joints below are seen, and whether "joint
+  over joint" is understood without the hint.
+- Whether the pile reads at phone size (two rows under the wall), and
+  whether Take back is found.
+- Whether the key's statements are clear to someone who knows nothing of
+  wood, and whether the lens picture shows the pores plainly.
+- The Korean, Russian and Japanese sentences built around word slots
+  (particles and cases), for a native reader.

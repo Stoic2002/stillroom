@@ -504,4 +504,38 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get colophonCaption => '此书至此终';
+
+  @override
+  String get coursesInstruction => '从左边开始，把掉落的石块一层一层砌回去。任何石块都不能在下一层的接缝上方结束。';
+
+  @override
+  String coursesCourse(int course, int total) {
+    return '第$course层，共$total层';
+  }
+
+  @override
+  String get coursesTooLong => '太长了：会超出缺口。';
+
+  @override
+  String get coursesJoint => '接缝对接缝：墙会从那里裂开。';
+
+  @override
+  String get coursesTakeBack => '撤回';
+
+  @override
+  String get coursesBand => '人字纹带：点一块石板让它向另一边倾斜，直到它们交替倾斜。';
+
+  @override
+  String get identifyInstruction => '看看这片木屑。哪一句符合它？';
+
+  @override
+  String identifyWrong(String name) {
+    return '检索表走到了：$name';
+  }
+
+  @override
+  String get identifyBack => '回到走错的地方。';
+
+  @override
+  String get cartoucheCaption => '内陆新图';
 }

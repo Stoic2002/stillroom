@@ -148,5 +148,15 @@
   "dipLow": "尽きかけていた",
   "dipFull": "満ちていた",
   "dipStoresWrong": "それぞれの槽がどこまで満ちているか、もう一度見よう。",
-  "colophonCaption": "ここに書は終わる"
+  "colophonCaption": "ここに書は終わる",
+  "coursesInstruction": "落ちた石材を、左から一段ずつ積み直そう。下の段の継ぎ目の上で石材を終わらせてはいけない。",
+  "coursesCourse": "{total}段のうち{course}段目",
+  "coursesTooLong": "長すぎる。隙間からはみ出してしまう。",
+  "coursesJoint": "継ぎ目の上に継ぎ目。そこで壁が割れてしまう。",
+  "coursesTakeBack": "取り戻す",
+  "coursesBand": "シェブロンの帯。石板に触れると傾きが逆になる。交互に傾くまで続けよう。",
+  "identifyInstruction": "小片を見よう。どちらが正しい？",
+  "identifyWrong": "検索表の行き着いた先：{name}",
+  "identifyBack": "道を誤ったところへ戻る。",
+  "cartoucheCaption": "内陸部の新しい地図"
 }

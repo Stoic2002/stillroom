@@ -537,6 +537,7 @@ filled slot swaps them.
 | `rubbing` | An ink rubbing (*takbon*) taken from a cast inscription: black paper, the letters pale, a band of lotus scroll, the caption `rubbingCaption` | — |
 | `docket` | The cover sheet of a police file: printed headings (`docketHeader`, `docketSubheader`), a register stamp, the entry in dark ink by hand | — |
 | `vermilion` | A sheet of imperial yellow in a double vermilion rule, the sentences in vermilion (the emperor's own ink), the caption `vermilionCaption` | — |
+| `cartouche` | An old map's title cartouche: a parchment panel in a double rule with scrolled ends, the caption `cartoucheCaption`, the sentences written inside | — |
 | `colophon` | A manuscript's colophon: burnished paper in a thin brown double rule, scorched at one corner, the caption `colophonCaption`, the sentences centred and narrowing, closed by a triangle of dots | — |
 
 Used so far: Whitechapel `table` (the five frames), Semarang `telegram`,
@@ -545,7 +546,8 @@ diggers' cut, a tag on every layer), Bastille `order` (a blank *lettre de
 cachet*, written with only what is known), Gyeongju `rubbing` (taken from
 the bell's bronze), Whitechapel 1891 `docket` (the file's cover), Beijing
 1908 `vermilion` (written where the court once wrote "illness"), Alamut
-1256 `colophon` (the closing lines of the library's last book).
+1256 `colophon` (the closing lines of the library's last book), Great
+Zimbabwe 1871 `cartouche` (where the old maps wrote Ophir).
 
 ### `clockHands`: set the hands
 
@@ -1034,6 +1036,63 @@ the bell's bronze), Whitechapel 1891 `docket` (the file's cover), Beijing
   0.1 to 0.95; `names` each liquid once, every tank's liquid among them,
   and at least one more to mislead.
 
+### `courses`: a breach laid back, dry, course by course
+
+```json
+"config": {
+  "width": 12,
+  "base": [3, 4, 2, 3],
+  "courses": 3,
+  "blocks": [4, 2, 4, 4, 4, 2, 4, 2, 4, 4, 2],
+  "chevrons": [true, true, false, true, false, false, true, false, true, true]
+}
+```
+
+- **What the player sees:** the gap in the wall face on: the course still
+  standing at the bottom (`base`), the courses to lay above it, the
+  chevron band on top; beside it the course count and Take back; under it
+  the fallen pile, each block as long as it is.
+- **Playing:** tap a block to lay it next in the current course, from the
+  left (`block_lay`). It is refused, as a mistake, if it would run past
+  the gap or end over a joint of the course below (the joints below are
+  marked in red). A full course moves on to the next. Take back lifts the
+  last block laid. Once every course is laid (`note`), tap the band's
+  slabs to lean them the other way (`slab_tilt`) until they lean in turn,
+  starting either way.
+- **Validation:** `width` 4 to 16; `base` and every block whole lengths
+  from 1 to `width`, `base` summing to `width`; `courses` 1 to 5; the pile
+  summing to `width` × `courses` and layable (checked by search); 4 to 16
+  `chevrons`, not already alternating.
+
+### `identify`: a key walked to a name
+
+```json
+"config": {
+  "start": "pores",
+  "couplets": [
+    { "id": "pores", "choices": [
+      { "textKey": "…", "to": "size" },
+      { "textKey": "…", "to": "cedar" } ] }
+  ],
+  "names": [
+    { "id": "cedar", "nameKey": "…", "noteKey": "…" }
+  ],
+  "answer": "tambootie"
+}
+```
+
+- **What the player sees:** the specimen on the puzzle's background, at
+  the left; at the right a mark per step taken, and the couplet asked: its
+  two statements as buttons, a. and b.
+- **Playing:** pick the statement true of the specimen (`key_step`). A
+  statement leads to the next couplet or to a name. The answer's name
+  solves it, shown with its note. Any other name is a wrong end: a
+  mistake; its name and note are shown, and the key goes back to the last
+  couplet the path shared with the answer's, where it turned wrong.
+- **Validation:** every couplet has exactly two choices; ids are unique
+  across couplets and names; `start` is a couplet and `answer` a name; the
+  key is a tree reaching every couplet and name exactly once.
+
 ## Words and the jar's label
 
 `words` in `game.json` declares what the player can note down:
@@ -1226,3 +1285,4 @@ warnings show in the debug panel).
 | 2026-09-30 | post-M6 | Puzzle types `unwatched` and `compose`; deduction form `docket`; interface sounds `type_sort`, `lamp_gutter`. Episode `whitechapel_1891` (shelf III, series whitechapel) replaces the sealed jar; a sealed teaser `sealed_guangxu_1908` stands on shelf III. |
 | 2026-09-30 | post-M6 | Puzzle types `strand` and `scan`; deduction form `vermilion`; interface sounds `geiger`, `geiger_hot`, `sample`, `probe_tick`. Episode `chongling_1908` (shelf III) replaces `sealed_guangxu_1908`; the sealed teaser on shelf III is now `sealed_alamut_1256`. |
 | 2026-09-30 | post-M6 | Puzzle types `quire` and `dip`; deduction form `colophon`; creature `eagle`; interface sounds `catchword`, `reed_touch`, `drip`, `drip_slow`. Episode `alamut_1256` (shelf III) replaces `sealed_alamut_1256`; the sealed teaser on shelf III is now `sealed_zimbabwe_1871`. |
+| 2026-10-01 | post-M6 | Puzzle types `courses` and `identify`; deduction form `cartouche`; interface sounds `block_lay`, `slab_tilt`, `key_step`. Episode `great_zimbabwe_1871` (shelf III) replaces `sealed_zimbabwe_1871` and fills shelf III; a sealed teaser `sealed_dyatlov_1959` stands on shelf IV (`unlockAfter` 8). |

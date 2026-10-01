@@ -1,0 +1,64 @@
+{
+  "id": "jar_label",
+  "type": "deduction",
+  "background": "images/scenes/great_zimbabwe_1871/label_close.png",
+  "config": {
+    "form": "cartouche",
+    "sentences": [
+      {
+        "textKey": "great_zimbabwe_1871.label.s1",
+        "blanks": [
+          "shona",
+          "c11",
+          "tambootie"
+        ]
+      }
+    ],
+    "words": [
+      "shona",
+      "c11",
+      "tambootie",
+      "sheba",
+      "phoenicians",
+      "solomon",
+      "ophir",
+      "cedar",
+      "bc10",
+      "mauch",
+      "rhodes"
+    ],
+    "nearMiss": 1
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "cicadas"
+    },
+    {
+      "type": "showText",
+      "key": "great_zimbabwe_1871.label.done"
+    },
+    {
+      "type": "showText",
+      "key": "great_zimbabwe_1871.ending.built"
+    },
+    {
+      "type": "showText",
+      "key": "great_zimbabwe_1871.ending.name"
+    },
+    {
+      "type": "endEpisode"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.great_zimbabwe_1871.jar_label.1"
+    },
+    {
+      "key": "hint.great_zimbabwe_1871.jar_label.2"
+    },
+    {
+      "key": "hint.great_zimbabwe_1871.jar_label.3"
+    }
+  ]
+}

@@ -104,6 +104,7 @@ class _DeductionViewState extends State<DeductionView>
       DeductionForm.docket => _docket(context, sentenceStyle),
       DeductionForm.vermilion => _vermilion(context, sentenceStyle),
       DeductionForm.colophon => _colophon(context, sentenceStyle),
+      DeductionForm.cartouche => _cartouche(context, sentenceStyle),
       DeductionForm.board => const SizedBox.shrink(),
     };
 
@@ -491,6 +492,39 @@ class _DeductionViewState extends State<DeductionView>
     );
   }
 
+  /// An old map's title cartouche: a parchment panel in a scrolled frame,
+  /// the map's title above, the sentences written inside.
+  Widget _cartouche(BuildContext context, TextStyle style) {
+    final l10n = AppLocalizations.of(context);
+    final ink = style.copyWith(height: 1.7, color: const Color(0xFF2E2418));
+    return CustomPaint(
+      painter: const _CartoucheFrame(),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(56, 18, 56, 18),
+        child: Column(
+          children: [
+            Text(
+              l10n.cartoucheCaption,
+              textAlign: TextAlign.center,
+              style: style.copyWith(
+                fontFamily: AppTheme.smallCaps,
+                fontSize: 14,
+                letterSpacing: 2.5,
+                color: const Color(0xFF5A3A1E),
+              ),
+            ),
+            const SizedBox(height: 4),
+            for (final (i, sentence) in _config.sentences.indexed)
+              Text.rich(
+                TextSpan(style: ink, children: _sentence(context, i, sentence)),
+                textAlign: TextAlign.center,
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
   /// A telegram form: capitals, STOP between the sentences.
   Widget _telegram(BuildContext context, TextStyle style) {
     final l10n = AppLocalizations.of(context);
@@ -780,6 +814,55 @@ class _RegisterStamp extends CustomPainter {
 
   @override
   bool shouldRepaint(_RegisterStamp old) => false;
+}
+
+/// A map's cartouche: a parchment panel with a double rule, and scrolled
+/// ends curling out at either side.
+class _CartoucheFrame extends CustomPainter {
+  const _CartoucheFrame();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final panel = Rect.fromLTWH(28, 4, size.width - 56, size.height - 8);
+    final ink = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.6
+      ..color = const Color(0xFF5A3A1E);
+    // The scrolls behind the panel, left and right.
+    for (final side in [-1.0, 1.0]) {
+      final x = side < 0 ? panel.left : panel.right;
+      for (final (dy, r) in [(0.28, 0.2), (0.72, 0.2)]) {
+        final c = Offset(x + side * 10, panel.top + panel.height * dy);
+        final rect = Rect.fromCircle(center: c, radius: panel.height * r);
+        canvas
+          ..drawOval(rect, Paint()..color = const Color(0xFFCDB689))
+          ..drawArc(rect, 0, 5.4, false, ink)
+          ..drawArc(rect.deflate(rect.width * 0.22), 1, 4.4, false, ink);
+      }
+    }
+    canvas
+      ..drawRect(panel, Paint()..color = const Color(0xFFE9DAB4))
+      ..drawRect(panel.deflate(6), ink)
+      ..drawRect(panel.deflate(10), ink..strokeWidth = 0.8)
+      ..drawRect(
+        panel,
+        Paint()
+          ..shader = const RadialGradient(
+            colors: [Color(0x00000000), Color(0x338A6A3A)],
+          ).createShader(panel),
+      );
+    // A small rosette at the top and bottom of the panel.
+    for (final y in [panel.top + 6, panel.bottom - 6]) {
+      canvas.drawCircle(
+        Offset(panel.center.dx, y),
+        4,
+        Paint()..color = const Color(0xFF8A3A1E),
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(_CartoucheFrame old) => false;
 }
 
 /// A thin double rule in brown ink round a colophon, and a scorched

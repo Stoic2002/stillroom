@@ -1,0 +1,111 @@
+{
+  "id": "identify",
+  "type": "identify",
+  "background": "images/scenes/great_zimbabwe_1871/identify_board.png",
+  "config": {
+    "start": "pores",
+    "couplets": [
+      {
+        "id": "pores",
+        "choices": [
+          {
+            "textKey": "great_zimbabwe_1871.key.pores_yes",
+            "to": "size"
+          },
+          {
+            "textKey": "great_zimbabwe_1871.key.pores_no",
+            "to": "conifer"
+          }
+        ]
+      },
+      {
+        "id": "conifer",
+        "choices": [
+          {
+            "textKey": "great_zimbabwe_1871.key.conifer_scent",
+            "to": "cedar"
+          },
+          {
+            "textKey": "great_zimbabwe_1871.key.conifer_plain",
+            "to": "softwood"
+          }
+        ]
+      },
+      {
+        "id": "size",
+        "choices": [
+          {
+            "textKey": "great_zimbabwe_1871.key.size_fine",
+            "to": "scent"
+          },
+          {
+            "textKey": "great_zimbabwe_1871.key.size_large",
+            "to": "ringwood"
+          }
+        ]
+      },
+      {
+        "id": "scent",
+        "choices": [
+          {
+            "textKey": "great_zimbabwe_1871.key.scent_yes",
+            "to": "tambootie"
+          },
+          {
+            "textKey": "great_zimbabwe_1871.key.scent_no",
+            "to": "plainwood"
+          }
+        ]
+      }
+    ],
+    "names": [
+      {
+        "id": "cedar",
+        "nameKey": "great_zimbabwe_1871.key.cedar",
+        "noteKey": "great_zimbabwe_1871.key.cedar_note"
+      },
+      {
+        "id": "softwood",
+        "nameKey": "great_zimbabwe_1871.key.softwood",
+        "noteKey": "great_zimbabwe_1871.key.softwood_note"
+      },
+      {
+        "id": "ringwood",
+        "nameKey": "great_zimbabwe_1871.key.ringwood",
+        "noteKey": "great_zimbabwe_1871.key.ringwood_note"
+      },
+      {
+        "id": "plainwood",
+        "nameKey": "great_zimbabwe_1871.key.plainwood",
+        "noteKey": "great_zimbabwe_1871.key.plainwood_note"
+      },
+      {
+        "id": "tambootie",
+        "nameKey": "great_zimbabwe_1871.key.tambootie",
+        "noteKey": "great_zimbabwe_1871.key.tambootie_note"
+      }
+    ],
+    "answer": "tambootie"
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "notebook"
+    },
+    {
+      "type": "showText",
+      "key": "great_zimbabwe_1871.camp.identify_done"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.great_zimbabwe_1871.identify.1"
+    },
+    {
+      "key": "hint.great_zimbabwe_1871.identify.2"
+    },
+    {
+      "key": "hint.great_zimbabwe_1871.identify.3"
+    }
+  ]
+}

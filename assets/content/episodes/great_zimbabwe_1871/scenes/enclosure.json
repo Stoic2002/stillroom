@@ -1,0 +1,124 @@
+{
+  "id": "enclosure",
+  "background": "images/scenes/great_zimbabwe_1871/enclosure.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "valley"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "tower",
+      "rect": [
+        0.54,
+        0.12,
+        0.16,
+        0.6
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "great_zimbabwe_1871.enclosure.tower"
+        }
+      ]
+    },
+    {
+      "id": "passage",
+      "rect": [
+        0.06,
+        0.1,
+        0.18,
+        0.62
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "great_zimbabwe_1871.enclosure.passage"
+        }
+      ]
+    },
+    {
+      "id": "lintel",
+      "rect": [
+        0.3,
+        0.68,
+        0.2,
+        0.12
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "stone_set"
+        },
+        {
+          "type": "setFlag",
+          "flag": "saw_lintel",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "great_zimbabwe_1871.enclosure.lintel"
+        }
+      ]
+    },
+    {
+      "id": "report",
+      "rect": [
+        0.78,
+        0.58,
+        0.1,
+        0.12
+      ],
+      "when": [
+        {
+          "puzzleSolved": "identify"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_report",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "great_zimbabwe_1871.enclosure.report"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "report_sprite",
+      "image": "images/objects/great_zimbabwe_1871/report_sprite.png",
+      "rect": [
+        0.78,
+        0.58,
+        0.1,
+        0.12
+      ],
+      "when": [
+        {
+          "puzzleSolved": "identify"
+        }
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "lizard",
+      "kind": "gecko",
+      "rect": [
+        0.74,
+        0.2,
+        0.18,
+        0.3
+      ]
+    }
+  ]
+}
