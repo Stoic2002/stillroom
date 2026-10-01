@@ -110,15 +110,17 @@ with a legend to set right. The lineup, by shelf and region, is in
 
 ## Next steps (in this order)
 
-1. **Wait for the developer's feedback on *Beijing, 1908* and *Alamut,
-   1256*** (both built 2026-09-30; each design doc has *Things to watch*).
-   Alamut: whether the catchwords read at phone size, whether the reed
-   "meeting" the surface is felt, whether the drips tell the liquids
-   apart.
-2. **The next tale of the plan:** *Great Zimbabwe, 1871* closes shelf
-   III; then shelf IV. For each: a design doc first (facts with sources,
-   2–3 mechanics of its own, the chain, the seal), approved by the
-   developer before building.
+1. **Build the remaining tales of the plan, one after another.** The
+   developer does not play-test tale by tale: once all 16 exist they test
+   the whole game and do one big round of fixes and polish (decided
+   2026-10-01; Play Store target mid-October 2026, end of October at the
+   latest). Keep each design doc's *Things to watch* as the checklist for
+   that review.
+2. **Next:** *Great Zimbabwe, 1871* (design draft
+   `docs/episodes/great_zimbabwe_1871.md`, waiting for approval) closes
+   shelf III; then shelf IV. For each: a design doc first (facts with
+   sources, 2–3 mechanics of its own, the chain, the seal), approved by
+   the developer before building.
 3. Later, and to be asked first:
    - the Indonesian tale for shelf IV;
    - the keeper's arc (OPEN);
