@@ -14,6 +14,10 @@ abstract interface class AudioService {
   /// Stops the music; with [ifPlaying], only while that file is what plays
   /// (another screen may have started its own music since).
   Future<void> stopMusic({String? ifPlaying});
+
+  /// Lets go of every player, as the app's engine is about to go away
+  /// (Android destroys the activity). A later sound loads afresh.
+  Future<void> release();
 }
 
 /// Plays nothing, for tests.
@@ -34,4 +38,7 @@ final class SilentAudioService implements AudioService {
 
   @override
   Future<void> stopMusic({String? ifPlaying}) async {}
+
+  @override
+  Future<void> release() async {}
 }

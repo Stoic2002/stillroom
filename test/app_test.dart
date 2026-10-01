@@ -84,6 +84,9 @@ final class _MusicLog implements AudioService {
 
   @override
   Future<void> preload(Iterable<String> assetPaths) async {}
+
+  @override
+  Future<void> release() async {}
 }
 
 void main() {

@@ -24,6 +24,9 @@ final class FlameAudioService implements AudioService {
   /// Android allows only a few at once (too many fail with error -19).
   final Map<String, Future<AudioPlayer?>> _quick = {};
 
+  /// One-off players still sounding.
+  final Set<AudioPlayer> _oneOff = {};
+
   static bool _isQuick(String assetPath) =>
       assetPath.startsWith('assets/audio/ui/');
 
@@ -77,13 +80,14 @@ final class FlameAudioService implements AudioService {
     }
     // A one-off player, released as soon as the sound ends.
     final player = AudioPlayer()..audioCache = FlameAudio.audioCache;
+    _oneOff.add(player);
     try {
       await player.setReleaseMode(ReleaseMode.release);
       unawaited(
-        player.onPlayerComplete.first.then<void>(
-          (_) => player.dispose(),
-          onError: (Object _) {},
-        ),
+        player.onPlayerComplete.first.then<void>((_) {
+          _oneOff.remove(player);
+          return player.dispose();
+        }, onError: (Object _) {}),
       );
       await player.play(
         AssetSource(assetPath),
@@ -92,6 +96,7 @@ final class FlameAudioService implements AudioService {
       );
     } on Object catch (e) {
       debugPrint('Sound failed: $assetPath: $e');
+      _oneOff.remove(player);
       unawaited(player.dispose());
     }
   }
@@ -123,5 +128,32 @@ final class FlameAudioService implements AudioService {
     if (ifPlaying != null && ifPlaying != _current) return;
     _current = null;
     await FlameAudio.bgm.stop();
+  }
+
+  @override
+  Future<void> release() async {
+    // Players left running after the engine detaches keep answering
+    // platform calls nobody receives ("FlutterJNI was detached" in the
+    // log); stop and free them all first.
+    final quick = [..._quick.values];
+    final oneOff = [..._oneOff];
+    _quick.clear();
+    _oneOff.clear();
+    _current = null;
+    for (final pending in quick) {
+      try {
+        await (await pending)?.dispose();
+      } on Object catch (_) {}
+    }
+    for (final player in oneOff) {
+      try {
+        await player.dispose();
+      } on Object catch (_) {}
+    }
+    if (_bgmReady) {
+      try {
+        await FlameAudio.bgm.stop();
+      } on Object catch (_) {}
+    }
   }
 }
