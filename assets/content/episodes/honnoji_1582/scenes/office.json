@@ -1,0 +1,145 @@
+{
+  "id": "office",
+  "background": "images/scenes/honnoji_1582/office.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "dig"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "map_wait",
+      "rect": [
+        0.28,
+        0.56,
+        0.44,
+        0.18
+      ],
+      "when": [
+        {
+          "flag": "read_leaflet",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "honnoji_1582.office.map_wait"
+        }
+      ]
+    },
+    {
+      "id": "map_wait2",
+      "rect": [
+        0.28,
+        0.56,
+        0.44,
+        0.18
+      ],
+      "when": [
+        {
+          "flag": "read_leaflet",
+          "equals": true
+        },
+        {
+          "flag": "read_chronicle",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "honnoji_1582.office.map_wait"
+        }
+      ]
+    },
+    {
+      "id": "map",
+      "rect": [
+        0.28,
+        0.56,
+        0.44,
+        0.18
+      ],
+      "when": [
+        {
+          "flag": "read_leaflet",
+          "equals": true
+        },
+        {
+          "flag": "read_chronicle",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "streets",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "showText",
+          "key": "honnoji_1582.office.map"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "streets"
+        }
+      ]
+    },
+    {
+      "id": "map_done",
+      "rect": [
+        0.28,
+        0.56,
+        0.44,
+        0.18
+      ],
+      "when": [
+        {
+          "puzzleSolved": "streets"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "honnoji_1582.office.map_done"
+        }
+      ]
+    },
+    {
+      "id": "board",
+      "rect": [
+        0.58,
+        0.12,
+        0.22,
+        0.26
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "honnoji_1582.office.board"
+        }
+      ]
+    },
+    {
+      "id": "hats",
+      "rect": [
+        0.08,
+        0.3,
+        0.14,
+        0.14
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "honnoji_1582.office.hats"
+        }
+      ]
+    }
+  ]
+}

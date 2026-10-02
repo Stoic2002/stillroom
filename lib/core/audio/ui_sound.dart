@@ -141,7 +141,16 @@ enum UiSound {
   columnBreak('column_break', Haptic.medium),
 
   /// The enlarger's timer ticking through an exposure.
-  enlarger('enlarger', Haptic.light);
+  enlarger('enlarger', Haptic.light),
+
+  /// A layer dated: a label pinned to the section.
+  strataTag('strata_tag', Haptic.light),
+
+  /// A find lifted from the earth to be read.
+  findLift('find_lift', Haptic.selection),
+
+  /// A block marked on the city map.
+  streetMark('street_mark', Haptic.light);
 
   const UiSound(this.id, this.haptic);
 

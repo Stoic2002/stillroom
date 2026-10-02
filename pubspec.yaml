@@ -76,6 +76,9 @@ flutter:
     - assets/content/episodes/dyatlov_1959/
     - assets/content/episodes/dyatlov_1959/scenes/
     - assets/content/episodes/dyatlov_1959/puzzles/
+    - assets/content/episodes/honnoji_1582/
+    - assets/content/episodes/honnoji_1582/scenes/
+    - assets/content/episodes/honnoji_1582/puzzles/
     - assets/content/episodes/test_room/
     - assets/content/episodes/test_room/scenes/
     - assets/content/episodes/test_room/puzzles/
@@ -92,6 +95,7 @@ flutter:
     - assets/images/scenes/alamut_1256/
     - assets/images/scenes/great_zimbabwe_1871/
     - assets/images/scenes/dyatlov_1959/
+    - assets/images/scenes/honnoji_1582/
     - assets/images/objects/
     - assets/images/objects/test_room/
     - assets/images/objects/whitechapel_1888/
@@ -105,6 +109,7 @@ flutter:
     - assets/images/objects/alamut_1256/
     - assets/images/objects/great_zimbabwe_1871/
     - assets/images/objects/dyatlov_1959/
+    - assets/images/objects/honnoji_1582/
     - assets/images/items/
     - assets/images/items/test_room/
     - assets/images/items/whitechapel_1888/

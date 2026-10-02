@@ -106,6 +106,7 @@ class _DeductionViewState extends State<DeductionView>
       DeductionForm.colophon => _colophon(context, sentenceStyle),
       DeductionForm.cartouche => _cartouche(context, sentenceStyle),
       DeductionForm.routebook => _routebook(context, sentenceStyle),
+      DeductionForm.marker => _marker(context, sentenceStyle),
       DeductionForm.board => const SizedBox.shrink(),
     };
 
@@ -535,6 +536,44 @@ class _DeductionViewState extends State<DeductionView>
     );
   }
 
+  /// A city's stone site marker: grey granite with a polished face, the
+  /// heading cut deep above, the words cut below.
+  Widget _marker(BuildContext context, TextStyle style) {
+    final l10n = AppLocalizations.of(context);
+    // Cut letters: dark in the groove, a light edge where the sun catches.
+    final cut = style.copyWith(
+      height: 1.75,
+      color: const Color(0xFF1C1E22),
+      shadows: const [Shadow(color: Color(0x66FFFFFF), offset: Offset(0, 1))],
+    );
+    return CustomPaint(
+      painter: const _GraniteMarker(),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(48, 16, 48, 18),
+        child: Column(
+          children: [
+            Text(
+              l10n.markerCaption,
+              textAlign: TextAlign.center,
+              style: cut.copyWith(
+                fontFamily: AppTheme.smallCaps,
+                fontSize: 17,
+                letterSpacing: 4,
+                height: 1.3,
+              ),
+            ),
+            const SizedBox(height: 6),
+            for (final (i, sentence) in _config.sentences.indexed)
+              Text.rich(
+                TextSpan(style: cut, children: _sentence(context, i, sentence)),
+                textAlign: TextAlign.center,
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
   /// An old map's title cartouche: a parchment panel in a scrolled frame,
   /// the map's title above, the sentences written inside.
   Widget _cartouche(BuildContext context, TextStyle style) {
@@ -896,6 +935,95 @@ class _RoutebookPage extends CustomPainter {
 
   @override
   bool shouldRepaint(_RoutebookPage old) => false;
+}
+
+/// Granite: a grey slab with a bevelled edge, flecks of dark and pale
+/// crystal, and a cut line framing the face.
+class _GraniteMarker extends CustomPainter {
+  const _GraniteMarker();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final slab = Offset.zero & size;
+    canvas
+      ..drawRect(
+        slab.shift(const Offset(0, 6)),
+        Paint()
+          ..color = const Color(0xAA000000)
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 10),
+      )
+      ..drawRect(
+        slab,
+        Paint()
+          ..shader = const LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color(0xFFA4A6A8), Color(0xFF86888C)],
+          ).createShader(slab),
+      );
+    final random = math.Random(1582);
+    final fleck = Paint();
+    for (var i = 0; i < 900; i++) {
+      final dark = random.nextInt(3) == 0;
+      fleck.color = dark
+          ? Color.fromARGB(90 + random.nextInt(80), 30, 30, 34)
+          : Color.fromARGB(60 + random.nextInt(80), 230, 230, 226);
+      canvas.drawCircle(
+        Offset(
+          random.nextDouble() * size.width,
+          random.nextDouble() * size.height,
+        ),
+        0.4 + random.nextDouble() * 1.1,
+        fleck,
+      );
+    }
+    // The bevel: light along the top and left, shade along the others.
+    const bevel = 7.0;
+    final face = slab.deflate(bevel);
+    canvas
+      ..drawPath(
+        Path()
+          ..moveTo(slab.left, slab.top)
+          ..lineTo(slab.right, slab.top)
+          ..lineTo(face.right, face.top)
+          ..lineTo(face.left, face.top)
+          ..lineTo(face.left, face.bottom)
+          ..lineTo(slab.left, slab.bottom)
+          ..close(),
+        Paint()..color = const Color(0x40FFFFFF),
+      )
+      ..drawPath(
+        Path()
+          ..moveTo(slab.right, slab.bottom)
+          ..lineTo(slab.left, slab.bottom)
+          ..lineTo(face.left, face.bottom)
+          ..lineTo(face.right, face.bottom)
+          ..lineTo(face.right, face.top)
+          ..lineTo(slab.right, slab.top)
+          ..close(),
+        Paint()..color = const Color(0x40000000),
+      );
+    // A cut line framing the face.
+    final frame = face.deflate(6);
+    canvas
+      ..drawRect(
+        frame,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1.4
+          ..color = const Color(0x881C1E22),
+      )
+      ..drawRect(
+        frame.shift(const Offset(0, 1)),
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 0.8
+          ..color = const Color(0x44FFFFFF),
+      );
+  }
+
+  @override
+  bool shouldRepaint(_GraniteMarker old) => false;
 }
 
 /// A map's cartouche: a parchment panel with a double rule, and scrolled

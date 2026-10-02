@@ -665,4 +665,45 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get routebookCaption => 'Libro de ruta';
+
+  @override
+  String get strataInstruction =>
+      'Toca un hallazgo para leer su año. Luego toca una capa y dale el año más temprano que puede tener: no más antigua que su hallazgo más reciente, ni que la capa de debajo.';
+
+  @override
+  String strataNotBefore(int year) {
+    return 'No antes de $year';
+  }
+
+  @override
+  String get strataWrong => 'Esa fecha no encaja en esta capa.';
+
+  @override
+  String get strataFireQuestion =>
+      'Todas las capas están fechadas. Toca la capa del incendio de 1582.';
+
+  @override
+  String get strataFire => 'Este es el incendio';
+
+  @override
+  String get strataNotBurnt => 'Esta capa nunca ardió.';
+
+  @override
+  String get strataTooLate => 'Este incendio es posterior a 1582.';
+
+  @override
+  String get streetsInstruction =>
+      'Agaru: norte. Sagaru: sur. Higashi-iru: este. Nishi-iru: oeste. Toca la manzana que nombra la dirección.';
+
+  @override
+  String get streetsWrong =>
+      'No es esta manzana. Vuelve a leer la dirección desde su cruce.';
+
+  @override
+  String streetsProgress(int found, int total) {
+    return 'Direcciones halladas: $found de $total';
+  }
+
+  @override
+  String get markerCaption => 'Lugar histórico';
 }

@@ -1,0 +1,178 @@
+{
+  "id": "finds",
+  "background": "images/scenes/honnoji_1582/finds.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "dig"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "trays",
+      "rect": [
+        0.03,
+        0.2,
+        0.24,
+        0.5
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "honnoji_1582.finds.trays"
+        }
+      ]
+    },
+    {
+      "id": "chronicle",
+      "rect": [
+        0.33,
+        0.58,
+        0.13,
+        0.08
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_chronicle",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "honnoji_1582.finds.chronicle"
+        }
+      ]
+    },
+    {
+      "id": "tile",
+      "rect": [
+        0.5,
+        0.54,
+        0.12,
+        0.1
+      ],
+      "when": [
+        {
+          "puzzleSolved": "strata"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "honnoji_1582.finds.tile"
+        }
+      ]
+    },
+    {
+      "id": "frois",
+      "rect": [
+        0.66,
+        0.58,
+        0.12,
+        0.08
+      ],
+      "when": [
+        {
+          "puzzleSolved": "strata"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_frois",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "honnoji_1582.finds.frois"
+        }
+      ]
+    },
+    {
+      "id": "later",
+      "rect": [
+        0.74,
+        0.22,
+        0.16,
+        0.18
+      ],
+      "when": [
+        {
+          "flag": "read_frois",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_later",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "honnoji_1582.finds.later"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "tile_sprite",
+      "image": "images/objects/honnoji_1582/tile_sprite.png",
+      "rect": [
+        0.5,
+        0.54,
+        0.12,
+        0.1
+      ],
+      "when": [
+        {
+          "puzzleSolved": "strata"
+        }
+      ]
+    },
+    {
+      "id": "frois_sprite",
+      "image": "images/objects/honnoji_1582/frois_sprite.png",
+      "rect": [
+        0.66,
+        0.58,
+        0.12,
+        0.08
+      ],
+      "when": [
+        {
+          "puzzleSolved": "strata"
+        }
+      ]
+    },
+    {
+      "id": "later_sprite",
+      "image": "images/objects/honnoji_1582/later_sprite.png",
+      "rect": [
+        0.74,
+        0.22,
+        0.16,
+        0.18
+      ],
+      "when": [
+        {
+          "flag": "read_frois",
+          "equals": true
+        }
+      ]
+    }
+  ]
+}

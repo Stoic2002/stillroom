@@ -831,5 +831,62 @@
   "routebookCaption": "Route book",
   "@routebookCaption": {
     "description": "Route-book label form: its heading."
+  },
+  "strataInstruction": "Tap a find to read its year. Then tap a layer and give it the earliest year it can be: no older than its youngest find, nor than the layer beneath it.",
+  "@strataInstruction": {
+    "description": "Strata puzzle: what to do."
+  },
+  "strataNotBefore": "Not before {year}",
+  "@strataNotBefore": {
+    "description": "Strata puzzle: a dated layer, or a date to choose.",
+    "placeholders": {
+      "year": {
+        "type": "int"
+      }
+    }
+  },
+  "strataWrong": "That date does not fit this layer.",
+  "@strataWrong": {
+    "description": "Strata puzzle: a wrong date."
+  },
+  "strataFireQuestion": "Every layer is dated. Tap the layer of the fire of 1582.",
+  "@strataFireQuestion": {
+    "description": "Strata puzzle: the last question."
+  },
+  "strataFire": "This is the fire",
+  "@strataFire": {
+    "description": "Button: mark the picked layer as the fire."
+  },
+  "strataNotBurnt": "This layer never burned.",
+  "@strataNotBurnt": {
+    "description": "Strata puzzle: the marked layer is not burnt."
+  },
+  "strataTooLate": "This fire is later than 1582.",
+  "@strataTooLate": {
+    "description": "Strata puzzle: the marked burnt layer is too late."
+  },
+  "streetsInstruction": "Agaru: north. Sagaru: south. Higashi-iru: east. Nishi-iru: west. Tap the block the address names.",
+  "@streetsInstruction": {
+    "description": "Streets puzzle: what to do."
+  },
+  "streetsWrong": "Not this block. Read the address again from its crossing.",
+  "@streetsWrong": {
+    "description": "Streets puzzle: a wrong block."
+  },
+  "streetsProgress": "Addresses found: {found} of {total}",
+  "@streetsProgress": {
+    "description": "Streets puzzle: progress.",
+    "placeholders": {
+      "found": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "markerCaption": "Historic site",
+  "@markerCaption": {
+    "description": "Marker label form: the heading cut above the words."
   }
 }

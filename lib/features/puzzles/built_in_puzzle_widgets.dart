@@ -27,6 +27,8 @@ import 'slot_placement/slot_placement_view.dart';
 import 'snowpit/snowpit_view.dart';
 import 'sources/sources_view.dart';
 import 'strand/strand_view.dart';
+import 'strata/strata_view.dart';
+import 'streets/streets_view.dart';
 import 'swell/swell_view.dart';
 import 'thread/thread_view.dart';
 import 'unwatched/unwatched_view.dart';
@@ -35,7 +37,8 @@ import 'unwatched/unwatched_view.dart';
 /// `reveal`, `crank`, `overlay`, `clockHands`, `thread`, `rakingLight`,
 /// `beamSweep`, `swell`, `roster`, `keyring`, `cipher`, `sources`, `pour`,
 /// `resonance`, `beat`, `unwatched`, `compose`, `strand`, `scan`, `quire`,
-/// `dip`, `courses`, `identify`, `snowpit` and `darkroom`).
+/// `dip`, `courses`, `identify`, `snowpit`, `darkroom`, `strata` and
+/// `streets`).
 PuzzleWidgetRegistry builtInPuzzleWidgets() => PuzzleWidgetRegistry()
   ..register(CodeLockType.typeId, CodeLockView.new)
   ..register(SequenceType.typeId, SequenceView.new)
@@ -66,4 +69,6 @@ PuzzleWidgetRegistry builtInPuzzleWidgets() => PuzzleWidgetRegistry()
   ..register(CoursesType.typeId, CoursesView.new)
   ..register(IdentifyType.typeId, IdentifyView.new)
   ..register(SnowpitType.typeId, SnowpitView.new)
-  ..register(DarkroomType.typeId, DarkroomView.new);
+  ..register(DarkroomType.typeId, DarkroomView.new)
+  ..register(StrataType.typeId, StrataView.new)
+  ..register(StreetsType.typeId, StreetsView.new);

@@ -343,6 +343,8 @@ void main() {
       'identify',
       'snowpit',
       'darkroom',
+      'strata',
+      'streets',
     ]);
   });
 }

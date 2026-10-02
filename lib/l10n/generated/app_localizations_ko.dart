@@ -622,4 +622,43 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get routebookCaption => '경로 수첩';
+
+  @override
+  String get strataInstruction =>
+      '출토품을 눌러 연도를 읽자. 그다음 층을 누르고 가능한 가장 이른 연도를 붙이자. 그 안의 가장 늦은 출토품보다, 그 아래층보다 오래되지 않게.';
+
+  @override
+  String strataNotBefore(int year) {
+    return '$year년 이후';
+  }
+
+  @override
+  String get strataWrong => '그 연도는 이 층에 맞지 않는다.';
+
+  @override
+  String get strataFireQuestion => '모든 층에 연대가 붙었다. 1582년 화재의 층을 누르자.';
+
+  @override
+  String get strataFire => '이것이 화재다';
+
+  @override
+  String get strataNotBurnt => '이 층은 불탄 적이 없다.';
+
+  @override
+  String get strataTooLate => '이 화재는 1582년보다 늦다.';
+
+  @override
+  String get streetsInstruction =>
+      '아가루: 북. 사가루: 남. 히가시이루: 동. 니시이루: 서. 주소가 가리키는 블록을 누르자.';
+
+  @override
+  String get streetsWrong => '이 블록이 아니다. 교차로에서부터 주소를 다시 읽자.';
+
+  @override
+  String streetsProgress(int found, int total) {
+    return '찾은 주소: $total개 중 $found개';
+  }
+
+  @override
+  String get markerCaption => '사적지';
 }

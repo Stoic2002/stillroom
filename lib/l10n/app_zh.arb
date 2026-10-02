@@ -182,5 +182,16 @@
   "darkroomLight": "太短：灰白一片。相纸废了。",
   "darkroomDark": "太长：雪发灰了。相纸废了。",
   "darkroomSeconds": "{seconds}秒",
-  "routebookCaption": "路线手册"
+  "routebookCaption": "路线手册",
+  "strataInstruction": "点出土物，读出它的年份。再点一层土，给它可能的最早年份：不早于其中最晚的出土物，也不早于它下面的那一层。",
+  "strataNotBefore": "不早于{year}年",
+  "strataWrong": "这个年份对不上这一层。",
+  "strataFireQuestion": "每一层都定了年代。点出1582年那场火灾的土层。",
+  "strataFire": "就是这场火",
+  "strataNotBurnt": "这一层从没烧过。",
+  "strataTooLate": "这场火比1582年晚。",
+  "streetsInstruction": "上ル：北。下ル：南。东入ル：东。西入ル：西。点地址所说的那个街区。",
+  "streetsWrong": "不是这个街区。从路口重新读一遍地址。",
+  "streetsProgress": "已找到的地址：{found}/{total}",
+  "markerCaption": "史迹"
 }

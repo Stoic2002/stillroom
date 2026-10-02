@@ -1688,6 +1688,58 @@ Buf radioStatic() {
     ..add(gain(whistle, 0.05));
 }
 
+/// Honnō-ji: a temple bell struck with a swung beam, low, wavering, the
+/// hum dying away for a long time.
+Buf templeBell() {
+  final rng = math.Random(62);
+  const seconds = 14.0;
+  final b = Buf(seconds)
+    ..add(
+      modal(seconds, 98, const [
+        (1, 1, 6),
+        (1.007, 0.6, 5.5),
+        (2.04, 0.45, 3.5),
+        (2.76, 0.3, 2.6),
+        (3.9, 0.18, 1.6),
+        (5.4, 0.08, 0.7),
+      ]),
+      gain: 0.5,
+    )
+    // The beam's soft thud on the bronze.
+    ..add(
+      gain(
+        shape(lowpass(noise(0.15, rng), (_) => 400), (t) => decay(t, 0.03)),
+        1.2,
+      ),
+    );
+  return reverb(b, size: 0.9, mix: 0.35, damp: 0.6);
+}
+
+/// Honnō-ji: a trowel drawn across damp clay, three strokes, grit in it.
+Buf trowel() {
+  final rng = math.Random(63);
+  final b = Buf(1.8);
+  for (final (i, at) in [0.0, 0.5, 1.0].indexed) {
+    b.add(
+      shape(
+        bandpass(noise(0.4, rng), (t) => 2600 - t * 1800, 1.6),
+        (t) => swell(t, 0.04, 0.2, 0.4),
+      ),
+      at: at,
+      gain: 0.7 - i * 0.1,
+      pan: -0.1 + i * 0.1,
+    );
+    for (var k = 0; k < 4; k++) {
+      b.add(
+        click(rng, centre: 3500, time: 0.0015),
+        at: at + 0.05 + rng.nextDouble() * 0.3,
+        gain: 0.12,
+      );
+    }
+  }
+  return reverb(b, size: 0.3, mix: 0.12);
+}
+
 final sfx = <String, Buf Function()>{
   'stone_door': stoneDoor,
   'reactor_count': reactorCount,
@@ -1698,6 +1750,8 @@ final sfx = <String, Buf Function()>{
   'eagle_cry': eagleCry,
   'stone_set': stoneSet,
   'cicadas': cicadas,
+  'temple_bell': templeBell,
+  'trowel': trowel,
   'notebook': notebook,
   'wind_ridge': windRidge,
   'canvas_flap': canvasFlap,
@@ -2090,11 +2144,67 @@ Buf uralWind() => loop(48, (seconds) {
   return reverb(b, size: 0.9, mix: 0.4, damp: 0.6);
 });
 
+/// Honnō-ji: a low drone in D, a bamboo flute's breathy phrase in the old
+/// scale far off, now and then a temple bell's long hum, cicadas faint.
+Buf kyotoAsh() => loop(48, (seconds) {
+  final rng = math.Random(33);
+  final b = Buf(seconds)
+    ..add(
+      drone(seconds, loopSeconds: 48, const [
+        (73.42, 0.38, 24),
+        (110.0, 0.16, 16),
+        (146.8, 0.06, 12),
+      ]),
+      gain: 0.36,
+    );
+  // The flute: each note swelling in on a breath, a slow vibrato.
+  const phrase = [(293.7, 2.4), (311.1, 1.6), (392.0, 2.8), (293.7, 3.2)];
+  for (var at = 3.0; at < seconds - 12; at += 24) {
+    var t0 = at;
+    for (final (pitch, length) in phrase) {
+      b
+        ..add(
+          shape(
+            tone(length, (t) => pitch * (1 + 0.006 * math.sin(tau * t * 5))),
+            (t) => swell(t, length * 0.4, length * 0.4, length),
+          ),
+          at: t0,
+          gain: 0.035,
+          pan: -0.2,
+        )
+        ..add(
+          shape(
+            bandpass(noise(length, rng), (_) => pitch * 2, 3),
+            (t) => swell(t, length * 0.3, length * 0.5, length),
+          ),
+          at: t0,
+          gain: 0.05,
+          pan: -0.2,
+        );
+      t0 += length * 0.92;
+    }
+  }
+  // The bell, far off, once a loop.
+  b.add(
+    modal(14, 98, const [(1, 1, 6), (1.007, 0.6, 5.5), (2.04, 0.4, 3.5)]),
+    at: 20,
+    gain: 0.08,
+    pan: 0.3,
+  );
+  final insects = shape(
+    bandpass(noise(seconds, rng), (_) => 5400, 6),
+    (t) => 0.3 + 0.7 * math.pow(math.sin(tau * t / 16), 2),
+  );
+  b.add(gain(insects, 0.025), pan: 0.4);
+  return reverb(b, size: 0.85, mix: 0.38, damp: 0.55);
+});
+
 final music = <String, Buf Function()>{
   'chongling_winter': chonglingWinter,
   'alamut_snow': alamutSnow,
   'zimbabwe_dry': zimbabweDry,
   'ural_wind': uralWind,
+  'kyoto_ash': kyotoAsh,
   'whitechapel_1891': whitechapel1891,
   'gyeongju_night': gyeongjuNight,
   'bastille_dawn': bastilleDawn,
@@ -2808,6 +2918,51 @@ Buf enlargerSound() {
   return b;
 }
 
+/// A paper tag pinned to a layer of the section.
+Buf strataTagSound() {
+  final rng = math.Random(73);
+  return Buf(0.35)
+    ..add(click(rng, centre: 2600, time: 0.002), gain: 0.4)
+    ..add(
+      shape(
+        bandpass(noise(0.2, rng), (_) => 3000, 1.4),
+        (t) => swell(t, 0.01, 0.15, 0.2),
+      ),
+      at: 0.04,
+      gain: 0.25,
+    );
+}
+
+/// A find lifted from the earth: a small ceramic clink, a crumble.
+Buf findLiftSound() {
+  final rng = math.Random(74);
+  final b = Buf(0.5)
+    ..add(modal(0.4, 2300, const [(1, 1, 0.08), (2.7, 0.4, 0.04)]), gain: 0.18)
+    ..add(
+      shape(lowpass(noise(0.2, rng), (_) => 1200), (t) => decay(t, 0.05)),
+      at: 0.02,
+      gain: 0.3,
+    );
+  return reverb(b, size: 0.2, mix: 0.1);
+}
+
+/// A block marked on the map: a pencil's quick hatch.
+Buf streetMarkSound() {
+  final rng = math.Random(75);
+  final b = Buf(0.45);
+  for (var i = 0; i < 3; i++) {
+    b.add(
+      shape(
+        bandpass(noise(0.08, rng), (_) => 3800, 2),
+        (t) => swell(t, 0.01, 0.05, 0.08),
+      ),
+      at: i * 0.1,
+      gain: 0.35,
+    );
+  }
+  return b;
+}
+
 final ui = <String, Buf Function()>{
   'geiger': () => geigerSound(clicks: 4, seed: 61),
   'geiger_hot': () => geigerSound(clicks: 26, seed: 62),
@@ -2824,6 +2979,9 @@ final ui = <String, Buf Function()>{
   'shovel_tap': shovelTapSound,
   'column_break': columnBreakSound,
   'enlarger': enlargerSound,
+  'strata_tag': strataTagSound,
+  'find_lift': findLiftSound,
+  'street_mark': streetMarkSound,
   'type_sort': typeSortSound,
   'lamp_gutter': lampGutterSound,
   'pour': pourSound,

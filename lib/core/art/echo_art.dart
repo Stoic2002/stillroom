@@ -81,6 +81,12 @@ enum EchoFigure {
   /// An investigator in shirtsleeves under a red lamp, a print held up to
   /// the light.
   investigator,
+
+  /// An excavator in a hard hat and work clothes, a trowel in hand.
+  excavator,
+
+  /// A temple monk in a work robe, sweeping with a bamboo broom.
+  sweeper,
 }
 
 const _mist = Color(0xFFD5DEE2);
@@ -508,6 +514,62 @@ void paintEcho(Art a, EchoFigure figure) {
             ..strokeWidth = w * 0.05
             ..maskFilter = blur,
         );
+    case EchoFigure.excavator:
+      a.canvas
+        // The hard hat, its brim.
+        ..drawPath(
+          shape([
+            (0.32, 0.1),
+            (0.36, 0.03),
+            (0.5, 0.0),
+            (0.64, 0.03),
+            (0.68, 0.1),
+            (0.74, 0.12),
+            (0.26, 0.12),
+          ]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.28, 0.2), (0.72, 0.2), (0.76, 0.58), (0.24, 0.58)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.3, 0.56), (0.48, 0.56), (0.46, 0.99), (0.32, 0.99)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.52, 0.56), (0.7, 0.56), (0.68, 0.99), (0.54, 0.99)]),
+          body,
+        )
+        // The arm down, a trowel's blade in the hand.
+        ..drawPath(
+          shape([(0.7, 0.24), (0.8, 0.5), (0.74, 0.52), (0.66, 0.3)]),
+          body,
+        )
+        ..drawPath(shape([(0.74, 0.52), (0.86, 0.6), (0.76, 0.64)]), body);
+    case EchoFigure.sweeper:
+      final stroke = Paint()
+        ..color = _mist
+        ..strokeWidth = w * 0.05
+        ..maskFilter = blur;
+      a.canvas
+        // The robe to the ankles, sleeves wide.
+        ..drawPath(
+          shape([
+            (0.3, 0.2),
+            (0.7, 0.2),
+            (0.82, 0.46),
+            (0.74, 0.5),
+            (0.76, 0.95),
+            (0.24, 0.95),
+            (0.28, 0.5),
+            (0.18, 0.46),
+          ]),
+          body,
+        )
+        // The broom: a long handle slanting down, a fan of twigs.
+        ..drawLine(a.p(0.66, 0.3), a.p(0.1, 0.9), stroke)
+        ..drawPath(shape([(0.16, 0.84), (0.0, 0.99), (0.24, 0.99)]), body);
     case EchoFigure.investigator:
       a.canvas
         ..drawPath(

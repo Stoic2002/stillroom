@@ -44,16 +44,19 @@ final class PuzzleViewContext {
 
 /// A small caption under a puzzle element (street names, dates, ...).
 class PuzzleLabel extends StatelessWidget {
-  const PuzzleLabel(this.text, {super.key});
+  const PuzzleLabel(this.text, {this.maxLines = 2, super.key});
 
   final String text;
+
+  /// Lines before it is cut off; null for as many as it needs.
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
       textAlign: TextAlign.center,
-      maxLines: 2,
+      maxLines: maxLines,
       style: const TextStyle(
         fontFamily: 'IMFell',
         fontSize: 13,

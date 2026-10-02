@@ -182,5 +182,16 @@
   "darkroomLight": "Terlalu singkat: abu-abu dan kosong. Kertasnya rusak.",
   "darkroomDark": "Terlalu lama: saljunya menjadi abu-abu. Kertasnya rusak.",
   "darkroomSeconds": "{seconds} dtk",
-  "routebookCaption": "Buku rute"
+  "routebookCaption": "Buku rute",
+  "strataInstruction": "Ketuk temuan untuk membaca tahunnya. Lalu ketuk sebuah lapisan dan beri tahun paling awal yang mungkin: tidak lebih tua dari temuan termudanya, maupun dari lapisan di bawahnya.",
+  "strataNotBefore": "Tidak sebelum {year}",
+  "strataWrong": "Tahun itu tidak cocok untuk lapisan ini.",
+  "strataFireQuestion": "Semua lapisan sudah bertanggal. Ketuk lapisan kebakaran 1582.",
+  "strataFire": "Inilah kebakarannya",
+  "strataNotBurnt": "Lapisan ini tidak pernah terbakar.",
+  "strataTooLate": "Kebakaran ini lebih muda dari 1582.",
+  "streetsInstruction": "Agaru: utara. Sagaru: selatan. Higashi-iru: timur. Nishi-iru: barat. Ketuk blok yang disebut alamat itu.",
+  "streetsWrong": "Bukan blok ini. Baca lagi alamatnya dari perempatannya.",
+  "streetsProgress": "Alamat ditemukan: {found} dari {total}",
+  "markerCaption": "Situs bersejarah"
 }

@@ -46,6 +46,8 @@ export 'puzzles/slot_placement.dart';
 export 'puzzles/snowpit.dart';
 export 'puzzles/sources.dart';
 export 'puzzles/strand.dart';
+export 'puzzles/strata.dart';
+export 'puzzles/streets.dart';
 export 'puzzles/swell.dart';
 export 'puzzles/thread.dart';
 export 'puzzles/unwatched.dart';

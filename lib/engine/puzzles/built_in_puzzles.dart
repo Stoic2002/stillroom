@@ -26,6 +26,8 @@ import 'slot_placement.dart';
 import 'snowpit.dart';
 import 'sources.dart';
 import 'strand.dart';
+import 'strata.dart';
+import 'streets.dart';
 import 'swell.dart';
 import 'thread.dart';
 import 'unwatched.dart';
@@ -34,7 +36,8 @@ import 'unwatched.dart';
 /// `reveal`, `crank`, `overlay`, `clockHands`, `thread`, `rakingLight`,
 /// `beamSweep`, `swell`, `roster`, `keyring`, `cipher`, `sources`, `pour`,
 /// `resonance`, `beat`, `unwatched`, `compose`, `strand`, `scan`, `quire`,
-/// `dip`, `courses`, `identify`, `snowpit` and `darkroom`) into [registry].
+/// `dip`, `courses`, `identify`, `snowpit`, `darkroom`, `strata` and
+/// `streets`) into [registry].
 void registerBuiltInPuzzleTypes(PuzzleTypeRegistry registry) {
   registry
     ..register(const CodeLockType())
@@ -66,5 +69,7 @@ void registerBuiltInPuzzleTypes(PuzzleTypeRegistry registry) {
     ..register(const CoursesType())
     ..register(const IdentifyType())
     ..register(const SnowpitType())
-    ..register(const DarkroomType());
+    ..register(const DarkroomType())
+    ..register(const StrataType())
+    ..register(const StreetsType());
 }

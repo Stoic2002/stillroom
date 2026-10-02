@@ -1,0 +1,93 @@
+{
+  "id": "streets",
+  "type": "streets",
+  "background": "images/scenes/honnoji_1582/streets_board.png",
+  "config": {
+    "columns": [
+      {
+        "labelKey": "honnoji_1582.street.aburanokoji"
+      },
+      {
+        "labelKey": "honnoji_1582.street.nishinotoin"
+      },
+      {
+        "labelKey": "honnoji_1582.street.muromachi"
+      },
+      {
+        "labelKey": "honnoji_1582.street.karasuma"
+      },
+      {
+        "labelKey": "honnoji_1582.street.takakura"
+      },
+      {
+        "labelKey": "honnoji_1582.street.fuyacho"
+      },
+      {
+        "labelKey": "honnoji_1582.street.teramachi"
+      },
+      {
+        "labelKey": "honnoji_1582.street.kawaramachi"
+      }
+    ],
+    "rows": [
+      {
+        "labelKey": "honnoji_1582.street.oike"
+      },
+      {
+        "labelKey": "honnoji_1582.street.anegakoji"
+      },
+      {
+        "labelKey": "honnoji_1582.street.sanjo"
+      },
+      {
+        "labelKey": "honnoji_1582.street.rokkaku"
+      },
+      {
+        "labelKey": "honnoji_1582.street.takoyakushi"
+      },
+      {
+        "labelKey": "honnoji_1582.street.nishikikoji"
+      },
+      {
+        "labelKey": "honnoji_1582.street.shijo"
+      }
+    ],
+    "targets": [
+      {
+        "clueKey": "honnoji_1582.streets.old",
+        "block": [
+          0,
+          3
+        ]
+      },
+      {
+        "clueKey": "honnoji_1582.streets.new",
+        "block": [
+          6,
+          0
+        ]
+      }
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "paper"
+    },
+    {
+      "type": "showText",
+      "key": "honnoji_1582.office.streets_done"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.honnoji_1582.streets.1"
+    },
+    {
+      "key": "hint.honnoji_1582.streets.2"
+    },
+    {
+      "key": "hint.honnoji_1582.streets.3"
+    }
+  ]
+}

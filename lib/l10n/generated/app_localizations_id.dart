@@ -659,4 +659,45 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get routebookCaption => 'Buku rute';
+
+  @override
+  String get strataInstruction =>
+      'Ketuk temuan untuk membaca tahunnya. Lalu ketuk sebuah lapisan dan beri tahun paling awal yang mungkin: tidak lebih tua dari temuan termudanya, maupun dari lapisan di bawahnya.';
+
+  @override
+  String strataNotBefore(int year) {
+    return 'Tidak sebelum $year';
+  }
+
+  @override
+  String get strataWrong => 'Tahun itu tidak cocok untuk lapisan ini.';
+
+  @override
+  String get strataFireQuestion =>
+      'Semua lapisan sudah bertanggal. Ketuk lapisan kebakaran 1582.';
+
+  @override
+  String get strataFire => 'Inilah kebakarannya';
+
+  @override
+  String get strataNotBurnt => 'Lapisan ini tidak pernah terbakar.';
+
+  @override
+  String get strataTooLate => 'Kebakaran ini lebih muda dari 1582.';
+
+  @override
+  String get streetsInstruction =>
+      'Agaru: utara. Sagaru: selatan. Higashi-iru: timur. Nishi-iru: barat. Ketuk blok yang disebut alamat itu.';
+
+  @override
+  String get streetsWrong =>
+      'Bukan blok ini. Baca lagi alamatnya dari perempatannya.';
+
+  @override
+  String streetsProgress(int found, int total) {
+    return 'Alamat ditemukan: $found dari $total';
+  }
+
+  @override
+  String get markerCaption => 'Situs bersejarah';
 }

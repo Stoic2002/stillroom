@@ -134,7 +134,19 @@
       ]
     },
     {
-      "id": "sealed_honnoji_1582",
+      "id": "honnoji_1582",
+      "titleKey": "episode.honnoji_1582.title",
+      "teaserKey": "episode.honnoji_1582.teaser",
+      "jarImage": "images/ui/jar_honnoji_1582.png",
+      "shelf": 4,
+      "unlockAfter": 8,
+      "place": [
+        35.0053,
+        135.7562
+      ]
+    },
+    {
+      "id": "sealed_roanoke_1590",
       "titleKey": "episode.sealed.title",
       "comingSoon": true,
       "shelf": 4,

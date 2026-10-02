@@ -1,0 +1,63 @@
+{
+  "id": "jar_label",
+  "type": "deduction",
+  "background": "images/scenes/honnoji_1582/label_close.png",
+  "config": {
+    "form": "marker",
+    "sentences": [
+      {
+        "textKey": "honnoji_1582.label.s1",
+        "blanks": [
+          "akechi",
+          "fire",
+          "nothing"
+        ]
+      }
+    ],
+    "words": [
+      "akechi",
+      "fire",
+      "nothing",
+      "escaped",
+      "hideyoshi",
+      "ieyasu",
+      "court",
+      "statue",
+      "teramachi",
+      "date_1591"
+    ],
+    "nearMiss": 1
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "temple_bell"
+    },
+    {
+      "type": "showText",
+      "key": "honnoji_1582.label.done"
+    },
+    {
+      "type": "showText",
+      "key": "honnoji_1582.ending.died"
+    },
+    {
+      "type": "showText",
+      "key": "honnoji_1582.ending.why"
+    },
+    {
+      "type": "endEpisode"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.honnoji_1582.jar_label.1"
+    },
+    {
+      "key": "hint.honnoji_1582.jar_label.2"
+    },
+    {
+      "key": "hint.honnoji_1582.jar_label.3"
+    }
+  ]
+}

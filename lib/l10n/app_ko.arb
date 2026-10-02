@@ -182,5 +182,16 @@
   "darkroomLight": "너무 짧다. 잿빛으로 비었다. 인화지를 버렸다.",
   "darkroomDark": "너무 길다. 눈이 잿빛이 되었다. 인화지를 버렸다.",
   "darkroomSeconds": "{seconds}초",
-  "routebookCaption": "경로 수첩"
+  "routebookCaption": "경로 수첩",
+  "strataInstruction": "출토품을 눌러 연도를 읽자. 그다음 층을 누르고 가능한 가장 이른 연도를 붙이자. 그 안의 가장 늦은 출토품보다, 그 아래층보다 오래되지 않게.",
+  "strataNotBefore": "{year}년 이후",
+  "strataWrong": "그 연도는 이 층에 맞지 않는다.",
+  "strataFireQuestion": "모든 층에 연대가 붙었다. 1582년 화재의 층을 누르자.",
+  "strataFire": "이것이 화재다",
+  "strataNotBurnt": "이 층은 불탄 적이 없다.",
+  "strataTooLate": "이 화재는 1582년보다 늦다.",
+  "streetsInstruction": "아가루: 북. 사가루: 남. 히가시이루: 동. 니시이루: 서. 주소가 가리키는 블록을 누르자.",
+  "streetsWrong": "이 블록이 아니다. 교차로에서부터 주소를 다시 읽자.",
+  "streetsProgress": "찾은 주소: {total}개 중 {found}개",
+  "markerCaption": "사적지"
 }

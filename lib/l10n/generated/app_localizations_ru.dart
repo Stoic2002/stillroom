@@ -667,4 +667,45 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get routebookCaption => 'Маршрутная книжка';
+
+  @override
+  String get strataInstruction =>
+      'Коснитесь находки, чтобы прочесть её год. Потом коснитесь слоя и дайте ему самый ранний возможный год: не старше самой поздней находки в нём и не старше слоя под ним.';
+
+  @override
+  String strataNotBefore(int year) {
+    return 'Не раньше $year';
+  }
+
+  @override
+  String get strataWrong => 'Эта дата не подходит слою.';
+
+  @override
+  String get strataFireQuestion =>
+      'Все слои датированы. Коснитесь слоя пожара 1582 года.';
+
+  @override
+  String get strataFire => 'Это пожар';
+
+  @override
+  String get strataNotBurnt => 'Этот слой не горел.';
+
+  @override
+  String get strataTooLate => 'Этот пожар позже 1582 года.';
+
+  @override
+  String get streetsInstruction =>
+      'Агару — север. Сагару — юг. Хигаси-иру — восток. Ниси-иру — запад. Коснитесь квартала, названного адресом.';
+
+  @override
+  String get streetsWrong =>
+      'Не этот квартал. Прочтите адрес снова от перекрёстка.';
+
+  @override
+  String streetsProgress(int found, int total) {
+    return 'Найдено адресов: $found из $total';
+  }
+
+  @override
+  String get markerCaption => 'Историческое место';
 }

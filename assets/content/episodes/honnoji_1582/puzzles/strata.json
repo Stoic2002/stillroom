@@ -1,0 +1,100 @@
+{
+  "id": "strata",
+  "type": "strata",
+  "background": "images/scenes/honnoji_1582/strata_board.png",
+  "config": {
+    "layers": [
+      {
+        "labelKey": "honnoji_1582.strata.topsoil",
+        "finds": [
+          {
+            "labelKey": "honnoji_1582.find.yen",
+            "year": 1951
+          },
+          {
+            "labelKey": "honnoji_1582.find.sen",
+            "year": 1873
+          }
+        ]
+      },
+      {
+        "labelKey": "honnoji_1582.strata.fill",
+        "finds": [
+          {
+            "labelKey": "honnoji_1582.find.eiraku",
+            "year": 1408
+          }
+        ]
+      },
+      {
+        "labelKey": "honnoji_1582.strata.late_ash",
+        "burnt": true,
+        "finds": [
+          {
+            "labelKey": "honnoji_1582.find.kanei",
+            "year": 1636
+          },
+          {
+            "labelKey": "honnoji_1582.find.imari",
+            "year": 1610
+          }
+        ]
+      },
+      {
+        "labelKey": "honnoji_1582.strata.silt",
+        "finds": [
+          {
+            "labelKey": "honnoji_1582.find.imari",
+            "year": 1610
+          }
+        ]
+      },
+      {
+        "labelKey": "honnoji_1582.strata.fire",
+        "burnt": true,
+        "finds": [
+          {
+            "labelKey": "honnoji_1582.find.eiraku",
+            "year": 1408
+          },
+          {
+            "labelKey": "honnoji_1582.find.ming",
+            "year": 1368
+          }
+        ]
+      },
+      {
+        "labelKey": "honnoji_1582.strata.sludge",
+        "finds": [
+          {
+            "labelKey": "honnoji_1582.find.genpo",
+            "year": 1078
+          }
+        ]
+      }
+    ],
+    "fireYear": 1582,
+    "fire": 4
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "trowel"
+    },
+    {
+      "type": "showText",
+      "key": "honnoji_1582.dig.strata_done"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.honnoji_1582.strata.1"
+    },
+    {
+      "key": "hint.honnoji_1582.strata.2"
+    },
+    {
+      "key": "hint.honnoji_1582.strata.3"
+    }
+  ]
+}

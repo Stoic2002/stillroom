@@ -182,5 +182,16 @@
   "darkroomLight": "Demasiado corto: gris y vacío. El papel se ha echado a perder.",
   "darkroomDark": "Demasiado largo: la nieve se ha vuelto gris. El papel se ha echado a perder.",
   "darkroomSeconds": "{seconds} s",
-  "routebookCaption": "Libro de ruta"
+  "routebookCaption": "Libro de ruta",
+  "strataInstruction": "Toca un hallazgo para leer su año. Luego toca una capa y dale el año más temprano que puede tener: no más antigua que su hallazgo más reciente, ni que la capa de debajo.",
+  "strataNotBefore": "No antes de {year}",
+  "strataWrong": "Esa fecha no encaja en esta capa.",
+  "strataFireQuestion": "Todas las capas están fechadas. Toca la capa del incendio de 1582.",
+  "strataFire": "Este es el incendio",
+  "strataNotBurnt": "Esta capa nunca ardió.",
+  "strataTooLate": "Este incendio es posterior a 1582.",
+  "streetsInstruction": "Agaru: norte. Sagaru: sur. Higashi-iru: este. Nishi-iru: oeste. Toca la manzana que nombra la dirección.",
+  "streetsWrong": "No es esta manzana. Vuelve a leer la dirección desde su cruce.",
+  "streetsProgress": "Direcciones halladas: {found} de {total}",
+  "markerCaption": "Lugar histórico"
 }

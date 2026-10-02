@@ -1205,6 +1205,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Route book'**
   String get routebookCaption;
+
+  /// Strata puzzle: what to do.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a find to read its year. Then tap a layer and give it the earliest year it can be: no older than its youngest find, nor than the layer beneath it.'**
+  String get strataInstruction;
+
+  /// Strata puzzle: a dated layer, or a date to choose.
+  ///
+  /// In en, this message translates to:
+  /// **'Not before {year}'**
+  String strataNotBefore(int year);
+
+  /// Strata puzzle: a wrong date.
+  ///
+  /// In en, this message translates to:
+  /// **'That date does not fit this layer.'**
+  String get strataWrong;
+
+  /// Strata puzzle: the last question.
+  ///
+  /// In en, this message translates to:
+  /// **'Every layer is dated. Tap the layer of the fire of 1582.'**
+  String get strataFireQuestion;
+
+  /// Button: mark the picked layer as the fire.
+  ///
+  /// In en, this message translates to:
+  /// **'This is the fire'**
+  String get strataFire;
+
+  /// Strata puzzle: the marked layer is not burnt.
+  ///
+  /// In en, this message translates to:
+  /// **'This layer never burned.'**
+  String get strataNotBurnt;
+
+  /// Strata puzzle: the marked burnt layer is too late.
+  ///
+  /// In en, this message translates to:
+  /// **'This fire is later than 1582.'**
+  String get strataTooLate;
+
+  /// Streets puzzle: what to do.
+  ///
+  /// In en, this message translates to:
+  /// **'Agaru: north. Sagaru: south. Higashi-iru: east. Nishi-iru: west. Tap the block the address names.'**
+  String get streetsInstruction;
+
+  /// Streets puzzle: a wrong block.
+  ///
+  /// In en, this message translates to:
+  /// **'Not this block. Read the address again from its crossing.'**
+  String get streetsWrong;
+
+  /// Streets puzzle: progress.
+  ///
+  /// In en, this message translates to:
+  /// **'Addresses found: {found} of {total}'**
+  String streetsProgress(int found, int total);
+
+  /// Marker label form: the heading cut above the words.
+  ///
+  /// In en, this message translates to:
+  /// **'Historic site'**
+  String get markerCaption;
 }
 
 class _AppLocalizationsDelegate

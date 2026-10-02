@@ -167,6 +167,9 @@ enum DeductionForm {
   /// A sports-club party's route book: a ruled page with stamped
   /// headings, its last entry still to be written.
   routebook,
+
+  /// A city's stone site marker: grey granite, the words cut into it.
+  marker,
 }
 
 final class DeductionSentence {

@@ -1,0 +1,159 @@
+{
+  "id": "teramachi",
+  "background": "images/scenes/honnoji_1582/teramachi.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "dig"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "hall",
+      "rect": [
+        0.34,
+        0.12,
+        0.32,
+        0.4
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "temple_bell"
+        },
+        {
+          "type": "showText",
+          "key": "honnoji_1582.teramachi.hall"
+        }
+      ]
+    },
+    {
+      "id": "tower",
+      "rect": [
+        0.1,
+        0.26,
+        0.14,
+        0.48
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "honnoji_1582.teramachi.tower"
+        }
+      ]
+    },
+    {
+      "id": "tower_note",
+      "rect": [
+        0.1,
+        0.26,
+        0.14,
+        0.48
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": true
+        },
+        {
+          "flag": "found_note",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "found_note",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "honnoji_1582.teramachi.keeper_note"
+        }
+      ]
+    },
+    {
+      "id": "tower_done",
+      "rect": [
+        0.1,
+        0.26,
+        0.14,
+        0.48
+      ],
+      "when": [
+        {
+          "flag": "found_note",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "honnoji_1582.teramachi.tower_done"
+        }
+      ]
+    },
+    {
+      "id": "leaflet",
+      "rect": [
+        0.72,
+        0.6,
+        0.12,
+        0.12
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_leaflet",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "honnoji_1582.teramachi.leaflet"
+        }
+      ]
+    },
+    {
+      "id": "visitor",
+      "rect": [
+        0.84,
+        0.34,
+        0.12,
+        0.2
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "honnoji_1582.teramachi.visitor"
+        }
+      ]
+    }
+  ],
+  "echoes": [
+    {
+      "id": "monk",
+      "image": "images/objects/honnoji_1582/echo_monk.png",
+      "rect": [
+        0.58,
+        0.48,
+        0.05,
+        0.28
+      ],
+      "chance": 0.8,
+      "drift": [
+        -0.02,
+        0
+      ]
+    }
+  ]
+}

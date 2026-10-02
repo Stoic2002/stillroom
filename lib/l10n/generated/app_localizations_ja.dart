@@ -619,4 +619,42 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get routebookCaption => 'ルート帳';
+
+  @override
+  String get strataInstruction =>
+      '出土品に触れて年を読もう。次に層に触れ、ありうる最も古い年を付けよう。その中で一番新しい出土品より古くはなく、下の層より古くもない。';
+
+  @override
+  String strataNotBefore(int year) {
+    return '$year年以降';
+  }
+
+  @override
+  String get strataWrong => 'その年はこの層に合わない。';
+
+  @override
+  String get strataFireQuestion => 'すべての層に年代が付いた。1582年の火災の層に触れよう。';
+
+  @override
+  String get strataFire => 'これが火災だ';
+
+  @override
+  String get strataNotBurnt => 'この層は燃えていない。';
+
+  @override
+  String get strataTooLate => 'この火事は1582年より後だ。';
+
+  @override
+  String get streetsInstruction => '上ル：北。下ル：南。東入ル：東。西入ル：西。所在地が示す街区に触れよう。';
+
+  @override
+  String get streetsWrong => 'この街区ではない。交差点からもう一度読もう。';
+
+  @override
+  String streetsProgress(int found, int total) {
+    return '見つけた所在地：$totalのうち$found';
+  }
+
+  @override
+  String get markerCaption => '史跡';
 }

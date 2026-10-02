@@ -42,7 +42,7 @@ data, so later tales arrive in updates.
 | I (2) | *Whitechapel, 1888* ✓, *Semarang, 1945* ✓ |
 | II (4) | *Flannan Isles, 1900* ✓, *Pompeii, 79* ✓, *Bastille, 1703* ✓ (Western Europe), *Gyeongju, 771* ✓ (Korea) |
 | III (4) | *Whitechapel, 1891* ✓ (series), *The death of the Guangxu Emperor, Beijing, 1908* ✓ (China), *Alamut, 1256* ✓ (Middle East), *Great Zimbabwe, 1871* ✓ (Africa) |
-| IV (5) | *Dyatlov Pass, 1959* ✓ (Eastern Europe), **Honnō-ji, Kyoto, 1582** (Japan), **Roanoke, 1590** (the Americas), **The Franklin expedition, 1845** (the Arctic), *one Indonesian tale, to be chosen* |
+| IV (5) | *Dyatlov Pass, 1959* ✓ (Eastern Europe), *Honnō-ji, 1582* ✓ (Japan), **Roanoke, 1590** (the Americas), **The Franklin expedition, 1845** (the Arctic), *one Indonesian tale, to be chosen* |
 | V (1) | The old keeper's own tale (arc OPEN) |
 
 The legend each one sets right, in short (facts to be checked and sourced
@@ -76,7 +76,7 @@ How difficulty rises from shelf to shelf:
 | Length | 8–10 beats | 10–12 beats, parallel branches |
 
 Current placement: *Whitechapel, 1888* (shelf I, the easiest, doubling as the
-tutorial); *Semarang, 1945* (shelf I, opens after Whitechapel; a step up: clues across three eras); *Flannan Isles, 1900*, *Pompeii, 79*, *Bastille, 1703* and *Gyeongju, 771* (shelf II, open after two tales; the shelf is full). Shelf III opens after four and is full: *Whitechapel, 1891*, *Beijing, 1908*, *Alamut, 1256*, *Great Zimbabwe, 1871*. Shelf IV (after eight): *Dyatlov Pass, 1959*, and a sealed teaser jar (`sealed_honnoji_1582`) for the tales still to come.
+tutorial); *Semarang, 1945* (shelf I, opens after Whitechapel; a step up: clues across three eras); *Flannan Isles, 1900*, *Pompeii, 79*, *Bastille, 1703* and *Gyeongju, 771* (shelf II, open after two tales; the shelf is full). Shelf III opens after four and is full: *Whitechapel, 1891*, *Beijing, 1908*, *Alamut, 1256*, *Great Zimbabwe, 1871*. Shelf IV (after eight): *Dyatlov Pass, 1959*, *Honnō-ji, 1582*, and a sealed teaser jar (`sealed_roanoke_1590`) for the tales still to come.
 
 ## Signature mechanics (decided 2026-09-26)
 
@@ -122,6 +122,7 @@ own hardest puzzle; higher shelves have more puzzles, chained together.
 | *Alamut, 1256* | Juvayni's loose sheets nested into a quire by their catchwords, turned over where they lie the wrong way (`quire`); tanks in the rock dipped with a reed and named by how it drips, then the stores judged full or low (`dip`) | A seal of three words written as a colophon, the closing lines of a book (`colophon`) |
 | *Great Zimbabwe, 1871* | The breach in the great wall laid back course by course, dry, no joint over a joint, then the chevron band leaned in turn (`courses`); Mauch's splinter named by walking a key to woods, where his own way ends at cedar (`identify`) | A seal of three words in an old map's cartouche, where the maps wrote Ophir (`cartouche`) |
 | *Dyatlov Pass, 1959* | A snow pit beside the tent read layer by layer with fist, fingers, pencil and knife, the weak layer marked, its column tapped until it breaks (`snowpit`); the films from their cameras printed in the investigators' darkroom from test strips, the last frame showing the cut (`darkroom`) | A seal of three words, the last entry in the group's route book (`routebook`) |
+| *Honnō-ji, 1582* | The moat's section in the 2007 dig dated layer by layer from what was dropped in it (coins, porcelain), and the black layer of 1582 told from a later fire's (`strata`); Kyoto's addresses read on its street grid (north of, south of, east of, west of a crossing) to find the old temple's block and the one it moved to (`streets`) | A seal of three words cut into the site's stone marker (`marker`) |
 | *Bastille, 1703* | The turnkey's ring: find the one key whose bit matches the keyhole, and turn it the right way (`keyring`); the king's Great Cipher read with Bazeries's worksheet, two numbers left unread (`cipher`); the prisoner's file sorted into what was written at the time and what was told after (`sources`) | A seal of three words on a blank royal order (`order`) |
 
 The first three tales were reworked on 2026-09-29 to follow this rule:
@@ -160,6 +161,9 @@ no names and no faces, so no real person is ever given invented features:
 - *Dyatlov Pass 1959:* a searcher with a long probe on the slope; an
   investigator under the red lamp. None of the nine is drawn, as echo or
   otherwise; in their last frames they are small, faceless figures.
+- *Honnō-ji 1582:* an excavator in a hard hat in the trench; a monk
+  sweeping the court at Teramachi. No warrior, no Nobunaga, no Akechi;
+  the living people of the 2007 dig are not named.
 - *Great Zimbabwe 1871:* a builder with a block on the shoulder, from the
   city's time, by the wall; a hunter with a rifle at the camp. Mauch and
   Render are named in papers, never shown.
@@ -193,6 +197,9 @@ and season:
   trees red with new leaves, a wild fig rooted in the wall, dry grass, a
   bateleur overhead (the `eagle` creature), a lizard on the warm stone
   (the `gecko` creature).
+- *Honnō-ji 1582* is set in the summer of 2007: a crow on the site
+  fence (the `raven` creature), weeds on the spoil heap, cicadas faint in
+  the music.
 - *Alamut 1256* is December in the Alborz: dry thistles in the snowy
   court, an eagle turning over the gorge (a new creature, `eagle`), a
   mouse in the storerooms, falling snow.
@@ -231,10 +238,11 @@ final episode. Details are open.
 | `pompeii_79` | Pompeii, 79 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). Lens between eras, tracing sheets, legend as red herrings | [episodes/pompeii_79.md](episodes/pompeii_79.md) |
 | `chongling_1908` | Beijing, 1908 (the Guangxu Emperor) | Built, draft text, code-drawn art (shelf III, opens after 4 tales). The hair, the robe; "illness", Cixi and the 1980 test as red herrings; the hand left unknown | [episodes/chongling_1908.md](episodes/chongling_1908.md) |
 | `dyatlov_1959` | Dyatlov Pass, 1959 | Built, draft text, code-drawn art (shelf IV, opens after 8 tales). The pit, the darkroom; aliens, a yeti, weapons, radiation, the Mansi and "a compelling natural force" as red herrings | [episodes/dyatlov_1959.md](episodes/dyatlov_1959.md) |
+| `honnoji_1582` | Honnō-ji, 1582 | Built, draft text, code-drawn art in depth (shelf IV, opens after 8 tales). The section, the streets; "he escaped", Hideyoshi, Ieyasu, the court, the wooden statue, Teramachi and 1591 as red herrings | [episodes/honnoji_1582.md](episodes/honnoji_1582.md) |
 | `great_zimbabwe_1871` | Great Zimbabwe, 1871 | Built, draft text, code-drawn art (shelf III, opens after 4 tales). The courses, the key; the Queen of Sheba, Ophir, the Phoenicians and cedar as red herrings | [episodes/great_zimbabwe_1871.md](episodes/great_zimbabwe_1871.md) |
 | `alamut_1256` | Alamut, 1256 | Built, draft text, code-drawn art (shelf III, opens after 4 tales). The quire, the tanks; Polo's garden, drug and three-year siege, and "hashish", as red herrings | [episodes/alamut_1256.md](episodes/alamut_1256.md) |
 | `whitechapel_1891` | Whitechapel, 1891 | Built, draft text, code-drawn art (shelf III, series whitechapel, opens after 4 tales). The file that grows, her name set in type; "Jack the Ripper" and "five" as red herrings | [episodes/whitechapel_1891.md](episodes/whitechapel_1891.md) |
 | `gyeongju_771` | Gyeongju, 771 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). The pour, the hollow, the beat; the child legend, Seoul and 1925 as red herrings | [episodes/gyeongju_771.md](episodes/gyeongju_771.md) |
 | `bastille_1703` | Bastille, 1703 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). Key ring, Great Cipher, the file of sources; Voltaire, Dumas and Bazeries as red herrings | [episodes/bastille_1703.md](episodes/bastille_1703.md) |
-| *(planned)* | The other five new tales (shelves IV and V) | See *The full shelf* above | — |
+| *(planned)* | The other four new tales (shelves IV and V) | See *The full shelf* above | — |
 | `test_room` | Test room | Debug builds only | Feature test room |

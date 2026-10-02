@@ -618,4 +618,42 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get routebookCaption => '路线手册';
+
+  @override
+  String get strataInstruction =>
+      '点出土物，读出它的年份。再点一层土，给它可能的最早年份：不早于其中最晚的出土物，也不早于它下面的那一层。';
+
+  @override
+  String strataNotBefore(int year) {
+    return '不早于$year年';
+  }
+
+  @override
+  String get strataWrong => '这个年份对不上这一层。';
+
+  @override
+  String get strataFireQuestion => '每一层都定了年代。点出1582年那场火灾的土层。';
+
+  @override
+  String get strataFire => '就是这场火';
+
+  @override
+  String get strataNotBurnt => '这一层从没烧过。';
+
+  @override
+  String get strataTooLate => '这场火比1582年晚。';
+
+  @override
+  String get streetsInstruction => '上ル：北。下ル：南。东入ル：东。西入ル：西。点地址所说的那个街区。';
+
+  @override
+  String get streetsWrong => '不是这个街区。从路口重新读一遍地址。';
+
+  @override
+  String streetsProgress(int found, int total) {
+    return '已找到的地址：$found/$total';
+  }
+
+  @override
+  String get markerCaption => '史迹';
 }

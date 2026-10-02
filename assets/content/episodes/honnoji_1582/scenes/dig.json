@@ -1,0 +1,205 @@
+{
+  "id": "dig",
+  "background": "images/scenes/honnoji_1582/dig.png",
+  "exits": [
+    {
+      "id": "office",
+      "to": "office",
+      "rect": [
+        0.78,
+        0.24,
+        0.18,
+        0.32
+      ]
+    },
+    {
+      "id": "finds",
+      "to": "finds",
+      "rect": [
+        0.17,
+        0.22,
+        0.15,
+        0.26
+      ]
+    },
+    {
+      "id": "teramachi",
+      "to": "teramachi",
+      "rect": [
+        0.44,
+        0.24,
+        0.12,
+        0.16
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "marker",
+      "rect": [
+        0.05,
+        0.42,
+        0.09,
+        0.4
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "honnoji_1582.dig.marker"
+        }
+      ]
+    },
+    {
+      "id": "marker_seal",
+      "rect": [
+        0.05,
+        0.42,
+        0.09,
+        0.4
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "jar_label",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "honnoji_1582.dig.seal_needed"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "jar_label"
+        }
+      ]
+    },
+    {
+      "id": "trench_wait",
+      "rect": [
+        0.3,
+        0.56,
+        0.42,
+        0.22
+      ],
+      "when": [
+        {
+          "puzzleSolved": "streets",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "honnoji_1582.dig.trench_wait"
+        }
+      ]
+    },
+    {
+      "id": "trench",
+      "rect": [
+        0.3,
+        0.56,
+        0.42,
+        0.22
+      ],
+      "when": [
+        {
+          "puzzleSolved": "streets"
+        },
+        {
+          "puzzleSolved": "strata",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "trowel"
+        },
+        {
+          "type": "showText",
+          "key": "honnoji_1582.dig.trench"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "strata"
+        }
+      ]
+    },
+    {
+      "id": "trench_done",
+      "rect": [
+        0.3,
+        0.56,
+        0.42,
+        0.22
+      ],
+      "when": [
+        {
+          "puzzleSolved": "strata"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "honnoji_1582.dig.trench_done"
+        }
+      ]
+    },
+    {
+      "id": "sieves",
+      "rect": [
+        0.76,
+        0.62,
+        0.16,
+        0.14
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "honnoji_1582.dig.sieves"
+        }
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "crow",
+      "kind": "raven",
+      "rect": [
+        0.6,
+        0.25,
+        0.06,
+        0.05
+      ]
+    }
+  ],
+  "echoes": [
+    {
+      "id": "excavator",
+      "image": "images/objects/honnoji_1582/echo_excavator.png",
+      "rect": [
+        0.52,
+        0.55,
+        0.05,
+        0.21
+      ],
+      "chance": 0.8,
+      "drift": [
+        0.01,
+        0
+      ]
+    }
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "startScene": "dig",
+  "flags": {
+    "read_leaflet": false,
+    "read_chronicle": false,
+    "read_frois": false,
+    "read_later": false,
+    "found_note": false
+  },
+  "logicalResolution": [
+    1920,
+    1080
+  ],
+  "orientation": "landscape",
+  "sceneTransitionMs": 600,
+  "music": "kyoto_ash",
+  "words": [
+    {
+      "id": "akechi",
+      "labelKey": "honnoji_1582.word.akechi",
+      "kind": "name"
+    },
+    {
+      "id": "fire",
+      "labelKey": "honnoji_1582.word.fire",
+      "kind": "thing"
+    },
+    {
+      "id": "nothing",
+      "labelKey": "honnoji_1582.word.nothing",
+      "kind": "thing"
+    },
+    {
+      "id": "escaped",
+      "labelKey": "honnoji_1582.word.escaped",
+      "kind": "thing"
+    },
+    {
+      "id": "hideyoshi",
+      "labelKey": "honnoji_1582.word.hideyoshi",
+      "kind": "name"
+    },
+    {
+      "id": "ieyasu",
+      "labelKey": "honnoji_1582.word.ieyasu",
+      "kind": "name"
+    },
+    {
+      "id": "court",
+      "labelKey": "honnoji_1582.word.court",
+      "kind": "name"
+    },
+    {
+      "id": "statue",
+      "labelKey": "honnoji_1582.word.statue",
+      "kind": "thing"
+    },
+    {
+      "id": "teramachi",
+      "labelKey": "honnoji_1582.word.teramachi",
+      "kind": "place"
+    },
+    {
+      "id": "date_1591",
+      "labelKey": "honnoji_1582.word.date_1591",
+      "kind": "date"
+    }
+  ],
+  "secret": {
+    "when": [
+      {
+        "flag": "found_note",
+        "equals": true
+      }
+    ],
+    "noteKey": "honnoji_1582.teramachi.keeper_note"
+  },
+  "hintStages": [
+    {
+      "id": "write_seal",
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.honnoji_1582.write_seal.1"
+        },
+        {
+          "key": "hint.honnoji_1582.write_seal.2"
+        }
+      ]
+    },
+    {
+      "id": "later",
+      "when": [
+        {
+          "flag": "read_frois",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.honnoji_1582.later.1"
+        },
+        {
+          "key": "hint.honnoji_1582.later.2"
+        }
+      ]
+    },
+    {
+      "id": "frois",
+      "when": [
+        {
+          "puzzleSolved": "strata"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.honnoji_1582.frois.1"
+        },
+        {
+          "key": "hint.honnoji_1582.frois.2"
+        }
+      ]
+    },
+    {
+      "id": "dig",
+      "when": [
+        {
+          "puzzleSolved": "streets"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.honnoji_1582.dig.1"
+        },
+        {
+          "key": "hint.honnoji_1582.dig.2"
+        }
+      ]
+    },
+    {
+      "id": "office",
+      "when": [
+        {
+          "flag": "read_leaflet",
+          "equals": true
+        },
+        {
+          "flag": "read_chronicle",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.honnoji_1582.office.1"
+        },
+        {
+          "key": "hint.honnoji_1582.office.2"
+        }
+      ]
+    },
+    {
+      "id": "start",
+      "hints": [
+        {
+          "key": "hint.honnoji_1582.start.1"
+        },
+        {
+          "key": "hint.honnoji_1582.start.2"
+        }
+      ]
+    }
+  ]
+}

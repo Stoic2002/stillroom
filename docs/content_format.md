@@ -540,6 +540,7 @@ filled slot swaps them.
 | `vermilion` | A sheet of imperial yellow in a double vermilion rule, the sentences in vermilion (the emperor's own ink), the caption `vermilionCaption` | — |
 | `routebook` | A sports club's route book open at its last page: grey ruled paper, a red margin, a violet club stamp, the caption `routebookCaption`, the entry written in ink | — |
 | `cartouche` | An old map's title cartouche: a parchment panel in a double rule with scrolled ends, the caption `cartoucheCaption`, the sentences written inside | — |
+| `marker` | A city's stone site marker: grey granite flecked with crystal, a bevelled edge, a cut line framing the face, the caption `markerCaption` cut above, the sentences cut below | — |
 | `colophon` | A manuscript's colophon: burnished paper in a thin brown double rule, scorched at one corner, the caption `colophonCaption`, the sentences centred and narrowing, closed by a triangle of dots | — |
 
 Used so far: Whitechapel `table` (the five frames), Semarang `telegram`,
@@ -550,7 +551,8 @@ the bell's bronze), Whitechapel 1891 `docket` (the file's cover), Beijing
 1908 `vermilion` (written where the court once wrote "illness"), Alamut
 1256 `colophon` (the closing lines of the library's last book), Great
 Zimbabwe 1871 `cartouche` (where the old maps wrote Ophir), Dyatlov Pass
-1959 `routebook` (the last entry the group never wrote).
+1959 `routebook` (the last entry the group never wrote), Honnō-ji 1582
+`marker` (the site's stone, its face left smooth for what is known).
 
 ### `clockHands`: set the hands
 
@@ -1153,6 +1155,60 @@ Zimbabwe 1871 `cartouche` (where the old maps wrote Ophir), Dyatlov Pass
 - **Validation:** 3 to 7 bands, rising and above 0; 1 to 6 frames, each
   `exposure` never the first or last band.
 
+### `strata`: layers dated by what was dropped in them
+
+```json
+"config": {
+  "layers": [
+    { "labelKey": "ep.strata.topsoil",
+      "finds": [ { "labelKey": "ep.find.yen", "year": 1951 } ] },
+    { "labelKey": "ep.strata.ash", "burnt": true,
+      "finds": [ { "labelKey": "ep.find.eiraku", "year": 1408 } ] }
+  ],
+  "fireYear": 1582,
+  "fire": 1
+}
+```
+
+- **What the player sees:** a section through the earth, its layers from
+  the top down as bands (burnt ones black, flecked with tile), each with
+  its finds in it (coins drawn holed, anything else as a sherd) and its
+  name, or once dated "Not before …"; beside it a chip for every find's
+  year, the status, and "This is the fire".
+- **Playing:** tap a find to read it (`find_lift`): its text says the
+  earliest year it could have been dropped. Tap a layer, then a year: the
+  right one (`strata_tag`) is its earliest year, the later of its own
+  youngest find and the layer beneath it (a layer lies on top of what was
+  there before); the pick then moves to the next undated layer. A wrong
+  year is a mistake. Once every layer is dated, pick the layer of the
+  fire and tap "This is the fire": a layer that did not burn, or one too
+  young to be that fire, is a mistake; the `fire` layer solves it.
+- **Validation:** 3 to 8 layers, each with 1 to 4 finds (years 1 to
+  2100); `fire` is a burnt layer whose earliest year is no later than
+  `fireYear`, and no other burnt layer's is.
+
+### `streets`: a block named by its address
+
+```json
+"config": {
+  "columns": [ { "labelKey": "ep.street.aburanokoji" }, { "labelKey": "…" } ],
+  "rows": [ { "labelKey": "ep.street.oike" }, { "labelKey": "…" } ],
+  "targets": [ { "clueKey": "ep.streets.old", "block": [0, 3] } ]
+}
+```
+
+- **What the player sees:** a city's grid, north up: `columns` (north to
+  south streets, west to east) named along the top, `rows` (east to west
+  streets, north to south) down the left, the blocks between them; a
+  card with the current address and the instruction (the UI string
+  `streetsInstruction`), and the count found.
+- **Playing:** read the address and tap the block it names: block
+  `[c, r]` lies east of column `c`, west of `c + 1`, south of row `r` and
+  north of `r + 1`. Right (`street_mark`) marks it and turns to the next
+  address; wrong is a mistake. Solved when every target is marked.
+- **Validation:** 2 to 14 columns and 2 to 10 rows; 1 to 4 targets, each a
+  different block between the streets.
+
 ## Words and the jar's label
 
 `words` in `game.json` declares what the player can note down:
@@ -1347,3 +1403,4 @@ warnings show in the debug panel).
 | 2026-09-30 | post-M6 | Puzzle types `quire` and `dip`; deduction form `colophon`; creature `eagle`; interface sounds `catchword`, `reed_touch`, `drip`, `drip_slow`. Episode `alamut_1256` (shelf III) replaces `sealed_alamut_1256`; the sealed teaser on shelf III is now `sealed_zimbabwe_1871`. |
 | 2026-10-01 | post-M6 | Puzzle types `courses` and `identify`; deduction form `cartouche`; interface sounds `block_lay`, `slab_tilt`, `key_step`. Episode `great_zimbabwe_1871` (shelf III) replaces `sealed_zimbabwe_1871` and fills shelf III; a sealed teaser `sealed_dyatlov_1959` stands on shelf IV (`unlockAfter` 8). |
 | 2026-10-01 | post-M6 | Puzzle types `snowpit` and `darkroom`; deduction form `routebook`; creature `raven`; interface sounds `snow_push`, `shovel_tap`, `column_break`, `enlarger`. Episode `dyatlov_1959` (shelf IV) replaces `sealed_dyatlov_1959`; the sealed teaser on shelf IV is now `sealed_honnoji_1582`. |
+| 2026-10-02 | post-M6 | Puzzle types `strata` and `streets`; deduction form `marker`; interface sounds `strata_tag`, `find_lift`, `street_mark`; `PuzzleLabel` takes `maxLines`. Episode `honnoji_1582` (shelf IV) replaces `sealed_honnoji_1582`; the sealed teaser on shelf IV is now `sealed_roanoke_1590`. |

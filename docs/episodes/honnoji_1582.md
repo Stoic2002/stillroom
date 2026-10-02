@@ -1,13 +1,15 @@
 # Episode design: Honnō-ji, 1582 (the temple that burned)
 
-Status: **design draft** (2026-10-02), for the developer's approval before
-anything is built. Shelf IV (opens after 8 tales), Japan, from the plan of
-16 tales (`docs/stillroom_frame.md`, *The full shelf*). It replaces the
-sealed teaser `sealed_honnoji_1582`; a teaser for the next tale
-(`sealed_roanoke_1590`) takes its place. Proposed id: `honnoji_1582`; jar
-label **Honnō-ji, 1582** (see question 3), its map
-pin on the old temple site in Kyoto. The first tale drawn in depth from
-the start (`depth_kit.dart`, CLAUDE.md decision 6).
+Status: **built** (2026-10-02): draft text in seven languages, code-drawn
+art in depth (`lib/core/art/honnoji_1582_art.dart`, `depth_kit.dart`),
+generated audio, walkthrough test. Approved by the developer with setting
+A, both mechanics, and the recommended label and seal. Shelf IV (opens
+after 8 tales), Japan, from the plan of 16 tales
+(`docs/stillroom_frame.md`, *The full shelf*). It replaces the sealed
+teaser `sealed_honnoji_1582`; the teaser on shelf IV is now
+`sealed_roanoke_1590`. Id: `honnoji_1582`; jar label **Honnō-ji, 1582**,
+its map pin on the old temple site in Kyoto. The first tale drawn in depth
+from the start (CLAUDE.md decision 6).
 
 ## Premise
 
@@ -175,11 +177,64 @@ Mitsuhide turned on him, no one knows."
   with Great Zimbabwe), `temple_bell`. Interface: `strata_tag` (a layer
   dated), `find_lift` (a find picked up), `street_mark` (a block marked).
 
-## Open questions for the developer
+## Decisions (2026-10-02)
 
-1. Where it is set: **A** (the 2007 dig, recommended) or B (the ruins the
-   morning after)?
-2. The two mechanics: the strata (`strata`) and the streets (`streets`)?
-3. The jar's label: **Honnō-ji, 1582** (the plan's name, recommended) or
-   Kyoto, 1582? And the seal as a stone site marker (`marker`), with its
-   sentence (Akechi Mitsuhide / fire / nothing)?
+1. Setting **A**: the 2007 dig at the old site; the chronicle, Fróis and
+   the later papers arrive "that should not be here yet", from the past.
+2. Both mechanics: the section (`strata`) and the streets (`streets`).
+3. The jar's label **Honnō-ji, 1582**; the seal as the site's stone marker
+   (`marker`): "{Akechi Mitsuhide} turned on him, the temple went up in
+   {fire}, and of Nobunaga {nothing} was found."
+
+## As built
+
+- **Map:** the dig (start) opens on the site office (the cabin on the
+  right), the finds room (the cabin on the left) and, through the gate in
+  the far fence, today's Honnō-ji at Teramachi.
+- **Flow:** the marker and the trench under its tarp (it waits for the
+  office). At Teramachi: the hall (the bell), the memorial, the leaflet
+  (*Teramachi*, *1591*), the guide's tale (*escaped*). In the finds room,
+  the chronicle (*Akechi Mitsuhide*). With the leaflet and the chronicle
+  read, the map in the office opens (`streets`): the trench is in the old
+  temple's block. Then the section (`strata`, gives *fire*). The tile and
+  Fróis's letter then lie in the finds room (*nothing*), and after them
+  the later papers on the pinboard (*Hideyoshi*, *Ieyasu*, *the court*,
+  *a wooden statue*). The keeper's slip lies behind the memorial once
+  those are read; the seal is cut into the stone marker at the dig.
+- **The section:** six layers, from the top: topsoil and the school's
+  rubble (a ten-yen coin 1951, a one-sen coin 1873: not before 1951);
+  brown fill (only an Eiraku coin, 1408, but it lies on later ash: 1636);
+  black ash and charcoal (a Kan'ei coin 1636, Imari 1610: 1636); grey silt
+  (Imari: 1610); black ash and burnt tiles (Eiraku 1408, a Ming sherd
+  1368: 1408); the moat-bottom sludge (Genpō, Song cash, 1078). The fire
+  of 1582 is the fifth; the third, the other black layer, is too young.
+  The draft's trap of a later pit cut down through the layers became the
+  fill's old coin over younger ash: the same lesson (a layer is no older
+  than the one beneath it) with nothing to draw.
+- **The streets:** eight streets west to east (Aburanokōji to Kawaramachi)
+  and seven north to south (Oike to Shijō; Takoyakushi labelled as
+  Shijō-bōmon too). The old temple: east of Aburanokōji, between Rokkaku
+  and Takoyakushi; today's: east of Teramachi, just south of Oike.
+- **Words:** *Akechi Mitsuhide*, *fire*, *nothing* (the answers);
+  *escaped*, *Toyotomi Hideyoshi*, *Tokugawa Ieyasu*, *the imperial
+  court*, *a wooden statue*, *Teramachi*, *1591* (decoys).
+- **Echoes:** an excavator in a hard hat in the trench; a monk sweeping
+  at Teramachi (`EchoFigure.excavator`, `EchoFigure.sweeper`). **Living
+  things:** a crow on the site fence (`raven`).
+- **Audio:** music `kyoto_ash`; effects `temple_bell`, `trowel`;
+  interface `strata_tag`, `find_lift`, `street_mark`.
+
+## Things to watch when tested
+
+- Whether "no older than its youngest find, nor than the layer beneath
+  it" is understood without the hints, and whether the fill (an old coin
+  on younger ash) feels like a fair trap or a trick.
+- Whether the finds read at phone size, and whether tapping a find, then
+  a layer, then a year is clear; seven year chips may feel like a lot.
+- Whether the street names fit in every language (turned along the top,
+  two lines down the left), and whether the blocks are easy to tap.
+- The dig drawn in depth outdoors (a ground plane, fences running to the
+  edges): whether it reads as the same style as Bastille's cell.
+- The tone of the chronicle, Fróis and the later papers, for a reader who
+  knows the period; the Japanese text and the romanized street names, for
+  a native reader.

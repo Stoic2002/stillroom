@@ -658,4 +658,45 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get routebookCaption => 'Route book';
+
+  @override
+  String get strataInstruction =>
+      'Tap a find to read its year. Then tap a layer and give it the earliest year it can be: no older than its youngest find, nor than the layer beneath it.';
+
+  @override
+  String strataNotBefore(int year) {
+    return 'Not before $year';
+  }
+
+  @override
+  String get strataWrong => 'That date does not fit this layer.';
+
+  @override
+  String get strataFireQuestion =>
+      'Every layer is dated. Tap the layer of the fire of 1582.';
+
+  @override
+  String get strataFire => 'This is the fire';
+
+  @override
+  String get strataNotBurnt => 'This layer never burned.';
+
+  @override
+  String get strataTooLate => 'This fire is later than 1582.';
+
+  @override
+  String get streetsInstruction =>
+      'Agaru: north. Sagaru: south. Higashi-iru: east. Nishi-iru: west. Tap the block the address names.';
+
+  @override
+  String get streetsWrong =>
+      'Not this block. Read the address again from its crossing.';
+
+  @override
+  String streetsProgress(int found, int total) {
+    return 'Addresses found: $found of $total';
+  }
+
+  @override
+  String get markerCaption => 'Historic site';
 }
