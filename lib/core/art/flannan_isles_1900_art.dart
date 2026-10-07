@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import '../theme/stillroom_palette.dart';
 import 'art_kit.dart';
+import 'depth_kit.dart';
 import 'echo_art.dart';
 import 'whitechapel_1888_art.dart' show jarLabelBoard;
 
@@ -32,7 +33,7 @@ final Map<String, ArtPainter> flannanArt = {
   '$_o/beam_sprite.png': (c, s) => _beam(Art(c, s)),
   '$_o/matches_sprite.png': (c, s) => _matches(Art(c, s)),
   '$_o/lantern_sprite.png': (c, s) => _lantern(Art(c, s), lit: false),
-  '$_o/paraffin_sprite.png': (c, s) => _paraffin(Art(c, s)),
+  '$_o/paraffin_sprite.png': (c, s) => _paraffinStanding(Art(c, s)),
   '$_o/handle_sprite.png': (c, s) => _handleLying(Art(c, s)),
   '$_o/key_sprite.png': (c, s) => _key(Art(c, s)),
   '$_o/lens_dark_sprite.png': (c, s) => _lens(Art(c, s), lit: false),
@@ -100,16 +101,52 @@ void _fog(Art a, {double strength = 0.18}) {
   }
 }
 
-/// A whitewashed interior wall, cold in the dusk.
-void _whiteRoom(Art a, {double floor = 0.78}) {
+/// A whitewashed room in one-point perspective, cold in the dusk: the
+/// walls gone blue, a tarred dado round their foot, flagstones running
+/// back. Returns its camera, for what stands in it.
+Room _whiteRoom(Art a, {required Offset eye, required double depth}) {
+  final room = Room(a, vp: a.p(eye.dx, eye.dy), depth: depth);
+  final back = room.back;
   a
-    ..fade(a.r(0, 0, 1, floor), _whitewash, _whitewashDark)
-    ..fade(
-      a.r(0, floor, 1, 1 - floor),
-      const Color(0xFF3B3430),
-      const Color(0xFF221D1A),
-    )
-    ..hairline(a.p(0, floor), a.p(1, floor), Art.outline, 0.8);
+    ..path(room.ceiling, const Color(0xFF3A434C), line: 0)
+    ..path(room.leftWall, _whitewashDark, line: 0)
+    ..path(room.rightWall, _whitewashDark, line: 0)
+    ..fade(back, _whitewash, _whitewashDark);
+  // The dado: dark paint to waist height, on the back wall and both sides.
+  const dado = Color(0xFF3E3A36);
+  const rail = Color(0xFF2A2724);
+  a.fill(Rect.fromPoints(room.at(0, 0.24, 1), room.at(1, 0, 1)), dado);
+  for (final x in [0.0, 1.0]) {
+    a.path(
+      a.poly([
+        room.at(x, 0, 0),
+        room.at(x, 0.24, 0),
+        room.at(x, 0.24, 1),
+        room.at(x, 0, 1),
+      ]),
+      Color.lerp(dado, Art.outline, 0.2)!,
+      line: 0,
+    );
+    a.line(room.at(x, 0.24, 0), room.at(x, 0.24, 1), rail, width: 0.6);
+  }
+  a
+    ..line(room.at(0, 0.24, 1), room.at(1, 0.24, 1), rail, width: 0.6)
+    ..path(room.floor, const Color(0xFF34302C), line: 0);
+  room
+    ..floorGrid(const Color(0x66151210), rows: 5, columns: 8, width: 0.4)
+    ..shadeCorners(strength: 0.4)
+    ..edges(const Color(0x88202428));
+  return room;
+}
+
+/// Paints [paint] into [face] (a box's front on screen), in the face's own
+/// coordinates: for the doors and fittings on the front of a block.
+void _onFace(Art a, Rect face, void Function(Art f) paint) {
+  a.canvas
+    ..save()
+    ..translate(face.left, face.top);
+  paint(Art(a.canvas, face.size));
+  a.canvas.restore();
 }
 
 // ---------------------------------------------------------------------------
@@ -137,10 +174,11 @@ void _eastLanding(Art a) {
     final y = 0.72 + i * 0.04;
     a.hairline(a.p(0.3 - i * 0.01, y), a.p(0.38 - i * 0.012, y), _stone, 1);
   }
-  // The walls either side of the gate.
+  // The walls either side of the gate, thick enough to stand.
+  Room(a, vp: a.p(0.5, 0.58), depth: 0.3)
+    ..stand(a.r(0.3, 0.44, 0.14, 0.28), _stone, deep: 0.08, line: 0.4)
+    ..stand(a.r(0.58, 0.44, 0.3, 0.28), _stone, deep: 0.08, line: 0.4);
   a
-    ..box(a.r(0.3, 0.44, 0.14, 0.28), _stone, line: 0.4)
-    ..box(a.r(0.58, 0.44, 0.3, 0.28), _stone, line: 0.4)
     ..box(a.r(0.6, 0.36, 0.08, 0.1), StillroomPalette.brass, line: 0.4)
     ..label(
       '7 · XII · 1899',
@@ -249,14 +287,43 @@ void _yard(Art a) {
       line: 0.3,
     )
     ..box(a.r(0.565, 0.38, 0.05, 0.28), const Color(0xFF1C1612), line: 0.4);
-  // Living quarters on the left, a low flat-roofed range.
+  // The tower is round: dark down its far side, its foot in shadow.
+  a.path(
+    a.poly([
+      a.p(0.605, 0.12),
+      a.p(0.625, 0.12),
+      a.p(0.645, 0.7),
+      a.p(0.615, 0.7),
+    ]),
+    const Color(0x44000000),
+    line: 0,
+  );
+  final ground = Room(a, vp: a.p(0.5, 0.66), depth: 0.3)
+    ..contactShadow(a.r(0.52, 0.685, 0.14, 0.03));
+  // Living quarters on the left, a low flat-roofed range running back.
+  final quarters = ground.stand(
+    a.r(0.0, 0.3, 0.3, 0.42),
+    _whitewash,
+    deep: 0.5,
+    side: _whitewashDark,
+  );
   a
-    ..box(a.r(0.0, 0.3, 0.3, 0.42), _whitewash, line: 0.5)
     ..box(a.r(0.08, 0.36, 0.14, 0.36), const Color(0xFF2A211A), line: 0.4)
     ..box(a.r(0.02, 0.36, 0.04, 0.1), const Color(0xFF151A20), line: 0.3)
-    // The oil store, a small hut.
-    ..box(a.r(0.29, 0.44, 0.13, 0.3), _whitewashDark, line: 0.4)
-    ..box(a.r(0.31, 0.48, 0.08, 0.26), const Color(0xFF1C1612), line: 0.3);
+    ..hairline(
+      quarters.topLeft,
+      quarters.topRight,
+      const Color(0xFFB8C2CA),
+      0.6,
+    );
+  // The oil store, a small hut in front of it.
+  ground.stand(
+    a.r(0.29, 0.44, 0.13, 0.3),
+    _whitewashDark,
+    deep: 0.3,
+    side: const Color(0xFF4E5862),
+  );
+  a.box(a.r(0.31, 0.48, 0.08, 0.26), const Color(0xFF1C1612), line: 0.3);
   // The path west, and the rail across it.
   a.path(
     a.poly([a.p(0.72, 1), a.p(0.8, 0.66), a.p(0.98, 0.62), a.p(1, 1)]),
@@ -307,55 +374,158 @@ void _beam(Art a, {Offset? from}) {
   a.glow(origin, a.size.width * 0.08, _lamp, strength: 0.8);
 }
 
+/// The kitchen's camera, shared by its sprites.
+const _kitchenEye = Offset(0.5, 0.36);
+const _kitchenDepth = 0.64;
+
 void _kitchen(Art a) {
-  _whiteRoom(a);
+  final room = _whiteRoom(a, eye: _kitchenEye, depth: _kitchenDepth);
+  // A small deep window in the left wall, the last of the dusk in it.
+  final pane = [
+    room.at(0, 0.44, 0.16),
+    room.at(0, 0.82, 0.16),
+    room.at(0, 0.82, 0.4),
+    room.at(0, 0.44, 0.4),
+  ];
+  a.path(a.poly(pane), const Color(0xFF4A5A70), line: 0.6);
+  final sill = [
+    room.at(0, 0.44, 0.16),
+    room.at(0.035, 0.44, 0.16),
+    room.at(0.035, 0.44, 0.4),
+    room.at(0, 0.44, 0.4),
+  ];
+  a
+    ..path(a.poly(sill), _whitewash, line: 0.4)
+    ..line(room.at(0, 0.63, 0.16), room.at(0, 0.63, 0.4), _iron, width: 0.6)
+    ..line(room.at(0, 0.44, 0.28), room.at(0, 0.82, 0.28), _iron, width: 0.6);
   // Shelf with the magazine.
-  a
-    ..wood(a.r(0.22, 0.2, 0.16, 0.02), grain: 0)
-    ..paper(
-      a.r(0.25, 0.11, 0.1, 0.09),
-      lines: 3,
-      angle: -0.08,
-      color: const Color(0xFFD6C89E),
-    );
+  room.box(
+    a.r(0.33, 0.33, 0.13, 0.014),
+    const Color(0xFF4A3828),
+    depth: 0.04,
+    line: 0.4,
+  );
+  a.paper(
+    a.r(0.35, 0.245, 0.09, 0.085),
+    lines: 3,
+    angle: -0.08,
+    color: const Color(0xFFD6C89E),
+  );
   // The stopped clock.
-  final clock = a.p(0.49, 0.17);
+  final clock = a.p(0.5, 0.22);
   a
-    ..circle(clock, a.u * 7, const Color(0xFFE2DAC4), line: 0.6)
-    ..line(clock, clock + Offset(0, -a.u * 5), Art.outline, width: 0.5)
-    ..line(clock, clock + Offset(a.u * 3, a.u * 1), Art.outline, width: 0.7);
-  _range(a);
-  // The scrubbed table and the log book.
+    ..circle(clock, a.u * 6, const Color(0xFFE2DAC4), line: 0.6)
+    ..line(clock, clock + Offset(0, -a.u * 4.2), Art.outline, width: 0.5)
+    ..line(
+      clock,
+      clock + Offset(a.u * 2.6, a.u * 0.9),
+      Art.outline,
+      width: 0.7,
+    );
+  // The slate by the door.
+  room.box(
+    a.r(0.58, 0.22, 0.08, 0.12),
+    const Color(0xFF2A2E31),
+    depth: 0.02,
+    line: 0.6,
+  );
+  a.scrawl(
+    a.r(0.588, 0.235, 0.064, 0.09),
+    const Color(0xCCE0E2E0),
+    lines: 4,
+    seed: 4,
+    width: 0.3,
+  );
+  // Three hooks with tags; only the third keeps its oilskin.
+  for (var i = 0; i < 3; i++) {
+    final x = 0.69 + i * 0.04;
+    a
+      ..circle(a.p(x, 0.24), a.u * 0.7, StillroomPalette.brass, line: 0.2)
+      ..box(
+        a.r(x - 0.01, 0.255, 0.02, 0.018),
+        const Color(0xFFD9CCAE),
+        line: 0.2,
+      );
+  }
+  final coat = [
+    a.p(0.77, 0.25),
+    a.p(0.797, 0.31),
+    a.p(0.806, 0.6),
+    a.p(0.734, 0.6),
+    a.p(0.743, 0.31),
+  ];
   a
-    ..wood(a.r(0.34, 0.58, 0.3, 0.04), base: const Color(0xFF7A6A52), grain: 1)
-    ..wood(a.r(0.36, 0.62, 0.02, 0.16), vertical: true, grain: 0)
-    ..wood(a.r(0.6, 0.62, 0.02, 0.16), vertical: true, grain: 0)
     ..path(
-      a.poly([
-        a.p(0.385, 0.58),
-        a.p(0.395, 0.52),
-        a.p(0.475, 0.52),
-        a.p(0.485, 0.58),
-      ]),
+      a.poly([for (final p in coat) p.translate(a.u * 1.2, a.u * 0.8)]),
+      const Color(0x44000000),
+      line: 0,
+    )
+    ..path(a.poly(coat), _oilskin, line: 0.5)
+    ..line(a.p(0.77, 0.32), a.p(0.77, 0.59), Art.outline, width: 0.3);
+  _range(a, room);
+  // The scrubbed table and the log book on it.
+  room.table(
+    0.36,
+    0.7,
+    0.3,
+    0.56,
+    0.3,
+    const Color(0xFF7A6A52),
+    legColor: const Color(0xFF3A2C20),
+    leg: 0.02,
+  );
+  _logBook(a, room.at(0.5, 0.3, 0.42), 0.85);
+  // A crate by the right wall, where the lantern was left.
+  room
+    ..shadow(0.82, 0.96, 0.18, 0.34)
+    ..block(
+      0.82,
+      0.96,
+      0,
+      0.16,
+      0.18,
+      0.34,
+      const Color(0xFF5A4630),
+      top: const Color(0xFF6E5A40),
+    );
+  for (final y in [0.055, 0.105]) {
+    a.hairline(
+      room.at(0.82, y, 0.18),
+      room.at(0.96, y, 0.18),
+      const Color(0xFF3A2C1E),
+      0.4,
+    );
+  }
+}
+
+/// The keeper's log, open on the table: its spine standing on [base],
+/// drawn at [k] of its size.
+void _logBook(Art a, Offset base, double k) {
+  Offset p(double x, double y) =>
+      base +
+      Offset((x - 0.435) * k * a.size.width, (y - 0.58) * k * a.size.height);
+  a
+    ..path(
+      a.poly([p(0.385, 0.58), p(0.395, 0.52), p(0.475, 0.52), p(0.485, 0.58)]),
       const Color(0xFF3E2A1C),
       line: 0.4,
     )
     ..path(
       a.poly([
-        a.p(0.392, 0.575),
-        a.p(0.4, 0.525),
-        a.p(0.435, 0.528),
-        a.p(0.435, 0.578),
+        p(0.392, 0.575),
+        p(0.4, 0.525),
+        p(0.435, 0.528),
+        p(0.435, 0.578),
       ]),
       const Color(0xFFE2D6BA),
       line: 0.25,
     )
     ..path(
       a.poly([
-        a.p(0.435, 0.578),
-        a.p(0.435, 0.528),
-        a.p(0.47, 0.525),
-        a.p(0.478, 0.575),
+        p(0.435, 0.578),
+        p(0.435, 0.528),
+        p(0.47, 0.525),
+        p(0.478, 0.575),
       ]),
       const Color(0xFFD9CCAE),
       line: 0.25,
@@ -363,108 +533,71 @@ void _kitchen(Art a) {
   for (var i = 0; i < 4; i++) {
     final y = 0.537 + i * 0.01;
     a
-      ..hairline(a.p(0.402, y), a.p(0.43, y), const Color(0x882A241A), 0.25)
-      ..hairline(a.p(0.44, y), a.p(0.468, y), const Color(0x882A241A), 0.25);
+      ..hairline(p(0.402, y), p(0.43, y), const Color(0x882A241A), 0.25)
+      ..hairline(p(0.44, y), p(0.468, y), const Color(0x882A241A), 0.25);
   }
-  a.hairline(a.p(0.435, 0.528), a.p(0.435, 0.578), Art.outline, 0.4);
-  // The slate by the door.
-  a
-    ..box(a.r(0.58, 0.18, 0.1, 0.14), const Color(0xFF2A2E31), line: 0.6)
-    ..scrawl(
-      a.r(0.59, 0.2, 0.08, 0.1),
-      const Color(0xCCE0E2E0),
-      lines: 4,
-      seed: 4,
-      width: 0.3,
-    );
-  // Three hooks with tags; only the third keeps its oilskin.
-  for (var i = 0; i < 3; i++) {
-    final x = 0.77 + i * 0.05;
-    a
-      ..circle(a.p(x, 0.18), a.u * 0.8, StillroomPalette.brass, line: 0.2)
-      ..box(
-        a.r(x - 0.012, 0.2, 0.024, 0.02),
-        const Color(0xFFD9CCAE),
-        line: 0.2,
-      );
-  }
-  a
-    ..path(
-      a.poly([
-        a.p(0.87, 0.19),
-        a.p(0.9, 0.26),
-        a.p(0.91, 0.56),
-        a.p(0.83, 0.56),
-        a.p(0.84, 0.26),
-      ]),
-      _oilskin,
-      line: 0.5,
-    )
-    ..line(a.p(0.87, 0.27), a.p(0.87, 0.55), Art.outline, width: 0.3);
+  a.hairline(p(0.435, 0.528), p(0.435, 0.578), Art.outline, 0.4);
 }
 
-/// The black kitchen range, cold: hotplate with round lids, oven and
-/// firebox doors, a rail along the front, a kettle, the stovepipe.
-void _range(Art a) {
+/// The black kitchen range against the back wall, cold: hotplate with
+/// round lids and a kettle, oven and firebox doors, a brass rail along
+/// the front, the stovepipe up to the ceiling.
+void _range(Art a, Room room) {
   const iron = Color(0xFF1C1E20);
   const rim = Color(0xFF55595C);
-  a
-    ..fill(a.r(0.125, 0.0, 0.04, 0.4), const Color(0xFF1B1D1F))
-    ..ink(a.r(0.125, 0.0, 0.04, 0.4), width: 0.4)
-    ..box(a.r(0.04, 0.4, 0.2, 0.38), iron, line: 0.6)
-    // The hotplate and its lids.
-    ..box(a.r(0.035, 0.39, 0.21, 0.025), rim, line: 0.4);
-  for (final x in [0.08, 0.15]) {
+  room.shadow(0.03, 0.3, 0.6, 0.9);
+  final front = room.block(0.03, 0.3, 0, 0.42, 0.6, 0.9, iron, top: rim);
+  room.block(0.15, 0.19, 0.42, 1, 0.84, 0.88, const Color(0xFF1B1D1F));
+  // The lids on the hotplate.
+  for (final x in [0.1, 0.2]) {
+    final c = room.at(x, 0.42, 0.8);
+    final w = room.at(x + 0.04, 0.42, 0.8).dx - room.at(x - 0.04, 0.42, 0.8).dx;
     a.oval(
-      a.r(x - 0.025, 0.386, 0.05, 0.012),
+      Rect.fromCenter(center: c, width: w, height: w * 0.18),
       const Color(0xFF3A3E41),
       line: 0.3,
     );
   }
+  // The kettle, left to go cold.
+  final k = room.at(0.23, 0.42, 0.7);
+  final kw = room.at(0.28, 0.42, 0.7).dx - room.at(0.18, 0.42, 0.7).dx;
+  Offset kp(double x, double y) => k + Offset(x * kw, -y * kw);
+  const kettle = Color(0xFF3E4448);
   a
-    // The kettle, left to go cold.
     ..path(
-      a.poly([
-        a.p(0.175, 0.39),
-        a.p(0.18, 0.35),
-        a.p(0.225, 0.35),
-        a.p(0.23, 0.39),
-      ]),
-      const Color(0xFF3E4448),
+      a.poly([kp(-0.5, 0), kp(-0.4, 0.42), kp(0.4, 0.42), kp(0.5, 0)]),
+      kettle,
       line: 0.4,
     )
-    ..line(
-      a.p(0.23, 0.37),
-      a.p(0.245, 0.35),
-      const Color(0xFF3E4448),
-      width: 0.6,
-    )
+    ..line(kp(0.5, 0.2), kp(0.75, 0.42), kettle, width: 0.6)
     ..strokePath(
-      Path()..addArc(a.r(0.185, 0.325, 0.035, 0.05), math.pi, math.pi),
-      const Color(0xFF3E4448),
+      Path()..addArc(
+        Rect.fromCenter(center: kp(0, 0.42), width: kw * 0.6, height: kw * 0.5),
+        math.pi,
+        math.pi,
+      ),
+      kettle,
       width: 0.5,
-    )
+    );
+  _onFace(a, front, (f) {
     // Firebox door (grate slots) and oven door (handle).
-    ..box(a.r(0.06, 0.46, 0.07, 0.12), const Color(0xFF101112), line: 0.4)
-    ..box(a.r(0.15, 0.46, 0.07, 0.16), const Color(0xFF101112), line: 0.4)
-    ..line(a.p(0.19, 0.53), a.p(0.21, 0.53), rim, width: 0.8);
-  for (var i = 0; i < 4; i++) {
-    a.hairline(
-      a.p(0.07 + i * 0.016, 0.49),
-      a.p(0.07 + i * 0.016, 0.55),
-      rim,
-      0.4,
-    );
-  }
-  a
-    // The ash pit and the brass rail along the front.
-    ..box(a.r(0.06, 0.64, 0.16, 0.06), const Color(0xFF101112), line: 0.3)
-    ..line(
-      a.p(0.035, 0.44),
-      a.p(0.245, 0.44),
-      StillroomPalette.brass,
-      width: 0.6,
-    );
+    f
+      ..box(f.r(0.1, 0.16, 0.35, 0.32), const Color(0xFF101112), line: 0.4)
+      ..box(f.r(0.55, 0.16, 0.35, 0.42), const Color(0xFF101112), line: 0.4)
+      ..line(f.p(0.75, 0.36), f.p(0.85, 0.36), rim, width: 0.8);
+    for (var i = 0; i < 4; i++) {
+      f.hairline(
+        f.p(0.15 + i * 0.08, 0.24),
+        f.p(0.15 + i * 0.08, 0.4),
+        rim,
+        0.4,
+      );
+    }
+    f
+      // The ash pit and the brass rail along the front.
+      ..box(f.r(0.1, 0.66, 0.8, 0.16), const Color(0xFF101112), line: 0.3)
+      ..line(f.p(0, 0.08), f.p(1, 0.08), StillroomPalette.brass, width: 0.6);
+  });
 }
 
 /// A box of matches, its tray pushed half out: red heads in a row, the
@@ -537,26 +670,43 @@ void _lantern(Art a, {required bool lit}) {
 }
 
 void _oilStore(Art a) {
-  _whiteRoom(a, floor: 0.8);
+  final room = _whiteRoom(a, eye: const Offset(0.5, 0.36), depth: 0.6);
   a.fill(Offset.zero & a.size, const Color(0x55000000));
-  // Shelves of cans.
-  for (var row = 0; row < 3; row++) {
-    final y = 0.42 + row * 0.13;
-    a.wood(a.r(0.05, y + 0.1, 0.33, 0.02), grain: 0);
+  // The rack of cans against the back wall: two uprights, four boards.
+  const board = Color(0xFF3A2A1C);
+  room.shadow(0.02, 0.42, 0.7, 0.9);
+  for (final x in [0.02, 0.4]) {
+    room.block(x, x + 0.02, 0, 0.56, 0.7, 0.9, board, line: 0.4);
+  }
+  for (final (row, h) in [0.03, 0.2, 0.37, 0.54].indexed) {
+    room.block(0.04, 0.4, h - 0.02, h, 0.7, 0.9, board, line: 0.4);
+    if (row == 3) continue;
     for (var i = 0; i < 5; i++) {
-      final can = a.r(0.07 + i * 0.06, y, 0.05, 0.1);
-      a.canvas
-        ..save()
-        ..translate(can.left, can.top);
-      _can(Art(a.canvas, can.size), label: false);
-      a.canvas.restore();
+      final x = 0.06 + i * 0.068;
+      final can = Rect.fromPoints(
+        room.at(x, h + 0.13, 0.76),
+        room.at(x + 0.055, h, 0.76),
+      );
+      _onFace(a, can, (f) => _can(f, label: false));
     }
   }
   // The bench where the handle lies.
-  a
-    ..wood(a.r(0.62, 0.64, 0.3, 0.04), grain: 1)
-    ..wood(a.r(0.64, 0.68, 0.02, 0.12), vertical: true, grain: 0)
-    ..wood(a.r(0.88, 0.68, 0.02, 0.12), vertical: true, grain: 0);
+  room.table(
+    0.62,
+    0.95,
+    0.3,
+    0.55,
+    0.28,
+    const Color(0xFF4A3828),
+    legColor: const Color(0xFF2E2218),
+    leg: 0.018,
+  );
+}
+
+/// The paraffin can standing on the floor, its shadow under it.
+void _paraffinStanding(Art a) {
+  Room.spriteShadow(a, 0.1, 0.9, y: 0.95);
+  _can(a, label: true);
 }
 
 void _paraffin(Art a) => _can(a, label: true);
@@ -648,20 +798,37 @@ void _key(Art a) {
 }
 
 void _stair(Art a) {
-  // The curved inside of the tower, and the stair winding up.
+  // The curved inside of the tower, dark where it turns away, and the
+  // stair winding up it: each step's tread seen from below or above.
   a.fade(Offset.zero & a.size, _whitewashDark, const Color(0xFF2E353C));
-  for (var i = 0; i < 12; i++) {
+  for (final (x0, x1) in [(0.0, 0.3), (1.0, 0.7)]) {
+    a.canvas.drawRect(
+      a.r(math.min(x0, x1), 0, 0.3, 1),
+      Paint()
+        ..shader = Gradient.linear(a.p(x0, 0), a.p(x1, 0), [
+          const Color(0x99000000),
+          const Color(0x00000000),
+        ]),
+    );
+  }
+  final room = Room(a, vp: a.p(0.5, 0.45), depth: 0.5);
+  for (var i = 11; i >= 0; i--) {
     final t = i / 12;
     final y = 1 - t * 0.66;
     final x0 = 0.1 + 0.3 * math.sin(t * math.pi);
-    a
-      ..box(a.r(x0, y - 0.05, 0.5 - 0.2 * t, 0.05), _stone, line: 0.4)
-      ..hairline(
-        a.p(x0, y - 0.05),
-        a.p(x0 + 0.5 - 0.2 * t, y - 0.05),
-        const Color(0xFF6E767C),
-        0.4,
-      );
+    final step = a.r(x0, y - 0.05, 0.5 - 0.2 * t, 0.05);
+    room
+      ..contactShadow(
+        Rect.fromLTRB(
+          step.left,
+          step.bottom - a.u,
+          step.right,
+          step.bottom + a.u * 2,
+        ),
+        strength: 0.35,
+      )
+      ..box(step, _stone, depth: 0.1, line: 0.4);
+    a.hairline(step.topLeft, step.topRight, const Color(0xFF6E767C), 0.4);
   }
   // Iron handrail.
   a.strokePath(
@@ -708,11 +875,20 @@ void _stair(Art a) {
 }
 
 void _lampRoom(Art a) {
-  // Glazing all round: dusk and sea through the diamond panes.
-  _sky(a, horizon: 0.55);
-  for (var i = 0; i <= 8; i++) {
-    a.line(a.p(i / 8, 0), a.p(i / 8, 0.78), _iron, width: 1);
+  // The round lantern room seen from inside: glazing all round above an
+  // iron parapet, the floor's far edge curving away to either side.
+  const rx = 0.9;
+  double arc(double x) {
+    final t = ((x - 0.5) / rx).clamp(-1.0, 1.0);
+    return math.sqrt(1 - t * t);
   }
+
+  double floorEdge(double x) => 1.06 - 0.28 * arc(x);
+  double parapetTop(double x) => 0.88 - 0.22 * arc(x);
+  final xs = [for (var i = 0; i <= 40; i++) i / 40];
+
+  // Dusk and sea through the diamond panes.
+  _sky(a, horizon: 0.55);
   for (var i = 0; i < 16; i++) {
     final x = i / 8 - 1;
     a
@@ -729,30 +905,75 @@ void _lampRoom(Art a) {
         0.4,
       );
   }
+  // The mullions, crowding together where the glass turns away.
+  for (var k = -4; k <= 4; k++) {
+    final x = 0.5 + rx * math.sin(k * math.pi / 24);
+    a.line(a.p(x, 0), a.p(x, parapetTop(x)), _iron, width: 1.2 - k.abs() * 0.1);
+  }
   a
-    ..fill(a.r(0, 0.78, 1, 0.22), const Color(0xFF3A3F43))
-    ..hairline(a.p(0, 0.78), a.p(1, 0.78), Art.outline, 1);
+    // The parapet under the glass, and the floor inside it.
+    ..path(
+      a.poly([
+        for (final x in xs) a.p(x, parapetTop(x)),
+        for (final x in xs.reversed) a.p(x, floorEdge(x)),
+      ]),
+      const Color(0xFF2E3438),
+      line: 0,
+    )
+    ..strokePath(
+      a.poly([for (final x in xs) a.p(x, parapetTop(x))])..close(),
+      const Color(0xFF55595C),
+      width: 0.6,
+    )
+    ..path(
+      a.poly([for (final x in xs) a.p(x, floorEdge(x)), a.p(1, 1), a.p(0, 1)]),
+      const Color(0xFF3A3F43),
+      line: 0,
+    );
+  // Plates of the floor, ringing the pedestal.
+  for (final (cy, ry) in [(1.18, 0.3), (1.32, 0.36)]) {
+    a.strokePath(
+      Path()..addOval(
+        Rect.fromCenter(
+          center: a.p(0.5, cy),
+          width: a.size.width * rx * 2 * (ry / 0.28),
+          height: a.size.height * ry * 2,
+        ),
+      ),
+      const Color(0x55181C20),
+      width: 0.5,
+    );
+  }
+  a.strokePath(
+    a.poly([for (final x in xs) a.p(x, floorEdge(x))]),
+    Art.outline,
+    width: 0.8,
+  );
+  final room = Room(a, vp: a.p(0.5, 0.42), depth: 0.6);
   // The clockwork cabinet, run down.
-  final cabinet = a.r(0.04, 0.5, 0.22, 0.32);
-  a.canvas
-    ..save()
-    ..translate(cabinet.left, cabinet.top);
-  _clockwork(Art(a.canvas, cabinet.size), wound: false);
-  a.canvas.restore();
-  // Pages pinned by the lens.
+  final cabinet = a.r(0.04, 0.52, 0.22, 0.32);
+  room.stand(cabinet, const Color(0xFF3A2C22), deep: 0.1);
+  _onFace(a, cabinet, (f) => _clockwork(f, wound: false));
+  // The pedestal under the lens.
+  room.stand(a.r(0.42, 0.64, 0.16, 0.16), _iron, deep: 0.14);
+  // A little iron table, the legend's pages on it.
+  room.standTable(
+    a.r(0.74, 0.645, 0.15, 0.22),
+    const Color(0xFF3A4046),
+    deep: 0.12,
+    legColor: _iron,
+  );
   a
-    ..paper(a.r(0.77, 0.55, 0.05, 0.1), lines: 5, angle: 0.06)
-    ..paper(a.r(0.81, 0.56, 0.05, 0.1), lines: 5, angle: -0.05);
-  // The pedestal.
-  a.box(a.r(0.42, 0.64, 0.16, 0.16), _iron, line: 0.5);
-  // The little iron door out onto the gallery.
+    ..paper(a.r(0.77, 0.56, 0.05, 0.085), lines: 5, angle: 0.06)
+    ..paper(a.r(0.81, 0.565, 0.05, 0.08), lines: 5, angle: -0.05);
+  // The little iron door out onto the gallery, set in the parapet.
   a
-    ..box(a.r(0.895, 0.28, 0.1, 0.52), const Color(0xFF2A3036), line: 0.5)
-    ..box(a.r(0.905, 0.3, 0.08, 0.48), _iron, line: 0.4)
+    ..box(a.r(0.895, 0.28, 0.1, 0.54), const Color(0xFF2A3036), line: 0.5)
+    ..box(a.r(0.905, 0.3, 0.08, 0.52), _iron, line: 0.4)
     ..box(a.r(0.92, 0.34, 0.05, 0.1), const Color(0xFF3A4658), line: 0.3)
     ..hairline(a.p(0.945, 0.34), a.p(0.945, 0.44), _iron, 0.4)
-    ..circle(a.p(0.915, 0.56), a.u * 0.8, StillroomPalette.brass, line: 0.2);
-  for (final y in [0.36, 0.7]) {
+    ..circle(a.p(0.915, 0.58), a.u * 0.8, StillroomPalette.brass, line: 0.2);
+  for (final y in [0.36, 0.74]) {
     a.box(a.r(0.905, y, 0.025, 0.02), const Color(0xFF3E4448), line: 0.2);
   }
 }
@@ -870,12 +1091,12 @@ void _westLanding(Art a) {
 void _landingSteps(Art a) {
   const stone = Color(0xFF4F5456);
   const top = Color(0xFF6E7478);
+  final camera = Room(a, vp: a.p(0.5, 0.5), depth: 0.3);
   for (var i = 0; i < 7; i++) {
     final x = 0.46 + i * 0.038;
     final y = 0.52 + i * 0.055;
-    a
-      ..box(a.r(x, y, 0.09, 0.055), stone, line: 0.35)
-      ..fill(a.r(x, y, 0.09, 0.008), top);
+    camera.box(a.r(x, y, 0.09, 0.055), stone, depth: 0.06, line: 0.35);
+    a.fill(a.r(x, y, 0.09, 0.008), top);
   }
   a.glow(a.p(0.72, 0.92), a.size.width * 0.08, _foam, strength: 0.35);
 }
@@ -1009,8 +1230,10 @@ void _twistedRailings(Art a) {
 /// over the water, a pulley at the end and the hook on its chain.
 void _crane(Art a) {
   const iron = Color(0xFF55595C);
+  Room(a, vp: a.p(0.5, 0.5), depth: 0.3)
+    ..contactShadow(a.r(0.82, 0.655, 0.09, 0.025))
+    ..box(a.r(0.83, 0.64, 0.07, 0.025), const Color(0xFF3E4245), depth: 0.08);
   a
-    ..box(a.r(0.83, 0.64, 0.07, 0.025), const Color(0xFF3E4245), line: 0.4)
     ..line(a.p(0.865, 0.645), a.p(0.865, 0.27), iron, width: 2.2)
     ..line(a.p(0.865, 0.29), a.p(0.81, 0.3), iron, width: 1.6)
     ..line(a.p(0.865, 0.42), a.p(0.815, 0.305), iron, width: 1)

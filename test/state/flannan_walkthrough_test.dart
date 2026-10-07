@@ -91,17 +91,17 @@ void main() {
     play.tapScene(0.15, 0.56);
     expect(now().game.sceneId, 'kitchen');
     for (final (x, y) in [
-      (0.43, 0.54),
-      (0.63, 0.25),
-      (0.8, 0.3),
-      (0.3, 0.16),
+      (0.5, 0.6),
+      (0.62, 0.28),
+      (0.75, 0.35),
+      (0.39, 0.28),
     ]) {
       play.tapScene(x, y);
       readAll();
     }
     play
-      ..tapScene(0.115, 0.37) // matches
-      ..tapScene(0.935, 0.48) // lantern
+      ..tapScene(0.195, 0.495) // matches
+      ..tapScene(0.855, 0.7) // lantern
       ..tapInventoryItem('hand_lantern')
       ..tapInventoryItem('matches');
     expect(now().game.inventory, contains('lit_lantern'));
@@ -114,8 +114,8 @@ void main() {
     expect(now().game.sceneId, 'oil_store');
     expect(now().engine.darkness(now().game)?.radius, 0.15);
     play
-      ..tapScene(0.79, 0.615) // winding handle
-      ..tapScene(0.46, 0.61); // paraffin (a red herring)
+      ..tapScene(0.75, 0.625) // winding handle
+      ..tapScene(0.5, 0.8); // paraffin (a red herring)
     expect(now().game.inventory, containsAll(['crank_handle', 'paraffin']));
 
     // The dark stair: the key, the secret, the lamp-room door.

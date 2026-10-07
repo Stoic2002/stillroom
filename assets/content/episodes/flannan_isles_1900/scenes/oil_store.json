@@ -14,10 +14,10 @@
     {
       "id": "cans",
       "rect": [
-        0.06,
-        0.36,
+        0.16,
+        0.38,
         0.3,
-        0.44
+        0.43
       ],
       "onTap": [
         {
@@ -29,10 +29,10 @@
     {
       "id": "paraffin",
       "rect": [
-        0.42,
-        0.52,
-        0.08,
-        0.18
+        0.468,
+        0.73,
+        0.065,
+        0.15
       ],
       "when": [
         {
@@ -50,10 +50,10 @@
     {
       "id": "handle",
       "rect": [
-        0.74,
-        0.58,
+        0.7,
+        0.595,
         0.1,
-        0.07
+        0.06
       ],
       "when": [
         {
@@ -74,10 +74,10 @@
       "id": "paraffin_sprite",
       "image": "images/objects/flannan_isles_1900/paraffin_sprite.png",
       "rect": [
-        0.42,
-        0.52,
-        0.08,
-        0.18
+        0.468,
+        0.73,
+        0.065,
+        0.15
       ],
       "when": [
         {
@@ -90,10 +90,10 @@
       "id": "handle_sprite",
       "image": "images/objects/flannan_isles_1900/handle_sprite.png",
       "rect": [
-        0.74,
-        0.58,
+        0.7,
+        0.595,
         0.1,
-        0.07
+        0.06
       ],
       "when": [
         {
