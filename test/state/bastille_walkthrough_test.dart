@@ -162,7 +162,7 @@ void main() {
     expect(now().game.sceneId, 'saint_paul');
     tap(0.49, 0.59);
     expect(now().game.words, containsAll(['marchioly', 'mattioli']));
-    tap(0.78, 0.66);
+    tap(0.76, 0.75);
     expect(now().game.words, contains('twin'));
     expect(stage(), 'stage:sort_file');
 

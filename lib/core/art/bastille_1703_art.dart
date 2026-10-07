@@ -152,24 +152,68 @@ void _archDoor(
     );
 }
 
-/// An interior with plastered walls, a stone floor and a dark ceiling.
-void _room(Art a, {Color wall = _plaster, double floor = 0.78}) {
+/// The rooms' camera: the eye a little above the middle, as in the cell.
+const _roomEye = Offset(0.5, 0.26);
+
+/// An interior in one-point perspective: plastered walls, a flagged floor
+/// running back, a dark ceiling; [dado] panels the walls to waist height.
+/// Returns its camera, for what stands in it.
+Room _room(Art a, {Color wall = _plaster, Color? dado}) {
+  final room = Room(a, vp: a.p(_roomEye.dx, _roomEye.dy), depth: 0.7);
+  final back = room.back;
   a
-    ..fade(a.r(0, 0, 1, floor), Color.lerp(wall, Art.outline, 0.3)!, wall)
-    ..fade(a.r(0, 0, 1, 0.12), const Color(0xAA000000), const Color(0x00000000))
-    ..fade(a.r(0, floor, 1, 1 - floor), _stoneDark, const Color(0xFF221F1B))
-    ..hairline(a.p(0, floor), a.p(1, floor), Art.outline, 0.8);
-  // Flagstones.
-  for (var i = 1; i < 3; i++) {
-    final y = floor + (1 - floor) * i / 3;
-    a.hairline(a.p(0, y), a.p(1, y), const Color(0x55000000), 0.4);
+    ..path(room.ceiling, const Color(0xFF26221C), line: 0)
+    ..path(room.leftWall, Color.lerp(wall, Art.outline, 0.25)!, line: 0)
+    ..path(room.rightWall, Color.lerp(wall, Art.outline, 0.15)!, line: 0)
+    ..fade(back, Color.lerp(wall, Art.outline, 0.3)!, wall)
+    ..path(room.floor, _stoneDark, line: 0);
+  if (dado != null) {
+    a.wood(
+      Rect.fromPoints(room.at(0, 0.36, 1), room.at(1, 0, 1)),
+      base: dado,
+      vertical: true,
+      grain: 12,
+    );
+    for (final x in [0.0, 1.0]) {
+      a.path(
+        a.poly([
+          room.at(x, 0, 0),
+          room.at(x, 0.36, 0),
+          room.at(x, 0.36, 1),
+          room.at(x, 0, 1),
+        ]),
+        Color.lerp(dado, Art.outline, 0.25)!,
+        line: 0,
+      );
+      for (var k = 1; k < 8; k++) {
+        a.hairline(
+          room.at(x, 0, k / 8),
+          room.at(x, 0.36, k / 8),
+          const Color(0x55000000),
+          0.4,
+        );
+      }
+    }
   }
+  room
+    ..floorGrid(const Color(0x66141210), rows: 5, columns: 7, width: 0.35)
+    ..shadeCorners(strength: 0.45)
+    ..edges(const Color(0xAA1A1714));
+  a.ink(back, width: 0.5);
+  return room;
 }
 
 /// A small-paned window; [view] paints what is seen through it.
-void _window(Art a, Rect rect, void Function(Rect glass) view) {
-  a.box(rect, _stoneLight, line: 0.6);
-  final glass = rect.deflate(rect.width * 0.1);
+void _window(Art a, Rect rect, void Function(Rect glass) view, {Room? room}) {
+  late final Rect glass;
+  if (room == null) {
+    a.box(rect, _stoneLight, line: 0.6);
+    glass = rect.deflate(rect.width * 0.1);
+  } else {
+    // Deep in the wall: its reveal, lit on the side towards the light.
+    room.recess(rect, _stoneLight);
+    glass = Room.recessInner(rect);
+  }
   view(glass);
   final bar = Color.lerp(_oak, Art.outline, 0.3)!;
   for (var i = 1; i < 3; i++) {
@@ -180,18 +224,18 @@ void _window(Art a, Rect rect, void Function(Rect glass) view) {
     final y = glass.top + glass.height * i / 4;
     a.hairline(Offset(glass.left, y), Offset(glass.right, y), bar, 0.5);
   }
-  a
-    ..ink(glass, width: 0.5)
-    ..box(
-      Rect.fromLTWH(
-        rect.left - rect.width * 0.06,
-        rect.bottom,
-        rect.width * 1.12,
-        rect.height * 0.05,
-      ),
-      _stoneLight,
-      line: 0.5,
-    );
+  a.ink(glass, width: 0.5);
+  final sill = Rect.fromLTWH(
+    rect.left - rect.width * 0.06,
+    rect.bottom,
+    rect.width * 1.12,
+    rect.height * 0.05,
+  );
+  if (room == null) {
+    a.box(sill, _stoneLight, line: 0.5);
+  } else {
+    room.box(sill, _stoneLight, depth: 0.03, line: 0.5);
+  }
 }
 
 /// Dawn over rooftops, seen through [glass].
@@ -322,47 +366,6 @@ void _openBook(Art a, Rect rect, {int seed = 1}) {
     );
 }
 
-/// A table seen a little from above: its top surface going back [depth]
-/// (of the canvas height) from the front edge [top], and legs.
-void _table(Art a, Rect top, {Color color = _oak, double depth = 0}) {
-  if (depth > 0) {
-    final back = top.top - a.size.height * depth;
-    final inset = top.width * 0.04;
-    a.path(
-      a.poly([
-        Offset(top.left + inset, back),
-        Offset(top.right - inset, back),
-        top.topRight,
-        top.topLeft,
-      ]),
-      Color.lerp(color, const Color(0xFFFFFFFF), 0.08)!,
-      line: 0.5,
-    );
-  }
-  a
-    ..wood(top, base: color, grain: 2)
-    ..box(
-      Rect.fromLTWH(
-        top.left + top.width * 0.04,
-        top.bottom,
-        top.width * 0.04,
-        a.size.height * 0.9 - top.bottom,
-      ),
-      Color.lerp(color, Art.outline, 0.3)!,
-      line: 0.5,
-    )
-    ..box(
-      Rect.fromLTWH(
-        top.right - top.width * 0.08,
-        top.bottom,
-        top.width * 0.04,
-        a.size.height * 0.9 - top.bottom,
-      ),
-      Color.lerp(color, Art.outline, 0.3)!,
-      line: 0.5,
-    );
-}
-
 /// The prisoner's mask: black velvet, two eyeholes, ties at the sides.
 void _mask(Art a, Rect rect) {
   final c = rect.center;
@@ -480,6 +483,7 @@ void _letter(Art a, Rect rect, {double angle = 0, bool numbers = false}) {
 // Scenes
 
 void _courtyard(Art a) {
+  final court = wallCamera(a, const Offset(0.5, 0.42), 0.8);
   // Dawn sky over the walls.
   a.fade(a.r(0, 0, 1, 0.45), _dawn, _dawnLow);
   // The towers along the far side of the court.
@@ -544,9 +548,10 @@ void _courtyard(Art a) {
   );
   _archDoor(a, gov, door: const Color(0xFF3A2A20), studs: true);
   for (var i = 0; i < 2; i++) {
-    a.box(
+    court.box(
       a.r(0.59 - i * 0.01, 0.76 + i * 0.02, 0.12 + i * 0.02, 0.02),
       _stoneLight,
+      depth: 0.04,
       line: 0.4,
     );
   }
@@ -570,19 +575,23 @@ void _courtyard(Art a) {
       Paint()..color = const Color(0x33000000),
     );
   }
+  court.wallFoot(strength: 0.35);
   // The cart and its box.
-  _cart(a);
+  _cart(a, court);
   // Morning mist in the court.
   a
     ..glow(a.p(0.5, 0.8), a.size.width * 0.4, _dawnLow, strength: 0.12)
     ..fade(a.r(0, 0, 1, 1), const Color(0x00000000), const Color(0x22000000));
 }
 
-void _cart(Art a) {
-  // Box: plain boards.
-  a
-    ..wood(a.r(0.31, 0.7, 0.12, 0.06), base: const Color(0xFF7A6448), grain: 2)
-    ..wood(a.r(0.28, 0.76, 0.18, 0.035), base: _oak, grain: 1);
+void _cart(Art a, Room court) {
+  court
+    ..contactShadow(a.r(0.27, 0.835, 0.22, 0.03), strength: 0.5)
+    // Box: plain boards, its lid seen from above.
+    ..box(a.r(0.31, 0.7, 0.12, 0.06), const Color(0xFF7A6448), depth: 0.06);
+  a.wood(a.r(0.31, 0.7, 0.12, 0.06), base: const Color(0xFF7A6448), grain: 2);
+  court.box(a.r(0.28, 0.76, 0.18, 0.035), _oak, depth: 0.08);
+  a.wood(a.r(0.28, 0.76, 0.18, 0.035), base: _oak, grain: 1);
   // Wheel.
   final hub = a.p(0.33, 0.81);
   final r = a.size.height * 0.05;
@@ -603,26 +612,45 @@ void _cart(Art a) {
 }
 
 void _juncaRoom(Art a) {
-  _room(a, wall: const Color(0xFF8A7A62));
-  // Window on the court.
-  _window(a, a.r(0.06, 0.18, 0.18, 0.34), (g) => _dawnView(a, g));
-  // Shelf on the right wall, with ledgers; the worksheet lies at its end.
-  a
-    ..wood(a.r(0.62, 0.44, 0.3, 0.025), grain: 1)
-    ..box(a.r(0.64, 0.465, 0.015, 0.04), _oak, line: 0.4)
-    ..box(a.r(0.89, 0.465, 0.015, 0.04), _oak, line: 0.4);
+  final room = _room(a, wall: const Color(0xFF8A7A62));
+  // Window on the court, deep in the wall, its light across the floor.
+  final win = a.r(0.17, 0.16, 0.15, 0.3);
+  _window(a, win, (g) => _dawnView(a, g), room: room);
+  room.beam(
+    [win.bottomLeft, win.bottomRight],
+    [
+      room.floorAt(0.18, 0.55),
+      room.floorAt(0.4, 0.55),
+      room.floorAt(0.36, 0.15),
+      room.floorAt(0.08, 0.15),
+    ],
+    _dawnLow,
+    strength: 0.12,
+  );
+  // Shelf on the back wall, with ledgers; the worksheet lies at its end.
+  room
+    ..box(a.r(0.6, 0.44, 0.24, 0.02), _oak, depth: 0.05, line: 0.4)
+    ..box(a.r(0.62, 0.46, 0.012, 0.035), _oak, depth: 0.03, line: 0.3)
+    ..box(a.r(0.81, 0.46, 0.012, 0.035), _oak, depth: 0.03, line: 0.3);
   for (final (x, h, color) in [
-    (0.63, 0.12, const Color(0xFF4A2A1E)),
-    (0.65, 0.13, const Color(0xFF2E3A2A)),
-    (0.67, 0.11, const Color(0xFF5A3A22)),
+    (0.61, 0.12, const Color(0xFF4A2A1E)),
+    (0.63, 0.13, const Color(0xFF2E3A2A)),
+    (0.65, 0.11, const Color(0xFF5A3A22)),
   ]) {
     a.box(a.r(x, 0.44 - h, 0.018, h), color, line: 0.4);
   }
   a
-    ..box(a.r(0.84, 0.32, 0.018, 0.12), const Color(0xFF3A2A1E), line: 0.4)
-    ..box(a.r(0.862, 0.34, 0.018, 0.10), const Color(0xFF4A3A2A), line: 0.4);
+    ..box(a.r(0.8, 0.32, 0.018, 0.12), const Color(0xFF3A2A1E), line: 0.4)
+    ..box(a.r(0.822, 0.34, 0.018, 0.10), const Color(0xFF4A3A2A), line: 0.4);
   // Desk, the journal open on it, the candle burned down.
-  _table(a, a.r(0.26, 0.64, 0.46, 0.04), depth: 0.08);
+  room.standTable(
+    a.r(0.26, 0.64, 0.46, 0.26),
+    _oak,
+    deep: 0.3,
+    thickness: 0.03,
+    leg: 0.02,
+    legColor: Color.lerp(_oak, Art.outline, 0.3),
+  );
   _openBook(a, a.r(0.35, 0.54, 0.2, 0.09), seed: 17);
   // Quill and inkwell.
   a
@@ -655,36 +683,30 @@ void _juncaRoom(Art a) {
       const Color(0x66D5DEE2),
       width: 0.4,
     );
-  // Morning light across the floor.
-  a.glow(a.p(0.2, 0.84), a.size.width * 0.25, _dawnLow, strength: 0.15);
 }
 
 void _governorOffice(Art a) {
-  _room(a, wall: const Color(0xFF6E5A48));
-  // Panelling below the dado.
-  a.wood(
-    a.r(0, 0.5, 1, 0.28),
-    base: const Color(0xFF3A2A1E),
-    vertical: true,
-    grain: 12,
+  final room = _room(
+    a,
+    wall: const Color(0xFF6E5A48),
+    dado: const Color(0xFF3A2A1E),
   );
-  // The fireplace, cold.
-  final fire = a.r(0.04, 0.4, 0.16, 0.36);
-  a
-    ..box(fire, _stoneLight, line: 0.6)
-    ..box(a.r(0.02, 0.37, 0.2, 0.04), _stoneLight, line: 0.6)
-    ..box(a.r(0.065, 0.47, 0.11, 0.29), const Color(0xFF15120F), line: 0.5);
+  // The fireplace, cold, its breast standing out from the wall.
+  room
+    ..box(a.r(0.17, 0.42, 0.14, 0.36), _stoneLight, depth: 0.05, line: 0.6)
+    ..box(a.r(0.155, 0.39, 0.17, 0.035), _stoneLight, depth: 0.07, line: 0.6);
+  a.box(a.r(0.19, 0.49, 0.1, 0.29), const Color(0xFF15120F), line: 0.5);
   // Grey ashes and a charred log.
   a
-    ..oval(a.r(0.075, 0.71, 0.09, 0.04), const Color(0xFF6A6560), line: 0.3)
+    ..oval(a.r(0.197, 0.745, 0.085, 0.03), const Color(0xFF6A6560), line: 0.3)
     ..rbox(
-      a.r(0.085, 0.69, 0.07, 0.025),
+      a.r(0.205, 0.728, 0.07, 0.022),
       a.u,
       const Color(0xFF221C18),
       line: 0.3,
     );
   // Window with dawn.
-  _window(a, a.r(0.78, 0.12, 0.14, 0.32), (g) => _dawnView(a, g));
+  _window(a, a.r(0.68, 0.12, 0.13, 0.3), (g) => _dawnView(a, g), room: room);
   // A map of the kingdom on the wall.
   final map = a.r(0.36, 0.14, 0.24, 0.2);
   a
@@ -705,11 +727,13 @@ void _governorOffice(Art a) {
     )
     ..circle(a.p(0.48, 0.2), a.u * 0.6, StillroomPalette.oxblood, line: 0);
   // The desk.
-  _table(
-    a,
-    a.r(0.24, 0.62, 0.56, 0.05),
-    color: const Color(0xFF3A2418),
-    depth: 0.1,
+  room.standTable(
+    a.r(0.24, 0.62, 0.56, 0.28),
+    const Color(0xFF3A2418),
+    deep: 0.3,
+    thickness: 0.035,
+    leg: 0.022,
+    legColor: const Color(0xFF2A1A10),
   );
   // Green leather inlay suggested by a band along the front.
   a.fill(a.r(0.25, 0.625, 0.54, 0.012), const Color(0xFF2E3A2A));
@@ -752,29 +776,30 @@ void _towerStair(Art a) {
       const Color(0x22000000),
       const Color(0x88000000),
     );
-  // The newel: the stair's stone core, and the steps winding up to the right.
+  // The newel: the stair's stone core, and the steps winding up to the
+  // right, each tread showing, the far ones first.
+  final eye = Room(a, vp: a.p(0.45, 0.36), depth: 0.5);
   a.box(a.r(0.34, 0, 0.04, 1), const Color(0xFF4A453E), line: 0.6);
-  for (var i = 0; i < 12; i++) {
+  for (var i = 11; i >= 0; i--) {
     final t = i / 11;
     final y = 0.92 - t * 0.48;
     final x0 = 0.38 + t * 0.2;
     final w = 0.3 - t * 0.08;
     final step = a.r(x0, y, w, 0.035);
-    a
-      ..box(step, Color.lerp(_stone, _stoneDark, t)!, line: 0.5)
-      // The hollow worn in the middle of each step.
-      ..oval(
-        Rect.fromCenter(
-          center: step.center.translate(-step.width * 0.1, -step.height * 0.2),
-          width: step.width * 0.35,
-          height: step.height * 0.5,
-        ),
-        const Color(0x33000000),
-        line: 0,
-      );
+    eye.box(step, Color.lerp(_stone, _stoneDark, t)!, depth: 0.06, line: 0.5);
+    // The hollow worn in the middle of each step.
+    a.oval(
+      Rect.fromCenter(
+        center: step.center.translate(-step.width * 0.1, -step.height * 0.2),
+        width: step.width * 0.35,
+        height: step.height * 0.5,
+      ),
+      const Color(0x33000000),
+      line: 0,
+    );
   }
   // The landing below the lower door.
-  a.box(a.r(0, 0.76, 0.36, 0.24), _stone, line: 0.6);
+  eye.box(a.r(0, 0.78, 0.36, 0.22), _stone, depth: 0.1, line: 0.6);
   // The lower door, heavy and iron-bound.
   _archDoor(
     a,
@@ -783,7 +808,7 @@ void _towerStair(Art a) {
     door: const Color(0xFF3E2C1E),
   );
   // The upper door, up the stair.
-  a.box(a.r(0.58, 0.4, 0.22, 0.04), _stone, line: 0.5);
+  eye.box(a.r(0.58, 0.4, 0.22, 0.04), _stone, depth: 0.08, line: 0.5);
   _archDoor(
     a,
     a.r(0.62, 0.06, 0.13, 0.36),
@@ -948,9 +973,20 @@ void _cell(Art a) {
 }
 
 void _saintPaul(Art a) {
-  _room(a, wall: const Color(0xFF7E7666));
+  final room = _room(a, wall: const Color(0xFF7E7666));
   // A pointed window on the churchyard: a fresh grave in grey light.
-  final win = a.r(0.06, 0.12, 0.18, 0.4);
+  final win = a.r(0.17, 0.12, 0.15, 0.38);
+  room.box(
+    Rect.fromLTWH(
+      win.left - win.width * 0.06,
+      win.bottom,
+      win.width * 1.12,
+      win.height * 0.04,
+    ),
+    _stoneLight,
+    depth: 0.03,
+    line: 0.5,
+  );
   final arch = Path()
     ..moveTo(win.left, win.bottom)
     ..lineTo(win.left, win.top + win.height * 0.3)
@@ -1039,16 +1075,20 @@ void _saintPaul(Art a) {
     final x = glass.left + glass.width * i / 3;
     a.hairline(Offset(x, glass.top), Offset(x, glass.bottom), _iron, 0.5);
   }
-  // A vestment press against the back wall.
+  // A vestment press standing against the back wall.
+  final press = room.stand(
+    a.r(0.34, 0.2, 0.2, 0.6),
+    const Color(0xFF3A2A1E),
+    deep: 0.12,
+  );
   a
-    ..wood(
-      a.r(0.3, 0.2, 0.2, 0.3),
-      base: const Color(0xFF3A2A1E),
-      vertical: true,
-      grain: 3,
-    )
-    ..hairline(a.p(0.4, 0.2), a.p(0.4, 0.5), Art.outline, 0.6);
-  // The clerk's lectern, the register open on it.
+    ..wood(press, base: const Color(0xFF3A2A1E), vertical: true, grain: 3)
+    ..hairline(press.topCenter, press.bottomCenter, Art.outline, 0.6);
+  // The clerk's lectern, the register open on it: a foot, a post, and the
+  // sloping desk.
+  room
+    ..stand(a.r(0.42, 0.865, 0.14, 0.02), _oak, deep: 0.1)
+    ..stand(a.r(0.465, 0.66, 0.05, 0.205), _oak, deep: 0.04, shadow: false);
   a
     ..path(
       a.poly([
@@ -1059,8 +1099,11 @@ void _saintPaul(Art a) {
       ]),
       _oak,
     )
-    ..box(a.r(0.46, 0.66, 0.06, 0.2), _oak, line: 0.5)
-    ..box(a.r(0.42, 0.86, 0.14, 0.02), _oak, line: 0.5);
+    ..box(
+      a.r(0.36, 0.66, 0.26, 0.012),
+      Color.lerp(_oak, Art.outline, 0.3)!,
+      line: 0.4,
+    );
   _openBook(a, a.r(0.39, 0.53, 0.2, 0.1), seed: 23);
   // Quill in its pot.
   a
@@ -1072,23 +1115,39 @@ void _saintPaul(Art a) {
       width: 0.6,
     );
   // A stand of candles for the dead.
-  a
-    ..box(a.r(0.675, 0.46, 0.01, 0.32), _iron, line: 0.4)
-    ..box(a.r(0.64, 0.45, 0.08, 0.012), _iron, line: 0.4);
+  room
+    ..stand(a.r(0.65, 0.8, 0.06, 0.014), _iron, deep: 0.04)
+    ..stand(a.r(0.675, 0.46, 0.01, 0.34), _iron, deep: 0.01, shadow: false);
+  a.box(a.r(0.64, 0.45, 0.08, 0.012), _iron, line: 0.4);
   for (final x in [0.65, 0.67, 0.69, 0.71]) {
     a.candle(a.p(x, 0.452), a.size.height * 0.1, lit: true);
   }
-  // A pew on the right, a book on it.
-  a
-    // Its back rail, then the seat in front of it.
-    ..wood(a.r(0.66, 0.56, 0.3, 0.05), base: _oak, grain: 1)
-    ..box(a.r(0.67, 0.61, 0.012, 0.07), _oak, line: 0.4)
-    ..box(a.r(0.93, 0.61, 0.012, 0.07), _oak, line: 0.4)
-    ..wood(a.r(0.66, 0.68, 0.32, 0.03), base: _oak, grain: 1)
-    ..wood(a.r(0.95, 0.5, 0.03, 0.3), base: _oak, grain: 1)
-    ..box(a.r(0.68, 0.71, 0.02, 0.12), _oak, line: 0.4)
-    ..box(a.r(0.92, 0.71, 0.02, 0.12), _oak, line: 0.4);
-  _book(a, a.r(0.74, 0.635, 0.08, 0.05), const Color(0xFF2A3A5A));
+  // A pew on the right, nearer: its back, the seat, the end board, a book
+  // left on it.
+  room
+    ..shadow(0.64, 0.99, 0.28, 0.43)
+    ..block(0.64, 0.97, 0.17, 0.34, 0.4, 0.425, _oak)
+    ..table(
+      0.64,
+      0.97,
+      0.28,
+      0.4,
+      0.17,
+      _oak,
+      thickness: 0.03,
+      leg: 0.02,
+      shadow: false,
+    )
+    ..block(0.97, 0.99, 0, 0.36, 0.27, 0.43, _oak);
+  _book(
+    a,
+    Rect.fromCenter(
+      center: room.at(0.8, 0.17, 0.33).translate(0, -a.u * 1.6),
+      width: a.size.width * 0.07,
+      height: a.size.height * 0.045,
+    ),
+    const Color(0xFF2A3A5A),
+  );
 }
 
 void _lockBoard(Art a) {
