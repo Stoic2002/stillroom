@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import '../theme/stillroom_palette.dart';
 import 'art_kit.dart';
+import 'depth_kit.dart';
 import 'echo_art.dart';
 
 /// Code-drawn stand-in art for "Whitechapel, 1888", keyed by the image paths
@@ -83,26 +84,127 @@ const _Wall _east = (base: Color(0xFF2A1F1A), stripe: Color(0xFF33261F));
 const _Wall _south = (base: Color(0xFF1E2320), stripe: Color(0xFF262C28));
 const _Wall _west = (base: Color(0xFF241E1B), stripe: Color(0xFF2C2420));
 
+/// The room's camera: the eye a little above the middle of the wall, the
+/// far wall most of the picture. Each wall view is the same room turned.
+const _eye = Offset(0.5, 0.4);
+const _roomDepth = 0.72;
+
+Room _roomOf(Art a) => Room(a, vp: a.p(_eye.dx, _eye.dy), depth: _roomDepth);
+
+/// A sprite's own view of the room's camera: the same vanishing point,
+/// placed relative to the sprite's layer rect in the scene, so its boxes
+/// recede the way the room does.
+Room _spriteRoom(Art a, (double, double, double, double) rect) {
+  final (x, y, w, h) = rect;
+  return Room(
+    a,
+    vp: Offset(
+      (_eye.dx - x) / w * a.size.width,
+      (_eye.dy - y) / h * a.size.height,
+    ),
+    depth: _roomDepth,
+  );
+}
+
+/// A soft shadow on the floor at the foot of a sprite: an ellipse along
+/// its bottom edge.
+void _footShadow(Art a, double x0, double x1, {double y = 0.98}) {
+  a.canvas.drawOval(
+    Rect.fromLTRB(
+      a.size.width * x0,
+      a.size.height * y - a.u * 2,
+      a.size.width * x1,
+      a.size.height * y + a.u * 2,
+    ),
+    Paint()
+      ..color = const Color(0x88000000)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.u * 1.5),
+  );
+}
+
 void _room(Art a, _Wall wall, {bool ghostFrames = false}) {
-  a.wallpaper(a.r(0, 0, 1, 0.84), wall.base, wall.stripe);
+  final room = _roomOf(a);
+  final back = room.back;
+  final side = Color.lerp(wall.base, Art.outline, 0.25)!;
+  a
+    ..path(room.ceiling, const Color(0xFF141210), line: 0)
+    ..path(room.leftWall, side, line: 0)
+    ..path(room.rightWall, side, line: 0);
+  // The side walls' stripes, running back.
+  for (var k = 1; k < 12; k++) {
+    for (final x in [0.0, 1.0]) {
+      a.hairline(
+        room.at(x, 0.12, k / 12),
+        room.at(x, 0.95, k / 12),
+        wall.stripe.withValues(alpha: 0.7),
+        0.6,
+      );
+    }
+  }
+  a.wallpaper(back, wall.base, wall.stripe);
   if (ghostFrames) {
     // Paler rectangles where pictures once hung.
-    for (final x in [0.03, 0.9]) {
-      a.fill(a.r(x, 0.2, 0.07, 0.2), wall.stripe.withValues(alpha: 0.6));
+    for (final x in [0.0, 0.92]) {
+      a.fill(
+        Rect.fromLTWH(
+          back.left + back.width * x,
+          back.top + back.height * 0.15,
+          back.width * 0.07,
+          back.height * 0.22,
+        ),
+        wall.stripe.withValues(alpha: 0.6),
+      );
     }
   }
   a
-    ..stain(a.p(0.08, 0.3), a.size.width * 0.05)
-    ..stain(a.p(0.93, 0.55), a.size.width * 0.04)
-    ..fade(a.r(0, 0, 1, 0.3), const Color(0xCC000000), const Color(0x00000000))
-    ..wood(a.r(0, 0.06, 1, 0.014), grain: 0)
-    ..wood(a.r(0, 0.8, 1, 0.045), grain: 1)
-    ..floorboards(a.r(0, 0.845, 1, 0.155))
-    ..fade(
-      a.r(0, 0.845, 1, 0.155),
-      const Color(0x66000000),
-      const Color(0x00000000),
+    ..stain(
+      Offset.lerp(back.topLeft, back.bottomLeft, 0.35)!.translate(a.u * 6, 0),
+      a.size.width * 0.04,
+    )
+    ..stain(
+      Offset.lerp(back.topRight, back.bottomRight, 0.6)!.translate(-a.u * 6, 0),
+      a.size.width * 0.035,
     );
+  // The floorboards running back, the skirting round the walls.
+  a.path(room.floor, const Color(0xFF2E2117), line: 0);
+  room.floorGrid(const Color(0x66120C08), rows: 3, columns: 14, width: 0.35);
+  room.box(
+    Rect.fromLTRB(
+      back.left,
+      back.bottom - back.height * 0.05,
+      back.right,
+      back.bottom,
+    ),
+    const Color(0xFF2A1E15),
+    depth: 0.01,
+    line: 0.3,
+  );
+  for (final x in [0.0, 1.0]) {
+    a.line(
+      room.at(x, 0.05, 0),
+      room.at(x, 0.05, 1),
+      const Color(0xFF2A1E15),
+      width: 0.8,
+    );
+  }
+  // A picture rail under the ceiling.
+  a.wood(
+    Rect.fromLTRB(
+      back.left,
+      back.top + back.height * 0.02,
+      back.right,
+      back.top + back.height * 0.035,
+    ),
+    grain: 0,
+  );
+  room
+    ..shadeCorners(strength: 0.5)
+    ..edges(const Color(0xAA0A0806), width: 0.5);
+  a.fade(
+    Rect.fromLTRB(0, 0, a.size.width, back.top + back.height * 0.25),
+    const Color(0xAA000000),
+    const Color(0x00000000),
+  );
 }
 
 void _deskScene(Art a) {
@@ -297,7 +399,9 @@ void _frame(Art a, Rect outer, {required Rect inside}) {
 // Objects (each drawn inside its layer rect)
 
 void _window(Art a) {
+  final room = _spriteRoom(a, (0.12, 0.1, 0.3, 0.5));
   final glass = a.r(0.12, 0.06, 0.76, 0.78);
+  room.recess(glass.inflate(a.u * 2), const Color(0xFF2A2520), thickness: 0.03);
   a
     ..fade(glass, const Color(0xFF39413D), const Color(0xFF55605A))
     ..glow(
@@ -311,6 +415,12 @@ void _window(Art a) {
     ..wood(a.r(0.49, 0.06, 0.03, 0.78), grain: 0)
     ..wood(a.r(0.12, 0.43, 0.76, 0.03), grain: 0)
     ..wood(a.r(0.06, 0.84, 0.88, 0.08), grain: 1);
+  room.box(
+    a.r(0.06, 0.84, 0.88, 0.05),
+    StillroomPalette.walnut,
+    depth: -0.06,
+    line: 0.3,
+  );
   // Curtains.
   for (final left in [true, false]) {
     final x0 = left ? 0.0 : 0.86;
@@ -326,21 +436,42 @@ void _window(Art a) {
 }
 
 void _desk(Art a) {
+  final room = _spriteRoom(a, (0.5, 0.5, 0.4, 0.38));
+  _footShadow(a, 0.02, 0.98);
+  // The back legs, then the body, the front legs, the top over all.
+  for (final x in [0.1, 0.85]) {
+    final leg = a.r(x, 0.64, 0.05, 0.34);
+    a.wood(
+      Rect.fromPoints(
+        room.toward(leg.topLeft, 0.12),
+        room.toward(leg.bottomRight, 0.12),
+      ),
+      grain: 0,
+    );
+  }
+  room.box(a.r(0.08, 0.22, 0.84, 0.42), StillroomPalette.walnut, depth: 0.12);
   a
-    ..wood(
-      a.r(0.04, 0.12, 0.92, 0.1),
-      base: StillroomPalette.walnutLight,
-      grain: 1,
-    )
     ..wood(a.r(0.08, 0.22, 0.84, 0.42), grain: 3)
     ..wood(
       a.r(0.32, 0.3, 0.36, 0.26),
       base: StillroomPalette.walnutLight,
       grain: 1,
     )
-    ..circle(a.p(0.5, 0.43), a.u * 2.2, StillroomPalette.brass, line: 0.4)
-    ..wood(a.r(0.1, 0.64, 0.05, 0.36), grain: 0)
-    ..wood(a.r(0.85, 0.64, 0.05, 0.36), grain: 0)
+    ..circle(a.p(0.5, 0.43), a.u * 2.2, StillroomPalette.brass, line: 0.4);
+  for (final x in [0.1, 0.85]) {
+    room.box(
+      a.r(x, 0.64, 0.05, 0.34),
+      StillroomPalette.walnut,
+      depth: 0.02,
+      line: 0.4,
+    );
+  }
+  room.box(
+    a.r(0.04, 0.12, 0.92, 0.1),
+    StillroomPalette.walnutLight,
+    depth: 0.14,
+  );
+  a
     // A stack of paper and a candle stub on top.
     ..paper(a.r(0.12, 0.02, 0.22, 0.1), lines: 2, angle: -0.04)
     ..candle(a.p(0.78, 0.12), a.size.height * 0.16);
@@ -348,6 +479,8 @@ void _desk(Art a) {
 
 void _bed(Art a) {
   const iron = Color(0xFF15120F);
+  final room = _spriteRoom(a, (0.02, 0.66, 0.4, 0.3));
+  _footShadow(a, 0.06, 0.99);
   for (var i = 0; i < 5; i++) {
     a.line(
       a.p(0.03 + i * 0.035, 0.05),
@@ -358,10 +491,11 @@ void _bed(Art a) {
   }
   a
     ..line(a.p(0.02, 0.05), a.p(0.19, 0.05), iron, width: 1.2)
-    ..line(a.p(0.02, 0.4), a.p(0.19, 0.4), iron, width: 0.8)
-    ..box(a.r(0.1, 0.48, 0.88, 0.3), const Color(0xFF3A3530))
+    ..line(a.p(0.02, 0.4), a.p(0.19, 0.4), iron, width: 0.8);
+  room.box(a.r(0.1, 0.48, 0.88, 0.3), const Color(0xFF3A3530), depth: 0.2);
+  room.box(a.r(0.36, 0.44, 0.62, 0.36), const Color(0xFF2E3530), depth: 0.18);
+  a
     ..rbox(a.r(0.13, 0.38, 0.22, 0.16), a.u * 3, const Color(0xFFB8AC92))
-    ..box(a.r(0.36, 0.44, 0.62, 0.36), const Color(0xFF2E3530))
     ..line(
       a.p(0.36, 0.52),
       a.p(0.98, 0.52),
@@ -385,11 +519,17 @@ void _fireplace(Art a) {
     )
     ..lineTo(a.size.width * 0.78, a.size.height)
     ..close();
-  a
-    ..box(a.r(0.04, 0.04, 0.92, 0.96), stone)
-    ..box(a.r(0, 0, 1, 0.08), const Color(0xFF2A2521))
-    ..path(opening, const Color(0xFF060504))
-    ..oval(a.r(0.3, 0.84, 0.4, 0.12), const Color(0xFF3A3632), line: 0.3);
+  final room = _spriteRoom(a, (0.26, 0.5, 0.48, 0.46));
+  room.box(a.r(0.04, 0.04, 0.92, 0.96), stone, depth: 0.08);
+  room.box(a.r(0, 0, 1, 0.08), const Color(0xFF2A2521), depth: 0.1);
+  a.path(opening, const Color(0xFF060504));
+  // The hearth slab before it, on the floor.
+  a.path(
+    a.poly([a.p(0.0, 0.97), a.p(1.0, 0.97), a.p(1.04, 1.0), a.p(-0.04, 1.0)]),
+    const Color(0xFF2E2A26),
+    line: 0.3,
+  );
+  a.oval(a.r(0.3, 0.84, 0.4, 0.12), const Color(0xFF3A3632), line: 0.3);
   for (var i = 0; i < 6; i++) {
     final x = 0.3 + i * 0.08;
     a.line(a.p(x, 0.66), a.p(x, 0.86), const Color(0xFF2B2826), width: 0.9);
@@ -443,6 +583,12 @@ void _candles(Art a, {required bool lit}) {
 void _door(Art a, {required bool open}) {
   a.wood(Offset.zero & a.size, grain: 0, vertical: true);
   final opening = a.r(0.07, 0.03, 0.86, 0.97);
+  _spriteRoom(a, (
+    0.38,
+    0.1,
+    0.24,
+    0.82,
+  )).recess(opening, const Color(0xFF3A2A1E), thickness: 0.02);
   if (!open) {
     a.wood(opening, base: const Color(0xFF30231A), vertical: true, grain: 3);
     for (final (y, h) in [(0.08, 0.3), (0.44, 0.24), (0.74, 0.2)]) {
@@ -482,7 +628,9 @@ void _door(Art a, {required bool open}) {
 
 void _coatRack(Art a) {
   const pole = Color(0xFF1E150F);
+  _footShadow(a, 0.15, 0.85, y: 0.985);
   a
+    ..line(a.p(0.5, 0.95), a.p(0.42, 0.9), pole, width: 1.2)
     ..line(a.p(0.5, 0.05), a.p(0.5, 0.95), pole, width: 2)
     ..line(a.p(0.5, 0.95), a.p(0.2, 1), pole, width: 1.5)
     ..line(a.p(0.5, 0.95), a.p(0.8, 1), pole, width: 1.5)
@@ -514,6 +662,12 @@ void _frameRow(Art a, {required bool filled}) {
   for (var i = 0; i < 5; i++) {
     final outer = a.r(0.02 + i * 0.2, 0.08, 0.16, 0.84);
     final inside = a.r(0.04 + i * 0.2, 0.14, 0.12, 0.72);
+    a.canvas.drawRect(
+      outer.shift(Offset(-a.u * 0.8, a.u * 1.5)),
+      Paint()
+        ..color = const Color(0x66000000)
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.u * 1.2),
+    );
     _frame(a, outer, inside: inside);
     if (filled) {
       a

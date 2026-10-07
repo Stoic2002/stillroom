@@ -252,6 +252,81 @@ final class Room {
     return front;
   }
 
+  /// The depth at which the floor shows at screen height [py] (pixels);
+  /// the back wall's depth or further where the floor is not seen.
+  double floorDepthAt(double py) {
+    final sc = (py - vp.dy) / (size.height - vp.dy);
+    if (sc <= depth) return 1;
+    return depth * (1 / sc - 1) / (1 - depth);
+  }
+
+  /// Room `x` for screen x [px] (pixels) at depth [z].
+  double xAt(double px, double z) =>
+      (vp.dx + (px - vp.dx) / scaleAt(z)) / size.width;
+
+  /// Room `y` for screen y [py] (pixels) at depth [z].
+  double yAt(double py, double z) =>
+      1 - (vp.dy + (py - vp.dy) / scaleAt(z)) / size.height;
+
+  /// Something standing on the floor whose front face is [front] on
+  /// screen: its foot on the floor where [front]'s bottom edge is, [deep]
+  /// room units deep, with its shadow. For turning a flat drawing into one
+  /// that stands, keeping its place. Returns the front as drawn.
+  Rect stand(
+    Rect front,
+    Color color, {
+    double deep = 0.1,
+    double line = 0.5,
+    bool shadow = true,
+    Color? top,
+    Color? side,
+  }) {
+    final z = floorDepthAt(front.bottom);
+    final x0 = xAt(front.left, z);
+    final x1 = xAt(front.right, z);
+    final y1 = yAt(front.top, z);
+    if (shadow) this.shadow(x0, x1, z, z + deep, strength: 0.4, spread: 0.08);
+    return block(
+      x0,
+      x1,
+      0,
+      y1,
+      z,
+      z + deep,
+      color,
+      line: line,
+      top: top,
+      side: side,
+    );
+  }
+
+  /// A table on the floor whose top's front edge spans [front] on screen
+  /// (its top edge the table top, its bottom the feet), [deep] room units
+  /// deep. Returns the top's front face.
+  Rect standTable(
+    Rect front,
+    Color color, {
+    double deep = 0.25,
+    double thickness = 0.02,
+    double leg = 0.015,
+    Color? legColor,
+    Color? top,
+  }) {
+    final z = floorDepthAt(front.bottom);
+    return table(
+      xAt(front.left, z),
+      xAt(front.right, z),
+      z,
+      z + deep,
+      yAt(front.top, z),
+      color,
+      thickness: thickness,
+      leg: leg,
+      legColor: legColor,
+      top: top,
+    );
+  }
+
   /// A shallow box given by its front face [front] on screen, its depth
   /// running back [depth] of the way to the vanishing point: for things
   /// fixed flat to the back wall (a shelf, a sill, a board). What stands
