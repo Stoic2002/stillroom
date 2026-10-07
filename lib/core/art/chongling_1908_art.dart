@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import '../theme/stillroom_palette.dart';
 import 'art_kit.dart';
+import 'depth_kit.dart';
 import 'echo_art.dart';
 import 'whitechapel_1888_art.dart' show jarLabelBoard;
 
@@ -402,32 +403,95 @@ void _court(Art a) {
 
 void _crypt(Art a) {
   a.fill(Offset.zero & a.size, const Color(0xFF26262A));
-  // The barrel vault, marble blocks in the lamp's light.
-  final vault = Path()
-    ..moveTo(a.p(0.08, 0.8).dx, a.p(0.08, 0.8).dy)
-    ..lineTo(a.p(0.08, 0.36).dx, a.p(0.08, 0.36).dy)
-    ..arcToPoint(a.p(0.92, 0.36), radius: Radius.circular(a.size.width * 0.42))
-    ..lineTo(a.p(0.92, 0.8).dx, a.p(0.92, 0.8).dy)
-    ..close();
-  a.path(vault, const Color(0xFF6E6C66), line: 0.6);
+  // The barrel vault running back from the picture to the far wall: its
+  // front arch, the same arch smaller at the back, marble courses running
+  // between them, the floor's slabs drawn in to the far end.
+  final room = Room(a, vp: a.p(0.5, 0.44), depth: 0.55);
+  final spring = room.yAt(a.p(0, 0.36).dy, 0);
+  final floorY = room.yAt(a.p(0, 0.8).dy, 0);
+  Offset onVault(double t, double z) {
+    // t from 0 (left foot) through 0.5 (crown) to 1 (right foot).
+    final angle = math.pi * (1 - t);
+    final x = 0.5 + 0.42 * math.cos(angle);
+    final y = spring + (0.42 * a.size.width / a.size.height) * math.sin(angle);
+    return room.at(x, y, z);
+  }
+
+  Path archAt(double z) {
+    final path = Path()
+      ..moveTo(room.at(0.08, floorY, z).dx, room.at(0.08, floorY, z).dy);
+    for (var k = 0; k <= 24; k++) {
+      final p = onVault(k / 24, z);
+      path.lineTo(p.dx, p.dy);
+    }
+    final foot = room.at(0.92, floorY, z);
+    return path
+      ..lineTo(foot.dx, foot.dy)
+      ..close();
+  }
+
+  final front = archAt(0);
+  a.path(front, const Color(0xFF6E6C66), line: 0.6);
   a.canvas
     ..save()
-    ..clipPath(vault);
-  for (var i = 0; i < 16; i++) {
-    final y = 0.02 + i * 0.05;
-    a.hairline(a.p(0, y), a.p(1, y), const Color(0xFF4E4C48), 0.25);
-    for (var k = 0; k < 8; k++) {
-      final x = (k + (i.isEven ? 0 : 0.5)) / 8 + 0.02;
-      a.hairline(a.p(x, y), a.p(x, y + 0.05), const Color(0xFF4E4C48), 0.2);
+    ..clipPath(front);
+  // The far wall, in the dark.
+  a.path(archAt(1), const Color(0xFF4A4844), line: 0.5);
+  for (var k = 0; k <= 12; k++) {
+    a.hairline(
+      onVault(k / 12, 0),
+      onVault(k / 12, 1),
+      const Color(0xFF4E4C48),
+      0.3,
+    );
+  }
+  for (var r = 1; r < 6; r++) {
+    final z = r / 6;
+    for (var k = 0; k < 24; k++) {
+      a.hairline(
+        onVault(k / 24, z),
+        onVault((k + 1) / 24, z),
+        const Color(0xFF4E4C48),
+        0.25,
+      );
     }
   }
+  // Shade where the vault turns away overhead and at its far end.
+  a.canvas.drawPath(
+    archAt(1),
+    Paint()
+      ..color = const Color(0x55000000)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.u * 3),
+  );
   a.canvas.restore();
-  // The floor, stone slabs.
-  a.fill(a.r(0, 0.8, 1, 0.2), const Color(0xFF4A4844));
-  for (var i = 1; i < 4; i++) {
+  // The floor, stone slabs running back.
+  a.path(
+    a.poly([
+      room.at(0.08, floorY, 1),
+      room.at(0.92, floorY, 1),
+      room.at(0.92, floorY, 0),
+      a.p(1, 0.8),
+      a.p(1, 1),
+      a.p(0, 1),
+      a.p(0, 0.8),
+      room.at(0.08, floorY, 0),
+    ]),
+    const Color(0xFF4A4844),
+    line: 0,
+  );
+  for (var c = 0; c <= 8; c++) {
+    final x = 0.08 + 0.84 * c / 8;
     a.hairline(
-      a.p(0, 0.8 + i * 0.05),
-      a.p(1, 0.8 + i * 0.05),
+      room.at(x, floorY, 0),
+      room.at(x, floorY, 1),
+      const Color(0xFF35332F),
+      0.3,
+    );
+  }
+  for (var r = 1; r < 6; r++) {
+    a.hairline(
+      room.at(0.08, floorY, r / 6),
+      room.at(0.92, floorY, r / 6),
       const Color(0xFF35332F),
       0.3,
     );
@@ -473,10 +537,13 @@ void _crypt(Art a) {
     }
   }
 
-  // The coffin bed of pale stone.
-  a
-    ..box(a.r(0.26, 0.72, 0.48, 0.1), _marble, line: 0.6)
-    ..box(a.r(0.26, 0.72, 0.48, 0.02), const Color(0xFFD8D4C8), line: 0.3);
+  // The coffin bed of pale stone, its top running back under the coffins.
+  room.stand(
+    a.r(0.26, 0.72, 0.48, 0.1),
+    _marble,
+    deep: 0.3,
+    top: const Color(0xFFD8D4C8),
+  );
   for (var i = 0; i < 12; i++) {
     a.hairline(
       a.p(0.28 + i * 0.038, 0.76),
@@ -514,6 +581,7 @@ void _crypt(Art a) {
   }
 
   // The clearance record on a stand.
+  room.contactShadow(a.r(0.775, 0.79, 0.09, 0.02));
   a
     ..line(a.p(0.82, 0.58), a.p(0.785, 0.8), const Color(0xFF2A2A2C))
     ..line(a.p(0.82, 0.58), a.p(0.855, 0.8), const Color(0xFF2A2A2C))
@@ -573,22 +641,61 @@ void _coffin(Art a, double left, double right, double top, Color lacquer) {
     );
 }
 
-void _archive(Art a) {
+/// A plain modern room in one-point perspective: [wall] fading to
+/// [wallLow], a floor of [floor] in tiles. Returns its camera.
+Room _modernRoom(
+  Art a, {
+  required double depth,
+  required Color wall,
+  required Color wallLow,
+  required Color floor,
+}) {
+  final room = Room(a, vp: a.p(0.5, 0.3), depth: depth);
+  final back = room.back;
   a
-    ..fade(a.r(0, 0, 1, 0.8), const Color(0xFF6E6A62), const Color(0xFF8A857A))
-    ..fill(a.r(0, 0.8, 1, 0.2), const Color(0xFF55524C))
-    ..hairline(a.p(0, 0.8), a.p(1, 0.8), const Color(0xFF3A3834), 0.4);
+    ..path(room.ceiling, Color.lerp(wall, Art.outline, 0.4)!, line: 0)
+    ..path(room.leftWall, Color.lerp(wallLow, Art.outline, 0.22)!, line: 0)
+    ..path(room.rightWall, Color.lerp(wallLow, Art.outline, 0.15)!, line: 0)
+    ..fade(back, wall, wallLow)
+    ..path(room.floor, floor, line: 0);
+  room
+    ..floorGrid(Color.lerp(floor, Art.outline, 0.3)!, rows: 5, columns: 8)
+    ..shadeCorners(strength: 0.35)
+    ..edges(Color.lerp(wall, Art.outline, 0.5)!);
+  a.ink(back, width: 0.4);
+  return room;
+}
 
-  // Steel shelves of archive boxes.
-  final shelf = a.r(0.04, 0.06, 0.28, 0.46);
-  a
-    ..line(shelf.topLeft, shelf.bottomLeft, const Color(0xFF55595E), width: 0.8)
-    ..line(
-      shelf.topRight,
-      shelf.bottomRight,
+void _archive(Art a) {
+  final room = _modernRoom(
+    a,
+    depth: 0.7,
+    wall: const Color(0xFF6E6A62),
+    wallLow: const Color(0xFF8A857A),
+    floor: const Color(0xFF55524C),
+  );
+
+  // Steel shelves of archive boxes, standing against the back wall.
+  final shelf = a.r(0.16, 0.06, 0.22, 0.46);
+  room.stand(
+    Rect.fromLTRB(shelf.left, shelf.top, shelf.right, a.p(0, 0.805).dy),
+    const Color(0x00000000),
+    deep: 0.1,
+    line: 0,
+  );
+  for (final x in [shelf.left, shelf.right]) {
+    room.box(
+      Rect.fromLTWH(
+        x - a.u * 0.4,
+        shelf.top,
+        a.u * 0.8,
+        a.p(0, 0.805).dy - shelf.top,
+      ),
       const Color(0xFF55595E),
-      width: 0.8,
+      depth: 0.08,
+      line: 0.3,
     );
+  }
   final random = math.Random(11);
   for (var row = 0; row < 3; row++) {
     final bottom = shelf.top + shelf.height * (row + 1) / 3;
@@ -631,14 +738,20 @@ void _archive(Art a) {
     }
   }
 
-  // The window, snow outside, the stele tower across the court.
-  final window = a.r(0.4, 0.08, 0.2, 0.3);
+  // The window, deep in the wall, snow outside, the stele tower across
+  // the court.
+  final window = a.r(0.44, 0.08, 0.2, 0.3);
+  room.recess(
+    window.inflate(a.u * 2.5),
+    const Color(0xFF7E7A70),
+    thickness: 0.03,
+  );
   a
     ..fade(window, const Color(0xFF9AA2AA), const Color(0xFFD4D8DC))
-    ..box(a.r(0.47, 0.22, 0.06, 0.1), _red, line: 0.3);
-  _roof(a, a.r(0.455, 0.19, 0.09, 0.035), _tile, inset: 0.18);
+    ..box(a.r(0.51, 0.22, 0.06, 0.1), _red, line: 0.3);
+  _roof(a, a.r(0.495, 0.19, 0.09, 0.035), _tile, inset: 0.18);
   a
-    ..fill(a.r(0.4, 0.32, 0.2, 0.06), _snow)
+    ..fill(a.r(0.44, 0.32, 0.2, 0.06), _snow)
     ..ink(window, width: 0.8)
     ..line(
       window.topCenter,
@@ -652,20 +765,29 @@ void _archive(Art a) {
       const Color(0xFF4A3A2A),
       width: 0.8,
     )
-    ..box(a.r(0.39, 0.38, 0.22, 0.02), const Color(0xFFD8D8D8), line: 0.4);
+    ..box(a.r(0.43, 0.38, 0.22, 0.02), const Color(0xFFD8D8D8), line: 0.4);
   _snowfall(a, count: 30, seed: 5, within: window.deflate(a.u));
 
-  // The pin board on the right wall (the cuttings arrive later).
+  // The pin board on the wall (the cuttings arrive later).
+  room.box(
+    a.r(0.68, 0.22, 0.16, 0.24),
+    const Color(0xFFA07E56),
+    depth: 0.02,
+    line: 0.6,
+  );
   a
-    ..box(a.r(0.72, 0.22, 0.18, 0.24), const Color(0xFFA07E56), line: 0.6)
-    ..circle(a.p(0.76, 0.3), a.u * 0.5, _vermilion, line: 0.2)
-    ..circle(a.p(0.86, 0.4), a.u * 0.5, const Color(0xFF3A5A8A), line: 0.2);
+    ..circle(a.p(0.72, 0.3), a.u * 0.5, _vermilion, line: 0.2)
+    ..circle(a.p(0.81, 0.4), a.u * 0.5, const Color(0xFF3A5A8A), line: 0.2);
 
   // The long table.
-  a
-    ..wood(a.r(0.1, 0.7, 0.78, 0.04), base: const Color(0xFF5A4028), grain: 2)
-    ..box(a.r(0.12, 0.74, 0.02, 0.12), const Color(0xFF3A2A1C), line: 0.4)
-    ..box(a.r(0.84, 0.74, 0.02, 0.12), const Color(0xFF3A2A1C), line: 0.4);
+  room.standTable(
+    a.r(0.1, 0.7, 0.78, 0.18),
+    const Color(0xFF5A4028),
+    deep: 0.25,
+    thickness: 0.03,
+    leg: 0.02,
+    legColor: const Color(0xFF3A2A1C),
+  );
   // The court's announcement: yellow paper, columns of brush writing.
   final decree = a.r(0.17, 0.585, 0.16, 0.11);
   a.box(decree, _imperial, line: 0.4);
@@ -710,12 +832,33 @@ void _archive(Art a) {
 }
 
 void _lab(Art a) {
-  a
-    ..fade(a.r(0, 0, 1, 0.82), const Color(0xFF9CA6AA), const Color(0xFFB8C0C2))
-    ..fill(a.r(0, 0.82, 1, 0.18), const Color(0xFF6A6E70))
-    ..hairline(a.p(0, 0.82), a.p(1, 0.82), const Color(0xFF4A4E50), 0.4);
+  final room = _modernRoom(
+    a,
+    depth: 0.74,
+    wall: const Color(0xFF9CA6AA),
+    wallLow: const Color(0xFFB8C0C2),
+    floor: const Color(0xFF6A6E70),
+  );
+  // The panels' joints, on the back wall and running back on the sides.
+  final back = room.back;
   for (var i = 1; i < 8; i++) {
-    a.hairline(a.p(i / 8, 0), a.p(i / 8, 0.82), const Color(0xFF8E989C), 0.2);
+    final x = back.left + back.width * i / 8;
+    a.hairline(
+      Offset(x, back.top),
+      Offset(x, back.bottom),
+      const Color(0xFF8E989C),
+      0.2,
+    );
+  }
+  for (var k = 1; k < 6; k++) {
+    for (final x in [0.0, 1.0]) {
+      a.hairline(
+        room.at(x, 0, k / 6),
+        room.at(x, 1, k / 6),
+        const Color(0xFF8E989C),
+        0.25,
+      );
+    }
   }
   // The strip light.
   a
@@ -725,7 +868,7 @@ void _lab(Art a) {
   // The reactor's data sheets pinned up.
   for (var i = 0; i < 3; i++) {
     final sheet = a.r(
-      0.125 + i * 0.07,
+      0.145 + i * 0.07,
       0.13 + (i.isOdd ? 0.02 : 0),
       0.065,
       0.18,
@@ -785,14 +928,23 @@ void _lab(Art a) {
   _snowfall(a, count: 20, seed: 4, within: window.deflate(a.u));
 
   // The bench and the sample rack.
+  room.shadow(0.02, 0.36, 0.45, 0.65);
+  final bench = room.block(
+    0.02,
+    0.36,
+    0,
+    0.27,
+    0.45,
+    0.65,
+    const Color(0xFF8A9296),
+    top: const Color(0xFFD0D4D4),
+  );
   a
-    ..box(a.r(0.04, 0.62, 0.36, 0.035), const Color(0xFFD0D4D4), line: 0.5)
-    ..box(a.r(0.05, 0.655, 0.34, 0.165), const Color(0xFF8A9296), line: 0.5)
-    ..line(a.p(0.22, 0.655), a.p(0.22, 0.82), const Color(0xFF5A6064))
-    ..box(a.r(0.12, 0.575, 0.22, 0.045), const Color(0xFFF2F2EE), line: 0.4);
+    ..line(bench.topCenter, bench.bottomCenter, const Color(0xFF5A6064))
+    ..box(a.r(0.12, 0.625, 0.22, 0.045), const Color(0xFFF2F2EE), line: 0.4);
   for (var i = 0; i < 8; i++) {
     final x = 0.132 + i * 0.026;
-    final tube = a.r(x, 0.48, 0.014, 0.12);
+    final tube = a.r(x, 0.53, 0.014, 0.12);
     a.rbox(tube, a.u * 0.6, const Color(0xCCDCE8EC), line: 0.3);
     final curl = Path()..moveTo(tube.center.dx, tube.top + tube.height * 0.3);
     for (var k = 0; k < 4; k++) {
@@ -818,10 +970,17 @@ void _lab(Art a) {
   }
 
   // The steel table, the robe laid on it, the probe on its arm.
-  a
-    ..box(a.r(0.42, 0.66, 0.4, 0.03), const Color(0xFFA8B0B4), line: 0.5)
-    ..box(a.r(0.44, 0.69, 0.012, 0.13), const Color(0xFF6A7276), line: 0.3)
-    ..box(a.r(0.8, 0.69, 0.012, 0.13), const Color(0xFF6A7276), line: 0.3);
+  room.standTable(
+    a.r(0.42, 0.69, 0.4, 0.2),
+    const Color(0xFFA8B0B4),
+    deep: 0.25,
+    thickness: 0.025,
+    leg: 0.012,
+    legColor: const Color(0xFF6A7276),
+  );
+  a.canvas
+    ..save()
+    ..translate(0, a.size.height * 0.03);
   final robe = a.poly([
     a.p(0.58, 0.52),
     a.p(0.66, 0.52),
@@ -867,9 +1026,14 @@ void _lab(Art a) {
       line: 0.4,
     )
     ..circle(a.p(0.6625, 0.495), a.u * 0.35, const Color(0xFFD8B25A), line: 0);
+  a.canvas.restore();
 
-  // The oil heater, its light on.
-  final heater = a.r(0.87, 0.66, 0.08, 0.16);
+  // The oil heater, its light on, standing on the floor.
+  final heater = room.stand(
+    a.r(0.85, 0.75, 0.08, 0.18),
+    const Color(0xFFC8C4BC),
+    deep: 0.06,
+  );
   a.rbox(heater, a.u, const Color(0xFFDCD8D0), line: 0.5);
   for (var i = 1; i < 6; i++) {
     a.hairline(

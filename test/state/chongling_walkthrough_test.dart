@@ -130,7 +130,7 @@ void main() {
     tap(0.49, 0.63);
     tap(0.72, 0.63);
     expect(now().game.words, containsAll(['illness', 'date_1908', 'stomach']));
-    tap(0.81, 0.34);
+    tap(0.76, 0.34);
     expect(now().game.flags['read_rumour'], isFalse, reason: 'not yet');
     play.takeExit('back');
 
@@ -146,14 +146,14 @@ void main() {
     tap(0.62, 0.62);
     solve('scan');
     expect(stage(), 'stage:report');
-    tap(0.9, 0.28);
+    tap(0.795, 0.28);
     expect(now().game.words, contains('mg_201'));
     expect(stage(), 'stage:rumour');
     play.takeExit('back');
 
     // The archive again: rumour, and no record of a hand.
     tap(0.09, 0.55);
-    tap(0.81, 0.34);
+    tap(0.76, 0.34);
     expect(
       now().game.words,
       containsAll(['cixi', 'yuan_shikai', 'li_lianying', 'unknown']),
