@@ -102,6 +102,15 @@ void paintEcho(Art a, EchoFigure figure) {
       Path()
         ..addPolygon([for (final (x, y) in points) Offset(x * w, y * h)], true);
 
+  // A faint shadow where the feet meet the floor, so the figure stands on
+  // it rather than hangs before it.
+  a.canvas.drawOval(
+    a.r(0.12, 0.955, 0.76, 0.04),
+    Paint()
+      ..color = const Color(0x33000000)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.size.width * 0.05),
+  );
+
   // Head: a plain oval, no features.
   if (figure != EchoFigure.child && figure != EchoFigure.girl) {
     a.canvas.drawOval(a.r(0.36, 0.06, 0.28, 0.13), body);

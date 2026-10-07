@@ -203,119 +203,6 @@ void _roof(Art a, Rect r, {Color color = _tile}) {
   }
 }
 
-/// A stone site marker: a square granite post, the face with cut strokes.
-void _markerPost(Art a, Rect r, Room room) {
-  room.box(r, _granite, depth: 0.03);
-  a.fade(r, const Color(0x22FFFFFF), const Color(0x22000000));
-  // Cut characters running down the face: a few strokes each.
-  final random = math.Random(41);
-  final x = r.center.dx;
-  for (var k = 0; k < 5; k++) {
-    final y = r.top + r.height * (0.1 + k * 0.13);
-    final s = r.width * 0.26;
-    for (var j = 0; j < 3; j++) {
-      final dx = (random.nextDouble() - 0.5) * s;
-      final dy = random.nextDouble() * s;
-      a.line(
-        Offset(x + dx - s * 0.4, y + dy),
-        Offset(
-          x + dx + s * 0.4,
-          y + dy + (random.nextDouble() - 0.5) * s * 0.6,
-        ),
-        const Color(0xCC2A2C30),
-        width: 0.35,
-      );
-    }
-    a.line(
-      Offset(x, y),
-      Offset(x, y + s),
-      const Color(0xCC2A2C30),
-      width: 0.35,
-    );
-  }
-}
-
-/// A Japanese site fence: white panels, a coloured band, posts.
-void _fenceRun(Art a, List<Offset> top, List<Offset> bottom) {
-  // [top] and [bottom] are the run's two ends, top and foot.
-  a.path(a.poly([top[0], top[1], bottom[1], bottom[0]]), _fence, line: 0.4);
-  final band0 = Offset.lerp(top[0], bottom[0], 0.18)!;
-  final band1 = Offset.lerp(top[1], bottom[1], 0.18)!;
-  final band2 = Offset.lerp(top[1], bottom[1], 0.28)!;
-  final band3 = Offset.lerp(top[0], bottom[0], 0.28)!;
-  a.path(a.poly([band0, band1, band2, band3]), _fenceBand, line: 0);
-  for (var k = 1; k < 10; k++) {
-    final t = k / 10;
-    a.hairline(
-      Offset.lerp(top[0], top[1], t)!,
-      Offset.lerp(bottom[0], bottom[1], t)!,
-      const Color(0x55000000),
-      0.25,
-    );
-  }
-}
-
-/// A prefab site cabin: its front face [front], a door, a window.
-void _prefab(Art a, Room room, Rect front, {bool door = true}) {
-  room.box(front, _cabin, depth: 0.1);
-  // Roof edge and a gutter.
-  a.box(
-    Rect.fromLTRB(
-      front.left - a.u * 0.4,
-      front.top - a.u * 0.8,
-      front.right + a.u * 0.4,
-      front.top,
-    ),
-    const Color(0xFF8A8A84),
-    line: 0.3,
-  );
-  // Ribbed panels.
-  for (var k = 1; k < 8; k++) {
-    final x = front.left + front.width * k / 8;
-    a.hairline(
-      Offset(x, front.top),
-      Offset(x, front.bottom),
-      const Color(0x33000000),
-      0.2,
-    );
-  }
-  if (door) {
-    final d = Rect.fromLTWH(
-      front.left + front.width * 0.12,
-      front.top + front.height * 0.22,
-      front.width * 0.26,
-      front.height * 0.78,
-    );
-    a
-      ..box(d, const Color(0xFF8C8A80), line: 0.4)
-      ..fill(
-        d.deflate(a.u * 0.6).topLeft &
-            Size(d.width - a.u * 1.2, d.height * 0.35),
-        const Color(0xFF5A6670),
-      )
-      ..circle(
-        Offset(d.right - a.u, d.center.dy),
-        a.u * 0.4,
-        const Color(0xFF3A3A38),
-        line: 0,
-      );
-  }
-  final w = Rect.fromLTWH(
-    front.left + front.width * 0.5,
-    front.top + front.height * 0.24,
-    front.width * 0.38,
-    front.height * 0.3,
-  );
-  a
-    ..box(w, const Color(0xFF6A7A84), line: 0.4)
-    ..hairline(w.topCenter, w.bottomCenter, const Color(0xFF3A3A38), 0.4)
-    ..fade(
-      w.deflate(a.u * 0.3),
-      const Color(0x44FFFFFF),
-      const Color(0x00FFFFFF),
-    );
-}
-
 /// A round eave tile seen face on: a disc with a raised rim, the old
 /// form of a character in relief, blistered by fire.
 void _tileFace(Art a, Offset c, double r, {bool burnt = true}) {
@@ -382,166 +269,366 @@ void _tileFace(Art a, Offset c, double r, {bool burnt = true}) {
   }
 }
 
-/// A memorial tower of stone: a base, a body, a stepped roof with
-/// upturned corners, a ringed finial.
-void _tower(Art a, Room room, Rect r) {
-  final w = r.width;
-  final h = r.height;
-  room.box(
-    Rect.fromLTWH(r.left, r.bottom - h * 0.1, w, h * 0.1),
-    _granite,
-    depth: 0.05,
+/// A flat quad lying at height [y], [x0]–[x1] by [z0]–[z1]: paper on a
+/// table, a tarp on the ground.
+Path _flat(Room room, double x0, double x1, double z0, double z1, double y) =>
+    room.a.poly([
+      room.at(x0, y, z0),
+      room.at(x1, y, z0),
+      room.at(x1, y, z1),
+      room.at(x0, y, z1),
+    ]);
+
+/// A sheet of paper lying flat, ruled with writing.
+void _flatPaper(
+  Room room,
+  double x0,
+  double x1,
+  double z0,
+  double z1,
+  double y, {
+  Color color = _paper,
+  int lines = 5,
+}) {
+  final a = room.a;
+  a.path(_flat(room, x0, x1, z0, z1, y), color, line: 0.3);
+  final ink = StillroomPalette.inkOnPaper.withValues(alpha: 0.45);
+  for (var k = 0; k < lines; k++) {
+    final z = z0 + (z1 - z0) * (0.2 + 0.65 * k / math.max(1, lines - 1));
+    a.hairline(
+      room.at(x0 + (x1 - x0) * 0.12, y, z),
+      room.at(x1 - (x1 - x0) * (k.isOdd ? 0.3 : 0.14), y, z),
+      ink,
+      0.3,
+    );
+  }
+}
+
+/// A stone site marker: a square granite post standing in the ground, the
+/// face with cut strokes.
+Rect _markerPost(Room room, double x0, double x1, double z0, double z1) {
+  final a = room.a;
+  room.shadow(x0, x1, z0, z1, strength: 0.5, spread: 0.3);
+  final r = room.block(x0, x1, 0, 0.32, z0, z1, _granite);
+  a.fade(r, const Color(0x22FFFFFF), const Color(0x22000000));
+  // Cut characters running down the face: a few strokes each.
+  final random = math.Random(41);
+  final x = r.center.dx;
+  for (var k = 0; k < 5; k++) {
+    final y = r.top + r.height * (0.08 + k * 0.17);
+    final s = r.width * 0.26;
+    for (var j = 0; j < 3; j++) {
+      final dx = (random.nextDouble() - 0.5) * s;
+      final dy = random.nextDouble() * s;
+      a.line(
+        Offset(x + dx - s * 0.4, y + dy),
+        Offset(
+          x + dx + s * 0.4,
+          y + dy + (random.nextDouble() - 0.5) * s * 0.6,
+        ),
+        const Color(0xCC2A2C30),
+        width: 0.35,
+      );
+    }
+    a.line(
+      Offset(x, y),
+      Offset(x, y + s),
+      const Color(0xCC2A2C30),
+      width: 0.35,
+    );
+  }
+  return r;
+}
+
+/// A prefab site cabin standing on the ground: a door and a window in its
+/// front, a roof edge. Returns its front.
+Rect _prefab(
+  Room room,
+  double x0,
+  double x1,
+  double z0,
+  double z1, {
+  double height = 0.8,
+}) {
+  final a = room.a;
+  room.shadow(x0, x1, z0, z1, strength: 0.4, spread: 0.06);
+  final front = room.block(x0, x1, 0, height, z0, z1, _cabin);
+  // The roof's edge, a little proud of the walls.
+  room.block(
+    x0 - 0.01,
+    x1 + 0.01,
+    height,
+    height + 0.03,
+    z0 - 0.01,
+    z1,
+    const Color(0xFF8A8A84),
+    line: 0.3,
   );
-  room.box(
-    Rect.fromLTWH(r.left + w * 0.12, r.bottom - h * 0.26, w * 0.76, h * 0.16),
+  // Ribbed panels.
+  for (var k = 1; k < 8; k++) {
+    final x = front.left + front.width * k / 8;
+    a.hairline(
+      Offset(x, front.top),
+      Offset(x, front.bottom),
+      const Color(0x33000000),
+      0.2,
+    );
+  }
+  final d = Rect.fromLTWH(
+    front.left + front.width * 0.12,
+    front.top + front.height * 0.22,
+    front.width * 0.24,
+    front.height * 0.78,
+  );
+  a
+    ..box(d, const Color(0xFF8C8A80), line: 0.4)
+    ..fill(
+      Rect.fromLTWH(
+        d.left + a.u * 0.6,
+        d.top + a.u * 0.6,
+        d.width - a.u * 1.2,
+        d.height * 0.32,
+      ),
+      const Color(0xFF5A6670),
+    )
+    ..circle(
+      Offset(d.right - a.u, d.center.dy),
+      a.u * 0.4,
+      const Color(0xFF3A3A38),
+      line: 0,
+    );
+  // A step before the door.
+  final step = (x0 + (x1 - x0) * 0.1, x0 + (x1 - x0) * 0.4);
+  room.block(step.$1, step.$2, 0, 0.03, z0 - 0.04, z0, const Color(0xFF9A9A92));
+  final w = Rect.fromLTWH(
+    front.left + front.width * 0.5,
+    front.top + front.height * 0.24,
+    front.width * 0.38,
+    front.height * 0.3,
+  );
+  a
+    ..box(w, const Color(0xFF6A7A84), line: 0.4)
+    ..hairline(w.topCenter, w.bottomCenter, const Color(0xFF3A3A38), 0.4)
+    ..fade(
+      w.deflate(a.u * 0.3),
+      const Color(0x44FFFFFF),
+      const Color(0x00FFFFFF),
+    );
+  return front;
+}
+
+/// A plastic bucket on the ground, grey sludge in it: a round body
+/// centred on [x], [z], of radius [r] and height [h].
+void _bucket(Room room, double x, double z, double r, double h) {
+  final a = room.a;
+  room.shadow(x - r, x + r, z - r, z + r, strength: 0.5, spread: 0.2);
+  Rect rim(double y) {
+    final c = room.at(x, y, z);
+    final w = (room.at(x + r, y, z).dx - room.at(x - r, y, z).dx).abs();
+    final d = (room.at(x, y, z - r).dy - room.at(x, y, z + r).dy).abs();
+    return Rect.fromCenter(center: c, width: w, height: d);
+  }
+
+  final top = rim(h);
+  final foot = rim(0);
+  final body = Path()
+    ..moveTo(top.left, top.center.dy)
+    ..lineTo(foot.left + foot.width * 0.06, foot.center.dy)
+    ..arcTo(
+      Rect.fromLTRB(
+        foot.left + foot.width * 0.06,
+        foot.top,
+        foot.right - foot.width * 0.06,
+        foot.bottom,
+      ),
+      3.1416,
+      -3.1416,
+      false,
+    )
+    ..lineTo(top.right, top.center.dy)
+    ..close();
+  a
+    ..path(body, const Color(0xFF3A5A8A), line: 0.4)
+    ..oval(top, const Color(0xFF2E4A72), line: 0.4)
+    ..oval(top.deflate(top.height * 0.12), const Color(0xFF6A6A66), line: 0);
+}
+
+/// A memorial tower of stone on the ground: a base, a plinth, a body, a
+/// stepped roof with upturned corners, a ringed finial. Centred on [x],
+/// [z], [w] wide.
+void _tower(Room room, double x, double z, double w) {
+  final a = room.a;
+  final h = w / 2;
+  room
+    ..shadow(x - h, x + h, z - h, z + h, strength: 0.5, spread: 0.15)
+    ..block(x - h, x + h, 0, 0.08, z - h, z + h, _granite);
+  room.block(
+    x - h * 0.78,
+    x + h * 0.78,
+    0.08,
+    0.24,
+    z - h * 0.78,
+    z + h * 0.78,
     const Color(0xFF9A9C9E),
-    depth: 0.04,
-    shadow: false,
   );
-  room.box(
-    Rect.fromLTWH(r.left + w * 0.2, r.bottom - h * 0.5, w * 0.6, h * 0.24),
+  final body = room.block(
+    x - h * 0.6,
+    x + h * 0.6,
+    0.24,
+    0.48,
+    z - h * 0.6,
+    z + h * 0.6,
     const Color(0xFF8A8C90),
-    depth: 0.04,
-    shadow: false,
   );
-  // Carved panels on the body.
-  a.ink(
-    Rect.fromLTWH(r.left + w * 0.3, r.bottom - h * 0.46, w * 0.4, h * 0.16),
-    width: 0.3,
+  a.ink(body.deflate(body.width * 0.18), width: 0.3);
+  // The stepped roof with its horns, over the body.
+  final roofBase = body.top;
+  final rw = body.width * 1.7;
+  final rh = body.height * 0.6;
+  final cx = body.center.dx;
+  room.block(
+    x - h * 0.85,
+    x + h * 0.85,
+    0.48,
+    0.53,
+    z - h * 0.85,
+    z + h * 0.85,
+    const Color(0xFF7E8084),
   );
-  // The stepped roof with its horns.
-  final roofBase = r.bottom - h * 0.5;
   a.path(
     a.poly([
-      Offset(r.left + w * 0.04, roofBase),
-      Offset(r.left, roofBase - h * 0.1),
-      Offset(r.left + w * 0.14, roofBase - h * 0.05),
-      Offset(r.left + w * 0.3, roofBase - h * 0.14),
-      Offset(r.right - w * 0.3, roofBase - h * 0.14),
-      Offset(r.right - w * 0.14, roofBase - h * 0.05),
-      Offset(r.right, roofBase - h * 0.1),
-      Offset(r.right - w * 0.04, roofBase),
+      Offset(cx - rw * 0.5, roofBase - rh * 0.25),
+      Offset(cx - rw * 0.56, roofBase - rh * 0.62),
+      Offset(cx - rw * 0.4, roofBase - rh * 0.4),
+      Offset(cx - rw * 0.2, roofBase - rh * 0.75),
+      Offset(cx + rw * 0.2, roofBase - rh * 0.75),
+      Offset(cx + rw * 0.4, roofBase - rh * 0.4),
+      Offset(cx + rw * 0.56, roofBase - rh * 0.62),
+      Offset(cx + rw * 0.5, roofBase - rh * 0.25),
     ]),
     const Color(0xFF7E8084),
     line: 0.4,
   );
   // The finial: rings to a point.
+  final top = roofBase - rh * 0.75;
   for (var k = 0; k < 6; k++) {
-    final y = roofBase - h * (0.16 + k * 0.05);
     a.oval(
       Rect.fromCenter(
-        center: Offset(r.center.dx, y),
-        width: w * (0.24 - k * 0.02),
-        height: h * 0.04,
+        center: Offset(cx, top - rh * (0.15 + k * 0.28)),
+        width: body.width * (0.5 - k * 0.05),
+        height: rh * 0.24,
       ),
       const Color(0xFF8A8C90),
       line: 0.3,
     );
   }
   a.circle(
-    Offset(r.center.dx, r.top + h * 0.04),
-    w * 0.08,
+    Offset(cx, top - rh * 1.95),
+    body.width * 0.14,
     const Color(0xFF8A8C90),
     line: 0.3,
   );
 }
 
-/// Papers laid down, from the past.
-void _sheaf(Art a, Rect r, {int count = 2, double angle = 0}) {
-  for (var i = 0; i < count; i++) {
-    a.paper(
-      Rect.fromLTWH(
-        r.left + i * r.width * 0.04,
-        r.top + i * r.height * 0.06,
-        r.width * 0.92,
-        r.height * 0.9,
-      ),
-      lines: 5,
-      angle: angle + i * 0.04,
-      color: i == count - 1 ? const Color(0xFFEDE4C8) : _paper,
-      ink: 0.5,
-    );
-  }
-}
-
-/// A sieve on trestles: a wooden frame, a mesh, grey sludge in it.
-void _sieve(Art a, Room room, Rect top) {
-  for (final x in [top.left + top.width * 0.1, top.right - top.width * 0.14]) {
-    a.line(
-      Offset(x, top.bottom),
-      Offset(x - a.u * 0.4, top.bottom + top.height * 1.6),
-      const Color(0xFF5A4A36),
-      width: 0.6,
-    );
-  }
-  final frame = a.poly([
-    top.bottomLeft,
-    top.bottomRight,
-    room.toward(top.bottomRight, 0.12),
-    room.toward(top.bottomLeft, 0.12),
-  ]);
-  a.path(frame, const Color(0xFF7A6448), line: 0.4);
-  final mesh = Rect.fromPoints(
-    Offset.lerp(
-      top.bottomLeft,
-      room.toward(top.bottomLeft, 0.12),
+/// A stone lantern on the ground: a foot, a post, the fire box, a cap.
+void _stoneLantern(Room room, double x, double z) {
+  final a = room.a;
+  room
+    ..shadow(x - 0.05, x + 0.05, z - 0.04, z + 0.04, strength: 0.45)
+    ..block(x - 0.05, x + 0.05, 0, 0.04, z - 0.04, z + 0.04, _granite)
+    ..block(x - 0.015, x + 0.015, 0.04, 0.2, z - 0.012, z + 0.012, _granite)
+    ..block(
+      x - 0.04,
+      x + 0.04,
       0.2,
-    )!.translate(a.u * 0.6, 0),
-    Offset.lerp(
-      top.bottomRight,
-      room.toward(top.bottomRight, 0.12),
-      0.8,
-    )!.translate(-a.u * 0.6, 0),
+      0.23,
+      z - 0.035,
+      z + 0.035,
+      const Color(0xFF9A9C9E),
+    );
+  final box = room.block(
+    x - 0.03,
+    x + 0.03,
+    0.23,
+    0.3,
+    z - 0.025,
+    z + 0.025,
+    const Color(0xFF9A9C9E),
   );
-  a.oval(mesh, const Color(0xFF7A7A72), line: 0.2);
+  a.fill(box.deflate(box.width * 0.25), const Color(0xFF3A3630));
+  final cap = room.block(
+    x - 0.055,
+    x + 0.055,
+    0.3,
+    0.32,
+    z - 0.05,
+    z + 0.05,
+    const Color(0xFF7E8084),
+  );
+  a.path(
+    a.poly([
+      cap.topLeft,
+      Offset(cap.center.dx, cap.top - cap.width * 0.3),
+      cap.topRight,
+    ]),
+    const Color(0xFF7E8084),
+    line: 0.3,
+  );
 }
 
 // ---------------------------------------------------------------------------
 // Scenes
 
-/// The dig, a summer afternoon: the block behind its site fence, a city
-/// beyond; the trench in front with the moat's section in its far wall,
-/// the stone marker at the corner, the finds room's cabin and the site
-/// office, the gate out to the street.
+/// The dig, a summer afternoon, seen from one camera: the ground runs back
+/// to the site fence and on to the horizon, a city beyond. The trench in
+/// front, the moat's section in its far wall; the stone marker at the
+/// corner; the finds room's cabin and the site office; the gate out to
+/// the street. Everything stands on the ground with its shadow under it.
 void _dig(Art a) {
-  final room = Room(a, back: a.r(0.12, 0.0, 0.76, 0.47), vp: a.p(0.5, 0.32));
-  final back = room.back;
-  _summerSky(a, 0.47);
-  _city(a, 0.3);
-  a.fill(a.r(0, 0.46, 1, 0.54), _clay);
-  // The far fence along the back of the block; the side fences running
-  // forward to the edges of the picture.
-  _fenceRun(
-    a,
-    [a.p(0.12, 0.3), a.p(0.88, 0.3)],
-    [back.bottomLeft, back.bottomRight],
+  final room = Room(a, vp: a.p(0.5, 0.3), depth: 0.3);
+  final fenceFoot = room.at(0, 0, 1).dy;
+  _summerSky(a, 0.36);
+  _city(a, 0.35);
+  a.fill(Rect.fromLTRB(0, fenceFoot - 1, a.size.width, a.size.height), _clay);
+
+  // The site fence across the far side of the block: white panels, a
+  // green band, an open gate onto the street.
+  a.path(
+    a.poly([
+      room.at(-2, 0.6, 1),
+      room.at(3, 0.6, 1),
+      room.at(3, 0, 1),
+      room.at(-2, 0, 1),
+    ]),
+    _fence,
+    line: 0.4,
   );
-  _fenceRun(a, [a.p(0, 0.12), a.p(0.12, 0.3)], [a.p(0, 0.72), back.bottomLeft]);
-  _fenceRun(
-    a,
-    [a.p(0.88, 0.3), a.p(1, 0.12)],
-    [back.bottomRight, a.p(1, 0.72)],
+  a.path(
+    a.poly([
+      room.at(-2, 0.48, 1),
+      room.at(3, 0.48, 1),
+      room.at(3, 0.42, 1),
+      room.at(-2, 0.42, 1),
+    ]),
+    _fenceBand,
+    line: 0,
   );
-  // The ground: clay, a surveyor's grid of string over it.
-  room.floorGrid(const Color(0x40F0E8D0), rows: 5, columns: 8, width: 0.2);
-  final random = math.Random(9);
-  for (var i = 0; i < 160; i++) {
-    final p = room.floorAt(random.nextDouble(), random.nextDouble());
-    a.canvas.drawCircle(
-      p,
-      a.u * (0.15 + random.nextDouble() * 0.3),
-      Paint()..color = const Color(0x334A3820),
+  for (var k = -20; k <= 30; k++) {
+    final x = k / 10;
+    a.hairline(
+      room.at(x, 0.6, 1),
+      room.at(x, 0, 1),
+      const Color(0x44000000),
+      0.2,
     );
   }
-  // The gate in the far fence, open onto the street: a temple's roof far
-  // off across the city.
-  final gate = a.r(0.44, 0.27, 0.12, 0.2);
+  final gate = Rect.fromPoints(room.at(0.38, 0.55, 1), room.at(0.62, 0, 1));
   a
     ..fade(gate, _skyLow, _haze)
     ..fill(
       Rect.fromLTRB(
         gate.left,
-        gate.top + gate.height * 0.62,
+        gate.top + gate.height * 0.66,
         gate.right,
         gate.bottom,
       ),
@@ -563,79 +650,123 @@ void _dig(Art a) {
         gate.left + gate.width * 0.3,
         gate.top + gate.height * 0.52,
         gate.width * 0.4,
-        gate.height * 0.12,
+        gate.height * 0.14,
       ),
       const Color(0xFF5A4636),
     )
-    ..ink(gate, width: 0.5)
-    ..box(
-      Rect.fromLTWH(
-        gate.left - a.u * 0.6,
-        gate.top - a.u * 0.6,
-        a.u * 0.8,
-        gate.height + a.u * 0.6,
-      ),
-      const Color(0xFF9A9A92),
-      line: 0.3,
-    )
-    ..box(
-      Rect.fromLTWH(
-        gate.right - a.u * 0.2,
-        gate.top - a.u * 0.6,
-        a.u * 0.8,
-        gate.height + a.u * 0.6,
-      ),
+    ..ink(gate, width: 0.5);
+  for (final x in [0.36, 0.62]) {
+    room.block(
+      x,
+      x + 0.02,
+      0,
+      0.62,
+      0.98,
+      1,
       const Color(0xFF9A9A92),
       line: 0.3,
     );
-  // The finds room: a prefab cabin against the left of the far fence.
-  _prefab(a, room, a.r(0.17, 0.25, 0.15, 0.22));
-  // The site office: a larger cabin on the right.
-  _prefab(a, room, a.r(0.78, 0.24, 0.18, 0.3));
+  }
+
+  // The ground: clay, a surveyor's grid of string over it, grit.
+  room.floorGrid(
+    const Color(0x40F0E8D0),
+    rows: 6,
+    columns: 16,
+    width: 0.2,
+    x0: -1.5,
+    x1: 2.5,
+  );
+  final random = math.Random(9);
+  for (var i = 0; i < 200; i++) {
+    final p = room.floorAt(
+      -1 + random.nextDouble() * 3,
+      random.nextDouble() * 0.98,
+    );
+    a.canvas.drawCircle(
+      p,
+      a.u * (0.15 + random.nextDouble() * 0.3),
+      Paint()..color = const Color(0x334A3820),
+    );
+  }
+
+  // The finds room and the site office: cabins against the fence.
+  _prefab(room, -0.5, 0.05, 0.72, 0.92);
+  _prefab(room, 0.95, 1.5, 0.7, 0.92);
+
   // A spoil heap on the left, weeds on it.
+  room.shadow(-0.4, 0.12, 0.45, 0.68, strength: 0.3, spread: 0.05);
+  final heapL = room.floorAt(-0.4, 0.5);
+  final heapR = room.floorAt(0.12, 0.5);
+  final peak = room.at(-0.12, 0.2, 0.58);
+  final control = peak * 2 - Offset.lerp(heapL, heapR, 0.5)!;
   final heap = Path()
-    ..moveTo(a.size.width * 0.14, a.size.height * 0.62)
-    ..quadraticBezierTo(
-      a.size.width * 0.22,
-      a.size.height * 0.48,
-      a.size.width * 0.3,
-      a.size.height * 0.6,
-    )
+    ..moveTo(heapL.dx, heapL.dy)
+    ..quadraticBezierTo(control.dx, control.dy, heapR.dx, heapR.dy)
     ..close();
   a.path(heap, _clayDark, line: 0.4);
   for (var i = 0; i < 9; i++) {
-    final base = a.p(0.17 + i * 0.013, 0.56 + (i - 4).abs() * 0.008);
+    final t = 0.15 + i * 0.08;
+    final base = Offset(
+      heapL.dx + (heapR.dx - heapL.dx) * t,
+      heapL.dy - (heapL.dy - peak.dy) * (1 - (2 * t - 1) * (2 * t - 1)) * 0.92,
+    );
     a.line(
       base,
-      base.translate(a.u * (i.isEven ? 0.6 : -0.5), -a.u * 2),
+      base.translate(a.u * (i.isEven ? 0.6 : -0.5), -a.u * 1.8),
       const Color(0xFF5A7040),
       width: 0.4,
     );
   }
 
-  // The trench: an opening in the ground, its far wall the moat's
-  // section, layer under layer; a pump hose over the lip.
-  final nl = a.p(0.28, 0.8);
-  final nr = a.p(0.74, 0.8);
-  final fl = a.p(0.33, 0.57);
-  final fr = a.p(0.69, 0.57);
-  final bl = a.p(0.345, 0.75);
-  final br = a.p(0.675, 0.75);
-  room.contactShadow(
-    Rect.fromPoints(a.p(0.26, 0.54), a.p(0.76, 0.84)),
-    strength: 0.15,
-  );
-  // The sides, in shade, then the floor of the trench, wet.
+  // A blue tarp folded back on the ground, right of the trench.
   a
-    ..path(a.poly([nl, fl, bl]), const Color(0xFF4A3A28), line: 0.3)
-    ..path(a.poly([nr, fr, br]), const Color(0xFF5A4630), line: 0.3)
-    ..path(a.poly([bl, br, nr, nl]), const Color(0xFF3A3630), line: 0.3);
-  a.oval(
-    Rect.fromPoints(a.p(0.42, 0.765), a.p(0.58, 0.79)),
-    const Color(0xFF6A7478),
-    line: 0,
-  );
-  // The section: bands from the top down, as the puzzle shows them.
+    ..path(_flat(room, 0.82, 1.08, 0.62, 0.78, 0.005), _tarp, line: 0.4)
+    ..line(
+      room.at(0.82, 0.005, 0.7),
+      room.at(1.08, 0.005, 0.7),
+      const Color(0x66000000),
+      width: 0.3,
+    );
+
+  // The trench: an opening in the ground; inside it, the sides in shade,
+  // a wet floor, and the far wall: the moat's section, layer under layer.
+  const tx0 = 0.18;
+  const tx1 = 0.82;
+  const tz0 = 0.22;
+  const tz1 = 0.6;
+  const deep = -0.45;
+  final opening = _flat(room, tx0, tx1, tz0, tz1, 0);
+  room.shadow(tx0, tx1, tz0, tz1, strength: 0.2, spread: 0.04);
+  a.canvas
+    ..save()
+    ..clipPath(opening);
+  a
+    ..path(
+      _flat(room, tx0, tx1, tz0, tz1, deep),
+      const Color(0xFF3A3630),
+      line: 0,
+    )
+    ..path(
+      a.poly([
+        room.at(tx0, 0, tz0),
+        room.at(tx0, 0, tz1),
+        room.at(tx0, deep, tz1),
+        room.at(tx0, deep, tz0),
+      ]),
+      const Color(0xFF4A3A28),
+      line: 0.3,
+    )
+    ..path(
+      a.poly([
+        room.at(tx1, 0, tz0),
+        room.at(tx1, 0, tz1),
+        room.at(tx1, deep, tz1),
+        room.at(tx1, deep, tz0),
+      ]),
+      const Color(0xFF5A4630),
+      line: 0.3,
+    );
   const bands = [
     (0.0, 0.16, Color(0xFF8A7458)),
     (0.16, 0.36, Color(0xFF7A5A3A)),
@@ -647,83 +778,100 @@ void _dig(Art a) {
   for (final (from, to, color) in bands) {
     a.path(
       a.poly([
-        Offset.lerp(fl, bl, from)!,
-        Offset.lerp(fr, br, from)!,
-        Offset.lerp(fr, br, to)!,
-        Offset.lerp(fl, bl, to)!,
+        room.at(tx0, deep * from, tz1),
+        room.at(tx1, deep * from, tz1),
+        room.at(tx1, deep * to, tz1),
+        room.at(tx0, deep * to, tz1),
       ]),
       color,
       line: 0,
     );
   }
-  // Tile fragments in the black layer of the fire.
-  for (var i = 0; i < 14; i++) {
-    final t = 0.66 + random.nextDouble() * 0.12;
-    final x = random.nextDouble();
-    final p = Offset.lerp(Offset.lerp(fl, bl, t)!, Offset.lerp(fr, br, t)!, x)!;
+  // Tile fragments in the black layer of the fire; white tags at the lines.
+  for (var i = 0; i < 16; i++) {
+    final p = room.at(
+      tx0 + random.nextDouble() * (tx1 - tx0),
+      deep * (0.66 + random.nextDouble() * 0.12),
+      tz1,
+    );
     a.canvas.drawRect(
-      Rect.fromCenter(center: p, width: a.u * 1.2, height: a.u * 0.5),
+      Rect.fromCenter(center: p, width: a.u * 1.1, height: a.u * 0.45),
       Paint()..color = const Color(0xFF7A4A34),
     );
   }
-  a.strokePath(a.poly([fl, fr, br, bl]), const Color(0x88140E0A), width: 0.4);
-  // Survey tags pinned at the layer lines, white.
   for (var k = 1; k < 6; k++) {
-    final p = Offset.lerp(
-      Offset.lerp(fl, bl, bands[k].$1)!,
-      Offset.lerp(fr, br, bands[k].$1)!,
-      0.92,
-    )!;
     a.fill(
-      Rect.fromCenter(center: p, width: a.u * 1.2, height: a.u * 0.8),
+      Rect.fromCenter(
+        center: room.at(tx1 - 0.05, deep * bands[k].$1, tz1),
+        width: a.u * 1.1,
+        height: a.u * 0.7,
+      ),
       const Color(0xFFF2F0E8),
     );
   }
-  // The lip of the trench, a blue tarp folded back beside it.
-  a
-    ..line(nl, nr, const Color(0xFF2A2018), width: 0.6)
-    ..line(fl, fr, const Color(0xFF2A2018), width: 0.4);
-  a.path(
-    a.poly([a.p(0.64, 0.52), a.p(0.78, 0.52), a.p(0.8, 0.56), a.p(0.68, 0.56)]),
-    _tarp,
-    line: 0.4,
-  );
-  // The pump and its hose.
-  room.box(
-    a.r(0.24, 0.5, 0.05, 0.05),
-    const Color(0xFFC08A2A),
-    depth: 0.08,
-    line: 0.3,
-  );
+  // A ladder down the far wall.
+  for (final x in [0.27, 0.33]) {
+    a.line(
+      room.at(x, 0.12, tz1 - 0.02),
+      room.at(x, deep, tz1 - 0.06),
+      const Color(0xFF8A6A44),
+      width: 0.6,
+    );
+  }
+  for (var k = 0; k < 5; k++) {
+    final y = 0.08 - k * 0.11;
+    a.line(
+      room.at(0.27, y, tz1 - 0.03),
+      room.at(0.33, y, tz1 - 0.03),
+      const Color(0xFF8A6A44),
+      width: 0.4,
+    );
+  }
+  a.canvas.restore();
+  a.strokePath(opening, const Color(0xFF2A2018), width: 0.5);
+
+  // The pump behind the trench, its hose over the lip and down.
+  room
+    ..shadow(0.1, 0.17, 0.64, 0.72, strength: 0.45)
+    ..block(0.1, 0.17, 0, 0.1, 0.64, 0.72, const Color(0xFFC08A2A));
+  final hoseFrom = room.at(0.17, 0.05, 0.68);
+  final lip = room.at(0.4, 0, tz1);
   final hose = Path()
-    ..moveTo(a.size.width * 0.265, a.size.height * 0.55)
+    ..moveTo(hoseFrom.dx, hoseFrom.dy)
     ..quadraticBezierTo(
-      a.size.width * 0.3,
-      a.size.height * 0.62,
-      a.size.width * 0.35,
-      a.size.height * 0.58,
+      room.at(0.3, 0, 0.66).dx,
+      room.at(0.3, 0, 0.66).dy,
+      lip.dx,
+      lip.dy,
     )
-    ..quadraticBezierTo(
-      a.size.width * 0.38,
-      a.size.height * 0.68,
-      a.size.width * 0.44,
-      a.size.height * 0.77,
+    ..lineTo(
+      room.at(0.44, deep * 0.3, tz1 - 0.04).dx,
+      room.at(0.44, deep * 0.3, tz1 - 0.04).dy,
     );
   a.strokePath(hose, const Color(0xFF2A2A2A), width: 0.7);
 
-  // Sieves on trestles at the right, buckets of sludge.
-  _sieve(a, room, a.r(0.77, 0.6, 0.14, 0.05));
-  for (final x in [0.79, 0.86]) {
-    final b = a.r(x, 0.71, 0.04, 0.05);
-    room.box(b, const Color(0xFF3A5A8A), depth: 0.05, line: 0.3);
-    a.oval(
-      Rect.fromLTWH(b.left, b.top - a.u * 0.4, b.width, a.u * 0.8),
-      const Color(0xFF6A6A66),
-      line: 0.2,
-    );
-  }
+  // Sieves on trestles at the right, buckets of sludge before them.
+  final sieve = room.table(
+    0.98,
+    1.22,
+    0.32,
+    0.44,
+    0.26,
+    const Color(0xFF7A6448),
+    thickness: 0.04,
+    leg: 0.012,
+  );
+  a.path(
+    _flat(room, 1.0, 1.2, 0.335, 0.425, 0.262),
+    const Color(0xFF7A7A72),
+    line: 0.2,
+  );
+  a.ink(sieve, width: 0.2);
+  _bucket(room, 1.02, 0.23, 0.032, 0.09);
+  _bucket(room, 1.12, 0.21, 0.032, 0.09);
+
   // The stone marker at the corner, front left.
-  _markerPost(a, a.r(0.06, 0.44, 0.07, 0.38), room);
+  _markerPost(room, -0.02, 0.04, 0.13, 0.18);
   // Afternoon heat.
   a.glow(
     a.p(0.7, 0.0),
@@ -733,10 +881,11 @@ void _dig(Art a) {
   );
 }
 
-/// The site office: a prefab room, a window onto the dig, the permit
-/// board, hard hats on pegs, and the city map on the table.
+/// The site office, seen from its door: a prefab room, a window onto the
+/// dig, the permit board, hard hats on a peg rail, a filing cabinet, and
+/// the city map on the table.
 void _office(Art a) {
-  final room = Room(a, back: a.r(0.18, 0.06, 0.64, 0.5));
+  final room = Room(a, vp: a.p(0.5, 0.2), depth: 0.55);
   final back = room.back;
   a
     ..path(room.ceiling, const Color(0xFFC4C0B4), line: 0)
@@ -746,45 +895,32 @@ void _office(Art a) {
     ..path(room.floor, const Color(0xFF6A7068), line: 0);
   room
     ..floorGrid(const Color(0x44202420), rows: 6, columns: 8)
-    ..shadeCorners(strength: 0.3);
+    ..shadeCorners(strength: 0.3)
+    ..edges(const Color(0x66302C28), width: 0.4);
   // Ribbed panels on the back wall.
   for (var k = 1; k < 12; k++) {
-    final x = back.left + back.width * k / 12;
     a.hairline(
-      Offset(x, back.top),
-      Offset(x, back.bottom),
+      room.at(k / 12, 0, 1),
+      room.at(k / 12, 1, 1),
       const Color(0x22000000),
       0.25,
     );
   }
-  for (final (p, q) in [
-    (back.topLeft, Offset.zero),
-    (back.topRight, Offset(a.size.width, 0)),
-    (back.bottomLeft, Offset(0, a.size.height)),
-    (back.bottomRight, Offset(a.size.width, a.size.height)),
-  ]) {
-    a.line(p, q, const Color(0x66302C28), width: 0.4);
-  }
-  // The fluorescent tube.
+  // The fluorescent tube on the ceiling.
   a
     ..path(
-      a.poly([
-        a.p(0.36, 0.03),
-        a.p(0.64, 0.03),
-        a.p(0.62, 0.05),
-        a.p(0.38, 0.05),
-      ]),
+      _flat(room, 0.38, 0.62, 0.3, 0.42, 0.99),
       const Color(0xFFF4F4EC),
       line: 0.3,
     )
     ..glow(
-      a.p(0.5, 0.05),
+      room.at(0.5, 0.99, 0.36),
       a.size.width * 0.4,
       const Color(0xFFF0F4EC),
       strength: 0.2,
     );
   // The window onto the dig: the fence, a crane's arm.
-  final win = a.r(0.24, 0.14, 0.26, 0.2);
+  final win = Rect.fromPoints(room.at(0.06, 0.82, 1), room.at(0.44, 0.48, 1));
   room.recess(win, const Color(0xFFCCC8BA), thickness: 0.03);
   final glass = Room.recessInner(win, thickness: 0.03);
   a
@@ -829,37 +965,30 @@ void _office(Art a) {
   room.beam(
     [glass.bottomLeft, glass.bottomRight],
     [
-      room.floorAt(0.2, 0.55),
-      room.floorAt(0.5, 0.55),
-      room.floorAt(0.55, 0.3),
-      room.floorAt(0.12, 0.3),
+      room.floorAt(0.1, 0.62),
+      room.floorAt(0.42, 0.62),
+      room.floorAt(0.46, 0.36),
+      room.floorAt(0.02, 0.36),
     ],
     const Color(0xFFFFF4D0),
     strength: 0.1,
   );
   // The permit board on the back wall, a sketch pinned below.
-  final board = a.r(0.58, 0.12, 0.22, 0.26);
-  a
-    ..box(board, const Color(0xFFF2F0E8), line: 0.5)
-    ..fill(
-      Rect.fromLTWH(board.left, board.top, board.width, board.height * 0.14),
-      const Color(0xFF2A4A7A),
-    );
+  final board = Rect.fromPoints(room.at(0.56, 0.86, 1), room.at(0.92, 0.42, 1));
+  room.box(board, const Color(0xFFF2F0E8), depth: 0.01);
+  a.fill(
+    Rect.fromLTWH(board.left, board.top, board.width, board.height * 0.14),
+    const Color(0xFF2A4A7A),
+  );
   for (var k = 0; k < 5; k++) {
+    final y = board.top + board.height * (0.24 + k * 0.08);
     a.hairline(
-      Offset(
-        board.left + board.width * 0.08,
-        board.top + board.height * (0.24 + k * 0.08),
-      ),
-      Offset(
-        board.right - board.width * (k.isOdd ? 0.3 : 0.1),
-        board.top + board.height * (0.24 + k * 0.08),
-      ),
+      Offset(board.left + board.width * 0.08, y),
+      Offset(board.right - board.width * (k.isOdd ? 0.3 : 0.1), y),
       const Color(0x88202020),
       0.3,
     );
   }
-  // The sketch: a square of moat round a temple.
   final sketch = Rect.fromLTWH(
     board.left + board.width * 0.2,
     board.top + board.height * 0.66,
@@ -878,90 +1007,138 @@ void _office(Art a) {
       const Color(0xFF6A5A4A),
       width: 0.3,
     );
-  // Hard hats on pegs along the left wall, in its slant.
-  for (var k = 0; k < 3; k++) {
-    final p = Offset.lerp(a.p(0.1, 0.36), a.p(0.2, 0.36), k / 2)!;
-    final w = a.u * (6 - k * 1.2);
+
+  // A peg rail on the left wall, hard hats hanging from it.
+  a.path(
+    a.poly([
+      room.at(0, 0.66, 0.18),
+      room.at(0, 0.66, 0.62),
+      room.at(0, 0.62, 0.62),
+      room.at(0, 0.62, 0.18),
+    ]),
+    const Color(0xFF8A6A44),
+    line: 0.3,
+  );
+  for (final (k, z) in [0.26, 0.4, 0.54].indexed) {
+    final peg = room.at(0.015, 0.64, z);
+    final w = a.size.width * 0.07 * room.scaleAt(z);
+    final rim = peg.translate(w * 0.15, w * 0.62);
+    // Its shadow on the wall, then the hat.
+    a.canvas.drawOval(
+      Rect.fromCenter(
+        center: rim.translate(-w * 0.12, -w * 0.1),
+        width: w * 1.05,
+        height: w * 0.6,
+      ),
+      Paint()
+        ..color = const Color(0x33000000)
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.u * 0.6),
+    );
     a
-      ..line(p, p.translate(0, -a.u * 0.8), const Color(0xFF3A3A38), width: 0.4)
+      ..line(
+        peg,
+        peg.translate(w * 0.15, w * 0.1),
+        const Color(0xFF3A3A38),
+        width: 0.4,
+      )
       ..path(
         Path()
-          ..moveTo(p.dx - w / 2, p.dy + w * 0.35)
-          ..quadraticBezierTo(
-            p.dx,
-            p.dy - w * 0.45,
-            p.dx + w / 2,
-            p.dy + w * 0.35,
-          )
+          ..moveTo(rim.dx - w / 2, rim.dy)
+          ..quadraticBezierTo(rim.dx, rim.dy - w * 0.95, rim.dx + w / 2, rim.dy)
           ..close(),
         k == 1 ? const Color(0xFFF0F0EA) : const Color(0xFFE8C030),
         line: 0.4,
       )
       ..line(
-        Offset(p.dx - w * 0.6, p.dy + w * 0.35),
-        Offset(p.dx + w * 0.6, p.dy + w * 0.35),
+        Offset(rim.dx - w * 0.62, rim.dy),
+        Offset(rim.dx + w * 0.62, rim.dy),
         const Color(0xFF6A5A30),
         width: 0.5,
       );
   }
-  // A filing cabinet on the right.
-  room.box(a.r(0.86, 0.36, 0.1, 0.36), const Color(0xFF8A9090), depth: 0.1);
+
+  // A filing cabinet against the right wall.
+  room.shadow(0.84, 0.98, 0.42, 0.62, strength: 0.4, spread: 0.08);
+  final cabinet = room.block(
+    0.84,
+    0.98,
+    0,
+    0.45,
+    0.42,
+    0.62,
+    const Color(0xFF8A9090),
+  );
   for (var k = 1; k < 4; k++) {
-    a.hairline(
-      a.p(0.86, 0.36 + k * 0.09),
-      a.p(0.96, 0.36 + k * 0.09),
-      const Color(0x66000000),
-      0.4,
-    );
+    final y = cabinet.top + cabinet.height * k / 4;
+    a
+      ..hairline(
+        Offset(cabinet.left, y),
+        Offset(cabinet.right, y),
+        const Color(0x66000000),
+        0.4,
+      )
+      ..fill(
+        Rect.fromCenter(
+          center: Offset(cabinet.center.dx, y - cabinet.height / 8),
+          width: cabinet.width * 0.3,
+          height: a.u * 0.6,
+        ),
+        const Color(0xFF4A4E50),
+      );
   }
+
   // The table, the map of the city on it, a phone at its corner.
-  room.box(a.r(0.24, 0.74, 0.52, 0.04), const Color(0xFF9A8460), depth: 0.38);
-  for (final x in [0.25, 0.73]) {
-    room.box(
-      a.r(x, 0.78, 0.02, 0.18),
-      const Color(0xFF6A6460),
-      depth: 0.02,
-      line: 0.3,
-    );
-  }
-  final map = a.poly([
-    a.p(0.3, 0.72),
-    a.p(0.7, 0.72),
-    a.p(0.66, 0.58),
-    a.p(0.34, 0.58),
-  ]);
-  a.path(map, const Color(0xFFE8E0CA), line: 0.4);
+  room.table(
+    0.2,
+    0.8,
+    0.1,
+    0.5,
+    0.27,
+    const Color(0xFF9A8460),
+    legColor: const Color(0xFF6A6460),
+    leg: 0.018,
+  );
+  const y = 0.2705;
+  a.path(
+    _flat(room, 0.25, 0.75, 0.14, 0.46, y),
+    const Color(0xFFE8E0CA),
+    line: 0.4,
+  );
   for (var k = 1; k < 8; k++) {
-    final t = k / 8;
+    final x = 0.25 + 0.5 * k / 8;
     a.hairline(
-      Offset.lerp(a.p(0.3, 0.72), a.p(0.7, 0.72), t)!,
-      Offset.lerp(a.p(0.34, 0.58), a.p(0.66, 0.58), t)!,
+      room.at(x, y, 0.14),
+      room.at(x, y, 0.46),
       const Color(0x664A4030),
       0.3,
     );
   }
   for (var k = 1; k < 6; k++) {
-    final t = k / 6;
-    final y = 0.58 + 0.14 * t;
-    final inset = 0.04 * (1 - t);
+    final z = 0.14 + 0.32 * k / 6;
     a.hairline(
-      a.p(0.3 + inset, y),
-      a.p(0.7 - inset, y),
+      room.at(0.25, y, z),
+      room.at(0.75, y, z),
       const Color(0x664A4030),
       0.3,
     );
   }
-  a.path(
-    a.poly([a.p(0.7, 0.62), a.p(0.76, 0.62), a.p(0.77, 0.66), a.p(0.69, 0.66)]),
+  room.block(
+    0.69,
+    0.75,
+    0.27,
+    0.29,
+    0.38,
+    0.47,
     const Color(0xFF3A3A3A),
     line: 0.3,
   );
 }
 
-/// The finds room: racks of trays on the left, the long table with its
-/// papers and a cloth for the tile, a pinboard on the right.
+/// The finds room: racks of trays along the left wall, shelves of bagged
+/// finds, the long table with its papers and a cloth for the tile, a
+/// pinboard on the back wall.
 void _finds(Art a) {
-  final room = Room(a, back: a.r(0.22, 0.06, 0.58, 0.5));
+  final room = Room(a, vp: a.p(0.5, 0.2), depth: 0.55);
   final back = room.back;
   a
     ..path(room.ceiling, const Color(0xFFBCB8AC), line: 0)
@@ -971,54 +1148,36 @@ void _finds(Art a) {
     ..path(room.floor, const Color(0xFF5E625A), line: 0);
   room
     ..floorGrid(const Color(0x44202420), rows: 6, columns: 8)
-    ..shadeCorners(strength: 0.35);
-  for (final (p, q) in [
-    (back.topLeft, Offset.zero),
-    (back.topRight, Offset(a.size.width, 0)),
-    (back.bottomLeft, Offset(0, a.size.height)),
-    (back.bottomRight, Offset(a.size.width, a.size.height)),
-  ]) {
-    a.line(p, q, const Color(0x66302C28), width: 0.4);
-  }
+    ..shadeCorners(strength: 0.35)
+    ..edges(const Color(0x66302C28), width: 0.4);
   a
     ..path(
-      a.poly([
-        a.p(0.38, 0.03),
-        a.p(0.62, 0.03),
-        a.p(0.6, 0.05),
-        a.p(0.4, 0.05),
-      ]),
+      _flat(room, 0.38, 0.62, 0.3, 0.42, 0.99),
       const Color(0xFFF4F4EC),
       line: 0.3,
     )
     ..glow(
-      a.p(0.5, 0.06),
+      room.at(0.5, 0.99, 0.36),
       a.size.width * 0.4,
       const Color(0xFFF0F4EC),
       strength: 0.22,
     );
+
   // Shelves of bagged finds along the back wall.
   for (var k = 0; k < 3; k++) {
-    final y = back.top + back.height * (0.3 + k * 0.24);
+    final y = 0.42 + k * 0.17;
     room.box(
-      Rect.fromLTWH(
-        back.left + back.width * 0.05,
-        y,
-        back.width * 0.5,
-        a.u * 0.6,
-      ),
+      Rect.fromPoints(room.at(0.2, y, 0.97), room.at(0.6, y - 0.015, 0.97)),
       const Color(0xFF8A7A5A),
-      depth: 0.04,
-      shadow: false,
+      depth: 0.03,
       line: 0.3,
     );
     for (var j = 0; j < 7; j++) {
+      final x = 0.215 + j * 0.055;
       a.box(
-        Rect.fromLTWH(
-          back.left + back.width * (0.07 + j * 0.068),
-          y - a.u * 3,
-          back.width * 0.055,
-          a.u * 3,
+        Rect.fromPoints(
+          room.at(x, y + 0.09, 0.98),
+          room.at(x + 0.042, y, 0.98),
         ),
         Color.lerp(
           const Color(0xFFE6E2D6),
@@ -1029,38 +1188,10 @@ void _finds(Art a) {
       );
     }
   }
-  // The racks of trays on the left, close.
-  final rack = a.r(0.03, 0.2, 0.24, 0.5);
-  room.box(rack, const Color(0xFF7A7E80), depth: 0.12);
-  for (var k = 0; k < 5; k++) {
-    final tray = Rect.fromLTWH(
-      rack.left + a.u,
-      rack.top + rack.height * (0.04 + k * 0.19),
-      rack.width - a.u * 2,
-      rack.height * 0.15,
-    );
-    a.box(tray, const Color(0xFFD8D2C2), line: 0.3);
-    final random = math.Random(k);
-    for (var j = 0; j < 7; j++) {
-      final p = Offset(
-        tray.left + tray.width * (0.08 + j * 0.13),
-        tray.top + tray.height * (0.4 + random.nextDouble() * 0.3),
-      );
-      a.path(
-        a.poly([
-          p,
-          p.translate(a.u * 1.6, -a.u * 0.4),
-          p.translate(a.u * 1.8, a.u * 0.8),
-          p.translate(a.u * 0.2, a.u * 0.9),
-        ]),
-        j.isEven ? _tileBurnt : const Color(0xFF5A5A5E),
-        line: 0.2,
-      );
-    }
-  }
+
   // The pinboard on the right of the back wall, empty pins for now.
-  final pin = a.r(0.72, 0.2, 0.2, 0.22);
-  room.box(pin, const Color(0xFFA08A64), depth: 0.02, shadow: false);
+  final pin = Rect.fromPoints(room.at(0.64, 0.82, 1), room.at(0.95, 0.42, 1));
+  room.box(pin, const Color(0xFFA08A64), depth: 0.01);
   for (var k = 0; k < 4; k++) {
     a.circle(
       Offset(
@@ -1072,39 +1203,88 @@ void _finds(Art a) {
       line: 0,
     );
   }
-  // The long table, a lamp over it.
-  room.box(a.r(0.26, 0.68, 0.58, 0.04), const Color(0xFFD8D4C8), depth: 0.42);
-  for (final x in [0.27, 0.81]) {
-    room.box(
-      a.r(x, 0.72, 0.02, 0.22),
-      const Color(0xFF6A6A66),
-      depth: 0.02,
+
+  // The racks of trays along the left wall: their faces turned to the
+  // room, receding.
+  room.shadow(0, 0.16, 0.1, 0.62, strength: 0.4, spread: 0.06);
+  room.block(0, 0.16, 0, 0.78, 0.1, 0.62, const Color(0xFF7A7E80));
+  final random = math.Random(3);
+  for (var k = 0; k < 5; k++) {
+    final y0 = 0.04 + k * 0.15;
+    final y1 = y0 + 0.11;
+    a.path(
+      a.poly([
+        room.at(0.16, y1, 0.13),
+        room.at(0.16, y1, 0.59),
+        room.at(0.16, y0, 0.59),
+        room.at(0.16, y0, 0.13),
+      ]),
+      const Color(0xFFD8D2C2),
       line: 0.3,
     );
+    for (var j = 0; j < 9; j++) {
+      final p = room.at(
+        0.16,
+        y0 + 0.03 + random.nextDouble() * 0.05,
+        0.15 + j * 0.05,
+      );
+      final s = a.u * 1.4 * room.scaleAt(0.15 + j * 0.05) / room.scaleAt(0.3);
+      a.path(
+        a.poly([
+          p,
+          p.translate(s, -s * 0.3),
+          p.translate(s * 1.1, s * 0.5),
+          p.translate(s * 0.1, s * 0.6),
+        ]),
+        j.isEven ? _tileBurnt : const Color(0xFF5A5A5E),
+        line: 0.2,
+      );
+    }
   }
-  // The chronicle, a cloth laid ready for the tile, a cleared space by the
-  // brush and tags where the letter will lie.
-  _sheaf(a, a.r(0.33, 0.585, 0.13, 0.075), angle: -0.04);
+
+  // The long table under the lamp. On it the chronicle, a cloth laid
+  // ready for the tile, and a cleared space where the letter will lie.
+  room.table(
+    0.22,
+    0.84,
+    0.12,
+    0.5,
+    0.27,
+    const Color(0xFFD8D4C8),
+    legColor: const Color(0xFF6A6A66),
+    leg: 0.018,
+  );
+  const y = 0.2705;
+  _flatPaper(room, 0.27, 0.42, 0.24, 0.4, y, color: const Color(0xFFE2DCC8));
+  _flatPaper(
+    room,
+    0.285,
+    0.43,
+    0.22,
+    0.38,
+    y + 0.001,
+    color: const Color(0xFFEDE4C8),
+  );
   a.path(
-    a.poly([a.p(0.5, 0.64), a.p(0.62, 0.64), a.p(0.61, 0.55), a.p(0.51, 0.55)]),
+    _flat(room, 0.46, 0.6, 0.22, 0.42, y),
     const Color(0xFFEAE6DA),
     line: 0.3,
   );
-  a.glow(a.p(0.55, 0.6), a.size.width * 0.3, _lamp, strength: 0.14);
+  a.glow(room.at(0.55, y, 0.3), a.size.width * 0.3, _lamp, strength: 0.14);
 }
 
-/// Today's Honnō-ji at Teramachi: the court of grey gravel, the paved path
-/// to the main hall, the memorial tower on the left, a leaflet rack, and a
+/// Today's Honnō-ji at Teramachi, from one camera: the court of raked
+/// gravel and the paved path to the main hall; the memorial tower on the
+/// left, a stone lantern either side of the path, a leaflet rack, and a
 /// guide's flag across the court.
 void _teramachi(Art a) {
-  final room = Room(a, back: a.r(0.08, 0.0, 0.84, 0.52), vp: a.p(0.5, 0.36));
-  final back = room.back;
-  _summerSky(a, 0.52);
-  // Trees of the precinct behind the hall.
+  final room = Room(a, vp: a.p(0.5, 0.36), depth: 0.25);
+  _summerSky(a, 0.6);
+  // Trees of the precinct, above the far wall.
   final random = math.Random(5);
   for (var i = 0; i < 14; i++) {
     a.canvas.drawCircle(
-      a.p(0.04 + i * 0.07, 0.2 + random.nextDouble() * 0.08),
+      a.p(0.04 + i * 0.07, 0.22 + random.nextDouble() * 0.08),
       a.u * (6 + random.nextDouble() * 5),
       Paint()
         ..color = Color.lerp(
@@ -1114,82 +1294,54 @@ void _teramachi(Art a) {
         )!,
     );
   }
-  // The court: gravel, raked in lines, a paved path to the hall.
-  a.fill(a.r(0, 0.5, 1, 0.5), _gravel);
-  for (var k = 1; k < 14; k++) {
-    final z = k / 14;
+  // The far wall, white plaster under a tiled coping.
+  room.block(
+    -3,
+    4,
+    0,
+    0.3,
+    1.6,
+    1.65,
+    const Color(0xFFE6E2D6),
+    top: _tile,
+    line: 0.3,
+  );
+  // The court: gravel to the wall, raked in lines.
+  a.fill(
+    Rect.fromLTRB(0, room.at(0, 0, 1.6).dy, a.size.width, a.size.height),
+    _gravel,
+  );
+  for (var k = 1; k < 30; k++) {
+    final z = 1.6 * k / 30;
     a.hairline(
-      room.floorAt(0, z),
-      room.floorAt(1, z),
+      room.floorAt(-3, z),
+      room.floorAt(4, z),
       const Color(0x22000000),
       0.3,
     );
   }
-  a.path(
-    a.poly([
-      room.floorAt(0.42, 0),
-      room.floorAt(0.58, 0),
-      room.floorAt(0.53, 1),
-      room.floorAt(0.47, 1),
-    ]),
-    const Color(0xFFA8A496),
-    line: 0.3,
-  );
-  for (var k = 1; k < 10; k++) {
-    final z = k / 10;
-    a.hairline(
-      room.floorAt(0.42 + 0.05 * z, z),
-      room.floorAt(0.58 - 0.05 * z, z),
-      const Color(0x44000000),
-      0.3,
-    );
-  }
-  // A low wall along the back, white plaster over stone.
-  a
-    ..fill(
-      Rect.fromLTRB(0, back.bottom - a.u * 5, a.size.width, back.bottom),
-      const Color(0xFFE6E2D6),
-    )
-    ..fill(
-      Rect.fromLTRB(
-        0,
-        back.bottom - a.u * 5,
-        a.size.width,
-        back.bottom - a.u * 4.2,
-      ),
-      _tile,
-    )
-    ..line(
-      Offset(0, back.bottom),
-      Offset(a.size.width, back.bottom),
-      const Color(0x66000000),
-      width: 0.4,
-    );
-  // The main hall: a raised floor, posts, the great roof.
-  final hall = a.r(0.36, 0.3, 0.28, 0.22);
-  room.box(
-    Rect.fromLTWH(
-      hall.left - a.u,
-      hall.bottom - a.u * 2,
-      hall.width + a.u * 2,
-      a.u * 2,
-    ),
-    const Color(0xFF9A968A),
-    depth: 0.06,
-  );
-  a.fill(
-    Rect.fromLTRB(hall.left, hall.top, hall.right, hall.bottom - a.u * 2),
+
+  // The main hall: a stone platform, cedar posts, paper doors lit from
+  // within, and the great roof.
+  room.shadow(-0.3, 1.3, 1.0, 1.35, strength: 0.35, spread: 0.03);
+  room.block(-0.3, 1.3, 0, 0.06, 1.0, 1.35, const Color(0xFF9A968A));
+  final hall = room.block(
+    -0.2,
+    1.2,
+    0.06,
+    0.62,
+    1.04,
+    1.32,
     const Color(0xFF3A2A1E),
   );
   for (var k = 0; k <= 6; k++) {
     final x = hall.left + hall.width * k / 6;
     a.box(
-      Rect.fromLTWH(x - a.u * 0.5, hall.top, a.u, hall.height - a.u * 2),
+      Rect.fromLTWH(x - a.u * 0.5, hall.top, a.u, hall.height),
       _cedar,
       line: 0.3,
     );
   }
-  // Paper-screened doors, warm inside.
   for (var k = 1; k < 5; k++) {
     final d = Rect.fromLTWH(
       hall.left + hall.width * k / 6 + a.u * 0.6,
@@ -1208,102 +1360,97 @@ void _teramachi(Art a) {
     }
   }
   a.glow(hall.center, hall.width * 0.6, _lamp, strength: 0.12);
-  _roof(a, a.r(0.3, 0.1, 0.4, 0.22));
-  // Steps up to the hall.
+  final eaves = Rect.fromPoints(
+    room.at(-0.45, 1.25, 1.0),
+    room.at(1.45, 0.58, 1.0),
+  );
+  _roof(a, eaves);
+  // Steps up to the platform.
   for (var k = 0; k < 3; k++) {
-    room.box(
-      a.r(0.44 - k * 0.01, 0.52 + k * 0.012, 0.12 + k * 0.02, 0.012),
+    room.block(
+      0.38 - k * 0.02,
+      0.62 + k * 0.02,
+      0,
+      0.06 - k * 0.02,
+      0.94 - k * 0.03,
+      1.0 - k * 0.03,
       const Color(0xFFA8A496),
-      depth: 0.04,
-      shadow: false,
       line: 0.25,
     );
   }
-  // A stone lantern on either side of the path.
-  for (final x in [0.3, 0.66]) {
-    final base = a.r(x, 0.56, 0.04, 0.12);
-    room.box(
-      Rect.fromLTWH(
-        base.left + base.width * 0.35,
-        base.top + base.height * 0.4,
-        base.width * 0.3,
-        base.height * 0.6,
-      ),
-      _granite,
-      depth: 0.03,
+
+  // The paved path from the gate to the steps.
+  a.path(
+    _flat(room, 0.42, 0.58, 0, 0.9, 0.002),
+    const Color(0xFFA8A496),
+    line: 0.3,
+  );
+  for (var k = 1; k < 14; k++) {
+    final z = 0.9 * k / 14;
+    a.hairline(
+      room.at(0.42, 0.002, z),
+      room.at(0.58, 0.002, z),
+      const Color(0x44000000),
+      0.3,
     );
-    room.box(
-      Rect.fromLTWH(
-        base.left + base.width * 0.15,
-        base.top + base.height * 0.16,
-        base.width * 0.7,
-        base.height * 0.24,
-      ),
-      const Color(0xFF9A9C9E),
-      depth: 0.03,
-      shadow: false,
-    );
-    a.path(
+  }
+
+  // A stone lantern either side of the path.
+  _stoneLantern(room, 0.25, 0.62);
+  _stoneLantern(room, 0.75, 0.62);
+
+  // A guide's flag on its pole across the court, no one holding it.
+  final foot = room.floorAt(1.32, 0.85);
+  final tip = room.at(1.32, 0.78, 0.85);
+  room.footShadow(1.32, 0.85, 0.03);
+  a
+    ..line(foot, tip, const Color(0xFF4A4A48), width: 0.5)
+    ..path(
       a.poly([
-        Offset(base.left, base.top + base.height * 0.16),
-        Offset(base.center.dx, base.top),
-        Offset(base.right, base.top + base.height * 0.16),
+        tip,
+        tip.translate(a.u * 5, a.u * 1.2),
+        tip.translate(0, a.u * 2.6),
       ]),
-      const Color(0xFF7E8084),
+      const Color(0xFFD0A030),
       line: 0.3,
     );
-  }
-  // The memorial tower, an incense stand and flowers before it.
-  _tower(a, room, a.r(0.1, 0.26, 0.14, 0.48));
-  room.box(a.r(0.13, 0.76, 0.08, 0.04), const Color(0xFF6A5A48), depth: 0.06);
-  for (final x in [0.135, 0.205]) {
+
+  // The memorial tower, an offering box and flowers before it.
+  _tower(room, -0.22, 0.42, 0.2);
+  room
+    ..shadow(-0.28, -0.16, 0.25, 0.3, strength: 0.45)
+    ..block(-0.28, -0.16, 0, 0.08, 0.25, 0.3, const Color(0xFF6A5A48));
+  for (final x in [-0.26, -0.18]) {
+    final base = room.at(x, 0.08, 0.29);
+    final top = room.at(x, 0.16, 0.29);
     a
-      ..line(a.p(x, 0.76), a.p(x, 0.71), const Color(0xFF3A5A30), width: 0.4)
-      ..circle(a.p(x, 0.705), a.u * 0.9, const Color(0xFFE8E0D0), line: 0.2);
+      ..line(base, top, const Color(0xFF3A5A30), width: 0.4)
+      ..circle(top, a.u * 0.9, const Color(0xFFE8E0D0), line: 0.2);
   }
-  // The leaflet rack at the right front.
-  final rack = a.r(0.73, 0.62, 0.1, 0.1);
-  room.box(rack, const Color(0xFF6A4E36), depth: 0.08);
+
+  // The leaflet rack at the right front, leaflets standing in it.
+  final rack = room.table(
+    1.0,
+    1.2,
+    0.24,
+    0.31,
+    0.34,
+    const Color(0xFF6A4E36),
+    thickness: 0.06,
+    leg: 0.014,
+  );
   for (var k = 0; k < 3; k++) {
     a.paper(
       Rect.fromLTWH(
         rack.left + rack.width * (0.08 + k * 0.3),
-        rack.top - rack.height * 0.3,
+        rack.top - rack.height * 1.6,
         rack.width * 0.26,
-        rack.height * 0.5,
+        rack.height * 1.8,
       ),
       lines: 3,
       color: const Color(0xFFF2EEE2),
     );
   }
-  room.box(
-    a.r(0.735, 0.72, 0.012, 0.1),
-    const Color(0xFF4A3A2A),
-    depth: 0.02,
-    line: 0.3,
-  );
-  room.box(
-    a.r(0.808, 0.72, 0.012, 0.1),
-    const Color(0xFF4A3A2A),
-    depth: 0.02,
-    line: 0.3,
-  );
-  // A guide's flag on its pole across the court, no one holding it.
-  a
-    ..line(
-      a.p(0.88, 0.54),
-      a.p(0.88, 0.34),
-      const Color(0xFF4A4A48),
-      width: 0.5,
-    )
-    ..path(
-      a.poly([a.p(0.88, 0.35), a.p(0.94, 0.37), a.p(0.88, 0.4)]),
-      const Color(0xFFD0A030),
-      line: 0.3,
-    );
-  room.contactShadow(
-    Rect.fromCenter(center: a.p(0.88, 0.54), width: a.u * 4, height: a.u),
-  );
   a.glow(
     a.p(0.8, 0.0),
     a.size.width * 0.5,
@@ -1368,20 +1515,37 @@ void _roundTile(Art a) {
       ..color = const Color(0x66000000)
       ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.u * 2),
   );
+  // Lying on its back on the cloth: the disc seen at a slant.
+  a.canvas
+    ..save()
+    ..translate(c.dx, c.dy)
+    ..scale(1, 0.55)
+    ..translate(-c.dx, -c.dy);
   _tileFace(a, c, r);
+  a.canvas.restore();
 }
 
 /// Fróis's letter, folded, a line of Portuguese hand.
 void _letter(Art a) {
+  // Lying flat on the table: the far edge a little narrower.
+  final sheet = a.poly([
+    a.p(0.07, 0.06),
+    a.p(0.93, 0.06),
+    a.p(0.98, 0.94),
+    a.p(0.02, 0.94),
+  ]);
+  a.path(sheet, const Color(0xFFE8DCBA), line: 0.3);
+  for (var k = 0; k < 6; k++) {
+    final y = 0.2 + k * 0.12;
+    a.hairline(
+      a.p(0.14, y),
+      a.p(k.isOdd ? 0.7 : 0.84, y),
+      StillroomPalette.inkOnPaper.withValues(alpha: 0.55),
+      0.3,
+    );
+  }
   a
-    ..paper(
-      a.r(0.08, 0.12, 0.84, 0.76),
-      lines: 7,
-      angle: 0.03,
-      color: const Color(0xFFE8DCBA),
-      ink: 0.6,
-    )
-    ..hairline(a.p(0.5, 0.12), a.p(0.52, 0.88), const Color(0x44000000), 0.3)
+    ..hairline(a.p(0.5, 0.06), a.p(0.5, 0.94), const Color(0x44000000), 0.3)
     ..glow(a.p(0.5, 0.5), a.size.width * 0.5, _lamp, strength: 0.12);
 }
 

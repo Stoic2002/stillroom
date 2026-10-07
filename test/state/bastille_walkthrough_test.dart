@@ -125,7 +125,7 @@ void main() {
     // The mask, and Voltaire's iron.
     tap(0.5, 0.56);
     expect(now().game.flags['saw_mask'], isTrue);
-    tap(0.75, 0.475);
+    tap(0.7, 0.44);
     expect(now().game.words, contains('iron'));
 
     // Du Junca's journal and Bazeries's worksheet.

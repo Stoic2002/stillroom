@@ -112,12 +112,18 @@ with a legend to set right. The lineup, by shelf and region, is in
    - Pompeii's plaster casts are shown only from afar and cannot be
      tapped.
 6. **Scenes are drawn in depth (decided 2026-10-01).** New tales use
-   one-point perspective from `lib/core/art/depth_kit.dart` (`Room`: back
-   wall, side walls and floor meeting at a vanishing point, boxes with
-   their visible faces, contact shadows, recesses, window light; outdoor
-   scenes get a ground plane and horizon). Hotspot rects stay where the
-   objects are. Bastille's cell is the model. The older tales' ~50 flat
-   scenes are converted in the final polish round, not before.
+   one-point perspective from `lib/core/art/depth_kit.dart`: one camera
+   per scene, `Room(a, vp: …, depth: …)`, the back wall derived from it,
+   so the room's edges and every object recede to the same point. Place
+   what stands on the floor in room units (`x` across, `y` up, `z` back)
+   with `block`, `table` and `shadow`, never as a flat rect, or it floats
+   (fixed 2026-10-07). Indoors an eye high in the frame (`vp` y ≈ 0.2–0.26,
+   `depth` ≈ 0.55) shows table tops; outdoors the ground runs past `z` = 1
+   to the horizon at `vp`. Compute hotspot and echo rects from the same
+   projection (an echo's feet on the floor point), and check them on a
+   render with the rects drawn over it. Bastille's cell and Honnō-ji are
+   the models. The older tales' ~50 flat scenes are converted in the
+   final polish round, not before.
 
 ## Next steps (in this order)
 

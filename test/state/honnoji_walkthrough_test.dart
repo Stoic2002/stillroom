@@ -97,7 +97,7 @@ void main() {
     expect(stage(), 'stage:start');
 
     // The marker, the trench under its tarp, the sieves.
-    tap(0.09, 0.6);
+    tap(0.14, 0.7);
     tap(0.5, 0.66);
     expect(now().openPuzzle, isNull, reason: 'the block not yet checked');
     tap(0.84, 0.68);
@@ -113,13 +113,13 @@ void main() {
 
     // Today's Honnō-ji at Teramachi: the hall, the memorial, the leaflet,
     // the guide's tale.
-    tap(0.5, 0.32);
+    tap(0.5, 0.42);
     expect(now().game.sceneId, 'teramachi');
     tap(0.5, 0.3);
-    tap(0.17, 0.5);
+    tap(0.16, 0.5);
     tap(0.78, 0.66);
     expect(now().game.words, containsAll(['teramachi', 'date_1591']));
-    tap(0.9, 0.44);
+    tap(0.72, 0.4);
     expect(now().game.words, contains('escaped'));
     play.takeExit('back');
 
@@ -154,7 +154,7 @@ void main() {
     tap(0.72, 0.62);
     expect(now().game.words, contains('nothing'));
     expect(stage(), 'stage:later');
-    tap(0.82, 0.3);
+    tap(0.66, 0.3);
     expect(
       now().game.words,
       containsAll(['hideyoshi', 'ieyasu', 'court', 'statue']),
@@ -163,8 +163,8 @@ void main() {
     play.takeExit('back');
 
     // The keeper's slip behind the memorial.
-    tap(0.5, 0.32);
-    tap(0.17, 0.5);
+    tap(0.5, 0.42);
+    tap(0.16, 0.5);
     expect(now().game.secretFound, isTrue);
     expect(
       container.read(saveRepositoryProvider).keeperNote(episode),
@@ -173,7 +173,7 @@ void main() {
     play.takeExit('back');
 
     // The seal: the stone marker.
-    tap(0.09, 0.6);
+    tap(0.14, 0.7);
     expect(now().openPuzzle, 'jar_label');
     final label =
         content().requirePuzzle('jar_label').config as DeductionConfig;
