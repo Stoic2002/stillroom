@@ -211,5 +211,18 @@
   "dividersNothing": "Tak ada yang tergambar di situ pada peta.",
   "dividersProgress": "Tempat ditemukan: {found} dari {total}",
   "dividersUnset": "Buka jangka dan pilih arah, lalu melangkah.",
-  "postCaption": "Tanda rahasia"
+  "postCaption": "Tanda rahasia",
+  "marginsInstruction": "Putar lembarnya sampai satu bagian tegak, lalu ketuk bagian yang menjawab pertanyaan.",
+  "marginsUnreadable": "Bagian itu miring atau terbalik. Putar lembarnya.",
+  "marginsWrong": "Bagian itu tidak menjawabnya.",
+  "marginsProgress": "Terjawab: {answered} dari {total}",
+  "sonarInstruction": "Ketuk satu jalur untuk menjalankan sonar di sepanjangnya, satu jam per jalur. Tandai bangkai kapal di jalur yang sudah dijalankan.",
+  "sonarHours": "Sisa jam: {hours}",
+  "sonarRock": "Batu: gema bundar, bayangan pendek.",
+  "sonarScour": "Goresan es: alur panjang, tanpa bayangan yang berdiri.",
+  "sonarNothing": "Dasar laut kosong.",
+  "sonarUnrun": "Jalur di situ belum dijalankan.",
+  "sonarSpent": "Musim sudah habis dan bangkai kapal belum ditemukan.",
+  "sonarNextSeason": "Musim berikutnya",
+  "admiraltyCaption": "Siapa pun yang menemukan kertas ini diminta meneruskannya kepada Sekretaris Admiralty, London"
 }

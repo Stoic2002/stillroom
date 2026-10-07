@@ -305,6 +305,7 @@ a tap near it may startle it. They never block taps.
 | `fulmar` | Sits on a ledge; flies off when tapped, glides back | `wings_flutter` |
 | `grass` | Tufts bending in the wind | — |
 | `raven` | Sits on a branch; flies off when tapped, comes back (the fulmar's ways, in black) | `wings_flutter` |
+| `seal` | A bearded seal lying on a floe (the area's bottom centre), now and then raising its head; slips into the water when tapped, its head seen off the floe a while, then hauls out again | `splash` |
 | `heron` | Stands in the shallows on long legs (the area's bottom centre is its feet), now and then strikes at the water; lifts off slowly when tapped, comes back | `wings_flutter` |
 | `eagle` | Turns in slow circles high over its area, on broad still wings; too high to startle | `eagle_cry` now and then |
 
@@ -541,6 +542,7 @@ filled slot swaps them.
 | `vermilion` | A sheet of imperial yellow in a double vermilion rule, the sentences in vermilion (the emperor's own ink), the caption `vermilionCaption` | — |
 | `routebook` | A sports club's route book open at its last page: grey ruled paper, a red margin, a violet club stamp, the caption `routebookCaption`, the entry written in ink | — |
 | `cartouche` | An old map's title cartouche: a parchment panel in a double rule with scrolled ends, the caption `cartoucheCaption`, the sentences written inside | — |
+| `admiralty` | A printed Admiralty form: its heading `admiraltyCaption` in small capitals, faint rows of print where the request runs on in other languages, a ruled border, the sentences in a hand | — |
 | `post` | A palisade post: furrowed bark at both edges, a band stripped to pale wood, the caption `postCaption` and the sentences cut in capitals | — |
 | `marker` | A city's stone site marker: grey granite flecked with crystal, a bevelled edge, a cut line framing the face, the caption `markerCaption` cut above, the sentences cut below | — |
 | `colophon` | A manuscript's colophon: burnished paper in a thin brown double rule, scorched at one corner, the caption `colophonCaption`, the sentences centred and narrowing, closed by a triangle of dots | — |
@@ -555,7 +557,8 @@ the bell's bronze), Whitechapel 1891 `docket` (the file's cover), Beijing
 Zimbabwe 1871 `cartouche` (where the old maps wrote Ophir), Dyatlov Pass
 1959 `routebook` (the last entry the group never wrote), Honnō-ji 1582
 `marker` (the site's stone, its face left smooth for what is known),
-Roanoke 1590 `post` (under the word the colonists cut).
+Roanoke 1590 `post` (under the word the colonists cut), Franklin 1845
+`admiralty` (a fresh copy of the form left in the cairn).
 
 ### `clockHands`: set the hands
 
@@ -1269,6 +1272,60 @@ Roanoke 1590 `post` (under the word the colonists cut).
   1), 1 to 4 targets, each a different place that a whole number of
   steps (1 to 15) of one span on one heading reaches.
 
+### `margins`: a sheet turned to read its margins
+
+```json
+"config": {
+  "passages": [
+    { "textKey": "ep.note.body", "rect": [0.18, 0.31, 0.64, 0.32], "turn": 0 },
+    { "textKey": "ep.note.deserted", "rect": [0.84, 0.16, 0.16, 0.68], "turn": 1 }
+  ],
+  "questions": [ { "questionKey": "ep.note.q_deserted", "passage": 1 } ],
+  "startTurn": 0
+}
+```
+
+- **What the player sees:** a square sheet with its passages where they
+  lie (`rect`, on the sheet as it lies unturned), each written at its own
+  quarter turn (`turn`: how far the sheet must be turned clockwise for it
+  to stand upright); a `printed` passage is set in the form's type.
+  Beside it the question, two arrows to turn the sheet, the count
+  answered.
+- **Playing:** turn the sheet (`sheet_turn`, it turns the short way);
+  tap a passage: if it does not stand upright, a nudge to turn the sheet
+  (`reject`); upright and the answer, the next question (`place`);
+  upright and not the answer, a mistake.
+- **Validation:** 3 to 8 passages on the sheet, `turn` 0 to 3; 1 to 4
+  questions, each a different passage; `startTurn` 0 to 3.
+
+### `sonar`: a side-scan survey, lane by lane
+
+```json
+"config": {
+  "columns": 12,
+  "rows": 8,
+  "hours": 3,
+  "wreck": { "column": 5, "row": 5, "length": 2 },
+  "rocks": [ [2, 1], [8, 5] ],
+  "scours": [ [2, 5] ],
+  "marks": [ { "labelKey": "ep.sonar.grant_point", "at": [11.4, 3.3] } ]
+}
+```
+
+- **What the player sees:** the survey area as dark water, the lanes
+  ruled east and west (north at the top), the named places; each lane run
+  as an amber side-scan strip: rocks a bright round echo with a short
+  shadow, ice scours a long groove with none, the wreck a long shape with
+  a long straight shadow. Beside it the hours left and what the last mark
+  showed; Next season once the hours are spent.
+- **Playing:** tap a lane not run to run it (`lane_run`, an hour); tap a
+  cell of a run lane to mark the wreck: the wreck solves it (`echo_mark`),
+  anything else is a mistake. With the hours spent and the wreck not
+  found, Next season clears the lanes and gives the hours back (a
+  mistake).
+- **Validation:** 6 to 16 columns, 4 to 12 rows, 1 to `rows` hours; the
+  wreck, rocks and scours inside the grid, on no other; up to 8 marks.
+
 ## Words and the jar's label
 
 `words` in `game.json` declares what the player can note down:
@@ -1465,3 +1522,4 @@ warnings show in the debug panel).
 | 2026-10-01 | post-M6 | Puzzle types `snowpit` and `darkroom`; deduction form `routebook`; creature `raven`; interface sounds `snow_push`, `shovel_tap`, `column_break`, `enlarger`. Episode `dyatlov_1959` (shelf IV) replaces `sealed_dyatlov_1959`; the sealed teaser on shelf IV is now `sealed_honnoji_1582`. |
 | 2026-10-02 | post-M6 | Puzzle types `strata` and `streets`; deduction form `marker`; interface sounds `strata_tag`, `find_lift`, `street_mark`; `PuzzleLabel` takes `maxLines`. Episode `honnoji_1582` (shelf IV) replaces `sealed_honnoji_1582`; the sealed teaser on shelf IV is now `sealed_roanoke_1590`. |
 | 2026-10-07 | post-M6 | Puzzle types `rings` and `dividers`; deduction form `post`; creature `heron`; interface sounds `core_slide`, `ring_mark`, `divider_step`. Episode `roanoke_1590` (shelf IV) replaces `sealed_roanoke_1590`; the sealed teaser on shelf IV is now `sealed_franklin_1845`. |
+| 2026-10-07 | post-M6 | Puzzle types `margins` and `sonar`; deduction form `admiralty`; creature `seal`; interface sounds `sheet_turn`, `lane_run`, `echo_mark`. Episode `franklin_1845` (shelf IV) replaces `sealed_franklin_1845`; the sealed teaser on shelf IV is now `sealed_indonesia_shelf4`, for the Indonesian tale still to be chosen. |

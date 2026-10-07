@@ -1,0 +1,128 @@
+{
+  "id": "hall",
+  "background": "images/scenes/franklin_1845/hall.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "deck"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "stories",
+      "rect": [
+        0.36,
+        0.55,
+        0.28,
+        0.2
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "heard_stories",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "franklin_1845.hall.stories"
+        }
+      ]
+    },
+    {
+      "id": "map",
+      "rect": [
+        0.26,
+        0.18,
+        0.28,
+        0.25
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "read_names",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "franklin_1845.hall.map"
+        }
+      ]
+    },
+    {
+      "id": "drum",
+      "rect": [
+        0.62,
+        0.22,
+        0.07,
+        0.17
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "drum_low"
+        },
+        {
+          "type": "showText",
+          "key": "franklin_1845.hall.drum"
+        }
+      ]
+    },
+    {
+      "id": "drum_note",
+      "rect": [
+        0.62,
+        0.22,
+        0.07,
+        0.17
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": true
+        },
+        {
+          "flag": "found_note",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "found_note",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "franklin_1845.hall.keeper_note"
+        }
+      ]
+    },
+    {
+      "id": "drum_done",
+      "rect": [
+        0.62,
+        0.22,
+        0.07,
+        0.17
+      ],
+      "when": [
+        {
+          "flag": "found_note",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "franklin_1845.hall.drum_done"
+        }
+      ]
+    }
+  ]
+}

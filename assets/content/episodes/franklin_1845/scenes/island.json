@@ -1,0 +1,115 @@
+{
+  "id": "island",
+  "background": "images/scenes/franklin_1845/island.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "deck"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "rocks",
+      "rect": [
+        0.0,
+        0.7,
+        0.12,
+        0.16
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "franklin_1845.island.rocks"
+        }
+      ]
+    },
+    {
+      "id": "helicopter",
+      "rect": [
+        0.72,
+        0.47,
+        0.23,
+        0.22
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "rotor"
+        },
+        {
+          "type": "showText",
+          "key": "franklin_1845.island.helicopter"
+        }
+      ]
+    },
+    {
+      "id": "pintle",
+      "rect": [
+        0.46,
+        0.58,
+        0.17,
+        0.12
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "found_pintle",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "franklin_1845.island.pintle"
+        }
+      ]
+    },
+    {
+      "id": "plug",
+      "rect": [
+        0.56,
+        0.7,
+        0.08,
+        0.08
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "found_pintle",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "franklin_1845.island.pintle"
+        }
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "seal",
+      "kind": "seal",
+      "rect": [
+        0.62,
+        0.45,
+        0.1,
+        0.056
+      ]
+    }
+  ],
+  "echoes": [
+    {
+      "id": "hauler",
+      "image": "images/objects/franklin_1845/echo_hauler.png",
+      "rect": [
+        0.35,
+        0.433,
+        0.05,
+        0.217
+      ],
+      "chance": 0.8,
+      "drift": [
+        0.01,
+        0
+      ]
+    }
+  ]
+}

@@ -60,7 +60,7 @@ player restores the truth of the tale and seals the jar.
   - The CJK fonts are subsets: `test/content/font_coverage_test.dart` fails
     on a rare glyph, so reword it (e.g. 蹚 and 祇 were replaced).
 
-### The tales (13 playable)
+### The tales (14 playable)
 
 | Shelf | Tale | Its own mechanics | Its label now |
 |---|---|---|---|
@@ -76,13 +76,14 @@ player restores the truth of the tale and seals the jar.
 | IV | *Dyatlov Pass, 1959* (the tent on the slope) | A snow pit read by hand hardness and a column tapped until it breaks (`snowpit`); the last frames printed from test strips (`darkroom`) | `routebook` **seal**: the group's route book, 3 words |
 | IV | *Honnō-ji, 1582* (the temple that burned, set at the 2007 dig) | The moat's section dated by its finds, the fire's black layer told from a later one (`strata`); Kyoto's addresses read on the street grid (`streets`) | `marker` **seal**: the site's stone marker, 3 words |
 | IV | *Roanoke, 1590* (the colony that left a word) | A cypress core cross-dated, its driest run read (`rings`); White's chart walked with dividers, north on the right (`dividers`) | `post` **seal**: the carved palisade post, 3 words |
+| IV | *Franklin, 1845* (the ship the Inuit remembered, set at the 2014 search) | The Victory Point note turned to read its margins (`margins`); the side-scan survey, lanes run from a few hours (`sonar`) | `admiralty` **seal**: a fresh Admiralty form, 3 words |
 | II | *Bastille, 1703* (the Iron Mask) | The turnkey's keys (`keyring`: match the bit, turn it over), the Great Cipher (`cipher`, 330 309 left unread), the prisoner's file (`sources`: written at the time vs. told after) | `order` **seal**: a royal order, 3 words |
 
 Shelf III opens after 4 tales are distilled and is full: *Whitechapel,
 1891*, *Beijing, 1908*, *Alamut, 1256*, *Great Zimbabwe, 1871*. Shelf IV
 (`unlockAfter` 8) holds *Dyatlov Pass, 1959*, *Honnō-ji, 1582*,
-*Roanoke, 1590* and a sealed teaser jar (`sealed_franklin_1845`) for its
-tales still to come. The top shelf is meant for the old keeper's
+*Roanoke, 1590*, *Franklin, 1845* and a sealed teaser jar
+(`sealed_indonesia_shelf4`) for the Indonesian tale still to be chosen. The top shelf is meant for the old keeper's
 own tale; its arc is OPEN.
 
 **The plan: 16 tales on 5 shelves** (decided 2026-09-30), all real cases
@@ -135,8 +136,8 @@ with a legend to set right. The lineup, by shelf and region, is in
    2026-10-01; Play Store target mid-October 2026, end of October at the
    latest). Keep each design doc's *Things to watch* as the checklist for
    that review.
-2. **Next:** shelf IV, in the plan's order: *The Franklin expedition, 1845*, and
-   one Indonesian tale (to be chosen with the developer). For each: a design doc first (facts with
+2. **Next:** shelf IV's last place: one Indonesian tale (to be chosen
+   with the developer first), then shelf V. For each: a design doc first (facts with
    sources, 2–3 mechanics of its own, the chain, the seal), approved by
    the developer before building. Draw them in depth (decision 6).
 3. **In the final polish round:** convert the older tales' scenes to

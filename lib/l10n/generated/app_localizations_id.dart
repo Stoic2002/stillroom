@@ -766,4 +766,53 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get postCaption => 'Tanda rahasia';
+
+  @override
+  String get marginsInstruction =>
+      'Putar lembarnya sampai satu bagian tegak, lalu ketuk bagian yang menjawab pertanyaan.';
+
+  @override
+  String get marginsUnreadable =>
+      'Bagian itu miring atau terbalik. Putar lembarnya.';
+
+  @override
+  String get marginsWrong => 'Bagian itu tidak menjawabnya.';
+
+  @override
+  String marginsProgress(int answered, int total) {
+    return 'Terjawab: $answered dari $total';
+  }
+
+  @override
+  String get sonarInstruction =>
+      'Ketuk satu jalur untuk menjalankan sonar di sepanjangnya, satu jam per jalur. Tandai bangkai kapal di jalur yang sudah dijalankan.';
+
+  @override
+  String sonarHours(int hours) {
+    return 'Sisa jam: $hours';
+  }
+
+  @override
+  String get sonarRock => 'Batu: gema bundar, bayangan pendek.';
+
+  @override
+  String get sonarScour =>
+      'Goresan es: alur panjang, tanpa bayangan yang berdiri.';
+
+  @override
+  String get sonarNothing => 'Dasar laut kosong.';
+
+  @override
+  String get sonarUnrun => 'Jalur di situ belum dijalankan.';
+
+  @override
+  String get sonarSpent =>
+      'Musim sudah habis dan bangkai kapal belum ditemukan.';
+
+  @override
+  String get sonarNextSeason => 'Musim berikutnya';
+
+  @override
+  String get admiraltyCaption =>
+      'Siapa pun yang menemukan kertas ini diminta meneruskannya kepada Sekretaris Admiralty, London';
 }

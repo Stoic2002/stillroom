@@ -108,6 +108,7 @@ class _DeductionViewState extends State<DeductionView>
       DeductionForm.routebook => _routebook(context, sentenceStyle),
       DeductionForm.marker => _marker(context, sentenceStyle),
       DeductionForm.post => _post(context, sentenceStyle),
+      DeductionForm.admiralty => _admiralty(context, sentenceStyle),
       DeductionForm.board => const SizedBox.shrink(),
     };
 
@@ -609,6 +610,50 @@ class _DeductionViewState extends State<DeductionView>
     );
   }
 
+  /// A printed Admiralty form: its heading in print across the top, faint
+  /// lines where the same request is printed in other languages, the
+  /// sentences written into it by hand.
+  Widget _admiralty(BuildContext context, TextStyle style) {
+    final l10n = AppLocalizations.of(context);
+    final hand = style.copyWith(height: 1.7, color: const Color(0xFF2A2440));
+    return DecoratedBox(
+      decoration: const BoxDecoration(
+        color: Color(0xFFE6DCC0),
+        boxShadow: [BoxShadow(blurRadius: 18, color: Color(0xAA000000))],
+      ),
+      child: CustomPaint(
+        painter: const _AdmiraltyForm(),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(40, 12, 40, 14),
+          child: Column(
+            children: [
+              Text(
+                l10n.admiraltyCaption,
+                textAlign: TextAlign.center,
+                style: style.copyWith(
+                  fontFamily: AppTheme.smallCaps,
+                  fontSize: 12,
+                  letterSpacing: 1,
+                  height: 1.3,
+                  color: const Color(0xFF3A3630),
+                ),
+              ),
+              const SizedBox(height: 22),
+              for (final (i, sentence) in _config.sentences.indexed)
+                Text.rich(
+                  TextSpan(
+                    style: hand,
+                    children: _sentence(context, i, sentence),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   /// An old map's title cartouche: a parchment panel in a scrolled frame,
   /// the map's title above, the sentences written inside.
   Widget _cartouche(BuildContext context, TextStyle style) {
@@ -970,6 +1015,41 @@ class _RoutebookPage extends CustomPainter {
 
   @override
   bool shouldRepaint(_RoutebookPage old) => false;
+}
+
+/// The printed form: a ruled border, and under the heading two faint
+/// rows of print where the request runs on in other languages.
+class _AdmiraltyForm extends CustomPainter {
+  const _AdmiraltyForm();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final border = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1
+      ..color = const Color(0x883A3630);
+    canvas.drawRect((Offset.zero & size).deflate(10), border);
+    final print = Paint()
+      ..strokeWidth = 2
+      ..color = const Color(0x333A3630);
+    final random = math.Random(1845);
+    for (var row = 0; row < 2; row++) {
+      final y = 44.0 + row * 7;
+      var x = 40.0;
+      while (x < size.width - 40) {
+        final w = 10 + random.nextDouble() * 26;
+        canvas.drawLine(
+          Offset(x, y),
+          Offset(math.min(x + w, size.width - 40), y),
+          print,
+        );
+        x += w + 5;
+      }
+    }
+  }
+
+  @override
+  bool shouldRepaint(_AdmiraltyForm old) => false;
 }
 
 /// A post of the palisade: bark at both edges, rough and furrowed, and

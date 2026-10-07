@@ -45,6 +45,7 @@ abstract class Creature extends Component {
     CreatureKind.eagle => _Eagle(area, random, sound),
     CreatureKind.raven => _Fulmar(area, random, sound, raven: true),
     CreatureKind.heron => _Heron(area, random, sound),
+    CreatureKind.seal => _Seal(area, random, sound),
   };
 }
 
@@ -798,6 +799,134 @@ class _Heron extends Creature {
           ..strokeWidth = 3.5
           ..strokeCap = StrokeCap.round,
       );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Seal: a bearded seal hauled out on a floe, lying long, now and then
+// raising its head; startled, it slides off into the water and is gone a
+// while, then hauls out again.
+
+class _Seal extends Creature {
+  _Seal(super.area, super.random, super.sound) {
+    _nextLook = 3 + random.nextDouble() * 5;
+  }
+
+  static const _body = Color(0xFF6A6058);
+  static const _belly = Color(0xFF8A8076);
+  static const _dark = Color(0xFF3A3430);
+
+  double _away = -1;
+  static const _slide = 1.0;
+  static const _absence = 12.0;
+  static const _haul = 1.6;
+
+  double _nextLook = 0;
+  double _look = -1;
+
+  Offset get _rest => Offset(area.center.dx, area.bottom);
+
+  @override
+  bool near(Offset p) =>
+      _away < 0 && (p - _rest.translate(0, -20)).distance < 110;
+
+  @override
+  void startle() {
+    if (_away >= 0) return;
+    _away = 0;
+    sound('splash');
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+    if (_away >= 0) {
+      _away += dt;
+      if (_away > _slide + _absence + _haul) _away = -1;
+      return;
+    }
+    if (_look >= 0) {
+      _look += dt;
+      if (_look > 2.5) _look = -1;
+    } else {
+      _nextLook -= dt;
+      if (_nextLook <= 0) {
+        _look = 0;
+        _nextLook = 5 + random.nextDouble() * 8;
+      }
+    }
+  }
+
+  @override
+  void render(Canvas canvas) {
+    final away = _away;
+    var offset = Offset.zero;
+    var opacity = 1.0;
+    if (away >= 0) {
+      if (away < _slide) {
+        final t = away / _slide;
+        offset = Offset(-90 * t, 26 * t);
+        opacity = 1 - t;
+      } else if (away < _slide + _absence) {
+        // Its head now and then in the water off the floe.
+        final t = (away - _slide) / _absence;
+        if (t > 0.3 && t < 0.6) {
+          canvas.drawCircle(
+            _rest.translate(-150, 24),
+            9,
+            Paint()..color = _dark,
+          );
+        }
+        return;
+      } else {
+        final t = (away - _slide - _absence) / _haul;
+        offset = Offset(-90 * (1 - t), 26 * (1 - t));
+        opacity = t;
+      }
+    }
+    final p = _rest + offset;
+    final lift = _look < 0 ? 0.0 : math.sin(math.min(1, _look / 2.5) * math.pi);
+    final a = (opacity * 255).round();
+    canvas
+      ..drawOval(
+        Rect.fromCenter(center: p.translate(0, -2), width: 150, height: 14),
+        Paint()..color = Color.fromARGB((a * 0.25).round(), 0, 0, 0),
+      )
+      ..drawOval(
+        Rect.fromCenter(center: p.translate(0, -20), width: 140, height: 38),
+        Paint()..color = _body.withAlpha(a),
+      )
+      ..drawOval(
+        Rect.fromCenter(center: p.translate(4, -10), width: 110, height: 14),
+        Paint()..color = _belly.withAlpha(a),
+      );
+    // Hind flippers, and the head with its whiskers.
+    canvas.drawPath(
+      Path()
+        ..moveTo(p.dx - 66, p.dy - 22)
+        ..lineTo(p.dx - 92, p.dy - 34)
+        ..lineTo(p.dx - 90, p.dy - 12)
+        ..close(),
+      Paint()..color = _dark.withAlpha(a),
+    );
+    final head = p.translate(70, -30 - lift * 22);
+    canvas
+      ..drawCircle(head, 17, Paint()..color = _body.withAlpha(a))
+      ..drawCircle(
+        head.translate(8, -4),
+        2.5,
+        Paint()..color = _dark.withAlpha(a),
+      );
+    final whisker = Paint()
+      ..strokeWidth = 1.2
+      ..color = Color.fromARGB((a * 0.8).round(), 230, 226, 214);
+    for (var k = -1; k <= 1; k++) {
+      canvas.drawLine(
+        head.translate(14, 6),
+        head.translate(30, 6 + k * 6.0),
+        whisker,
+      );
+    }
   }
 }
 

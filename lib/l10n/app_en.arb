@@ -983,5 +983,70 @@
   "postCaption": "The secret token",
   "@postCaption": {
     "description": "Post label form: the heading cut above the words."
+  },
+  "marginsInstruction": "Turn the sheet until a passage stands upright, then tap the one that answers the question.",
+  "@marginsInstruction": {
+    "description": "Margins puzzle: what to do."
+  },
+  "marginsUnreadable": "That passage lies on its side or upside down. Turn the sheet.",
+  "@marginsUnreadable": {
+    "description": "Margins puzzle: tapped a passage not upright."
+  },
+  "marginsWrong": "That passage does not answer it.",
+  "@marginsWrong": {
+    "description": "Margins puzzle: a wrong passage."
+  },
+  "marginsProgress": "Answered: {answered} of {total}",
+  "@marginsProgress": {
+    "description": "Margins puzzle: progress.",
+    "placeholders": {
+      "answered": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "sonarInstruction": "Tap a lane to run the sonar along it, an hour each. Mark the wreck on a lane that has been run.",
+  "@sonarInstruction": {
+    "description": "Sonar puzzle: what to do."
+  },
+  "sonarHours": "Hours left: {hours}",
+  "@sonarHours": {
+    "description": "Sonar puzzle: hours left this season.",
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "sonarRock": "A rock: a round echo, a short shadow.",
+  "@sonarRock": {
+    "description": "Sonar puzzle: marked a rock."
+  },
+  "sonarScour": "An ice scour: a long groove, no shadow standing off it.",
+  "@sonarScour": {
+    "description": "Sonar puzzle: marked an ice scour."
+  },
+  "sonarNothing": "Bare seabed.",
+  "@sonarNothing": {
+    "description": "Sonar puzzle: marked bare seabed."
+  },
+  "sonarUnrun": "No lane has been run there yet.",
+  "@sonarUnrun": {
+    "description": "Sonar puzzle: marked a lane not run."
+  },
+  "sonarSpent": "The season is over and the wreck not found.",
+  "@sonarSpent": {
+    "description": "Sonar puzzle: the hours are spent."
+  },
+  "sonarNextSeason": "Next season",
+  "@sonarNextSeason": {
+    "description": "Button: start the survey again."
+  },
+  "admiraltyCaption": "Whoever finds this paper is requested to forward it to the Secretary of the Admiralty, London",
+  "@admiraltyCaption": {
+    "description": "Admiralty label form: the printed heading of the form."
   }
 }

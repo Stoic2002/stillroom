@@ -1,0 +1,174 @@
+{
+  "startScene": "deck",
+  "flags": {
+    "heard_stories": false,
+    "read_names": false,
+    "found_pintle": false,
+    "read_later": false,
+    "found_note": false
+  },
+  "logicalResolution": [
+    1920,
+    1080
+  ],
+  "orientation": "landscape",
+  "sceneTransitionMs": 600,
+  "music": "ice_drift",
+  "words": [
+    {
+      "id": "date_1848",
+      "labelKey": "franklin_1845.word.date_1848",
+      "kind": "date"
+    },
+    {
+      "id": "ugjulik",
+      "labelKey": "franklin_1845.word.ugjulik",
+      "kind": "place"
+    },
+    {
+      "id": "erebus",
+      "labelKey": "franklin_1845.word.erebus",
+      "kind": "name"
+    },
+    {
+      "id": "date_1847",
+      "labelKey": "franklin_1845.word.date_1847",
+      "kind": "date"
+    },
+    {
+      "id": "victory_point",
+      "labelKey": "franklin_1845.word.victory_point",
+      "kind": "place"
+    },
+    {
+      "id": "terror",
+      "labelKey": "franklin_1845.word.terror",
+      "kind": "name"
+    },
+    {
+      "id": "lead",
+      "labelKey": "franklin_1845.word.lead",
+      "kind": "thing"
+    },
+    {
+      "id": "crushed",
+      "labelKey": "franklin_1845.word.crushed",
+      "kind": "thing"
+    }
+  ],
+  "secret": {
+    "when": [
+      {
+        "flag": "found_note",
+        "equals": true
+      }
+    ],
+    "noteKey": "franklin_1845.hall.keeper_note"
+  },
+  "hintStages": [
+    {
+      "id": "write_seal",
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.franklin_1845.write_seal.1"
+        },
+        {
+          "key": "hint.franklin_1845.write_seal.2"
+        }
+      ]
+    },
+    {
+      "id": "later",
+      "when": [
+        {
+          "puzzleSolved": "sonar"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.franklin_1845.later.1"
+        },
+        {
+          "key": "hint.franklin_1845.later.2"
+        }
+      ]
+    },
+    {
+      "id": "survey",
+      "when": [
+        {
+          "flag": "heard_stories",
+          "equals": true
+        },
+        {
+          "flag": "found_pintle",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "margins"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.franklin_1845.survey.1"
+        },
+        {
+          "key": "hint.franklin_1845.survey.2"
+        }
+      ]
+    },
+    {
+      "id": "island",
+      "when": [
+        {
+          "flag": "heard_stories",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "margins"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.franklin_1845.island.1"
+        },
+        {
+          "key": "hint.franklin_1845.island.2"
+        }
+      ]
+    },
+    {
+      "id": "hall",
+      "when": [
+        {
+          "puzzleSolved": "margins"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.franklin_1845.hall.1"
+        },
+        {
+          "key": "hint.franklin_1845.hall.2"
+        }
+      ]
+    },
+    {
+      "id": "start",
+      "hints": [
+        {
+          "key": "hint.franklin_1845.start.1"
+        },
+        {
+          "key": "hint.franklin_1845.start.2"
+        }
+      ]
+    }
+  ]
+}

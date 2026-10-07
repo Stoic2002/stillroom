@@ -1379,6 +1379,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The secret token'**
   String get postCaption;
+
+  /// Margins puzzle: what to do.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn the sheet until a passage stands upright, then tap the one that answers the question.'**
+  String get marginsInstruction;
+
+  /// Margins puzzle: tapped a passage not upright.
+  ///
+  /// In en, this message translates to:
+  /// **'That passage lies on its side or upside down. Turn the sheet.'**
+  String get marginsUnreadable;
+
+  /// Margins puzzle: a wrong passage.
+  ///
+  /// In en, this message translates to:
+  /// **'That passage does not answer it.'**
+  String get marginsWrong;
+
+  /// Margins puzzle: progress.
+  ///
+  /// In en, this message translates to:
+  /// **'Answered: {answered} of {total}'**
+  String marginsProgress(int answered, int total);
+
+  /// Sonar puzzle: what to do.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a lane to run the sonar along it, an hour each. Mark the wreck on a lane that has been run.'**
+  String get sonarInstruction;
+
+  /// Sonar puzzle: hours left this season.
+  ///
+  /// In en, this message translates to:
+  /// **'Hours left: {hours}'**
+  String sonarHours(int hours);
+
+  /// Sonar puzzle: marked a rock.
+  ///
+  /// In en, this message translates to:
+  /// **'A rock: a round echo, a short shadow.'**
+  String get sonarRock;
+
+  /// Sonar puzzle: marked an ice scour.
+  ///
+  /// In en, this message translates to:
+  /// **'An ice scour: a long groove, no shadow standing off it.'**
+  String get sonarScour;
+
+  /// Sonar puzzle: marked bare seabed.
+  ///
+  /// In en, this message translates to:
+  /// **'Bare seabed.'**
+  String get sonarNothing;
+
+  /// Sonar puzzle: marked a lane not run.
+  ///
+  /// In en, this message translates to:
+  /// **'No lane has been run there yet.'**
+  String get sonarUnrun;
+
+  /// Sonar puzzle: the hours are spent.
+  ///
+  /// In en, this message translates to:
+  /// **'The season is over and the wreck not found.'**
+  String get sonarSpent;
+
+  /// Button: start the survey again.
+  ///
+  /// In en, this message translates to:
+  /// **'Next season'**
+  String get sonarNextSeason;
+
+  /// Admiralty label form: the printed heading of the form.
+  ///
+  /// In en, this message translates to:
+  /// **'Whoever finds this paper is requested to forward it to the Secretary of the Admiralty, London'**
+  String get admiraltyCaption;
 }
 
 class _AppLocalizationsDelegate

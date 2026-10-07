@@ -211,5 +211,18 @@
   "dividersNothing": "海図のそこには何も描かれていない。",
   "dividersProgress": "見つけた場所：{total}のうち{found}",
   "dividersUnset": "ディバイダーを開いて方角を選び、それから歩ませよう。",
-  "postCaption": "秘密の目印"
+  "postCaption": "秘密の目印",
+  "marginsInstruction": "紙を回して文が正立したら、問いに答える文に触れよう。",
+  "marginsUnreadable": "その文は横向きか逆さまだ。紙を回そう。",
+  "marginsWrong": "その文は答えになっていない。",
+  "marginsProgress": "回答：{total}のうち{answered}",
+  "sonarInstruction": "測線に触れるとソナーがその上を走る。一本につき一時間。走らせた測線の上で沈没船に印を付けよう。",
+  "sonarHours": "残り時間：{hours}",
+  "sonarRock": "岩：丸い反響、短い影。",
+  "sonarScour": "氷の削り跡：長い溝、立ち上がる影はない。",
+  "sonarNothing": "何もない海底。",
+  "sonarUnrun": "そこの測線はまだ走らせていない。",
+  "sonarSpent": "季節が終わり、沈没船は見つからなかった。",
+  "sonarNextSeason": "次の季節",
+  "admiraltyCaption": "この紙を見つけた方は、ロンドンの海軍本部長官あてに送付されたい"
 }

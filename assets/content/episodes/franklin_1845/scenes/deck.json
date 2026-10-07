@@ -1,0 +1,111 @@
+{
+  "id": "deck",
+  "background": "images/scenes/franklin_1845/deck.png",
+  "exits": [
+    {
+      "id": "survey",
+      "to": "survey",
+      "rect": [
+        0.18,
+        0.3,
+        0.09,
+        0.46
+      ]
+    },
+    {
+      "id": "island",
+      "to": "island",
+      "rect": [
+        0.43,
+        0.47,
+        0.14,
+        0.18
+      ]
+    },
+    {
+      "id": "hall",
+      "to": "hall",
+      "rect": [
+        0.59,
+        0.36,
+        0.2,
+        0.29
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "ice_chart",
+      "rect": [
+        0.11,
+        0.36,
+        0.08,
+        0.22
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "franklin_1845.deck.ice_chart"
+        }
+      ]
+    },
+    {
+      "id": "shore",
+      "rect": [
+        0.8,
+        0.33,
+        0.2,
+        0.08
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "ice_creak"
+        },
+        {
+          "type": "showText",
+          "key": "franklin_1845.deck.shore"
+        }
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "seal",
+      "kind": "seal",
+      "rect": [
+        0.82,
+        0.5,
+        0.1,
+        0.06
+      ]
+    },
+    {
+      "id": "gulls",
+      "kind": "gull",
+      "rect": [
+        0.3,
+        0.06,
+        0.5,
+        0.2
+      ]
+    }
+  ],
+  "echoes": [
+    {
+      "id": "surveyor",
+      "image": "images/objects/franklin_1845/echo_surveyor.png",
+      "rect": [
+        0.367,
+        0.435,
+        0.065,
+        0.285
+      ],
+      "chance": 0.8,
+      "drift": [
+        0.01,
+        0
+      ]
+    }
+  ]
+}

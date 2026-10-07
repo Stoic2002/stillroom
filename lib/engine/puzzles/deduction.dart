@@ -174,6 +174,10 @@ enum DeductionForm {
   /// A palisade post, the bark stripped from a band of pale wood, the
   /// words cut into it in capitals.
   post,
+
+  /// A printed Admiralty form of the kind left in cairns: its heading in
+  /// print, the words written into its blanks by hand.
+  admiralty,
 }
 
 final class DeductionSentence {

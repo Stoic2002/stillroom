@@ -211,5 +211,18 @@
   "dividersNothing": "海图上那里什么也没画。",
   "dividersProgress": "已找到地点：{found}/{total}",
   "dividersUnset": "先张开分规并选方向，再迈步。",
-  "postCaption": "秘密记号"
+  "postCaption": "秘密记号",
+  "marginsInstruction": "转动纸张，直到某段文字摆正，再点能回答问题的那一段。",
+  "marginsUnreadable": "那段字是侧着或倒着的。转一转纸。",
+  "marginsWrong": "那段字回答不了这个问题。",
+  "marginsProgress": "已回答：{answered}/{total}",
+  "sonarInstruction": "点一条测线，让声呐沿它扫过，每条一小时。在已扫过的测线上标出沉船。",
+  "sonarHours": "剩余时间：{hours}小时",
+  "sonarRock": "岩石：圆形回波，影子很短。",
+  "sonarScour": "冰擦痕：一道长沟，没有立起的影子。",
+  "sonarNothing": "空荡的海底。",
+  "sonarUnrun": "那里的测线还没扫过。",
+  "sonarSpent": "季节结束了，沉船仍未找到。",
+  "sonarNextSeason": "下一季",
+  "admiraltyCaption": "拾得此纸者，请转交伦敦海军部秘书"
 }

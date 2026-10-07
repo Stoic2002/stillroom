@@ -211,5 +211,18 @@
   "dividersNothing": "지도의 그곳에는 아무것도 그려져 있지 않다.",
   "dividersProgress": "찾은 곳: {total}곳 중 {found}곳",
   "dividersUnset": "디바이더를 벌리고 방향을 고른 뒤 걸어 보자.",
-  "postCaption": "비밀 표식"
+  "postCaption": "비밀 표식",
+  "marginsInstruction": "문장이 바로 설 때까지 종이를 돌리고, 질문에 답하는 문장을 눌러 보자.",
+  "marginsUnreadable": "그 문장은 옆으로 눕거나 거꾸로 있다. 종이를 돌리자.",
+  "marginsWrong": "그 문장은 답이 아니다.",
+  "marginsProgress": "답한 것: {total}개 중 {answered}개",
+  "sonarInstruction": "측선을 누르면 소나가 그 위를 지나간다. 한 줄에 한 시간. 지나간 측선 위에서 난파선을 표시하자.",
+  "sonarHours": "남은 시간: {hours}",
+  "sonarRock": "바위: 둥근 반향, 짧은 그림자.",
+  "sonarScour": "얼음 긁힘: 긴 홈, 서 있는 그림자가 없다.",
+  "sonarNothing": "텅 빈 해저.",
+  "sonarUnrun": "그곳 측선은 아직 지나가지 않았다.",
+  "sonarSpent": "철이 끝났지만 난파선은 찾지 못했다.",
+  "sonarNextSeason": "다음 철",
+  "admiraltyCaption": "이 종이를 발견한 분은 런던 해군성 장관에게 보내 주시기 바랍니다"
 }

@@ -347,6 +347,8 @@ void main() {
       'streets',
       'rings',
       'dividers',
+      'margins',
+      'sonar',
     ]);
   });
 }

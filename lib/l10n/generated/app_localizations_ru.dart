@@ -775,4 +775,51 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get postCaption => 'Условный знак';
+
+  @override
+  String get marginsInstruction =>
+      'Поворачивайте лист, пока отрывок не встанет прямо, и коснитесь того, что отвечает на вопрос.';
+
+  @override
+  String get marginsUnreadable =>
+      'Этот отрывок лежит боком или вверх ногами. Поверните лист.';
+
+  @override
+  String get marginsWrong => 'Этот отрывок на вопрос не отвечает.';
+
+  @override
+  String marginsProgress(int answered, int total) {
+    return 'Отвечено: $answered из $total';
+  }
+
+  @override
+  String get sonarInstruction =>
+      'Коснитесь галса, чтобы пройти по нему сонаром, по часу на галс. Отметьте затонувшее судно на пройденном галсе.';
+
+  @override
+  String sonarHours(int hours) {
+    return 'Осталось часов: $hours';
+  }
+
+  @override
+  String get sonarRock => 'Камень: круглое эхо, короткая тень.';
+
+  @override
+  String get sonarScour => 'Ледовая борозда: длинный желоб без встающей тени.';
+
+  @override
+  String get sonarNothing => 'Голое дно.';
+
+  @override
+  String get sonarUnrun => 'Здесь галс ещё не пройден.';
+
+  @override
+  String get sonarSpent => 'Сезон закончился, а судно не найдено.';
+
+  @override
+  String get sonarNextSeason => 'Следующий сезон';
+
+  @override
+  String get admiraltyCaption =>
+      'Нашедшего эту бумагу просят переслать её секретарю Адмиралтейства, Лондон';
 }

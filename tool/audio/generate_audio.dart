@@ -1845,6 +1845,99 @@ Buf chestLid() {
   return reverb(b, size: 0.3, mix: 0.15);
 }
 
+/// Franklin: sea ice grinding and creaking against a hull, slow groans.
+Buf iceCreak() {
+  final rng = math.Random(67);
+  const seconds = 3.2;
+  final b = Buf(seconds);
+  for (var i = 0; i < 4; i++) {
+    final at = 0.1 + i * 0.7 + rng.nextDouble() * 0.2;
+    final length = 0.5 + rng.nextDouble() * 0.5;
+    b.add(
+      shape(
+        bandpass(noise(length, rng), (t) => 300 + 600 * t / length, 6),
+        (t) => swell(t, 0.1, 0.2, length),
+      ),
+      at: at,
+      gain: 1.6,
+      pan: (rng.nextDouble() - 0.5) * 0.6,
+    );
+  }
+  b.add(
+    shape(
+      lowpass(brown(seconds, rng), (_) => 160),
+      (t) => swell(t, 0.5, 1.0, seconds),
+    ),
+    gain: 0.5,
+  );
+  return reverb(b, size: 0.7, mix: 0.3);
+}
+
+/// Franklin: a helicopter's rotor turning slowly down, the beat fading.
+Buf rotor() {
+  final rng = math.Random(68);
+  const seconds = 3.0;
+  final b = Buf(seconds);
+  var at = 0.0;
+  var gap = 0.12;
+  while (at < seconds - 0.2) {
+    b.add(
+      shape(lowpass(noise(0.08, rng), (_) => 500), (t) => decay(t, 0.03)),
+      at: at,
+      gain: 0.9 * (1 - at / seconds),
+    );
+    at += gap;
+    gap *= 1.04;
+  }
+  return reverb(b, size: 0.5, mix: 0.2);
+}
+
+/// Franklin: a frame drum struck once, low, its skin humming.
+Buf drumLow() {
+  final rng = math.Random(69);
+  final b = Buf(2.2)
+    ..add(
+      modal(2, 72, const [(1, 1, 0.6), (1.6, 0.5, 0.35), (2.3, 0.25, 0.2)]),
+      gain: 0.6,
+    )
+    ..add(
+      shape(lowpass(noise(0.12, rng), (_) => 700), (t) => decay(t, 0.03)),
+      gain: 0.5,
+    );
+  return reverb(b, size: 0.6, mix: 0.3);
+}
+
+/// Franklin: a sonar ping, a pure tone with a long watery tail.
+Buf sonarPing() {
+  final b = Buf(2.4)
+    ..add(
+      shape(
+        tone(2.2, (_) => 1320),
+        (t) => decay(t, 0.45) * swell(t, 0.005, 0.3, 2.2),
+      ),
+      gain: 0.18,
+    );
+  return reverb(b, size: 0.9, mix: 0.4, damp: 0.3);
+}
+
+/// A seal slipping off the ice into the water.
+Buf splash() {
+  final rng = math.Random(70);
+  final b = Buf(1.2)
+    ..add(
+      shape(
+        bandpass(noise(0.6, rng), (t) => 1800 - 1200 * t, 1.2),
+        (t) => decay(t, 0.15),
+      ),
+      gain: 1.2,
+    )
+    ..add(
+      shape(lowpass(noise(0.3, rng), (_) => 400), (t) => decay(t, 0.06)),
+      gain: 0.8,
+    );
+  return reverb(b, size: 0.4, mix: 0.2);
+}
+
 final sfx = <String, Buf Function()>{
   'stone_door': stoneDoor,
   'reactor_count': reactorCount,
@@ -1860,6 +1953,11 @@ final sfx = <String, Buf Function()>{
   'trumpet_call': trumpetCall,
   'surf_low': surfLow,
   'chest_lid': chestLid,
+  'ice_creak': iceCreak,
+  'rotor': rotor,
+  'drum_low': drumLow,
+  'sonar_ping': sonarPing,
+  'splash': splash,
   'notebook': notebook,
   'wind_ridge': windRidge,
   'canvas_flap': canvasFlap,
@@ -2334,6 +2432,50 @@ Buf soundDawn() => loop(48, (seconds) {
   return reverb(b, size: 0.9, mix: 0.4, damp: 0.55);
 });
 
+/// Franklin: a cold low drone, ice creaking now and then, wind, and a
+/// sonar ping far off once a loop.
+Buf iceDrift() => loop(48, (seconds) {
+  final rng = math.Random(35);
+  final b = Buf(seconds)
+    ..add(
+      drone(seconds, loopSeconds: 48, const [
+        (49.0, 0.38, 24),
+        (98.0, 0.12, 16),
+        (146.8, 0.05, 12),
+      ]),
+      gain: 0.38,
+    );
+  final wind = shape(
+    bandpass(
+      noise(seconds, rng),
+      (t) => 800 + 400 * math.sin(tau * t / 14),
+      1.6,
+    ),
+    (t) => 0.2 + 0.8 * math.pow(math.sin(tau * t / 20), 2),
+  );
+  b.add(gain(wind, 0.12), pan: -0.3);
+  for (var at = 6.0; at < seconds - 4; at += 13) {
+    b.add(
+      shape(
+        bandpass(noise(0.9, rng), (t) => 250 + 400 * t, 7),
+        (t) => swell(t, 0.2, 0.4, 0.9),
+      ),
+      at: at,
+      gain: 0.25,
+      pan: 0.4,
+    );
+  }
+  b.add(
+    shape(
+      tone(2.5, (_) => 1320),
+      (t) => decay(t, 0.5) * swell(t, 0.005, 0.4, 2.5),
+    ),
+    at: 30,
+    gain: 0.02,
+  );
+  return reverb(b, size: 0.9, mix: 0.4, damp: 0.5);
+});
+
 final music = <String, Buf Function()>{
   'chongling_winter': chonglingWinter,
   'alamut_snow': alamutSnow,
@@ -2341,6 +2483,7 @@ final music = <String, Buf Function()>{
   'ural_wind': uralWind,
   'kyoto_ash': kyotoAsh,
   'sound_dawn': soundDawn,
+  'ice_drift': iceDrift,
   'whitechapel_1891': whitechapel1891,
   'gyeongju_night': gyeongjuNight,
   'bastille_dawn': bastilleDawn,
@@ -3135,6 +3278,45 @@ Buf dividerStepSound() {
   return reverb(b, size: 0.1, mix: 0.08);
 }
 
+/// A written sheet turned a quarter turn on the table.
+Buf sheetTurnSound() {
+  final rng = math.Random(79);
+  return Buf(0.35)..add(
+    shape(
+      bandpass(noise(0.25, rng), (_) => 2600, 1.2),
+      (t) => swell(t, 0.03, 0.15, 0.25),
+    ),
+    gain: 0.35,
+  );
+}
+
+/// A sonar lane run: a quick ping and a sweep of hiss.
+Buf laneRunSound() {
+  final rng = math.Random(80);
+  return Buf(0.6)
+    ..add(shape(tone(0.4, (_) => 1500), (t) => decay(t, 0.08)), gain: 0.1)
+    ..add(
+      shape(
+        bandpass(noise(0.4, rng), (t) => 1200 + 2000 * t, 2),
+        (t) => swell(t, 0.05, 0.2, 0.4),
+      ),
+      at: 0.05,
+      gain: 0.2,
+    );
+}
+
+/// An echo marked: two rising pings.
+Buf echoMarkSound() {
+  final b = Buf(0.7)
+    ..add(shape(tone(0.3, (_) => 1320), (t) => decay(t, 0.08)), gain: 0.12)
+    ..add(
+      shape(tone(0.35, (_) => 1760), (t) => decay(t, 0.1)),
+      at: 0.16,
+      gain: 0.12,
+    );
+  return reverb(b, size: 0.4, mix: 0.2);
+}
+
 final ui = <String, Buf Function()>{
   'geiger': () => geigerSound(clicks: 4, seed: 61),
   'geiger_hot': () => geigerSound(clicks: 26, seed: 62),
@@ -3157,6 +3339,9 @@ final ui = <String, Buf Function()>{
   'core_slide': coreSlideSound,
   'ring_mark': ringMarkSound,
   'divider_step': dividerStepSound,
+  'sheet_turn': sheetTurnSound,
+  'lane_run': laneRunSound,
+  'echo_mark': echoMarkSound,
   'type_sort': typeSortSound,
   'lamp_gutter': lampGutterSound,
   'pour': pourSound,

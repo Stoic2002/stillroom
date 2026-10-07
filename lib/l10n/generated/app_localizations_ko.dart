@@ -725,4 +725,48 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get postCaption => '비밀 표식';
+
+  @override
+  String get marginsInstruction => '문장이 바로 설 때까지 종이를 돌리고, 질문에 답하는 문장을 눌러 보자.';
+
+  @override
+  String get marginsUnreadable => '그 문장은 옆으로 눕거나 거꾸로 있다. 종이를 돌리자.';
+
+  @override
+  String get marginsWrong => '그 문장은 답이 아니다.';
+
+  @override
+  String marginsProgress(int answered, int total) {
+    return '답한 것: $total개 중 $answered개';
+  }
+
+  @override
+  String get sonarInstruction =>
+      '측선을 누르면 소나가 그 위를 지나간다. 한 줄에 한 시간. 지나간 측선 위에서 난파선을 표시하자.';
+
+  @override
+  String sonarHours(int hours) {
+    return '남은 시간: $hours';
+  }
+
+  @override
+  String get sonarRock => '바위: 둥근 반향, 짧은 그림자.';
+
+  @override
+  String get sonarScour => '얼음 긁힘: 긴 홈, 서 있는 그림자가 없다.';
+
+  @override
+  String get sonarNothing => '텅 빈 해저.';
+
+  @override
+  String get sonarUnrun => '그곳 측선은 아직 지나가지 않았다.';
+
+  @override
+  String get sonarSpent => '철이 끝났지만 난파선은 찾지 못했다.';
+
+  @override
+  String get sonarNextSeason => '다음 철';
+
+  @override
+  String get admiraltyCaption => '이 종이를 발견한 분은 런던 해군성 장관에게 보내 주시기 바랍니다';
 }

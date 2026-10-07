@@ -766,4 +766,52 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get postCaption => 'The secret token';
+
+  @override
+  String get marginsInstruction =>
+      'Turn the sheet until a passage stands upright, then tap the one that answers the question.';
+
+  @override
+  String get marginsUnreadable =>
+      'That passage lies on its side or upside down. Turn the sheet.';
+
+  @override
+  String get marginsWrong => 'That passage does not answer it.';
+
+  @override
+  String marginsProgress(int answered, int total) {
+    return 'Answered: $answered of $total';
+  }
+
+  @override
+  String get sonarInstruction =>
+      'Tap a lane to run the sonar along it, an hour each. Mark the wreck on a lane that has been run.';
+
+  @override
+  String sonarHours(int hours) {
+    return 'Hours left: $hours';
+  }
+
+  @override
+  String get sonarRock => 'A rock: a round echo, a short shadow.';
+
+  @override
+  String get sonarScour =>
+      'An ice scour: a long groove, no shadow standing off it.';
+
+  @override
+  String get sonarNothing => 'Bare seabed.';
+
+  @override
+  String get sonarUnrun => 'No lane has been run there yet.';
+
+  @override
+  String get sonarSpent => 'The season is over and the wreck not found.';
+
+  @override
+  String get sonarNextSeason => 'Next season';
+
+  @override
+  String get admiraltyCaption =>
+      'Whoever finds this paper is requested to forward it to the Secretary of the Admiralty, London';
 }

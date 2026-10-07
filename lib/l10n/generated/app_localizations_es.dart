@@ -772,4 +772,52 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get postCaption => 'La señal secreta';
+
+  @override
+  String get marginsInstruction =>
+      'Gira la hoja hasta que un pasaje quede derecho y toca el que responde a la pregunta.';
+
+  @override
+  String get marginsUnreadable =>
+      'Ese pasaje está de lado o del revés. Gira la hoja.';
+
+  @override
+  String get marginsWrong => 'Ese pasaje no lo responde.';
+
+  @override
+  String marginsProgress(int answered, int total) {
+    return 'Respondidas: $answered de $total';
+  }
+
+  @override
+  String get sonarInstruction =>
+      'Toca una calle para pasar el sonar por ella, una hora cada una. Marca el pecio en una calle ya recorrida.';
+
+  @override
+  String sonarHours(int hours) {
+    return 'Horas restantes: $hours';
+  }
+
+  @override
+  String get sonarRock => 'Una roca: un eco redondo, una sombra corta.';
+
+  @override
+  String get sonarScour =>
+      'Una marca de hielo: un surco largo, sin sombra que se levante.';
+
+  @override
+  String get sonarNothing => 'Fondo desnudo.';
+
+  @override
+  String get sonarUnrun => 'Esa calle aún no se ha recorrido.';
+
+  @override
+  String get sonarSpent => 'La temporada ha terminado sin hallar el pecio.';
+
+  @override
+  String get sonarNextSeason => 'Siguiente temporada';
+
+  @override
+  String get admiraltyCaption =>
+      'Se ruega a quien encuentre este papel que lo envíe al Secretario del Almirantazgo, Londres';
 }

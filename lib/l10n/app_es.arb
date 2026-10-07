@@ -211,5 +211,18 @@
   "dividersNothing": "No hay nada dibujado ahí en el mapa.",
   "dividersProgress": "Lugares hallados: {found} de {total}",
   "dividersUnset": "Abre el compás y elige un rumbo; luego avanza.",
-  "postCaption": "La señal secreta"
+  "postCaption": "La señal secreta",
+  "marginsInstruction": "Gira la hoja hasta que un pasaje quede derecho y toca el que responde a la pregunta.",
+  "marginsUnreadable": "Ese pasaje está de lado o del revés. Gira la hoja.",
+  "marginsWrong": "Ese pasaje no lo responde.",
+  "marginsProgress": "Respondidas: {answered} de {total}",
+  "sonarInstruction": "Toca una calle para pasar el sonar por ella, una hora cada una. Marca el pecio en una calle ya recorrida.",
+  "sonarHours": "Horas restantes: {hours}",
+  "sonarRock": "Una roca: un eco redondo, una sombra corta.",
+  "sonarScour": "Una marca de hielo: un surco largo, sin sombra que se levante.",
+  "sonarNothing": "Fondo desnudo.",
+  "sonarUnrun": "Esa calle aún no se ha recorrido.",
+  "sonarSpent": "La temporada ha terminado sin hallar el pecio.",
+  "sonarNextSeason": "Siguiente temporada",
+  "admiraltyCaption": "Se ruega a quien encuentre este papel que lo envíe al Secretario del Almirantazgo, Londres"
 }

@@ -84,4 +84,22 @@ void main() {
     run(heron, 15);
     expect(heron.near(body), isTrue, reason: 'back in the shallows');
   });
+
+  test('a startled seal slips off its floe and hauls out again', () {
+    final sounds = <String>[];
+    final seal = Creature.create(
+      CreatureKind.seal,
+      area,
+      math.Random(5),
+      sounds.add,
+    );
+    final floe = Offset(area.center.dx, area.bottom - 20);
+    expect(seal.near(floe), isTrue);
+    seal.startle();
+    expect(sounds, ['splash']);
+    run(seal, 3);
+    expect(seal.near(floe), isFalse, reason: 'in the water');
+    run(seal, 13);
+    expect(seal.near(floe), isTrue, reason: 'back on the ice');
+  });
 }

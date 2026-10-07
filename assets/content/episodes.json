@@ -158,7 +158,19 @@
       ]
     },
     {
-      "id": "sealed_franklin_1845",
+      "id": "franklin_1845",
+      "titleKey": "episode.franklin_1845.title",
+      "teaserKey": "episode.franklin_1845.teaser",
+      "jarImage": "images/ui/jar_franklin_1845.png",
+      "shelf": 4,
+      "unlockAfter": 8,
+      "place": [
+        68.24,
+        -98.87
+      ]
+    },
+    {
+      "id": "sealed_indonesia_shelf4",
       "titleKey": "episode.sealed.title",
       "comingSoon": true,
       "shelf": 4,

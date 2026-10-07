@@ -1,0 +1,61 @@
+{
+  "id": "jar_label",
+  "type": "deduction",
+  "background": "images/scenes/franklin_1845/label_close.png",
+  "config": {
+    "form": "admiralty",
+    "sentences": [
+      {
+        "textKey": "franklin_1845.label.s1",
+        "blanks": [
+          "date_1848",
+          "ugjulik",
+          "erebus"
+        ]
+      }
+    ],
+    "words": [
+      "date_1848",
+      "ugjulik",
+      "erebus",
+      "date_1847",
+      "victory_point",
+      "terror",
+      "lead",
+      "crushed"
+    ],
+    "nearMiss": 1
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "ice_creak"
+    },
+    {
+      "type": "showText",
+      "key": "franklin_1845.label.done"
+    },
+    {
+      "type": "showText",
+      "key": "franklin_1845.ending.found"
+    },
+    {
+      "type": "showText",
+      "key": "franklin_1845.ending.after"
+    },
+    {
+      "type": "endEpisode"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.franklin_1845.jar_label.1"
+    },
+    {
+      "key": "hint.franklin_1845.jar_label.2"
+    },
+    {
+      "key": "hint.franklin_1845.jar_label.3"
+    }
+  ]
+}

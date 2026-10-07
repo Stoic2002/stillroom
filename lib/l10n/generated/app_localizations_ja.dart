@@ -720,4 +720,48 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get postCaption => '秘密の目印';
+
+  @override
+  String get marginsInstruction => '紙を回して文が正立したら、問いに答える文に触れよう。';
+
+  @override
+  String get marginsUnreadable => 'その文は横向きか逆さまだ。紙を回そう。';
+
+  @override
+  String get marginsWrong => 'その文は答えになっていない。';
+
+  @override
+  String marginsProgress(int answered, int total) {
+    return '回答：$totalのうち$answered';
+  }
+
+  @override
+  String get sonarInstruction =>
+      '測線に触れるとソナーがその上を走る。一本につき一時間。走らせた測線の上で沈没船に印を付けよう。';
+
+  @override
+  String sonarHours(int hours) {
+    return '残り時間：$hours';
+  }
+
+  @override
+  String get sonarRock => '岩：丸い反響、短い影。';
+
+  @override
+  String get sonarScour => '氷の削り跡：長い溝、立ち上がる影はない。';
+
+  @override
+  String get sonarNothing => '何もない海底。';
+
+  @override
+  String get sonarUnrun => 'そこの測線はまだ走らせていない。';
+
+  @override
+  String get sonarSpent => '季節が終わり、沈没船は見つからなかった。';
+
+  @override
+  String get sonarNextSeason => '次の季節';
+
+  @override
+  String get admiraltyCaption => 'この紙を見つけた方は、ロンドンの海軍本部長官あてに送付されたい';
 }

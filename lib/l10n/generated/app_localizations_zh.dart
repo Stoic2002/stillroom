@@ -718,4 +718,47 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get postCaption => '秘密记号';
+
+  @override
+  String get marginsInstruction => '转动纸张，直到某段文字摆正，再点能回答问题的那一段。';
+
+  @override
+  String get marginsUnreadable => '那段字是侧着或倒着的。转一转纸。';
+
+  @override
+  String get marginsWrong => '那段字回答不了这个问题。';
+
+  @override
+  String marginsProgress(int answered, int total) {
+    return '已回答：$answered/$total';
+  }
+
+  @override
+  String get sonarInstruction => '点一条测线，让声呐沿它扫过，每条一小时。在已扫过的测线上标出沉船。';
+
+  @override
+  String sonarHours(int hours) {
+    return '剩余时间：$hours小时';
+  }
+
+  @override
+  String get sonarRock => '岩石：圆形回波，影子很短。';
+
+  @override
+  String get sonarScour => '冰擦痕：一道长沟，没有立起的影子。';
+
+  @override
+  String get sonarNothing => '空荡的海底。';
+
+  @override
+  String get sonarUnrun => '那里的测线还没扫过。';
+
+  @override
+  String get sonarSpent => '季节结束了，沉船仍未找到。';
+
+  @override
+  String get sonarNextSeason => '下一季';
+
+  @override
+  String get admiraltyCaption => '拾得此纸者，请转交伦敦海军部秘书';
 }

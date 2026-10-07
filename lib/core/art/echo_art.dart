@@ -95,6 +95,13 @@ enum EchoFigure {
   /// A sailor of 1590 in a short jacket and wide breeches, digging with a
   /// spade.
   shoveller,
+
+  /// A man of 1848 in a long coat and a cap with flaps, leaning into the
+  /// drag-rope of a sledge behind him.
+  hauler,
+
+  /// A surveyor of 2014 in a hooded float coat, a tablet in hand.
+  surveyor,
 }
 
 const _mist = Color(0xFFD5DEE2);
@@ -629,6 +636,60 @@ void paintEcho(Art a, EchoFigure figure) {
             body,
           );
       }
+    case EchoFigure.hauler:
+      final rope = Paint()
+        ..color = _mist
+        ..strokeWidth = w * 0.04
+        ..maskFilter = blur;
+      a.canvas
+        // The cap with its flaps.
+        ..drawOval(a.r(0.38, 0.03, 0.3, 0.1), body)
+        // Leaning forward: the long coat, the legs in stride.
+        ..drawPath(
+          shape([(0.4, 0.18), (0.72, 0.2), (0.7, 0.66), (0.3, 0.66)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.36, 0.64), (0.5, 0.64), (0.4, 0.99), (0.28, 0.99)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.52, 0.64), (0.66, 0.64), (0.78, 0.99), (0.64, 0.99)]),
+          body,
+        )
+        // The drag-rope over the shoulder, back to the sledge.
+        ..drawLine(a.p(0.66, 0.24), a.p(0.02, 0.86), rope);
+    case EchoFigure.surveyor:
+      a.canvas
+        // The hood up, the float coat to the hip, a tablet held out.
+        ..drawPath(
+          shape([
+            (0.32, 0.12),
+            (0.5, 0.02),
+            (0.68, 0.12),
+            (0.7, 0.22),
+            (0.3, 0.22),
+          ]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.24, 0.2), (0.76, 0.2), (0.8, 0.6), (0.2, 0.6)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.32, 0.58), (0.48, 0.58), (0.46, 0.99), (0.33, 0.99)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.52, 0.58), (0.68, 0.58), (0.67, 0.99), (0.54, 0.99)]),
+          body,
+        )
+        ..drawRect(
+          a.r(0.66, 0.34, 0.22, 0.12),
+          Paint()
+            ..color = const Color(0xCC8AA8C0)
+            ..maskFilter = blur,
+        );
     case EchoFigure.investigator:
       a.canvas
         ..drawPath(

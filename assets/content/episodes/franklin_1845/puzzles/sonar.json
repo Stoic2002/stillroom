@@ -1,0 +1,129 @@
+{
+  "id": "sonar",
+  "type": "sonar",
+  "background": "images/scenes/franklin_1845/sonar_board.png",
+  "config": {
+    "columns": 12,
+    "rows": 8,
+    "hours": 3,
+    "wreck": {
+      "column": 5,
+      "row": 5,
+      "length": 2
+    },
+    "rocks": [
+      [
+        2,
+        1
+      ],
+      [
+        9,
+        2
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        8,
+        5
+      ],
+      [
+        10,
+        6
+      ],
+      [
+        4,
+        7
+      ],
+      [
+        6,
+        2
+      ]
+    ],
+    "scours": [
+      [
+        1,
+        0
+      ],
+      [
+        7,
+        1
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        9,
+        4
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        3,
+        3
+      ]
+    ],
+    "marks": [
+      {
+        "labelKey": "franklin_1845.sonar.north",
+        "at": [
+          5.5,
+          0.35
+        ]
+      },
+      {
+        "labelKey": "franklin_1845.sonar.grant_point",
+        "at": [
+          11.4,
+          3.3
+        ]
+      },
+      {
+        "labelKey": "franklin_1845.sonar.oreilly",
+        "at": [
+          1.6,
+          6.8
+        ]
+      },
+      {
+        "labelKey": "franklin_1845.sonar.adelaide",
+        "at": [
+          11.4,
+          6.6
+        ]
+      },
+      {
+        "labelKey": "franklin_1845.sonar.pintle",
+        "at": [
+          7.6,
+          4.55
+        ]
+      }
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "sonar_ping"
+    },
+    {
+      "type": "showText",
+      "key": "franklin_1845.survey.sonar_done"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.franklin_1845.sonar.1"
+    },
+    {
+      "key": "hint.franklin_1845.sonar.2"
+    },
+    {
+      "key": "hint.franklin_1845.sonar.3"
+    }
+  ]
+}

@@ -1,13 +1,15 @@
 # Episode design: The Franklin expedition, 1845 (the ship the Inuit remembered)
 
-Status: **design draft** (2026-10-07), for the developer's approval before
-anything is built. Shelf IV (opens after 8 tales), the Arctic, from the
-plan of 16 tales (`docs/stillroom_frame.md`, *The full shelf*). It
-replaces the sealed teaser `sealed_franklin_1845`; the last place on
-shelf IV is the Indonesian tale still to be chosen. Proposed id:
-`franklin_1845`; jar label **Franklin, 1845** (see question 3), its map
-pin on the wreck of *Erebus* off the Adelaide Peninsula. Drawn in depth,
-one camera per scene (CLAUDE.md decision 6).
+Status: **built** (2026-10-07): draft text in seven languages, code-drawn
+art in depth (`lib/core/art/franklin_1845_art.dart`), generated audio,
+walkthrough test. Approved by the developer with setting A, both
+mechanics, and the recommended label and seal. Shelf IV (opens after 8
+tales), the Arctic, from the plan of 16 tales
+(`docs/stillroom_frame.md`, *The full shelf*). It replaces the sealed
+teaser `sealed_franklin_1845`; the last place on shelf IV holds
+`sealed_indonesia_shelf4` for the Indonesian tale still to be chosen. Id:
+`franklin_1845`; jar label **Franklin, 1845**, its map pin on the wreck
+of *Erebus* off the Adelaide Peninsula.
 
 ## Premise
 
@@ -170,11 +172,57 @@ timber through the ice. No one of the 129 came home."
   `drum_low` (the drum in the hall). Interface: `sheet_turn` (the note
   turned), `lane_run` (a lane surveyed), `echo_mark` (an echo marked).
 
-## Open questions for the developer
+## Decisions (2026-10-07)
 
-1. Where it is set: **A** (the 2014 search, recommended) or B (Victory
-   Point, 1859)?
-2. The two mechanics: the margins (`margins`) and the sonar (`sonar`)?
-3. The jar's label: **Franklin, 1845** (recommended) or Erebus, 1845?
-   And the seal as the Admiralty form (`admiralty`), with its sentence
-   (1848 / Ugjulik / *Erebus*)?
+1. Setting **A**: the 2014 search off the Adelaide Peninsula; the Victory
+   Point note, Hall's chart and the later papers arrive as papers.
+2. Both mechanics: the margins (`margins`) and the sonar (`sonar`).
+3. The jar's label **Franklin, 1845**; the seal as a fresh Admiralty form
+   (`admiralty`): "They left the ships in {1848}; the Inuit said one went
+   down off {Ugjulik}, and {*Erebus*} lay there."
+
+## As built
+
+- **Map:** the deck (start) opens on the survey room (the bridge door),
+  the island (the helicopter aft) and the hall in Gjoa Haven (the launch
+  on its davits).
+- **Flow:** the ice chart and the shore from the deck. In the survey
+  room the note (`margins`, gives *1848*, *1847*, *Victory Point*) and
+  Hall's chart; the sonar waits. In the hall the elders' recordings
+  (*Ugjulik*), the wall map of names, the drum. The sonar still waits for
+  word from the islands: on the island, the pintle and the plug. Then the
+  survey (`sonar`, gives *Erebus*), then the later papers on the wall
+  (*lead from the tins*, *crushed in the ice*, *Terror*). The keeper's
+  slip is behind the drum once those are read; the seal is a fresh form
+  on the chart table.
+- **The note:** six passages on a square sheet: the printed request, the
+  1847 message and its signatures upright; the 1848 hand up the right
+  side (deserted), upside down along the top (Franklin's death, the
+  losses), down the left side (105 souls, Back's Fish River). The 1847
+  "All well" and its "1846–7" read first and are wrong answers.
+- **The survey:** 12 by 8 cells, three hours a season; the wreck two
+  cells long in the sixth lane from the top, a rock and a scour in the
+  same lane; marks for Victory Point (north), Grant Point, the pintle's
+  island, O'Reilly Island and the Adelaide Peninsula. The grid is
+  stylized; the accounts' bearings are kept.
+- **Words:** *1848*, *Ugjulik*, *Erebus* (the answers); *1847*, *Victory
+  Point*, *Terror*, *lead from the tins*, *crushed in the ice* (decoys).
+- **Echoes:** a man of 1848 hauling a sledge on the island; a surveyor in
+  a float coat on the deck (`EchoFigure.hauler`, `EchoFigure.surveyor`).
+  **Living things:** a bearded seal on a floe (`seal`), gulls.
+- **Audio:** music `ice_drift`; effects `ice_creak`, `rotor`, `drum_low`,
+  `sonar_ping`, `splash`; interface `sheet_turn`, `lane_run`, `echo_mark`.
+
+## Things to watch when tested
+
+- Whether turning the sheet to read is found without the hint, and
+  whether the small text in the margins reads at phone size.
+- Whether the sonar's budget feels fair: three hours, eight lanes; the
+  accounts and the island must be enough to choose. Whether a rock, a
+  scour and the wreck read apart.
+- The tone of the later papers (Rae, Dickens) and of the elders'
+  accounts; that the Inuit are heard as the witnesses who were right.
+- The four scenes in depth: the exits (the bridge door, the helicopter,
+  the launch) found.
+- The Inuit names (Ugjulik, Inukpujijuk) in the CJK and Russian texts, for
+  a native reader.

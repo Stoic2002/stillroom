@@ -159,7 +159,16 @@ enum UiSound {
   ringMark('ring_mark', Haptic.light),
 
   /// The dividers walked one step across the chart.
-  dividerStep('divider_step', Haptic.selection);
+  dividerStep('divider_step', Haptic.selection),
+
+  /// A written sheet turned a quarter turn.
+  sheetTurn('sheet_turn', Haptic.selection),
+
+  /// A sonar lane run, its echoes drawn.
+  laneRun('lane_run', Haptic.light),
+
+  /// An echo marked as the wreck.
+  echoMark('echo_mark', Haptic.medium);
 
   const UiSound(this.id, this.haptic);
 
