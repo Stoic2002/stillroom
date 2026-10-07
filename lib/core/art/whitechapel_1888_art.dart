@@ -91,36 +91,11 @@ const _roomDepth = 0.72;
 
 Room _roomOf(Art a) => Room(a, vp: a.p(_eye.dx, _eye.dy), depth: _roomDepth);
 
-/// A sprite's own view of the room's camera: the same vanishing point,
-/// placed relative to the sprite's layer rect in the scene, so its boxes
-/// recede the way the room does.
-Room _spriteRoom(Art a, (double, double, double, double) rect) {
-  final (x, y, w, h) = rect;
-  return Room(
-    a,
-    vp: Offset(
-      (_eye.dx - x) / w * a.size.width,
-      (_eye.dy - y) / h * a.size.height,
-    ),
-    depth: _roomDepth,
-  );
-}
+Room _spriteRoom(Art a, (double, double, double, double) rect) =>
+    Room.sprite(a, eye: _eye, layer: rect, depth: _roomDepth);
 
-/// A soft shadow on the floor at the foot of a sprite: an ellipse along
-/// its bottom edge.
-void _footShadow(Art a, double x0, double x1, {double y = 0.98}) {
-  a.canvas.drawOval(
-    Rect.fromLTRB(
-      a.size.width * x0,
-      a.size.height * y - a.u * 2,
-      a.size.width * x1,
-      a.size.height * y + a.u * 2,
-    ),
-    Paint()
-      ..color = const Color(0x88000000)
-      ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.u * 1.5),
-  );
-}
+void _footShadow(Art a, double x0, double x1, {double y = 0.98}) =>
+    Room.spriteShadow(a, x0, x1, y: y);
 
 void _room(Art a, _Wall wall, {bool ghostFrames = false}) {
   final room = _roomOf(a);

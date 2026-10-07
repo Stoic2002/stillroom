@@ -18,6 +18,42 @@ final class Room {
   Room(this.a, {required this.vp, required this.depth})
     : assert(depth > 0 && depth < 1);
 
+  /// The scene's camera as seen from a sprite drawn in its own layer
+  /// rect: the vanishing point at [eye] (fractions of the scene) placed
+  /// relative to [layer] (left, top, width, height, fractions of the
+  /// scene), so the sprite's boxes recede the way the scene does.
+  factory Room.sprite(
+    Art a, {
+    required Offset eye,
+    required (double, double, double, double) layer,
+    double depth = 0.7,
+  }) {
+    final (x, y, w, h) = layer;
+    return Room(
+      a,
+      vp: Offset(
+        (eye.dx - x) / w * a.size.width,
+        (eye.dy - y) / h * a.size.height,
+      ),
+      depth: depth,
+    );
+  }
+
+  /// A soft shadow along the bottom of a sprite, from [x0] to [x1]
+  /// (fractions of its width), at height [y].
+  static void spriteShadow(Art a, double x0, double x1, {double y = 0.98}) =>
+      a.canvas.drawOval(
+        Rect.fromLTRB(
+          a.size.width * x0,
+          a.size.height * y - a.u * 2,
+          a.size.width * x1,
+          a.size.height * y + a.u * 2,
+        ),
+        Paint()
+          ..color = const Color(0x88000000)
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.u * 1.5),
+      );
+
   final Art a;
 
   /// Where receding lines meet.

@@ -11,10 +11,10 @@
     {
       "id": "lockers",
       "rect": [
-        0.08,
-        0.12,
-        0.84,
-        0.7
+        0.16,
+        0.15,
+        0.68,
+        0.676
       ],
       "when": [
         {
@@ -32,10 +32,10 @@
     {
       "id": "lockers_done",
       "rect": [
-        0.08,
-        0.12,
-        0.84,
-        0.7
+        0.16,
+        0.15,
+        0.68,
+        0.676
       ],
       "when": [
         {
@@ -56,10 +56,10 @@
       "id": "lockers_empty_sprite",
       "image": "images/objects/lawang_sewu_1945/lockers_empty_sprite.png",
       "rect": [
-        0.08,
-        0.12,
-        0.84,
-        0.7
+        0.16,
+        0.15,
+        0.68,
+        0.676
       ],
       "when": [
         {
@@ -72,10 +72,10 @@
       "id": "lockers_filled_sprite",
       "image": "images/objects/lawang_sewu_1945/lockers_filled_sprite.png",
       "rect": [
-        0.08,
-        0.12,
-        0.84,
-        0.7
+        0.16,
+        0.15,
+        0.68,
+        0.676
       ],
       "when": [
         {

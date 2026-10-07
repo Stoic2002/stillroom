@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import '../theme/stillroom_palette.dart';
 import 'art_kit.dart';
+import 'depth_kit.dart';
 import 'echo_art.dart';
 import 'whitechapel_1888_art.dart' show jarLabelBoard;
 
@@ -262,28 +263,101 @@ void _corridor(Art a, {required bool east}) {
   _tiledFloor(a, 0.72);
 }
 
+/// The office's camera, shared by its furniture sprites.
+const _officeEye = Offset(0.5, 0.38);
+
 void _office(Art a) {
+  final room = Room(a, vp: a.p(_officeEye.dx, _officeEye.dy), depth: 0.74);
+  final back = room.back;
   a
-    ..fill(Offset.zero & a.size, _sepia)
-    ..fill(a.r(0, 0.62, 1, 0.38), _sepiaLight)
-    ..floorboards(a.r(0, 0.86, 1, 0.14))
-    // A tall window with 1907 daylight.
-    ..path(_archPath(a.r(0.38, 0.06, 0.12, 0.5)), const Color(0xFFCDB789))
+    ..path(room.ceiling, const Color(0xFF5A4630), line: 0)
+    ..path(room.leftWall, Color.lerp(_sepia, Art.outline, 0.2)!, line: 0)
+    ..path(room.rightWall, Color.lerp(_sepia, Art.outline, 0.2)!, line: 0)
+    ..fill(back, _sepia)
+    ..fill(
+      Rect.fromLTRB(
+        back.left,
+        back.top + back.height * 0.62,
+        back.right,
+        back.bottom,
+      ),
+      _sepiaLight,
+    )
+    ..path(room.floor, const Color(0xFF6A4E30), line: 0);
+  room.floorGrid(const Color(0x55301C0C), rows: 2, columns: 14, width: 0.35);
+  for (final x in [0.0, 1.0]) {
+    a.line(
+      room.at(x, 0.38, 0),
+      room.at(x, 0.38, 1),
+      const Color(0x553A2A18),
+      width: 0.5,
+    );
+  }
+  // A tall window with 1907 daylight, in the thickness of the wall.
+  final arch = a.r(0.38, 0.12, 0.12, 0.44);
+  a
+    ..path(
+      _archPath(arch.inflate(a.u * 1.4)),
+      Color.lerp(_sepia, Art.outline, 0.35)!,
+      line: 0,
+    )
+    ..path(_archPath(arch), const Color(0xFFCDB789))
     ..glow(
       a.p(0.44, 0.4),
       a.size.width * 0.25,
       const Color(0xFFF2D59A),
       strength: 0.25,
     )
-    ..strokePath(_archPath(a.r(0.38, 0.06, 0.12, 0.5)), _teakDark, width: 1.2)
-    ..line(a.p(0.44, 0.1), a.p(0.44, 0.56), _teakDark, width: 0.8)
-    ..line(a.p(0.38, 0.34), a.p(0.5, 0.34), _teakDark, width: 0.8)
-    ..fade(a.r(0, 0, 1, 0.2), const Color(0x88000000), const Color(0x00000000));
+    ..strokePath(_archPath(arch), _teakDark, width: 1.2)
+    ..line(a.p(0.44, 0.16), a.p(0.44, 0.56), _teakDark, width: 0.8)
+    ..line(a.p(0.38, 0.34), a.p(0.5, 0.34), _teakDark, width: 0.8);
+  room.beam(
+    [arch.bottomLeft, arch.bottomRight],
+    [
+      room.floorAt(0.38, 0.62),
+      room.floorAt(0.56, 0.62),
+      room.floorAt(0.62, 0.3),
+      room.floorAt(0.32, 0.3),
+    ],
+    const Color(0xFFF2D59A),
+    strength: 0.12,
+  );
+  // The small table under the telegraph.
+  room.standTable(
+    Rect.fromLTRB(
+      a.size.width * 0.57,
+      a.size.height * 0.79,
+      a.size.width * 0.83,
+      a.size.height * 0.93,
+    ),
+    _teak,
+    deep: 0.12,
+    leg: 0.012,
+  );
+  room
+    ..shadeCorners(strength: 0.35)
+    ..edges(const Color(0x88201408), width: 0.4);
+  a.fade(a.r(0, 0, 1, 0.2), const Color(0x88000000), const Color(0x00000000));
 }
 
 void _window1945(Art a) {
-  a.fill(Offset.zero & a.size, _wall);
+  final room = Room(a, vp: a.p(0.45, 0.38), depth: 0.82);
+  a
+    ..path(room.ceiling, const Color(0xFF1A201E), line: 0)
+    ..path(room.leftWall, Color.lerp(_wall, Art.outline, 0.3)!, line: 0)
+    ..path(room.rightWall, Color.lerp(_wall, Art.outline, 0.3)!, line: 0)
+    ..fill(room.back, _wall)
+    ..path(room.floor, const Color(0xFF151816), line: 0);
+  room
+    ..floorGrid(const Color(0x22000000), rows: 3, columns: 10)
+    ..shadeCorners(strength: 0.4);
   final glass = a.r(0.06, 0.06, 0.56, 0.62);
+  // The thickness of the wall round the arch.
+  a.path(
+    _archPath(glass.inflate(a.u * 2)),
+    Color.lerp(_wall, Art.outline, 0.4)!,
+    line: 0,
+  );
   // Everything seen through the window stays inside its arch.
   a.canvas
     ..save()
@@ -322,12 +396,8 @@ void _window1945(Art a) {
   a
     ..strokePath(_archPath(glass), _teakDark, width: 2)
     ..path(_archPath(glass), const Color(0x00000000), line: 1.2)
-    ..wood(a.r(0.02, 0.68, 0.64, 0.05), base: _teak, grain: 1)
-    ..fade(
-      a.r(0, 0.73, 1, 0.27),
-      const Color(0xFF151816),
-      const Color(0xFF0A0C0B),
-    );
+    ..wood(a.r(0.02, 0.68, 0.64, 0.05), base: _teak, grain: 1);
+  room.box(a.r(0.02, 0.68, 0.64, 0.05), _teak, depth: -0.05, line: 0.4);
 }
 
 void _cellar(Art a) {
@@ -358,18 +428,50 @@ void _cellar(Art a) {
     );
 }
 
+/// The locker room's camera, shared by the row of lockers.
+const _lockerEye = Offset(0.5, 0.38);
+
 void _lockerRoom(Art a) {
-  // White tiles gone grey.
-  a.fill(Offset.zero & a.size, const Color(0xFF39413D));
-  for (var x = 0.0; x < 1; x += 0.04) {
-    a.line(a.p(x, 0), a.p(x, 0.86), const Color(0xFF2C3330), width: 0.3);
-  }
-  for (var y = 0.0; y < 0.86; y += 0.06) {
-    a.line(a.p(0, y), a.p(1, y), const Color(0xFF2C3330), width: 0.3);
-  }
+  final room = Room(a, vp: a.p(_lockerEye.dx, _lockerEye.dy), depth: 0.72);
+  final back = room.back;
+  // White tiles gone grey, on the walls; boards underfoot.
   a
-    ..fade(a.r(0, 0, 1, 0.4), const Color(0xCC000000), const Color(0x00000000))
-    ..floorboards(a.r(0, 0.86, 1, 0.14));
+    ..path(room.ceiling, const Color(0xFF1E2422), line: 0)
+    ..path(room.leftWall, const Color(0xFF2E3532), line: 0)
+    ..path(room.rightWall, const Color(0xFF2E3532), line: 0)
+    ..fill(back, const Color(0xFF39413D));
+  for (var k = 1; k < 20; k++) {
+    final x = back.left + back.width * k / 20;
+    a.hairline(
+      Offset(x, back.top),
+      Offset(x, back.bottom),
+      const Color(0xFF2C3330),
+      0.3,
+    );
+  }
+  for (var k = 1; k < 14; k++) {
+    final y = k / 14;
+    a.hairline(
+      Offset(back.left, back.top + back.height * y),
+      Offset(back.right, back.top + back.height * y),
+      const Color(0xFF2C3330),
+      0.3,
+    );
+    for (final x in [0.0, 1.0]) {
+      a.hairline(
+        room.at(x, y, 0),
+        room.at(x, y, 1),
+        const Color(0xFF242A28),
+        0.3,
+      );
+    }
+  }
+  a.path(room.floor, const Color(0xFF2E2418), line: 0);
+  room
+    ..floorGrid(const Color(0x55120C08), rows: 2, columns: 12)
+    ..shadeCorners(strength: 0.5)
+    ..edges(const Color(0x88101412), width: 0.4);
+  a.fade(a.r(0, 0, 1, 0.4), const Color(0xCC000000), const Color(0x00000000));
 }
 
 // ---------------------------------------------------------------------------
@@ -640,6 +742,27 @@ void _door(Art a, String? year, {bool dial = false}) {
 }
 
 void _officeDesk(Art a) {
+  final room = Room.sprite(
+    a,
+    eye: _officeEye,
+    layer: (0.06, 0.52, 0.44, 0.44),
+    depth: 0.74,
+  );
+  Room.spriteShadow(a, 0.02, 0.98);
+  for (final x in [0.06, 0.88]) {
+    final leg = a.r(x, 0.64, 0.06, 0.36);
+    a.wood(
+      Rect.fromPoints(
+        room.toward(leg.topLeft, 0.12),
+        room.toward(leg.bottomRight, 0.12),
+      ),
+      base: _sepia,
+      grain: 0,
+    );
+  }
+  room
+    ..box(a.r(0.04, 0.24, 0.92, 0.4), _sepia, depth: 0.12)
+    ..box(a.r(0, 0.1, 1, 0.14), _sepiaLight, depth: 0.14);
   a
     ..wood(a.r(0, 0.1, 1, 0.14), base: _sepiaLight, grain: 1)
     ..wood(a.r(0.04, 0.24, 0.92, 0.4), base: _sepia, grain: 3)
@@ -795,10 +918,17 @@ void _whistle(Art a, {required bool glint}) {
 }
 
 void _lockerRow(Art a, {required bool filled}) {
+  final room = Room.sprite(
+    a,
+    eye: _lockerEye,
+    layer: (0.16, 0.15, 0.68, 0.676),
+    depth: 0.72,
+  );
+  Room.spriteShadow(a, 0.0, 1.0, y: 0.99);
   for (var k = 0; k < 5; k++) {
     final x = 0.01 + k * 0.2;
     final door = a.r(x, 0.02, 0.17, 0.96);
-    a.box(door, _iron, line: 0.8);
+    room.box(door, _iron, depth: 0.06, line: 0.8);
     for (var v = 0; v < 3; v++) {
       a.line(
         a.p(x + 0.03, 0.1 + v * 0.03),
