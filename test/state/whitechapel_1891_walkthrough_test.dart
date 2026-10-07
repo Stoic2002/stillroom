@@ -145,7 +145,7 @@ void main() {
     tap(0.7, 0.59);
     tap(0.08, 0.54);
     expect(now().game.sceneId, 'file_room');
-    tap(0.5, 0.77);
+    tap(0.5, 0.71);
     expect(now().game.words, contains('emma_smith'));
     tap(0.5, 0.39);
     solve('unwatched');
@@ -153,12 +153,12 @@ void main() {
     expect(stage(), 'stage:write_seal');
 
     // Macnaghten's five, and the keeper's slip.
-    tap(0.79, 0.76);
+    tap(0.77, 0.7);
     expect(
       now().game.words,
       containsAll(['five', 'mary_ann_nichols', 'mary_jane_kelly']),
     );
-    tap(0.5, 0.77);
+    tap(0.5, 0.71);
     expect(now().game.secretFound, isTrue);
     expect(
       container.read(saveRepositoryProvider).keeperNote(episode),

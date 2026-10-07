@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import '../theme/stillroom_palette.dart';
 import 'art_kit.dart';
+import 'depth_kit.dart';
 import 'echo_art.dart';
 import 'whitechapel_1888_art.dart' show jarLabelBoard;
 
@@ -159,28 +160,155 @@ void _wetCobbles(Art a, double top, {Offset? light}) {
   }
 }
 
+/// An interior in one-point perspective: the eye at [eye], the back wall
+/// [depth] of the picture, painted by [back] (default: [top] fading to
+/// [low]); side walls darker; a dado of [dado] to [dadoTop] of the height
+/// round all three walls; boards running back. Returns its camera.
+Room _interior(
+  Art a, {
+  required Offset eye,
+  required double depth,
+  Color top = _wallLow,
+  Color low = _wall,
+  Color? dado,
+  double dadoTop = 0.28,
+  void Function(Rect back)? back,
+}) {
+  final room = Room(a, vp: a.p(eye.dx, eye.dy), depth: depth);
+  final wall = room.back;
+  a
+    ..path(room.ceiling, const Color(0xFF121412), line: 0)
+    ..path(room.leftWall, Color.lerp(low, Art.outline, 0.35)!, line: 0)
+    ..path(room.rightWall, Color.lerp(low, Art.outline, 0.25)!, line: 0);
+  if (back != null) {
+    back(wall);
+  } else {
+    a.fade(wall, top, low);
+  }
+  if (dado != null) {
+    a.wood(
+      Rect.fromPoints(room.at(0, dadoTop, 1), room.at(1, 0, 1)),
+      base: dado,
+      vertical: true,
+      grain: 14,
+    );
+    for (final x in [0.0, 1.0]) {
+      a.path(
+        a.poly([
+          room.at(x, 0, 0),
+          room.at(x, dadoTop, 0),
+          room.at(x, dadoTop, 1),
+          room.at(x, 0, 1),
+        ]),
+        Color.lerp(dado, Art.outline, 0.3)!,
+        line: 0,
+      );
+      for (var k = 1; k < 8; k++) {
+        a.hairline(
+          room.at(x, 0, k / 8),
+          room.at(x, dadoTop, k / 8),
+          const Color(0x55000000),
+          0.4,
+        );
+      }
+    }
+  }
+  a.path(room.floor, StillroomPalette.walnut, line: 0);
+  room
+    ..floorGrid(
+      Color.lerp(StillroomPalette.walnut, Art.outline, 0.5)!,
+      rows: 0,
+      columns: 12,
+      width: 0.45,
+    )
+    ..shadeCorners(strength: 0.5)
+    ..edges(const Color(0xAA0A0806));
+  a
+    ..ink(wall, width: 0.5)
+    ..fade(
+      Rect.fromLTRB(0, 0, a.size.width, wall.top + wall.height * 0.2),
+      const Color(0x99000000),
+      const Color(0x00000000),
+    );
+  return room;
+}
+
+/// A door in a side wall ([x] 0 or 1), from depth [z0] to [z1], [height]
+/// tall: its leaf in perspective, with its frame. Returns the leaf's
+/// corners (top near, top far, bottom far, bottom near).
+List<Offset> _sideDoor(
+  Art a,
+  Room room,
+  double x,
+  double z0,
+  double z1, {
+  double height = 0.7,
+  Color leaf = const Color(0xFF3E2C1E),
+}) {
+  Offset p(double y, double z) => room.at(x, y, z);
+  final frame = [
+    p(height + 0.03, z0 - 0.02),
+    p(height + 0.03, z1 + 0.02),
+    p(0, z1 + 0.02),
+    p(0, z0 - 0.02),
+  ];
+  final door = [p(height, z0), p(height, z1), p(0, z1), p(0, z0)];
+  a
+    ..path(a.poly(frame), const Color(0xFF2A1E14), line: 0.5)
+    ..path(a.poly(door), leaf, line: 0.5);
+  for (var i = 1; i < 4; i++) {
+    final z = z0 + (z1 - z0) * i / 4;
+    a.hairline(p(height, z), p(0, z), Color.lerp(leaf, Art.outline, 0.4)!, 0.4);
+  }
+  return door;
+}
+
 // ---------------------------------------------------------------------------
 // Scenes
 
 void _station(Art a) {
   // Green distemper above, brown dado below, a board floor.
+  final room = _interior(
+    a,
+    eye: const Offset(0.5, 0.34),
+    depth: 0.66,
+    dado: _dado,
+    dadoTop: 0.3,
+  );
+  // The file room door in the left wall, with its plate.
+  final door = _sideDoor(a, room, 0, 0.25, 0.6, height: 0.7);
+  final plate = [
+    for (final (y, z) in [(0.6, 0.33), (0.6, 0.5), (0.55, 0.5), (0.55, 0.33)])
+      room.at(0, y, z),
+  ];
   a
-    ..fade(a.r(0, 0, 1, 0.58), _wallLow, _wall)
-    ..wood(a.r(0, 0.58, 1, 0.2), base: _dado, vertical: true, grain: 16)
-    ..floorboards(a.r(0, 0.78, 1, 0.22));
-  // The file room door, left, with its plate.
-  final door = a.r(0.03, 0.28, 0.11, 0.5);
+    ..path(a.poly(plate), StillroomPalette.brass, line: 0.3)
+    ..circle(
+      Offset.lerp(door[3], door[1], 0.55)!,
+      a.u * 0.9,
+      StillroomPalette.brass,
+      line: 0.3,
+    );
+  // The street door in the right wall, a lit fanlight over it.
+  _sideDoor(a, room, 1, 0.2, 0.55, height: 0.7);
+  final fan = [
+    for (final (y, z) in [(0.82, 0.2), (0.82, 0.55), (0.74, 0.55), (0.74, 0.2)])
+      room.at(1, y, z),
+  ];
   a
-    ..box(door.inflate(a.u), const Color(0xFF2A1E14), line: 0.5)
-    ..wood(door, base: const Color(0xFF3E2C1E), vertical: true, grain: 3)
-    ..box(a.r(0.05, 0.36, 0.07, 0.035), StillroomPalette.brass, line: 0.3)
-    ..label(
-      'RECORDS',
-      a.p(0.085, 0.3775),
-      a.size.height * 0.018,
-      const Color(0xFF2A1E14),
+    ..path(a.poly(fan), const Color(0xFF2A3440), line: 0.5)
+    ..glow(
+      Offset.lerp(fan[0], fan[2], 0.5)!,
+      a.size.width * 0.04,
+      _gas,
+      strength: 0.25,
     )
-    ..circle(a.p(0.125, 0.55), a.u * 0.9, StillroomPalette.brass, line: 0.3);
+    ..circle(
+      room.at(1, 0.36, 0.5),
+      a.u * 0.9,
+      StillroomPalette.brass,
+      line: 0.3,
+    );
   // The notice board, with yellowed bills.
   final board = a.r(0.2, 0.18, 0.16, 0.24);
   a
@@ -207,15 +335,20 @@ void _station(Art a) {
   );
   // The gas bracket.
   _gasLamp(a, a.p(0.65, 0.22), a.size.height * 0.025);
-  // The counter, and the occurrence book open on a sloped desk.
-  a
-    ..wood(a.r(0.22, 0.64, 0.6, 0.06), base: const Color(0xFF4A3524), grain: 2)
-    ..wood(
-      a.r(0.24, 0.7, 0.56, 0.1),
-      base: const Color(0xFF3A2A1E),
-      vertical: true,
-      grain: 8,
-    );
+  // The counter, standing out on the boards, and the occurrence book open
+  // on a sloped desk.
+  room.shadow(0.2, 0.8, 0.3, 0.45);
+  final counter = room.block(
+    0.2,
+    0.8,
+    0,
+    0.3,
+    0.3,
+    0.45,
+    const Color(0xFF3A2A1E),
+    top: const Color(0xFF4A3524),
+  );
+  a.wood(counter, base: const Color(0xFF3A2A1E), vertical: true, grain: 8);
   final book = a.r(0.37, 0.52, 0.22, 0.12);
   a.path(
     a.poly([
@@ -255,14 +388,6 @@ void _station(Art a) {
   a
     ..box(a.r(0.6, 0.6, 0.02, 0.03), const Color(0xFF1A1A1C), line: 0.3)
     ..line(a.p(0.61, 0.6), a.p(0.63, 0.55), Art.outline, width: 0.4);
-  // The street door, right, a lit fanlight over it.
-  final street = a.r(0.85, 0.3, 0.12, 0.5);
-  a
-    ..box(street.inflate(a.u), const Color(0xFF2A1E14), line: 0.5)
-    ..wood(street, base: const Color(0xFF3E2C1E), vertical: true, grain: 3)
-    ..box(a.r(0.855, 0.24, 0.11, 0.05), const Color(0xFF2A3440), line: 0.5)
-    ..glow(a.p(0.91, 0.265), a.size.width * 0.04, _gas, strength: 0.25)
-    ..circle(a.p(0.865, 0.56), a.u * 0.9, StillroomPalette.brass, line: 0.3);
   // A helmet on a peg.
   a
     ..box(a.r(0.79, 0.34, 0.006, 0.03), _dado, line: 0.2)
@@ -306,14 +431,38 @@ void _arch(Art a) {
   a.canvas
     ..save()
     ..clipPath(arch);
+  // The tunnel running back under the line: its vault and walls drawn in
+  // to the far mouth, where the street beyond shows grey.
+  final vp = a.p(0.5, 0.62);
+  Offset far(Offset p) => Offset.lerp(p, vp, 0.62)!;
+  final mouth = Path()
+    ..moveTo(far(a.p(0.32, 0.76)).dx, far(a.p(0.32, 0.76)).dy)
+    ..lineTo(far(a.p(0.32, 0.46)).dx, far(a.p(0.32, 0.46)).dy)
+    ..arcToPoint(
+      far(a.p(0.68, 0.46)),
+      radius: Radius.circular(a.size.width * 0.18 * 0.38),
+    )
+    ..lineTo(far(a.p(0.68, 0.76)).dx, far(a.p(0.68, 0.76)).dy)
+    ..close();
   a
+    ..path(mouth, const Color(0xFF1E242C), line: 0.4)
     ..glow(
       a.p(0.5, 0.66),
       a.size.width * 0.12,
       const Color(0xFF3A4450),
       strength: 0.3,
-    )
-    ..fill(a.r(0.46, 0.5, 0.08, 0.26), const Color(0xFF0E1014));
+    );
+  for (var i = 0; i <= 8; i++) {
+    final t = math.pi + i * math.pi / 8;
+    final c = a.p(0.5, 0.46);
+    final r = a.size.width * 0.18;
+    final p = c + Offset(math.cos(t) * r, math.sin(t) * r);
+    a.hairline(p, far(p), const Color(0x552A1A14), 0.4);
+  }
+  for (final x in [0.32, 0.68]) {
+    a.hairline(a.p(x, 0.76), far(a.p(x, 0.76)), const Color(0x552A1A14), 0.4);
+  }
+  a.fill(a.r(0.46, 0.5, 0.08, 0.26), const Color(0x880E1014));
   a.canvas.restore();
   // Voussoirs round the arch.
   for (var i = 0; i <= 12; i++) {
@@ -333,6 +482,12 @@ void _arch(Art a) {
     ..box(a.r(0.02, 0.4, 0.06, 0.08), const Color(0xFF3A3020), line: 0.4)
     ..glow(a.p(0.05, 0.44), a.size.width * 0.04, _gas, strength: 0.25);
   // The gas lamp on its post.
+  a.canvas.drawOval(
+    a.r(0.13, 0.755, 0.04, 0.012),
+    Paint()
+      ..color = const Color(0x88000000)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.u * 0.6),
+  );
   a
     ..box(a.r(0.145, 0.3, 0.008, 0.46), const Color(0xFF1E1E22), line: 0.3)
     ..box(a.r(0.132, 0.18, 0.034, 0.12), const Color(0xFF2A2A2E), line: 0.4);
@@ -353,8 +508,25 @@ void _arch(Art a) {
   );
   // The hat, at the mouth of the arch.
   _hat(a, a.r(0.462, 0.705, 0.095, 0.085));
-  // A hansom cab waiting, right.
+  // A hansom cab waiting, right, its side to us and its shadow on the
+  // stones.
+  a.canvas.drawOval(
+    a.r(0.81, 0.75, 0.18, 0.03),
+    Paint()
+      ..color = const Color(0x88000000)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.u * 1.2),
+  );
   a
+    ..path(
+      a.poly([
+        a.p(0.84, 0.5),
+        a.p(0.82, 0.48),
+        a.p(0.82, 0.64),
+        a.p(0.84, 0.66),
+      ]),
+      const Color(0xFF101012),
+      line: 0.4,
+    )
     ..box(a.r(0.84, 0.5, 0.1, 0.16), const Color(0xFF1A1A1C), line: 0.5)
     ..box(a.r(0.845, 0.52, 0.05, 0.06), const Color(0xFF3A3430), line: 0.3)
     ..circle(
@@ -382,42 +554,49 @@ void _arch(Art a) {
 
 void _milliner(Art a) {
   // A small shop: papered walls, a counter, the shutters up.
-  a
-    ..wallpaper(
-      a.r(0, 0, 1, 0.66),
-      const Color(0xFF3A2E30),
-      const Color(0xFF443638),
-    )
-    ..wood(a.r(0, 0.66, 1, 0.12), base: _dado, vertical: true, grain: 14)
-    ..floorboards(a.r(0, 0.78, 1, 0.22))
-    ..fade(a.r(0, 0, 1, 1), const Color(0x33000000), const Color(0x66000000));
-  // Hats on stands and boxes on a shelf, left.
-  a.wood(a.r(0.07, 0.34, 0.24, 0.02), base: _dado, grain: 1);
+  final room = _interior(
+    a,
+    eye: const Offset(0.5, 0.32),
+    depth: 0.68,
+    low: const Color(0xFF3A2E30),
+    dado: _dado,
+    dadoTop: 0.18,
+    back: (wall) =>
+        a.wallpaper(wall, const Color(0xFF3A2E30), const Color(0xFF443638)),
+  );
+  // Hats on stands and boxes on two shelves, left.
+  room
+    ..box(a.r(0.17, 0.34, 0.24, 0.02), _dado, depth: 0.05, line: 0.4)
+    ..box(a.r(0.17, 0.5, 0.24, 0.02), _dado, depth: 0.05, line: 0.4);
   for (final (x, color) in [
-    (0.09, const Color(0xFFC8A868)),
-    (0.16, const Color(0xFF3A3A40)),
-    (0.23, const Color(0xFF5A3A40)),
+    (0.19, const Color(0xFFC8A868)),
+    (0.26, const Color(0xFF3A3A40)),
+    (0.33, const Color(0xFF5A3A40)),
   ]) {
     a
       ..box(a.r(x + 0.025, 0.26, 0.006, 0.08), _dado, line: 0.2)
       ..oval(a.r(x, 0.24, 0.06, 0.03), color, line: 0.4)
       ..rbox(a.r(x + 0.012, 0.2, 0.036, 0.05), a.u, color, line: 0.4);
   }
-  for (final (x, y) in [(0.08, 0.4), (0.16, 0.42), (0.23, 0.39)]) {
+  for (final (x, y) in [(0.18, 0.4), (0.255, 0.42), (0.33, 0.39)]) {
     a
-      ..box(a.r(x, y, 0.07, 0.1), const Color(0xFFB8A888), line: 0.4)
+      ..box(a.r(x, y, 0.07, 0.5 - y), const Color(0xFFB8A888), line: 0.4)
       ..fill(a.r(x, y, 0.07, 0.02), const Color(0xFF8A6A4A));
   }
   // The counter, the order book open on it, a roll of crêpe at the end.
-  a
-    ..wood(a.r(0.34, 0.64, 0.5, 0.05), base: const Color(0xFF5A4030), grain: 2)
-    ..wood(
-      a.r(0.35, 0.69, 0.48, 0.12),
-      base: const Color(0xFF4A3424),
-      vertical: true,
-      grain: 6,
-    );
-  final book = a.r(0.41, 0.56, 0.18, 0.08);
+  room.shadow(0.22, 0.78, 0.25, 0.4);
+  final counter = room.block(
+    0.22,
+    0.78,
+    0,
+    0.28,
+    0.25,
+    0.4,
+    const Color(0xFF4A3424),
+    top: const Color(0xFF5A4030),
+  );
+  a.wood(counter, base: const Color(0xFF4A3424), vertical: true, grain: 6);
+  final book = a.r(0.41, 0.6, 0.18, 0.08);
   a
     ..paper(
       Rect.fromLTRB(book.left, book.top, book.center.dx, book.bottom),
@@ -427,10 +606,11 @@ void _milliner(Art a) {
       Rect.fromLTRB(book.center.dx, book.top, book.right, book.bottom),
       lines: 3,
     )
-    ..rbox(a.r(0.645, 0.6, 0.12, 0.04), a.u * 2, _crepe, line: 0.5)
-    ..oval(a.r(0.755, 0.6, 0.015, 0.04), const Color(0xFF2A2428), line: 0.3);
-  // The window, shuttered.
-  final win = a.r(0.71, 0.15, 0.2, 0.38);
+    ..rbox(a.r(0.6, 0.64, 0.12, 0.04), a.u * 2, _crepe, line: 0.5)
+    ..oval(a.r(0.71, 0.64, 0.015, 0.04), const Color(0xFF2A2428), line: 0.3);
+  // The window, deep in the wall, shuttered.
+  final win = a.r(0.62, 0.15, 0.2, 0.38);
+  room.recess(win.inflate(a.u * 2), const Color(0xFF3A2E30), thickness: 0.03);
   a.box(win.inflate(a.u), _dado, line: 0.5);
   for (var i = 0; i < 2; i++) {
     final leaf = Rect.fromLTWH(
@@ -442,50 +622,58 @@ void _milliner(Art a) {
     a.wood(leaf, base: const Color(0xFF3A2E24), grain: 6);
   }
   a
-    ..box(a.r(0.705, 0.33, 0.21, 0.02), const Color(0xFF2A2A2C), line: 0.4)
+    ..box(a.r(0.615, 0.33, 0.21, 0.02), const Color(0xFF2A2A2C), line: 0.4)
     ..glow(a.p(0.5, 0.3), a.size.width * 0.3, _gas, strength: 0.12);
   _gasLamp(a, a.p(0.5, 0.12), a.size.height * 0.022);
 }
 
 void _press(Art a) {
-  a
-    ..fade(a.r(0, 0, 1, 0.8), const Color(0xFF1E1C1A), const Color(0xFF2E2A24))
-    ..floorboards(a.r(0, 0.8, 1, 0.2));
-  // The type case cabinet, left: a sloped case on a frame.
-  a
-    ..wood(
-      a.r(0.06, 0.62, 0.22, 0.2),
-      base: const Color(0xFF4A3524),
-      vertical: true,
-      grain: 4,
-    )
-    ..path(
-      a.poly([
-        a.p(0.05, 0.62),
-        a.p(0.29, 0.62),
-        a.p(0.27, 0.5),
-        a.p(0.07, 0.5),
-      ]),
-      const Color(0xFF5A4232),
-    );
-  for (var r = 0; r < 4; r++) {
-    for (var c = 0; c < 8; c++) {
-      a.ink(
-        Rect.fromLTWH(
-          a.size.width * (0.075 + c * 0.024 + r * 0.002),
-          a.size.height * (0.51 + r * 0.027),
-          a.size.width * 0.022,
-          a.size.height * 0.025,
-        ),
-        width: 0.25,
-      );
-    }
+  final room = _interior(
+    a,
+    eye: const Offset(0.5, 0.3),
+    depth: 0.7,
+    top: const Color(0xFF1E1C1A),
+    low: const Color(0xFF2E2A24),
+  );
+  // The type case cabinet, left: a frame, and the case sloping up on it,
+  // its compartments in rows.
+  const caseWood = Color(0xFF4A3524);
+  room.shadow(0.02, 0.28, 0.3, 0.5);
+  final frame = room.block(0.02, 0.28, 0, 0.3, 0.3, 0.5, caseWood);
+  a.wood(frame, base: caseWood, vertical: true, grain: 4);
+  Offset slope(double u, double v) =>
+      room.at(0.01 + 0.28 * u, 0.3 + 0.1 * v, 0.29 + 0.22 * v);
+  a.path(
+    a.poly([slope(0, 0), slope(1, 0), slope(1, 1), slope(0, 1)]),
+    const Color(0xFF5A4232),
+    line: 0.6,
+  );
+  for (var r = 1; r < 4; r++) {
+    a.hairline(slope(0.03, r / 4), slope(0.97, r / 4), Art.outline, 0.3);
   }
-  // The imposing stone and the forme on it: a chase of type, the headline
-  // backwards.
-  a
-    ..box(a.r(0.32, 0.64, 0.34, 0.04), const Color(0xFF5A5A5E), line: 0.5)
-    ..box(a.r(0.34, 0.68, 0.3, 0.14), const Color(0xFF3A2A1E), line: 0.5);
+  for (var c = 1; c < 8; c++) {
+    a.hairline(slope(c / 8, 0.03), slope(c / 8, 0.97), Art.outline, 0.3);
+  }
+  // The imposing stone on its frame, and the forme on it: a chase of type,
+  // the headline backwards.
+  final base = room.stand(
+    a.r(0.34, 0.68, 0.3, 0.16),
+    const Color(0xFF3A2A1E),
+    deep: 0.18,
+  );
+  final z = room.floorDepthAt(base.bottom);
+  final x0 = room.xAt(base.left, z);
+  final x1 = room.xAt(base.right, z);
+  final h = room.yAt(base.top, z);
+  room.block(
+    x0 - 0.02,
+    x1 + 0.02,
+    h,
+    h + 0.035,
+    z - 0.01,
+    z + 0.19,
+    const Color(0xFF5A5A5E),
+  );
   final chase = a.r(0.35, 0.46, 0.28, 0.18);
   a
     ..box(chase, const Color(0xFF6E6E72), line: 0.6)
@@ -511,7 +699,8 @@ void _press(Art a) {
       0.8,
     );
   }
-  // The spike of papers.
+  // The spike of papers, on a bracket on the wall.
+  room.box(a.r(0.71, 0.48, 0.1, 0.015), _dado, depth: 0.05, line: 0.4);
   a
     ..box(a.r(0.74, 0.46, 0.04, 0.02), const Color(0xFF2A2A2C), line: 0.3)
     ..line(
@@ -528,9 +717,9 @@ void _press(Art a) {
     );
   }
   // The press, right: an iron hand press.
+  room.stand(a.r(0.8, 0.62, 0.14, 0.24), const Color(0xFF26282C), deep: 0.16);
+  room.box(a.r(0.78, 0.6, 0.18, 0.03), const Color(0xFF34363A), depth: 0.05);
   a
-    ..box(a.r(0.8, 0.62, 0.14, 0.24), const Color(0xFF26282C), line: 0.6)
-    ..box(a.r(0.78, 0.6, 0.18, 0.03), const Color(0xFF34363A), line: 0.5)
     ..box(a.r(0.84, 0.66, 0.06, 0.1), const Color(0xFF1A1C20), line: 0.4)
     ..line(
       a.p(0.94, 0.66),
@@ -543,12 +732,28 @@ void _press(Art a) {
 }
 
 void _fileRoom(Art a) {
+  final room = _interior(a, eye: const Offset(0.5, 0.3), depth: 0.68);
+  // The shelves of the file, packed with bundles: a press standing
+  // against the back wall, a cupboard below.
+  final press = room.stand(
+    a.r(0.18, 0.13, 0.64, 0.67),
+    const Color(0xFF2A1E14),
+    deep: 0.12,
+  );
+  final shelf = Rect.fromLTRB(
+    press.left + a.u,
+    press.top + a.u,
+    press.right - a.u,
+    a.p(0, 0.64).dy,
+  );
   a
-    ..fade(a.r(0, 0, 1, 0.7), _wallLow, _wall)
-    ..floorboards(a.r(0, 0.7, 1, 0.3));
-  // The shelves of the file, packed with bundles.
-  final shelf = a.r(0.18, 0.14, 0.64, 0.5);
-  a.box(shelf.inflate(a.u), const Color(0xFF2A1E14), line: 0.6);
+    ..fill(shelf, const Color(0xFF140E0A))
+    ..wood(
+      Rect.fromLTRB(press.left, shelf.bottom, press.right, press.bottom),
+      base: _dado,
+      vertical: true,
+      grain: 6,
+    );
   final random = math.Random(1891);
   for (var r = 0; r < 3; r++) {
     final top = shelf.top + shelf.height * r / 3;
@@ -579,19 +784,24 @@ void _fileRoom(Art a) {
     }
   }
   // The table, the cover sheet on it.
+  room.standTable(
+    a.r(0.3, 0.74, 0.6, 0.24),
+    const Color(0xFF4A3524),
+    deep: 0.25,
+    thickness: 0.03,
+    leg: 0.02,
+    legColor: _dado,
+  );
   a
-    ..wood(a.r(0.3, 0.8, 0.6, 0.04), base: const Color(0xFF4A3524), grain: 1)
-    ..box(a.r(0.32, 0.84, 0.02, 0.14), _dado, line: 0.4)
-    ..box(a.r(0.86, 0.84, 0.02, 0.14), _dado, line: 0.4)
     ..paper(
-      a.r(0.41, 0.72, 0.18, 0.09),
+      a.r(0.41, 0.66, 0.18, 0.08),
       lines: 3,
       angle: 0.02,
       color: const Color(0xFFD9C9A0),
     )
     ..label(
       'WHITECHAPEL MURDERS',
-      a.p(0.5, 0.745),
+      a.p(0.5, 0.685),
       a.size.height * 0.014,
       const Color(0xFF2A2420),
     );
