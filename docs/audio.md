@@ -68,6 +68,9 @@ fvm dart run tool/audio/generate_audio.dart bell_toll  # one or more ids
 | `eagle_cry` | Alamut 1256: the eagle (creature); Great Zimbabwe's bateleur | A thin, falling scream, twice, far over the gorge |
 | `stone_set` | Great Zimbabwe 1871: the breach, the lintel, the wall standing | A granite block set down on another: a dull knock and grit |
 | `cicadas` | Great Zimbabwe 1871: the view from the hill; the seal | Cicadas in dry grass, a shimmering buzz that swells and falls |
+| `trumpet_call` | Roanoke 1590: the trumpet on the boat; the seal | A call on a natural trumpet across the water: up the harmonics (G, C, E, G) and down to a long C, open-air echo |
+| `surf_low` | Roanoke 1590: the view south from the hill | Low surf on the banks far off, swelling and falling |
+| `chest_lid` | Roanoke 1590: the chart found in the chests | A broken chest's lid lifted on a stiff hinge and set back |
 | `temple_bell` | Honnō-ji 1582: the hall at Teramachi; the seal | A temple bell struck with a swung beam, 14 s: low (98 Hz), its first partial split so it wavers, the hum dying away |
 | `trowel` | Honnō-ji 1582: the trench opened; the section dated | A trowel drawn across damp clay, three strokes, grit in it |
 | `wind_ridge` | Dyatlov Pass 1959: the shoulder; the pit; the seal | Wind over a bare ridge, thin and high, gusting, a low rumble under it |
@@ -90,6 +93,7 @@ fvm dart run tool/audio/generate_audio.dart bell_toll  # one or more ids
 | `bastille_dawn` | Bastille, 1703 | 48 s | A cold drone in A; a draught in the court; two slow bowed notes in A aeolian every 16 s, like a viol through a wall |
 | `chongling_winter` | Beijing, 1908 | 48 s | A cold drone in B♭; wind in the pines; a temple bowl struck far off every 16 s |
 | `ural_wind` | Dyatlov Pass, 1959 | 48 s | A thin drone over a low A; wind over a bare ridge; a slow low pulse twice a loop |
+| `sound_dawn` | Roanoke, 1590 | 48 s | A low drone in A; water lapping on the shore; once a loop a trumpet call far off across the water, unanswered |
 | `kyoto_ash` | Honnō-ji, 1582 | 48 s | A low drone in D; a bamboo flute's breathy phrase in the old scale every 24 s; a temple bell far off once a loop; cicadas faint |
 | `zimbabwe_dry` | Great Zimbabwe, 1871 | 48 s | A warm drone in E; dry wind in the grass; cicadas; a mbira-like figure plucked far off every 12 s |
 | `alamut_snow` | Alamut, 1256 | 48 s | A low drone in D; wind over the rock; a long-necked lute plucked far off, a falling phrase every 16 s |
@@ -127,6 +131,9 @@ vibration is on). Quieter than content sounds (−9 dBFS peak).
 | `enlarger` | Dyatlov Pass 1959's darkroom: a frame printed right (the timer ticking through the exposure) | light |
 | `strata_tag` | Honnō-ji 1582's section: a layer dated right (a paper tag pinned) | light |
 | `find_lift` | Honnō-ji 1582's section: a find read (a small ceramic clink, a crumble) | selection |
+| `core_slide` | Roanoke 1590's rings: the core slid one ring along (a soft wooden slide) | selection |
+| `ring_mark` | Roanoke 1590's rings: the driest run marked (a pencil's tick) | light |
+| `divider_step` | Roanoke 1590's dividers: a step walked (a brass point set down on paper) | selection |
 | `street_mark` | Honnō-ji 1582's streets: the block an address names marked (a pencil's quick hatch) | light |
 | `block_lay` | Great Zimbabwe 1871's courses: a block laid in its course | light |
 | `slab_tilt` | Great Zimbabwe 1871's courses: a chevron slab turned | selection |

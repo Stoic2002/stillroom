@@ -305,6 +305,7 @@ a tap near it may startle it. They never block taps.
 | `fulmar` | Sits on a ledge; flies off when tapped, glides back | `wings_flutter` |
 | `grass` | Tufts bending in the wind | — |
 | `raven` | Sits on a branch; flies off when tapped, comes back (the fulmar's ways, in black) | `wings_flutter` |
+| `heron` | Stands in the shallows on long legs (the area's bottom centre is its feet), now and then strikes at the water; lifts off slowly when tapped, comes back | `wings_flutter` |
 | `eagle` | Turns in slow circles high over its area, on broad still wings; too high to startle | `eagle_cry` now and then |
 
 Pick creatures that belong to the tale's place and **season**. For example,
@@ -540,6 +541,7 @@ filled slot swaps them.
 | `vermilion` | A sheet of imperial yellow in a double vermilion rule, the sentences in vermilion (the emperor's own ink), the caption `vermilionCaption` | — |
 | `routebook` | A sports club's route book open at its last page: grey ruled paper, a red margin, a violet club stamp, the caption `routebookCaption`, the entry written in ink | — |
 | `cartouche` | An old map's title cartouche: a parchment panel in a double rule with scrolled ends, the caption `cartoucheCaption`, the sentences written inside | — |
+| `post` | A palisade post: furrowed bark at both edges, a band stripped to pale wood, the caption `postCaption` and the sentences cut in capitals | — |
 | `marker` | A city's stone site marker: grey granite flecked with crystal, a bevelled edge, a cut line framing the face, the caption `markerCaption` cut above, the sentences cut below | — |
 | `colophon` | A manuscript's colophon: burnished paper in a thin brown double rule, scorched at one corner, the caption `colophonCaption`, the sentences centred and narrowing, closed by a triangle of dots | — |
 
@@ -552,7 +554,8 @@ the bell's bronze), Whitechapel 1891 `docket` (the file's cover), Beijing
 1256 `colophon` (the closing lines of the library's last book), Great
 Zimbabwe 1871 `cartouche` (where the old maps wrote Ophir), Dyatlov Pass
 1959 `routebook` (the last entry the group never wrote), Honnō-ji 1582
-`marker` (the site's stone, its face left smooth for what is known).
+`marker` (the site's stone, its face left smooth for what is known),
+Roanoke 1590 `post` (under the word the colonists cut).
 
 ### `clockHands`: set the hands
 
@@ -1209,6 +1212,63 @@ Zimbabwe 1871 `cartouche` (where the old maps wrote Ophir), Dyatlov Pass
 - **Validation:** 2 to 14 columns and 2 to 10 rows; 1 to 4 targets, each a
   different block between the streets.
 
+### `rings`: a tree-ring core cross-dated
+
+```json
+"config": {
+  "startYear": 1560,
+  "master": [0.47, 0.81, 0.22],
+  "core": [0.75, 0.65, 0.61],
+  "offset": 19,
+  "run": 3
+}
+```
+
+- **What the player sees:** the master chronology across the top, a bar
+  for every year (its height the ring's width), years every ten; below
+  it the core, a strip of wood with its own bars and no years, where it
+  lies along the master; arrows, the status, and Check the match (later
+  These are the driest years).
+- **Playing:** drag the core (or step it with the arrows, `core_slide`)
+  along the master; Check: where its pattern matches (`offset`), it is
+  dated and shows its years; anywhere else is a mistake. Then a bracket
+  `run` rings wide appears on the core: move it with a drag or the arrows
+  and mark it; the narrowest run (`ring_mark`) solves it, any other is a
+  mistake.
+- **Validation:** widths 0.05 to 1; 12 to 60 master years and 6 to 24
+  core rings, the core wholly on the master at `offset`; the core matches
+  there better than anywhere else by 0.5 in summed difference; `run` 2 to
+  5, its narrowest run narrower than any other.
+
+### `dividers`: a distance walked on a chart
+
+```json
+"config": {
+  "milesAcross": 120,
+  "aspect": 0.6,
+  "north": 90,
+  "origin": [0.62, 0.84],
+  "spans": [5, 10, 25],
+  "tolerance": 6,
+  "places": [ { "labelKey": "ep.place.croatoan", "at": [0.2, 0.86] } ],
+  "targets": [ { "clueKey": "ep.dividers.croatoan", "place": 0 } ]
+}
+```
+
+- **What the player sees:** the chart (`aspect` as tall as wide, drawn as
+  its maker drew it: the compass rose shows where `north` lies, degrees
+  clockwise from up), its places, a scale of miles, the origin in red;
+  beside it the clue, the spans, eight headings (from true north), Step,
+  Back and Mark here, and the walk drawn as the dividers' legs.
+- **Playing:** open the dividers to a span and pick a heading (either
+  starts the walk again at the origin), Step (`divider_step`) and Back;
+  Mark: within `tolerance` miles of the clue's place finds it (rings it
+  red; the next clue follows); near another place, or nowhere, is a
+  mistake.
+- **Validation:** 1 to 4 spans above 0, 2 to 10 places (positions 0 to
+  1), 1 to 4 targets, each a different place that a whole number of
+  steps (1 to 15) of one span on one heading reaches.
+
 ## Words and the jar's label
 
 `words` in `game.json` declares what the player can note down:
@@ -1404,3 +1464,4 @@ warnings show in the debug panel).
 | 2026-10-01 | post-M6 | Puzzle types `courses` and `identify`; deduction form `cartouche`; interface sounds `block_lay`, `slab_tilt`, `key_step`. Episode `great_zimbabwe_1871` (shelf III) replaces `sealed_zimbabwe_1871` and fills shelf III; a sealed teaser `sealed_dyatlov_1959` stands on shelf IV (`unlockAfter` 8). |
 | 2026-10-01 | post-M6 | Puzzle types `snowpit` and `darkroom`; deduction form `routebook`; creature `raven`; interface sounds `snow_push`, `shovel_tap`, `column_break`, `enlarger`. Episode `dyatlov_1959` (shelf IV) replaces `sealed_dyatlov_1959`; the sealed teaser on shelf IV is now `sealed_honnoji_1582`. |
 | 2026-10-02 | post-M6 | Puzzle types `strata` and `streets`; deduction form `marker`; interface sounds `strata_tag`, `find_lift`, `street_mark`; `PuzzleLabel` takes `maxLines`. Episode `honnoji_1582` (shelf IV) replaces `sealed_honnoji_1582`; the sealed teaser on shelf IV is now `sealed_roanoke_1590`. |
+| 2026-10-07 | post-M6 | Puzzle types `rings` and `dividers`; deduction form `post`; creature `heron`; interface sounds `core_slide`, `ring_mark`, `divider_step`. Episode `roanoke_1590` (shelf IV) replaces `sealed_roanoke_1590`; the sealed teaser on shelf IV is now `sealed_franklin_1845`. |

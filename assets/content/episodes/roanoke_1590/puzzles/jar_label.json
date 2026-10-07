@@ -1,0 +1,62 @@
+{
+  "id": "jar_label",
+  "type": "deduction",
+  "background": "images/scenes/roanoke_1590/label_close.png",
+  "config": {
+    "form": "post",
+    "sentences": [
+      {
+        "textKey": "roanoke_1590.label.s1",
+        "blanks": [
+          "croatoan",
+          "cross",
+          "drought"
+        ]
+      }
+    ],
+    "words": [
+      "croatoan",
+      "cross",
+      "drought",
+      "vanished",
+      "spanish",
+      "massacre",
+      "dare_stones",
+      "white_doe",
+      "site_x"
+    ],
+    "nearMiss": 1
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "trumpet_call"
+    },
+    {
+      "type": "showText",
+      "key": "roanoke_1590.label.done"
+    },
+    {
+      "type": "showText",
+      "key": "roanoke_1590.ending.found"
+    },
+    {
+      "type": "showText",
+      "key": "roanoke_1590.ending.after"
+    },
+    {
+      "type": "endEpisode"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.roanoke_1590.jar_label.1"
+    },
+    {
+      "key": "hint.roanoke_1590.jar_label.2"
+    },
+    {
+      "key": "hint.roanoke_1590.jar_label.3"
+    }
+  ]
+}

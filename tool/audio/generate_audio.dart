@@ -1740,6 +1740,111 @@ Buf trowel() {
   return reverb(b, size: 0.3, mix: 0.12);
 }
 
+/// A natural trumpet (no valves) playing a note: harmonics of brass, a
+/// quick attack, a little vibrato.
+Float64List _brass(double seconds, double pitch, math.Random rng) {
+  final out = Float64List(n(seconds));
+  const partials = [
+    (1, 1.0),
+    (2, 0.7),
+    (3, 0.5),
+    (4, 0.32),
+    (5, 0.2),
+    (6, 0.12),
+  ];
+  for (final (k, amp) in partials) {
+    final part = shape(
+      tone(seconds, (t) => pitch * k * (1 + 0.004 * math.sin(tau * t * 5.5))),
+      (t) => swell(t, 0.04 + 0.01 * k, 0.12, seconds) * amp,
+    );
+    for (var i = 0; i < out.length; i++) {
+      out[i] += part[i];
+    }
+  }
+  return out;
+}
+
+/// Roanoke: a call sounded on a natural trumpet across the water at night:
+/// up the harmonics and down, held, then a long last note.
+Buf trumpetCall() {
+  final rng = math.Random(64);
+  const notes = [
+    (392.0, 0.35),
+    (523.3, 0.35),
+    (659.3, 0.35),
+    (784.0, 0.8),
+    (523.3, 1.4),
+  ];
+  final b = Buf(4.6);
+  var at = 0.1;
+  for (final (pitch, length) in notes) {
+    b.add(_brass(length, pitch, rng), at: at, gain: 0.07);
+    at += length + 0.06;
+  }
+  return reverb(b, size: 0.95, mix: 0.45, damp: 0.5);
+}
+
+/// Roanoke: low surf on the banks far off, swelling and falling.
+Buf surfLow() {
+  final rng = math.Random(65);
+  const seconds = 4.5;
+  final b = Buf(seconds)
+    ..add(
+      gain(
+        shape(
+          lowpass(
+            noise(seconds, rng),
+            (t) => 500 + 400 * math.sin(math.pi * t / seconds),
+          ),
+          (t) => swell(t, 1.4, 1.8, seconds),
+        ),
+        1.4,
+      ),
+      pan: -0.2,
+    )
+    ..add(
+      gain(
+        shape(
+          bandpass(noise(seconds, rng), (_) => 2200, 1),
+          (t) => swell(t, 1.8, 1.4, seconds) * 0.4,
+        ),
+        0.5,
+      ),
+      pan: 0.3,
+    );
+  return reverb(b, size: 0.6, mix: 0.25);
+}
+
+/// Roanoke: a broken chest's lid lifted on a stiff hinge, set back.
+Buf chestLid() {
+  final rng = math.Random(66);
+  const seconds = 1.4;
+  final pulses = Float64List(n(0.7));
+  var phase = 0.0;
+  for (var i = 0; i < pulses.length; i++) {
+    final t = i / rate;
+    phase +=
+        (40 + 30 * math.sin(math.pi * t / 0.7) + rng.nextDouble() * 6) / rate;
+    if (phase >= 1) {
+      phase -= 1;
+      pulses[i] = 1;
+    }
+  }
+  final b = Buf(seconds)
+    ..add(gain(bandpass(pulses, (_) => 900, 4), 2.5), at: 0.05)
+    ..add(
+      modal(0.5, 140, const [(1, 1, 0.12), (2.4, 0.4, 0.06)]),
+      at: 0.8,
+      gain: 0.4,
+    )
+    ..add(
+      shape(lowpass(noise(0.15, rng), (_) => 600), (t) => decay(t, 0.03)),
+      at: 0.8,
+      gain: 0.6,
+    );
+  return reverb(b, size: 0.3, mix: 0.15);
+}
+
 final sfx = <String, Buf Function()>{
   'stone_door': stoneDoor,
   'reactor_count': reactorCount,
@@ -1752,6 +1857,9 @@ final sfx = <String, Buf Function()>{
   'cicadas': cicadas,
   'temple_bell': templeBell,
   'trowel': trowel,
+  'trumpet_call': trumpetCall,
+  'surf_low': surfLow,
+  'chest_lid': chestLid,
   'notebook': notebook,
   'wind_ridge': windRidge,
   'canvas_flap': canvasFlap,
@@ -2199,12 +2307,40 @@ Buf kyotoAsh() => loop(48, (seconds) {
   return reverb(b, size: 0.85, mix: 0.38, damp: 0.55);
 });
 
+/// Roanoke: a low drone in A, water lapping on the shore, and once a loop a
+/// trumpet call far off across the water, unanswered.
+Buf soundDawn() => loop(48, (seconds) {
+  final rng = math.Random(34);
+  final b = Buf(seconds)
+    ..add(
+      drone(seconds, loopSeconds: 48, const [
+        (55.0, 0.36, 24),
+        (110.0, 0.14, 16),
+        (164.8, 0.06, 12),
+      ]),
+      gain: 0.38,
+    );
+  final lap = shape(
+    lowpass(noise(seconds, rng), (t) => 700 + 300 * math.sin(tau * t / 6)),
+    (t) => 0.25 + 0.75 * math.pow(math.sin(tau * t / 5.5), 2),
+  );
+  b.add(gain(lap, 0.08), pan: -0.3);
+  const notes = [(392.0, 0.5), (523.3, 0.5), (659.3, 1.2)];
+  var at = 18.0;
+  for (final (pitch, length) in notes) {
+    b.add(_brass(length, pitch, rng), at: at, gain: 0.012, pan: 0.4);
+    at += length + 0.1;
+  }
+  return reverb(b, size: 0.9, mix: 0.4, damp: 0.55);
+});
+
 final music = <String, Buf Function()>{
   'chongling_winter': chonglingWinter,
   'alamut_snow': alamutSnow,
   'zimbabwe_dry': zimbabweDry,
   'ural_wind': uralWind,
   'kyoto_ash': kyotoAsh,
+  'sound_dawn': soundDawn,
   'whitechapel_1891': whitechapel1891,
   'gyeongju_night': gyeongjuNight,
   'bastille_dawn': bastilleDawn,
@@ -2963,6 +3099,42 @@ Buf streetMarkSound() {
   return b;
 }
 
+/// A tree-ring core slid one ring along: a soft wooden slide.
+Buf coreSlideSound() {
+  final rng = math.Random(76);
+  return Buf(0.2)..add(
+    shape(
+      bandpass(noise(0.12, rng), (_) => 1400, 1.5),
+      (t) => swell(t, 0.01, 0.08, 0.12),
+    ),
+    gain: 0.3,
+  );
+}
+
+/// A run of rings marked: a pencil's tick and short stroke.
+Buf ringMarkSound() {
+  final rng = math.Random(77);
+  return Buf(0.35)
+    ..add(click(rng, centre: 3200, time: 0.002), gain: 0.4)
+    ..add(
+      shape(
+        bandpass(noise(0.15, rng), (_) => 4000, 2),
+        (t) => swell(t, 0.01, 0.1, 0.15),
+      ),
+      at: 0.04,
+      gain: 0.25,
+    );
+}
+
+/// The dividers walked one step: a brass point set down on paper.
+Buf dividerStepSound() {
+  final rng = math.Random(78);
+  final b = Buf(0.3)
+    ..add(modal(0.2, 2800, const [(1, 1, 0.04), (2.3, 0.5, 0.02)]), gain: 0.12)
+    ..add(click(rng, centre: 2400, time: 0.0015), gain: 0.3);
+  return reverb(b, size: 0.1, mix: 0.08);
+}
+
 final ui = <String, Buf Function()>{
   'geiger': () => geigerSound(clicks: 4, seed: 61),
   'geiger_hot': () => geigerSound(clicks: 26, seed: 62),
@@ -2982,6 +3154,9 @@ final ui = <String, Buf Function()>{
   'strata_tag': strataTagSound,
   'find_lift': findLiftSound,
   'street_mark': streetMarkSound,
+  'core_slide': coreSlideSound,
+  'ring_mark': ringMarkSound,
+  'divider_step': dividerStepSound,
   'type_sort': typeSortSound,
   'lamp_gutter': lampGutterSound,
   'pour': pourSound,

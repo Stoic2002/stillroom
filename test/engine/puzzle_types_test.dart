@@ -345,6 +345,8 @@ void main() {
       'darkroom',
       'strata',
       'streets',
+      'rings',
+      'dividers',
     ]);
   });
 }

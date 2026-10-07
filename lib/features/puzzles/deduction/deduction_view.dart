@@ -107,6 +107,7 @@ class _DeductionViewState extends State<DeductionView>
       DeductionForm.cartouche => _cartouche(context, sentenceStyle),
       DeductionForm.routebook => _routebook(context, sentenceStyle),
       DeductionForm.marker => _marker(context, sentenceStyle),
+      DeductionForm.post => _post(context, sentenceStyle),
       DeductionForm.board => const SizedBox.shrink(),
     };
 
@@ -574,6 +575,40 @@ class _DeductionViewState extends State<DeductionView>
     );
   }
 
+  /// A palisade post: grey-brown bark down both sides, a band stripped to
+  /// pale wood across the middle, the words cut into it in capitals.
+  Widget _post(BuildContext context, TextStyle style) {
+    final l10n = AppLocalizations.of(context);
+    final cut = style.copyWith(
+      fontFamily: AppTheme.smallCaps,
+      height: 1.75,
+      letterSpacing: 0.8,
+      color: const Color(0xFF3A2A1A),
+      shadows: const [Shadow(color: Color(0x55FFF6E0), offset: Offset(0, 1))],
+    );
+    return CustomPaint(
+      painter: const _StrippedPost(),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(54, 16, 54, 18),
+        child: Column(
+          children: [
+            Text(
+              l10n.postCaption,
+              textAlign: TextAlign.center,
+              style: cut.copyWith(fontSize: 15, letterSpacing: 4, height: 1.3),
+            ),
+            const SizedBox(height: 4),
+            for (final (i, sentence) in _config.sentences.indexed)
+              Text.rich(
+                TextSpan(style: cut, children: _sentence(context, i, sentence)),
+                textAlign: TextAlign.center,
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
   /// An old map's title cartouche: a parchment panel in a scrolled frame,
   /// the map's title above, the sentences written inside.
   Widget _cartouche(BuildContext context, TextStyle style) {
@@ -935,6 +970,78 @@ class _RoutebookPage extends CustomPainter {
 
   @override
   bool shouldRepaint(_RoutebookPage old) => false;
+}
+
+/// A post of the palisade: bark at both edges, rough and furrowed, and
+/// between them the pale wood where the bark was stripped, its grain
+/// running along.
+class _StrippedPost extends CustomPainter {
+  const _StrippedPost();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final whole = Offset.zero & size;
+    canvas.drawRect(
+      whole.shift(const Offset(0, 6)),
+      Paint()
+        ..color = const Color(0xAA000000)
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 10),
+    );
+    // The bark, all over first.
+    canvas.drawRect(whole, Paint()..color = const Color(0xFF4A3E32));
+    final random = math.Random(1590);
+    final furrow = Paint()
+      ..strokeWidth = 1.4
+      ..color = const Color(0xFF2E261E);
+    for (var i = 0; i < 90; i++) {
+      final x = random.nextDouble() * size.width;
+      final y = random.nextDouble() * size.height;
+      canvas.drawLine(
+        Offset(x, y),
+        Offset(x + 18 + random.nextDouble() * 30, y + random.nextDouble() * 3),
+        furrow,
+      );
+    }
+    // The stripped band: pale wood with a ragged bark edge round it.
+    final band = Path()..moveTo(28, 10);
+    for (var x = 28.0; x <= size.width - 28; x += 14) {
+      band.lineTo(x, 6 + random.nextDouble() * 8);
+    }
+    for (var y = 10.0; y <= size.height - 10; y += 12) {
+      band.lineTo(size.width - 22 - random.nextDouble() * 10, y);
+    }
+    for (var x = size.width - 28; x >= 28; x -= 14) {
+      band.lineTo(x, size.height - 6 - random.nextDouble() * 8);
+    }
+    for (var y = size.height - 10; y >= 10; y -= 12) {
+      band.lineTo(22 + random.nextDouble() * 10, y);
+    }
+    band.close();
+    canvas.drawPath(
+      band,
+      Paint()
+        ..shader = const LinearGradient(
+          colors: [Color(0xFFD8C49A), Color(0xFFE6D6B0), Color(0xFFCDB68A)],
+        ).createShader(whole),
+    );
+    final grain = Paint()
+      ..strokeWidth = 0.8
+      ..color = const Color(0x339A7A4A);
+    for (var k = 0; k < 18; k++) {
+      final y = size.height * (0.06 + k * 0.05);
+      canvas.drawLine(Offset(34, y), Offset(size.width - 34, y + 2), grain);
+    }
+    canvas.drawPath(
+      band,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.2
+        ..color = const Color(0xAA2E261E),
+    );
+  }
+
+  @override
+  bool shouldRepaint(_StrippedPost old) => false;
 }
 
 /// Granite: a grey slab with a bevelled edge, flecks of dark and pale

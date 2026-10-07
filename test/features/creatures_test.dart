@@ -66,4 +66,22 @@ void main() {
     run(eagle, 90);
     expect(sounds, contains('eagle_cry'));
   });
+
+  test('a startled heron lifts off slowly and wades back', () {
+    final sounds = <String>[];
+    final heron = Creature.create(
+      CreatureKind.heron,
+      area,
+      math.Random(4),
+      sounds.add,
+    );
+    final body = Offset(area.center.dx, area.bottom - 60);
+    expect(heron.near(body), isTrue);
+    heron.startle();
+    expect(sounds, ['wings_flutter']);
+    run(heron, 4);
+    expect(heron.near(body), isFalse, reason: 'gone');
+    run(heron, 15);
+    expect(heron.near(body), isTrue, reason: 'back in the shallows');
+  });
 }

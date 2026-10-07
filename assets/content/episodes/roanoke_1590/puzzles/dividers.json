@@ -1,0 +1,102 @@
+{
+  "id": "dividers",
+  "type": "dividers",
+  "background": "images/scenes/roanoke_1590/dividers_board.png",
+  "config": {
+    "milesAcross": 120,
+    "aspect": 0.6,
+    "north": 90,
+    "origin": [
+      0.62,
+      0.84
+    ],
+    "spans": [
+      5,
+      10,
+      25
+    ],
+    "tolerance": 6,
+    "places": [
+      {
+        "labelKey": "roanoke_1590.place.roanoac",
+        "at": [
+          0.62,
+          0.84
+        ]
+      },
+      {
+        "labelKey": "roanoke_1590.place.croatoan",
+        "at": [
+          0.2,
+          0.86
+        ]
+      },
+      {
+        "labelKey": "roanoke_1590.place.rivers",
+        "at": [
+          0.62,
+          0.15
+        ]
+      },
+      {
+        "labelKey": "roanoke_1590.place.dasamonquepeuc",
+        "at": [
+          0.6,
+          0.7
+        ]
+      },
+      {
+        "labelKey": "roanoke_1590.place.secotan",
+        "at": [
+          0.44,
+          0.55
+        ]
+      },
+      {
+        "labelKey": "roanoke_1590.place.chesepiuc",
+        "at": [
+          0.93,
+          0.56
+        ]
+      },
+      {
+        "labelKey": "roanoke_1590.place.pomeiooc",
+        "at": [
+          0.3,
+          0.68
+        ]
+      }
+    ],
+    "targets": [
+      {
+        "clueKey": "roanoke_1590.dividers.croatoan",
+        "place": 1
+      },
+      {
+        "clueKey": "roanoke_1590.dividers.main",
+        "place": 2
+      }
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "paper"
+    },
+    {
+      "type": "showText",
+      "key": "roanoke_1590.ship.dividers_done"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.roanoke_1590.dividers.1"
+    },
+    {
+      "key": "hint.roanoke_1590.dividers.2"
+    },
+    {
+      "key": "hint.roanoke_1590.dividers.3"
+    }
+  ]
+}

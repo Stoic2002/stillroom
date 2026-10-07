@@ -657,4 +657,67 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get markerCaption => '史跡';
+
+  @override
+  String get ringsInstruction => 'コアを基準年輪曲線に沿って滑らせ、広い輪と狭い輪の並びが合ったら照合しよう。';
+
+  @override
+  String get ringsCheck => '照合する';
+
+  @override
+  String get ringsWrong => 'ここでは模様が合わない。さらに滑らせよう。';
+
+  @override
+  String ringsDated(int count) {
+    return '年代が決まった。続く$count本の最も狭い輪に印を付けよう。最も乾いた年だ。';
+  }
+
+  @override
+  String get ringsMark => 'これが最も乾いた年だ';
+
+  @override
+  String get ringsMarkWrong => '最も狭い並びではない。コアをもう一度見よう。';
+
+  @override
+  String get dividersInstruction =>
+      '縮尺でディバイダーを開き、方角を選び、ロアノークから歩ませよう。止まった所に印を付けよう。';
+
+  @override
+  String get dividersHeadings => '北,北東,東,南東,南,南西,西,北西';
+
+  @override
+  String dividersSpan(int miles) {
+    return '$milesマイル';
+  }
+
+  @override
+  String get dividersStep => '一歩';
+
+  @override
+  String get dividersBack => '戻る';
+
+  @override
+  String get dividersMark => 'ここに印';
+
+  @override
+  String dividersWalked(int miles) {
+    return '$milesマイル進んだ';
+  }
+
+  @override
+  String get dividersElsewhere => '海図の別の場所だ。手がかりが示す所ではない。';
+
+  @override
+  String get dividersNothing => '海図のそこには何も描かれていない。';
+
+  @override
+  String dividersProgress(int found, int total) {
+    return '見つけた場所：$totalのうち$found';
+  }
+
+  @override
+  String get dividersUnset => 'ディバイダーを開いて方角を選び、それから歩ませよう。';
+
+  @override
+  String get postCaption => '秘密の目印';
 }

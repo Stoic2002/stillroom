@@ -427,6 +427,10 @@ enum CreatureKind {
 
   /// A raven on a branch; flies off when tapped, comes back.
   raven,
+
+  /// A heron standing in the shallows, now and then striking at the
+  /// water; flies off slowly when tapped, comes back.
+  heron,
 }
 
 /// A small living thing in a scene (`creatures` in a scene file):

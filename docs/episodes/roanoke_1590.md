@@ -1,13 +1,14 @@
 # Episode design: Roanoke, 1590 (the colony that left a word)
 
-Status: **design draft** (2026-10-07), for the developer's approval before
-anything is built. Shelf IV (opens after 8 tales), the Americas, from the
-plan of 16 tales (`docs/stillroom_frame.md`, *The full shelf*). It
-replaces the sealed teaser `sealed_roanoke_1590`; a teaser for the next
-tale (`sealed_franklin_1845`) takes its place. Proposed id:
-`roanoke_1590`; jar label **Roanoke, 1590**, its map pin on the north end
-of Roanoke Island (Fort Raleigh). Drawn in depth from the start (CLAUDE.md
-decision 6), with one camera per scene.
+Status: **built** (2026-10-07): draft text in seven languages, code-drawn
+art in depth (`lib/core/art/roanoke_1590_art.dart`), generated audio,
+walkthrough test. Approved by the developer with setting A, both
+mechanics, and the recommended label and seal. Shelf IV (opens after 8
+tales), the Americas, from the plan of 16 tales
+(`docs/stillroom_frame.md`, *The full shelf*). It replaces the sealed
+teaser `sealed_roanoke_1590`; the teaser on shelf IV is now
+`sealed_franklin_1845`. Id: `roanoke_1590`; jar label **Roanoke, 1590**,
+its map pin on the north end of Roanoke Island (Fort Raleigh).
 
 ## Premise
 
@@ -175,10 +176,62 @@ after that, the evidence is still argued over."
   `core_slide` (the core slid along), `ring_mark` (a ring marked),
   `divider_step` (the dividers walked a step).
 
-## Open questions for the developer
+## Decisions (2026-10-07)
 
-1. Where it is set: **A** (White's landing, 18 August 1590, recommended)
-   or B (today, at Fort Raleigh and Hatteras)?
-2. The two mechanics: the rings (`rings`) and the dividers (`dividers`)?
-3. The jar's label **Roanoke, 1590**, and the seal as the carved post
-   (`post`) with its sentence (Croatoan / cross / drought)?
+1. Setting **A**: White's landing, dawn on 18 August 1590; the papers from
+   1937 on arrive "that should not be here yet".
+2. Both mechanics: the rings (`rings`) and the dividers (`dividers`).
+3. The jar's label **Roanoke, 1590**; the seal as the carved post
+   (`post`): "They carved {Croatoan} with no {cross} of distress, in the
+   worst {drought} in eight hundred years."
+
+## As built
+
+- **Map:** the shore (start) opens on the hill (the path into the woods
+  on the left), the fort (the track to the palisade) and the ship (at
+  anchor beyond the sound); the chests open from the fort, by the old
+  trench.
+- **Flow:** on the shore the smouldering grass, the footprints, the boat
+  (seven drowned in the landing) and the trumpet. On the hill, CRO. At the
+  fort the palisade and the iron in the grass, then the post (*Croatoan*).
+  At the chests, the pit and White's spoiled things, and his chart rolled
+  in oiled cloth. In the cabin: the journal (the agreement, *cross*), the
+  chart on the table (`dividers`; it waits for the chart and the
+  journal), then the Hatteras and Site X papers on the sea chest (*Site
+  X*) and the cypress core on the table (`rings`, gives *drought*), then
+  the later papers on the wall (*the Dare Stones*, *a white doe*, *the
+  Spanish*, *a massacre*, *vanished*). The keeper's slip is in the
+  trumpet's bell once those are read; the seal is cut into the post.
+- **The rings:** a master from 1560 to 1599 and a 14-ring core from 1579
+  (it matches at 1579 with a summed difference of 0.25; the next best
+  place, 2.58). The narrowest run, 1587 to 1589. The widths are drawn to
+  show the published finding (Stahle et al. 1998), not measured values.
+- **The dividers:** a chart 120 miles across with north on the right, as
+  White drew it; spans of 5, 10 and 25 miles; Croatoan fifty miles south
+  of Roanoac (left on the chart), "where the rivers meet" fifty miles
+  west (up); Dasamonquepeuc, Secotan, Pomeiooc and Chesepiuc as other
+  places. The positions are stylized, the distances the record's.
+- **Words:** *Croatoan*, *cross*, *drought* (the answers); *vanished*, *the
+  Spanish*, *a massacre*, *the Dare Stones*, *a white doe*, *Site X*
+  (decoys).
+- **Echoes:** a sailor with a trumpet on the shore; a sailor with a spade
+  at the chests (`EchoFigure.trumpeter`, `EchoFigure.shoveller`).
+  **Living things:** a heron in the shallows (`heron`).
+- **Audio:** music `sound_dawn`; effects `trumpet_call`, `surf_low`,
+  `chest_lid`; interface `core_slide`, `ring_mark`, `divider_step`.
+
+## Things to watch when tested
+
+- Whether dragging the core and checking the match is clear without the
+  hints, and whether the bars read as rings; whether the bracket and
+  "These are the driest years" are found.
+- Whether north on the right of the chart surprises in a good way or
+  just confuses; whether the headings (from true north) and the walk
+  drawn on the chart make it clear.
+- The tone of the later papers (Strachey's claim, the Dare Stones), and
+  that the ending stays open; the Croatoan people and Manteo named with
+  respect.
+- The five scenes in depth: the shore's paths into the woods are the
+  exits to the hill and the fort; whether they are found.
+- The romanized place names (Dasamonquepeuc, Chesepiuc) in the CJK and
+  Russian texts, for a native reader.

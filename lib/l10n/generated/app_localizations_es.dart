@@ -706,4 +706,70 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get markerCaption => 'Lugar histórico';
+
+  @override
+  String get ringsInstruction =>
+      'Desliza el testigo a lo largo de la cronología maestra hasta que sus anillos anchos y estrechos coincidan; luego comprueba.';
+
+  @override
+  String get ringsCheck => 'Comprobar';
+
+  @override
+  String get ringsWrong => 'El patrón no encaja aquí. Sigue deslizando.';
+
+  @override
+  String ringsDated(int count) {
+    return 'Datado. Ahora marca los $count anillos más estrechos seguidos: los años más secos.';
+  }
+
+  @override
+  String get ringsMark => 'Estos son los años más secos';
+
+  @override
+  String get ringsMarkWrong =>
+      'No es la serie más estrecha. Mira otra vez el testigo.';
+
+  @override
+  String get dividersInstruction =>
+      'Abre el compás sobre la escala, elige un rumbo y avanza desde Roanoke. Marca dónde queda.';
+
+  @override
+  String get dividersHeadings => 'N,NE,E,SE,S,SO,O,NO';
+
+  @override
+  String dividersSpan(int miles) {
+    return '$miles mi';
+  }
+
+  @override
+  String get dividersStep => 'Paso';
+
+  @override
+  String get dividersBack => 'Atrás';
+
+  @override
+  String get dividersMark => 'Marcar aquí';
+
+  @override
+  String dividersWalked(int miles) {
+    return '$miles millas recorridas';
+  }
+
+  @override
+  String get dividersElsewhere =>
+      'Otro lugar del mapa, no el que nombra la pista.';
+
+  @override
+  String get dividersNothing => 'No hay nada dibujado ahí en el mapa.';
+
+  @override
+  String dividersProgress(int found, int total) {
+    return 'Lugares hallados: $found de $total';
+  }
+
+  @override
+  String get dividersUnset => 'Abre el compás y elige un rumbo; luego avanza.';
+
+  @override
+  String get postCaption => 'La señal secreta';
 }

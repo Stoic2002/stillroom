@@ -146,7 +146,19 @@
       ]
     },
     {
-      "id": "sealed_roanoke_1590",
+      "id": "roanoke_1590",
+      "titleKey": "episode.roanoke_1590.title",
+      "teaserKey": "episode.roanoke_1590.teaser",
+      "jarImage": "images/ui/jar_roanoke_1590.png",
+      "shelf": 4,
+      "unlockAfter": 8,
+      "place": [
+        35.9393,
+        -75.7096
+      ]
+    },
+    {
+      "id": "sealed_franklin_1845",
       "titleKey": "episode.sealed.title",
       "comingSoon": true,
       "shelf": 4,

@@ -87,6 +87,14 @@ enum EchoFigure {
 
   /// A temple monk in a work robe, sweeping with a bamboo broom.
   sweeper,
+
+  /// A sailor of 1590 in a short jacket and wide breeches, a trumpet
+  /// raised to the lips.
+  trumpeter,
+
+  /// A sailor of 1590 in a short jacket and wide breeches, digging with a
+  /// spade.
+  shoveller,
 }
 
 const _mist = Color(0xFFD5DEE2);
@@ -579,6 +587,48 @@ void paintEcho(Art a, EchoFigure figure) {
         // The broom: a long handle slanting down, a fan of twigs.
         ..drawLine(a.p(0.66, 0.3), a.p(0.1, 0.9), stroke)
         ..drawPath(shape([(0.16, 0.84), (0.0, 0.99), (0.24, 0.99)]), body);
+    case EchoFigure.trumpeter || EchoFigure.shoveller:
+      final stroke = Paint()
+        ..color = _mist
+        ..strokeWidth = w * 0.06
+        ..maskFilter = blur;
+      a.canvas
+        // A round cap.
+        ..drawOval(a.r(0.34, 0.03, 0.32, 0.07), body)
+        // The short jacket, the wide breeches to the knee, the legs.
+        ..drawPath(
+          shape([(0.3, 0.2), (0.7, 0.2), (0.74, 0.5), (0.26, 0.5)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.24, 0.49), (0.76, 0.49), (0.78, 0.7), (0.22, 0.7)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.3, 0.69), (0.46, 0.69), (0.45, 0.99), (0.32, 0.99)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.54, 0.69), (0.7, 0.69), (0.68, 0.99), (0.55, 0.99)]),
+          body,
+        );
+      if (figure == EchoFigure.trumpeter) {
+        // The arm raised, the trumpet out from the lips.
+        a.canvas
+          ..drawLine(a.p(0.66, 0.24), a.p(0.74, 0.12), stroke)
+          ..drawPath(
+            shape([(0.6, 0.11), (0.96, 0.06), (0.98, 0.16), (0.6, 0.13)]),
+            body,
+          );
+      } else {
+        // The spade, driven into the ground.
+        a.canvas
+          ..drawLine(a.p(0.72, 0.3), a.p(0.9, 0.88), stroke)
+          ..drawPath(
+            shape([(0.84, 0.86), (0.98, 0.84), (0.99, 0.99), (0.86, 0.99)]),
+            body,
+          );
+      }
     case EchoFigure.investigator:
       a.canvas
         ..drawPath(

@@ -1,0 +1,188 @@
+{
+  "id": "shore",
+  "background": "images/scenes/roanoke_1590/shore.png",
+  "exits": [
+    {
+      "id": "hill",
+      "to": "hill",
+      "rect": [
+        0.0,
+        0.6,
+        0.26,
+        0.26
+      ]
+    },
+    {
+      "id": "fort",
+      "to": "fort",
+      "rect": [
+        0.26,
+        0.43,
+        0.12,
+        0.18
+      ]
+    },
+    {
+      "id": "ship",
+      "to": "ship",
+      "rect": [
+        0.56,
+        0.32,
+        0.1,
+        0.12
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "grass",
+      "rect": [
+        0.4,
+        0.47,
+        0.13,
+        0.17
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "roanoke_1590.shore.grass"
+        }
+      ]
+    },
+    {
+      "id": "prints",
+      "rect": [
+        0.32,
+        0.7,
+        0.2,
+        0.2
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "roanoke_1590.shore.prints"
+        }
+      ]
+    },
+    {
+      "id": "boat",
+      "rect": [
+        0.56,
+        0.63,
+        0.25,
+        0.15
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "roanoke_1590.shore.boat"
+        }
+      ]
+    },
+    {
+      "id": "trumpet",
+      "rect": [
+        0.63,
+        0.6,
+        0.09,
+        0.08
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "trumpet_call"
+        },
+        {
+          "type": "showText",
+          "key": "roanoke_1590.shore.trumpet"
+        }
+      ]
+    },
+    {
+      "id": "trumpet_note",
+      "rect": [
+        0.63,
+        0.6,
+        0.09,
+        0.08
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": true
+        },
+        {
+          "flag": "found_note",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "found_note",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "roanoke_1590.shore.keeper_note"
+        }
+      ]
+    },
+    {
+      "id": "trumpet_done",
+      "rect": [
+        0.63,
+        0.6,
+        0.09,
+        0.08
+      ],
+      "when": [
+        {
+          "flag": "found_note",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "roanoke_1590.shore.trumpet_done"
+        }
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "heron",
+      "kind": "heron",
+      "rect": [
+        0.7,
+        0.47,
+        0.08,
+        0.12
+      ]
+    }
+  ],
+  "echoes": [
+    {
+      "id": "trumpeter",
+      "image": "images/objects/roanoke_1590/echo_trumpeter.png",
+      "rect": [
+        0.526,
+        0.434,
+        0.051,
+        0.223
+      ],
+      "chance": 0.8,
+      "drift": [
+        0.01,
+        0
+      ]
+    }
+  ]
+}

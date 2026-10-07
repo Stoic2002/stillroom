@@ -44,6 +44,7 @@ abstract class Creature extends Component {
     CreatureKind.grass => _Grass(area, random, sound),
     CreatureKind.eagle => _Eagle(area, random, sound),
     CreatureKind.raven => _Fulmar(area, random, sound, raven: true),
+    CreatureKind.heron => _Heron(area, random, sound),
   };
 }
 
@@ -632,6 +633,171 @@ class _Fulmar extends Creature {
         ..strokeWidth = 5
         ..strokeCap = StrokeCap.round,
     );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Heron: a great blue heron standing in the shallows on long legs, its
+// neck folded; now and then it leans and strikes at the water. Startled,
+// it lifts off slowly on broad wings and comes back later.
+
+class _Heron extends Creature {
+  _Heron(super.area, super.random, super.sound) {
+    _nextStrike = 4 + random.nextDouble() * 6;
+  }
+
+  static const _grey = Color(0xFF7A8A9A);
+  static const _dark = Color(0xFF4A5462);
+  static const _pale = Color(0xFFD8DCE0);
+  static const _bill = Color(0xFFC8A040);
+
+  double _away = -1;
+  static const _flyOff = 2.4;
+  static const _absence = 12.0;
+  static const _return = 3.0;
+
+  double _nextStrike = 0;
+  double _strike = -1;
+
+  Offset get _feet => Offset(area.center.dx, area.bottom);
+
+  @override
+  bool near(Offset p) =>
+      _away < 0 && (p - _feet.translate(0, -60)).distance < 110;
+
+  @override
+  void startle() {
+    if (_away >= 0) return;
+    _away = 0;
+    sound('wings_flutter');
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+    if (_away >= 0) {
+      _away += dt;
+      if (_away > _flyOff + _absence + _return) _away = -1;
+      return;
+    }
+    if (_strike >= 0) {
+      _strike += dt;
+      if (_strike > 1.2) _strike = -1;
+    } else {
+      _nextStrike -= dt;
+      if (_nextStrike <= 0) {
+        _strike = 0;
+        _nextStrike = 6 + random.nextDouble() * 9;
+      }
+    }
+  }
+
+  @override
+  void render(Canvas canvas) {
+    final away = _away;
+    if (away >= 0) {
+      final Offset pos;
+      if (away < _flyOff) {
+        pos = _lerp(_feet, _feet + const Offset(-320, -260), away / _flyOff);
+      } else if (away < _flyOff + _absence) {
+        return;
+      } else {
+        final t = (away - _flyOff - _absence) / _return;
+        pos = _lerp(_feet + const Offset(340, -240), _feet, t);
+      }
+      final flap = math.sin(time * 4) * 14;
+      canvas
+        ..drawPath(
+          Path()
+            ..moveTo(pos.dx - 60, pos.dy - 70 - flap)
+            ..quadraticBezierTo(pos.dx - 20, pos.dy - 82, pos.dx, pos.dy - 70)
+            ..quadraticBezierTo(
+              pos.dx + 20,
+              pos.dy - 82,
+              pos.dx + 60,
+              pos.dy - 70 - flap,
+            ),
+          Paint()
+            ..color = _dark
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 7
+            ..strokeCap = StrokeCap.round,
+        )
+        ..drawLine(
+          pos.translate(0, -70),
+          pos.translate(-40, -66),
+          Paint()
+            ..color = _grey
+            ..strokeWidth = 4,
+        );
+      return;
+    }
+    final f = _feet;
+    final lean = _strike < 0
+        ? 0.0
+        : math.sin(math.min(1, _strike / 1.2) * math.pi);
+    final legs = Paint()
+      ..color = const Color(0xFF5A5040)
+      ..strokeWidth = 3;
+    // Ripples round its legs, then the legs, the body, the neck and bill.
+    canvas
+      ..drawOval(
+        Rect.fromCenter(center: f, width: 70, height: 10),
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1.5
+          ..color = const Color(0x66FFFFFF),
+      )
+      ..drawLine(f.translate(-6, 0), f.translate(-4, -70), legs)
+      ..drawLine(f.translate(6, 0), f.translate(4, -70), legs);
+    final body = f.translate(0, -88);
+    canvas
+      ..drawOval(
+        Rect.fromCenter(center: body, width: 76, height: 34),
+        Paint()..color = _grey,
+      )
+      ..drawOval(
+        Rect.fromCenter(center: body.translate(-8, -4), width: 50, height: 18),
+        Paint()..color = _dark,
+      );
+    final neckBase = body.translate(26, -10);
+    final head = Offset.lerp(
+      neckBase.translate(10, -54),
+      neckBase.translate(40, 40),
+      lean,
+    )!;
+    canvas
+      ..drawPath(
+        Path()
+          ..moveTo(neckBase.dx, neckBase.dy)
+          ..quadraticBezierTo(
+            neckBase.dx - 14 + lean * 20,
+            neckBase.dy - 26 + lean * 30,
+            head.dx,
+            head.dy,
+          ),
+        Paint()
+          ..color = _pale
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 8
+          ..strokeCap = StrokeCap.round,
+      )
+      ..drawCircle(head, 7, Paint()..color = _pale)
+      ..drawLine(
+        head.translate(2, -3),
+        head.translate(-6, -5),
+        Paint()
+          ..color = const Color(0xFF2A2A30)
+          ..strokeWidth = 3,
+      )
+      ..drawLine(
+        head.translate(5, 1),
+        head.translate(28, 4 + lean * 14),
+        Paint()
+          ..color = _bill
+          ..strokeWidth = 3.5
+          ..strokeCap = StrokeCap.round,
+      );
   }
 }
 

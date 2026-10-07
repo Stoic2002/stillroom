@@ -656,4 +656,66 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get markerCaption => '史迹';
+
+  @override
+  String get ringsInstruction => '沿主年表滑动树芯，直到宽窄年轮的节奏对上，再核对。';
+
+  @override
+  String get ringsCheck => '核对';
+
+  @override
+  String get ringsWrong => '这里图样对不上。继续滑动。';
+
+  @override
+  String ringsDated(int count) {
+    return '定年了。现在标出连续$count圈最窄的年轮：最干旱的年份。';
+  }
+
+  @override
+  String get ringsMark => '这就是最干旱的年份';
+
+  @override
+  String get ringsMarkWrong => '不是最窄的一段。再沿树芯看看。';
+
+  @override
+  String get dividersInstruction => '在比例尺上张开分规，选一个方向，从罗阿诺克一步步量过去。在分规停下处做标记。';
+
+  @override
+  String get dividersHeadings => '北,东北,东,东南,南,西南,西,西北';
+
+  @override
+  String dividersSpan(int miles) {
+    return '$miles英里';
+  }
+
+  @override
+  String get dividersStep => '一步';
+
+  @override
+  String get dividersBack => '退回';
+
+  @override
+  String get dividersMark => '在此标记';
+
+  @override
+  String dividersWalked(int miles) {
+    return '已量$miles英里';
+  }
+
+  @override
+  String get dividersElsewhere => '海图上的另一个地方，不是线索说的那个。';
+
+  @override
+  String get dividersNothing => '海图上那里什么也没画。';
+
+  @override
+  String dividersProgress(int found, int total) {
+    return '已找到地点：$found/$total';
+  }
+
+  @override
+  String get dividersUnset => '先张开分规并选方向，再迈步。';
+
+  @override
+  String get postCaption => '秘密记号';
 }

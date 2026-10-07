@@ -1,0 +1,95 @@
+{
+  "id": "chests",
+  "background": "images/scenes/roanoke_1590/chests.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "fort"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "pit",
+      "rect": [
+        0.2,
+        0.48,
+        0.6,
+        0.16
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "roanoke_1590.chests.pit"
+        }
+      ]
+    },
+    {
+      "id": "chart",
+      "rect": [
+        0.56,
+        0.62,
+        0.16,
+        0.2
+      ],
+      "when": [
+        {
+          "flag": "found_chart",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "chest_lid"
+        },
+        {
+          "type": "setFlag",
+          "flag": "found_chart",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "roanoke_1590.chests.chart"
+        }
+      ]
+    },
+    {
+      "id": "chart_done",
+      "rect": [
+        0.56,
+        0.62,
+        0.16,
+        0.2
+      ],
+      "when": [
+        {
+          "flag": "found_chart",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "roanoke_1590.chests.chart_done"
+        }
+      ]
+    }
+  ],
+  "echoes": [
+    {
+      "id": "shoveller",
+      "image": "images/objects/roanoke_1590/echo_shoveller.png",
+      "rect": [
+        0.304,
+        0.397,
+        0.049,
+        0.213
+      ],
+      "chance": 0.8,
+      "drift": [
+        0.0,
+        0
+      ]
+    }
+  ]
+}

@@ -170,6 +170,10 @@ enum DeductionForm {
 
   /// A city's stone site marker: grey granite, the words cut into it.
   marker,
+
+  /// A palisade post, the bark stripped from a band of pale wood, the
+  /// words cut into it in capitals.
+  post,
 }
 
 final class DeductionSentence {

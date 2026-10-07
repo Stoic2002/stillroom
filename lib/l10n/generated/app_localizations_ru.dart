@@ -708,4 +708,71 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get markerCaption => 'Историческое место';
+
+  @override
+  String get ringsInstruction =>
+      'Двигайте керн вдоль эталонной хронологии, пока широкие и узкие кольца не совпадут, затем сверьте.';
+
+  @override
+  String get ringsCheck => 'Сверить';
+
+  @override
+  String get ringsWrong => 'Здесь рисунок не совпадает. Двигайте дальше.';
+
+  @override
+  String ringsDated(int count) {
+    return 'Датировано. Теперь отметьте $count самых узких колец подряд: самые сухие годы.';
+  }
+
+  @override
+  String get ringsMark => 'Это самые сухие годы';
+
+  @override
+  String get ringsMarkWrong =>
+      'Это не самый узкий ряд. Посмотрите на керн ещё раз.';
+
+  @override
+  String get dividersInstruction =>
+      'Разведите циркуль по шкале, выберите курс и шагайте от Роанока. Отметьте, где он встал.';
+
+  @override
+  String get dividersHeadings => 'С,СВ,В,ЮВ,Ю,ЮЗ,З,СЗ';
+
+  @override
+  String dividersSpan(int miles) {
+    return '$miles миль';
+  }
+
+  @override
+  String get dividersStep => 'Шаг';
+
+  @override
+  String get dividersBack => 'Назад';
+
+  @override
+  String get dividersMark => 'Отметить здесь';
+
+  @override
+  String dividersWalked(int miles) {
+    return 'Пройдено $miles миль';
+  }
+
+  @override
+  String get dividersElsewhere =>
+      'Это другое место на карте, не то, что названо в подсказке.';
+
+  @override
+  String get dividersNothing => 'Там на карте ничего не нарисовано.';
+
+  @override
+  String dividersProgress(int found, int total) {
+    return 'Найдено мест: $found из $total';
+  }
+
+  @override
+  String get dividersUnset =>
+      'Разведите циркуль и выберите курс, потом шагайте.';
+
+  @override
+  String get postCaption => 'Условный знак';
 }

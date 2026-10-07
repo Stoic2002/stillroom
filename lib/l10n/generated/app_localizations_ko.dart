@@ -661,4 +661,68 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get markerCaption => '사적지';
+
+  @override
+  String get ringsInstruction =>
+      '기준 연대표를 따라 코어를 밀어 넓은 테와 좁은 테의 무늬가 맞으면 대조해 보자.';
+
+  @override
+  String get ringsCheck => '대조하기';
+
+  @override
+  String get ringsWrong => '여기서는 무늬가 맞지 않는다. 더 밀어 보자.';
+
+  @override
+  String ringsDated(int count) {
+    return '연대가 정해졌다. 이제 연달아 가장 좁은 테 $count개를 표시하자. 가장 가문 해들이다.';
+  }
+
+  @override
+  String get ringsMark => '이것이 가장 가문 해들이다';
+
+  @override
+  String get ringsMarkWrong => '가장 좁은 줄이 아니다. 코어를 다시 살펴보자.';
+
+  @override
+  String get dividersInstruction =>
+      '축척에서 디바이더를 벌리고 방향을 골라 로어노크에서부터 걸어 보자. 멈춘 곳을 표시하자.';
+
+  @override
+  String get dividersHeadings => '북,북동,동,남동,남,남서,서,북서';
+
+  @override
+  String dividersSpan(int miles) {
+    return '$miles마일';
+  }
+
+  @override
+  String get dividersStep => '한 걸음';
+
+  @override
+  String get dividersBack => '뒤로';
+
+  @override
+  String get dividersMark => '여기 표시';
+
+  @override
+  String dividersWalked(int miles) {
+    return '$miles마일 걸음';
+  }
+
+  @override
+  String get dividersElsewhere => '지도 위의 다른 곳이다. 단서가 말하는 곳이 아니다.';
+
+  @override
+  String get dividersNothing => '지도의 그곳에는 아무것도 그려져 있지 않다.';
+
+  @override
+  String dividersProgress(int found, int total) {
+    return '찾은 곳: $total곳 중 $found곳';
+  }
+
+  @override
+  String get dividersUnset => '디바이더를 벌리고 방향을 고른 뒤 걸어 보자.';
+
+  @override
+  String get postCaption => '비밀 표식';
 }

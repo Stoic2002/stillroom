@@ -1,0 +1,169 @@
+{
+  "startScene": "shore",
+  "flags": {
+    "read_post": false,
+    "found_chart": false,
+    "read_journal": false,
+    "read_later": false,
+    "found_note": false
+  },
+  "logicalResolution": [
+    1920,
+    1080
+  ],
+  "orientation": "landscape",
+  "sceneTransitionMs": 600,
+  "music": "sound_dawn",
+  "words": [
+    {
+      "id": "croatoan",
+      "labelKey": "roanoke_1590.word.croatoan",
+      "kind": "place"
+    },
+    {
+      "id": "cross",
+      "labelKey": "roanoke_1590.word.cross",
+      "kind": "thing"
+    },
+    {
+      "id": "drought",
+      "labelKey": "roanoke_1590.word.drought",
+      "kind": "thing"
+    },
+    {
+      "id": "vanished",
+      "labelKey": "roanoke_1590.word.vanished",
+      "kind": "thing"
+    },
+    {
+      "id": "spanish",
+      "labelKey": "roanoke_1590.word.spanish",
+      "kind": "name"
+    },
+    {
+      "id": "massacre",
+      "labelKey": "roanoke_1590.word.massacre",
+      "kind": "thing"
+    },
+    {
+      "id": "dare_stones",
+      "labelKey": "roanoke_1590.word.dare_stones",
+      "kind": "thing"
+    },
+    {
+      "id": "white_doe",
+      "labelKey": "roanoke_1590.word.white_doe",
+      "kind": "thing"
+    },
+    {
+      "id": "site_x",
+      "labelKey": "roanoke_1590.word.site_x",
+      "kind": "place"
+    }
+  ],
+  "secret": {
+    "when": [
+      {
+        "flag": "found_note",
+        "equals": true
+      }
+    ],
+    "noteKey": "roanoke_1590.shore.keeper_note"
+  },
+  "hintStages": [
+    {
+      "id": "write_seal",
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.roanoke_1590.write_seal.1"
+        },
+        {
+          "key": "hint.roanoke_1590.write_seal.2"
+        }
+      ]
+    },
+    {
+      "id": "later",
+      "when": [
+        {
+          "puzzleSolved": "rings"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.roanoke_1590.later.1"
+        },
+        {
+          "key": "hint.roanoke_1590.later.2"
+        }
+      ]
+    },
+    {
+      "id": "core",
+      "when": [
+        {
+          "puzzleSolved": "dividers"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.roanoke_1590.core.1"
+        },
+        {
+          "key": "hint.roanoke_1590.core.2"
+        }
+      ]
+    },
+    {
+      "id": "ship",
+      "when": [
+        {
+          "flag": "found_chart",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.roanoke_1590.ship.1"
+        },
+        {
+          "key": "hint.roanoke_1590.ship.2"
+        }
+      ]
+    },
+    {
+      "id": "chests",
+      "when": [
+        {
+          "flag": "read_post",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.roanoke_1590.chests.1"
+        },
+        {
+          "key": "hint.roanoke_1590.chests.2"
+        }
+      ]
+    },
+    {
+      "id": "start",
+      "hints": [
+        {
+          "key": "hint.roanoke_1590.start.1"
+        },
+        {
+          "key": "hint.roanoke_1590.start.2"
+        }
+      ]
+    }
+  ]
+}

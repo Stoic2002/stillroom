@@ -1,0 +1,92 @@
+{
+  "id": "fort",
+  "background": "images/scenes/roanoke_1590/fort.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "shore"
+    },
+    {
+      "id": "chests",
+      "to": "chests",
+      "rect": [
+        0.8,
+        0.57,
+        0.2,
+        0.24
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "palisade",
+      "rect": [
+        0.0,
+        0.2,
+        0.4,
+        0.72
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "roanoke_1590.fort.palisade"
+        }
+      ]
+    },
+    {
+      "id": "post",
+      "rect": [
+        0.53,
+        0.17,
+        0.09,
+        0.56
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "read_post",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "roanoke_1590.fort.post"
+        }
+      ]
+    },
+    {
+      "id": "post_seal",
+      "rect": [
+        0.53,
+        0.17,
+        0.09,
+        0.56
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "jar_label",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "roanoke_1590.fort.seal_needed"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "jar_label"
+        }
+      ]
+    }
+  ]
+}

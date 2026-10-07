@@ -150,7 +150,16 @@ enum UiSound {
   findLift('find_lift', Haptic.selection),
 
   /// A block marked on the city map.
-  streetMark('street_mark', Haptic.light);
+  streetMark('street_mark', Haptic.light),
+
+  /// A tree-ring core slid one ring along the master chronology.
+  coreSlide('core_slide', Haptic.selection),
+
+  /// A run of rings marked on the core.
+  ringMark('ring_mark', Haptic.light),
+
+  /// The dividers walked one step across the chart.
+  dividerStep('divider_step', Haptic.selection);
 
   const UiSound(this.id, this.haptic);
 

@@ -1271,6 +1271,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Historic site'**
   String get markerCaption;
+
+  /// Rings puzzle: what to do.
+  ///
+  /// In en, this message translates to:
+  /// **'Slide the core along the master chronology until its wide and narrow rings fall in step, then check the match.'**
+  String get ringsInstruction;
+
+  /// Button: check the core's match where it lies.
+  ///
+  /// In en, this message translates to:
+  /// **'Check the match'**
+  String get ringsCheck;
+
+  /// Rings puzzle: the core does not match here.
+  ///
+  /// In en, this message translates to:
+  /// **'The pattern does not hold here. Slide on.'**
+  String get ringsWrong;
+
+  /// Rings puzzle: dated; now mark the narrowest run.
+  ///
+  /// In en, this message translates to:
+  /// **'Dated. Now mark the {count} narrowest rings in a row: the driest years.'**
+  String ringsDated(int count);
+
+  /// Button: mark the bracketed rings as the driest run.
+  ///
+  /// In en, this message translates to:
+  /// **'These are the driest years'**
+  String get ringsMark;
+
+  /// Rings puzzle: a wrong run marked.
+  ///
+  /// In en, this message translates to:
+  /// **'Not the narrowest run. Look again along the core.'**
+  String get ringsMarkWrong;
+
+  /// Dividers puzzle: what to do.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the dividers on the scale, pick a heading, and walk them from Roanoke. Mark where they stand.'**
+  String get dividersInstruction;
+
+  /// The eight compass points, clockwise from north, separated by commas.
+  ///
+  /// In en, this message translates to:
+  /// **'N,NE,E,SE,S,SW,W,NW'**
+  String get dividersHeadings;
+
+  /// Dividers puzzle: a span on the scale.
+  ///
+  /// In en, this message translates to:
+  /// **'{miles} mi'**
+  String dividersSpan(int miles);
+
+  /// Button: walk the dividers one step.
+  ///
+  /// In en, this message translates to:
+  /// **'Step'**
+  String get dividersStep;
+
+  /// Button: take back a step.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get dividersBack;
+
+  /// Button: mark where the dividers stand.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark here'**
+  String get dividersMark;
+
+  /// Dividers puzzle: the distance walked so far.
+  ///
+  /// In en, this message translates to:
+  /// **'{miles} miles walked'**
+  String dividersWalked(int miles);
+
+  /// Dividers puzzle: marked another place.
+  ///
+  /// In en, this message translates to:
+  /// **'Another place on the chart, not the one the clue names.'**
+  String get dividersElsewhere;
+
+  /// Dividers puzzle: marked an empty spot.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing is drawn there on the chart.'**
+  String get dividersNothing;
+
+  /// Dividers puzzle: progress.
+  ///
+  /// In en, this message translates to:
+  /// **'Places found: {found} of {total}'**
+  String dividersProgress(int found, int total);
+
+  /// Dividers puzzle: no span or heading yet.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the dividers and pick a heading, then walk.'**
+  String get dividersUnset;
+
+  /// Post label form: the heading cut above the words.
+  ///
+  /// In en, this message translates to:
+  /// **'The secret token'**
+  String get postCaption;
 }
 
 class _AppLocalizationsDelegate

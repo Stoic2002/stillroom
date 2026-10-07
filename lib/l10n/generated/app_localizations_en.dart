@@ -699,4 +699,71 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get markerCaption => 'Historic site';
+
+  @override
+  String get ringsInstruction =>
+      'Slide the core along the master chronology until its wide and narrow rings fall in step, then check the match.';
+
+  @override
+  String get ringsCheck => 'Check the match';
+
+  @override
+  String get ringsWrong => 'The pattern does not hold here. Slide on.';
+
+  @override
+  String ringsDated(int count) {
+    return 'Dated. Now mark the $count narrowest rings in a row: the driest years.';
+  }
+
+  @override
+  String get ringsMark => 'These are the driest years';
+
+  @override
+  String get ringsMarkWrong =>
+      'Not the narrowest run. Look again along the core.';
+
+  @override
+  String get dividersInstruction =>
+      'Open the dividers on the scale, pick a heading, and walk them from Roanoke. Mark where they stand.';
+
+  @override
+  String get dividersHeadings => 'N,NE,E,SE,S,SW,W,NW';
+
+  @override
+  String dividersSpan(int miles) {
+    return '$miles mi';
+  }
+
+  @override
+  String get dividersStep => 'Step';
+
+  @override
+  String get dividersBack => 'Back';
+
+  @override
+  String get dividersMark => 'Mark here';
+
+  @override
+  String dividersWalked(int miles) {
+    return '$miles miles walked';
+  }
+
+  @override
+  String get dividersElsewhere =>
+      'Another place on the chart, not the one the clue names.';
+
+  @override
+  String get dividersNothing => 'Nothing is drawn there on the chart.';
+
+  @override
+  String dividersProgress(int found, int total) {
+    return 'Places found: $found of $total';
+  }
+
+  @override
+  String get dividersUnset =>
+      'Open the dividers and pick a heading, then walk.';
+
+  @override
+  String get postCaption => 'The secret token';
 }

@@ -888,5 +888,100 @@
   "markerCaption": "Historic site",
   "@markerCaption": {
     "description": "Marker label form: the heading cut above the words."
+  },
+  "ringsInstruction": "Slide the core along the master chronology until its wide and narrow rings fall in step, then check the match.",
+  "@ringsInstruction": {
+    "description": "Rings puzzle: what to do."
+  },
+  "ringsCheck": "Check the match",
+  "@ringsCheck": {
+    "description": "Button: check the core's match where it lies."
+  },
+  "ringsWrong": "The pattern does not hold here. Slide on.",
+  "@ringsWrong": {
+    "description": "Rings puzzle: the core does not match here."
+  },
+  "ringsDated": "Dated. Now mark the {count} narrowest rings in a row: the driest years.",
+  "@ringsDated": {
+    "description": "Rings puzzle: dated; now mark the narrowest run.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ringsMark": "These are the driest years",
+  "@ringsMark": {
+    "description": "Button: mark the bracketed rings as the driest run."
+  },
+  "ringsMarkWrong": "Not the narrowest run. Look again along the core.",
+  "@ringsMarkWrong": {
+    "description": "Rings puzzle: a wrong run marked."
+  },
+  "dividersInstruction": "Open the dividers on the scale, pick a heading, and walk them from Roanoke. Mark where they stand.",
+  "@dividersInstruction": {
+    "description": "Dividers puzzle: what to do."
+  },
+  "dividersHeadings": "N,NE,E,SE,S,SW,W,NW",
+  "@dividersHeadings": {
+    "description": "The eight compass points, clockwise from north, separated by commas."
+  },
+  "dividersSpan": "{miles} mi",
+  "@dividersSpan": {
+    "description": "Dividers puzzle: a span on the scale.",
+    "placeholders": {
+      "miles": {
+        "type": "int"
+      }
+    }
+  },
+  "dividersStep": "Step",
+  "@dividersStep": {
+    "description": "Button: walk the dividers one step."
+  },
+  "dividersBack": "Back",
+  "@dividersBack": {
+    "description": "Button: take back a step."
+  },
+  "dividersMark": "Mark here",
+  "@dividersMark": {
+    "description": "Button: mark where the dividers stand."
+  },
+  "dividersWalked": "{miles} miles walked",
+  "@dividersWalked": {
+    "description": "Dividers puzzle: the distance walked so far.",
+    "placeholders": {
+      "miles": {
+        "type": "int"
+      }
+    }
+  },
+  "dividersElsewhere": "Another place on the chart, not the one the clue names.",
+  "@dividersElsewhere": {
+    "description": "Dividers puzzle: marked another place."
+  },
+  "dividersNothing": "Nothing is drawn there on the chart.",
+  "@dividersNothing": {
+    "description": "Dividers puzzle: marked an empty spot."
+  },
+  "dividersProgress": "Places found: {found} of {total}",
+  "@dividersProgress": {
+    "description": "Dividers puzzle: progress.",
+    "placeholders": {
+      "found": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "dividersUnset": "Open the dividers and pick a heading, then walk.",
+  "@dividersUnset": {
+    "description": "Dividers puzzle: no span or heading yet."
+  },
+  "postCaption": "The secret token",
+  "@postCaption": {
+    "description": "Post label form: the heading cut above the words."
   }
 }

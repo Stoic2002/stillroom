@@ -1,0 +1,46 @@
+{
+  "id": "hill",
+  "background": "images/scenes/roanoke_1590/hill.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "shore"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "tree",
+      "rect": [
+        0.22,
+        0.4,
+        0.17,
+        0.3
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "roanoke_1590.hill.tree"
+        }
+      ]
+    },
+    {
+      "id": "view",
+      "rect": [
+        0.45,
+        0.36,
+        0.5,
+        0.14
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "surf_low"
+        },
+        {
+          "type": "showText",
+          "key": "roanoke_1590.hill.view"
+        }
+      ]
+    }
+  ]
+}

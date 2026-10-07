@@ -1,0 +1,324 @@
+{
+  "id": "ship",
+  "background": "images/scenes/roanoke_1590/ship.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "shore"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "journal",
+      "rect": [
+        0.11,
+        0.58,
+        0.18,
+        0.12
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_journal",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "roanoke_1590.ship.journal"
+        }
+      ]
+    },
+    {
+      "id": "table_wait",
+      "rect": [
+        0.3,
+        0.56,
+        0.4,
+        0.12
+      ],
+      "when": [
+        {
+          "flag": "found_chart",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "roanoke_1590.ship.table_wait"
+        }
+      ]
+    },
+    {
+      "id": "table_wait2",
+      "rect": [
+        0.3,
+        0.56,
+        0.4,
+        0.12
+      ],
+      "when": [
+        {
+          "flag": "found_chart",
+          "equals": true
+        },
+        {
+          "flag": "read_journal",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "roanoke_1590.ship.table_wait2"
+        }
+      ]
+    },
+    {
+      "id": "table",
+      "rect": [
+        0.3,
+        0.56,
+        0.4,
+        0.12
+      ],
+      "when": [
+        {
+          "flag": "found_chart",
+          "equals": true
+        },
+        {
+          "flag": "read_journal",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "dividers",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "showText",
+          "key": "roanoke_1590.ship.table"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "dividers"
+        }
+      ]
+    },
+    {
+      "id": "table_done",
+      "rect": [
+        0.3,
+        0.56,
+        0.28,
+        0.12
+      ],
+      "when": [
+        {
+          "puzzleSolved": "dividers"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "roanoke_1590.ship.table_done"
+        }
+      ]
+    },
+    {
+      "id": "core",
+      "rect": [
+        0.58,
+        0.56,
+        0.12,
+        0.11
+      ],
+      "when": [
+        {
+          "puzzleSolved": "dividers"
+        },
+        {
+          "puzzleSolved": "rings",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "roanoke_1590.ship.core"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "rings"
+        }
+      ]
+    },
+    {
+      "id": "core_done",
+      "rect": [
+        0.58,
+        0.56,
+        0.12,
+        0.11
+      ],
+      "when": [
+        {
+          "puzzleSolved": "rings"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "roanoke_1590.ship.core_done"
+        }
+      ]
+    },
+    {
+      "id": "sea_chest",
+      "rect": [
+        0.7,
+        0.62,
+        0.19,
+        0.2
+      ],
+      "when": [
+        {
+          "puzzleSolved": "dividers",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "roanoke_1590.ship.core_wait"
+        }
+      ]
+    },
+    {
+      "id": "hatteras",
+      "rect": [
+        0.7,
+        0.6,
+        0.19,
+        0.22
+      ],
+      "when": [
+        {
+          "puzzleSolved": "dividers"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "showText",
+          "key": "roanoke_1590.ship.hatteras"
+        }
+      ]
+    },
+    {
+      "id": "later",
+      "rect": [
+        0.23,
+        0.2,
+        0.11,
+        0.21
+      ],
+      "when": [
+        {
+          "puzzleSolved": "rings"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_later",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "roanoke_1590.ship.later"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "chart_sprite",
+      "image": "images/objects/roanoke_1590/chart_sprite.png",
+      "rect": [
+        0.352,
+        0.608,
+        0.235,
+        0.057
+      ],
+      "when": [
+        {
+          "flag": "found_chart",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "core_sprite",
+      "image": "images/objects/roanoke_1590/core_sprite.png",
+      "rect": [
+        0.592,
+        0.6,
+        0.08,
+        0.06
+      ],
+      "when": [
+        {
+          "puzzleSolved": "dividers"
+        }
+      ]
+    },
+    {
+      "id": "hatteras_sprite",
+      "image": "images/objects/roanoke_1590/hatteras_sprite.png",
+      "rect": [
+        0.72,
+        0.6,
+        0.15,
+        0.08
+      ],
+      "when": [
+        {
+          "puzzleSolved": "dividers"
+        }
+      ]
+    },
+    {
+      "id": "later_sprite",
+      "image": "images/objects/roanoke_1590/later_sprite.png",
+      "rect": [
+        0.241,
+        0.218,
+        0.083,
+        0.193
+      ],
+      "when": [
+        {
+          "puzzleSolved": "rings"
+        }
+      ]
+    }
+  ]
+}

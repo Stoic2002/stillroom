@@ -700,4 +700,70 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get markerCaption => 'Situs bersejarah';
+
+  @override
+  String get ringsInstruction =>
+      'Geser inti kayu sepanjang kronologi induk sampai cincin lebar dan sempitnya seirama, lalu periksa kecocokannya.';
+
+  @override
+  String get ringsCheck => 'Periksa kecocokan';
+
+  @override
+  String get ringsWrong => 'Polanya tidak cocok di sini. Geser lagi.';
+
+  @override
+  String ringsDated(int count) {
+    return 'Tanggalnya ketemu. Sekarang tandai $count cincin tersempit berturut-turut: tahun-tahun terkering.';
+  }
+
+  @override
+  String get ringsMark => 'Inilah tahun-tahun terkering';
+
+  @override
+  String get ringsMarkWrong =>
+      'Bukan deretan tersempit. Telusuri lagi intinya.';
+
+  @override
+  String get dividersInstruction =>
+      'Buka jangka pada skala, pilih arah, lalu langkahkan dari Roanoke. Tandai tempat jangka berdiri.';
+
+  @override
+  String get dividersHeadings => 'U,TL,T,TG,S,BD,B,BL';
+
+  @override
+  String dividersSpan(int miles) {
+    return '$miles mil';
+  }
+
+  @override
+  String get dividersStep => 'Langkah';
+
+  @override
+  String get dividersBack => 'Mundur';
+
+  @override
+  String get dividersMark => 'Tandai di sini';
+
+  @override
+  String dividersWalked(int miles) {
+    return '$miles mil ditempuh';
+  }
+
+  @override
+  String get dividersElsewhere =>
+      'Itu tempat lain di peta, bukan yang disebut petunjuk.';
+
+  @override
+  String get dividersNothing => 'Tak ada yang tergambar di situ pada peta.';
+
+  @override
+  String dividersProgress(int found, int total) {
+    return 'Tempat ditemukan: $found dari $total';
+  }
+
+  @override
+  String get dividersUnset => 'Buka jangka dan pilih arah, lalu melangkah.';
+
+  @override
+  String get postCaption => 'Tanda rahasia';
 }
