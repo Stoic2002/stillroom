@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import '../theme/stillroom_palette.dart';
 import 'art_kit.dart';
+import 'depth_kit.dart';
 import 'echo_art.dart';
 import 'whitechapel_1888_art.dart' show jarLabelBoard;
 
@@ -375,6 +376,24 @@ void _bell(Art a, Rect rect, {bool detail = true}) {
 // ---------------------------------------------------------------------------
 // Scenes
 
+/// A building's side wall turning back from its front's edge at [x]
+/// ([top] to [bottom]) towards the yard's vanishing point.
+void _side(Art a, double x, double top, double bottom, Color color) {
+  final vp = a.p(0.5, 0.58);
+  final upper = a.p(x, top);
+  final lower = a.p(x, bottom);
+  a.path(
+    a.poly([
+      upper,
+      Offset.lerp(upper, vp, 0.28)!,
+      Offset.lerp(lower, vp, 0.28)!,
+      lower,
+    ]),
+    Color.lerp(color, Art.outline, 0.35)!,
+    line: 0.4,
+  );
+}
+
 void _yard(Art a) {
   a.fade(a.r(0, 0, 1, 0.62), _night, _nightLow);
   // Far hills, dark, with snow.
@@ -399,13 +418,15 @@ void _yard(Art a) {
   }
   a.box(a.r(0.43, 0.25, 0.142, 0.018), _wood, line: 0.4);
   a.box(a.r(0.41, 0.54, 0.18, 0.025), const Color(0xFF6A6A70), line: 0.4);
-  // The founders' shed, left.
+  // The founders' shed, left, its side running back.
+  _side(a, 0.2, 0.42, 0.78, _plank);
   _roof(a, a.r(0.0, 0.3, 0.22, 0.12));
   a
     ..wood(a.r(0.02, 0.42, 0.18, 0.36), base: _plank, vertical: true, grain: 6)
     ..box(a.r(0.07, 0.5, 0.08, 0.28), const Color(0xFF1A120C), line: 0.5)
     ..glow(a.p(0.11, 0.66), a.size.width * 0.06, _ember, strength: 0.35);
   // The monks' hall, right: red posts, paper doors lit from inside.
+  _side(a, 0.76, 0.38, 0.76, const Color(0xFF3A2A22));
   _roof(a, a.r(0.72, 0.22, 0.26, 0.16));
   a.box(a.r(0.76, 0.38, 0.2, 0.38), const Color(0xFF3A2A22), line: 0.5);
   for (final x in [0.76, 0.85, 0.94]) {
@@ -438,8 +459,21 @@ void _yard(Art a) {
       );
     }
   }
-  // Snowy ground.
+  // Snowy ground, the buildings' shadows on it.
   _ground(a, 0.62);
+  for (final (x0, x1, y) in [(0.0, 0.26, 0.78), (0.72, 1.0, 0.76)]) {
+    a.canvas.drawOval(
+      Rect.fromLTRB(
+        a.p(x0, 0).dx,
+        a.p(0, y).dy - a.u * 1.2,
+        a.p(x1, 0).dx,
+        a.p(0, y).dy + a.u * 2.4,
+      ),
+      Paint()
+        ..color = const Color(0x55101622)
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.u * 1.6),
+    );
+  }
   // The casting pit, front middle, steam rising.
   final pit = a.r(0.39, 0.76, 0.24, 0.1);
   a
@@ -463,6 +497,12 @@ void _yard(Art a) {
     );
   }
   // The founders' board on two posts.
+  a.canvas.drawOval(
+    a.r(0.24, 0.64, 0.11, 0.02),
+    Paint()
+      ..color = const Color(0x55101622)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.u),
+  );
   final board = a.r(0.245, 0.47, 0.09, 0.12);
   a
     ..box(a.r(0.25, 0.47, 0.008, 0.18), _wood, line: 0.4)
@@ -505,23 +545,83 @@ void _yard(Art a) {
   _snowfall(a);
 }
 
+/// A plank-walled room in one-point perspective: the eye at [eye], the
+/// back wall [depth] of the picture, seams running back on the side walls,
+/// rafters across the ceiling. Returns its camera.
+Room _plankRoom(
+  Art a, {
+  required Offset eye,
+  required double depth,
+  required Color wall,
+  required Color floor,
+  Color? floorLow,
+}) {
+  final room = Room(a, vp: a.p(eye.dx, eye.dy), depth: depth);
+  final back = room.back;
+  const seam = Color(0x66140E08);
+  a
+    ..path(room.ceiling, const Color(0xFF1E1610), line: 0)
+    ..path(room.leftWall, Color.lerp(wall, Art.outline, 0.3)!, line: 0)
+    ..path(room.rightWall, Color.lerp(wall, Art.outline, 0.2)!, line: 0)
+    ..wood(back, base: wall, vertical: true, grain: 12, line: 0)
+    ..fade(
+      Rect.fromLTRB(
+        back.left,
+        back.top,
+        back.right,
+        back.top + back.height * 0.3,
+      ),
+      const Color(0x88000000),
+      const Color(0x00000000),
+    );
+  for (var k = 1; k < 9; k++) {
+    for (final x in [0.0, 1.0]) {
+      a.hairline(room.at(x, 0, k / 9), room.at(x, 1, k / 9), seam, 0.5);
+    }
+  }
+  for (var k = 1; k < 5; k++) {
+    a.line(
+      room.at(0, 1, k / 5),
+      room.at(1, 1, k / 5),
+      const Color(0xFF2A1E14),
+      width: 1.2,
+    );
+  }
+  a.path(room.floor, floor, line: 0);
+  if (floorLow != null) {
+    a.canvas.drawPath(
+      room.floor,
+      Paint()
+        ..shader = Gradient.linear(
+          Offset(0, back.bottom),
+          Offset(0, a.size.height),
+          [floor, floorLow],
+        ),
+    );
+  }
+  room
+    ..shadeCorners(strength: 0.45)
+    ..edges(const Color(0x99140E08));
+  a.ink(back, width: 0.5);
+  return room;
+}
+
 void _shed(Art a) {
   // Plank walls, a beaten earth floor, the brazier's warmth.
+  final room = _plankRoom(
+    a,
+    eye: const Offset(0.5, 0.32),
+    depth: 0.66,
+    wall: _plank,
+    floor: const Color(0xFF3A2E22),
+    floorLow: const Color(0xFF221A12),
+  );
+  // A shelf of clay and wax on the back wall, left.
+  room.box(a.r(0.19, 0.48, 0.15, 0.022), _wood, depth: 0.05, line: 0.4);
   a
-    ..wood(a.r(0, 0, 1, 0.76), base: _plank, vertical: true, grain: 14, line: 0)
-    ..fade(a.r(0, 0, 1, 0.2), const Color(0xAA000000), const Color(0x00000000))
-    ..fade(
-      a.r(0, 0.76, 1, 0.24),
-      const Color(0xFF3A2E22),
-      const Color(0xFF221A12),
-    )
-    ..hairline(a.p(0, 0.76), a.p(1, 0.76), Art.outline, 0.8);
-  // A shelf of clay and wax, left.
-  a
-    ..wood(a.r(0.04, 0.48, 0.16, 0.025), base: _wood, grain: 1)
-    ..oval(a.r(0.06, 0.4, 0.06, 0.08), _clay, line: 0.5)
-    ..oval(a.r(0.12, 0.43, 0.05, 0.05), const Color(0xFFD8C890), line: 0.5)
-    ..rbox(a.r(0.07, 0.31, 0.08, 0.07), a.u, _clay, line: 0.5);
+    ..oval(a.r(0.21, 0.4, 0.06, 0.08), _clay, line: 0.5)
+    ..oval(a.r(0.27, 0.43, 0.05, 0.05), const Color(0xFFD8C890), line: 0.5)
+    ..rbox(a.r(0.22, 0.31, 0.08, 0.07), a.u, _clay, line: 0.5);
   // The plan of the channels, scratched on a board.
   final plan = a.r(0.37, 0.21, 0.2, 0.22);
   a
@@ -566,10 +666,13 @@ void _shed(Art a) {
   // A peg for the rope, right.
   a.box(a.r(0.745, 0.55, 0.012, 0.02), _wood, line: 0.3);
   // The workbench, and the newspaper on it.
-  a
-    ..wood(a.r(0.08, 0.7, 0.3, 0.035), base: _wood, grain: 1)
-    ..box(a.r(0.1, 0.735, 0.015, 0.2), _wood, line: 0.4)
-    ..box(a.r(0.34, 0.735, 0.015, 0.2), _wood, line: 0.4);
+  room.standTable(
+    a.r(0.1, 0.7, 0.28, 0.235),
+    _wood,
+    deep: 0.2,
+    thickness: 0.03,
+    leg: 0.018,
+  );
   a.paper(
     a.r(0.15, 0.63, 0.12, 0.07),
     lines: 0,
@@ -600,9 +703,10 @@ void _shed(Art a) {
   a.canvas.restore();
   // Tools: long-handled ladles and tongs leaning on the wall.
   for (final (x, t) in [(0.48, -0.12), (0.52, -0.05), (0.56, 0.08)]) {
+    room.footShadow(room.xAt(a.p(x, 0).dx, 0.95), 0.95, 0.01);
     a.canvas
       ..save()
-      ..translate(a.p(x, 0.74).dx, a.p(x, 0.74).dy)
+      ..translate(a.p(x, 0.775).dx, a.p(x, 0.775).dy)
       ..rotate(t);
     a
       ..box(
@@ -627,6 +731,7 @@ void _shed(Art a) {
     a.canvas.restore();
   }
   // A brazier and its glow.
+  room.contactShadow(a.r(0.81, 0.83, 0.14, 0.05), strength: 0.5);
   a
     ..oval(a.r(0.82, 0.8, 0.12, 0.06), const Color(0xFF3A3530), line: 0.5)
     ..oval(a.r(0.84, 0.8, 0.08, 0.03), _ember, line: 0)
@@ -656,8 +761,27 @@ void _pit(Art a) {
         _ember,
         strength: 0.4,
       )
-      ..path(kiln, const Color(0xFF6A4E36), line: 0.6)
-      ..oval(a.r(x + 0.02, y + 0.18, 0.03, 0.05), _ember, line: 0.3);
+      ..canvas.drawOval(
+        a.r(x - 0.01, y + 0.285, 0.1, 0.03),
+        Paint()
+          ..color = const Color(0x66101622)
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.u),
+      )
+      ..path(kiln, const Color(0xFF6A4E36), line: 0.6);
+    // Round: dark down the far side.
+    a.canvas
+      ..save()
+      ..clipPath(kiln)
+      ..drawRect(
+        a.r(x, y - 0.03, 0.07, 0.34),
+        Paint()
+          ..shader = Gradient.linear(a.p(x + 0.02, 0), a.p(x + 0.07, 0), [
+            const Color(0x00000000),
+            const Color(0x66000000),
+          ]),
+      )
+      ..restore();
+    a.oval(a.r(x + 0.02, y + 0.18, 0.03, 0.05), _ember, line: 0.3);
   }
   // Clay channels from the kilns to the mould.
   final channel = Paint()
@@ -699,6 +823,24 @@ void _pit(Art a) {
     )
     ..close();
   a.path(mould, _clay, line: 0.7);
+  a.canvas
+    ..save()
+    ..clipPath(mould)
+    ..drawRect(
+      a.r(0.36, 0.36, 0.28, 0.4),
+      Paint()
+        ..shader = Gradient.linear(
+          a.p(0.38, 0),
+          a.p(0.64, 0),
+          [
+            const Color(0x22FFFFFF),
+            const Color(0x00000000),
+            const Color(0x66000000),
+          ],
+          [0, 0.4, 1],
+        ),
+    )
+    ..restore();
   for (final y in [0.48, 0.58, 0.68]) {
     a.line(a.p(0.37, y), a.p(0.63, y), const Color(0xFFB89A68), width: 0.8);
   }
@@ -711,6 +853,12 @@ void _pit(Art a) {
     );
   }
   // Channel pieces stacked on the right.
+  a.canvas.drawOval(
+    a.r(0.725, 0.545, 0.17, 0.03),
+    Paint()
+      ..color = const Color(0x66101622)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.u),
+  );
   for (var i = 0; i < 4; i++) {
     a.rbox(
       a.r(0.74 + (i % 2) * 0.07, 0.36 + (i ~/ 2) * 0.1, 0.06, 0.06),
@@ -730,57 +878,50 @@ void _pit(Art a) {
 
 void _hall(Art a) {
   // Wooden walls, papered doors, a heated floor of oiled paper.
-  a
-    ..wood(
-      a.r(0, 0, 1, 0.74),
-      base: const Color(0xFF4A3526),
-      vertical: true,
-      grain: 8,
-      line: 0,
-    )
-    ..fade(a.r(0, 0, 1, 0.2), const Color(0xAA000000), const Color(0x00000000))
-    ..fade(
-      a.r(0, 0.74, 1, 0.26),
-      const Color(0xFFB08A58),
-      const Color(0xFF7A5A38),
-    )
-    ..hairline(a.p(0, 0.74), a.p(1, 0.74), Art.outline, 0.8);
-  for (var i = 1; i < 5; i++) {
-    a.hairline(
-      a.p(0, 0.74 + i * 0.05),
-      a.p(1, 0.74 + i * 0.05),
-      const Color(0x33000000),
-      0.4,
-    );
-  }
+  final room = _plankRoom(
+    a,
+    eye: const Offset(0.5, 0.3),
+    depth: 0.63,
+    wall: const Color(0xFF4A3526),
+    floor: const Color(0xFFB08A58),
+    floorLow: const Color(0xFF7A5A38),
+  );
+  room.floorGrid(const Color(0x33000000), rows: 5, columns: 8, width: 0.4);
   for (final x in [0.28, 0.7]) {
-    _post(a, a.r(x, 0, 0.022, 0.74));
-  }
-  // The lattice window, snow blue beyond.
-  final win = a.r(0.06, 0.16, 0.16, 0.34);
-  a.box(win, const Color(0xFF9AA6B8), line: 0.6);
-  for (var i = 1; i < 4; i++) {
-    a.hairline(
-      Offset(win.left + win.width * i / 4, win.top),
-      Offset(win.left + win.width * i / 4, win.bottom),
-      _wood,
-      0.6,
+    room.box(
+      a.r(
+        x,
+        room.back.top / a.size.height,
+        0.022,
+        0.741 - room.back.top / a.size.height,
+      ),
+      _pillar,
+      depth: 0.03,
+      line: 0.5,
     );
+  }
+  // The lattice window in the left wall, snow blue beyond.
+  Offset pane(double u, double v) => room.at(0, 0.85 - 0.4 * v, 0.2 + 0.35 * u);
+  a.path(
+    a.poly([pane(0, 0), pane(1, 0), pane(1, 1), pane(0, 1)]),
+    const Color(0xFF9AA6B8),
+    line: 0.6,
+  );
+  for (var i = 1; i < 4; i++) {
+    a.hairline(pane(i / 4, 0), pane(i / 4, 1), _wood, 0.6);
   }
   for (var i = 1; i < 6; i++) {
-    a.hairline(
-      Offset(win.left, win.top + win.height * i / 6),
-      Offset(win.right, win.top + win.height * i / 6),
-      _wood,
-      0.6,
-    );
+    a.hairline(pane(0, i / 6), pane(1, i / 6), _wood, 0.6);
   }
   // A low desk, the draft on it in columns of brush strokes.
-  a
-    ..wood(a.r(0.34, 0.63, 0.3, 0.035), base: const Color(0xFF3A2418), grain: 1)
-    ..box(a.r(0.36, 0.665, 0.02, 0.08), const Color(0xFF3A2418), line: 0.4)
-    ..box(a.r(0.6, 0.665, 0.02, 0.08), const Color(0xFF3A2418), line: 0.4);
-  final draft = a.r(0.38, 0.52, 0.2, 0.11);
+  room.standTable(
+    a.r(0.34, 0.66, 0.3, 0.14),
+    const Color(0xFF3A2418),
+    deep: 0.2,
+    thickness: 0.03,
+    leg: 0.02,
+  );
+  final draft = a.r(0.38, 0.55, 0.2, 0.11);
   a.box(draft, _hanji, line: 0.4);
   final random = math.Random(771);
   for (var col = 0; col < 12; col++) {
@@ -795,19 +936,22 @@ void _hall(Art a) {
   // Brush and inkstone.
   a
     ..rbox(
-      a.r(0.595, 0.585, 0.035, 0.04),
+      a.r(0.595, 0.615, 0.035, 0.04),
       a.u * 0.5,
       const Color(0xFF26262A),
       line: 0.4,
     )
-    ..line(a.p(0.35, 0.6), a.p(0.37, 0.53), _wood, width: 0.6);
+    ..line(a.p(0.35, 0.63), a.p(0.37, 0.56), _wood, width: 0.6);
   // The oil lamp on a stand.
+  room.contactShadow(a.r(0.63, 0.785, 0.04, 0.015));
   a
-    ..box(a.r(0.645, 0.43, 0.006, 0.31), _wood, line: 0.3)
+    ..box(a.r(0.645, 0.43, 0.006, 0.36), _wood, line: 0.3)
+    ..box(a.r(0.634, 0.785, 0.028, 0.008), _wood, line: 0.3)
     ..oval(a.r(0.63, 0.42, 0.036, 0.015), const Color(0xFF8A7A5A), line: 0.3)
     ..flame(a.p(0.648, 0.42), a.size.height * 0.04);
   // A Western book, lying where it should not be.
-  final book = a.r(0.73, 0.62, 0.1, 0.05);
+  final book = a.r(0.72, 0.76, 0.1, 0.05);
+  room.contactShadow(book.inflate(a.u * 0.6).translate(0, a.u));
   a
     ..rbox(book, a.u * 0.4, const Color(0xFF2A3A5A), line: 0.5)
     ..fill(
@@ -828,16 +972,24 @@ void _hall(Art a) {
 }
 
 void _pavilion(Art a) {
+  // One camera: the floor's back edge at 0.8, its front at the picture's
+  // foot, the front posts near, the back posts far.
+  final room = Room(a, vp: a.p(0.5, 0.42), depth: (0.8 - 0.42) / 0.58);
   a.fade(a.r(0, 0, 1, 0.8), _night, _nightLow);
+  // The back posts and their beam, far side of the pavilion.
+  final roofY = room.yAt(a.p(0, 0.14).dy, 0.1);
+  for (final x in [0.05, 0.93]) {
+    room.block(x, x + 0.02, 0, roofY, 0.98, 1, _pillar, line: 0.4);
+  }
+  a.fill(
+    Rect.fromPoints(room.at(0, roofY, 1), room.at(1, roofY - 0.04, 1)),
+    _wood,
+  );
   // The underside of the pavilion roof, and its great beam.
   a
     ..fill(a.r(0, 0, 1, 0.08), const Color(0xFF24272C))
     ..fill(a.r(0, 0.08, 1, 0.025), _eave)
     ..wood(a.r(0.02, 0.1, 0.96, 0.04), base: _wood, grain: 1);
-  // Pillars at the sides.
-  for (final x in [0.02, 0.94]) {
-    _post(a, a.r(x, 0.1, 0.04, 0.72));
-  }
   // Stone floor with snow blown in, the hollow under the bell's mouth.
   a
     ..fade(
@@ -846,6 +998,12 @@ void _pavilion(Art a) {
       const Color(0xFF3E424A),
     )
     ..hairline(a.p(0, 0.8), a.p(1, 0.8), Art.outline, 0.8);
+  room.floorGrid(const Color(0x44202228), rows: 3, columns: 8, width: 0.4);
+  // Pillars at the sides, near, standing on the floor.
+  for (final x in [0.02, 0.94]) {
+    room.contactShadow(a.r(x - 0.01, 0.955, 0.06, 0.03), strength: 0.5);
+    _post(a, a.r(x, 0.1, 0.04, 0.87));
+  }
   final hollow = a.r(0.4, 0.8, 0.24, 0.08);
   a
     ..oval(hollow, const Color(0xFF0E0C0A), line: 0.6)
@@ -870,16 +1028,22 @@ void _pavilion(Art a) {
       line: 0.6,
     )
     ..oval(a.r(0.3, 0.372, 0.02, 0.056), const Color(0xFF6A5236), line: 0.3);
-  // The trestle.
+  // The trestle, its feet on the floor.
+  room
+    ..contactShadow(a.r(0.215, 0.85, 0.09, 0.02))
+    ..footShadow(room.xAt(a.p(0.225, 0).dx, 0.6), 0.6, 0.01);
   a
-    ..line(a.p(0.26, 0.43), a.p(0.23, 0.8), _wood, width: 1.2)
-    ..line(a.p(0.26, 0.43), a.p(0.29, 0.8), _wood, width: 1.2)
+    ..line(a.p(0.26, 0.43), a.p(0.225, 0.86), _wood, width: 1.2)
+    ..line(a.p(0.26, 0.43), a.p(0.295, 0.86), _wood, width: 1.2)
     ..box(a.r(0.24, 0.425, 0.04, 0.012), _wood, line: 0.3);
   // A low bench, right, for later papers.
-  a
-    ..wood(a.r(0.72, 0.76, 0.16, 0.025), base: _wood, grain: 1)
-    ..box(a.r(0.73, 0.785, 0.01, 0.05), _wood, line: 0.3)
-    ..box(a.r(0.86, 0.785, 0.01, 0.05), _wood, line: 0.3);
+  room.standTable(
+    a.r(0.72, 0.76, 0.16, 0.1),
+    _wood,
+    deep: 0.12,
+    thickness: 0.03,
+    leg: 0.012,
+  );
   // Snow beyond the pillars.
   _snowfall(a, seed: 5, count: 40);
 }

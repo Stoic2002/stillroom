@@ -123,7 +123,7 @@ void main() {
       now().game.words,
       containsAll(['kim_pil_o', 'seongdeok', 'date_771']),
     );
-    tap(0.78, 0.64);
+    tap(0.77, 0.78);
     expect(now().game.words, contains('seoul'));
     play.takeExit('back');
 

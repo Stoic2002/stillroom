@@ -281,10 +281,10 @@
       "id": "monk",
       "image": "images/objects/gyeongju_771/echo_monk.png",
       "rect": [
-        0.86,
-        0.4,
-        0.05,
-        0.3
+        0.84,
+        0.48,
+        0.055,
+        0.34
       ],
       "when": [
         {
