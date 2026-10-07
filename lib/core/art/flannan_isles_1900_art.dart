@@ -139,16 +139,6 @@ Room _whiteRoom(Art a, {required Offset eye, required double depth}) {
   return room;
 }
 
-/// Paints [paint] into [face] (a box's front on screen), in the face's own
-/// coordinates: for the doors and fittings on the front of a block.
-void _onFace(Art a, Rect face, void Function(Art f) paint) {
-  a.canvas
-    ..save()
-    ..translate(face.left, face.top);
-  paint(Art(a.canvas, face.size));
-  a.canvas.restore();
-}
-
 // ---------------------------------------------------------------------------
 // Scenes
 
@@ -579,7 +569,7 @@ void _range(Art a, Room room) {
       kettle,
       width: 0.5,
     );
-  _onFace(a, front, (f) {
+  paintOnFace(a, front, (f) {
     // Firebox door (grate slots) and oven door (handle).
     f
       ..box(f.r(0.1, 0.16, 0.35, 0.32), const Color(0xFF101112), line: 0.4)
@@ -687,7 +677,7 @@ void _oilStore(Art a) {
         room.at(x, h + 0.13, 0.76),
         room.at(x + 0.055, h, 0.76),
       );
-      _onFace(a, can, (f) => _can(f, label: false));
+      paintOnFace(a, can, (f) => _can(f, label: false));
     }
   }
   // The bench where the handle lies.
@@ -953,7 +943,7 @@ void _lampRoom(Art a) {
   // The clockwork cabinet, run down.
   final cabinet = a.r(0.04, 0.52, 0.22, 0.32);
   room.stand(cabinet, const Color(0xFF3A2C22), deep: 0.1);
-  _onFace(a, cabinet, (f) => _clockwork(f, wound: false));
+  paintOnFace(a, cabinet, (f) => _clockwork(f, wound: false));
   // The pedestal under the lens.
   room.stand(a.r(0.42, 0.64, 0.16, 0.16), _iron, deep: 0.14);
   // A little iron table, the legend's pages on it.

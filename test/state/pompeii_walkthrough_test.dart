@@ -107,7 +107,7 @@ void main() {
   test('the lens turns through the hours where the house changes', () {
     play
       ..tapScene(0.77, 0.6) // hut
-      ..tapScene(0.425, 0.58); // lens
+      ..tapScene(0.587, 0.56); // lens
     readAll();
     play
       ..takeExit('back')
@@ -131,14 +131,14 @@ void main() {
     play.tapScene(0.77, 0.6);
     expect(now().game.sceneId, 'hut');
     expect(now().engine.lens(now().game), isNull, reason: 'no hut in 79');
-    look(0.425, 0.58); // lens
-    look(0.925, 0.6); // shovel
+    look(0.587, 0.56); // lens
+    look(0.175, 0.6); // shovel
     expect(now().game.inventory, containsAll(['era_lens', 'shovel']));
     for (final (x, y) in [
-      (0.17, 0.28),
-      (0.77, 0.26),
-      (0.88, 0.26),
-      (0.81, 0.55),
+      (0.33, 0.33),
+      (0.627, 0.32),
+      (0.71, 0.32),
+      (0.72, 0.56),
     ]) {
       look(x, y);
     }
@@ -222,7 +222,7 @@ void main() {
       ..takeExit('back')
       ..tapScene(0.77, 0.6);
     expect(now().game.sceneId, 'hut');
-    useOn('wax_tablet', 0.875, 0.5);
+    useOn('wax_tablet', 0.81, 0.55);
     expect(now().openPuzzle, 'wax_tablet');
     play.solvePuzzle('wax_tablet');
     readAll();
@@ -244,7 +244,7 @@ void main() {
       ..takeExit('back')
       ..takeExit('back')
       ..tapScene(0.77, 0.6);
-    useOn('tracings', 0.6, 0.68);
+    useOn('tracings', 0.45, 0.75);
     expect(now().openPuzzle, 'tracings');
     play.solvePuzzle('tracings');
     readAll();

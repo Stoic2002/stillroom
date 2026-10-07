@@ -185,6 +185,21 @@ final class Room {
     );
   }
 
+  /// Soft dark along the foot of the back wall, where the floor meets it:
+  /// for a [wallCamera] scene, whose wall runs past the picture's sides.
+  void wallFoot({double strength = 0.3}) {
+    final y = back.bottom;
+    final h = (size.height - y) * 0.35;
+    a.canvas.drawRect(
+      Rect.fromLTRB(0, y, size.width, y + h),
+      Paint()
+        ..shader = Gradient.linear(Offset(0, y), Offset(0, y + h), [
+          Color.fromRGBO(0, 0, 0, strength),
+          const Color(0x00000000),
+        ]),
+    );
+  }
+
   /// The shadow on the floor under something standing on it, its footprint
   /// [x0]–[x1] by [z0]–[z1]: a soft spread, and a darker core hard against
   /// it, so it sits.
@@ -514,3 +529,19 @@ final class Room {
     );
   }
 }
+
+/// Paints [paint] into [face] (a box's front on screen), in the face's own
+/// coordinates: for the doors and fittings on the front of a block.
+void paintOnFace(Art a, Rect face, void Function(Art f) paint) {
+  a.canvas
+    ..save()
+    ..translate(face.left, face.top);
+  paint(Art(a.canvas, face.size));
+  a.canvas.restore();
+}
+
+/// A camera for a scene drawn against one wide back wall: the eye at
+/// [eye] (fractions of the picture), and the wall's foot at height [foot],
+/// so the floor runs from the picture's bottom edge back to it.
+Room wallCamera(Art a, Offset eye, double foot) =>
+    Room(a, vp: a.p(eye.dx, eye.dy), depth: (foot - eye.dy) / (1 - eye.dy));
