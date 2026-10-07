@@ -815,4 +815,41 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get admiraltyCaption =>
       'Siapa pun yang menemukan kertas ini diminta meneruskannya kepada Sekretaris Admiralty, London';
+
+  @override
+  String get mudraInstruction =>
+      'Ketuk arca Buddha yang jatuh, lalu tempat yang sesuai dengan sikap tangannya.';
+
+  @override
+  String get mudraWrong => 'Sikap tangan itu bukan untuk tempat itu.';
+
+  @override
+  String get mudraFull => 'Tak ada relung kosong lagi di sana.';
+
+  @override
+  String mudraProgress(int set, int total) {
+    return 'Dikembalikan: $set dari $total';
+  }
+
+  @override
+  String get casingInstruction =>
+      'Angkat sebuah batu untuk melihat relief di baliknya. Dua sekaligus: perbuatan dan akibatnya disimpan; sisanya kembali.';
+
+  @override
+  String get casingNoPair =>
+      'Bukan perbuatan dan akibatnya. Batunya dikembalikan.';
+
+  @override
+  String get casingPair => 'Perbuatan dan akibatnya: dipotret.';
+
+  @override
+  String casingProgress(int kept, int total) {
+    return 'Pasangan dipotret: $kept dari $total';
+  }
+
+  @override
+  String get casingDeed => 'Perbuatan';
+
+  @override
+  String get casingFruit => 'Akibat';
 }

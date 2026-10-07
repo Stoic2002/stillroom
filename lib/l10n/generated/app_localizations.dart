@@ -1457,6 +1457,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Whoever finds this paper is requested to forward it to the Secretary of the Admiralty, London'**
   String get admiraltyCaption;
+
+  /// Mudra puzzle: what to do.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a fallen Buddha, then the place its hands belong to.'**
+  String get mudraInstruction;
+
+  /// Mudra puzzle: a statue set in the wrong place.
+  ///
+  /// In en, this message translates to:
+  /// **'Those hands do not belong there.'**
+  String get mudraWrong;
+
+  /// Mudra puzzle: the place is full.
+  ///
+  /// In en, this message translates to:
+  /// **'No empty niche is left there.'**
+  String get mudraFull;
+
+  /// Mudra puzzle: progress.
+  ///
+  /// In en, this message translates to:
+  /// **'Set back: {set} of {total}'**
+  String mudraProgress(int set, int total);
+
+  /// Casing puzzle: what to do.
+  ///
+  /// In en, this message translates to:
+  /// **'Lift a stone to see the relief behind it. Two at a time: a deed and its fruit are kept; the rest go back.'**
+  String get casingInstruction;
+
+  /// Casing puzzle: two stones that are not a pair.
+  ///
+  /// In en, this message translates to:
+  /// **'Not a deed and its fruit. The stones go back.'**
+  String get casingNoPair;
+
+  /// Casing puzzle: a pair found.
+  ///
+  /// In en, this message translates to:
+  /// **'A deed and its fruit: photographed.'**
+  String get casingPair;
+
+  /// Casing puzzle: progress.
+  ///
+  /// In en, this message translates to:
+  /// **'Pairs photographed: {kept} of {total}'**
+  String casingProgress(int kept, int total);
+
+  /// Casing puzzle: tag on a deed panel.
+  ///
+  /// In en, this message translates to:
+  /// **'Deed'**
+  String get casingDeed;
+
+  /// Casing puzzle: tag on a fruit panel.
+  ///
+  /// In en, this message translates to:
+  /// **'Fruit'**
+  String get casingFruit;
 }
 
 class _AppLocalizationsDelegate

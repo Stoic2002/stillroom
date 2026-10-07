@@ -1,0 +1,150 @@
+{
+  "id": "foot",
+  "background": "images/scenes/borobudur_1814/foot.png",
+  "exits": [
+    {
+      "id": "gallery",
+      "to": "gallery",
+      "rect": [
+        0.44,
+        0.3,
+        0.12,
+        0.3
+      ]
+    },
+    {
+      "id": "house",
+      "to": "house",
+      "rect": [
+        0.0,
+        0.7,
+        0.2,
+        0.3
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "camera",
+      "rect": [
+        0.59,
+        0.53,
+        0.09,
+        0.29
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "shutter"
+        },
+        {
+          "type": "showText",
+          "key": "borobudur_1814.foot.camera"
+        }
+      ]
+    },
+    {
+      "id": "casing_wait",
+      "rect": [
+        0.68,
+        0.48,
+        0.31,
+        0.24
+      ],
+      "when": [
+        {
+          "flag": "read_karma",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "borobudur_1814.foot.casing_wait"
+        }
+      ]
+    },
+    {
+      "id": "casing",
+      "rect": [
+        0.68,
+        0.48,
+        0.31,
+        0.24
+      ],
+      "when": [
+        {
+          "flag": "read_karma",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "casing",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "casing_stone"
+        },
+        {
+          "type": "showText",
+          "key": "borobudur_1814.foot.casing"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "casing"
+        }
+      ]
+    },
+    {
+      "id": "casing_done",
+      "rect": [
+        0.68,
+        0.48,
+        0.31,
+        0.24
+      ],
+      "when": [
+        {
+          "puzzleSolved": "casing"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "borobudur_1814.foot.casing_after"
+        }
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "swifts",
+      "kind": "swifts",
+      "rect": [
+        0.15,
+        0.05,
+        0.5,
+        0.2
+      ]
+    }
+  ],
+  "echoes": [
+    {
+      "id": "carrier",
+      "image": "images/objects/borobudur_1814/echo_carrier.png",
+      "rect": [
+        0.8,
+        0.5,
+        0.05,
+        0.22
+      ],
+      "chance": 0.8,
+      "drift": [
+        -0.01,
+        0
+      ]
+    }
+  ]
+}

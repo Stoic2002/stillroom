@@ -305,6 +305,7 @@ a tap near it may startle it. They never block taps.
 | `fulmar` | Sits on a ledge; flies off when tapped, glides back | `wings_flutter` |
 | `grass` | Tufts bending in the wind | — |
 | `raven` | Sits on a branch; flies off when tapped, comes back (the fulmar's ways, in black) | `wings_flutter` |
+| `swifts` | A few swiftlets wheeling over their area in wide loops; scatter when tapped, wheel back | `wings_flutter` |
 | `seal` | A bearded seal lying on a floe (the area's bottom centre), now and then raising its head; slips into the water when tapped, its head seen off the floe a while, then hauls out again | `splash` |
 | `heron` | Stands in the shallows on long legs (the area's bottom centre is its feet), now and then strikes at the water; lifts off slowly when tapped, comes back | `wings_flutter` |
 | `eagle` | Turns in slow circles high over its area, on broad still wings; too high to startle | `eagle_cry` now and then |
@@ -542,6 +543,7 @@ filled slot swaps them.
 | `vermilion` | A sheet of imperial yellow in a double vermilion rule, the sentences in vermilion (the emperor's own ink), the caption `vermilionCaption` | — |
 | `routebook` | A sports club's route book open at its last page: grey ruled paper, a red margin, a violet club stamp, the caption `routebookCaption`, the entry written in ink | — |
 | `cartouche` | An old map's title cartouche: a parchment panel in a double rule with scrolled ends, the caption `cartoucheCaption`, the sentences written inside | — |
+| `lontar` | Palm-leaf strips bound on cords at both ends, the sentences incised and blackened across them | — |
 | `admiralty` | A printed Admiralty form: its heading `admiraltyCaption` in small capitals, faint rows of print where the request runs on in other languages, a ruled border, the sentences in a hand | — |
 | `post` | A palisade post: furrowed bark at both edges, a band stripped to pale wood, the caption `postCaption` and the sentences cut in capitals | — |
 | `marker` | A city's stone site marker: grey granite flecked with crystal, a bevelled edge, a cut line framing the face, the caption `markerCaption` cut above, the sentences cut below | — |
@@ -558,7 +560,8 @@ Zimbabwe 1871 `cartouche` (where the old maps wrote Ophir), Dyatlov Pass
 1959 `routebook` (the last entry the group never wrote), Honnō-ji 1582
 `marker` (the site's stone, its face left smooth for what is known),
 Roanoke 1590 `post` (under the word the colonists cut), Franklin 1845
-`admiralty` (a fresh copy of the form left in the cairn).
+`admiralty` (a fresh copy of the form left in the cairn), Borobudur 1814
+`lontar` (palm leaves, as Java wrote).
 
 ### `clockHands`: set the hands
 
@@ -1326,6 +1329,55 @@ Roanoke 1590 `post` (under the word the colonists cut), Franklin 1845
 - **Validation:** 6 to 16 columns, 4 to 12 rows, 1 to `rows` hours; the
   wreck, rocks and scours inside the grid, on no other; up to 8 marks.
 
+### `mudra`: statues set back by their hands
+
+```json
+"config": {
+  "statues": ["earth", "meditation", "wheel"],
+  "places": [
+    { "labelKey": "ep.mudra.east", "mudra": "earth", "slots": 1 },
+    { "labelKey": "ep.mudra.west", "mudra": "meditation", "slots": 1 },
+    { "labelKey": "ep.mudra.stupa", "mudra": "wheel", "slots": 1 }
+  ]
+}
+```
+
+- **What the player sees:** the statues in a row, each a seated Buddha
+  drawn with its hands in its gesture (no label); beside them the
+  monument from above, north up: a band for each face (`noFear` north,
+  `giving` south, `meditation` west, `earth` east), the fifth balustrade
+  (`teaching`) within, the stupas (`wheel`) at the centre, each with its
+  count filled.
+- **Playing:** tap a statue (`lift`), then a place: where its hands
+  belong and with room, it is set (`niche_set`) and leaves the row; any
+  other place is a mistake; a full place, a nudge.
+- **Gestures:** `earth`, `giving`, `meditation`, `noFear`, `teaching`,
+  `wheel`.
+- **Validation:** 3 to 12 statues; 2 to 6 places, each a different
+  gesture, with exactly as many slots as statues with it.
+
+### `casing`: a memory of deeds and their fruits
+
+```json
+"config": {
+  "columns": 4,
+  "panels": [
+    { "labelKey": "ep.karma.killing", "pair": 0 },
+    { "labelKey": "ep.karma.short_life", "pair": 0, "fruit": true }
+  ]
+}
+```
+
+- **What the player sees:** a wall of numbered casing stones, `columns`
+  across, in panel order row by row; a lifted stone shows its relief (a
+  deed: two figures; a fruit: one) with its caption and a Deed or Fruit
+  tag; a kept pair framed as photographed.
+- **Playing:** lift a stone (`stone_lift`); with one out, lift another:
+  a deed and its fruit (same `pair`) are kept (`pair_found`), any other
+  two stay out until the next lift puts them back (a mistake).
+- **Validation:** 2 to 6 columns, 4 to 16 panels, every `pair` one deed
+  and one `fruit`.
+
 ## Words and the jar's label
 
 `words` in `game.json` declares what the player can note down:
@@ -1523,3 +1575,4 @@ warnings show in the debug panel).
 | 2026-10-02 | post-M6 | Puzzle types `strata` and `streets`; deduction form `marker`; interface sounds `strata_tag`, `find_lift`, `street_mark`; `PuzzleLabel` takes `maxLines`. Episode `honnoji_1582` (shelf IV) replaces `sealed_honnoji_1582`; the sealed teaser on shelf IV is now `sealed_roanoke_1590`. |
 | 2026-10-07 | post-M6 | Puzzle types `rings` and `dividers`; deduction form `post`; creature `heron`; interface sounds `core_slide`, `ring_mark`, `divider_step`. Episode `roanoke_1590` (shelf IV) replaces `sealed_roanoke_1590`; the sealed teaser on shelf IV is now `sealed_franklin_1845`. |
 | 2026-10-07 | post-M6 | Puzzle types `margins` and `sonar`; deduction form `admiralty`; creature `seal`; interface sounds `sheet_turn`, `lane_run`, `echo_mark`. Episode `franklin_1845` (shelf IV) replaces `sealed_franklin_1845`; the sealed teaser on shelf IV is now `sealed_indonesia_shelf4`, for the Indonesian tale still to be chosen. |
+| 2026-10-07 | post-M6 | Puzzle types `mudra` and `casing`; deduction form `lontar`; creature `swifts`; interface sounds `niche_set`, `stone_lift`, `pair_found`; `Room.floorGrid` takes 0 columns. Episode `borobudur_1814` (shelf IV) replaces `sealed_indonesia_shelf4`; shelf IV is full; a sealed `sealed_keeper` (shelf V, `unlockAfter` 15) marks the keeper's tale. |

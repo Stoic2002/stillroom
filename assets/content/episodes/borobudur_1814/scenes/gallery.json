@@ -1,0 +1,123 @@
+{
+  "id": "gallery",
+  "background": "images/scenes/borobudur_1814/gallery.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "foot"
+    },
+    {
+      "id": "stupas",
+      "to": "stupas",
+      "rect": [
+        0.42,
+        0.4,
+        0.16,
+        0.15
+      ],
+      "when": [
+        {
+          "puzzleSolved": "mudra"
+        }
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "reliefs",
+      "rect": [
+        0.0,
+        0.1,
+        0.2,
+        0.6
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "borobudur_1814.gallery.reliefs"
+        }
+      ]
+    },
+    {
+      "id": "guide",
+      "rect": [
+        0.04,
+        0.5,
+        0.1,
+        0.2
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "showText",
+          "key": "borobudur_1814.gallery.guide"
+        }
+      ]
+    },
+    {
+      "id": "statues",
+      "rect": [
+        0.25,
+        0.6,
+        0.5,
+        0.3
+      ],
+      "when": [
+        {
+          "puzzleSolved": "mudra",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "borobudur_1814.gallery.statues"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "mudra"
+        }
+      ]
+    },
+    {
+      "id": "statues_done",
+      "rect": [
+        0.25,
+        0.6,
+        0.5,
+        0.3
+      ],
+      "when": [
+        {
+          "puzzleSolved": "mudra"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "borobudur_1814.gallery.statues_done"
+        }
+      ]
+    }
+  ],
+  "echoes": [
+    {
+      "id": "pilgrim",
+      "image": "images/objects/borobudur_1814/echo_pilgrim.png",
+      "rect": [
+        0.62,
+        0.4,
+        0.05,
+        0.24
+      ],
+      "chance": 0.8,
+      "drift": [
+        0,
+        0
+      ]
+    }
+  ]
+}

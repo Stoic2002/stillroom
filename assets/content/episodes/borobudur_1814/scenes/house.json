@@ -1,0 +1,291 @@
+{
+  "id": "house",
+  "background": "images/scenes/borobudur_1814/house.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "foot"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "babad",
+      "rect": [
+        0.28,
+        0.57,
+        0.14,
+        0.08
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_babad",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "borobudur_1814.house.babad"
+        }
+      ]
+    },
+    {
+      "id": "raffles",
+      "rect": [
+        0.44,
+        0.57,
+        0.12,
+        0.08
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "showText",
+          "key": "borobudur_1814.house.raffles"
+        }
+      ]
+    },
+    {
+      "id": "karma",
+      "rect": [
+        0.31,
+        0.65,
+        0.18,
+        0.08
+      ],
+      "when": [
+        {
+          "puzzleSolved": "mudra"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_karma",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "borobudur_1814.house.karma"
+        }
+      ]
+    },
+    {
+      "id": "inscriptions",
+      "rect": [
+        0.5,
+        0.65,
+        0.18,
+        0.08
+      ],
+      "when": [
+        {
+          "puzzleSolved": "mudra"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "showText",
+          "key": "borobudur_1814.house.inscriptions"
+        }
+      ]
+    },
+    {
+      "id": "later",
+      "rect": [
+        0.06,
+        0.3,
+        0.14,
+        0.2
+      ],
+      "when": [
+        {
+          "puzzleSolved": "casing"
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "paper"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_later",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "borobudur_1814.house.later"
+        }
+      ]
+    },
+    {
+      "id": "plates",
+      "rect": [
+        0.7,
+        0.4,
+        0.14,
+        0.38
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "borobudur_1814.house.plates"
+        }
+      ]
+    },
+    {
+      "id": "plates_note",
+      "rect": [
+        0.7,
+        0.4,
+        0.14,
+        0.38
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": true
+        },
+        {
+          "flag": "found_note",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "setFlag",
+          "flag": "found_note",
+          "value": true
+        },
+        {
+          "type": "showText",
+          "key": "borobudur_1814.house.keeper_note"
+        }
+      ]
+    },
+    {
+      "id": "plates_done",
+      "rect": [
+        0.7,
+        0.4,
+        0.14,
+        0.38
+      ],
+      "when": [
+        {
+          "flag": "found_note",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "borobudur_1814.house.plates_done"
+        }
+      ]
+    },
+    {
+      "id": "leaves_wait",
+      "rect": [
+        0.58,
+        0.57,
+        0.14,
+        0.08
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "borobudur_1814.house.leaves_wait"
+        }
+      ]
+    },
+    {
+      "id": "leaves",
+      "rect": [
+        0.58,
+        0.57,
+        0.14,
+        0.08
+      ],
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "jar_label",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "borobudur_1814.house.leaves"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "jar_label"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "papers_sprite",
+      "image": "images/objects/borobudur_1814/papers_sprite.png",
+      "rect": [
+        0.34,
+        0.655,
+        0.32,
+        0.032
+      ],
+      "when": [
+        {
+          "puzzleSolved": "mudra"
+        }
+      ]
+    },
+    {
+      "id": "later_sprite",
+      "image": "images/objects/borobudur_1814/later_sprite.png",
+      "rect": [
+        0.06,
+        0.3,
+        0.14,
+        0.2
+      ],
+      "when": [
+        {
+          "puzzleSolved": "casing"
+        }
+      ]
+    }
+  ]
+}

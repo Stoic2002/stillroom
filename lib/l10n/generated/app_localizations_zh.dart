@@ -761,4 +761,38 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get admiraltyCaption => '拾得此纸者，请转交伦敦海军部秘书';
+
+  @override
+  String get mudraInstruction => '点一尊倒下的佛像，再点它的手印所属的地方。';
+
+  @override
+  String get mudraWrong => '这个手印不属于那里。';
+
+  @override
+  String get mudraFull => '那里已经没有空龛了。';
+
+  @override
+  String mudraProgress(int set, int total) {
+    return '已复位：$set/$total';
+  }
+
+  @override
+  String get casingInstruction => '搬起一块石头，看后面的浮雕。一次两块：一个行为与它的果报就留下；其余放回。';
+
+  @override
+  String get casingNoPair => '不是一个行为与它的果报。石头放回原处。';
+
+  @override
+  String get casingPair => '一个行为与它的果报：拍下了。';
+
+  @override
+  String casingProgress(int kept, int total) {
+    return '已拍下的组：$kept/$total';
+  }
+
+  @override
+  String get casingDeed => '行为';
+
+  @override
+  String get casingFruit => '果报';
 }

@@ -814,4 +814,40 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get admiraltyCaption =>
       'Whoever finds this paper is requested to forward it to the Secretary of the Admiralty, London';
+
+  @override
+  String get mudraInstruction =>
+      'Tap a fallen Buddha, then the place its hands belong to.';
+
+  @override
+  String get mudraWrong => 'Those hands do not belong there.';
+
+  @override
+  String get mudraFull => 'No empty niche is left there.';
+
+  @override
+  String mudraProgress(int set, int total) {
+    return 'Set back: $set of $total';
+  }
+
+  @override
+  String get casingInstruction =>
+      'Lift a stone to see the relief behind it. Two at a time: a deed and its fruit are kept; the rest go back.';
+
+  @override
+  String get casingNoPair => 'Not a deed and its fruit. The stones go back.';
+
+  @override
+  String get casingPair => 'A deed and its fruit: photographed.';
+
+  @override
+  String casingProgress(int kept, int total) {
+    return 'Pairs photographed: $kept of $total';
+  }
+
+  @override
+  String get casingDeed => 'Deed';
+
+  @override
+  String get casingFruit => 'Fruit';
 }

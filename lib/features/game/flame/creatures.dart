@@ -46,6 +46,7 @@ abstract class Creature extends Component {
     CreatureKind.raven => _Fulmar(area, random, sound, raven: true),
     CreatureKind.heron => _Heron(area, random, sound),
     CreatureKind.seal => _Seal(area, random, sound),
+    CreatureKind.swifts => _Swifts(area, random, sound),
   };
 }
 
@@ -925,6 +926,75 @@ class _Seal extends Creature {
         head.translate(14, 6),
         head.translate(30, 6 + k * 6.0),
         whisker,
+      );
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Swifts: small dark birds wheeling over their area in wide, uneven loops,
+// wings flicking; tapped among them, they scatter wide and wheel back.
+
+class _Swifts extends Creature {
+  _Swifts(super.area, super.random, super.sound) {
+    for (var i = 0; i < 5; i++) {
+      _phase.add(random.nextDouble() * math.pi * 2);
+      _speed.add(0.7 + random.nextDouble() * 0.6);
+      _radius.add(0.5 + random.nextDouble() * 0.5);
+    }
+  }
+
+  final _phase = <double>[];
+  final _speed = <double>[];
+  final _radius = <double>[];
+  double _scatter = 0;
+
+  Offset _at(int i) {
+    final t = time * _speed[i] + _phase[i];
+    final spread = 1 + _scatter * 1.5;
+    return area.center +
+        Offset(
+          math.cos(t) * area.width * 0.45 * _radius[i] * spread,
+          math.sin(t * 1.7) * area.height * 0.4 * _radius[i] * spread,
+        );
+  }
+
+  @override
+  bool near(Offset p) =>
+      _scatter <= 0 &&
+      [
+        for (var i = 0; i < _phase.length; i++) _at(i),
+      ].any((b) => (b - p).distance < 70);
+
+  @override
+  void startle() {
+    if (_scatter > 0) return;
+    _scatter = 1;
+    sound('wings_flutter');
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+    if (_scatter > 0) _scatter = math.max(0, _scatter - dt * 0.25);
+  }
+
+  @override
+  void render(Canvas canvas) {
+    final wing = Paint()
+      ..color = const Color(0xFF1E1E22)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 3
+      ..strokeCap = StrokeCap.round;
+    for (var i = 0; i < _phase.length; i++) {
+      final p = _at(i);
+      final flick = math.sin(time * 14 + i) * 5;
+      canvas.drawPath(
+        Path()
+          ..moveTo(p.dx - 16, p.dy - 2 - flick)
+          ..quadraticBezierTo(p.dx - 6, p.dy - 6, p.dx, p.dy)
+          ..quadraticBezierTo(p.dx + 6, p.dy - 6, p.dx + 16, p.dy - 2 - flick),
+        wing,
       );
     }
   }

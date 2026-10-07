@@ -102,6 +102,13 @@ enum EchoFigure {
 
   /// A surveyor of 2014 in a hooded float coat, a tablet in hand.
   surveyor,
+
+  /// A pilgrim in a long wrapped cloth, walking with hands joined.
+  pilgrim,
+
+  /// A villager of 1890 in a headcloth and a short sarong, a casing stone
+  /// carried on one shoulder.
+  carrier,
 }
 
 const _mist = Color(0xFFD5DEE2);
@@ -636,6 +643,35 @@ void paintEcho(Art a, EchoFigure figure) {
             body,
           );
       }
+    case EchoFigure.pilgrim:
+      a.canvas
+        // A long wrapped cloth to the ankles, the hands joined at the chest.
+        ..drawPath(
+          shape([(0.3, 0.2), (0.7, 0.2), (0.76, 0.96), (0.24, 0.96)]),
+          body,
+        )
+        ..drawOval(a.r(0.42, 0.3, 0.16, 0.08), body);
+    case EchoFigure.carrier:
+      a.canvas
+        // A headcloth, the stone on the shoulder, a short sarong, bare legs.
+        ..drawOval(a.r(0.34, 0.03, 0.32, 0.08), body)
+        ..drawRect(a.r(0.56, 0.08, 0.38, 0.14), body)
+        ..drawPath(
+          shape([(0.3, 0.2), (0.7, 0.2), (0.72, 0.5), (0.28, 0.5)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.26, 0.48), (0.74, 0.48), (0.72, 0.7), (0.28, 0.7)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.32, 0.68), (0.45, 0.68), (0.44, 0.99), (0.33, 0.99)]),
+          body,
+        )
+        ..drawPath(
+          shape([(0.55, 0.68), (0.68, 0.68), (0.67, 0.99), (0.56, 0.99)]),
+          body,
+        );
     case EchoFigure.hauler:
       final rope = Paint()
         ..color = _mist

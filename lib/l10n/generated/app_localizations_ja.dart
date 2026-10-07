@@ -764,4 +764,39 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get admiraltyCaption => 'この紙を見つけた方は、ロンドンの海軍本部長官あてに送付されたい';
+
+  @override
+  String get mudraInstruction => '倒れた仏像に触れ、その手の形が属する場所に触れよう。';
+
+  @override
+  String get mudraWrong => 'その手の形はそこではない。';
+
+  @override
+  String get mudraFull => 'そこにはもう空いた龕がない。';
+
+  @override
+  String mudraProgress(int set, int total) {
+    return '戻した数：$totalのうち$set';
+  }
+
+  @override
+  String get casingInstruction =>
+      '石を持ち上げて裏の浮き彫りを見よう。一度に二つまで。行いとその報いなら残し、ほかは元に戻る。';
+
+  @override
+  String get casingNoPair => '行いとその報いではない。石は元に戻る。';
+
+  @override
+  String get casingPair => '行いとその報い。撮影された。';
+
+  @override
+  String casingProgress(int kept, int total) {
+    return '撮影した組：$totalのうち$kept';
+  }
+
+  @override
+  String get casingDeed => '行い';
+
+  @override
+  String get casingFruit => '報い';
 }

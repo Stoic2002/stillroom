@@ -224,5 +224,15 @@
   "sonarUnrun": "Jalur di situ belum dijalankan.",
   "sonarSpent": "Musim sudah habis dan bangkai kapal belum ditemukan.",
   "sonarNextSeason": "Musim berikutnya",
-  "admiraltyCaption": "Siapa pun yang menemukan kertas ini diminta meneruskannya kepada Sekretaris Admiralty, London"
+  "admiraltyCaption": "Siapa pun yang menemukan kertas ini diminta meneruskannya kepada Sekretaris Admiralty, London",
+  "mudraInstruction": "Ketuk arca Buddha yang jatuh, lalu tempat yang sesuai dengan sikap tangannya.",
+  "mudraWrong": "Sikap tangan itu bukan untuk tempat itu.",
+  "mudraFull": "Tak ada relung kosong lagi di sana.",
+  "mudraProgress": "Dikembalikan: {set} dari {total}",
+  "casingInstruction": "Angkat sebuah batu untuk melihat relief di baliknya. Dua sekaligus: perbuatan dan akibatnya disimpan; sisanya kembali.",
+  "casingNoPair": "Bukan perbuatan dan akibatnya. Batunya dikembalikan.",
+  "casingPair": "Perbuatan dan akibatnya: dipotret.",
+  "casingProgress": "Pasangan dipotret: {kept} dari {total}",
+  "casingDeed": "Perbuatan",
+  "casingFruit": "Akibat"
 }

@@ -1,0 +1,168 @@
+{
+  "startScene": "foot",
+  "flags": {
+    "read_babad": false,
+    "read_karma": false,
+    "read_later": false,
+    "found_note": false
+  },
+  "logicalResolution": [
+    1920,
+    1080
+  ],
+  "orientation": "landscape",
+  "sceneTransitionMs": 600,
+  "music": "kedu_morning",
+  "words": [
+    {
+      "id": "sailendra",
+      "labelKey": "borobudur_1814.word.sailendra",
+      "kind": "name"
+    },
+    {
+      "id": "babad",
+      "labelKey": "borobudur_1814.word.babad",
+      "kind": "thing"
+    },
+    {
+      "id": "foot",
+      "labelKey": "borobudur_1814.word.foot",
+      "kind": "thing"
+    },
+    {
+      "id": "raffles",
+      "labelKey": "borobudur_1814.word.raffles",
+      "kind": "name"
+    },
+    {
+      "id": "cornelius",
+      "labelKey": "borobudur_1814.word.cornelius",
+      "kind": "name"
+    },
+    {
+      "id": "date_1814",
+      "labelKey": "borobudur_1814.word.date_1814",
+      "kind": "date"
+    },
+    {
+      "id": "gunadharma",
+      "labelKey": "borobudur_1814.word.gunadharma",
+      "kind": "name"
+    },
+    {
+      "id": "lake",
+      "labelKey": "borobudur_1814.word.lake",
+      "kind": "thing"
+    },
+    {
+      "id": "merapi",
+      "labelKey": "borobudur_1814.word.merapi",
+      "kind": "thing"
+    }
+  ],
+  "secret": {
+    "when": [
+      {
+        "flag": "found_note",
+        "equals": true
+      }
+    ],
+    "noteKey": "borobudur_1814.house.keeper_note"
+  },
+  "hintStages": [
+    {
+      "id": "write_seal",
+      "when": [
+        {
+          "flag": "read_later",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.borobudur_1814.write_seal.1"
+        },
+        {
+          "key": "hint.borobudur_1814.write_seal.2"
+        }
+      ]
+    },
+    {
+      "id": "later",
+      "when": [
+        {
+          "puzzleSolved": "casing"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.borobudur_1814.later.1"
+        },
+        {
+          "key": "hint.borobudur_1814.later.2"
+        }
+      ]
+    },
+    {
+      "id": "casing_stage",
+      "when": [
+        {
+          "flag": "read_karma",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.borobudur_1814.casing_stage.1"
+        },
+        {
+          "key": "hint.borobudur_1814.casing_stage.2"
+        }
+      ]
+    },
+    {
+      "id": "karma",
+      "when": [
+        {
+          "puzzleSolved": "mudra"
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.borobudur_1814.karma.1"
+        },
+        {
+          "key": "hint.borobudur_1814.karma.2"
+        }
+      ]
+    },
+    {
+      "id": "gallery",
+      "when": [
+        {
+          "flag": "read_babad",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.borobudur_1814.gallery.1"
+        },
+        {
+          "key": "hint.borobudur_1814.gallery.2"
+        }
+      ]
+    },
+    {
+      "id": "start",
+      "hints": [
+        {
+          "key": "hint.borobudur_1814.start.1"
+        },
+        {
+          "key": "hint.borobudur_1814.start.2"
+        }
+      ]
+    }
+  ]
+}

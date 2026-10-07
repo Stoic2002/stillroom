@@ -1,0 +1,72 @@
+{
+  "id": "mudra",
+  "type": "mudra",
+  "background": "images/scenes/borobudur_1814/mudra_board.png",
+  "config": {
+    "statues": [
+      "meditation",
+      "earth",
+      "noFear",
+      "wheel",
+      "giving",
+      "teaching",
+      "earth",
+      "meditation",
+      "giving",
+      "noFear"
+    ],
+    "places": [
+      {
+        "labelKey": "borobudur_1814.mudra.east",
+        "mudra": "earth",
+        "slots": 2
+      },
+      {
+        "labelKey": "borobudur_1814.mudra.south",
+        "mudra": "giving",
+        "slots": 2
+      },
+      {
+        "labelKey": "borobudur_1814.mudra.west",
+        "mudra": "meditation",
+        "slots": 2
+      },
+      {
+        "labelKey": "borobudur_1814.mudra.north",
+        "mudra": "noFear",
+        "slots": 2
+      },
+      {
+        "labelKey": "borobudur_1814.mudra.fifth",
+        "mudra": "teaching",
+        "slots": 1
+      },
+      {
+        "labelKey": "borobudur_1814.mudra.stupa",
+        "mudra": "wheel",
+        "slots": 1
+      }
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "casing_stone"
+    },
+    {
+      "type": "showText",
+      "key": "borobudur_1814.gallery.mudra_done"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.borobudur_1814.mudra.1"
+    },
+    {
+      "key": "hint.borobudur_1814.mudra.2"
+    },
+    {
+      "key": "hint.borobudur_1814.mudra.3"
+    }
+  ]
+}

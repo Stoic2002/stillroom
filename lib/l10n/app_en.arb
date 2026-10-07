@@ -1048,5 +1048,61 @@
   "admiraltyCaption": "Whoever finds this paper is requested to forward it to the Secretary of the Admiralty, London",
   "@admiraltyCaption": {
     "description": "Admiralty label form: the printed heading of the form."
+  },
+  "mudraInstruction": "Tap a fallen Buddha, then the place its hands belong to.",
+  "@mudraInstruction": {
+    "description": "Mudra puzzle: what to do."
+  },
+  "mudraWrong": "Those hands do not belong there.",
+  "@mudraWrong": {
+    "description": "Mudra puzzle: a statue set in the wrong place."
+  },
+  "mudraFull": "No empty niche is left there.",
+  "@mudraFull": {
+    "description": "Mudra puzzle: the place is full."
+  },
+  "mudraProgress": "Set back: {set} of {total}",
+  "@mudraProgress": {
+    "description": "Mudra puzzle: progress.",
+    "placeholders": {
+      "set": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "casingInstruction": "Lift a stone to see the relief behind it. Two at a time: a deed and its fruit are kept; the rest go back.",
+  "@casingInstruction": {
+    "description": "Casing puzzle: what to do."
+  },
+  "casingNoPair": "Not a deed and its fruit. The stones go back.",
+  "@casingNoPair": {
+    "description": "Casing puzzle: two stones that are not a pair."
+  },
+  "casingPair": "A deed and its fruit: photographed.",
+  "@casingPair": {
+    "description": "Casing puzzle: a pair found."
+  },
+  "casingProgress": "Pairs photographed: {kept} of {total}",
+  "@casingProgress": {
+    "description": "Casing puzzle: progress.",
+    "placeholders": {
+      "kept": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "casingDeed": "Deed",
+  "@casingDeed": {
+    "description": "Casing puzzle: tag on a deed panel."
+  },
+  "casingFruit": "Fruit",
+  "@casingFruit": {
+    "description": "Casing puzzle: tag on a fruit panel."
   }
 }

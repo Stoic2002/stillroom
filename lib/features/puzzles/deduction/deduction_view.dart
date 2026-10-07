@@ -109,6 +109,7 @@ class _DeductionViewState extends State<DeductionView>
       DeductionForm.marker => _marker(context, sentenceStyle),
       DeductionForm.post => _post(context, sentenceStyle),
       DeductionForm.admiralty => _admiralty(context, sentenceStyle),
+      DeductionForm.lontar => _lontar(context, sentenceStyle),
       DeductionForm.board => const SizedBox.shrink(),
     };
 
@@ -654,6 +655,27 @@ class _DeductionViewState extends State<DeductionView>
     );
   }
 
+  /// Palm leaves bound on a cord: long pale-gold strips with a hole for
+  /// the cord, the letters incised and blackened with soot.
+  Widget _lontar(BuildContext context, TextStyle style) {
+    final cut = style.copyWith(height: 1.9, color: const Color(0xFF2A1E12));
+    return CustomPaint(
+      painter: const _PalmLeaves(),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(60, 18, 60, 18),
+        child: Column(
+          children: [
+            for (final (i, sentence) in _config.sentences.indexed)
+              Text.rich(
+                TextSpan(style: cut, children: _sentence(context, i, sentence)),
+                textAlign: TextAlign.center,
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
   /// An old map's title cartouche: a parchment panel in a scrolled frame,
   /// the map's title above, the sentences written inside.
   Widget _cartouche(BuildContext context, TextStyle style) {
@@ -1015,6 +1037,76 @@ class _RoutebookPage extends CustomPainter {
 
   @override
   bool shouldRepaint(_RoutebookPage old) => false;
+}
+
+/// Palm-leaf strips stacked one under another, each with its cord hole,
+/// the cord running through them, the leaves' edges darker.
+class _PalmLeaves extends CustomPainter {
+  const _PalmLeaves();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    const leaves = 4;
+    final h = size.height / leaves;
+    canvas.drawRect(
+      (Offset.zero & size).shift(const Offset(0, 6)),
+      Paint()
+        ..color = const Color(0x88000000)
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 10),
+    );
+    for (var k = 0; k < leaves; k++) {
+      final leaf = RRect.fromRectAndRadius(
+        Rect.fromLTWH(0, k * h + 1, size.width, h - 2),
+        Radius.circular(h / 2),
+      );
+      canvas
+        ..drawRRect(
+          leaf,
+          Paint()
+            ..shader = const LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Color(0xFFD8BE84), Color(0xFFC8A868)],
+            ).createShader(leaf.outerRect),
+        )
+        ..drawRRect(
+          leaf,
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 1
+            ..color = const Color(0xFF8A6A3A),
+        );
+      for (var g = 1; g < 4; g++) {
+        canvas.drawLine(
+          Offset(h / 2, k * h + h * g / 4),
+          Offset(size.width - h / 2, k * h + h * g / 4),
+          Paint()
+            ..strokeWidth = 0.6
+            ..color = const Color(0x22704A20),
+        );
+      }
+      for (final x in [0.05, 0.95]) {
+        canvas.drawCircle(
+          Offset(size.width * x, k * h + h / 2),
+          3,
+          Paint()..color = const Color(0xFF5A3E1E),
+        );
+      }
+    }
+    // The cords through the holes at either end.
+    for (final x in [0.05, 0.95]) {
+      canvas.drawLine(
+        Offset(size.width * x, 0),
+        Offset(size.width * x, size.height),
+        Paint()
+          ..strokeWidth = 1.2
+          ..color = const Color(0x885A3E1E),
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(_PalmLeaves old) => false;
 }
 
 /// The printed form: a ruled border, and under the heading two faint

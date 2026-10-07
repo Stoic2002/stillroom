@@ -1,0 +1,85 @@
+{
+  "id": "casing",
+  "type": "casing",
+  "background": "images/scenes/borobudur_1814/casing_board.png",
+  "config": {
+    "columns": 4,
+    "panels": [
+      {
+        "labelKey": "borobudur_1814.karma.anger",
+        "pair": 2
+      },
+      {
+        "labelKey": "borobudur_1814.karma.poverty",
+        "pair": 4,
+        "fruit": true
+      },
+      {
+        "labelKey": "borobudur_1814.karma.killing",
+        "pair": 0
+      },
+      {
+        "labelKey": "borobudur_1814.karma.influence",
+        "pair": 3,
+        "fruit": true
+      },
+      {
+        "labelKey": "borobudur_1814.karma.harming",
+        "pair": 1
+      },
+      {
+        "labelKey": "borobudur_1814.karma.low_birth",
+        "pair": 5,
+        "fruit": true
+      },
+      {
+        "labelKey": "borobudur_1814.karma.stinginess",
+        "pair": 4
+      },
+      {
+        "labelKey": "borobudur_1814.karma.ugliness",
+        "pair": 2,
+        "fruit": true
+      },
+      {
+        "labelKey": "borobudur_1814.karma.arrogance",
+        "pair": 5
+      },
+      {
+        "labelKey": "borobudur_1814.karma.short_life",
+        "pair": 0,
+        "fruit": true
+      },
+      {
+        "labelKey": "borobudur_1814.karma.envy",
+        "pair": 3
+      },
+      {
+        "labelKey": "borobudur_1814.karma.sickness",
+        "pair": 1,
+        "fruit": true
+      }
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "shutter"
+    },
+    {
+      "type": "showText",
+      "key": "borobudur_1814.foot.casing_done"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.borobudur_1814.casing.1"
+    },
+    {
+      "key": "hint.borobudur_1814.casing.2"
+    },
+    {
+      "key": "hint.borobudur_1814.casing.3"
+    }
+  ]
+}

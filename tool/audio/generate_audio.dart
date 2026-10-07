@@ -1938,6 +1938,61 @@ Buf splash() {
   return reverb(b, size: 0.4, mix: 0.2);
 }
 
+/// Borobudur: a casing stone lifted and set down on stone.
+Buf casingStone() {
+  final rng = math.Random(71);
+  final b = Buf(1.2)
+    ..add(
+      shape(
+        bandpass(noise(0.4, rng), (_) => 500, 2),
+        (t) => swell(t, 0.05, 0.2, 0.4),
+      ),
+      gain: 0.9,
+    )
+    ..add(
+      modal(0.5, 180, const [(1, 1, 0.08), (2.3, 0.5, 0.05)]),
+      at: 0.55,
+      gain: 0.5,
+    )
+    ..add(
+      shape(lowpass(noise(0.12, rng), (_) => 900), (t) => decay(t, 0.03)),
+      at: 0.55,
+      gain: 0.7,
+    );
+  return reverb(b, size: 0.5, mix: 0.2);
+}
+
+/// Borobudur: a plate camera's shutter, a soft double click.
+Buf shutter() {
+  final rng = math.Random(72);
+  return Buf(0.5)
+    ..add(click(rng, centre: 1800, time: 0.004), gain: 0.5)
+    ..add(click(rng, centre: 1400, time: 0.004), at: 0.18, gain: 0.4)
+    ..add(
+      shape(
+        bandpass(noise(0.15, rng), (_) => 2400, 1.5),
+        (t) => decay(t, 0.04),
+      ),
+      at: 0.02,
+      gain: 0.2,
+    );
+}
+
+/// Borobudur: a small temple bell stirring in the wind.
+Buf bellSmall() {
+  final b = Buf(3.0)
+    ..add(
+      modal(2.8, 1180, const [(1, 1, 1.4), (2.76, 0.4, 0.7), (5.4, 0.15, 0.3)]),
+      gain: 0.12,
+    )
+    ..add(
+      modal(2.4, 1180, const [(1, 1, 1.2), (2.76, 0.3, 0.6)]),
+      at: 0.5,
+      gain: 0.07,
+    );
+  return reverb(b, size: 0.7, mix: 0.35);
+}
+
 final sfx = <String, Buf Function()>{
   'stone_door': stoneDoor,
   'reactor_count': reactorCount,
@@ -1958,6 +2013,9 @@ final sfx = <String, Buf Function()>{
   'drum_low': drumLow,
   'sonar_ping': sonarPing,
   'splash': splash,
+  'casing_stone': casingStone,
+  'shutter': shutter,
+  'bell_small': bellSmall,
   'notebook': notebook,
   'wind_ridge': windRidge,
   'canvas_flap': canvasFlap,
@@ -2476,6 +2534,58 @@ Buf iceDrift() => loop(48, (seconds) {
   return reverb(b, size: 0.9, mix: 0.4, damp: 0.5);
 });
 
+/// Borobudur: a low drone, a slow bronze figure far off in a pentatonic
+/// scale like a gamelan's, birds at dawn now and then.
+Buf keduMorning() => loop(48, (seconds) {
+  final rng = math.Random(36);
+  final b = Buf(seconds)
+    ..add(
+      drone(seconds, loopSeconds: 48, const [
+        (65.4, 0.34, 24),
+        (98.0, 0.14, 16),
+        (130.8, 0.06, 12),
+      ]),
+      gain: 0.36,
+    );
+  // A slendro-like figure on bronze keys, slow, twice a loop.
+  const scale = [261.6, 299.0, 344.0, 395.0, 452.0, 523.3];
+  const figure = [2, 3, 2, 1, 0, 1, 3, 2];
+  for (var at = 3.0; at < seconds - 10; at += 24) {
+    for (final (k, step) in figure.indexed) {
+      b.add(
+        modal(2.2, scale[step], const [
+          (1, 1, 0.9),
+          (2.76, 0.35, 0.4),
+          (5.2, 0.1, 0.15),
+        ]),
+        at: at + k * 0.9,
+        gain: 0.05,
+        pan: k.isEven ? -0.25 : 0.25,
+      );
+    }
+    // The big gong at the end of the phrase.
+    b.add(
+      modal(6, 65.4, const [(1, 1, 3.0), (2.1, 0.4, 1.6), (3.0, 0.2, 0.9)]),
+      at: at + figure.length * 0.9,
+      gain: 0.12,
+    );
+  }
+  for (var at = 10.0; at < seconds - 2; at += 17) {
+    for (var k = 0; k < 3; k++) {
+      b.add(
+        shape(
+          tone(0.12, (t) => 3200 + 900 * t / 0.12),
+          (t) => swell(t, 0.01, 0.05, 0.12),
+        ),
+        at: at + k * 0.18 + rng.nextDouble() * 0.05,
+        gain: 0.015,
+        pan: 0.5,
+      );
+    }
+  }
+  return reverb(b, size: 0.85, mix: 0.38, damp: 0.5);
+});
+
 final music = <String, Buf Function()>{
   'chongling_winter': chonglingWinter,
   'alamut_snow': alamutSnow,
@@ -2484,6 +2594,7 @@ final music = <String, Buf Function()>{
   'kyoto_ash': kyotoAsh,
   'sound_dawn': soundDawn,
   'ice_drift': iceDrift,
+  'kedu_morning': keduMorning,
   'whitechapel_1891': whitechapel1891,
   'gyeongju_night': gyeongjuNight,
   'bastille_dawn': bastilleDawn,
@@ -3317,6 +3428,42 @@ Buf echoMarkSound() {
   return reverb(b, size: 0.4, mix: 0.2);
 }
 
+/// A statue set back in its niche: stone settling on stone.
+Buf nicheSetSound() {
+  final rng = math.Random(81);
+  return Buf(0.45)
+    ..add(modal(0.3, 220, const [(1, 1, 0.06), (2.4, 0.4, 0.03)]), gain: 0.3)
+    ..add(
+      shape(lowpass(noise(0.1, rng), (_) => 1000), (t) => decay(t, 0.03)),
+      gain: 0.35,
+    );
+}
+
+/// A casing stone lifted out: a grinding scrape.
+Buf stoneLiftSound() {
+  final rng = math.Random(82);
+  return Buf(0.4)..add(
+    shape(
+      bandpass(noise(0.3, rng), (_) => 700, 2),
+      (t) => swell(t, 0.03, 0.15, 0.3),
+    ),
+    gain: 0.4,
+  );
+}
+
+/// A deed and its fruit photographed: a shutter and a soft chime.
+Buf pairFoundSound() {
+  final rng = math.Random(83);
+  final b = Buf(0.9)
+    ..add(click(rng, centre: 1800, time: 0.004), gain: 0.3)
+    ..add(
+      modal(0.7, 880, const [(1, 1, 0.3), (2.76, 0.3, 0.15)]),
+      at: 0.1,
+      gain: 0.08,
+    );
+  return reverb(b, size: 0.4, mix: 0.2);
+}
+
 final ui = <String, Buf Function()>{
   'geiger': () => geigerSound(clicks: 4, seed: 61),
   'geiger_hot': () => geigerSound(clicks: 26, seed: 62),
@@ -3342,6 +3489,9 @@ final ui = <String, Buf Function()>{
   'sheet_turn': sheetTurnSound,
   'lane_run': laneRunSound,
   'echo_mark': echoMarkSound,
+  'niche_set': nicheSetSound,
+  'stone_lift': stoneLiftSound,
+  'pair_found': pairFoundSound,
   'type_sort': typeSortSound,
   'lamp_gutter': lampGutterSound,
   'pour': pourSound,

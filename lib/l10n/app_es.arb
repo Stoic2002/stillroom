@@ -224,5 +224,15 @@
   "sonarUnrun": "Esa calle aún no se ha recorrido.",
   "sonarSpent": "La temporada ha terminado sin hallar el pecio.",
   "sonarNextSeason": "Siguiente temporada",
-  "admiraltyCaption": "Se ruega a quien encuentre este papel que lo envíe al Secretario del Almirantazgo, Londres"
+  "admiraltyCaption": "Se ruega a quien encuentre este papel que lo envíe al Secretario del Almirantazgo, Londres",
+  "mudraInstruction": "Toca un Buda caído y luego el lugar al que pertenecen sus manos.",
+  "mudraWrong": "Esas manos no pertenecen ahí.",
+  "mudraFull": "Ahí no queda ningún nicho libre.",
+  "mudraProgress": "Repuestos: {set} de {total}",
+  "casingInstruction": "Levanta una piedra para ver el relieve de detrás. Dos a la vez: un acto y su fruto se guardan; las demás vuelven.",
+  "casingNoPair": "No son un acto y su fruto. Las piedras vuelven a su sitio.",
+  "casingPair": "Un acto y su fruto: fotografiados.",
+  "casingProgress": "Parejas fotografiadas: {kept} de {total}",
+  "casingDeed": "Acto",
+  "casingFruit": "Fruto"
 }

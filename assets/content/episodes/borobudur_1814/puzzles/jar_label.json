@@ -1,0 +1,62 @@
+{
+  "id": "jar_label",
+  "type": "deduction",
+  "background": "images/scenes/borobudur_1814/label_close.png",
+  "config": {
+    "form": "lontar",
+    "sentences": [
+      {
+        "textKey": "borobudur_1814.label.s1",
+        "blanks": [
+          "sailendra",
+          "babad",
+          "foot"
+        ]
+      }
+    ],
+    "words": [
+      "sailendra",
+      "babad",
+      "foot",
+      "raffles",
+      "cornelius",
+      "date_1814",
+      "gunadharma",
+      "lake",
+      "merapi"
+    ],
+    "nearMiss": 1
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "bell_small"
+    },
+    {
+      "type": "showText",
+      "key": "borobudur_1814.label.done"
+    },
+    {
+      "type": "showText",
+      "key": "borobudur_1814.ending.found"
+    },
+    {
+      "type": "showText",
+      "key": "borobudur_1814.ending.after"
+    },
+    {
+      "type": "endEpisode"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.borobudur_1814.jar_label.1"
+    },
+    {
+      "key": "hint.borobudur_1814.jar_label.2"
+    },
+    {
+      "key": "hint.borobudur_1814.jar_label.3"
+    }
+  ]
+}

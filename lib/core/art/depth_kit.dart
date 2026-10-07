@@ -100,7 +100,7 @@ final class Room {
     double x1 = 1,
     double z1 = 1,
   }) {
-    for (var c = 0; c <= columns; c++) {
+    for (var c = 0; c <= columns && columns > 0; c++) {
       final x = x0 + (x1 - x0) * c / columns;
       a.hairline(floorAt(x, 0), floorAt(x, z1), color, width);
     }

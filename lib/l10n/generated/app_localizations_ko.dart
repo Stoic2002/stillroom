@@ -769,4 +769,39 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get admiraltyCaption => '이 종이를 발견한 분은 런던 해군성 장관에게 보내 주시기 바랍니다';
+
+  @override
+  String get mudraInstruction => '쓰러진 불상을 누르고, 그 손 모양이 속한 곳을 누르자.';
+
+  @override
+  String get mudraWrong => '그 손 모양은 그곳에 속하지 않는다.';
+
+  @override
+  String get mudraFull => '그곳에는 빈 감실이 남아 있지 않다.';
+
+  @override
+  String mudraProgress(int set, int total) {
+    return '되돌린 것: $total개 중 $set개';
+  }
+
+  @override
+  String get casingInstruction =>
+      '돌을 들어 뒤의 부조를 보자. 한 번에 두 개. 행위와 그 과보면 남기고, 나머지는 되돌린다.';
+
+  @override
+  String get casingNoPair => '행위와 그 과보가 아니다. 돌을 되돌린다.';
+
+  @override
+  String get casingPair => '행위와 그 과보. 촬영되었다.';
+
+  @override
+  String casingProgress(int kept, int total) {
+    return '촬영한 짝: $total개 중 $kept개';
+  }
+
+  @override
+  String get casingDeed => '행위';
+
+  @override
+  String get casingFruit => '과보';
 }

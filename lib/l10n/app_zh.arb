@@ -224,5 +224,15 @@
   "sonarUnrun": "那里的测线还没扫过。",
   "sonarSpent": "季节结束了，沉船仍未找到。",
   "sonarNextSeason": "下一季",
-  "admiraltyCaption": "拾得此纸者，请转交伦敦海军部秘书"
+  "admiraltyCaption": "拾得此纸者，请转交伦敦海军部秘书",
+  "mudraInstruction": "点一尊倒下的佛像，再点它的手印所属的地方。",
+  "mudraWrong": "这个手印不属于那里。",
+  "mudraFull": "那里已经没有空龛了。",
+  "mudraProgress": "已复位：{set}/{total}",
+  "casingInstruction": "搬起一块石头，看后面的浮雕。一次两块：一个行为与它的果报就留下；其余放回。",
+  "casingNoPair": "不是一个行为与它的果报。石头放回原处。",
+  "casingPair": "一个行为与它的果报：拍下了。",
+  "casingProgress": "已拍下的组：{kept}/{total}",
+  "casingDeed": "行为",
+  "casingFruit": "果报"
 }

@@ -822,4 +822,40 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get admiraltyCaption =>
       'Нашедшего эту бумагу просят переслать её секретарю Адмиралтейства, Лондон';
+
+  @override
+  String get mudraInstruction =>
+      'Коснитесь упавшего Будды, затем места, которому принадлежат его руки.';
+
+  @override
+  String get mudraWrong => 'Эти руки не принадлежат этому месту.';
+
+  @override
+  String get mudraFull => 'Там не осталось пустых ниш.';
+
+  @override
+  String mudraProgress(int set, int total) {
+    return 'Возвращено: $set из $total';
+  }
+
+  @override
+  String get casingInstruction =>
+      'Поднимите камень, чтобы увидеть рельеф за ним. По два за раз: деяние и его плод остаются; остальные встают на место.';
+
+  @override
+  String get casingNoPair => 'Это не деяние и его плод. Камни встают на место.';
+
+  @override
+  String get casingPair => 'Деяние и его плод: сфотографированы.';
+
+  @override
+  String casingProgress(int kept, int total) {
+    return 'Сфотографировано пар: $kept из $total';
+  }
+
+  @override
+  String get casingDeed => 'Деяние';
+
+  @override
+  String get casingFruit => 'Плод';
 }

@@ -168,7 +168,16 @@ enum UiSound {
   laneRun('lane_run', Haptic.light),
 
   /// An echo marked as the wreck.
-  echoMark('echo_mark', Haptic.medium);
+  echoMark('echo_mark', Haptic.medium),
+
+  /// A statue set back in its niche.
+  nicheSet('niche_set', Haptic.light),
+
+  /// A casing stone lifted out.
+  stoneLift('stone_lift', Haptic.selection),
+
+  /// A deed and its fruit photographed.
+  pairFound('pair_found', Haptic.light);
 
   const UiSound(this.id, this.haptic);
 

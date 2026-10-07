@@ -1,0 +1,73 @@
+{
+  "id": "stupas",
+  "background": "images/scenes/borobudur_1814/stupas.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "gallery"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "stupa",
+      "rect": [
+        0.4,
+        0.5,
+        0.2,
+        0.4
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "bell_small"
+        },
+        {
+          "type": "showText",
+          "key": "borobudur_1814.stupas.stupa"
+        }
+      ]
+    },
+    {
+      "id": "great",
+      "rect": [
+        0.38,
+        0.15,
+        0.24,
+        0.2
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "borobudur_1814.stupas.great"
+        }
+      ]
+    },
+    {
+      "id": "view",
+      "rect": [
+        0.6,
+        0.3,
+        0.4,
+        0.14
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "borobudur_1814.stupas.view"
+        }
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "swifts",
+      "kind": "swifts",
+      "rect": [
+        0.2,
+        0.04,
+        0.6,
+        0.22
+      ]
+    }
+  ]
+}

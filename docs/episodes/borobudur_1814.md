@@ -1,12 +1,13 @@
 # Episode design: Borobudur, 1814 (the temple that was never lost)
 
-Status: **design draft** (2026-10-07), for the developer's approval before
-anything is built. Shelf IV's last place (opens after 8 tales),
-Indonesia, chosen by the developer. It replaces the sealed teaser
-`sealed_indonesia_shelf4`; shelf IV is then full. Proposed id:
-`borobudur_1814`; jar label **Borobudur, 1814** (see question 3), its map
-pin on the monument in Magelang, Central Java. Drawn in depth, one camera
-per scene (CLAUDE.md decision 6).
+Status: **built** (2026-10-07): draft text in seven languages, code-drawn
+art in depth (`lib/core/art/borobudur_1814_art.dart`), generated audio,
+walkthrough test. Approved by the developer with setting A, both
+mechanics, and the recommended label and seal. Shelf IV's last place
+(opens after 8 tales), Indonesia, chosen by the developer. It replaces
+the sealed teaser `sealed_indonesia_shelf4`; shelf IV is full. Id:
+`borobudur_1814`; jar label **Borobudur, 1814**, its map pin on the
+monument in Magelang, Central Java.
 
 ## Premise
 
@@ -166,11 +167,56 @@ up again, with only one corner open."
   wind). Interface: `niche_set` (a statue set in its niche), `pair_found`
   (a pair photographed).
 
-## Open questions for the developer
+## Decisions (2026-10-07)
 
-1. Where it is set: **A** (1890–91, the hidden foot opened, recommended)
-   or B (1814, Cornelius's clearing)?
-2. The two mechanics: the casing (`casing`) and the niches (`mudra`)?
-3. The jar's label: **Borobudur, 1814** (recommended, the year of the
-   legend) or Borobudur, 1891? And the seal as a lontar (`lontar`), with
-   its sentence (Sailendra / Babad / foot)?
+1. Setting **A**: 1890–91, the hidden foot opened for Cephas to
+   photograph; the Babad and Raffles's papers from the past, de Casparis
+   and the later papers from the future.
+2. Both mechanics: the casing (`casing`) and the niches (`mudra`).
+3. The jar's label **Borobudur, 1814**; the seal as palm leaves
+   (`lontar`): "The {Sailendra} kings raised it, the {Babad} named it
+   before Raffles came, and its {foot} still hides the law of deeds."
+
+## As built
+
+- **Map:** the foot (start) opens on the gallery (the east stairway) and
+  the rest house (the path down); the round terraces open from the
+  gallery once the Buddhas are set back.
+- **Flow:** at the foot the camera and the casing taken down (it waits
+  for the old texts). In the rest house the Babad (*Babad*) and Raffles's
+  and Cornelius's papers (*Raffles*, *Cornelius*, *1814*). In the gallery
+  the reliefs, the guide's note on the hands, and the fallen Buddhas
+  (`mudra`). Then the round terraces (a stupa, the great stupa, the
+  view), and in the rest house the old text of deeds and fruits and de
+  Casparis's reading of the inscriptions (*Sailendra*). Then the casing
+  (`casing`, gives *foot*), then the later papers (*Merapi's ash*, *a
+  lake*, *Gunadharma*). The keeper's slip is among the glass plates once
+  those are read; the seal is cut into the palm leaves on the table.
+- **The niches:** ten Buddhas (two each to the four faces, one to the
+  fifth balustrade, one to the stupas); the first in the row is a
+  meditating Buddha, a likely first try for the east.
+- **The casing:** twelve stones, four across: six deeds and their fruits
+  from the shorter text of the same teaching (MN 135), shuffled.
+- **Words:** *Sailendra*, *Babad*, *foot* (the answers); *Raffles*,
+  *Cornelius*, *1814*, *Gunadharma*, *a lake*, *Merapi's ash* (decoys).
+- **Echoes:** a pilgrim in the gallery; a villager carrying a casing
+  stone at the foot (`EchoFigure.pilgrim`, `EchoFigure.carrier`).
+  **Living things:** swiftlets over the terraces (`swifts`).
+- **Shelf V:** a sealed jar `sealed_keeper` now stands there; the
+  keeper's tale itself is OPEN.
+- **Audio:** music `kedu_morning`; effects `casing_stone`, `shutter`,
+  `bell_small`; interface `niche_set`, `stone_lift`, `pair_found`.
+
+## Things to watch when tested
+
+- Whether the hands read apart at phone size (earth and giving both
+  reach down); whether the guide's words are enough.
+- Whether the casing's memory game feels like the height of the tale or
+  like a filler; twelve stones may want to be sixteen.
+- The tone toward a living sacred place; Kassian Cephas honoured; the
+  Babad's tales told as history, not as a curse.
+- The four scenes in depth; the stairs to the round terraces found once
+  open.
+- The Javanese names and the Sanskrit gestures in the CJK and Russian
+  texts, for a native reader; the Chinese uses 栏杆 for the balustrade
+  (栏楯 is not in the font subset).

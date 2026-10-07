@@ -349,6 +349,8 @@ void main() {
       'dividers',
       'margins',
       'sonar',
+      'mudra',
+      'casing',
     ]);
   });
 }

@@ -224,5 +224,15 @@
   "sonarUnrun": "そこの測線はまだ走らせていない。",
   "sonarSpent": "季節が終わり、沈没船は見つからなかった。",
   "sonarNextSeason": "次の季節",
-  "admiraltyCaption": "この紙を見つけた方は、ロンドンの海軍本部長官あてに送付されたい"
+  "admiraltyCaption": "この紙を見つけた方は、ロンドンの海軍本部長官あてに送付されたい",
+  "mudraInstruction": "倒れた仏像に触れ、その手の形が属する場所に触れよう。",
+  "mudraWrong": "その手の形はそこではない。",
+  "mudraFull": "そこにはもう空いた龕がない。",
+  "mudraProgress": "戻した数：{total}のうち{set}",
+  "casingInstruction": "石を持ち上げて裏の浮き彫りを見よう。一度に二つまで。行いとその報いなら残し、ほかは元に戻る。",
+  "casingNoPair": "行いとその報いではない。石は元に戻る。",
+  "casingPair": "行いとその報い。撮影された。",
+  "casingProgress": "撮影した組：{total}のうち{kept}",
+  "casingDeed": "行い",
+  "casingFruit": "報い"
 }

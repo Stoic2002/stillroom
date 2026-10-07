@@ -1,6 +1,7 @@
 import '../../engine/engine.dart';
 import 'beam_sweep/beam_sweep_view.dart';
 import 'beat/beat_view.dart';
+import 'casing/casing_view.dart';
 import 'cipher/cipher_view.dart';
 import 'clock_hands/clock_hands_view.dart';
 import 'code_lock/code_lock_view.dart';
@@ -14,6 +15,7 @@ import 'dividers/dividers_view.dart';
 import 'identify/identify_view.dart';
 import 'keyring/keyring_view.dart';
 import 'margins/margins_view.dart';
+import 'mudra/mudra_view.dart';
 import 'overlay/overlay_view.dart';
 import 'pour/pour_view.dart';
 import 'puzzle_view.dart';
@@ -42,7 +44,8 @@ import 'unwatched/unwatched_view.dart';
 /// `beamSweep`, `swell`, `roster`, `keyring`, `cipher`, `sources`, `pour`,
 /// `resonance`, `beat`, `unwatched`, `compose`, `strand`, `scan`, `quire`,
 /// `dip`, `courses`, `identify`, `snowpit`, `darkroom`, `strata`,
-/// `streets`, `rings`, `dividers`, `margins` and `sonar`).
+/// `streets`, `rings`, `dividers`, `margins`, `sonar`, `mudra` and
+/// `casing`).
 PuzzleWidgetRegistry builtInPuzzleWidgets() => PuzzleWidgetRegistry()
   ..register(CodeLockType.typeId, CodeLockView.new)
   ..register(SequenceType.typeId, SequenceView.new)
@@ -79,4 +82,6 @@ PuzzleWidgetRegistry builtInPuzzleWidgets() => PuzzleWidgetRegistry()
   ..register(RingsType.typeId, RingsView.new)
   ..register(DividersType.typeId, DividersView.new)
   ..register(MarginsType.typeId, MarginsView.new)
-  ..register(SonarType.typeId, SonarView.new);
+  ..register(SonarType.typeId, SonarView.new)
+  ..register(MudraType.typeId, MudraView.new)
+  ..register(CasingType.typeId, CasingView.new);

@@ -435,6 +435,10 @@ enum CreatureKind {
   /// A bearded seal lying on an ice floe, now and then raising its head;
   /// slips into the water when tapped, hauls out again later.
   seal,
+
+  /// A few swiftlets wheeling over their area in wide loops; they scatter
+  /// when tapped and wheel back.
+  swifts,
 }
 
 /// A small living thing in a scene (`creatures` in a scene file):

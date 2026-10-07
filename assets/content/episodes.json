@@ -170,11 +170,23 @@
       ]
     },
     {
-      "id": "sealed_indonesia_shelf4",
+      "id": "borobudur_1814",
+      "titleKey": "episode.borobudur_1814.title",
+      "teaserKey": "episode.borobudur_1814.teaser",
+      "jarImage": "images/ui/jar_borobudur_1814.png",
+      "shelf": 4,
+      "unlockAfter": 8,
+      "place": [
+        -7.6079,
+        110.2038
+      ]
+    },
+    {
+      "id": "sealed_keeper",
       "titleKey": "episode.sealed.title",
       "comingSoon": true,
-      "shelf": 4,
-      "unlockAfter": 8
+      "shelf": 5,
+      "unlockAfter": 15
     },
     {
       "id": "test_room",

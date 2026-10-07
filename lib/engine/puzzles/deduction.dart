@@ -178,6 +178,9 @@ enum DeductionForm {
   /// A printed Admiralty form of the kind left in cairns: its heading in
   /// print, the words written into its blanks by hand.
   admiralty,
+
+  /// Palm-leaf strips bound on a cord, the letters incised and blackened.
+  lontar,
 }
 
 final class DeductionSentence {

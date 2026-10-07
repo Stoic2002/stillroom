@@ -102,4 +102,22 @@ void main() {
     run(seal, 13);
     expect(seal.near(floe), isTrue, reason: 'back on the ice');
   });
+
+  test('swifts wheel inside their area and scatter when tapped', () {
+    final sounds = <String>[];
+    final swifts = Creature.create(
+      CreatureKind.swifts,
+      area,
+      math.Random(6),
+      sounds.add,
+    );
+    run(swifts, 3);
+    swifts.startle();
+    expect(sounds, ['wings_flutter']);
+    swifts.startle();
+    expect(sounds, hasLength(1), reason: 'already scattered');
+    run(swifts, 6);
+    swifts.startle();
+    expect(sounds, hasLength(2), reason: 'wheeling again');
+  });
 }

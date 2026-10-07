@@ -42,7 +42,7 @@ data, so later tales arrive in updates.
 | I (2) | *Whitechapel, 1888* ✓, *Semarang, 1945* ✓ |
 | II (4) | *Flannan Isles, 1900* ✓, *Pompeii, 79* ✓, *Bastille, 1703* ✓ (Western Europe), *Gyeongju, 771* ✓ (Korea) |
 | III (4) | *Whitechapel, 1891* ✓ (series), *The death of the Guangxu Emperor, Beijing, 1908* ✓ (China), *Alamut, 1256* ✓ (Middle East), *Great Zimbabwe, 1871* ✓ (Africa) |
-| IV (5) | *Dyatlov Pass, 1959* ✓ (Eastern Europe), *Honnō-ji, 1582* ✓ (Japan), *Roanoke, 1590* ✓ (the Americas), *The Franklin expedition, 1845* ✓ (the Arctic), *one Indonesian tale, to be chosen* |
+| IV (5) | *Dyatlov Pass, 1959* ✓ (Eastern Europe), *Honnō-ji, 1582* ✓ (Japan), *Roanoke, 1590* ✓ (the Americas), *The Franklin expedition, 1845* ✓ (the Arctic), *Borobudur, 1814* ✓ (Indonesia) |
 | V (1) | The old keeper's own tale (arc OPEN) |
 
 The legend each one sets right, in short (facts to be checked and sourced
@@ -60,6 +60,7 @@ in each tale's design doc before it is built):
 | Honnō-ji, 1582 | Nobunaga escaped the burning temple | His body was never found; the fire and Akechi's betrayal are what is known |
 | Roanoke, 1590 | The colony vanished without a trace | "CROATOAN" carved on a post: they had gone to Croatoan |
 | Franklin, 1845 | Inuit testimony dismissed as tales | That testimony led to *Erebus* (2014) and *Terror* (2016) |
+| Borobudur, 1814 | Raffles "discovered" a temple lost in the jungle | The Babad named it in 1709; Java never lost it; its foot still hides 160 reliefs |
 
 `unlockAfter` for shelves III to V is set as the tales are built (a
 guide: shelf III after 4 tales, IV after 8, V after 13).
@@ -76,7 +77,7 @@ How difficulty rises from shelf to shelf:
 | Length | 8–10 beats | 10–12 beats, parallel branches |
 
 Current placement: *Whitechapel, 1888* (shelf I, the easiest, doubling as the
-tutorial); *Semarang, 1945* (shelf I, opens after Whitechapel; a step up: clues across three eras); *Flannan Isles, 1900*, *Pompeii, 79*, *Bastille, 1703* and *Gyeongju, 771* (shelf II, open after two tales; the shelf is full). Shelf III opens after four and is full: *Whitechapel, 1891*, *Beijing, 1908*, *Alamut, 1256*, *Great Zimbabwe, 1871*. Shelf IV (after eight): *Dyatlov Pass, 1959*, *Honnō-ji, 1582*, *Roanoke, 1590*, *Franklin, 1845*, and a sealed teaser jar (`sealed_indonesia_shelf4`) for the Indonesian tale still to be chosen.
+tutorial); *Semarang, 1945* (shelf I, opens after Whitechapel; a step up: clues across three eras); *Flannan Isles, 1900*, *Pompeii, 79*, *Bastille, 1703* and *Gyeongju, 771* (shelf II, open after two tales; the shelf is full). Shelf III opens after four and is full: *Whitechapel, 1891*, *Beijing, 1908*, *Alamut, 1256*, *Great Zimbabwe, 1871*. Shelf IV (after eight): *Dyatlov Pass, 1959*, *Honnō-ji, 1582*, *Roanoke, 1590*, *Franklin, 1845* and *Borobudur, 1814*; the shelf is full. Shelf V holds a sealed jar (`sealed_keeper`, after 15) for the keeper's own tale.
 
 ## Signature mechanics (decided 2026-09-26)
 
@@ -125,6 +126,7 @@ own hardest puzzle; higher shelves have more puzzles, chained together.
 | *Honnō-ji, 1582* | The moat's section in the 2007 dig dated layer by layer from what was dropped in it (coins, porcelain), and the black layer of 1582 told from a later fire's (`strata`); Kyoto's addresses read on its street grid (north of, south of, east of, west of a crossing) to find the old temple's block and the one it moved to (`streets`) | A seal of three words cut into the site's stone marker (`marker`) |
 | *Roanoke, 1590* | A cypress core from 1998 cross-dated against a master chronology by its pattern of wide and narrow rings, and its driest run read: 1587–1589 (`rings`); White's own chart, drawn with west at the top, walked with dividers to Croatoan and "fifty miles into the main" (`dividers`) | A seal of three words cut into the palisade post under CROATOAN (`post`) |
 | *Franklin, 1845* | The Victory Point note turned on the table to read the 1848 hand round its margins, past the 1847 "All well" (`margins`); the 2014 side-scan survey off the Adelaide Peninsula, lanes run from a few hours, guided by the Inuit accounts of Ugjulik and the iron pintle on an island (`sonar`) | A seal of three words written into a fresh Admiralty form (`admiralty`) |
+| *Borobudur, 1814* | Fallen Buddhas set back on the side their hands belong to (`mudra`); the casing at the foot lifted two stones at a time, a deed found with its fruit and photographed before the stones go back (`casing`) | A seal of three words cut into palm leaves (`lontar`) |
 | *Bastille, 1703* | The turnkey's ring: find the one key whose bit matches the keyhole, and turn it the right way (`keyring`); the king's Great Cipher read with Bazeries's worksheet, two numbers left unread (`cipher`); the prisoner's file sorted into what was written at the time and what was told after (`sources`) | A seal of three words on a blank royal order (`order`) |
 
 The first three tales were reworked on 2026-09-29 to follow this rule:
@@ -171,6 +173,9 @@ no names and no faces, so no real person is ever given invented features:
 - *Franklin 1845:* a man of 1848 hauling a sledge on the island's shore;
   a surveyor of 2014 in a float coat on the deck. No Franklin, no Inuk is
   drawn; the Inuit are heard in their accounts.
+- *Borobudur 1814:* a pilgrim walking clockwise in the gallery; a villager
+  of 1890 carrying a casing stone at the foot. No king, no Raffles is
+  drawn.
 - *Great Zimbabwe 1871:* a builder with a block on the shoulder, from the
   city's time, by the wall; a hunter with a rifle at the camp. Mauch and
   Render are named in papers, never shown.
@@ -214,6 +219,9 @@ and season:
   floe (a new creature, `seal`; Ugjulik means "there are bearded seals
   there"), gulls over the deck, lichen and purple saxifrage on the
   island's rocks.
+- *Borobudur 1814* is a dry-season morning in Kedu: swiftlets wheeling
+  over the terraces (a new creature, `swifts`), moss in the joints of the
+  stone, the volcanoes on the horizon.
 - *Alamut 1256* is December in the Alborz: dry thistles in the snowy
   court, an eagle turning over the gorge (a new creature, `eagle`), a
   mouse in the storerooms, falling snow.
@@ -255,10 +263,11 @@ final episode. Details are open.
 | `honnoji_1582` | Honnō-ji, 1582 | Built, draft text, code-drawn art in depth (shelf IV, opens after 8 tales). The section, the streets; "he escaped", Hideyoshi, Ieyasu, the court, the wooden statue, Teramachi and 1591 as red herrings | [episodes/honnoji_1582.md](episodes/honnoji_1582.md) |
 | `roanoke_1590` | Roanoke, 1590 | Built, draft text, code-drawn art in depth (shelf IV, opens after 8 tales). The rings, the dividers; "vanished", the Dare Stones, a white doe, the Spanish, a massacre and Site X as red herrings | [episodes/roanoke_1590.md](episodes/roanoke_1590.md) |
 | `franklin_1845` | Franklin, 1845 | Built, draft text, code-drawn art in depth (shelf IV, opens after 8 tales). The margins, the sonar; "lost without a trace", "crushed in the ice", lead from the tins, the Inuit word dismissed, *Terror* and 1847 as red herrings | [episodes/franklin_1845.md](episodes/franklin_1845.md) |
+| `borobudur_1814` | Borobudur, 1814 | Built, draft text, code-drawn art in depth (shelf IV, opens after 8 tales). The niches, the casing; Raffles "discovering" it, Merapi's ash, the lake and Gunadharma as red herrings | [episodes/borobudur_1814.md](episodes/borobudur_1814.md) |
 | `great_zimbabwe_1871` | Great Zimbabwe, 1871 | Built, draft text, code-drawn art (shelf III, opens after 4 tales). The courses, the key; the Queen of Sheba, Ophir, the Phoenicians and cedar as red herrings | [episodes/great_zimbabwe_1871.md](episodes/great_zimbabwe_1871.md) |
 | `alamut_1256` | Alamut, 1256 | Built, draft text, code-drawn art (shelf III, opens after 4 tales). The quire, the tanks; Polo's garden, drug and three-year siege, and "hashish", as red herrings | [episodes/alamut_1256.md](episodes/alamut_1256.md) |
 | `whitechapel_1891` | Whitechapel, 1891 | Built, draft text, code-drawn art (shelf III, series whitechapel, opens after 4 tales). The file that grows, her name set in type; "Jack the Ripper" and "five" as red herrings | [episodes/whitechapel_1891.md](episodes/whitechapel_1891.md) |
 | `gyeongju_771` | Gyeongju, 771 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). The pour, the hollow, the beat; the child legend, Seoul and 1925 as red herrings | [episodes/gyeongju_771.md](episodes/gyeongju_771.md) |
 | `bastille_1703` | Bastille, 1703 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). Key ring, Great Cipher, the file of sources; Voltaire, Dumas and Bazeries as red herrings | [episodes/bastille_1703.md](episodes/bastille_1703.md) |
-| *(planned)* | The other two new tales (shelves IV and V) | See *The full shelf* above | — |
+| *(planned)* | The keeper's own tale (shelf V, arc OPEN) | See *The full shelf* above | — |
 | `test_room` | Test room | Debug builds only | Feature test room |
