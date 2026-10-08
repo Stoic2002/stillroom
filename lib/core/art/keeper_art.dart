@@ -54,7 +54,7 @@ void paintKeeperPortrait(Art a) {
     ..clipPath(Path()..addOval(oval));
 
   // The dark ground, warm where the candle is.
-  a.canvas..drawRect(
+  a.canvas.drawRect(
     oval,
     Paint()
       ..shader = Gradient.radial(

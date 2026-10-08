@@ -126,7 +126,7 @@ void _body(Art a, Figure f) {
   Offset p(double x, double y) => Offset(x * w, y * h);
   Path poly(List<(double, double)> pts) =>
       Path()..addPolygon([for (final (x, y) in pts) p(x, y)], true);
-  final ink = Art.outline;
+  const ink = Art.outline;
   final lineW = w * 0.018;
   void outline(Path path) => a.canvas.drawPath(
     path,
