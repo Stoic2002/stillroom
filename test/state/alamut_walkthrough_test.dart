@@ -135,15 +135,15 @@ void main() {
     // The library.
     tap(0.88, 0.42);
     expect(now().game.sceneId, 'library');
-    tap(0.83, 0.45);
+    tap(0.73, 0.45);
     expect(now().game.flags['read_later'], isFalse, reason: 'not there yet');
-    tap(0.83, 0.6);
+    tap(0.8, 0.83);
     expect(now().game.words, containsAll(['tusi', 'hulagu']));
     tap(0.49, 0.79);
     solve('quire');
     expect(now().game.words, containsAll(['library', 'juvayni']));
     expect(stage(), 'stage:later');
-    tap(0.83, 0.45);
+    tap(0.73, 0.45);
     expect(now().game.words, contains('hashish'));
     expect(stage(), 'stage:write_seal');
 

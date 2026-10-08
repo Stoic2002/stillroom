@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import '../theme/stillroom_palette.dart';
 import 'art_kit.dart';
+import 'depth_kit.dart';
 import 'echo_art.dart';
 import 'whitechapel_1888_art.dart' show jarLabelBoard;
 
@@ -95,6 +96,47 @@ void _rockFace(Art a, Rect r, {Color color = _rock, int seed = 1}) {
     }
   }
 }
+
+/// Where the court's lines run to.
+const _courtEye = Offset(0.5, 0.6);
+
+/// A building's side wall turning back from its front's edge at [x]
+/// ([top] to [bottom]) towards the court's vanishing point.
+void _courtSide(
+  Art a,
+  double x,
+  double top,
+  double bottom,
+  Color color, {
+  double t = 0.2,
+}) {
+  final vp = a.p(_courtEye.dx, _courtEye.dy);
+  final upper = a.p(x, top);
+  final lower = a.p(x, bottom);
+  a.path(
+    a.poly([
+      upper,
+      Offset.lerp(upper, vp, t)!,
+      Offset.lerp(lower, vp, t)!,
+      lower,
+    ]),
+    Color.lerp(color, Art.outline, 0.32)!,
+    line: 0.4,
+  );
+}
+
+/// A soft shadow along a foot from [x0] to [x1] at [y].
+void _footShadow(Art a, double x0, double x1, double y) => a.canvas.drawOval(
+  Rect.fromLTRB(
+    a.p(x0, 0).dx,
+    a.p(0, y).dy - a.u * 1.2,
+    a.p(x1, 0).dx,
+    a.p(0, y).dy + a.u * 2.4,
+  ),
+  Paint()
+    ..color = const Color(0x55302820)
+    ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.u * 1.4),
+);
 
 /// Snow falling over the picture, or [within] a window.
 void _snowfall(Art a, {int count = 120, int seed = 7, Rect? within}) {
@@ -344,6 +386,7 @@ void _court(Art a) {
 
   // The gate: a deep pointed arch in the wall, the order pinned to its leaf.
   final wall = a.r(0.18, 0.28, 0.2, 0.46);
+  _courtSide(a, 0.38, 0.28, 0.74, _plaster);
   a.box(wall, _plaster, line: 0.5);
   a.fade(wall, const Color(0x00000000), const Color(0x33000000));
   final gate = a.r(0.215, 0.38, 0.13, 0.36);
@@ -377,6 +420,7 @@ void _court(Art a) {
 
   // The tower: square, mud-brick on stone, a small door at its foot.
   final tower = a.r(0.6, 0.1, 0.17, 0.64);
+  _courtSide(a, 0.6, 0.1, 0.74, _brick, t: 0.12);
   a
     ..box(tower, _brick, line: 0.5)
     ..fade(tower, const Color(0x00000000), const Color(0x44000000));
@@ -414,6 +458,7 @@ void _court(Art a) {
 
   // The library: a long hall on the right, its door barred.
   final hall = a.r(0.8, 0.28, 0.2, 0.48);
+  _courtSide(a, 0.8, 0.28, 0.76, _plaster);
   a
     ..box(hall, _plaster, line: 0.5)
     ..fade(hall, const Color(0x00000000), const Color(0x33000000))
@@ -438,14 +483,21 @@ void _court(Art a) {
     );
   }
 
-  // The court: snow, trodden into a path to the gate.
-  a
-    ..fade(a.r(0, 0.74, 1, 0.26), _snowShade, _snow)
-    ..path(
-      a.poly([a.p(0.25, 0.74), a.p(0.33, 0.74), a.p(0.44, 1), a.p(0.2, 1)]),
-      const Color(0xFFA6A8AA),
-      line: 0,
-    );
+  // The court: snow, trodden into a path to the gate; the buildings'
+  // shadows along their feet.
+  a.fade(a.r(0, 0.74, 1, 0.26), _snowShade, _snow);
+  for (final (x0, x1, y) in [
+    (0.0, 0.42, 0.75),
+    (0.58, 0.78, 0.745),
+    (0.76, 1.0, 0.765),
+  ]) {
+    _footShadow(a, x0, x1, y);
+  }
+  a.path(
+    a.poly([a.p(0.25, 0.74), a.p(0.33, 0.74), a.p(0.44, 1), a.p(0.2, 1)]),
+    const Color(0xFFA6A8AA),
+    line: 0,
+  );
   for (var i = 0; i < 9; i++) {
     final t = i / 9;
     a.canvas.drawOval(
@@ -467,25 +519,37 @@ void _court(Art a) {
 // The room at the top of the tower
 
 void _tower(Art a) {
-  // Plastered walls, a beamed ceiling, a floor of packed earth.
+  // Plastered walls, a beamed ceiling, a floor of packed earth, all in
+  // one perspective.
+  final room = Room(a, vp: a.p(0.5, 0.3), depth: 0.62);
+  final back = room.back;
   a
-    ..fill(Offset.zero & a.size, _plaster)
-    ..fade(a.r(0, 0, 1, 0.3), const Color(0x55000000), const Color(0x00000000))
-    ..fill(a.r(0, 0.64, 1, 0.36), const Color(0xFF8C7458))
+    ..path(room.ceiling, const Color(0xFF4A3622), line: 0)
+    ..path(room.leftWall, _plasterShade, line: 0)
+    ..path(room.rightWall, Color.lerp(_plaster, _plasterShade, 0.6)!, line: 0)
+    ..fill(back, _plaster)
     ..fade(
-      a.r(0, 0.64, 1, 0.36),
-      const Color(0x33000000),
+      Rect.fromLTRB(
+        back.left,
+        back.top,
+        back.right,
+        back.top + back.height * 0.3,
+      ),
+      const Color(0x55000000),
       const Color(0x00000000),
-    );
-  // The ceiling: a dark beam along the wall, and the joists' ends.
-  a.wood(a.r(0, 0, 1, 0.045), base: _woodDark, grain: 2, line: 0.4);
-  for (var i = 0; i < 12; i++) {
-    a.box(a.r(i / 12 + 0.02, 0.045, 0.028, 0.03), _wood, line: 0.3);
+    )
+    ..path(room.floor, const Color(0xFF8C7458), line: 0);
+  // The joists across the ceiling, running back.
+  for (var k = 1; k < 8; k++) {
+    a.line(room.at(0, 1, k / 8), room.at(1, 1, k / 8), _woodDark, width: 1.4);
   }
-  a.line(a.p(0, 0.64), a.p(1, 0.64), _plasterShade, width: 0.8);
+  room
+    ..shadeCorners(strength: 0.35)
+    ..edges(_plasterShade);
+  a.ink(back, width: 0.4);
 
   // The lamp niche, black with smoke.
-  final niche = a.r(0.09, 0.22, 0.08, 0.18);
+  final niche = a.r(0.39, 0.22, 0.08, 0.18);
   a
     ..path(_arch(niche), const Color(0xFF6A5A48), line: 0.4)
     ..glow(
@@ -499,8 +563,13 @@ void _tower(Art a) {
   a
     ..line(a.p(0.335, 0.3), a.p(0.335, 0.33), _iron, width: 0.6)
     ..circle(a.p(0.335, 0.3), a.u * 0.5, _iron, line: 0);
-  // The door down, shut.
-  final door = a.r(0.19, 0.26, 0.1, 0.38);
+  // The door down, shut, at the foot of the wall.
+  final door = Rect.fromLTRB(
+    a.p(0.21, 0).dx,
+    a.p(0, 0.32).dy,
+    a.p(0.31, 0).dx,
+    back.bottom,
+  );
   a.path(_arch(door), _wood, line: 0.5);
   for (var i = 1; i < 4; i++) {
     final x = door.left + door.width * i / 4;
@@ -513,7 +582,7 @@ void _tower(Art a) {
   }
 
   // The window: the valley of Alamut below, terraced fields under snow.
-  final window = a.r(0.57, 0.15, 0.28, 0.42);
+  final window = a.r(0.5, 0.15, 0.28, 0.42);
   final frame = _arch(window, spring: 0.62);
   a.canvas
     ..save()
@@ -579,16 +648,42 @@ void _tower(Art a) {
   a
     ..strokePath(frame, _plasterShade, width: 2.4)
     ..strokePath(frame, Art.outline, width: 0.5)
-    ..fill(a.r(0.55, 0.57, 0.32, 0.025), _plasterShade);
+    ..strokePath(frame, Art.outline, width: 0.5);
+  room
+    ..box(a.r(0.48, 0.57, 0.32, 0.025), _plasterShade, depth: 0.04)
+    // Light from the window on the floor.
+    ..beam(
+      [a.p(0.52, 0.57), a.p(0.76, 0.57)],
+      [
+        room.floorAt(0.5, 0.75),
+        room.floorAt(0.78, 0.75),
+        room.floorAt(0.86, 0.3),
+        room.floorAt(0.52, 0.3),
+      ],
+      const Color(0xFFE6E8EA),
+      strength: 0.12,
+    );
 
-  // The reed mat on the floor.
-  final mat = a.r(0.11, 0.72, 0.28, 0.1);
-  a.box(mat, const Color(0xFFB09A68), line: 0.4);
+  // The reed mat on the floor, lying flat.
+  final mz0 = room.floorDepthAt(a.p(0, 0.82).dy);
+  final mz1 = room.floorDepthAt(a.p(0, 0.72).dy);
+  final mx0 = room.xAt(a.p(0.11, 0).dx, mz0);
+  final mx1 = room.xAt(a.p(0.39, 0).dx, mz0);
+  a.path(
+    a.poly([
+      room.floorAt(mx0, mz1),
+      room.floorAt(mx1, mz1),
+      room.floorAt(mx1, mz0),
+      room.floorAt(mx0, mz0),
+    ]),
+    const Color(0xFFB09A68),
+    line: 0.4,
+  );
   for (var i = 1; i < 18; i++) {
-    final x = mat.left + mat.width * i / 18;
+    final x = mx0 + (mx1 - mx0) * i / 18;
     a.hairline(
-      Offset(x, mat.top),
-      Offset(x, mat.bottom),
+      room.floorAt(x, mz1),
+      room.floorAt(x, mz0),
       const Color(0xFF8A7448),
       0.25,
     );
@@ -597,6 +692,7 @@ void _tower(Art a) {
   // Polo's book on the floor: a European binding, red leather with clasps,
   // plainly from somewhere else.
   final book = a.r(0.45, 0.72, 0.1, 0.06);
+  room.contactShadow(book.inflate(a.u * 0.6).translate(0, a.u * 1.4));
   a
     ..box(book, const Color(0xFF7A2418), line: 0.5)
     ..fill(
@@ -619,14 +715,6 @@ void _tower(Art a) {
       line: 0.2,
     )
     ..glow(book.center, a.u * 5, _lamp, strength: 0.15);
-
-  // Light from the window on the floor.
-  a.glow(
-    a.p(0.7, 0.8),
-    a.size.width * 0.18,
-    const Color(0xFFE6E8EA),
-    strength: 0.12,
-  );
 }
 
 // ---------------------------------------------------------------------------
@@ -655,35 +743,77 @@ void _storerooms(Art a) {
     a.path(_arch(niche), const Color(0xFF1E1812), line: 0.3);
     _oilLamp(a, niche.center.translate(a.u * 0.6, a.u * 1.4), a.u * 1.4);
   }
-  // The floor of cut stone.
+  // The floor of cut stone, its joints running back to the rock.
+  final room = wallCamera(a, const Offset(0.5, 0.34), 0.56);
   a.fill(a.r(0, 0.56, 1, 0.44), const Color(0xFF5A4A3A));
-  for (var i = 1; i < 6; i++) {
-    final y = 0.56 + i * 0.08;
-    a.hairline(a.p(0, y), a.p(1, y), const Color(0x663A2E24), 0.3);
-  }
-  // The four tanks under their covers.
+  room
+    ..floorGrid(const Color(0x663A2E24), rows: 5, columns: 16, x0: -1, x1: 2)
+    ..wallFoot(strength: 0.4);
+  // The four tanks cut down into the floor, under their covers: a rim of
+  // cut stone round each mouth, its far inner wall catching the lamps.
   for (var i = 0; i < 4; i++) {
     final mouth = a.r(0.12 + i * 0.155, 0.64, 0.13, 0.18);
     a
-      ..oval(mouth, const Color(0xFF14100C), line: 0.5)
-      ..oval(mouth.deflate(a.u * 0.8), const Color(0xFF0A0806), line: 0);
-    // Each cover slid half aside, as the soldiers left them.
+      ..oval(mouth.inflate(a.u * 0.8), const Color(0xFF6E5C4A), line: 0.5)
+      ..oval(mouth, const Color(0xFF14100C), line: 0.5);
+    a.canvas
+      ..save()
+      ..clipPath(Path()..addOval(mouth))
+      ..drawOval(
+        Rect.fromLTWH(
+          mouth.left,
+          mouth.top - mouth.height * 0.55,
+          mouth.width,
+          mouth.height,
+        ),
+        Paint()..color = const Color(0xFF3A2E24),
+      )
+      ..restore();
+    // Each cover slid half aside, as the soldiers left them: planks with
+    // their edge showing.
     final cover = Rect.fromLTWH(
       mouth.left + mouth.width * 0.3,
       mouth.top - mouth.height * 0.08,
       mouth.width * 0.84,
       mouth.height * 0.46,
     );
-    a.wood(cover, base: _wood, grain: 3, line: 0.4);
+    a
+      ..fill(
+        Rect.fromLTWH(cover.left, cover.bottom, cover.width, a.u * 0.9),
+        _woodDark,
+      )
+      ..wood(cover, base: _wood, grain: 3, line: 0.4);
   }
   // The long reed, laid by the tanks.
   a.line(a.p(0.14, 0.88), a.p(0.7, 0.86), const Color(0xFFB8A86C), width: 0.8);
 
-  // Left: the great jars, sealed.
+  // Left: the great jars, sealed, standing on the floor.
   for (var i = 0; i < 3; i++) {
-    final jar = a.r(0.02 + i * 0.045, 0.3 + (i.isOdd ? 0.03 : 0), 0.05, 0.24);
+    final jar = a.r(0.02 + i * 0.045, 0.34 + (i.isOdd ? 0.03 : 0), 0.05, 0.24);
+    room.contactShadow(
+      Rect.fromCenter(
+        center: jar.bottomCenter.translate(a.u * 0.6, -a.u * 0.4),
+        width: jar.width * 1.3,
+        height: a.u * 2.4,
+      ),
+      strength: 0.55,
+    );
     a
       ..oval(jar, const Color(0xFF9A6A44), line: 0.5)
+      ..canvas.drawOval(
+        jar.deflate(a.u * 0.3),
+        Paint()
+          ..shader = Gradient.linear(
+            jar.centerLeft,
+            jar.centerRight,
+            [
+              const Color(0x22FFFFFF),
+              const Color(0x00000000),
+              const Color(0x66000000),
+            ],
+            [0, 0.4, 1],
+          ),
+      )
       ..box(
         Rect.fromLTWH(
           jar.left + jar.width * 0.3,
@@ -696,11 +826,20 @@ void _storerooms(Art a) {
       );
   }
 
-  // Right: the wide, high tunnel climbing through the rock.
+  // Right: the wide, high tunnel climbing through the rock, its mouth
+  // deep, its steps going up into the dark.
   final tunnel = a.r(0.81, 0.2, 0.14, 0.44);
+  final vp = a.p(0.88, 0.3);
+  Path deeper(double t) => _arch(
+    Rect.fromPoints(
+      Offset.lerp(tunnel.topLeft, vp, t)!,
+      Offset.lerp(tunnel.bottomRight, vp, t)!,
+    ),
+  );
   a
     ..path(_arch(tunnel.inflate(a.u)), const Color(0xFF3A2E24), line: 0.5)
-    ..path(_arch(tunnel), const Color(0xFF0E0A08), line: 0)
+    ..path(_arch(tunnel), const Color(0xFF1E1812), line: 0)
+    ..path(deeper(0.35), const Color(0xFF0E0A08), line: 0)
     ..glow(
       tunnel.topCenter.translate(0, tunnel.height * 0.2),
       a.u * 6,
@@ -722,36 +861,69 @@ void _storerooms(Art a) {
 // The library
 
 void _library(Art a) {
-  // Plastered hall, a patterned band, a carpet.
+  // Plastered hall, a patterned band round it, a carpet on the floor; one
+  // perspective for all of it.
+  final room = Room(a, vp: a.p(0.5, 0.3), depth: 0.66);
+  final back = room.back;
   a
-    ..fill(Offset.zero & a.size, _plaster)
-    ..fade(a.r(0, 0, 1, 0.4), const Color(0x66000000), const Color(0x00000000))
-    ..fill(a.r(0, 0.66, 1, 0.34), const Color(0xFF7A6448));
-  a.wood(a.r(0, 0, 1, 0.06), base: _woodDark, grain: 2, line: 0.4);
-  a.fill(a.r(0, 0.08, 1, 0.02), _indigo);
-  for (var i = 0; i < 40; i++) {
+    ..path(room.ceiling, _woodDark, line: 0)
+    ..path(room.leftWall, _plasterShade, line: 0)
+    ..path(room.rightWall, Color.lerp(_plaster, _plasterShade, 0.6)!, line: 0)
+    ..fill(back, _plaster)
+    ..fade(
+      Rect.fromLTRB(
+        back.left,
+        back.top,
+        back.right,
+        back.top + back.height * 0.45,
+      ),
+      const Color(0x66000000),
+      const Color(0x00000000),
+    )
+    ..path(room.floor, const Color(0xFF7A6448), line: 0);
+  for (var k = 1; k < 8; k++) {
+    a.line(room.at(0, 1, k / 8), room.at(1, 1, k / 8), _wood, width: 1.2);
+  }
+  // The indigo band with its gilt dots, round all three walls.
+  final band = [
+    room.at(0, 0.93, 0),
+    room.at(0, 0.93, 1),
+    room.at(1, 0.93, 1),
+    room.at(1, 0.93, 0),
+  ];
+  a.strokePath(Path()..addPolygon(band, false), _indigo, width: 2.2);
+  for (var i = 0; i < 24; i++) {
     a.canvas.drawCircle(
-      a.p(i / 40 + 0.0125, 0.09),
-      a.u * 0.35,
+      Offset.lerp(band[1], band[2], (i + 0.5) / 24)!,
+      a.u * 0.3,
       Paint()..color = const Color(0xFFB08A3A),
     );
   }
-  final carpet = a.r(0.18, 0.74, 0.64, 0.2);
+  room
+    ..shadeCorners(strength: 0.35)
+    ..edges(_plasterShade);
+  a.ink(back, width: 0.4);
+  // The carpet, lying flat, its border and its row of lozenges.
+  Offset rug(double u, double v) =>
+      room.floorAt(0.12 + 0.56 * u, 0.12 + 0.5 * v);
+  Path rugQuad(double inset) => a.poly([
+    rug(inset, inset),
+    rug(1 - inset, inset),
+    rug(1 - inset, 1 - inset),
+    rug(inset, 1 - inset),
+  ]);
   a
-    ..box(carpet, _carpet, line: 0.4)
-    ..box(carpet.deflate(a.u * 1.4), _carpetDark, line: 0)
-    ..box(carpet.deflate(a.u * 2.4), _carpet, line: 0);
+    ..path(rugQuad(0), _carpet, line: 0.4)
+    ..path(rugQuad(0.05), _carpetDark, line: 0)
+    ..path(rugQuad(0.09), _carpet, line: 0);
   for (var i = 0; i < 5; i++) {
-    final c = Offset(
-      carpet.left + carpet.width * (0.14 + i * 0.18),
-      carpet.center.dy,
-    );
+    final u = 0.14 + i * 0.18;
     a.path(
       a.poly([
-        c.translate(0, -a.u * 2.4),
-        c.translate(a.u * 2.4, 0),
-        c.translate(0, a.u * 2.4),
-        c.translate(-a.u * 2.4, 0),
+        rug(u, 0.38),
+        rug(u + 0.05, 0.5),
+        rug(u, 0.62),
+        rug(u - 0.05, 0.5),
       ]),
       const Color(0xFFB08A3A),
       line: 0.2,
@@ -762,7 +934,7 @@ void _library(Art a) {
   final random = math.Random(51);
   for (var col = 0; col < 3; col++) {
     for (var row = 0; row < 3; row++) {
-      final niche = a.r(0.035 + col * 0.09, 0.14 + row * 0.18, 0.075, 0.16);
+      final niche = a.r(0.18 + col * 0.088, 0.14 + row * 0.18, 0.075, 0.16);
       a.path(_arch(niche, spring: 0.7), const Color(0xFF3A2E22), line: 0.4);
       final shelf = Rect.fromLTRB(
         niche.left + a.u * 0.5,
@@ -801,9 +973,11 @@ void _library(Art a) {
   // hanging from its shackle, and below it only the pale ring in the dust
   // of the wall where the plate once hung.
   const brass = Color(0xFFB08A3A);
+  room
+    ..contactShadow(a.r(0.48, 0.775, 0.065, 0.018))
+    ..box(a.r(0.485, 0.765, 0.054, 0.02), const Color(0xFF8A6A2A), depth: 0.04);
   a
-    ..box(a.r(0.508, 0.36, 0.008, 0.28), const Color(0xFF8A6A2A), line: 0.3)
-    ..box(a.r(0.485, 0.625, 0.054, 0.02), const Color(0xFF8A6A2A), line: 0.3)
+    ..box(a.r(0.508, 0.36, 0.008, 0.405), const Color(0xFF8A6A2A), line: 0.3)
     ..box(a.r(0.49, 0.355, 0.04, 0.008), const Color(0xFF8A6A2A), line: 0.3)
     ..line(a.p(0.498, 0.363), a.p(0.498, 0.38), _iron, width: 0.4);
   final top = a.p(0.498, 0.38);
@@ -849,26 +1023,26 @@ void _library(Art a) {
         ..color = const Color(0x66B08A3A),
     );
 
-  // Right: the scholar's corner: a low platform, a cushion, a writing box,
-  // and a folding stand for a book.
-  final platform = a.r(0.72, 0.6, 0.24, 0.08);
-  a.wood(platform, base: _wood, grain: 2, line: 0.4);
+  // Right: the scholar's corner: a low platform on the floor, a cushion,
+  // a writing box and a lamp on it; on the wall above, a shelf with the
+  // folding book-stand (rahl), a crossed X.
+  room.box(a.r(0.66, 0.5, 0.14, 0.012), _woodDark, depth: 0.04, line: 0.3);
   a
-    ..rbox(a.r(0.74, 0.55, 0.09, 0.05), a.u, const Color(0xFF3A4A6A), line: 0.4)
-    ..box(a.r(0.86, 0.555, 0.07, 0.045), const Color(0xFF4A2E1A), line: 0.4)
+    ..line(a.p(0.69, 0.5), a.p(0.75, 0.41), _wood, width: 1)
+    ..line(a.p(0.75, 0.5), a.p(0.69, 0.41), _wood, width: 1);
+  room
+    ..shadow(0.68, 0.98, 0.25, 0.5)
+    ..block(0.68, 0.98, 0, 0.07, 0.25, 0.5, _wood);
+  a
+    ..rbox(a.r(0.69, 0.79, 0.09, 0.05), a.u, const Color(0xFF3A4A6A), line: 0.4)
+    ..box(a.r(0.81, 0.795, 0.07, 0.045), const Color(0xFF4A2E1A), line: 0.4)
     ..line(
-      a.p(0.87, 0.565),
-      a.p(0.92, 0.565),
+      a.p(0.82, 0.805),
+      a.p(0.87, 0.805),
       const Color(0xFFB08A3A),
       width: 0.4,
     );
-  // The folding book-stand (rahl), a crossed X, on a shelf above.
-  a.box(a.r(0.76, 0.5, 0.14, 0.012), _woodDark, line: 0.3);
-  a
-    ..line(a.p(0.79, 0.5), a.p(0.85, 0.41), _wood, width: 1)
-    ..line(a.p(0.85, 0.5), a.p(0.79, 0.41), _wood, width: 1);
-  // A lamp on the platform's end, by the writing box.
-  _oilLamp(a, a.p(0.955, 0.588), a.u * 1.1);
+  _oilLamp(a, a.p(0.905, 0.83), a.u * 1.1);
 
   // The loose sheets on the floor, folded in pairs.
   for (final (x, y, angle) in [
