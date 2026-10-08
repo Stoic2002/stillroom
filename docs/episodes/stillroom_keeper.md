@@ -1,6 +1,6 @@
 # Episode design: The Stillroom (the keeper's own tale)
 
-Status: **draft for the developer's approval** (2026-10-08). Shelf V,
+Status: **approved** (2026-10-08), not yet built. Shelf V,
 the last jar of the 16, opens after 15 tales are distilled. It replaces
 the sealed jar `sealed_keeper`. Proposed id `stillroom_keeper`; jar label
 **The Stillroom** (no place, no year: the room is outside time).
@@ -173,14 +173,20 @@ she fades. A render goes to the developer before the rest is built.
   fed to a small furnace), `lamp_band` (a hum shifting pitch as the
   lamp is tuned). Interface: `hand_sorted`, `layer_found`.
 
-## Open for the developer
+## Decisions (2026-10-08)
 
-1. **Her name:** "Hester Croft" (invented) or another name.
-2. **Her time and place:** an English country house about 1720
-   (recommended: the word "stillroom" is English, and the household book
-   is a real English form) or somewhere else.
-3. **The map pin:** none (recommended: the room is outside time), or a
-   pin for her house.
-4. **The three mechanics** (`hands`, `still`, `spectrum`) and the seal.
-5. **The ending:** she goes and the player takes her coat (recommended),
-   or she stays as the room's voice.
+The developer took every recommendation:
+
+1. Her name **Hester Croft** (invented).
+2. An English country house, about **1720**.
+3. **No map pin**: the room is outside time.
+4. The three mechanics (`hands`, `still`, `spectrum`) and the `receipt`
+   seal as above.
+5. The ending: **she goes**, and the player takes her coat from the
+   fourth hook.
+
+The developer also said that people and living things drawn only as
+shapeless extras make a game feel thin. The portrait is drafted in
+`lib/core/art/keeper_art.dart`, and a figure kit for echoes with bodies
+and faces in `lib/core/art/figure_kit.dart`. A sample was sent for
+approval before all the echoes are redrawn.
