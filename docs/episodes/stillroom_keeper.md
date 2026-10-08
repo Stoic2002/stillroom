@@ -1,6 +1,6 @@
 # Episode design: The Stillroom (the keeper's own tale)
 
-Status: **approved** (2026-10-08), not yet built. Shelf V,
+Status: **built** (2026-10-08): draft text, code-drawn art in depth. Shelf V,
 the last jar of the 16, opens after 15 tales are distilled. It replaces
 the sealed jar `sealed_keeper`. Proposed id `stillroom_keeper`; jar label
 **The Stillroom** (no place, no year: the room is outside time).
@@ -190,3 +190,66 @@ shapeless extras make a game feel thin. The portrait is drafted in
 `lib/core/art/keeper_art.dart`, and a figure kit for echoes with bodies
 and faces in `lib/core/art/figure_kit.dart`. A sample was sent for
 approval before all the echoes are redrawn.
+
+## As built
+
+- **Map:** behind the shelves (start) opens through the low arch on the
+  left to the stillroom, and, once the lock is read, through the door on
+  the right to the study; the study's window (left) is its own view.
+- **Flow:** behind the shelves the jars from behind, the chapbook (*a
+  witch*, *an alchemist*, *a ghost*), the lock of broken seals (the door
+  opens). In the study the drafts of every note, the scraped portrait,
+  the coat on the fourth peg (a tinder box), and its lining: the
+  keeper's secret, a slip in an older hand. At the window the view is
+  turned by its brass ring through the 15 tales in shelf order; the
+  16th, a house at dusk, is read only once she has gone. In the
+  stillroom the receipt book (`hands`, gives *stillroom* and *the
+  girl*); the tinder on the cold furnace; the still (`still`, gives the
+  spirit). The spirit on the portrait cleans it; the lamp by the easel
+  (`spectrum`, gives *Hester Croft*). She stands by the coat rack, looks
+  at the portrait and at the player, touches the coat and goes. The
+  window's last view then shows her at the lit stillroom window (*her
+  own*). The seal is the blank page at the end of her book.
+- **The hands:** four hands (the mistress, the cook, the steward, the
+  hand of the notes), nine receipts; eight lack one letter (no "and", no
+  long s, no g), so the slant and the letters left must be read. Her
+  receipts are rosewater, the cordial and the lavender water.
+- **The still:** heads 2, heart 8, tails 3 measures; gentle 0.8 and
+  fierce 2.0 measures a second; at a fierce fire the cuts smear (blur
+  3.0) and the heart is lost; four seconds lit with no water spoils the
+  run. Kept: 80% of the heart in its glass, at most 0.6 of the rest.
+- **The lamp:** ultraviolet (0.14: the varnish glows, the scraped face a
+  dark patch), visible (0.38: as it is now), infrared (0.63: the first
+  lines and the name written in them), X-ray (0.86: the face in lead
+  white); laid oldest first: infrared, X-ray, ultraviolet, visible.
+- **Her letters (stars):** each 3 keeper's notes found in other jars
+  (`stars_3` … `stars_15`) put one more letter of hers on the study's
+  desk. Not needed to finish.
+- **Words:** *Hester Croft*, *stillroom*, *her own* (the answers); *a
+  witch*, *an alchemist*, *a ghost*, *the girl* (decoys).
+- **Figures:** her portrait in six looks (`PortraitLook`); she herself in
+  the study at the end, warm and with a face (`hester`), not an echo.
+  **Living things:** a moth at the candle, a cat asleep by the furnace
+  (`cat`).
+- **Audio:** music `keeper_room`; effects `cloth`, `candle_gutter`,
+  `window_turn`, `fire_feed`, `still_drip`, `layer_settle`, `cat_purr`;
+  interface `hand_sorted`, `glass_move`, `layer_found`. (`lamp_band`
+  from the draft was not made: the lamp uses `layer_found`.)
+
+## Things to watch when tested
+
+- Whether the hands read at phone size, and whether receipts lacking a
+  letter feel fair (the slant must be seen).
+- The still's timing: whether a gentle fire with the glass moved on the
+  drip's colour feels right without the hint, and whether a spoiled or
+  lost run explains itself.
+- The lamp: whether the bands are found on the dial without hunting, and
+  whether "oldest first" is clear from the captions.
+- The window: 16 views turned one by one may feel long; whether the
+  ring is found, and whether the last view after she goes is noticed.
+- The ending's tone: her face and her going should land warm, not eerie.
+  Whether the credits note on her being invented is seen.
+- The stars letters: whether a player with few notes misses nothing
+  needed, and whether those with many find the letters.
+- The jar on shelf V opens only after 15 tales; check with
+  `STILLROOM_UNLOCK_ALL`.

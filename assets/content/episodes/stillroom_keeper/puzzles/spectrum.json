@@ -1,0 +1,59 @@
+{
+  "id": "spectrum",
+  "type": "spectrum",
+  "background": "images/scenes/stillroom_keeper/board.png",
+  "config": {
+    "bands": [
+      {
+        "id": "uv",
+        "labelKey": "stillroom_keeper.band.uv",
+        "captionKey": "stillroom_keeper.band.uv_shows",
+        "at": 0.14,
+        "age": 2
+      },
+      {
+        "id": "visible",
+        "labelKey": "stillroom_keeper.band.visible",
+        "captionKey": "stillroom_keeper.band.visible_shows",
+        "at": 0.38,
+        "age": 3
+      },
+      {
+        "id": "infrared",
+        "labelKey": "stillroom_keeper.band.infrared",
+        "captionKey": "stillroom_keeper.band.infrared_shows",
+        "at": 0.63,
+        "age": 0
+      },
+      {
+        "id": "xray",
+        "labelKey": "stillroom_keeper.band.xray",
+        "captionKey": "stillroom_keeper.band.xray_shows",
+        "at": 0.86,
+        "age": 1
+      }
+    ],
+    "tolerance": 0.04
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "layer_settle"
+    },
+    {
+      "type": "showText",
+      "key": "stillroom_keeper.study.face"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.stillroom_keeper.spectrum.1"
+    },
+    {
+      "key": "hint.stillroom_keeper.spectrum.2"
+    },
+    {
+      "key": "hint.stillroom_keeper.spectrum.3"
+    }
+  ]
+}

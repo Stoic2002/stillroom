@@ -1,0 +1,1076 @@
+{
+  "id": "window",
+  "background": "images/scenes/stillroom_keeper/window.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "study"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "look_0",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 0
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.window.view_0"
+        }
+      ]
+    },
+    {
+      "id": "look_1",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 1
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.window.view_1"
+        }
+      ]
+    },
+    {
+      "id": "look_2",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 2
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.window.view_2"
+        }
+      ]
+    },
+    {
+      "id": "look_3",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 3
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.window.view_3"
+        }
+      ]
+    },
+    {
+      "id": "look_4",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 4
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.window.view_4"
+        }
+      ]
+    },
+    {
+      "id": "look_5",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 5
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.window.view_5"
+        }
+      ]
+    },
+    {
+      "id": "look_6",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 6
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.window.view_6"
+        }
+      ]
+    },
+    {
+      "id": "look_7",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 7
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.window.view_7"
+        }
+      ]
+    },
+    {
+      "id": "look_8",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 8
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.window.view_8"
+        }
+      ]
+    },
+    {
+      "id": "look_9",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 9
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.window.view_9"
+        }
+      ]
+    },
+    {
+      "id": "look_10",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 10
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.window.view_10"
+        }
+      ]
+    },
+    {
+      "id": "look_11",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 11
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.window.view_11"
+        }
+      ]
+    },
+    {
+      "id": "look_12",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 12
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.window.view_12"
+        }
+      ]
+    },
+    {
+      "id": "look_13",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 13
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.window.view_13"
+        }
+      ]
+    },
+    {
+      "id": "look_14",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 14
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.window.view_14"
+        }
+      ]
+    },
+    {
+      "id": "look_house",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 15
+        },
+        {
+          "puzzleSolved": "spectrum",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.window.view_15"
+        }
+      ]
+    },
+    {
+      "id": "look_house_her",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 15
+        },
+        {
+          "puzzleSolved": "spectrum",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.window.house_her"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_house",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "turn_0",
+      "rect": [
+        0.78,
+        0.41,
+        0.08,
+        0.11
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 0
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "window_turn"
+        },
+        {
+          "type": "setFlag",
+          "flag": "view",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "turn_1",
+      "rect": [
+        0.78,
+        0.41,
+        0.08,
+        0.11
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 1
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "window_turn"
+        },
+        {
+          "type": "setFlag",
+          "flag": "view",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "id": "turn_2",
+      "rect": [
+        0.78,
+        0.41,
+        0.08,
+        0.11
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 2
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "window_turn"
+        },
+        {
+          "type": "setFlag",
+          "flag": "view",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "id": "turn_3",
+      "rect": [
+        0.78,
+        0.41,
+        0.08,
+        0.11
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 3
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "window_turn"
+        },
+        {
+          "type": "setFlag",
+          "flag": "view",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "id": "turn_4",
+      "rect": [
+        0.78,
+        0.41,
+        0.08,
+        0.11
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 4
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "window_turn"
+        },
+        {
+          "type": "setFlag",
+          "flag": "view",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "id": "turn_5",
+      "rect": [
+        0.78,
+        0.41,
+        0.08,
+        0.11
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 5
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "window_turn"
+        },
+        {
+          "type": "setFlag",
+          "flag": "view",
+          "value": 6
+        }
+      ]
+    },
+    {
+      "id": "turn_6",
+      "rect": [
+        0.78,
+        0.41,
+        0.08,
+        0.11
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 6
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "window_turn"
+        },
+        {
+          "type": "setFlag",
+          "flag": "view",
+          "value": 7
+        }
+      ]
+    },
+    {
+      "id": "turn_7",
+      "rect": [
+        0.78,
+        0.41,
+        0.08,
+        0.11
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 7
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "window_turn"
+        },
+        {
+          "type": "setFlag",
+          "flag": "view",
+          "value": 8
+        }
+      ]
+    },
+    {
+      "id": "turn_8",
+      "rect": [
+        0.78,
+        0.41,
+        0.08,
+        0.11
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 8
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "window_turn"
+        },
+        {
+          "type": "setFlag",
+          "flag": "view",
+          "value": 9
+        }
+      ]
+    },
+    {
+      "id": "turn_9",
+      "rect": [
+        0.78,
+        0.41,
+        0.08,
+        0.11
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 9
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "window_turn"
+        },
+        {
+          "type": "setFlag",
+          "flag": "view",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "id": "turn_10",
+      "rect": [
+        0.78,
+        0.41,
+        0.08,
+        0.11
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 10
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "window_turn"
+        },
+        {
+          "type": "setFlag",
+          "flag": "view",
+          "value": 11
+        }
+      ]
+    },
+    {
+      "id": "turn_11",
+      "rect": [
+        0.78,
+        0.41,
+        0.08,
+        0.11
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 11
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "window_turn"
+        },
+        {
+          "type": "setFlag",
+          "flag": "view",
+          "value": 12
+        }
+      ]
+    },
+    {
+      "id": "turn_12",
+      "rect": [
+        0.78,
+        0.41,
+        0.08,
+        0.11
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 12
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "window_turn"
+        },
+        {
+          "type": "setFlag",
+          "flag": "view",
+          "value": 13
+        }
+      ]
+    },
+    {
+      "id": "turn_13",
+      "rect": [
+        0.78,
+        0.41,
+        0.08,
+        0.11
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 13
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "window_turn"
+        },
+        {
+          "type": "setFlag",
+          "flag": "view",
+          "value": 14
+        }
+      ]
+    },
+    {
+      "id": "turn_14",
+      "rect": [
+        0.78,
+        0.41,
+        0.08,
+        0.11
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 14
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "window_turn"
+        },
+        {
+          "type": "setFlag",
+          "flag": "view",
+          "value": 15
+        }
+      ]
+    },
+    {
+      "id": "turn_15",
+      "rect": [
+        0.78,
+        0.41,
+        0.08,
+        0.11
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 15
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "window_turn"
+        },
+        {
+          "type": "setFlag",
+          "flag": "view",
+          "value": 0
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "view_0",
+      "image": "images/objects/stillroom_keeper/view_0.png",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 0
+        }
+      ]
+    },
+    {
+      "id": "view_1",
+      "image": "images/objects/stillroom_keeper/view_1.png",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 1
+        }
+      ]
+    },
+    {
+      "id": "view_2",
+      "image": "images/objects/stillroom_keeper/view_2.png",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 2
+        }
+      ]
+    },
+    {
+      "id": "view_3",
+      "image": "images/objects/stillroom_keeper/view_3.png",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 3
+        }
+      ]
+    },
+    {
+      "id": "view_4",
+      "image": "images/objects/stillroom_keeper/view_4.png",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 4
+        }
+      ]
+    },
+    {
+      "id": "view_5",
+      "image": "images/objects/stillroom_keeper/view_5.png",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 5
+        }
+      ]
+    },
+    {
+      "id": "view_6",
+      "image": "images/objects/stillroom_keeper/view_6.png",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 6
+        }
+      ]
+    },
+    {
+      "id": "view_7",
+      "image": "images/objects/stillroom_keeper/view_7.png",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 7
+        }
+      ]
+    },
+    {
+      "id": "view_8",
+      "image": "images/objects/stillroom_keeper/view_8.png",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 8
+        }
+      ]
+    },
+    {
+      "id": "view_9",
+      "image": "images/objects/stillroom_keeper/view_9.png",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 9
+        }
+      ]
+    },
+    {
+      "id": "view_10",
+      "image": "images/objects/stillroom_keeper/view_10.png",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 10
+        }
+      ]
+    },
+    {
+      "id": "view_11",
+      "image": "images/objects/stillroom_keeper/view_11.png",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 11
+        }
+      ]
+    },
+    {
+      "id": "view_12",
+      "image": "images/objects/stillroom_keeper/view_12.png",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 12
+        }
+      ]
+    },
+    {
+      "id": "view_13",
+      "image": "images/objects/stillroom_keeper/view_13.png",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 13
+        }
+      ]
+    },
+    {
+      "id": "view_14",
+      "image": "images/objects/stillroom_keeper/view_14.png",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 14
+        }
+      ]
+    },
+    {
+      "id": "view_15",
+      "image": "images/objects/stillroom_keeper/view_15.png",
+      "rect": [
+        0.24,
+        0.1,
+        0.52,
+        0.66
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 15
+        }
+      ]
+    },
+    {
+      "id": "house_her",
+      "image": "images/objects/stillroom_keeper/house_her_sprite.png",
+      "rect": [
+        0.388,
+        0.432,
+        0.026,
+        0.05
+      ],
+      "when": [
+        {
+          "flag": "view",
+          "equals": 15
+        },
+        {
+          "puzzleSolved": "spectrum",
+          "equals": true
+        }
+      ]
+    }
+  ]
+}

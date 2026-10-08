@@ -1104,5 +1104,150 @@
   "casingFruit": "Fruit",
   "@casingFruit": {
     "description": "Casing puzzle: tag on a fruit panel."
+  },
+  "handsInstruction": "Pick a receipt, then the hand that wrote it: look at its g, its long s, its 'and', and its slant.",
+  "@handsInstruction": {
+    "description": "Hands puzzle: what to do."
+  },
+  "handsCheck": "Check",
+  "@handsCheck": {
+    "description": "Hands puzzle: button to check the sorting."
+  },
+  "handsWrong": "{count} put to the wrong hand came back.",
+  "@handsWrong": {
+    "description": "Hands puzzle: receipts put to the wrong hand came back.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "handsSorted": "Sorted: {done} of {total}",
+  "@handsSorted": {
+    "description": "Hands puzzle: progress.",
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "stillInstruction": "Feed the fire, keep the cold water running, and move the glass as the drip changes: heads, heart, tails. Keep the heart.",
+  "@stillInstruction": {
+    "description": "Still puzzle: what to do."
+  },
+  "stillFire": "Fire",
+  "@stillFire": {
+    "description": "Still puzzle: label of the fire control."
+  },
+  "stillFireOut": "Out",
+  "@stillFireOut": {
+    "description": "Still puzzle: fire level, out."
+  },
+  "stillFireGentle": "Gentle",
+  "@stillFireGentle": {
+    "description": "Still puzzle: fire level, gentle."
+  },
+  "stillFireFierce": "Fierce",
+  "@stillFireFierce": {
+    "description": "Still puzzle: fire level, fierce."
+  },
+  "stillWater": "Cold water",
+  "@stillWater": {
+    "description": "Still puzzle: label of the water control."
+  },
+  "stillWaterOn": "Running",
+  "@stillWaterOn": {
+    "description": "Still puzzle: water running."
+  },
+  "stillWaterOff": "Stopped",
+  "@stillWaterOff": {
+    "description": "Still puzzle: water stopped."
+  },
+  "stillGlassHeads": "Heads",
+  "@stillGlassHeads": {
+    "description": "Still puzzle: the glass for the heads."
+  },
+  "stillGlassHeart": "Heart",
+  "@stillGlassHeart": {
+    "description": "Still puzzle: the glass for the heart."
+  },
+  "stillGlassTails": "Tails",
+  "@stillGlassTails": {
+    "description": "Still puzzle: the glass for the tails."
+  },
+  "stillDripHeads": "Cloudy and sharp: the heads.",
+  "@stillDripHeads": {
+    "description": "Still puzzle: what drips now."
+  },
+  "stillDripHeart": "Clear and sweet: the heart.",
+  "@stillDripHeart": {
+    "description": "Still puzzle: what drips now."
+  },
+  "stillDripTails": "Oily and heavy: the tails.",
+  "@stillDripTails": {
+    "description": "Still puzzle: what drips now."
+  },
+  "stillIdle": "Nothing comes over: the fire is out.",
+  "@stillIdle": {
+    "description": "Still puzzle: nothing comes over."
+  },
+  "stillDry": "No water in the tub: the worm is running hot!",
+  "@stillDry": {
+    "description": "Still puzzle: warning, no water."
+  },
+  "stillSpoiled": "The worm ran hot and the run is spoiled.",
+  "@stillSpoiled": {
+    "description": "Still puzzle: the run spoiled."
+  },
+  "stillLost": "The heart's glass is not clean, or not full enough.",
+  "@stillLost": {
+    "description": "Still puzzle: the run ended without a clean, full heart."
+  },
+  "stillReset": "Empty the glasses and start again",
+  "@stillReset": {
+    "description": "Still puzzle: start the run again."
+  },
+  "spectrumInstruction": "Turn the lamp along its bands until the picture comes clear, and record what each band shows.",
+  "@spectrumInstruction": {
+    "description": "Spectrum puzzle: what to do."
+  },
+  "spectrumRecord": "Record",
+  "@spectrumRecord": {
+    "description": "Spectrum puzzle: button to record a plate."
+  },
+  "spectrumBlurred": "Nothing clear at this setting.",
+  "@spectrumBlurred": {
+    "description": "Spectrum puzzle: nothing clear."
+  },
+  "spectrumAlready": "That plate is already recorded.",
+  "@spectrumAlready": {
+    "description": "Spectrum puzzle: plate recorded already."
+  },
+  "spectrumRecorded": "Plates recorded: {count} of {total}",
+  "@spectrumRecorded": {
+    "description": "Spectrum puzzle: progress.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "spectrumLayInstruction": "Lay the plates on the portrait in the order of the painting's life, the oldest first.",
+  "@spectrumLayInstruction": {
+    "description": "Spectrum puzzle: second step, laying the plates in order."
+  },
+  "spectrumWrongOrder": "Not in the painting's order. The plates come back.",
+  "@spectrumWrongOrder": {
+    "description": "Spectrum puzzle: plates laid out of order."
+  },
+  "receiptCaption": "To keep a name",
+  "@receiptCaption": {
+    "description": "The receipt-book label form: the heading of the receipt, like an old recipe title."
   }
 }

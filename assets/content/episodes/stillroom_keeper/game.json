@@ -1,0 +1,191 @@
+{
+  "startScene": "behind",
+  "flags": {
+    "door_open": false,
+    "read_chapbook": false,
+    "read_drafts": false,
+    "fire_lit": false,
+    "cleaned": false,
+    "she_went": false,
+    "read_house": false,
+    "found_note": false,
+    "view": 0,
+    "stars_3": false,
+    "stars_6": false,
+    "stars_9": false,
+    "stars_12": false,
+    "stars_15": false
+  },
+  "logicalResolution": [
+    1920,
+    1080
+  ],
+  "orientation": "landscape",
+  "sceneTransitionMs": 600,
+  "music": "keeper_room",
+  "words": [
+    {
+      "id": "hester_croft",
+      "labelKey": "stillroom_keeper.word.hester_croft",
+      "kind": "name"
+    },
+    {
+      "id": "stillroom",
+      "labelKey": "stillroom_keeper.word.stillroom",
+      "kind": "place"
+    },
+    {
+      "id": "her_own",
+      "labelKey": "stillroom_keeper.word.her_own",
+      "kind": "thing"
+    },
+    {
+      "id": "witch",
+      "labelKey": "stillroom_keeper.word.witch",
+      "kind": "thing"
+    },
+    {
+      "id": "alchemist",
+      "labelKey": "stillroom_keeper.word.alchemist",
+      "kind": "thing"
+    },
+    {
+      "id": "ghost",
+      "labelKey": "stillroom_keeper.word.ghost",
+      "kind": "thing"
+    },
+    {
+      "id": "the_girl",
+      "labelKey": "stillroom_keeper.word.the_girl",
+      "kind": "name"
+    }
+  ],
+  "secret": {
+    "when": [
+      {
+        "flag": "found_note",
+        "equals": true
+      }
+    ],
+    "noteKey": "stillroom_keeper.study.coat_lining"
+  },
+  "hintStages": [
+    {
+      "id": "write_seal",
+      "when": [
+        {
+          "flag": "she_went",
+          "equals": true
+        },
+        {
+          "flag": "read_house",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.stillroom_keeper.write_seal.1"
+        },
+        {
+          "key": "hint.stillroom_keeper.write_seal.2"
+        }
+      ]
+    },
+    {
+      "id": "farewell",
+      "when": [
+        {
+          "puzzleSolved": "spectrum",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.stillroom_keeper.farewell.1"
+        },
+        {
+          "key": "hint.stillroom_keeper.farewell.2"
+        }
+      ]
+    },
+    {
+      "id": "lamp",
+      "when": [
+        {
+          "flag": "cleaned",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.stillroom_keeper.lamp.1"
+        },
+        {
+          "key": "hint.stillroom_keeper.lamp.2"
+        }
+      ]
+    },
+    {
+      "id": "clean",
+      "when": [
+        {
+          "puzzleSolved": "still",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.stillroom_keeper.clean.1"
+        },
+        {
+          "key": "hint.stillroom_keeper.clean.2"
+        }
+      ]
+    },
+    {
+      "id": "run",
+      "when": [
+        {
+          "flag": "fire_lit",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.stillroom_keeper.run.1"
+        },
+        {
+          "key": "hint.stillroom_keeper.run.2"
+        }
+      ]
+    },
+    {
+      "id": "fire",
+      "when": [
+        {
+          "flag": "door_open",
+          "equals": true
+        }
+      ],
+      "hints": [
+        {
+          "key": "hint.stillroom_keeper.fire.1"
+        },
+        {
+          "key": "hint.stillroom_keeper.fire.2"
+        }
+      ]
+    },
+    {
+      "id": "start",
+      "hints": [
+        {
+          "key": "hint.stillroom_keeper.start.1"
+        },
+        {
+          "key": "hint.stillroom_keeper.start.2"
+        }
+      ]
+    }
+  ]
+}

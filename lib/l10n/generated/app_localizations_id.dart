@@ -852,4 +852,108 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get casingFruit => 'Akibat';
+
+  @override
+  String get handsInstruction =>
+      'Pilih sebuah resep, lalu tangan yang menulisnya: lihat huruf g-nya, s panjangnya, kata \'dan\'-nya, dan kemiringannya.';
+
+  @override
+  String get handsCheck => 'Periksa';
+
+  @override
+  String handsWrong(int count) {
+    return '$count yang salah tangan dikembalikan.';
+  }
+
+  @override
+  String handsSorted(int done, int total) {
+    return 'Terpilah: $done dari $total';
+  }
+
+  @override
+  String get stillInstruction =>
+      'Beri api, jaga air dingin tetap mengalir, dan pindahkan gelas saat tetesannya berubah: kepala, jantung, ekor. Simpan jantungnya.';
+
+  @override
+  String get stillFire => 'Api';
+
+  @override
+  String get stillFireOut => 'Padam';
+
+  @override
+  String get stillFireGentle => 'Pelan';
+
+  @override
+  String get stillFireFierce => 'Besar';
+
+  @override
+  String get stillWater => 'Air dingin';
+
+  @override
+  String get stillWaterOn => 'Mengalir';
+
+  @override
+  String get stillWaterOff => 'Berhenti';
+
+  @override
+  String get stillGlassHeads => 'Kepala';
+
+  @override
+  String get stillGlassHeart => 'Jantung';
+
+  @override
+  String get stillGlassTails => 'Ekor';
+
+  @override
+  String get stillDripHeads => 'Keruh dan tajam: kepala.';
+
+  @override
+  String get stillDripHeart => 'Bening dan harum: jantung.';
+
+  @override
+  String get stillDripTails => 'Berminyak dan berat: ekor.';
+
+  @override
+  String get stillIdle => 'Tak ada yang menetes: apinya padam.';
+
+  @override
+  String get stillDry => 'Tak ada air di bak: pipanya memanas!';
+
+  @override
+  String get stillSpoiled => 'Pipanya terlalu panas dan sulingannya rusak.';
+
+  @override
+  String get stillLost => 'Gelas jantungnya tidak bersih, atau kurang penuh.';
+
+  @override
+  String get stillReset => 'Kosongkan gelas dan mulai lagi';
+
+  @override
+  String get spectrumInstruction =>
+      'Putar lampu menyusuri pita-pitanya sampai gambarnya jelas, lalu rekam apa yang diperlihatkan tiap pita.';
+
+  @override
+  String get spectrumRecord => 'Rekam';
+
+  @override
+  String get spectrumBlurred => 'Tak ada yang jelas pada posisi ini.';
+
+  @override
+  String get spectrumAlready => 'Pelat itu sudah direkam.';
+
+  @override
+  String spectrumRecorded(int count, int total) {
+    return 'Pelat direkam: $count dari $total';
+  }
+
+  @override
+  String get spectrumLayInstruction =>
+      'Letakkan pelat-pelat di atas potret menurut urutan riwayat lukisan itu, yang tertua lebih dulu.';
+
+  @override
+  String get spectrumWrongOrder =>
+      'Bukan urutan riwayat lukisan itu. Pelatnya kembali.';
+
+  @override
+  String get receiptCaption => 'Cara menyimpan sebuah nama';
 }

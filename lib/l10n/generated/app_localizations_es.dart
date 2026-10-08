@@ -857,4 +857,110 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get casingFruit => 'Fruto';
+
+  @override
+  String get handsInstruction =>
+      'Elige una receta y luego la mano que la escribió: fíjate en su g, su s larga, su \'y\' y su inclinación.';
+
+  @override
+  String get handsCheck => 'Comprobar';
+
+  @override
+  String handsWrong(int count) {
+    return '$count asignadas a la mano equivocada han vuelto.';
+  }
+
+  @override
+  String handsSorted(int done, int total) {
+    return 'Ordenadas: $done de $total';
+  }
+
+  @override
+  String get stillInstruction =>
+      'Aviva el fuego, mantén el agua fría corriendo y mueve el vaso cuando cambie la gota: cabeza, corazón, cola. Guarda el corazón.';
+
+  @override
+  String get stillFire => 'Fuego';
+
+  @override
+  String get stillFireOut => 'Apagado';
+
+  @override
+  String get stillFireGentle => 'Suave';
+
+  @override
+  String get stillFireFierce => 'Fuerte';
+
+  @override
+  String get stillWater => 'Agua fría';
+
+  @override
+  String get stillWaterOn => 'Corriendo';
+
+  @override
+  String get stillWaterOff => 'Parada';
+
+  @override
+  String get stillGlassHeads => 'Cabeza';
+
+  @override
+  String get stillGlassHeart => 'Corazón';
+
+  @override
+  String get stillGlassTails => 'Cola';
+
+  @override
+  String get stillDripHeads => 'Turbia y punzante: la cabeza.';
+
+  @override
+  String get stillDripHeart => 'Clara y dulce: el corazón.';
+
+  @override
+  String get stillDripTails => 'Aceitosa y pesada: la cola.';
+
+  @override
+  String get stillIdle => 'No sale nada: el fuego está apagado.';
+
+  @override
+  String get stillDry => 'No hay agua en la tina: ¡el serpentín se calienta!';
+
+  @override
+  String get stillSpoiled =>
+      'El serpentín se recalentó y la destilación se ha echado a perder.';
+
+  @override
+  String get stillLost =>
+      'El vaso del corazón no está limpio o no está lo bastante lleno.';
+
+  @override
+  String get stillReset => 'Vacía los vasos y empieza de nuevo';
+
+  @override
+  String get spectrumInstruction =>
+      'Gira la lámpara por sus bandas hasta que la imagen se aclare y registra lo que muestra cada banda.';
+
+  @override
+  String get spectrumRecord => 'Registrar';
+
+  @override
+  String get spectrumBlurred => 'Nada claro en esta posición.';
+
+  @override
+  String get spectrumAlready => 'Esa placa ya está registrada.';
+
+  @override
+  String spectrumRecorded(int count, int total) {
+    return 'Placas registradas: $count de $total';
+  }
+
+  @override
+  String get spectrumLayInstruction =>
+      'Coloca las placas sobre el retrato en el orden de la vida del cuadro, la más antigua primero.';
+
+  @override
+  String get spectrumWrongOrder =>
+      'No es el orden del cuadro. Las placas vuelven.';
+
+  @override
+  String get receiptCaption => 'Para guardar un nombre';
 }

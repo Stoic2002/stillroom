@@ -351,6 +351,9 @@ void main() {
       'sonar',
       'mudra',
       'casing',
+      'hands',
+      'still',
+      'spectrum',
     ]);
   });
 }

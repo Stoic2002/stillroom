@@ -12,8 +12,9 @@ tales from around the world (mysteries, legends, true crimes) and keeps each
 one sealed in a glass jar, labelled with a place and a year.
 
 - **The player** is a nameless visitor who becomes the room's new keeper.
-- **The old keeper** is never seen whole; they are present only through notes,
-  labels, and objects left behind.
+- **The old keeper** is present through notes, labels, and objects left
+  behind, until the last jar: *The Stillroom* gives her back her face and
+  her name (Hester Croft, an invented stillroom maid of about 1720).
 - **Opening a jar** means entering its tale: one room, several views,
   8–12 puzzles (PRD §1).
 - **Finishing a tale distils it**: the jar is sealed with wax on the shelf.
@@ -29,7 +30,7 @@ The shelves are difficulty tiers (decided 2026-09-26):
   `series` ribbon (e.g. *Whitechapel, 1888* on shelf I, *Whitechapel, 1891*
   on shelf III). The player never has to finish one topic before trying
   another country.
-- **The top shelf** will hold the old keeper's own tale.
+- **The top shelf** holds the old keeper's own tale, *The Stillroom*.
 
 **The full shelf (decided 2026-09-30): 16 tales on 5 shelves.** Every tale
 is a real case at least about 70 years old, with a legend to set right.
@@ -43,7 +44,7 @@ data, so later tales arrive in updates.
 | II (4) | *Flannan Isles, 1900* ✓, *Pompeii, 79* ✓, *Bastille, 1703* ✓ (Western Europe), *Gyeongju, 771* ✓ (Korea) |
 | III (4) | *Whitechapel, 1891* ✓ (series), *The death of the Guangxu Emperor, Beijing, 1908* ✓ (China), *Alamut, 1256* ✓ (Middle East), *Great Zimbabwe, 1871* ✓ (Africa) |
 | IV (5) | *Dyatlov Pass, 1959* ✓ (Eastern Europe), *Honnō-ji, 1582* ✓ (Japan), *Roanoke, 1590* ✓ (the Americas), *The Franklin expedition, 1845* ✓ (the Arctic), *Borobudur, 1814* ✓ (Indonesia) |
-| V (1) | The old keeper's own tale (arc OPEN) |
+| V (1) | *The Stillroom* ✓ (the old keeper's own tale; no place, no year) |
 
 The legend each one sets right, in short (facts to be checked and sourced
 in each tale's design doc before it is built):
@@ -77,7 +78,7 @@ How difficulty rises from shelf to shelf:
 | Length | 8–10 beats | 10–12 beats, parallel branches |
 
 Current placement: *Whitechapel, 1888* (shelf I, the easiest, doubling as the
-tutorial); *Semarang, 1945* (shelf I, opens after Whitechapel; a step up: clues across three eras); *Flannan Isles, 1900*, *Pompeii, 79*, *Bastille, 1703* and *Gyeongju, 771* (shelf II, open after two tales; the shelf is full). Shelf III opens after four and is full: *Whitechapel, 1891*, *Beijing, 1908*, *Alamut, 1256*, *Great Zimbabwe, 1871*. Shelf IV (after eight): *Dyatlov Pass, 1959*, *Honnō-ji, 1582*, *Roanoke, 1590*, *Franklin, 1845* and *Borobudur, 1814*; the shelf is full. Shelf V holds a sealed jar (`sealed_keeper`, after 15) for the keeper's own tale.
+tutorial); *Semarang, 1945* (shelf I, opens after Whitechapel; a step up: clues across three eras); *Flannan Isles, 1900*, *Pompeii, 79*, *Bastille, 1703* and *Gyeongju, 771* (shelf II, open after two tales; the shelf is full). Shelf III opens after four and is full: *Whitechapel, 1891*, *Beijing, 1908*, *Alamut, 1256*, *Great Zimbabwe, 1871*. Shelf IV (after eight): *Dyatlov Pass, 1959*, *Honnō-ji, 1582*, *Roanoke, 1590*, *Franklin, 1845* and *Borobudur, 1814*; the shelf is full. Shelf V (after 15) holds *The Stillroom*, the keeper's own tale; every shelf is full.
 
 ## Signature mechanics (decided 2026-09-26)
 
@@ -127,6 +128,7 @@ own hardest puzzle; higher shelves have more puzzles, chained together.
 | *Roanoke, 1590* | A cypress core from 1998 cross-dated against a master chronology by its pattern of wide and narrow rings, and its driest run read: 1587–1589 (`rings`); White's own chart, drawn with west at the top, walked with dividers to Croatoan and "fifty miles into the main" (`dividers`) | A seal of three words cut into the palisade post under CROATOAN (`post`) |
 | *Franklin, 1845* | The Victory Point note turned on the table to read the 1848 hand round its margins, past the 1847 "All well" (`margins`); the 2014 side-scan survey off the Adelaide Peninsula, lanes run from a few hours, guided by the Inuit accounts of Ugjulik and the iron pintle on an island (`sonar`) | A seal of three words written into a fresh Admiralty form (`admiralty`) |
 | *Borobudur, 1814* | Fallen Buddhas set back on the side their hands belong to (`mudra`); the casing at the foot lifted two stones at a time, a deed found with its fruit and photographed before the stones go back (`casing`) | A seal of three words cut into palm leaves (`lontar`) |
+| *The Stillroom* | The household's receipt book sorted by hand, by the g, the s, the "and" and the slant, some receipts lacking a letter (`hands`); the still run to keep its heart, the glass moved at the cuts (`still`); her portrait looked through with a conservator's lamp, band by band, the plates laid oldest first (`spectrum`) | A seal of three words written as a receipt on the blank last page of her book (`receipt`) |
 | *Bastille, 1703* | The turnkey's ring: find the one key whose bit matches the keyhole, and turn it the right way (`keyring`); the king's Great Cipher read with Bazeries's worksheet, two numbers left unread (`cipher`); the prisoner's file sorted into what was written at the time and what was told after (`sources`) | A seal of three words on a blank royal order (`order`) |
 
 The first three tales were reworked on 2026-09-29 to follow this rule:
@@ -225,6 +227,8 @@ and season:
 - *Borobudur 1814* is a dry-season morning in Kedu: swiftlets wheeling
   over the terraces (a new creature, `swifts`), moss in the joints of the
   stone, the volcanoes on the horizon.
+- *The Stillroom* is outside time: a moth at the candle, a cat asleep by
+  the furnace (a new creature, `cat`).
 - *Alamut 1256* is December in the Alborz: dry thistles in the snowy
   court, an eagle turning over the gorge (a new creature, `eagle`), a
   mouse in the storerooms, falling snow.
@@ -238,11 +242,17 @@ and season:
 | Episode picker | Tiered shelves (`episodes.json`): playable jars, locked jars on shelves not reached yet, sealed jars for tales still to come, wax seals on finished tales, series ribbons |
 | Ending screen | "The tale is distilled" |
 
-## Long arc (_open_)
+## Long arc (decided 2026-10-08)
 
-When every jar is distilled, the old keeper's own tale is revealed: why the
-room exists, and who has been collecting these tales. This can become the
-final episode. Details are open.
+When fifteen jars are distilled, the last opens: *The Stillroom*, the old
+keeper's own tale. She was Hester Croft (invented), a stillroom maid
+written down by her post, not her name; she came to the room as the
+player did and gave it her own name to keep everyone else's. The player
+finds her hand in the receipt book, distils the spirit that cleans her
+portrait, looks through it to her face and her name, and writes them
+back. She goes; her coat stays on the fourth peg for the new keeper. The
+keeper's notes found in other jars bring her letters (`stars_<n>`). See
+[episodes/stillroom_keeper.md](episodes/stillroom_keeper.md).
 
 ## Tone guardrails
 
@@ -272,5 +282,5 @@ final episode. Details are open.
 | `whitechapel_1891` | Whitechapel, 1891 | Built, draft text, code-drawn art (shelf III, series whitechapel, opens after 4 tales). The file that grows, her name set in type; "Jack the Ripper" and "five" as red herrings | [episodes/whitechapel_1891.md](episodes/whitechapel_1891.md) |
 | `gyeongju_771` | Gyeongju, 771 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). The pour, the hollow, the beat; the child legend, Seoul and 1925 as red herrings | [episodes/gyeongju_771.md](episodes/gyeongju_771.md) |
 | `bastille_1703` | Bastille, 1703 | Built, draft text, code-drawn art (shelf II, opens after 2 tales). Key ring, Great Cipher, the file of sources; Voltaire, Dumas and Bazeries as red herrings | [episodes/bastille_1703.md](episodes/bastille_1703.md) |
-| *(planned)* | The keeper's own tale (shelf V, arc OPEN) | See *The full shelf* above | — |
+| `stillroom_keeper` | The Stillroom (the keeper's own tale) | Built, draft text, code-drawn art in depth (shelf V, opens after 15 tales). The hands, the still, the portrait's bands; witch, alchemist, ghost and "the girl" as red herrings | [episodes/stillroom_keeper.md](episodes/stillroom_keeper.md) |
 | `test_room` | Test room | Debug builds only | Feature test room |

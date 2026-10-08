@@ -1,0 +1,47 @@
+{
+  "id": "still",
+  "type": "still",
+  "background": "images/scenes/stillroom_keeper/board.png",
+  "config": {
+    "heads": 2,
+    "heart": 8,
+    "tails": 3,
+    "rates": [
+      0,
+      0.8,
+      2.0
+    ],
+    "blur": [
+      0.3,
+      3.0
+    ],
+    "keep": 0.8,
+    "tolerance": 0.6,
+    "dry": 4
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "still_drip"
+    },
+    {
+      "type": "showText",
+      "key": "stillroom_keeper.stillroom.spirit"
+    },
+    {
+      "type": "pickItem",
+      "item": "spirit"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.stillroom_keeper.still.1"
+    },
+    {
+      "key": "hint.stillroom_keeper.still.2"
+    },
+    {
+      "key": "hint.stillroom_keeper.still.3"
+    }
+  ]
+}

@@ -212,15 +212,18 @@ void main() {
         findsOneWidget,
       );
       expect(find.text('Whitechapel, 1888'), findsOneWidget);
-      // The test room is debug-only. Sealed jars are shown but not
-      // playable; the one for shelf IV stands at the top.
+      // The test room is debug-only. The keeper's own jar stands alone on
+      // the top shelf.
       expect(find.byKey(const ValueKey('jar_test_room')), findsOneWidget);
       await tester.scrollUntilVisible(
-        find.text('Still sealed'),
+        find.byKey(const ValueKey('jar_stillroom_keeper')),
         100,
         scrollable: find.byType(Scrollable).first,
       );
-      expect(find.text('Still sealed'), findsOneWidget);
+      expect(
+        find.byKey(const ValueKey('jar_stillroom_keeper')),
+        findsOneWidget,
+      );
     });
 
     testWidgets('Semarang, 1945 opens once Whitechapel is distilled', (
@@ -272,18 +275,21 @@ void main() {
       expect(find.text('Open the jar'), findsOneWidget);
     });
 
-    testWidgets('a sealed jar does nothing', (tester) async {
+    testWidgets("the keeper's jar waits for the other fifteen", (tester) async {
       await pumpApp(tester);
       await openShelf(tester);
-      final sealed = find.byKey(const ValueKey('jar_sealed_keeper'));
+      final keeper = find.byKey(const ValueKey('jar_stillroom_keeper'));
       await tester.scrollUntilVisible(
-        sealed,
+        keeper,
         100,
         scrollable: find.byType(Scrollable).first,
       );
-      await tester.tap(sealed);
+      // Clear of the shelf's header.
+      await Scrollable.ensureVisible(tester.element(keeper), alignment: 0.5);
       await tester.pumpAndSettle();
-      expect(find.byType(AlertDialog), findsNothing);
+      await tester.tap(keeper);
+      await tester.pumpAndSettle();
+      expect(find.text('Not yet'), findsOneWidget);
     });
 
     testWidgets('an unfinished tale offers continue or start over', (

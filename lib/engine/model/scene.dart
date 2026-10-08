@@ -439,6 +439,10 @@ enum CreatureKind {
   /// A few swiftlets wheeling over their area in wide loops; they scatter
   /// when tapped and wheel back.
   swifts,
+
+  /// A cat asleep by a fire, curled up, breathing; now and then an ear
+  /// flicks. Tapped, it lifts its head, blinks, purrs, and sleeps again.
+  cat,
 }
 
 /// A small living thing in a scene (`creatures` in a scene file):

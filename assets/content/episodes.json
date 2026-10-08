@@ -182,9 +182,10 @@
       ]
     },
     {
-      "id": "sealed_keeper",
-      "titleKey": "episode.sealed.title",
-      "comingSoon": true,
+      "id": "stillroom_keeper",
+      "titleKey": "episode.stillroom_keeper.title",
+      "teaserKey": "episode.stillroom_keeper.teaser",
+      "jarImage": "images/ui/jar_stillroom_keeper.png",
       "shelf": 5,
       "unlockAfter": 15
     },

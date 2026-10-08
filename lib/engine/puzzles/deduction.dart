@@ -181,6 +181,10 @@ enum DeductionForm {
 
   /// Palm-leaf strips bound on a cord, the letters incised and blackened.
   lontar,
+
+  /// A page of a household receipt book: a heading, a short receipt in a
+  /// careful hand, the blanks in its lines.
+  receipt,
 }
 
 final class DeductionSentence {

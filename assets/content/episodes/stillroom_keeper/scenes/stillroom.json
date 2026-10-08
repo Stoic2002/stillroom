@@ -1,0 +1,306 @@
+{
+  "id": "stillroom",
+  "background": "images/scenes/stillroom_keeper/stillroom.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "behind"
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "herbs",
+      "rect": [
+        0.25,
+        0.08,
+        0.5,
+        0.15
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.stillroom.herbs"
+        }
+      ]
+    },
+    {
+      "id": "bottles",
+      "rect": [
+        0.52,
+        0.2,
+        0.27,
+        0.24
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.stillroom.bottles"
+        }
+      ]
+    },
+    {
+      "id": "tub",
+      "rect": [
+        0.43,
+        0.52,
+        0.14,
+        0.3
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.stillroom.tub"
+        }
+      ]
+    },
+    {
+      "id": "still_cold",
+      "rect": [
+        0.14,
+        0.3,
+        0.25,
+        0.56
+      ],
+      "when": [
+        {
+          "flag": "fire_lit",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.stillroom.still_cold"
+        }
+      ],
+      "onUseItem": [
+        {
+          "item": "tinder",
+          "actions": [
+            {
+              "type": "playSound",
+              "sound": "fire_feed"
+            },
+            {
+              "type": "removeItem",
+              "item": "tinder"
+            },
+            {
+              "type": "setFlag",
+              "flag": "fire_lit",
+              "value": true
+            },
+            {
+              "type": "showText",
+              "key": "stillroom_keeper.stillroom.fire_lit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "still",
+      "rect": [
+        0.14,
+        0.3,
+        0.25,
+        0.56
+      ],
+      "when": [
+        {
+          "flag": "fire_lit",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "still",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "openPuzzle",
+          "puzzle": "still"
+        }
+      ]
+    },
+    {
+      "id": "still_done",
+      "rect": [
+        0.14,
+        0.3,
+        0.25,
+        0.56
+      ],
+      "when": [
+        {
+          "puzzleSolved": "still",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.stillroom.still_done"
+        }
+      ]
+    },
+    {
+      "id": "book",
+      "rect": [
+        0.6,
+        0.5,
+        0.25,
+        0.14
+      ],
+      "when": [
+        {
+          "puzzleSolved": "hands",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.stillroom.book"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "hands"
+        }
+      ]
+    },
+    {
+      "id": "book_after",
+      "rect": [
+        0.6,
+        0.5,
+        0.25,
+        0.14
+      ],
+      "when": [
+        {
+          "puzzleSolved": "hands",
+          "equals": true
+        },
+        {
+          "flag": "she_went",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.stillroom.book_after"
+        }
+      ]
+    },
+    {
+      "id": "book_waiting",
+      "rect": [
+        0.6,
+        0.5,
+        0.25,
+        0.14
+      ],
+      "when": [
+        {
+          "puzzleSolved": "hands",
+          "equals": true
+        },
+        {
+          "flag": "she_went",
+          "equals": true
+        },
+        {
+          "flag": "read_house",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.stillroom.book_after"
+        }
+      ]
+    },
+    {
+      "id": "book_seal",
+      "rect": [
+        0.6,
+        0.5,
+        0.25,
+        0.14
+      ],
+      "when": [
+        {
+          "puzzleSolved": "hands",
+          "equals": true
+        },
+        {
+          "flag": "she_went",
+          "equals": true
+        },
+        {
+          "flag": "read_house",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.stillroom.book_seal"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "jar_label"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "fire_sprite",
+      "image": "images/objects/stillroom_keeper/fire_sprite.png",
+      "rect": [
+        0.125,
+        0.561,
+        0.267,
+        0.32
+      ],
+      "when": [
+        {
+          "flag": "fire_lit",
+          "equals": true
+        }
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "cat",
+      "kind": "cat",
+      "rect": [
+        0.36,
+        0.8,
+        0.12,
+        0.08
+      ]
+    }
+  ]
+}

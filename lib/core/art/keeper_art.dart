@@ -1,6 +1,9 @@
 import 'dart:math' as math;
 import 'dart:ui';
 
+import 'package:flutter/painting.dart'
+    show TextPainter, TextSpan, TextStyle, FontStyle;
+
 import 'art_kit.dart';
 
 /// Code-drawn art for the keeper's own tale (docs/episodes/
@@ -15,10 +18,195 @@ const _linenShade = Color(0xFFB4AEA6);
 const _bodice = Color(0xFF3E3430);
 const _gilt = Color(0xFFB08A3A);
 
+/// How the portrait is seen: as it hangs, grimed and its face scraped;
+/// cleaned, the scrape bare; under ultraviolet, infrared or X-rays; or
+/// whole, the face come back.
+enum PortraitLook { grimed, scraped, uv, infrared, xray, whole }
+
+/// Her portrait in its oval frame, seen as [look].
+void paintKeeperPortrait(Art a, {PortraitLook look = PortraitLook.whole}) {
+  final bounds = Offset.zero & a.size;
+  void filtered(List<double> matrix, void Function() paint) {
+    a.canvas.saveLayer(
+      bounds,
+      Paint()..colorFilter = ColorFilter.matrix(matrix),
+    );
+    paint();
+    a.canvas.restore();
+  }
+
+  switch (look) {
+    case PortraitLook.whole:
+      _portraitWhole(a);
+    case PortraitLook.scraped:
+      _portraitWhole(a);
+      _scrape(a);
+    case PortraitLook.grimed:
+      _portraitWhole(a);
+      _scrape(a);
+      _grime(a);
+    case PortraitLook.uv:
+      // The varnish glows green; where the face was scraped and painted
+      // over, a dark patch on the glow.
+      filtered(_dim, () {
+        _portraitWhole(a);
+        _scrape(a);
+      });
+      a.canvas.drawOval(
+        _ovalIn(a),
+        Paint()
+          ..blendMode = BlendMode.screen
+          ..shader = Gradient.radial(a.p(0.5, 0.45), a.size.width * 0.5, [
+            const Color(0x7760E0A0),
+            const Color(0x3330A070),
+          ]),
+      );
+      _scrape(
+        a,
+        colour: const Color(0xBB14241A),
+        lines: false,
+        blur: a.size.width * 0.03,
+      );
+    case PortraitLook.infrared:
+      // Through the paint to the painter's first lines, and the name he
+      // wrote in them.
+      filtered(_sepiaLines, () => _portraitWhole(a));
+      _underdrawnName(a);
+    case PortraitLook.xray:
+      // The lead white of the face as it was first painted.
+      filtered(_xray, () => _portraitWhole(a));
+      final random = math.Random(9);
+      for (var i = 0; i < 400; i++) {
+        a.canvas.drawCircle(
+          a.p(random.nextDouble(), random.nextDouble()),
+          a.u * 0.25,
+          Paint()..color = const Color(0x22FFFFFF),
+        );
+      }
+  }
+}
+
+Rect _ovalIn(Art a) => Rect.fromLTRB(
+  0.06 * a.size.width,
+  0.04 * a.size.height,
+  0.94 * a.size.width,
+  0.96 * a.size.height,
+);
+
+/// Darker and greyer, for the ultraviolet.
+const _dim = <double>[
+  0.25, 0.25, 0.25, 0, 0, //
+  0.25, 0.3, 0.25, 0, 0, //
+  0.2, 0.22, 0.25, 0, 0, //
+  0, 0, 0, 1, 0, //
+];
+
+/// Brown lines on pale: the picture's light and dark kept, its colour
+/// gone to sepia and its contrast forced, so the drawing shows.
+const _sepiaLines = <double>[
+  0.55, 0.95, 0.2, 0, -70, //
+  0.5, 0.88, 0.18, 0, -72, //
+  0.4, 0.7, 0.14, 0, -64, //
+  0, 0, 0, 1, 0, //
+];
+
+/// Grey, bright where the paint is lead white, a little blue.
+const _xray = <double>[
+  0.5, 0.6, 0.2, 0, -40, //
+  0.5, 0.6, 0.2, 0, -36, //
+  0.55, 0.65, 0.25, 0, -20, //
+  0, 0, 0, 1, 0, //
+];
+
+/// The face scraped off down to the ground: a rough pale patch, scored.
+void _scrape(
+  Art a, {
+  Color colour = const Color(0xFFCFC2A8),
+  bool lines = true,
+  double blur = 0,
+}) {
+  final w = a.size.width;
+  final h = a.size.height;
+  final patch = Path()
+    ..moveTo(0.37 * w, 0.38 * h)
+    ..lineTo(0.47 * w, 0.355 * h)
+    ..lineTo(0.6 * w, 0.37 * h)
+    ..lineTo(0.645 * w, 0.45 * h)
+    ..lineTo(0.6 * w, 0.585 * h)
+    ..lineTo(0.5 * w, 0.6 * h)
+    ..lineTo(0.4 * w, 0.58 * h)
+    ..lineTo(0.35 * w, 0.47 * h)
+    ..close();
+  a.canvas.drawPath(
+    patch,
+    Paint()
+      ..color = colour
+      ..maskFilter = blur > 0 ? MaskFilter.blur(BlurStyle.normal, blur) : null,
+  );
+  if (!lines) return;
+  final random = math.Random(1720);
+  for (var i = 0; i < 26; i++) {
+    final x = 0.37 + random.nextDouble() * 0.26;
+    final y = 0.38 + random.nextDouble() * 0.19;
+    a.canvas.drawLine(
+      a.p(x, y),
+      a.p(x + 0.03 + random.nextDouble() * 0.03, y + 0.01),
+      Paint()
+        ..strokeWidth = a.u * 0.25
+        ..color = const Color(0x557A6A50),
+    );
+  }
+}
+
+/// Smoke and old varnish gone brown over everything.
+void _grime(Art a) {
+  a.canvas.drawOval(
+    _ovalIn(a),
+    Paint()
+      ..shader = Gradient.radial(a.p(0.45, 0.4), a.size.width * 0.6, [
+        const Color(0x88402A10),
+        const Color(0xDD1E1408),
+      ]),
+  );
+  final random = math.Random(11);
+  for (var i = 0; i < 30; i++) {
+    a.canvas.drawCircle(
+      a.p(0.15 + random.nextDouble() * 0.7, 0.1 + random.nextDouble() * 0.8),
+      a.size.width * (0.02 + random.nextDouble() * 0.05),
+      Paint()
+        ..color = const Color(0x33140C04)
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.size.width * 0.02),
+    );
+  }
+}
+
+/// The name the painter wrote into his drawing, low on the canvas.
+void _underdrawnName(Art a) {
+  final text = TextPainter(
+    text: TextSpan(
+      text: 'Hester Croft',
+      style: TextStyle(
+        fontFamily: 'IMFell',
+        fontStyle: FontStyle.italic,
+        fontSize: a.size.height * 0.058,
+        color: const Color(0xEE2A180C),
+        letterSpacing: a.size.width * 0.004,
+      ),
+    ),
+    textDirection: TextDirection.ltr,
+  )..layout();
+  a.canvas
+    ..save()
+    ..translate(a.size.width * 0.5, a.size.height * 0.775)
+    ..rotate(-0.04);
+  text.paint(a.canvas, Offset(-text.width / 2, -text.height / 2));
+  a.canvas.restore();
+}
+
 /// Her portrait, whole: half-length in an oval gilt frame, candle light
 /// from the left, a linen cap and a crossed kerchief, a dark bodice, the
 /// eyes on the one who looks at her.
-void paintKeeperPortrait(Art a) {
+void _portraitWhole(Art a) {
   final w = a.size.width;
   final h = a.size.height;
   Offset p(double x, double y) => Offset(x * w, y * h);

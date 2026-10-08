@@ -71,6 +71,13 @@ fvm dart run tool/audio/generate_audio.dart bell_toll  # one or more ids
 | `casing_stone` | Borobudur 1814: the casing opened; the Buddhas set back | A casing stone lifted and set down on stone |
 | `shutter` | Borobudur 1814: the camera; the reliefs photographed | A plate camera's shutter, a soft double click |
 | `bell_small` | Borobudur 1814: the latticed stupa; the seal | A small temple bell stirring in the wind |
+| `cloth` | The Stillroom: her coat, its pocket and lining | A wool coat touched, cloth sliding on cloth |
+| `candle_gutter` | The Stillroom: she goes | A candle guttering, a soft breath of flame |
+| `window_turn` | The Stillroom: the window turned to the next view | The window turned on its pivot, wood and iron |
+| `fire_feed` | The Stillroom: the furnace lit | Charcoal catching in a small furnace |
+| `still_drip` | The Stillroom: the heart of the run kept | Drops falling from the still's spout into a glass |
+| `layer_settle` | The Stillroom: the portrait's plates laid together | The plates settling together, a glass note |
+| `cat_purr` | The `cat` creature, tapped | A cat purring by the furnace |
 | `ice_creak` | Franklin 1845: the shore from the deck; the seal | Sea ice grinding and groaning against a hull |
 | `rotor` | Franklin 1845: the helicopter on the island | A helicopter's rotor turning slowly down, the beat fading |
 | `drum_low` | Franklin 1845: the drum in the hall | A frame drum struck once, low, its skin humming |
@@ -102,6 +109,7 @@ fvm dart run tool/audio/generate_audio.dart bell_toll  # one or more ids
 | `chongling_winter` | Beijing, 1908 | 48 s | A cold drone in B♭; wind in the pines; a temple bowl struck far off every 16 s |
 | `ural_wind` | Dyatlov Pass, 1959 | 48 s | A thin drone over a low A; wind over a bare ridge; a slow low pulse twice a loop |
 | `kedu_morning` | Borobudur, 1814 | 48 s | A low drone in C; a slow bronze figure on a slendro-like scale twice a loop, a big gong at its end; birds now and then |
+| `keeper_room` | The Stillroom | 48 s | The lobby's drone slowed, a music box under it, the clock's tick far off; once a loop, the box's tune resolves |
 | `ice_drift` | Franklin, 1845 | 48 s | A cold low drone in G; wind; ice creaking every 13 s; a sonar ping far off once a loop |
 | `sound_dawn` | Roanoke, 1590 | 48 s | A low drone in A; water lapping on the shore; once a loop a trumpet call far off across the water, unanswered |
 | `kyoto_ash` | Honnō-ji, 1582 | 48 s | A low drone in D; a bamboo flute's breathy phrase in the old scale every 24 s; a temple bell far off once a loop; cicadas faint |
@@ -144,6 +152,9 @@ vibration is on). Quieter than content sounds (−9 dBFS peak).
 | `niche_set` | Borobudur 1814's niches: a statue set back | light |
 | `stone_lift` | Borobudur 1814's casing: a stone lifted | selection |
 | `pair_found` | Borobudur 1814's casing: a deed and its fruit photographed | light |
+| `hand_sorted` | The Stillroom's receipt book: a receipt put to a hand (a quill's tap on paper) | selection |
+| `glass_move` | The Stillroom's still: a glass set under the spout (glass on wood, a ring) | selection |
+| `layer_found` | The Stillroom's lamp: a plate recorded or laid (a soft shutter, a glassy note) | light |
 | `sheet_turn` | Franklin 1845's margins: the note turned a quarter turn | selection |
 | `lane_run` | Franklin 1845's sonar: a lane run (a ping and a sweep of hiss) | light |
 | `echo_mark` | Franklin 1845's sonar: the wreck marked (two rising pings) | medium |

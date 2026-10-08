@@ -60,7 +60,7 @@ player restores the truth of the tale and seals the jar.
   - The CJK fonts are subsets: `test/content/font_coverage_test.dart` fails
     on a rare glyph, so reword it (e.g. 蹚 and 祇 were replaced).
 
-### The tales (15 playable)
+### The tales (16 playable: the plan is complete)
 
 | Shelf | Tale | Its own mechanics | Its label now |
 |---|---|---|---|
@@ -78,15 +78,18 @@ player restores the truth of the tale and seals the jar.
 | IV | *Roanoke, 1590* (the colony that left a word) | A cypress core cross-dated, its driest run read (`rings`); White's chart walked with dividers, north on the right (`dividers`) | `post` **seal**: the carved palisade post, 3 words |
 | IV | *Franklin, 1845* (the ship the Inuit remembered, set at the 2014 search) | The Victory Point note turned to read its margins (`margins`); the side-scan survey, lanes run from a few hours (`sonar`) | `admiralty` **seal**: a fresh Admiralty form, 3 words |
 | IV | *Borobudur, 1814* (the temple that was never lost, set at the 1890–91 photographing of the hidden foot) | Fallen Buddhas set back by their hands (`mudra`); the casing lifted two stones at a time, deeds matched with their fruits (`casing`) | `lontar` **seal**: palm leaves, 3 words |
+| V | *The Stillroom* (the keeper's own tale; Hester Croft, an invented stillroom maid of about 1720; no map pin) | The household's receipt book sorted by hand, some receipts lacking a letter (`hands`); the still run to keep its heart (`still`); her portrait looked through band by band, plates laid oldest first (`spectrum`) | `receipt` **seal**: the blank last page of her book, 3 words |
 | II | *Bastille, 1703* (the Iron Mask) | The turnkey's keys (`keyring`: match the bit, turn it over), the Great Cipher (`cipher`, 330 309 left unread), the prisoner's file (`sources`: written at the time vs. told after) | `order` **seal**: a royal order, 3 words |
 
 Shelf III opens after 4 tales are distilled and is full: *Whitechapel,
 1891*, *Beijing, 1908*, *Alamut, 1256*, *Great Zimbabwe, 1871*. Shelf IV
 (`unlockAfter` 8) holds *Dyatlov Pass, 1959*, *Honnō-ji, 1582*,
 *Roanoke, 1590*, *Franklin, 1845* and *Borobudur, 1814*: it is full.
-Shelf V holds only a sealed jar (`sealed_keeper`, `unlockAfter` 15) for
-the keeper's own tale. The top shelf is meant for the old keeper's
-own tale; its arc is OPEN.
+Shelf V (`unlockAfter` 15) holds *The Stillroom*, the keeper's own tale
+(`stillroom_keeper`, built 2026-10-08): she gets her face and her name
+back, then goes; her coat stays for the player. Keeper's notes found in
+other jars show her letters there (`stars_<n>` flags, filled in by
+`GameSession`). Every shelf is full.
 
 **The plan: 16 tales on 5 shelves** (decided 2026-09-30), all real cases
 with a legend to set right. The lineup, by shelf and region, is in
@@ -141,23 +144,18 @@ with a legend to set right. The lineup, by shelf and region, is in
 
 ## Next steps (in this order)
 
-1. **Build the remaining tales of the plan, one after another.** The
-   developer does not play-test tale by tale: once all 16 exist they test
-   the whole game and do one big round of fixes and polish (decided
+1. **All 16 tales of the plan are built** (the keeper's tale last, on
+   2026-10-08). The developer did not play-test tale by tale: now they
+   test the whole game and do one big round of fixes and polish (decided
    2026-10-01; Play Store target mid-October 2026, end of October at the
-   latest). Keep each design doc's *Things to watch* as the checklist for
-   that review.
-2. **Next:** the keeper's tale (shelf V, OPEN: ask first). The depth
-   pass on the older tales is done (2026-10-08). A new tale gets a design
-   doc first (facts with sources, 2–3 mechanics of its own, the chain,
-   the seal), approved by the developer before building. Draw it in
-   depth (decision 6).
-3. **In the final polish round:** the developer's whole-game review; fix
-   what it finds. Many hotspots moved in the depth pass, so check taps
-   in every scene.
-4. Later, and to be asked first:
-   - the Indonesian tale for shelf IV;
-   - the keeper's arc (OPEN);
+   latest). Each design doc's *Things to watch* is the checklist for that
+   review. Wait for their findings.
+2. **In the final polish round:** fix what the review finds. Many
+   hotspots moved in the depth pass, so check taps in every scene.
+3. Later, and to be asked first:
+   - more tales (e.g. more Indonesian ones): a design doc first (facts
+     with sources, 2–3 mechanics of its own, the chain, the seal),
+     approved before building, drawn in depth (decision 6);
    - native-speaker translation review;
    - final art. The package name (`com.example.stillroom`) and release are
      on hold.

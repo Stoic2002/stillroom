@@ -1993,7 +1993,113 @@ Buf bellSmall() {
   return reverb(b, size: 0.7, mix: 0.35);
 }
 
+// ---------------------------------------------------------------------------
+// The keeper's own tale
+
+/// The keeper's tale: a wool coat touched, cloth sliding on cloth.
+Buf cloth() {
+  final rng = math.Random(91);
+  return Buf(0.7)..add(
+    shape(
+      bandpass(noise(0.6, rng), (t) => 900 + 500 * t, 0.8),
+      (t) => swell(t, 0.08, 0.3, 0.6),
+    ),
+    gain: 0.25,
+  );
+}
+
+/// The keeper's tale: a candle guttering, a soft breath of flame.
+Buf candleGutter() {
+  final rng = math.Random(92);
+  final b = Buf(1.2)
+    ..add(
+      shape(
+        lowpass(noise(1.0, rng), (_) => 500),
+        (t) => swell(t, 0.05, 0.6, 1.0) * (0.7 + 0.3 * math.sin(tau * t * 9)),
+      ),
+      gain: 0.35,
+    );
+  return reverb(b, size: 0.4, mix: 0.2);
+}
+
+/// The keeper's tale: the window turned on its pivot, wood and iron.
+Buf windowTurn() {
+  final rng = math.Random(93);
+  final b = Buf(0.8)
+    ..add(
+      shape(
+        bandpass(noise(0.5, rng), (t) => 300 + 200 * t, 3),
+        (t) => swell(t, 0.05, 0.2, 0.5),
+      ),
+      gain: 0.3,
+    )
+    ..add(
+      modal(0.4, 640, const [(1, 1, 0.08), (2.3, 0.4, 0.05)]),
+      at: 0.45,
+      gain: 0.12,
+    );
+  return reverb(b, size: 0.4, mix: 0.2);
+}
+
+/// The keeper's tale: charcoal catching in a small furnace.
+Buf fireFeed() {
+  final rng = math.Random(94);
+  final b = Buf(1.6)
+    ..add(
+      shape(
+        lowpass(noise(1.5, rng), (_) => 1400),
+        (t) => swell(t, 0.3, 0.6, 1.5),
+      ),
+      gain: 0.25,
+    );
+  for (var k = 0; k < 9; k++) {
+    b.add(
+      click(rng, centre: 2200, time: 0.003),
+      at: 0.2 + rng.nextDouble() * 1.2,
+      gain: 0.25,
+    );
+  }
+  return reverb(b, size: 0.4, mix: 0.2);
+}
+
+/// The keeper's tale: drops falling from the still's spout into a glass.
+Buf stillDrip() {
+  final b = Buf(1.4);
+  for (final (at, f) in [(0.0, 1500.0), (0.42, 1380.0), (0.86, 1620.0)]) {
+    b.add(plip(f), at: at, gain: 0.35);
+  }
+  return reverb(b, size: 0.5, mix: 0.3);
+}
+
+/// The keeper's tale: the plates settling together, a glass note.
+Buf layerSettle() {
+  final b = Buf(3.0)
+    ..add(glassNote(1046.5, 2.5), gain: 0.08)
+    ..add(glassNote(1318.5, 2.2), at: 0.25, gain: 0.06)
+    ..add(glassNote(1568.0, 2.0), at: 0.5, gain: 0.05);
+  return reverb(b, size: 0.7, mix: 0.35);
+}
+
+/// The keeper's tale: a cat purring by the furnace.
+Buf catPurr() {
+  final rng = math.Random(95);
+  return Buf(2.0)..add(
+    shape(
+      lowpass(noise(2.0, rng), (_) => 260),
+      (t) => (0.5 + 0.5 * math.sin(tau * t * 25)) * swell(t, 0.2, 0.5, 2.0),
+    ),
+    gain: 0.45,
+  );
+}
+
 final sfx = <String, Buf Function()>{
+  'cloth': cloth,
+  'candle_gutter': candleGutter,
+  'window_turn': windowTurn,
+  'fire_feed': fireFeed,
+  'still_drip': stillDrip,
+  'layer_settle': layerSettle,
+  'cat_purr': catPurr,
   'stone_door': stoneDoor,
   'reactor_count': reactorCount,
   'wind_pines': windPines,
@@ -2586,7 +2692,40 @@ Buf keduMorning() => loop(48, (seconds) {
   return reverb(b, size: 0.85, mix: 0.38, damp: 0.5);
 });
 
+/// The keeper's room: the lobby's drone slowed, a music box under it,
+/// the clock's tick far off; once a loop, the box's tune resolves.
+Buf keeperRoom() => loop(48, (seconds) {
+  final rng = math.Random(96);
+  final b = Buf(seconds)
+    ..add(
+      drone(seconds, loopSeconds: 48, const [
+        (55, 0.42, 24),
+        (82.41, 0.24, 16),
+        (130.8, 0.08, 12),
+      ]),
+      gain: 0.45,
+    )
+    ..add(gain(lowpass(brown(seconds, rng), (_) => 200), 0.25));
+  for (var s = 0; s < seconds; s += 2) {
+    b.add(tick(rng, tock: (s ~/ 2).isOdd), at: s + 0.3, gain: 0.06, pan: 0.6);
+  }
+  // A music box: a slow little tune, high and thin, twice a loop.
+  const tune = [1318.5, 1174.7, 1046.5, 987.8, 1046.5, 1174.7, 1046.5, 880.0];
+  for (var at = 4.0; at < seconds - 12; at += 24) {
+    for (final (k, f) in tune.indexed) {
+      b.add(
+        modal(1.6, f, const [(1, 1, 0.7), (3.9, 0.2, 0.2), (8.1, 0.06, 0.08)]),
+        at: at + k * 0.75,
+        gain: 0.05,
+        pan: -0.4,
+      );
+    }
+  }
+  return reverb(b, size: 0.75, mix: 0.35);
+});
+
 final music = <String, Buf Function()>{
+  'keeper_room': keeperRoom,
   'chongling_winter': chonglingWinter,
   'alamut_snow': alamutSnow,
   'zimbabwe_dry': zimbabweDry,
@@ -3464,7 +3603,38 @@ Buf pairFoundSound() {
   return reverb(b, size: 0.4, mix: 0.2);
 }
 
+/// A receipt put to the hand that wrote it: a quill's tap on paper.
+Buf handSortedSound() {
+  final rng = math.Random(97);
+  return Buf(0.3)
+    ..add(click(rng, centre: 2600, time: 0.003), gain: 0.35)
+    ..add(
+      shape(bandpass(noise(0.15, rng), (_) => 3400, 2), (t) => decay(t, 0.03)),
+      gain: 0.15,
+    );
+}
+
+/// A glass set under the spout: glass on wood, a ring.
+Buf glassMoveSound() {
+  final b = Buf(0.6)
+    ..add(modal(0.5, 1760, const [(1, 1, 0.12), (2.6, 0.3, 0.06)]), gain: 0.12)
+    ..add(modal(0.2, 260, const [(1, 1, 0.03)]), gain: 0.2);
+  return reverb(b, size: 0.3, mix: 0.15);
+}
+
+/// A plate recorded or laid: a soft shutter and a glassy note.
+Buf layerFoundSound() {
+  final rng = math.Random(98);
+  final b = Buf(0.9)
+    ..add(click(rng, centre: 1600, time: 0.004), gain: 0.25)
+    ..add(glassNote(1318.5, 0.7), at: 0.06, gain: 0.06);
+  return reverb(b, size: 0.4, mix: 0.2);
+}
+
 final ui = <String, Buf Function()>{
+  'hand_sorted': handSortedSound,
+  'glass_move': glassMoveSound,
+  'layer_found': layerFoundSound,
   'geiger': () => geigerSound(clicks: 4, seed: 61),
   'geiger_hot': () => geigerSound(clicks: 26, seed: 62),
   'sample': sampleSound,

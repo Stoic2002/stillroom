@@ -47,6 +47,7 @@ abstract class Creature extends Component {
     CreatureKind.heron => _Heron(area, random, sound),
     CreatureKind.seal => _Seal(area, random, sound),
     CreatureKind.swifts => _Swifts(area, random, sound),
+    CreatureKind.cat => _Cat(area, random, sound),
   };
 }
 
@@ -1474,6 +1475,154 @@ class _Eagle extends Creature {
           ..lineTo(4, 4)
           ..close(),
         body,
+      )
+      ..restore();
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Cat: asleep by the furnace, curled nose to tail; breathes, flicks an ear.
+// Tapped, it lifts its head, blinks at you, purrs, and goes back to sleep.
+
+class _Cat extends Creature {
+  _Cat(super.area, super.random, super.sound) {
+    _nextFlick = 3 + random.nextDouble() * 5;
+  }
+
+  late double _nextFlick;
+  double _flick = 0;
+
+  /// Seconds since it was woken, or -1 while asleep.
+  double _awake = -1;
+  static const _wakeFor = 4.0;
+
+  Offset get _at => Offset(area.center.dx, area.bottom);
+
+  @override
+  bool near(Offset p) => (p - _at).distance < 90;
+
+  @override
+  void startle() {
+    if (_awake >= 0) return;
+    _awake = 0;
+    sound('cat_purr');
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+    if (_awake >= 0) {
+      _awake += dt;
+      if (_awake > _wakeFor) _awake = -1;
+    }
+    _nextFlick -= dt;
+    if (_nextFlick <= 0) {
+      _flick = 0.3;
+      _nextFlick = 4 + random.nextDouble() * 6;
+    }
+    if (_flick > 0) _flick -= dt;
+  }
+
+  @override
+  void render(Canvas canvas) {
+    const fur = Color(0xFF8A6A4A);
+    const furDark = Color(0xFF5A4430);
+    const stripe = Color(0x885A4430);
+    final breath = 1 + math.sin(time * 1.6) * 0.03;
+    // How far the head is up: eased in and out of being woken.
+    final up = _awake < 0
+        ? 0.0
+        : math.min(1.0, math.min(_awake * 3, (_wakeFor - _awake) * 2));
+    canvas
+      ..save()
+      ..translate(_at.dx, _at.dy)
+      // The shadow, warm from the fire.
+      ..drawOval(
+        const Rect.fromLTWH(-48, -6, 96, 12),
+        Paint()
+          ..color = const Color(0x55000000)
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4),
+      )
+      ..scale(1, breath);
+    // The body, curled: a loaf on the floor, the tail wrapped round.
+    canvas
+      ..drawOval(const Rect.fromLTWH(-44, -34, 88, 36), Paint()..color = fur)
+      ..drawOval(
+        const Rect.fromLTWH(-30, -32, 50, 14),
+        Paint()..color = const Color(0x33FFFFFF),
+      );
+    for (var k = 0; k < 4; k++) {
+      canvas.drawArc(
+        Rect.fromLTWH(-30.0 + k * 14, -34, 22, 30),
+        math.pi * 1.1,
+        math.pi * 0.5,
+        false,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 3
+          ..color = stripe,
+      );
+    }
+    canvas.drawPath(
+      Path()
+        ..moveTo(-40, -6)
+        ..quadraticBezierTo(-10, 6, 34, -2),
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 9
+        ..strokeCap = StrokeCap.round
+        ..color = furDark,
+    );
+    // The head: tucked on the paws while asleep, lifted when woken.
+    final head = Offset(30, -20 - up * 16);
+    final ear = _flick > 0 ? -0.35 : 0.0;
+    for (final side in [-1.0, 1.0]) {
+      final base = head + Offset(side * 8, -8);
+      canvas.drawPath(
+        Path()..addPolygon([
+          base + Offset(-side * 4, 2),
+          base + Offset(side * 3 + (side > 0 ? ear * 8 : 0), -12),
+          base + Offset(side * 6, 2),
+        ], true),
+        Paint()..color = furDark,
+      );
+    }
+    canvas.drawOval(
+      Rect.fromCenter(center: head, width: 30, height: 24),
+      Paint()..color = fur,
+    );
+    // The eyes: shut lines asleep, open and blinking awake.
+    final open = up > 0.6 && (time % 1.6) > 0.15;
+    for (final side in [-1.0, 1.0]) {
+      final eye = head + Offset(side * 6, -1);
+      if (open) {
+        canvas
+          ..drawOval(
+            Rect.fromCenter(center: eye, width: 6, height: 5),
+            Paint()..color = const Color(0xFFC8B040),
+          )
+          ..drawOval(
+            Rect.fromCenter(center: eye, width: 1.6, height: 4.5),
+            Paint()..color = const Color(0xFF111111),
+          );
+      } else {
+        canvas.drawArc(
+          Rect.fromCenter(center: eye, width: 6, height: 4),
+          0.2,
+          math.pi - 0.4,
+          false,
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 1.2
+            ..color = const Color(0xFF2A2018),
+        );
+      }
+    }
+    canvas
+      ..drawCircle(
+        head + const Offset(0, 5),
+        1.6,
+        Paint()..color = const Color(0xFFB07A6A),
       )
       ..restore();
   }

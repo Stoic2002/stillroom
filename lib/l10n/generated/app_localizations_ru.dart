@@ -858,4 +858,108 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get casingFruit => 'Плод';
+
+  @override
+  String get handsInstruction =>
+      'Выберите рецепт, затем руку, которая его написала: смотрите на g, длинное s, «и» и наклон.';
+
+  @override
+  String get handsCheck => 'Проверить';
+
+  @override
+  String handsWrong(int count) {
+    return 'Неверно отнесённых вернулось: $count.';
+  }
+
+  @override
+  String handsSorted(int done, int total) {
+    return 'Разобрано: $done из $total';
+  }
+
+  @override
+  String get stillInstruction =>
+      'Поддерживайте огонь, не перекрывайте холодную воду и переставляйте стакан, когда меняется капля: голова, сердце, хвост. Сохраните сердце.';
+
+  @override
+  String get stillFire => 'Огонь';
+
+  @override
+  String get stillFireOut => 'Погашен';
+
+  @override
+  String get stillFireGentle => 'Слабый';
+
+  @override
+  String get stillFireFierce => 'Сильный';
+
+  @override
+  String get stillWater => 'Холодная вода';
+
+  @override
+  String get stillWaterOn => 'Течёт';
+
+  @override
+  String get stillWaterOff => 'Перекрыта';
+
+  @override
+  String get stillGlassHeads => 'Голова';
+
+  @override
+  String get stillGlassHeart => 'Сердце';
+
+  @override
+  String get stillGlassTails => 'Хвост';
+
+  @override
+  String get stillDripHeads => 'Мутно и резко: голова.';
+
+  @override
+  String get stillDripHeart => 'Прозрачно и сладко: сердце.';
+
+  @override
+  String get stillDripTails => 'Маслянисто и тяжело: хвост.';
+
+  @override
+  String get stillIdle => 'Ничего не капает: огонь погашен.';
+
+  @override
+  String get stillDry => 'В чане нет воды: змеевик раскаляется!';
+
+  @override
+  String get stillSpoiled => 'Змеевик перегрелся, перегонка испорчена.';
+
+  @override
+  String get stillLost => 'Стакан сердца нечист или недостаточно полон.';
+
+  @override
+  String get stillReset => 'Вылить и начать снова';
+
+  @override
+  String get spectrumInstruction =>
+      'Ведите лампу по её диапазонам, пока изображение не прояснится, и записывайте, что показывает каждый диапазон.';
+
+  @override
+  String get spectrumRecord => 'Записать';
+
+  @override
+  String get spectrumBlurred => 'В этом положении ничего не видно.';
+
+  @override
+  String get spectrumAlready => 'Эта пластина уже записана.';
+
+  @override
+  String spectrumRecorded(int count, int total) {
+    return 'Записано пластин: $count из $total';
+  }
+
+  @override
+  String get spectrumLayInstruction =>
+      'Положите пластины на портрет в порядке жизни картины, начиная с самой ранней.';
+
+  @override
+  String get spectrumWrongOrder =>
+      'Не в порядке жизни картины. Пластины возвращаются.';
+
+  @override
+  String get receiptCaption => 'Чтобы сохранить имя';
 }

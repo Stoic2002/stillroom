@@ -37,6 +37,11 @@ final class SaveSnapshot {
 
   /// The text key of the keeper's note found in [episodeId], if any.
   String? keeperNote(String episodeId) => file.keeperNotes[episodeId];
+
+  /// How many of the keeper's notes have been found in tales other than
+  /// [episodeId]: the stars on the shelves.
+  int starsBesides(String episodeId) =>
+      file.keeperNotes.keys.where((id) => id != episodeId).length;
 }
 
 /// The single save slot (PRD FR-09): loaded once at start-up, written on

@@ -1,0 +1,554 @@
+{
+  "id": "study",
+  "background": "images/scenes/stillroom_keeper/study.png",
+  "exits": [
+    {
+      "direction": "back",
+      "to": "behind"
+    },
+    {
+      "id": "window",
+      "to": "window",
+      "rect": [
+        0.03,
+        0.14,
+        0.1,
+        0.48
+      ]
+    }
+  ],
+  "hotspots": [
+    {
+      "id": "drafts",
+      "rect": [
+        0.12,
+        0.53,
+        0.28,
+        0.1
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.study.drafts"
+        },
+        {
+          "type": "setFlag",
+          "flag": "read_drafts",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "letters_3",
+      "rect": [
+        0.13,
+        0.585,
+        0.05,
+        0.04
+      ],
+      "when": [
+        {
+          "flag": "stars_3",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.study.star_3"
+        }
+      ]
+    },
+    {
+      "id": "letters_6",
+      "rect": [
+        0.185,
+        0.585,
+        0.05,
+        0.04
+      ],
+      "when": [
+        {
+          "flag": "stars_6",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.study.star_6"
+        }
+      ]
+    },
+    {
+      "id": "letters_9",
+      "rect": [
+        0.24,
+        0.585,
+        0.05,
+        0.04
+      ],
+      "when": [
+        {
+          "flag": "stars_9",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.study.star_9"
+        }
+      ]
+    },
+    {
+      "id": "letters_12",
+      "rect": [
+        0.29500000000000004,
+        0.585,
+        0.05,
+        0.04
+      ],
+      "when": [
+        {
+          "flag": "stars_12",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.study.star_12"
+        }
+      ]
+    },
+    {
+      "id": "letters_15",
+      "rect": [
+        0.35,
+        0.585,
+        0.05,
+        0.04
+      ],
+      "when": [
+        {
+          "flag": "stars_15",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "page_turn"
+        },
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.study.star_15"
+        }
+      ]
+    },
+    {
+      "id": "portrait_grimed",
+      "rect": [
+        0.42,
+        0.14,
+        0.16,
+        0.38
+      ],
+      "when": [
+        {
+          "flag": "cleaned",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.study.portrait_grimed"
+        }
+      ],
+      "onUseItem": [
+        {
+          "item": "spirit",
+          "actions": [
+            {
+              "type": "playSound",
+              "sound": "cloth"
+            },
+            {
+              "type": "removeItem",
+              "item": "spirit"
+            },
+            {
+              "type": "setFlag",
+              "flag": "cleaned",
+              "value": true
+            },
+            {
+              "type": "showText",
+              "key": "stillroom_keeper.study.clean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "portrait_lamp",
+      "rect": [
+        0.42,
+        0.14,
+        0.16,
+        0.38
+      ],
+      "when": [
+        {
+          "flag": "cleaned",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "spectrum",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.study.lamp"
+        },
+        {
+          "type": "openPuzzle",
+          "puzzle": "spectrum"
+        }
+      ]
+    },
+    {
+      "id": "portrait_whole",
+      "rect": [
+        0.42,
+        0.14,
+        0.16,
+        0.38
+      ],
+      "when": [
+        {
+          "puzzleSolved": "spectrum",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.study.portrait_whole"
+        }
+      ]
+    },
+    {
+      "id": "coat",
+      "rect": [
+        0.72,
+        0.19,
+        0.1,
+        0.42
+      ],
+      "when": [
+        {
+          "everHadItem": "tinder",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "cloth"
+        },
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.study.coat"
+        },
+        {
+          "type": "pickItem",
+          "item": "tinder"
+        }
+      ]
+    },
+    {
+      "id": "coat_lining",
+      "rect": [
+        0.72,
+        0.19,
+        0.1,
+        0.42
+      ],
+      "when": [
+        {
+          "everHadItem": "tinder",
+          "equals": true
+        },
+        {
+          "flag": "found_note",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "playSound",
+          "sound": "cloth"
+        },
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.study.coat_lining"
+        },
+        {
+          "type": "setFlag",
+          "flag": "found_note",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "coat_after",
+      "rect": [
+        0.72,
+        0.19,
+        0.1,
+        0.42
+      ],
+      "when": [
+        {
+          "flag": "found_note",
+          "equals": true
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.study.coat_after"
+        }
+      ]
+    },
+    {
+      "id": "hester",
+      "rect": [
+        0.555,
+        0.374,
+        0.07,
+        0.383
+      ],
+      "when": [
+        {
+          "puzzleSolved": "spectrum",
+          "equals": true
+        },
+        {
+          "flag": "she_went",
+          "equals": false
+        }
+      ],
+      "onTap": [
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.study.hester_1"
+        },
+        {
+          "type": "showText",
+          "key": "stillroom_keeper.study.hester_2"
+        },
+        {
+          "type": "playSound",
+          "sound": "candle_gutter"
+        },
+        {
+          "type": "setFlag",
+          "flag": "she_went",
+          "value": true
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "portrait_grimed",
+      "image": "images/objects/stillroom_keeper/portrait_grimed.png",
+      "rect": [
+        0.42,
+        0.14,
+        0.16,
+        0.38
+      ],
+      "when": [
+        {
+          "flag": "cleaned",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "portrait_scraped",
+      "image": "images/objects/stillroom_keeper/portrait_scraped.png",
+      "rect": [
+        0.42,
+        0.14,
+        0.16,
+        0.38
+      ],
+      "when": [
+        {
+          "flag": "cleaned",
+          "equals": true
+        },
+        {
+          "puzzleSolved": "spectrum",
+          "equals": false
+        }
+      ]
+    },
+    {
+      "id": "portrait_whole",
+      "image": "images/objects/stillroom_keeper/portrait_whole.png",
+      "rect": [
+        0.42,
+        0.14,
+        0.16,
+        0.38
+      ],
+      "when": [
+        {
+          "puzzleSolved": "spectrum",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "letters_3",
+      "image": "images/objects/stillroom_keeper/letters_sprite.png",
+      "rect": [
+        0.13,
+        0.585,
+        0.05,
+        0.04
+      ],
+      "when": [
+        {
+          "flag": "stars_3",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "letters_6",
+      "image": "images/objects/stillroom_keeper/letters_sprite.png",
+      "rect": [
+        0.185,
+        0.585,
+        0.05,
+        0.04
+      ],
+      "when": [
+        {
+          "flag": "stars_6",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "letters_9",
+      "image": "images/objects/stillroom_keeper/letters_sprite.png",
+      "rect": [
+        0.24,
+        0.585,
+        0.05,
+        0.04
+      ],
+      "when": [
+        {
+          "flag": "stars_9",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "letters_12",
+      "image": "images/objects/stillroom_keeper/letters_sprite.png",
+      "rect": [
+        0.29500000000000004,
+        0.585,
+        0.05,
+        0.04
+      ],
+      "when": [
+        {
+          "flag": "stars_12",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "letters_15",
+      "image": "images/objects/stillroom_keeper/letters_sprite.png",
+      "rect": [
+        0.35,
+        0.585,
+        0.05,
+        0.04
+      ],
+      "when": [
+        {
+          "flag": "stars_15",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "hester",
+      "image": "images/objects/stillroom_keeper/hester.png",
+      "rect": [
+        0.555,
+        0.374,
+        0.07,
+        0.383
+      ],
+      "when": [
+        {
+          "puzzleSolved": "spectrum",
+          "equals": true
+        },
+        {
+          "flag": "she_went",
+          "equals": false
+        }
+      ]
+    }
+  ],
+  "creatures": [
+    {
+      "id": "moth",
+      "kind": "moth",
+      "rect": [
+        0.3,
+        0.48,
+        0.08,
+        0.1
+      ]
+    }
+  ]
+}

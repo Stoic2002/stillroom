@@ -177,7 +177,16 @@ enum UiSound {
   stoneLift('stone_lift', Haptic.selection),
 
   /// A deed and its fruit photographed.
-  pairFound('pair_found', Haptic.light);
+  pairFound('pair_found', Haptic.light),
+
+  /// A receipt put to the hand that wrote it.
+  handSorted('hand_sorted', Haptic.selection),
+
+  /// A glass set under the still's spout.
+  glassMove('glass_move', Haptic.selection),
+
+  /// A plate recorded, or laid on the portrait.
+  layerFound('layer_found', Haptic.light);
 
   const UiSound(this.id, this.haptic);
 

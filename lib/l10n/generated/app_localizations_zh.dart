@@ -795,4 +795,103 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get casingFruit => '果报';
+
+  @override
+  String get handsInstruction => '先选一张配方，再选写它的那只手：看它的 g、长 s、「和」字的写法，还有字的倾斜。';
+
+  @override
+  String get handsCheck => '核对';
+
+  @override
+  String handsWrong(int count) {
+    return '$count 张配错了手，已退回。';
+  }
+
+  @override
+  String handsSorted(int done, int total) {
+    return '已分好：$done / $total';
+  }
+
+  @override
+  String get stillInstruction => '添火，让冷水一直流着，滴液一变就挪杯子：酒头、酒心、酒尾。留下酒心。';
+
+  @override
+  String get stillFire => '火';
+
+  @override
+  String get stillFireOut => '熄灭';
+
+  @override
+  String get stillFireGentle => '文火';
+
+  @override
+  String get stillFireFierce => '武火';
+
+  @override
+  String get stillWater => '冷水';
+
+  @override
+  String get stillWaterOn => '在流';
+
+  @override
+  String get stillWaterOff => '停了';
+
+  @override
+  String get stillGlassHeads => '酒头';
+
+  @override
+  String get stillGlassHeart => '酒心';
+
+  @override
+  String get stillGlassTails => '酒尾';
+
+  @override
+  String get stillDripHeads => '浑浊刺鼻：酒头。';
+
+  @override
+  String get stillDripHeart => '清亮香甜：酒心。';
+
+  @override
+  String get stillDripTails => '油腻沉重：酒尾。';
+
+  @override
+  String get stillIdle => '什么也没流出来：火灭着。';
+
+  @override
+  String get stillDry => '桶里没水：蛇管越来越烫！';
+
+  @override
+  String get stillSpoiled => '蛇管烧热了，这一锅白蒸了。';
+
+  @override
+  String get stillLost => '酒心杯里不干净，或者不够满。';
+
+  @override
+  String get stillReset => '倒空杯子，重新来';
+
+  @override
+  String get spectrumInstruction => '沿着灯的波段转动，直到画面清楚，把每个波段显出的东西记录下来。';
+
+  @override
+  String get spectrumRecord => '记录';
+
+  @override
+  String get spectrumBlurred => '这个位置什么都看不清。';
+
+  @override
+  String get spectrumAlready => '这张底片已经记录过了。';
+
+  @override
+  String spectrumRecorded(int count, int total) {
+    return '已记录的底片：$count / $total';
+  }
+
+  @override
+  String get spectrumLayInstruction => '按这幅画的经历，从最早的开始，把底片一张张叠到肖像上。';
+
+  @override
+  String get spectrumWrongOrder => '不是这幅画的顺序。底片退回了。';
+
+  @override
+  String get receiptCaption => '留住一个名字之法';
 }

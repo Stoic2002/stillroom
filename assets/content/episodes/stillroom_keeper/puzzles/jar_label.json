@@ -1,0 +1,64 @@
+{
+  "id": "jar_label",
+  "type": "deduction",
+  "background": "images/scenes/stillroom_keeper/label_close.png",
+  "config": {
+    "form": "receipt",
+    "sentences": [
+      {
+        "textKey": "stillroom_keeper.label.s1",
+        "blanks": [
+          "hester_croft",
+          "stillroom",
+          "her_own"
+        ]
+      }
+    ],
+    "words": [
+      "hester_croft",
+      "stillroom",
+      "her_own",
+      "witch",
+      "alchemist",
+      "ghost",
+      "the_girl"
+    ],
+    "nearMiss": 1
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "still_drip"
+    },
+    {
+      "type": "showText",
+      "key": "stillroom_keeper.label.done"
+    },
+    {
+      "type": "showText",
+      "key": "stillroom_keeper.ending.found"
+    },
+    {
+      "type": "showText",
+      "key": "stillroom_keeper.ending.after"
+    },
+    {
+      "type": "showText",
+      "key": "stillroom_keeper.ending.note"
+    },
+    {
+      "type": "endEpisode"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.stillroom_keeper.jar_label.1"
+    },
+    {
+      "key": "hint.stillroom_keeper.jar_label.2"
+    },
+    {
+      "key": "hint.stillroom_keeper.jar_label.3"
+    }
+  ]
+}

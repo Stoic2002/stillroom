@@ -1,0 +1,16 @@
+{
+  "items": [
+    {
+      "id": "tinder",
+      "nameKey": "item.stillroom_keeper.tinder.name",
+      "descKey": "item.stillroom_keeper.tinder.desc",
+      "icon": "images/items/stillroom_keeper/tinder.png"
+    },
+    {
+      "id": "spirit",
+      "nameKey": "item.stillroom_keeper.spirit.name",
+      "descKey": "item.stillroom_keeper.spirit.desc",
+      "icon": "images/items/stillroom_keeper/spirit.png"
+    }
+  ]
+}

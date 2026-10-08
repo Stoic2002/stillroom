@@ -850,4 +850,109 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get casingFruit => 'Fruit';
+
+  @override
+  String get handsInstruction =>
+      'Pick a receipt, then the hand that wrote it: look at its g, its long s, its \'and\', and its slant.';
+
+  @override
+  String get handsCheck => 'Check';
+
+  @override
+  String handsWrong(int count) {
+    return '$count put to the wrong hand came back.';
+  }
+
+  @override
+  String handsSorted(int done, int total) {
+    return 'Sorted: $done of $total';
+  }
+
+  @override
+  String get stillInstruction =>
+      'Feed the fire, keep the cold water running, and move the glass as the drip changes: heads, heart, tails. Keep the heart.';
+
+  @override
+  String get stillFire => 'Fire';
+
+  @override
+  String get stillFireOut => 'Out';
+
+  @override
+  String get stillFireGentle => 'Gentle';
+
+  @override
+  String get stillFireFierce => 'Fierce';
+
+  @override
+  String get stillWater => 'Cold water';
+
+  @override
+  String get stillWaterOn => 'Running';
+
+  @override
+  String get stillWaterOff => 'Stopped';
+
+  @override
+  String get stillGlassHeads => 'Heads';
+
+  @override
+  String get stillGlassHeart => 'Heart';
+
+  @override
+  String get stillGlassTails => 'Tails';
+
+  @override
+  String get stillDripHeads => 'Cloudy and sharp: the heads.';
+
+  @override
+  String get stillDripHeart => 'Clear and sweet: the heart.';
+
+  @override
+  String get stillDripTails => 'Oily and heavy: the tails.';
+
+  @override
+  String get stillIdle => 'Nothing comes over: the fire is out.';
+
+  @override
+  String get stillDry => 'No water in the tub: the worm is running hot!';
+
+  @override
+  String get stillSpoiled => 'The worm ran hot and the run is spoiled.';
+
+  @override
+  String get stillLost =>
+      'The heart\'s glass is not clean, or not full enough.';
+
+  @override
+  String get stillReset => 'Empty the glasses and start again';
+
+  @override
+  String get spectrumInstruction =>
+      'Turn the lamp along its bands until the picture comes clear, and record what each band shows.';
+
+  @override
+  String get spectrumRecord => 'Record';
+
+  @override
+  String get spectrumBlurred => 'Nothing clear at this setting.';
+
+  @override
+  String get spectrumAlready => 'That plate is already recorded.';
+
+  @override
+  String spectrumRecorded(int count, int total) {
+    return 'Plates recorded: $count of $total';
+  }
+
+  @override
+  String get spectrumLayInstruction =>
+      'Lay the plates on the portrait in the order of the painting\'s life, the oldest first.';
+
+  @override
+  String get spectrumWrongOrder =>
+      'Not in the painting\'s order. The plates come back.';
+
+  @override
+  String get receiptCaption => 'To keep a name';
 }

@@ -313,6 +313,7 @@ a tap near it may startle it. They never block taps.
 | `seal` | A bearded seal lying on a floe (the area's bottom centre), now and then raising its head; slips into the water when tapped, its head seen off the floe a while, then hauls out again | `splash` |
 | `heron` | Stands in the shallows on long legs (the area's bottom centre is its feet), now and then strikes at the water; lifts off slowly when tapped, comes back | `wings_flutter` |
 | `eagle` | Turns in slow circles high over its area, on broad still wings; too high to startle | `eagle_cry` now and then |
+| `cat` | Asleep curled at the area's bottom centre, breathing, an ear flicking now and then; when tapped it lifts its head, blinks, and settles again | `cat_purr` |
 
 Pick creatures that belong to the tale's place and **season**. For example,
 Flannan in December has gulls and fulmars, and no puffins or flowering
@@ -552,6 +553,7 @@ filled slot swaps them.
 | `post` | A palisade post: furrowed bark at both edges, a band stripped to pale wood, the caption `postCaption` and the sentences cut in capitals | — |
 | `marker` | A city's stone site marker: grey granite flecked with crystal, a bevelled edge, a cut line framing the face, the caption `markerCaption` cut above, the sentences cut below | — |
 | `colophon` | A manuscript's colophon: burnished paper in a thin brown double rule, scorched at one corner, the caption `colophonCaption`, the sentences centred and narrowing, closed by a triangle of dots | — |
+| `receipt` | A page of a household receipt book: laid paper, a ruled margin, the heading `receiptCaption` in an old italic, the sentences as a receipt written by hand | — |
 
 Used so far: Whitechapel `table` (the five frames), Semarang `telegram`,
 Flannan `correction` (the legend's account), Pompeii `board` (the
@@ -565,7 +567,8 @@ Zimbabwe 1871 `cartouche` (where the old maps wrote Ophir), Dyatlov Pass
 `marker` (the site's stone, its face left smooth for what is known),
 Roanoke 1590 `post` (under the word the colonists cut), Franklin 1845
 `admiralty` (a fresh copy of the form left in the cairn), Borobudur 1814
-`lontar` (palm leaves, as Java wrote).
+`lontar` (palm leaves, as Java wrote), the Stillroom `receipt` (the blank
+page at the end of the keeper's book).
 
 ### `clockHands`: set the hands
 
@@ -1382,6 +1385,82 @@ Roanoke 1590 `post` (under the word the colonists cut), Franklin 1845
 - **Validation:** 2 to 6 columns, 4 to 16 panels, every `pair` one deed
   and one `fruit`.
 
+### `hands`: a receipt book sorted by hand
+
+```json
+"config": {
+  "hands": [
+    { "labelKey": "ep.hand.mistress", "g": 1, "s": 0, "amp": 1, "slant": 1 }
+  ],
+  "receipts": [
+    { "labelKey": "ep.receipt.rosewater", "hand": 3, "lacks": ["amp"] }
+  ]
+}
+```
+
+- **What the player sees:** a strip for each hand at the top, its g, its
+  s and its "and" written large and slanted as the hand slants; below,
+  the receipts as cards, each a title, lines of writing, and its g, s and
+  "and" picked out (a faint rule for a letter in `lacks`: the receipt has
+  none of it).
+- **Tells:** `g` 0 an open tail, 1 looped, 2 straight down; `s` 0 a long
+  s with a hook, 1 a round s, 2 a long s crossed; `amp` 0 an ampersand,
+  1 "et", 2 a plain cross; `slant` -1 back, 0 upright, 1 forward.
+- **Playing:** tap a receipt, then a hand (`hand_sorted`); tap a sorted
+  receipt to take it back. With every receipt sorted, Check sends the
+  wrong ones back (a mistake).
+- **Validation:** 2 to 5 hands, no two with the same tells; 4 to 12
+  receipts, every hand writing one; a receipt shows at least one letter,
+  and what it shows, with the slant, fits only its own hand.
+
+### `still`: keep the heart of the run
+
+```json
+"config": {
+  "heads": 2, "heart": 8, "tails": 3,
+  "rates": [0, 0.8, 2.0],
+  "blur": [0.3, 3.0],
+  "keep": 0.8, "tolerance": 0.6, "dry": 4
+}
+```
+
+- **What the player sees:** a copper still on its furnace, the worm in a
+  tub, the spout dripping into one of three glasses (heads, heart,
+  tails); the drip's colour shows what is coming over (cloudy, clear,
+  oily). Buttons: the fire (out, gentle, fierce), the water (off, on),
+  the glass under the spout.
+- **Playing:** live: what comes over runs at `rates[heat]` measures a
+  second. Around each cut, `blur[heat - 1]` measures come over mixed. No
+  water for `dry` seconds with the fire lit spoils the run; at the end of
+  the run it is kept when at least `keep` of the heart is in the heart's
+  glass with at most `tolerance` of the rest; otherwise lost. Start again
+  to retry (`glass_move`, `still_drip`).
+- **Validation:** all measures above 0; three `rates`, the first 0,
+  rising; two `blur`; `keep` 0–1.
+
+### `spectrum`: a painting looked through, band by band
+
+```json
+"config": {
+  "bands": [
+    { "id": "uv", "labelKey": "ep.band.uv", "captionKey": "ep.band.uv_shows",
+      "at": 0.14, "age": 2 }
+  ],
+  "tolerance": 0.04
+}
+```
+
+- **What the player sees:** the portrait on an easel as the lamp's dial
+  shows it (`id` picks the look: `uv`, `visible`, `infrared`, `xray`;
+  between bands the picture blurs); a dial; a Record button; the plates
+  recorded so far, each with its caption.
+- **Playing:** tune the dial; within `tolerance` of a band's `at` the
+  picture is sharp and Record keeps its plate (`layer_found`); elsewhere
+  it is "nothing clear". With every plate recorded, lay them oldest first
+  (`age` 0 up): a wrong one is a mistake and the laying starts over.
+- **Validation:** 2 to 6 bands; `at` 0–1, at least twice `tolerance`
+  apart; every `age` from 0 once.
+
 ## Words and the jar's label
 
 `words` in `game.json` declares what the player can note down:
@@ -1424,6 +1503,10 @@ Roanoke 1590 `post` (under the word the colonists cut), Franklin 1845
   behind curiosity: a second look, a door that appears later.
 - **Showing the note:** the note text is content like any other; show it
   with `showText` where the secret is found.
+- **Stars elsewhere:** a tale that declares bool flags named `stars_<n>`
+  gets each one set, on load and on a new game, while at least n keeper's
+  notes have been found in *other* tales. The keeper's tale declares
+  `stars_3` … `stars_15` to show her letters.
 
 ## Hints
 
@@ -1581,3 +1664,4 @@ warnings show in the debug panel).
 | 2026-10-07 | post-M6 | Puzzle types `margins` and `sonar`; deduction form `admiralty`; creature `seal`; interface sounds `sheet_turn`, `lane_run`, `echo_mark`. Episode `franklin_1845` (shelf IV) replaces `sealed_franklin_1845`; the sealed teaser on shelf IV is now `sealed_indonesia_shelf4`, for the Indonesian tale still to be chosen. |
 | 2026-10-07 | post-M6 | Puzzle types `mudra` and `casing`; deduction form `lontar`; creature `swifts`; interface sounds `niche_set`, `stone_lift`, `pair_found`; `Room.floorGrid` takes 0 columns. Episode `borobudur_1814` (shelf IV) replaces `sealed_indonesia_shelf4`; shelf IV is full; a sealed `sealed_keeper` (shelf V, `unlockAfter` 15) marks the keeper's tale. |
 | 2026-10-08 | post-M6 | Echoes are drawn with a body and a face (`figure_kit.dart`, `Figure`, `paintFigure`); several echo rects moved so their feet stand on the floor. Draft art for the keeper's tale (`keeper_art.dart`). |
+| 2026-10-08 | post-M6 | Puzzle types `hands`, `still` and `spectrum`; deduction form `receipt`; creature `cat`; flags `stars_<n>`; interface sounds `hand_sorted`, `glass_move`, `layer_found`. Episode `stillroom_keeper` (shelf V, `unlockAfter` 15) replaces `sealed_keeper`; every shelf is full. |

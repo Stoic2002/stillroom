@@ -1,0 +1,120 @@
+{
+  "id": "hands",
+  "type": "hands",
+  "background": "images/scenes/stillroom_keeper/board.png",
+  "config": {
+    "hands": [
+      {
+        "labelKey": "stillroom_keeper.hand.mistress",
+        "g": 1,
+        "s": 0,
+        "amp": 1,
+        "slant": 1
+      },
+      {
+        "labelKey": "stillroom_keeper.hand.cook",
+        "g": 2,
+        "s": 1,
+        "amp": 2,
+        "slant": 0
+      },
+      {
+        "labelKey": "stillroom_keeper.hand.steward",
+        "g": 0,
+        "s": 2,
+        "amp": 0,
+        "slant": -1
+      },
+      {
+        "labelKey": "stillroom_keeper.hand.notes",
+        "g": 1,
+        "s": 1,
+        "amp": 0,
+        "slant": 1
+      }
+    ],
+    "receipts": [
+      {
+        "labelKey": "stillroom_keeper.receipt.rosewater",
+        "hand": 3,
+        "lacks": [
+          "amp"
+        ]
+      },
+      {
+        "labelKey": "stillroom_keeper.receipt.walnuts",
+        "hand": 1,
+        "lacks": [
+          "g"
+        ]
+      },
+      {
+        "labelKey": "stillroom_keeper.receipt.coals",
+        "hand": 2,
+        "lacks": [
+          "g"
+        ]
+      },
+      {
+        "labelKey": "stillroom_keeper.receipt.angelica",
+        "hand": 0,
+        "lacks": [
+          "s"
+        ]
+      },
+      {
+        "labelKey": "stillroom_keeper.receipt.cordial",
+        "hand": 3,
+        "lacks": [
+          "s"
+        ]
+      },
+      {
+        "labelKey": "stillroom_keeper.receipt.wages",
+        "hand": 2,
+        "lacks": [
+          "s"
+        ]
+      },
+      {
+        "labelKey": "stillroom_keeper.receipt.pie",
+        "hand": 1,
+        "lacks": [
+          "amp"
+        ]
+      },
+      {
+        "labelKey": "stillroom_keeper.receipt.lavender",
+        "hand": 3
+      },
+      {
+        "labelKey": "stillroom_keeper.receipt.sallet",
+        "hand": 0,
+        "lacks": [
+          "amp"
+        ]
+      }
+    ]
+  },
+  "onSolved": [
+    {
+      "type": "playSound",
+      "sound": "page_turn"
+    },
+    {
+      "type": "showText",
+      "key": "stillroom_keeper.stillroom.book_done"
+    }
+  ],
+  "hints": [
+    {
+      "key": "hint.stillroom_keeper.hands.1"
+    },
+    {
+      "key": "hint.stillroom_keeper.hands.2"
+    },
+    {
+      "key": "hint.stillroom_keeper.hands.3"
+    }
+  ]
+}

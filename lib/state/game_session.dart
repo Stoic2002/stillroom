@@ -103,7 +103,25 @@ class GameSession extends _$GameSession {
     } on EngineException {
       game = engine.newGame();
     }
+    game = _withStars(game);
     return GameSessionState(episode: episode, engine: engine, game: game);
+  }
+
+  /// Fills the stars flags: a tale that declares bool flags named
+  /// `stars_<n>` (the keeper's own tale) gets each set while at least `n`
+  /// of the keeper's notes have been found on the other shelves.
+  GameState _withStars(GameState game) {
+    final pattern = RegExp(r'^stars_(\d+)$');
+    final stars = game.flags.keys.where(pattern.hasMatch).toList();
+    if (stars.isEmpty) return game;
+    final found = ref.read(saveRepositoryProvider).starsBesides(game.episodeId);
+    return game.copyWith(
+      flags: {
+        ...game.flags,
+        for (final key in stars)
+          key: found >= int.parse(pattern.firstMatch(key)!.group(1)!),
+      },
+    );
   }
 
   /// A tap on the scene at normalized coordinates. [minWidth]/[minHeight]
@@ -351,7 +369,7 @@ class GameSession extends _$GameSession {
   void debugRestart() {
     final session = _ready;
     if (session == null) return;
-    final game = session.engine.newGame();
+    final game = _withStars(session.engine.newGame());
     _autosave(game);
     state = AsyncData(
       session._next(

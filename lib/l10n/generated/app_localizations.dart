@@ -1517,6 +1517,192 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Fruit'**
   String get casingFruit;
+
+  /// Hands puzzle: what to do.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a receipt, then the hand that wrote it: look at its g, its long s, its \'and\', and its slant.'**
+  String get handsInstruction;
+
+  /// Hands puzzle: button to check the sorting.
+  ///
+  /// In en, this message translates to:
+  /// **'Check'**
+  String get handsCheck;
+
+  /// Hands puzzle: receipts put to the wrong hand came back.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} put to the wrong hand came back.'**
+  String handsWrong(int count);
+
+  /// Hands puzzle: progress.
+  ///
+  /// In en, this message translates to:
+  /// **'Sorted: {done} of {total}'**
+  String handsSorted(int done, int total);
+
+  /// Still puzzle: what to do.
+  ///
+  /// In en, this message translates to:
+  /// **'Feed the fire, keep the cold water running, and move the glass as the drip changes: heads, heart, tails. Keep the heart.'**
+  String get stillInstruction;
+
+  /// Still puzzle: label of the fire control.
+  ///
+  /// In en, this message translates to:
+  /// **'Fire'**
+  String get stillFire;
+
+  /// Still puzzle: fire level, out.
+  ///
+  /// In en, this message translates to:
+  /// **'Out'**
+  String get stillFireOut;
+
+  /// Still puzzle: fire level, gentle.
+  ///
+  /// In en, this message translates to:
+  /// **'Gentle'**
+  String get stillFireGentle;
+
+  /// Still puzzle: fire level, fierce.
+  ///
+  /// In en, this message translates to:
+  /// **'Fierce'**
+  String get stillFireFierce;
+
+  /// Still puzzle: label of the water control.
+  ///
+  /// In en, this message translates to:
+  /// **'Cold water'**
+  String get stillWater;
+
+  /// Still puzzle: water running.
+  ///
+  /// In en, this message translates to:
+  /// **'Running'**
+  String get stillWaterOn;
+
+  /// Still puzzle: water stopped.
+  ///
+  /// In en, this message translates to:
+  /// **'Stopped'**
+  String get stillWaterOff;
+
+  /// Still puzzle: the glass for the heads.
+  ///
+  /// In en, this message translates to:
+  /// **'Heads'**
+  String get stillGlassHeads;
+
+  /// Still puzzle: the glass for the heart.
+  ///
+  /// In en, this message translates to:
+  /// **'Heart'**
+  String get stillGlassHeart;
+
+  /// Still puzzle: the glass for the tails.
+  ///
+  /// In en, this message translates to:
+  /// **'Tails'**
+  String get stillGlassTails;
+
+  /// Still puzzle: what drips now.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloudy and sharp: the heads.'**
+  String get stillDripHeads;
+
+  /// Still puzzle: what drips now.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear and sweet: the heart.'**
+  String get stillDripHeart;
+
+  /// Still puzzle: what drips now.
+  ///
+  /// In en, this message translates to:
+  /// **'Oily and heavy: the tails.'**
+  String get stillDripTails;
+
+  /// Still puzzle: nothing comes over.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing comes over: the fire is out.'**
+  String get stillIdle;
+
+  /// Still puzzle: warning, no water.
+  ///
+  /// In en, this message translates to:
+  /// **'No water in the tub: the worm is running hot!'**
+  String get stillDry;
+
+  /// Still puzzle: the run spoiled.
+  ///
+  /// In en, this message translates to:
+  /// **'The worm ran hot and the run is spoiled.'**
+  String get stillSpoiled;
+
+  /// Still puzzle: the run ended without a clean, full heart.
+  ///
+  /// In en, this message translates to:
+  /// **'The heart\'s glass is not clean, or not full enough.'**
+  String get stillLost;
+
+  /// Still puzzle: start the run again.
+  ///
+  /// In en, this message translates to:
+  /// **'Empty the glasses and start again'**
+  String get stillReset;
+
+  /// Spectrum puzzle: what to do.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn the lamp along its bands until the picture comes clear, and record what each band shows.'**
+  String get spectrumInstruction;
+
+  /// Spectrum puzzle: button to record a plate.
+  ///
+  /// In en, this message translates to:
+  /// **'Record'**
+  String get spectrumRecord;
+
+  /// Spectrum puzzle: nothing clear.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing clear at this setting.'**
+  String get spectrumBlurred;
+
+  /// Spectrum puzzle: plate recorded already.
+  ///
+  /// In en, this message translates to:
+  /// **'That plate is already recorded.'**
+  String get spectrumAlready;
+
+  /// Spectrum puzzle: progress.
+  ///
+  /// In en, this message translates to:
+  /// **'Plates recorded: {count} of {total}'**
+  String spectrumRecorded(int count, int total);
+
+  /// Spectrum puzzle: second step, laying the plates in order.
+  ///
+  /// In en, this message translates to:
+  /// **'Lay the plates on the portrait in the order of the painting\'s life, the oldest first.'**
+  String get spectrumLayInstruction;
+
+  /// Spectrum puzzle: plates laid out of order.
+  ///
+  /// In en, this message translates to:
+  /// **'Not in the painting\'s order. The plates come back.'**
+  String get spectrumWrongOrder;
+
+  /// The receipt-book label form: the heading of the receipt, like an old recipe title.
+  ///
+  /// In en, this message translates to:
+  /// **'To keep a name'**
+  String get receiptCaption;
 }
 
 class _AppLocalizationsDelegate

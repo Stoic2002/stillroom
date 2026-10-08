@@ -804,4 +804,107 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get casingFruit => '과보';
+
+  @override
+  String get handsInstruction =>
+      '레시피 하나를 고른 뒤 그것을 쓴 손을 고르세요. g의 꼬리, 긴 s, \'그리고\'를 쓰는 법, 글씨의 기울기를 보세요.';
+
+  @override
+  String get handsCheck => '확인';
+
+  @override
+  String handsWrong(int count) {
+    return '$count장은 다른 손이었습니다. 되돌렸습니다.';
+  }
+
+  @override
+  String handsSorted(int done, int total) {
+    return '나눈 수: $done / $total';
+  }
+
+  @override
+  String get stillInstruction =>
+      '불을 지피고 찬물을 계속 흘리며, 방울이 바뀌면 잔을 옮기세요. 초류, 본류, 후류. 본류를 지키세요.';
+
+  @override
+  String get stillFire => '불';
+
+  @override
+  String get stillFireOut => '꺼짐';
+
+  @override
+  String get stillFireGentle => '약불';
+
+  @override
+  String get stillFireFierce => '센불';
+
+  @override
+  String get stillWater => '찬물';
+
+  @override
+  String get stillWaterOn => '흐름';
+
+  @override
+  String get stillWaterOff => '멈춤';
+
+  @override
+  String get stillGlassHeads => '초류';
+
+  @override
+  String get stillGlassHeart => '본류';
+
+  @override
+  String get stillGlassTails => '후류';
+
+  @override
+  String get stillDripHeads => '탁하고 코를 찌른다. 초류.';
+
+  @override
+  String get stillDripHeart => '맑고 달콤하다. 본류.';
+
+  @override
+  String get stillDripTails => '기름지고 무겁다. 후류.';
+
+  @override
+  String get stillIdle => '아무것도 떨어지지 않는다. 불이 꺼져 있다.';
+
+  @override
+  String get stillDry => '통에 물이 없다. 냉각관이 뜨거워진다!';
+
+  @override
+  String get stillSpoiled => '냉각관이 달아올라 이번 증류는 망쳤다.';
+
+  @override
+  String get stillLost => '본류 잔이 깨끗하지 않거나 충분히 차지 않았다.';
+
+  @override
+  String get stillReset => '잔을 비우고 다시 시작';
+
+  @override
+  String get spectrumInstruction =>
+      '램프를 대역을 따라 돌려 그림이 또렷해지면, 각 대역이 보여 주는 것을 기록하세요.';
+
+  @override
+  String get spectrumRecord => '기록';
+
+  @override
+  String get spectrumBlurred => '이 위치에서는 아무것도 또렷하지 않다.';
+
+  @override
+  String get spectrumAlready => '그 건판은 이미 기록했다.';
+
+  @override
+  String spectrumRecorded(int count, int total) {
+    return '기록한 건판: $count / $total';
+  }
+
+  @override
+  String get spectrumLayInstruction =>
+      '그림이 지나온 순서대로, 가장 오래된 것부터 건판을 초상화 위에 놓으세요.';
+
+  @override
+  String get spectrumWrongOrder => '그림의 순서가 아니다. 건판이 돌아왔다.';
+
+  @override
+  String get receiptCaption => '이름을 간직하는 법';
 }

@@ -28,6 +28,9 @@ enum Hat {
   cushion,
   roundCap,
   headband,
+
+  /// A linen cap gathered over the head, a ruffle round the face.
+  mobCap,
 }
 
 /// Where an arm is: its elbow and hand.
@@ -848,6 +851,33 @@ final class _Painter {
         fill(dome(0.38, -0.32, inset: -0.02), col, shade: 0.3);
       case Hat.headband:
         fill(band(0, 1, 0.24, 0.34), col, shade: 0.2);
+      case Hat.mobCap:
+        fill(dome(0.42, -0.42, inset: -0.12), col, shade: 0.22);
+        // The ruffle framing the face, and the lappets at the sides.
+        fill(
+          _inHead([
+            (-0.06, 0.46),
+            (0.5, 0.05),
+            (1.06, 0.46),
+            (1.0, 0.3),
+            (0.5, -0.08),
+            (0.0, 0.3),
+          ]),
+          Color.lerp(col, const Color(0xFFFFFFFF), 0.3)!,
+          shade: 0.15,
+        );
+        for (final x in [-0.1, 0.96]) {
+          fill(
+            _inHead([
+              (x, 0.4),
+              (x + 0.14, 0.4),
+              (x + 0.12, 1.15),
+              (x + 0.02, 1.15),
+            ]),
+            col,
+            shade: 0.2,
+          );
+        }
     }
   }
 

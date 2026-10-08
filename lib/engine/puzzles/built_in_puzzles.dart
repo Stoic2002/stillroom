@@ -11,6 +11,7 @@ import 'darkroom.dart';
 import 'deduction.dart';
 import 'dip.dart';
 import 'dividers.dart';
+import 'hands.dart';
 import 'identify.dart';
 import 'keyring.dart';
 import 'margins.dart';
@@ -31,6 +32,8 @@ import 'slot_placement.dart';
 import 'snowpit.dart';
 import 'sonar.dart';
 import 'sources.dart';
+import 'spectrum.dart';
+import 'still.dart';
 import 'strand.dart';
 import 'strata.dart';
 import 'streets.dart';
@@ -43,8 +46,8 @@ import 'unwatched.dart';
 /// `beamSweep`, `swell`, `roster`, `keyring`, `cipher`, `sources`, `pour`,
 /// `resonance`, `beat`, `unwatched`, `compose`, `strand`, `scan`, `quire`,
 /// `dip`, `courses`, `identify`, `snowpit`, `darkroom`, `strata`,
-/// `streets`, `rings`, `dividers`, `margins`, `sonar`, `mudra` and
-/// `casing`) into [registry].
+/// `streets`, `rings`, `dividers`, `margins`, `sonar`, `mudra`, `casing`,
+/// `hands`, `still` and `spectrum`) into [registry].
 void registerBuiltInPuzzleTypes(PuzzleTypeRegistry registry) {
   registry
     ..register(const CodeLockType())
@@ -84,5 +87,8 @@ void registerBuiltInPuzzleTypes(PuzzleTypeRegistry registry) {
     ..register(const MarginsType())
     ..register(const SonarType())
     ..register(const MudraType())
-    ..register(const CasingType());
+    ..register(const CasingType())
+    ..register(const HandsType())
+    ..register(const StillType())
+    ..register(const SpectrumType());
 }

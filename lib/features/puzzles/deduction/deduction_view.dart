@@ -110,6 +110,7 @@ class _DeductionViewState extends State<DeductionView>
       DeductionForm.post => _post(context, sentenceStyle),
       DeductionForm.admiralty => _admiralty(context, sentenceStyle),
       DeductionForm.lontar => _lontar(context, sentenceStyle),
+      DeductionForm.receipt => _receipt(context, sentenceStyle),
       DeductionForm.board => const SizedBox.shrink(),
     };
 
@@ -655,6 +656,43 @@ class _DeductionViewState extends State<DeductionView>
     );
   }
 
+  /// A page of the household receipt book: the receipt's heading in
+  /// small capitals, the lines below in a careful hand on a ruled page.
+  Widget _receipt(BuildContext context, TextStyle style) {
+    final l10n = AppLocalizations.of(context);
+    final ink = style.copyWith(
+      height: 1.9,
+      fontStyle: FontStyle.italic,
+      color: const Color(0xFF3A2614),
+    );
+    return CustomPaint(
+      painter: const _ReceiptPage(),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(64, 16, 40, 18),
+        child: Column(
+          children: [
+            Text(
+              l10n.receiptCaption,
+              textAlign: TextAlign.center,
+              style: style.copyWith(
+                fontFamily: AppTheme.smallCaps,
+                fontSize: 15,
+                letterSpacing: 2,
+                color: const Color(0xFF6A3A1E),
+              ),
+            ),
+            const SizedBox(height: 4),
+            for (final (i, sentence) in _config.sentences.indexed)
+              Text.rich(
+                TextSpan(style: ink, children: _sentence(context, i, sentence)),
+                textAlign: TextAlign.center,
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
   /// Palm leaves bound on a cord: long pale-gold strips with a hole for
   /// the cord, the letters incised and blackened with soot.
   Widget _lontar(BuildContext context, TextStyle style) {
@@ -1041,6 +1079,66 @@ class _RoutebookPage extends CustomPainter {
 
 /// Palm-leaf strips stacked one under another, each with its cord hole,
 /// the cord running through them, the leaves' edges darker.
+/// A page of an old household book: cream laid paper browned at the
+/// edges, the gutter's shadow on the left, a ruled margin in red ink and
+/// faint lines for the hand.
+class _ReceiptPage extends CustomPainter {
+  const _ReceiptPage();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final page = Offset.zero & size;
+    canvas
+      ..drawRect(
+        page.shift(const Offset(0, 6)),
+        Paint()
+          ..color = const Color(0x88000000)
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 10),
+      )
+      ..drawRect(
+        page,
+        Paint()
+          ..shader = const RadialGradient(
+            radius: 0.9,
+            colors: [Color(0xFFEDE2C4), Color(0xFFD8C69C)],
+          ).createShader(page),
+      )
+      // The gutter: the page curving into the binding.
+      ..drawRect(
+        Rect.fromLTWH(0, 0, 36, size.height),
+        Paint()
+          ..shader = const LinearGradient(
+            colors: [Color(0x66402A10), Color(0x00402A10)],
+          ).createShader(Rect.fromLTWH(0, 0, 36, size.height)),
+      )
+      ..drawLine(
+        const Offset(52, 0),
+        Offset(52, size.height),
+        Paint()
+          ..strokeWidth = 1
+          ..color = const Color(0x88A03A2A),
+      );
+    for (var y = 40.0; y < size.height - 8; y += 22) {
+      canvas.drawLine(
+        Offset(52, y),
+        Offset(size.width - 16, y),
+        Paint()
+          ..strokeWidth = 0.6
+          ..color = const Color(0x223A2614),
+      );
+    }
+    // A small blot where the pen rested.
+    canvas.drawCircle(
+      Offset(size.width - 34, size.height - 18),
+      3,
+      Paint()..color = const Color(0x553A2614),
+    );
+  }
+
+  @override
+  bool shouldRepaint(_ReceiptPage old) => false;
+}
+
 class _PalmLeaves extends CustomPainter {
   const _PalmLeaves();
 

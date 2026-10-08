@@ -799,4 +799,106 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get casingFruit => '報い';
+
+  @override
+  String get handsInstruction =>
+      'レシピを一つ選び、それを書いた手を選んでください。g の形、長い s、「and」の書き方、文字の傾きを見ます。';
+
+  @override
+  String get handsCheck => '確かめる';
+
+  @override
+  String handsWrong(int count) {
+    return '$count 枚は別の手でした。戻しました。';
+  }
+
+  @override
+  String handsSorted(int done, int total) {
+    return '分けた数：$done / $total';
+  }
+
+  @override
+  String get stillInstruction =>
+      '火をくべ、冷たい水を流し続け、しずくが変わったらグラスを動かします。前留、中留、後留。中留を取りなさい。';
+
+  @override
+  String get stillFire => '火';
+
+  @override
+  String get stillFireOut => '消えている';
+
+  @override
+  String get stillFireGentle => '弱火';
+
+  @override
+  String get stillFireFierce => '強火';
+
+  @override
+  String get stillWater => '冷たい水';
+
+  @override
+  String get stillWaterOn => '流れている';
+
+  @override
+  String get stillWaterOff => '止まっている';
+
+  @override
+  String get stillGlassHeads => '前留';
+
+  @override
+  String get stillGlassHeart => '中留';
+
+  @override
+  String get stillGlassTails => '後留';
+
+  @override
+  String get stillDripHeads => '濁って鼻をつく。前留。';
+
+  @override
+  String get stillDripHeart => '澄んで甘い香り。中留。';
+
+  @override
+  String get stillDripTails => '油っぽく重い。後留。';
+
+  @override
+  String get stillIdle => '何も落ちてこない。火が消えている。';
+
+  @override
+  String get stillDry => '桶に水がない。冷却管が熱くなっていく！';
+
+  @override
+  String get stillSpoiled => '冷却管が焼けて、この回は台無しになった。';
+
+  @override
+  String get stillLost => '中留のグラスが濁っているか、量が足りない。';
+
+  @override
+  String get stillReset => 'グラスを空けてやり直す';
+
+  @override
+  String get spectrumInstruction =>
+      'ランプを帯域に沿って回し、像がはっきりしたら、それぞれの帯域に見えるものを記録してください。';
+
+  @override
+  String get spectrumRecord => '記録する';
+
+  @override
+  String get spectrumBlurred => 'この位置では何もはっきりしない。';
+
+  @override
+  String get spectrumAlready => 'その乾板はもう記録してある。';
+
+  @override
+  String spectrumRecorded(int count, int total) {
+    return '記録した乾板：$count / $total';
+  }
+
+  @override
+  String get spectrumLayInstruction => '絵の歩んだ順に、いちばん古いものから乾板を肖像に重ねてください。';
+
+  @override
+  String get spectrumWrongOrder => '絵の順ではない。乾板を戻した。';
+
+  @override
+  String get receiptCaption => '名をしまっておくには';
 }
