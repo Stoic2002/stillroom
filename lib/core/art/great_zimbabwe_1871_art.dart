@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import '../theme/stillroom_palette.dart';
 import 'art_kit.dart';
+import 'depth_kit.dart';
 import 'echo_art.dart';
 import 'whitechapel_1888_art.dart' show jarLabelBoard;
 
@@ -169,6 +170,25 @@ void _dryGrass(Art a, double y, {int seed = 5, int count = 90}) {
   }
 }
 
+/// A soft shadow on the ground along a foot from [x0] to [x1] at [y].
+void _groundShadow(
+  Art a,
+  double x0,
+  double x1,
+  double y, {
+  double strength = 0.35,
+}) => a.canvas.drawOval(
+  Rect.fromLTRB(
+    a.p(x0, 0).dx,
+    a.p(0, y).dy - a.u * 1.4,
+    a.p(x1, 0).dx,
+    a.p(0, y).dy + a.u * 2.6,
+  ),
+  Paint()
+    ..color = Color.fromRGBO(40, 30, 20, strength)
+    ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.u * 1.6),
+);
+
 /// A round granite boulder, its skin splitting off in sheets.
 void _boulder(Art a, Rect r) {
   a
@@ -220,7 +240,9 @@ void _valley(Art a) {
   _msasaTree(a, a.p(0.9, 0.42), a.size.height * 0.32, seed: 3);
   a.fade(a.r(0, 0.6, 1, 0.4), _grass, const Color(0xFFAA9258));
 
-  // The outer wall, curving away: its top an arc, its foot a gentler one.
+  // The outer wall, curving away: its top an arc, its foot a gentler one,
+  // its shadow along the grass.
+  _groundShadow(a, 0.06, 0.82, 0.79, strength: 0.4);
   const top = 0.18;
   final wall = Path()
     ..moveTo(a.size.width * 0.08, a.size.height * 0.34)
@@ -347,6 +369,7 @@ void _valley(Art a) {
   }
 
   // Mauch's tent on the right.
+  _groundShadow(a, 0.8, 1.0, 0.8);
   final tent = Path()
     ..moveTo(a.size.width * 0.82, a.size.height * 0.8)
     ..lineTo(a.size.width * 0.9, a.size.height * 0.44)
@@ -391,7 +414,8 @@ void _camp(Art a) {
   _msasaTree(a, a.p(0.12, 0.5), a.size.height * 0.5, seed: 21);
   _msasaTree(a, a.p(0.66, 0.48), a.size.height * 0.36, seed: 22);
 
-  // The tent behind, its flap open.
+  // The tent behind, its flap open, its far slope in shade.
+  _groundShadow(a, 0.48, 1.0, 0.62);
   final tent = Path()
     ..moveTo(a.size.width * 0.5, a.size.height * 0.62)
     ..lineTo(a.size.width * 0.74, a.size.height * 0.16)
@@ -404,8 +428,14 @@ void _camp(Art a) {
       const Color(0xFF4A3E2E),
       line: 0.3,
     )
+    ..path(
+      a.poly([a.p(0.74, 0.16), a.p(0.98, 0.62), a.p(0.9, 0.62)]),
+      const Color(0x22000000),
+      line: 0,
+    )
     // The tent pole, and the rifle leaning on it.
     ..line(a.p(0.84, 0.66), a.p(0.84, 0.22), _wood, width: 0.9);
+  _groundShadow(a, 0.8, 0.86, 0.665, strength: 0.5);
   // The rifle: a long dark barrel resting on the pole, the wooden stock
   // on the ground, its butt widening to the foot.
   a
@@ -440,8 +470,11 @@ void _camp(Art a) {
       width: 0.35,
     );
 
-  // The folding table.
+  // The folding table: its top seen from a little above, its crossed legs
+  // and their shadow on the grass.
+  _groundShadow(a, 0.25, 0.75, 0.865, strength: 0.4);
   final top = a.r(0.26, 0.5, 0.48, 0.05);
+  Room(a, vp: a.p(0.5, 0.36), depth: 0.3).box(top, _wood, depth: 0.08);
   a
     ..wood(top, base: _wood, grain: 2, line: 0.5)
     ..line(a.p(0.29, 0.55), a.p(0.33, 0.86), _wood, width: 1)
@@ -561,7 +594,8 @@ void _enclosure(Art a) {
     )
     ..line(a.p(0.24, 0.16), a.p(0.24, 0.66), Art.outline, width: 0.5);
 
-  // The conical tower.
+  // The conical tower, its shadow at its foot.
+  _groundShadow(a, 0.53, 0.72, 0.72, strength: 0.45);
   final tower = Path()
     ..moveTo(a.size.width * 0.55, a.size.height * 0.72)
     ..lineTo(a.size.width * 0.58, a.size.height * 0.14)
@@ -596,8 +630,10 @@ void _enclosure(Art a) {
 
   // The fallen doorway: its blocks, and the dark lintel among them.
   final random = math.Random(35);
+  final eye = Room(a, vp: a.p(0.5, 0.5), depth: 0.3);
+  _groundShadow(a, 0.3, 0.52, 0.785);
   for (var i = 0; i < 9; i++) {
-    a.box(
+    eye.box(
       a.r(
         0.31 + random.nextDouble() * 0.17,
         0.7 + random.nextDouble() * 0.07,
@@ -605,6 +641,7 @@ void _enclosure(Art a) {
         0.03,
       ),
       _granite,
+      depth: 0.06,
       line: 0.4,
     );
   }
@@ -706,8 +743,16 @@ void _hill(Art a) {
     (0.12, 0.2, 0.12, 0.26),
     (0.54, 0.22, 0.1, 0.26),
   ]) {
+    _groundShadow(a, x, x + w * 1.1, y + h * 0.96, strength: 0.4);
     _boulder(a, a.r(x, y, w, h));
   }
+  // The wall between them, its top seen from above.
+  _groundShadow(a, 0.19, 0.58, 0.58, strength: 0.4);
+  Room(
+    a,
+    vp: a.p(0.4, 0.3),
+    depth: 0.3,
+  ).box(a.r(0.2, 0.46, 0.36, 0.12), _graniteShade, depth: 0.06);
   _coursed(a, a.r(0.2, 0.46, 0.36, 0.12), seed: 43, row: 1.8);
   a.ink(a.r(0.2, 0.46, 0.36, 0.12), width: 0.4);
 
