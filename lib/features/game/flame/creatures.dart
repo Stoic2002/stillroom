@@ -149,17 +149,15 @@ class _Gecko extends Creature {
   @override
   void render(Canvas canvas) {
     if (_hidden > 0) return;
-    final paint = Paint()..color = _skin.withValues(alpha: _skin.a * _opacity);
+    final a = _opacity;
+    final skin = Paint()..color = _skin.withValues(alpha: _skin.a * a);
+    final shade = Paint()
+      ..color = const Color(0xFF9A8C70).withValues(alpha: 0.7 * a);
     final edge = Paint()
-      ..color = _edge.withValues(alpha: _edge.a * _opacity)
+      ..color = _edge.withValues(alpha: _edge.a * a)
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.2
-      ..strokeCap = StrokeCap.round;
-    final legs = Paint()
-      ..color = paint.color
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 3
-      ..strokeCap = StrokeCap.round;
+      ..strokeWidth = 1
+      ..strokeJoin = StrokeJoin.round;
     canvas
       ..save()
       ..translate(_pos.dx, _pos.dy)
@@ -167,47 +165,97 @@ class _Gecko extends Creature {
     const l = length;
     final moving = _target != null;
     final wiggle = moving ? math.sin(_stride) : 0.0;
-    // Legs: front and back pairs, swinging while it runs.
-    for (final (x, phase) in [(l * 0.18, 0.0), (-l * 0.12, math.pi)]) {
+    // Legs: bent at the elbow, splayed toes ending in pads, swinging while
+    // it runs.
+    for (final (x, front) in [(l * 0.17, true), (-l * 0.13, false)]) {
       for (final side in [-1.0, 1.0]) {
-        final swing = wiggle * side * (phase == 0 ? 1 : -1) * 0.5;
-        final foot = Offset(x + math.cos(swing) * l * 0.1, side * l * 0.2);
-        canvas.drawLine(Offset(x, side * l * 0.05), foot, legs);
+        final swing = wiggle * side * (front ? 1 : -1) * 0.45;
+        final hip = Offset(x, side * l * 0.05);
+        final knee = Offset(
+          x + (front ? 1 : -1) * l * 0.06 + math.sin(swing) * l * 0.04,
+          side * l * 0.15,
+        );
+        final foot = Offset(
+          x + (front ? 1 : -1) * l * 0.1 + math.sin(swing) * l * 0.08,
+          side * l * 0.21,
+        );
+        final limb = Path()
+          ..moveTo(hip.dx, hip.dy)
+          ..lineTo(knee.dx, knee.dy)
+          ..lineTo(foot.dx, foot.dy);
+        canvas.drawPath(
+          limb,
+          Paint()
+            ..color = skin.color
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 3.2
+            ..strokeCap = StrokeCap.round
+            ..strokeJoin = StrokeJoin.round,
+        );
+        for (var t = -1; t <= 1; t++) {
+          final toe =
+              foot +
+              Offset((front ? 1 : -1) * 4 + t * 2.5, side * (3 + t.abs()));
+          canvas
+            ..drawLine(
+              foot,
+              toe,
+              Paint()
+                ..color = skin.color
+                ..strokeWidth = 1.4
+                ..strokeCap = StrokeCap.round,
+            )
+            ..drawCircle(toe, 1.5, skin);
+        }
       }
     }
-    // Tail, curving.
+    // The tail, thick at the root and tapering, curving as it runs.
     final tail = Path()
-      ..moveTo(-l * 0.25, 0)
+      ..moveTo(-l * 0.22, -l * 0.045)
       ..quadraticBezierTo(
         -l * 0.5,
-        wiggle * l * 0.12 + l * 0.04,
-        -l * 0.75,
-        wiggle * l * 0.08,
-      );
+        wiggle * l * 0.12,
+        -l * 0.78,
+        wiggle * l * 0.1 + l * 0.01,
+      )
+      ..quadraticBezierTo(
+        -l * 0.5,
+        wiggle * l * 0.12 + l * 0.03,
+        -l * 0.22,
+        l * 0.045,
+      )
+      ..close();
+    // The body and head in one: a narrow snout, a neck, the belly.
+    final body = Path()
+      ..moveTo(l * 0.48, 0)
+      ..quadraticBezierTo(l * 0.44, -l * 0.07, l * 0.34, -l * 0.07)
+      ..quadraticBezierTo(l * 0.26, -l * 0.05, l * 0.22, -l * 0.05)
+      ..quadraticBezierTo(l * 0.0, -l * 0.1, -l * 0.24, -l * 0.045)
+      ..lineTo(-l * 0.24, l * 0.045)
+      ..quadraticBezierTo(l * 0.0, l * 0.1, l * 0.22, l * 0.05)
+      ..quadraticBezierTo(l * 0.26, l * 0.05, l * 0.34, l * 0.07)
+      ..quadraticBezierTo(l * 0.44, l * 0.07, l * 0.48, 0)
+      ..close();
     canvas
-      ..drawPath(
-        tail,
-        Paint()
-          ..color = paint.color
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 4
-          ..strokeCap = StrokeCap.round,
+      ..drawPath(tail, skin)
+      ..drawPath(tail, edge)
+      ..drawPath(body, skin);
+    // Faint spots down the back, and the spine's shadow.
+    for (var k = 0; k < 4; k++) {
+      canvas.drawCircle(Offset(l * (0.12 - k * 0.09), 0), 1.6, shade);
+    }
+    canvas
+      ..drawPath(body, edge)
+      // The eyes, bulging a little at the sides of the head.
+      ..drawCircle(
+        const Offset(l * 0.37, -l * 0.055),
+        2.2,
+        Paint()..color = const Color(0xFF2A2420).withValues(alpha: a),
       )
-      ..drawOval(
-        Rect.fromCenter(center: Offset.zero, width: l * 0.55, height: l * 0.16),
-        paint,
-      )
-      ..drawOval(
-        Rect.fromCenter(
-          center: const Offset(l * 0.33, 0),
-          width: l * 0.18,
-          height: l * 0.13,
-        ),
-        paint,
-      )
-      ..drawOval(
-        Rect.fromCenter(center: Offset.zero, width: l * 0.55, height: l * 0.16),
-        edge,
+      ..drawCircle(
+        const Offset(l * 0.37, l * 0.055),
+        2.2,
+        Paint()..color = const Color(0xFF2A2420).withValues(alpha: a),
       )
       ..restore();
   }
@@ -261,25 +309,91 @@ class _Rat extends Creature {
   void render(Canvas canvas) {
     final x = _x;
     if (x == null) return;
-    final hop = math.sin(time * 30).abs() * 3;
-    const body = Color(0xFF2B2522);
+    final run = time * 30;
+    final hop = math.sin(run).abs() * 3;
+    const fur = Color(0xFF3A322C);
+    const furLight = Color(0xFF5A4E44);
+    const pink = Color(0xFFB08A80);
+    final body = Paint()..color = fur;
     canvas
       ..save()
-      ..translate(x, area.bottom - 10 - hop)
+      ..translate(x, area.bottom - 4)
       ..scale(_dir, 1)
-      ..drawOval(const Rect.fromLTWH(-22, -9, 40, 18), Paint()..color = body)
-      ..drawOval(const Rect.fromLTWH(12, -7, 16, 12), Paint()..color = body)
-      ..drawCircle(const Offset(15, -8), 4, Paint()..color = body)
+      // Its shadow on the floor.
+      ..drawOval(
+        const Rect.fromLTWH(-26, -3, 56, 7),
+        Paint()
+          ..color = const Color(0x55000000)
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 2),
+      )
+      ..translate(0, -hop);
+    // Legs, scurrying.
+    for (final (lx, ph) in [(-12.0, 0.0), (10.0, math.pi)]) {
+      final reach = math.sin(run + ph) * 5;
+      canvas.drawLine(
+        Offset(lx, -6),
+        Offset(lx + reach, 1 + hop),
+        Paint()
+          ..color = pink
+          ..strokeWidth = 2.2
+          ..strokeCap = StrokeCap.round,
+      );
+    }
+    // The long bare tail.
+    canvas.drawPath(
+      Path()
+        ..moveTo(-22, -6)
+        ..quadraticBezierTo(-40, 2 + hop, -62, -4 + math.sin(run * 0.5) * 3),
+      Paint()
+        ..color = pink
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2
+        ..strokeCap = StrokeCap.round,
+    );
+    // The body: high haunches, then the head tapering to the snout.
+    final shape = Path()
+      ..moveTo(-24, -4)
+      ..quadraticBezierTo(-22, -20, -4, -19)
+      ..quadraticBezierTo(10, -18, 16, -12)
+      ..quadraticBezierTo(24, -9, 31, -5)
+      ..quadraticBezierTo(28, -1, 16, -2)
+      ..quadraticBezierTo(0, 0, -24, -4)
+      ..close();
+    canvas
+      ..drawPath(shape, body)
       ..drawPath(
         Path()
-          ..moveTo(-20, 0)
-          ..quadraticBezierTo(-40, 6 + hop, -58, -2),
+          ..moveTo(-18, -14)
+          ..quadraticBezierTo(-6, -20, 8, -16),
         Paint()
-          ..color = const Color(0xFF6A5A52)
+          ..color = furLight
           ..style = PaintingStyle.stroke
           ..strokeWidth = 2,
       )
-      ..restore();
+      // The ear, the eye, the nose, the whiskers.
+      ..drawOval(const Rect.fromLTWH(12, -19, 7, 8), Paint()..color = pink)
+      ..drawOval(const Rect.fromLTWH(13.5, -17.5, 4, 5), body)
+      ..drawCircle(
+        const Offset(22, -10),
+        1.6,
+        Paint()..color = const Color(0xFF0A0808),
+      )
+      ..drawCircle(
+        const Offset(22.4, -10.5),
+        0.5,
+        Paint()..color = const Color(0xCCFFFFFF),
+      )
+      ..drawCircle(const Offset(31, -5), 1.4, Paint()..color = pink);
+    for (final dy in [-2.0, 1.0]) {
+      canvas.drawLine(
+        const Offset(29, -5),
+        Offset(38, -5 + dy * 1.5),
+        Paint()
+          ..color = const Color(0x88CCC4B8)
+          ..strokeWidth = 0.6,
+      );
+    }
+    canvas.restore();
   }
 }
 
@@ -318,16 +432,55 @@ class _Moth extends Creature {
   void render(Canvas canvas) {
     if (_gone > 0) return;
     final p = _pos;
-    final beat = 0.3 + 0.7 * math.sin(time * 34).abs();
-    final wing = Paint()..color = const Color(0xCC5C4A38);
+    final beat = 0.35 + 0.65 * math.sin(time * 34).abs();
+    const wing = Color(0xFF7A6650);
+    const wingDark = Color(0xFF4A3C2E);
     canvas
       ..save()
-      ..translate(p.dx, p.dy)
-      ..scale(1, beat);
+      ..translate(p.dx, p.dy);
+    // Fore and hind wings each side, folding with the beat; a band and an
+    // eye-spot on the forewing.
     for (final side in [-1.0, 1.0]) {
-      canvas.drawOval(
-        Rect.fromCenter(center: Offset(side * 7, 0), width: 12, height: 16),
-        wing,
+      canvas
+        ..save()
+        ..scale(side * beat, 1);
+      final fore = Path()
+        ..moveTo(1, -2)
+        ..quadraticBezierTo(8, -12, 16, -9)
+        ..quadraticBezierTo(15, -2, 2, 1)
+        ..close();
+      final hind = Path()
+        ..moveTo(1, 0)
+        ..quadraticBezierTo(12, 2, 10, 8)
+        ..quadraticBezierTo(4, 8, 1, 3)
+        ..close();
+      canvas
+        ..drawPath(hind, Paint()..color = wingDark)
+        ..drawPath(fore, Paint()..color = wing)
+        ..drawLine(
+          const Offset(5, -6),
+          const Offset(12, -3),
+          Paint()
+            ..color = wingDark
+            ..strokeWidth = 1,
+        )
+        ..drawCircle(const Offset(11, -7), 1.4, Paint()..color = wingDark)
+        ..restore();
+    }
+    // The furry body and the feathered antennae.
+    canvas.drawOval(
+      const Rect.fromLTWH(-2, -6, 4, 12),
+      Paint()..color = const Color(0xFF5A4A3A),
+    );
+    for (final side in [-1.0, 1.0]) {
+      canvas.drawPath(
+        Path()
+          ..moveTo(0, -6)
+          ..quadraticBezierTo(side * 2, -11, side * 5, -12),
+        Paint()
+          ..color = const Color(0xFF5A4A3A)
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 0.8,
       );
     }
     canvas.restore();
@@ -390,11 +543,6 @@ class _Bats extends Creature {
   @override
   void render(Canvas canvas) {
     final paint = Paint()..color = _dark;
-    final wings = Paint()
-      ..color = _dark
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 4
-      ..strokeJoin = StrokeJoin.round;
     for (var i = 0; i < _roost.length; i++) {
       final f = _flight[i];
       final Offset pos;
@@ -419,44 +567,121 @@ class _Bats extends Creature {
         ..translate(pos.dx, pos.dy)
         ..scale(_scale);
       if (f < 0) {
-        // Hanging, wings folded: a small dark drop with two ears.
+        // Hanging by its feet, wrapped in its wings: the folded wings with
+        // their finger ridges, the head below with its ears and face.
+        final sway = math.sin(time * 0.8 + i) * 0.05;
+        canvas.rotate(sway);
+        final wrap = Path()
+          ..moveTo(-3, 2)
+          ..quadraticBezierTo(-9, 10, -7, 22)
+          ..quadraticBezierTo(-5, 27, 0, 28)
+          ..quadraticBezierTo(5, 27, 7, 22)
+          ..quadraticBezierTo(9, 10, 3, 2)
+          ..close();
         canvas
-          ..drawOval(
-            Rect.fromCenter(center: const Offset(0, 16), width: 14, height: 26),
-            paint,
+          ..drawLine(
+            const Offset(-2, 0),
+            const Offset(-2, 3),
+            Paint()
+              ..color = _dark
+              ..strokeWidth = 1.4,
           )
-          ..drawPath(
-            Path()..addPolygon(const [
-              Offset(-6, 28),
-              Offset(-3, 34),
-              Offset(0, 28),
-            ], true),
-            paint,
+          ..drawLine(
+            const Offset(2, 0),
+            const Offset(2, 3),
+            Paint()
+              ..color = _dark
+              ..strokeWidth = 1.4,
           )
-          ..drawPath(
-            Path()..addPolygon(const [
-              Offset(0, 28),
-              Offset(3, 34),
-              Offset(6, 28),
-            ], true),
-            paint,
-          );
-      } else {
-        final flap = math.sin(time * 26) * 12;
-        canvas
-          ..drawOval(
-            Rect.fromCenter(center: Offset.zero, width: 10, height: 14),
-            paint,
-          )
+          ..drawPath(wrap, paint)
           ..drawPath(
             Path()
-              ..moveTo(0, 0)
-              ..lineTo(-22, -flap)
-              ..lineTo(-10, 4)
-              ..moveTo(0, 0)
-              ..lineTo(22, -flap)
-              ..lineTo(10, 4),
-            wings,
+              ..moveTo(-1, 4)
+              ..quadraticBezierTo(-6, 13, -4, 22)
+              ..moveTo(1, 4)
+              ..quadraticBezierTo(6, 13, 4, 22),
+            Paint()
+              ..color = const Color(0xFF3A302A)
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 0.8,
+          )
+          // The head, upside down, ears pointing to the floor.
+          ..drawCircle(const Offset(0, 29), 4, paint)
+          ..drawPath(
+            Path()..addPolygon(const [
+              Offset(-4, 31),
+              Offset(-5, 37),
+              Offset(-1, 32),
+            ], true),
+            paint,
+          )
+          ..drawPath(
+            Path()..addPolygon(const [
+              Offset(4, 31),
+              Offset(5, 37),
+              Offset(1, 32),
+            ], true),
+            paint,
+          )
+          ..drawCircle(
+            const Offset(-1.5, 28),
+            0.7,
+            Paint()..color = const Color(0xFFB8A070),
+          )
+          ..drawCircle(
+            const Offset(1.5, 28),
+            0.7,
+            Paint()..color = const Color(0xFFB8A070),
+          );
+      } else {
+        // In flight: the membrane stretched between the long fingers,
+        // scalloped between them, beating.
+        final flap = math.sin(time * 26) * 10;
+        for (final side in [-1.0, 1.0]) {
+          final wing = Path()
+            ..moveTo(0, -2)
+            ..lineTo(side * 9, -6 - flap * 0.5)
+            ..lineTo(side * 24, -2 - flap)
+            ..quadraticBezierTo(
+              side * 21,
+              2 - flap * 0.6,
+              side * 18,
+              6 - flap * 0.4,
+            )
+            ..quadraticBezierTo(side * 14, 4, side * 11, 8)
+            ..quadraticBezierTo(side * 7, 5, 0, 5)
+            ..close();
+          canvas
+            ..drawPath(wing, Paint()..color = const Color(0xFF2A221E))
+            ..drawLine(
+              Offset(side * 9, -6 - flap * 0.5),
+              Offset(side * 18, 6 - flap * 0.4),
+              Paint()
+                ..color = _dark
+                ..strokeWidth = 0.8,
+            );
+        }
+        canvas
+          ..drawOval(
+            Rect.fromCenter(center: Offset.zero, width: 8, height: 13),
+            paint,
+          )
+          ..drawCircle(const Offset(0, -6), 3.5, paint)
+          ..drawPath(
+            Path()..addPolygon(const [
+              Offset(-3, -8),
+              Offset(-3, -12),
+              Offset(-1, -9),
+            ], true),
+            paint,
+          )
+          ..drawPath(
+            Path()..addPolygon(const [
+              Offset(3, -8),
+              Offset(3, -12),
+              Offset(1, -9),
+            ], true),
+            paint,
           );
       }
       canvas.restore();
@@ -513,19 +738,88 @@ class _Gull extends Creature {
     final x = _x;
     if (x == null) return;
     final y = _y + math.sin(time * 1.5) * 12;
-    final flap = math.sin(time * 7) * 14;
-    canvas.drawPath(
-      Path()
-        ..moveTo(x - 30, y - flap)
-        ..quadraticBezierTo(x - 12, y - 10 - flap * 0.3, x, y)
-        ..quadraticBezierTo(x + 12, y - 10 - flap * 0.3, x + 30, y - flap),
-      Paint()
-        ..color = const Color(0xE6E6E8E4)
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 4
-        ..strokeCap = StrokeCap.round,
+    final flap = math.sin(time * 7) * 12;
+    _flyingBird(
+      canvas,
+      Offset(x, y),
+      flap,
+      _dir,
+      body: const Color(0xEEF0F0EC),
+      wing: const Color(0xEEB8BEC2),
+      tip: const Color(0xEE2A2A2C),
+      beak: const Color(0xFFE0B040),
     );
   }
+}
+
+/// A bird seen flying across, from the side: the body and head, a beak,
+/// the far wing and the near wing beating ([flap], the near tip's rise),
+/// their tips dark; heading [dir] (1 right).
+void _flyingBird(
+  Canvas canvas,
+  Offset at,
+  double flap,
+  double dir, {
+  required Color body,
+  required Color wing,
+  required Color tip,
+  required Color beak,
+  double span = 34,
+}) {
+  canvas
+    ..save()
+    ..translate(at.dx, at.dy)
+    ..scale(dir, 1);
+  Path wingPath(double reach, double rise) => Path()
+    ..moveTo(4, -1)
+    ..quadraticBezierTo(0, -rise * 0.6 - 2, -reach * 0.35, -rise)
+    ..lineTo(-reach * 0.55, -rise * 0.95)
+    ..quadraticBezierTo(-reach * 0.2, -rise * 0.35, -8, 1)
+    ..close();
+  Path tipPath(double reach, double rise) => Path()
+    ..moveTo(-reach * 0.28, -rise * 0.98)
+    ..lineTo(-reach * 0.35, -rise)
+    ..lineTo(-reach * 0.55, -rise * 0.95)
+    ..lineTo(-reach * 0.45, -rise * 0.82)
+    ..close();
+  final rise = span * 0.45 + flap;
+  final far = rise * 0.8 + 2;
+  canvas
+    // The far wing, behind and a little darker.
+    ..drawPath(
+      wingPath(span * 0.85, far),
+      Paint()..color = Color.lerp(wing, const Color(0xFF000000), 0.2)!,
+    )
+    ..drawPath(tipPath(span * 0.85, far), Paint()..color = tip)
+    // The body, the tail, the head.
+    ..drawOval(const Rect.fromLTWH(-14, -3.5, 24, 7), Paint()..color = body)
+    ..drawPath(
+      Path()..addPolygon(const [
+        Offset(-13, -2),
+        Offset(-20, -3),
+        Offset(-20, 2),
+        Offset(-13, 2),
+      ], true),
+      Paint()..color = body,
+    )
+    ..drawCircle(const Offset(11, -2), 3.6, Paint()..color = body)
+    ..drawPath(
+      Path()..addPolygon(const [
+        Offset(14, -2.5),
+        Offset(19, -1.5),
+        Offset(14, -0.5),
+      ], true),
+      Paint()..color = beak,
+    )
+    ..drawCircle(
+      const Offset(12, -2.8),
+      0.8,
+      Paint()..color = const Color(0xFF111111),
+    )
+    // The near wing, over the body.
+    ..drawPath(wingPath(span, rise), Paint()..color = wing)
+    ..drawPath(tipPath(span, rise), Paint()..color = tip)
+    ..restore();
 }
 
 // ---------------------------------------------------------------------------
@@ -576,32 +870,7 @@ class _Fulmar extends Creature {
     final away = _away;
     if (away < 0) {
       final bob = math.sin(time * 1.1) * 1.5;
-      canvas
-        ..drawOval(
-          Rect.fromCenter(
-            center: seat + Offset(0, -14 + bob),
-            width: 40,
-            height: 24,
-          ),
-          Paint()..color = _body,
-        )
-        ..drawOval(
-          Rect.fromCenter(
-            center: seat + Offset(-8, -18 + bob),
-            width: 26,
-            height: 14,
-          ),
-          Paint()..color = _wing,
-        )
-        ..drawCircle(seat + Offset(16, -26 + bob), 9, Paint()..color = _head)
-        ..drawCircle(seat + Offset(19, -28 + bob), 1.6, Paint()..color = _eye)
-        ..drawLine(
-          seat + Offset(24, -25 + bob),
-          seat + Offset(31, -24 + bob),
-          Paint()
-            ..color = _beak
-            ..strokeWidth = raven ? 4 : 3,
-        );
+      _perched(canvas, seat.translate(0, bob));
       return;
     }
     // Flying off (or gliding back), wings out.
@@ -618,23 +887,92 @@ class _Fulmar extends Creature {
         t,
       );
     }
-    final flap = math.sin(time * 9) * 8;
-    canvas.drawPath(
-      Path()
-        ..moveTo(pos.dx - 34, pos.dy - flap)
-        ..quadraticBezierTo(pos.dx - 12, pos.dy - 6, pos.dx, pos.dy)
-        ..quadraticBezierTo(
-          pos.dx + 12,
-          pos.dy - 6,
-          pos.dx + 34,
-          pos.dy - flap,
-        ),
-      Paint()
-        ..color = _body
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 5
-        ..strokeCap = StrokeCap.round,
+    _flyingBird(
+      canvas,
+      pos,
+      math.sin(time * 9) * 8,
+      1,
+      body: _body,
+      wing: _wing,
+      tip: raven ? _body : const Color(0xFF5A6064),
+      beak: _beak,
+      span: 40,
     );
+  }
+
+  /// Sitting on its ledge or branch, facing right: tail, folded wing
+  /// with its feathers, breast, head with eye and beak, feet gripping.
+  void _perched(Canvas canvas, Offset seat) {
+    canvas
+      ..save()
+      ..translate(seat.dx, seat.dy);
+    final feet = Paint()
+      ..color = raven ? const Color(0xFF1A1A1E) : const Color(0xFFC8B8A0)
+      ..strokeWidth = 2
+      ..strokeCap = StrokeCap.round;
+    canvas
+      ..drawLine(const Offset(-2, -6), const Offset(-3, 0), feet)
+      ..drawLine(const Offset(5, -6), const Offset(5, 0), feet)
+      ..drawLine(const Offset(-6, 0), const Offset(9, 0), feet);
+    final body = Path()
+      ..moveTo(-26, -20)
+      ..lineTo(-14, -22)
+      ..quadraticBezierTo(-4, -30, 10, -28)
+      ..quadraticBezierTo(18, -24, 16, -12)
+      ..quadraticBezierTo(10, -4, -2, -5)
+      ..quadraticBezierTo(-12, -8, -18, -14)
+      ..lineTo(-28, -16)
+      ..close();
+    canvas.drawPath(body, Paint()..color = _body);
+    final wing = Path()
+      ..moveTo(-24, -18)
+      ..quadraticBezierTo(-10, -28, 8, -24)
+      ..quadraticBezierTo(6, -14, -6, -11)
+      ..quadraticBezierTo(-16, -12, -24, -18)
+      ..close();
+    canvas.drawPath(wing, Paint()..color = _wing);
+    for (var k = 0; k < 3; k++) {
+      canvas.drawLine(
+        Offset(-20.0 + k * 7, -16 - k * 0.5),
+        Offset(-12.0 + k * 7, -20.0 - k),
+        Paint()
+          ..color = Color.lerp(_wing, const Color(0xFF000000), 0.35)!
+          ..strokeWidth = 0.8,
+      );
+    }
+    canvas
+      ..drawCircle(const Offset(14, -29), 8, Paint()..color = _head)
+      ..drawCircle(const Offset(17, -31), 1.6, Paint()..color = _eye)
+      ..drawCircle(
+        const Offset(17.4, -31.4),
+        0.5,
+        Paint()..color = const Color(0xCCFFFFFF),
+      );
+    // The beak: the fulmar's hooked, with its tube on top; the raven's
+    // heavy and dark.
+    final beak = raven
+        ? (Path()
+            ..moveTo(20, -32)
+            ..quadraticBezierTo(29, -31, 31, -27)
+            ..lineTo(20, -26)
+            ..close())
+        : (Path()
+            ..moveTo(20, -31)
+            ..lineTo(28, -30)
+            ..quadraticBezierTo(30, -28, 28, -26.5)
+            ..lineTo(20, -27)
+            ..close());
+    canvas.drawPath(beak, Paint()..color = _beak);
+    if (!raven) {
+      canvas.drawLine(
+        const Offset(21, -30.5),
+        const Offset(24, -30.2),
+        Paint()
+          ..color = const Color(0xFF6A5A3A)
+          ..strokeWidth = 1.2,
+      );
+    }
+    canvas.restore();
   }
 }
 
