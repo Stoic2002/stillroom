@@ -123,7 +123,7 @@ void main() {
     expect(now().game.sceneId, 'camp', reason: 'nothing to take to Ivdel yet');
     tap(0.28, 0.58);
     expect(now().game.words, containsAll(['otorten', 'natural_force']));
-    tap(0.12, 0.3);
+    tap(0.28, 0.3);
     expect(now().game.words, containsAll(['mansi', 'aliens', 'weapons']));
     tap(0.51, 0.59);
     expect(stage(), 'stage:films');
@@ -147,7 +147,7 @@ void main() {
 
     // The papers from the future.
     tap(0.05, 0.6);
-    tap(0.68, 0.63);
+    tap(0.65, 0.6);
     expect(now().game.words, containsAll(['radiation', 'yeti']));
     expect(stage(), 'stage:write_seal');
     play.takeExit('back');
@@ -164,7 +164,7 @@ void main() {
 
     // The seal: the route book in the camp.
     tap(0.05, 0.6);
-    tap(0.47, 0.72);
+    tap(0.405, 0.625);
     expect(now().openPuzzle, 'jar_label');
     final label =
         content().requirePuzzle('jar_label').config as DeductionConfig;

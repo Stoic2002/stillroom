@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import '../theme/stillroom_palette.dart';
 import 'art_kit.dart';
+import 'depth_kit.dart';
 import 'echo_art.dart';
 import 'whitechapel_1888_art.dart' show jarLabelBoard;
 
@@ -274,6 +275,12 @@ void _slope(Art a) {
     const Color(0xFFB4BECA),
     line: 0,
   );
+  a.canvas.drawOval(
+    a.r(0.33, 0.655, 0.28, 0.03),
+    Paint()
+      ..color = const Color(0x445A6474)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.u * 1.4),
+  );
   _tent(a, a.r(0.35, 0.55, 0.24, 0.12));
 
   // The footprints: raised columns of pressed snow, going down in a line
@@ -417,44 +424,55 @@ void _cedar(Art a) {
 // The search camp's tent
 
 void _camp(Art a) {
-  // Canvas walls sloping in, lit by a lamp.
+  // Inside the search party's tent: canvas walls and roof running back, a
+  // floor of boards over the snow, seen from a little above.
+  final room = Room(a, vp: a.p(0.5, 0.18), depth: 0.6);
+  final back = room.back;
   a
-    ..fill(Offset.zero & a.size, _canvas)
-    ..path(
-      a.poly([a.p(0, 0), a.p(0.2, 0), a.p(0.24, 0.8), a.p(0, 0.9)]),
-      const Color(0xFFA49C84),
-      line: 0,
-    )
-    ..path(
-      a.poly([a.p(1, 0), a.p(0.8, 0), a.p(0.82, 0.8), a.p(1, 0.9)]),
-      const Color(0xFFA49C84),
-      line: 0,
-    )
-    ..fade(a.r(0, 0, 1, 0.3), const Color(0x66000000), const Color(0x00000000))
-    ..fill(a.r(0, 0.8, 1, 0.2), const Color(0xFF7A6E5A))
+    ..path(room.ceiling, const Color(0xFF8E866E), line: 0)
+    ..path(room.leftWall, const Color(0xFFA49C84), line: 0)
+    ..path(room.rightWall, const Color(0xFFA49C84), line: 0)
+    ..fill(back, _canvas)
+    ..path(room.floor, const Color(0xFF7A6E5A), line: 0);
+  // The canvas seams and the ridge pole, running back.
+  for (var k = 1; k < 6; k++) {
+    for (final x in [0.0, 1.0]) {
+      a.hairline(room.at(x, 0, k / 6), room.at(x, 1, k / 6), _canvasDark, 0.3);
+    }
+  }
+  a.line(room.at(0.5, 1, 0), room.at(0.5, 1, 1), _wood, width: 1.2);
+  room
+    ..floorGrid(const Color(0x553A3022), rows: 0, columns: 10, width: 0.4)
+    ..shadeCorners(strength: 0.35)
+    ..edges(_canvasDark);
+  a
+    ..ink(back, width: 0.4)
     ..glow(a.p(0.5, 0.2), a.size.width * 0.4, _lamp, strength: 0.22);
-  // The flap open on the right: snow light outside.
-  final flap = a.r(0.86, 0.22, 0.12, 0.5);
+  // The flap open in the right wall: snow light outside.
+  final flap = [
+    room.at(1, 0.75, 0.1),
+    room.at(1, 0.75, 0.45),
+    room.at(1, 0, 0.45),
+    room.at(1, 0, 0.1),
+  ];
   a
+    ..path(a.poly(flap), const Color(0xFFDDE3EA), line: 0.4)
     ..path(
-      a.poly([flap.topLeft, flap.topRight, flap.bottomRight, flap.bottomLeft]),
-      const Color(0xFFDDE3EA),
-      line: 0.4,
-    )
-    ..path(
-      a.poly([
-        flap.topLeft,
-        flap.bottomLeft.translate(flap.width * 0.4, 0),
-        flap.bottomLeft,
-      ]),
+      a.poly([flap[0], Offset.lerp(flap[3], flap[2], 0.4)!, flap[3]]),
       _canvasDark,
       line: 0.3,
     );
-  // Notes pinned to the left wall.
+  room.beam(
+    [flap[3], flap[2]],
+    [room.floorAt(0.7, 0.4), room.floorAt(0.78, 0.08)],
+    const Color(0xFFDDE3EA),
+    strength: 0.2,
+  );
+  // Notes pinned to the back wall.
   for (final (x, y, ang) in [
-    (0.05, 0.18, -0.05),
-    (0.11, 0.24, 0.06),
-    (0.06, 0.32, 0.02),
+    (0.21, 0.18, -0.05),
+    (0.27, 0.24, 0.06),
+    (0.22, 0.32, 0.02),
   ]) {
     a.paper(
       a.r(x, y, 0.07, 0.08),
@@ -464,52 +482,62 @@ void _camp(Art a) {
       ink: 0.5,
     );
   }
-  // A crate for a table.
+  // Crates for a table, seen from above, and what lies on them.
+  room
+    ..shadow(0.1, 0.9, 0.15, 0.6)
+    ..block(0.1, 0.9, 0, 0.3, 0.15, 0.6, _wood, top: const Color(0xFF7E6044));
+  for (var k = 1; k < 4; k++) {
+    a.hairline(
+      room.at(0.1 + 0.8 * k / 4, 0.3, 0.15),
+      room.at(0.1 + 0.8 * k / 4, 0.3, 0.6),
+      const Color(0xFF4A3424),
+      0.4,
+    );
+  }
   a
-    ..wood(a.r(0.16, 0.5, 0.66, 0.28), base: _wood, grain: 4, line: 0.5)
     // The case file: a cardboard folder tied with tape.
-    ..box(a.r(0.21, 0.53, 0.14, 0.1), const Color(0xFFC0A878), line: 0.4)
+    ..box(a.r(0.2, 0.565, 0.14, 0.08), const Color(0xFFC0A878), line: 0.4)
     ..line(
-      a.p(0.21, 0.58),
-      a.p(0.35, 0.58),
+      a.p(0.2, 0.605),
+      a.p(0.34, 0.605),
       const Color(0xFF8A6A44),
       width: 0.5,
     )
+    // The route book, small and buff.
+    ..box(a.r(0.36, 0.6, 0.09, 0.05), const Color(0xFFB8AC8A), line: 0.3)
+    ..line(
+      a.p(0.405, 0.6),
+      a.p(0.405, 0.65),
+      const Color(0xFF6A5E44),
+      width: 0.3,
+    )
     // The cameras.
     ..rbox(
-      a.r(0.45, 0.55, 0.055, 0.06),
+      a.r(0.47, 0.57, 0.055, 0.06),
       a.u * 0.6,
       const Color(0xFF2A2A2C),
       line: 0.3,
     )
-    ..circle(a.p(0.4775, 0.58), a.u * 1.1, const Color(0xFF4A4A50), line: 0.2)
+    ..circle(a.p(0.4975, 0.6), a.u * 1.1, const Color(0xFF4A4A50), line: 0.2)
     ..rbox(
-      a.r(0.515, 0.56, 0.05, 0.055),
+      a.r(0.535, 0.58, 0.05, 0.055),
       a.u * 0.6,
       const Color(0xFF36302C),
       line: 0.3,
     )
-    ..circle(a.p(0.54, 0.5875), a.u * 1, const Color(0xFF4A4A50), line: 0.2)
-    // The route book, small and buff.
-    ..box(a.r(0.42, 0.69, 0.1, 0.06), const Color(0xFFB8AC8A), line: 0.3)
-    ..line(
-      a.p(0.47, 0.69),
-      a.p(0.47, 0.75),
-      const Color(0xFF6A5E44),
-      width: 0.3,
-    );
-  // The radio on its box, a lamp above.
+    ..circle(a.p(0.56, 0.6075), a.u * 1, const Color(0xFF4A4A50), line: 0.2);
+  // The radio on its box at the far end, its aerial up.
   a
-    ..box(a.r(0.71, 0.42, 0.12, 0.13), const Color(0xFF4A5040), line: 0.4)
-    ..circle(a.p(0.745, 0.48), a.u * 1.4, const Color(0xFF2A2C26), line: 0.2)
-    ..circle(a.p(0.79, 0.48), a.u * 1.4, const Color(0xFF2A2C26), line: 0.2)
+    ..box(a.r(0.7, 0.45, 0.12, 0.13), const Color(0xFF4A5040), line: 0.4)
+    ..circle(a.p(0.735, 0.51), a.u * 1.4, const Color(0xFF2A2C26), line: 0.2)
+    ..circle(a.p(0.78, 0.51), a.u * 1.4, const Color(0xFF2A2C26), line: 0.2)
     ..line(
-      a.p(0.82, 0.42),
-      a.p(0.84, 0.28),
+      a.p(0.81, 0.45),
+      a.p(0.83, 0.31),
       const Color(0xFF2A2C26),
       width: 0.4,
     )
-    ..box(a.r(0.72, 0.55, 0.11, 0.04), _wood, line: 0.3)
+    ..box(a.r(0.71, 0.58, 0.11, 0.03), _wood, line: 0.3)
     ..line(a.p(0.5, 0), a.p(0.5, 0.1), const Color(0xFF2A2420), width: 0.3)
     ..box(a.r(0.49, 0.1, 0.02, 0.04), const Color(0xFF3A3A34), line: 0.2)
     ..glow(a.p(0.5, 0.12), a.u * 6, _lamp, strength: 0.4);
@@ -529,12 +557,14 @@ void _darkroom(Art a) {
     ..glow(a.p(0.5, 0.1), a.u * 8, const Color(0xFFFF4A30), strength: 0.5);
   // A string across the left wall, for prints to dry.
   a.line(a.p(0.04, 0.17), a.p(0.28, 0.17), const Color(0xFF6A4038), width: 0.4);
-  // The bench: three trays and the enlarger.
-  a.wood(
-    a.r(0.2, 0.62, 0.62, 0.08),
-    base: const Color(0xFF3A2018),
-    grain: 2,
-    line: 0.4,
+  // The bench on its legs: three trays and the enlarger.
+  Room(a, vp: a.p(0.5, 0.25), depth: 0.6).standTable(
+    a.r(0.2, 0.64, 0.62, 0.28),
+    const Color(0xFF3A2018),
+    deep: 0.2,
+    thickness: 0.04,
+    leg: 0.02,
+    legColor: const Color(0xFF2A1612),
   );
   for (var i = 0; i < 3; i++) {
     final tray = a.r(0.3 + i * 0.11, 0.6, 0.09, 0.04);
