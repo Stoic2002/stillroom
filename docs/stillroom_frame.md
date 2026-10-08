@@ -136,9 +136,12 @@ slots; Semarang its pencil rubbing; Flannan its gate code and salt wiping.
 ## Echoes (decided 2026-09-26)
 
 Rusty Lake shows its people; the Stillroom mostly shows their things. The
-developer chose **echoes**: pale, faceless figures of memory that sometimes
-stand in a tale for a few seconds and dissolve when approached. They carry
-no names and no faces, so no real person is ever given invented features:
+developer chose **echoes**: figures of memory that sometimes stand in a
+tale for a few seconds and dissolve when approached. They carry no names.
+Since 2026-10-08 they have a body and a face (the developer found the
+faceless, shapeless ones thin). They are drawn as the anonymous people of
+the place, never as a named real victim, so no real person is given
+invented features; the Bastille's prisoner keeps his mask:
 
 - *Whitechapel:* a constable with a lantern, beyond the fogged window.
 - *Semarang:* a railway worker far down the endless corridor, and a clerk

@@ -376,7 +376,7 @@ void _panels(
   );
 }
 
-/// Faceless figures side by side: (figure, x, y, width, height) within the
+/// Echo figures side by side: (figure, x, y, width, height) within the
 /// picture.
 void _group(Art a, List<(EchoFigure, double, double, double, double)> who) {
   for (final (figure, x, y, w, h) in who) {

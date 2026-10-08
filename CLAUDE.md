@@ -113,7 +113,11 @@ with a legend to set right. The lineup, by shelf and region, is in
    - Honour real people: no invented names for real victims, only
      historical facts. Invented households must be stated as invented.
    - Legends appear as red herrings, never as truth.
-   - Echoes are faceless.
+   - Echoes have a body and a face since 2026-10-08 (the developer found
+     the faceless, shapeless ones thin). They stay anonymous and slightly
+     translucent, and the Bastille's prisoner keeps his mask. They never
+     stand for a named real victim. Their feet must stand on the floor
+     of their scene; check this on a render.
    - Pompeii's plaster casts are shown only from afar and cannot be
      tapped.
 6. **Scenes are drawn in depth (decided 2026-10-01).** New tales use

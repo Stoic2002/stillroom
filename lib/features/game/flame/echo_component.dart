@@ -3,7 +3,7 @@ import 'dart:ui';
 
 import 'package:flame/components.dart';
 
-/// A faceless figure of memory (scene `echoes`): it fades in a moment after
+/// An anonymous figure of memory (scene `echoes`): it fades in a moment after
 /// the scene appears, breathes and drifts a little, and dissolves when the
 /// player taps near it or after a while. Purely visual: taps pass through.
 class EchoComponent extends PositionComponent {

@@ -170,10 +170,10 @@
       "id": "turnkey",
       "image": "images/objects/bastille_1703/echo_turnkey.png",
       "rect": [
-        0.26,
-        0.44,
-        0.05,
-        0.22
+        0.255,
+        0.5,
+        0.06,
+        0.3
       ],
       "chance": 0.6,
       "drift": [

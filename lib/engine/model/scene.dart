@@ -86,7 +86,7 @@ final class Scene {
   /// drags, another scene shows through.
   final SceneLens? lens;
 
-  /// Faceless figures of memory that sometimes appear in the scene.
+  /// Figures of memory that sometimes appear in the scene.
   final List<SceneEcho> echoes;
 
   /// Small living things: geckos, gulls, a moth by the candles.
@@ -345,7 +345,7 @@ final class SceneLens {
       turnsWithHours ? scenes[hour.clamp(0, scenes.length - 1)] : scenes.first;
 }
 
-/// An echo (`echoes` in a scene file): a faint, faceless figure of memory.
+/// An echo (`echoes` in a scene file): an anonymous figure of memory.
 /// It never has a face or a name, and it never blocks a tap.
 ///
 /// ```json

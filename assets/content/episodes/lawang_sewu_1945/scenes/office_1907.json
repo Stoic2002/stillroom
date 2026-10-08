@@ -257,10 +257,10 @@
       "id": "clerk",
       "image": "images/objects/lawang_sewu_1945/echo_clerk.png",
       "rect": [
-        0.36,
-        0.22,
+        0.49,
+        0.43,
         0.1,
-        0.34
+        0.45
       ],
       "chance": 0.7
     }

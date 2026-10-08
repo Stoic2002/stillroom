@@ -274,15 +274,19 @@ that use the same id.
 ]
 ```
 
-- **What they are:** faint, faceless figures of memory. **Never a face,
-  never a name** (tone guardrails).
+- **What they are:** figures of memory, anonymous people of the place,
+  drawn with a body and a face since 2026-10-08, a little translucent
+  and cool. **Never a name**, never a named real victim (tone
+  guardrails). The rect is the figure's box, its feet at the bottom
+  edge, so that edge must sit on the scene's floor.
 - **When they appear:** each time the scene is shown and `when` holds, an
   echo appears with probability `chance` (default 1) a moment later. It
   breathes and drifts by `drift` (normalized), then dissolves when the
   player taps near it or after a while.
 - **Taps:** they never block a tap.
-- **Art:** figures are drawn pale by `lib/core/art/echo_art.dart`
-  (`EchoFigure`).
+- **Art:** `lib/core/art/echo_art.dart` (`EchoFigure`, each one's look in
+  `echoFigure`) draws them with `lib/core/art/figure_kit.dart` (`Figure`:
+  hat, clothes, arm poses, what they carry).
 
 ### Creatures
 
@@ -1576,3 +1580,4 @@ warnings show in the debug panel).
 | 2026-10-07 | post-M6 | Puzzle types `rings` and `dividers`; deduction form `post`; creature `heron`; interface sounds `core_slide`, `ring_mark`, `divider_step`. Episode `roanoke_1590` (shelf IV) replaces `sealed_roanoke_1590`; the sealed teaser on shelf IV is now `sealed_franklin_1845`. |
 | 2026-10-07 | post-M6 | Puzzle types `margins` and `sonar`; deduction form `admiralty`; creature `seal`; interface sounds `sheet_turn`, `lane_run`, `echo_mark`. Episode `franklin_1845` (shelf IV) replaces `sealed_franklin_1845`; the sealed teaser on shelf IV is now `sealed_indonesia_shelf4`, for the Indonesian tale still to be chosen. |
 | 2026-10-07 | post-M6 | Puzzle types `mudra` and `casing`; deduction form `lontar`; creature `swifts`; interface sounds `niche_set`, `stone_lift`, `pair_found`; `Room.floorGrid` takes 0 columns. Episode `borobudur_1814` (shelf IV) replaces `sealed_indonesia_shelf4`; shelf IV is full; a sealed `sealed_keeper` (shelf V, `unlockAfter` 15) marks the keeper's tale. |
+| 2026-10-08 | post-M6 | Echoes are drawn with a body and a face (`figure_kit.dart`, `Figure`, `paintFigure`); several echo rects moved so their feet stand on the floor. Draft art for the keeper's tale (`keeper_art.dart`). |
