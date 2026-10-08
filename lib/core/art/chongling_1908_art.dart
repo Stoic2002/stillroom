@@ -179,6 +179,40 @@ void _columns(Art a, Rect rect, Color ink, {int columns = 6}) {
 // ---------------------------------------------------------------------------
 // Scenes
 
+/// Where the court's swept way runs to.
+const _courtEye = Offset(0.5, 0.64);
+
+/// A building's side wall turning back from its front's edge at [x]
+/// ([top] to [bottom]) towards the court's vanishing point.
+void _courtSide(Art a, double x, double top, double bottom, Color color) {
+  final vp = a.p(_courtEye.dx, _courtEye.dy);
+  final upper = a.p(x, top);
+  final lower = a.p(x, bottom);
+  a.path(
+    a.poly([
+      upper,
+      Offset.lerp(upper, vp, 0.22)!,
+      Offset.lerp(lower, vp, 0.22)!,
+      lower,
+    ]),
+    Color.lerp(color, Art.outline, 0.3)!,
+    line: 0.4,
+  );
+}
+
+/// A soft shadow on the snow along a foot from [x0] to [x1] at [y].
+void _courtShadow(Art a, double x0, double x1, double y) => a.canvas.drawOval(
+  Rect.fromLTRB(
+    a.p(x0, 0).dx,
+    a.p(0, y).dy - a.u * 1.2,
+    a.p(x1, 0).dx,
+    a.p(0, y).dy + a.u * 2.4,
+  ),
+  Paint()
+    ..color = const Color(0x553A4048)
+    ..maskFilter = MaskFilter.blur(BlurStyle.normal, a.u * 1.4),
+);
+
 void _court(Art a) {
   // Winter sky and the Yi mountains, faint.
   a
@@ -220,7 +254,9 @@ void _court(Art a) {
   // Far left, a pine behind the side hall.
   _pineTree(a, a.p(0.25, 0.7), a.size.height * 0.46);
 
-  // The side hall, where the archive is kept.
+  // The side hall, where the archive is kept, its side wall running back.
+  _courtSide(a, 0.2, 0.3, 0.74, _redDark);
+  _courtShadow(a, 0, 0.27, 0.74);
   a
     ..box(a.r(0, 0.3, 0.2, 0.44), _red, line: 0.5)
     ..fill(a.r(0, 0.7, 0.2, 0.04), _stoneDark);
@@ -253,6 +289,7 @@ void _court(Art a) {
     ..glow(door.center, door.width * 0.5, _lamp, strength: 0.18);
 
   // The square wall of the tower, and the tunnel down to the crypt.
+  _courtShadow(a, 0.28, 0.72, 0.76);
   final base = a.r(0.3, 0.46, 0.4, 0.3);
   a.box(base, _stone, line: 0.6);
   for (var i = 1; i < 8; i++) {
@@ -318,6 +355,8 @@ void _court(Art a) {
   _pineTree(a, a.p(0.66, 0.74), a.size.height * 0.4);
 
   // The work-room put up for the tests: panels, a lit window, a stovepipe.
+  _courtSide(a, 0.8, 0.32, 0.74, const Color(0xFF8A969E));
+  _courtShadow(a, 0.74, 1, 0.74);
   final hut = a.r(0.8, 0.32, 0.2, 0.42);
   a.box(hut, _panel, line: 0.6);
   for (var i = 1; i < 5; i++) {
@@ -359,6 +398,7 @@ void _court(Art a) {
   );
 
   // The notice board on its posts.
+  _courtShadow(a, 0.2, 0.34, 0.72);
   a
     ..box(a.r(0.212, 0.56, 0.008, 0.16), const Color(0xFF4A3524), line: 0.3)
     ..box(a.r(0.32, 0.56, 0.008, 0.16), const Color(0xFF4A3524), line: 0.3)
@@ -372,6 +412,7 @@ void _court(Art a) {
     ..line(a.p(0.2, 0.5), a.p(0.34, 0.5), _snow, width: 1);
 
   // The stone altar of five offerings.
+  _courtShadow(a, 0.59, 0.77, 0.77);
   a
     ..box(a.r(0.6, 0.7, 0.16, 0.03), _marble, line: 0.5)
     ..box(a.r(0.61, 0.73, 0.02, 0.04), _stone, line: 0.4)
