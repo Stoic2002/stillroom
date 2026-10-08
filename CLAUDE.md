@@ -127,8 +127,13 @@ with a legend to set right. The lineup, by shelf and region, is in
    to the horizon at `vp`. Compute hotspot and echo rects from the same
    projection (an echo's feet on the floor point), and check them on a
    render with the rects drawn over it. Bastille's cell and Honnō-ji are
-   the models. The older tales' ~50 flat scenes are converted in the
-   final polish round, not before.
+   the models. Every older tale was converted in the depth pass
+   (2026-10-07/08, one commit per tale, "Depth pass: …"). For a scene
+   against one wide wall (no side walls in the picture) use
+   `wallCamera(a, eye, foot)` and `Room.wallFoot()`, not `shadeCorners`
+   (its side-wall shading lands on the wall); `paintOnFace` draws a flat
+   drawing onto a block's front; a door in a side wall is a quad of
+   `room.at(0 or 1, y, z)` points.
 
 ## Next steps (in this order)
 
@@ -138,13 +143,14 @@ with a legend to set right. The lineup, by shelf and region, is in
    2026-10-01; Play Store target mid-October 2026, end of October at the
    latest). Keep each design doc's *Things to watch* as the checklist for
    that review.
-2. **Next:** the depth pass on the older tales (decision 6), asked for by
-   the developer on 2026-10-07; then the keeper's tale (shelf V, OPEN:
-   ask first). For each: a design doc first (facts with
-   sources, 2–3 mechanics of its own, the chain, the seal), approved by
-   the developer before building. Draw them in depth (decision 6).
-3. **In the final polish round:** convert the older tales' scenes to
-   depth (decision 6), alongside the developer's review.
+2. **Next:** the keeper's tale (shelf V, OPEN: ask first). The depth
+   pass on the older tales is done (2026-10-08). A new tale gets a design
+   doc first (facts with sources, 2–3 mechanics of its own, the chain,
+   the seal), approved by the developer before building. Draw it in
+   depth (decision 6).
+3. **In the final polish round:** the developer's whole-game review; fix
+   what it finds. Many hotspots moved in the depth pass, so check taps
+   in every scene.
 4. Later, and to be asked first:
    - the Indonesian tale for shelf IV;
    - the keeper's arc (OPEN);
